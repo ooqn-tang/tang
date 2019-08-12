@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh-CN"  xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="page/comm::head"></head>
+<body>
+<div th:replace="page/comm::navigation"></div>
+<div class="container">
+    <div class="row clearfix">
+		<div class="col-md-12 column">
+			<input type="text" id="title" class="form-control" placeholder="标题">
+		</div>
+		<br><br>
+        <div class="col-md-12 column">
+            <div id="test-editormd">
+                <textarea style="display:none;">[TOC]
+#### Disabled options
+
+- TeX (Based on KaTeX);
+- Emoji;
+- Task lists;
+- HTML tags decode;
+- Flowchart and Sequence Diagram;
+
+#### Editor.md directory
+
+editor.md/
+		lib/
+		css/
+		scss/
+		tests/
+		fonts/
+		images/
+		plugins/
+		examples/
+		languages/
+		editormd.js
+		...
+				</textarea>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</body>
+<script src="/static/lib/editormd/js/jquery.min.js"></script>
+<script src="/static/lib/editormd/js/editormd.min.js"></script>
+<script type="text/javascript">
+    var testEditor;
+    $(function() {
+        testEditor = editormd("test-editormd", {
+            width   : "100%",
+            height  : 640,
+            syncScrolling : "single",
+            path    : "/static/lib/editormd/lib/",
+            toolbarIcons : function() {
+                return ["undo", "redo", "|", "bold", "del", "italic", "quote", "h1", "h2", "h3", "h4", "h5", "h6", "list-ul", "list-ol", "hr", "link","image","datetime","watch","preview","||","addInfo","saveInfo"]
+            },
+			toolbarIconTexts:{
+            	saveInfo:"草稿",
+				addInfo:"发布"
+			},toolbarHandlers :{
+				addInfo:function(cm, icon, cursor, selection){
+
+					let title = $("#title").val();
+					let text = $(".editormd-preview-container").html();
+
+
+					let summary = $(".editormd-preview-container").text().substring(0,49)
+
+					alert(summary)
+
+					let data = {
+						title:title,
+						text:text,
+						summary:summary
+					}
+
+					$.ajax({
+						type:"POST",
+						url:"/blog/add",
+						contentType: "application/json", //必须这样写
+						dataType:"json",
+						data:JSON.stringify(data),//schoolList是你要提交是json字符串
+						success:function (data) {
+
+						}
+
+					})
+
+
+				}
+			}
+        });
+
+    });
+
+</script>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml" xmlns:v-buid="http://www.w3.org/1999/xhtml">
+<head th:replace="page/comm::head"></head>
+<body>
+<div th:replace="page/comm::navigation"></div>
+<div class="container" id="blogInfo">
+    <div class="row clearfix">
+        <div class="col-md-9 column">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div><span><a href="#" th:text="${blog.username}"></a></span> . <span th:text="${blog.createDate}">2019-09-09</span> . 阅读:<span>1000+</span><button style="float:right" class="btn btn-success btn-xs">关注</button> </div>
+                    <h3><strong th:text="${blog.title}">这是一个基本的面板</strong></h3>
+                    <hr>
+                    <div class="markdown-body" th:utext="${blog.text}"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 column">
+            <div class="list-group">
+                <a href="#" class="list-group-item">评论</a>
+                <a href="#" class="list-group-item">点赞</a>
+                <a href="#" class="list-group-item">收藏</a>
+                <a href="#" class="list-group-item">分享</a>
+                <a href="#" class="list-group-item">举报</a>
+            </div>
+
+            <div class="list-group">
+                <a href="#" class="list-group-item active">推荐</a>
+                <a href="#" class="list-group-item">24*7 支持</a>
+                <a href="#" class="list-group-item">免费 Window 空间托管</a>
+                <a href="#" class="list-group-item">图像的数量</a>
+                <a href="#" class="list-group-item">每年更新成本</a>
+            </div>
+
+            <div class="list-group">
+                <a href="#" class="list-group-item active">广告</a>
+                <a href="#" class="list-group-item">官网淘宝店</a>
+                <a href="#" class="list-group-item">Java培训报名</a>
+                <a href="#" class="list-group-item">QQ群交流</a>
+            </div>
+
+        </div>
+    </div>
+</div>
+</div>
+</body>
+<script>
+    let vm = new Vue({
+        el: '#blogInfo',
+        data: {
+
+        },created: function () {
+
+        },method:{
+
+        }
+    })
+</script>
+</html>
