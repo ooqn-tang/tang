@@ -8,7 +8,7 @@
 
         <div class="col-md-9 column">
             <div class="row clearfix">
-                <div class="col-md-2">
+                <!--<div class="col-md-2">
                     <ul class="nav nav-pills nav-stacked my-nav text-center">
                         <li class="active"><a href="#">Home</a></li>
                         <li><a href="?type=java">Java</a></li>
@@ -18,8 +18,8 @@
                         <li><a href="#">PHP</a></li>
                     </ul>
 
-                </div>
-                <div class="col-md-10 column">
+                </div>-->
+                <div class="col-md-12 column">
                     <ul class="list-group">
                         <li class="list-group-item"  th:each="blog:${blogList}">
                             <a href="#" class="wz" th:text="${blog.title}" th:href="@{/blog/{id}(id=${blog.id})}">24*7 支持</a> . <span th:text="${blog.typeName}">Java</span>
