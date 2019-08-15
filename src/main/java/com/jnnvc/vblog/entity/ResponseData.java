@@ -1,4 +1,4 @@
-package com.jnnvc.vblog.data;
+package com.jnnvc.vblog.entity;
 
 /**
  * 返回

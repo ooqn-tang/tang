@@ -1,6 +1,6 @@
 package com.jnnvc.vblog.controller.web;
 
-import com.jnnvc.vblog.data.ResponseData;
+import com.jnnvc.vblog.entity.ResponseData;
 import com.jnnvc.vblog.entity.Blog;
 import com.jnnvc.vblog.service.BlogService;
 import com.jnnvc.vblog.service.UserService;

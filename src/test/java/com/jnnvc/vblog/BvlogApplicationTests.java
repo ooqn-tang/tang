@@ -30,7 +30,7 @@ public class BvlogApplicationTests {
     @Autowired
     private BlogMapper blogMapper;
 
-    @Test
+    //@Test
     public void contextLoads() throws IOException {
 
         for(int i =0 ; i<100;i++){
