@@ -1,7 +1,6 @@
 package com.jnnvc.vblog.security.authentication;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.jnnvc.vblog.entity.SimpleResponse;
 import com.jnnvc.vblog.security.properties.SecurityProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
