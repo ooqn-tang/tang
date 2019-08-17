@@ -38,7 +38,7 @@ public class BlogController {
         String summary = requestBody.get("summary");
 
         if (ParamUtil.isNullParams(title,text,username,summary))
-            return ResponseData.error("参数不全");
+            return ResponseData.error("ParamsIsNull","参数不全");
 
         Blog blog = new Blog();
         blog.setUserId(userService.selectUserByName(username).getId());
@@ -49,7 +49,7 @@ public class BlogController {
         blog.setTypeId("1");
         blog.setStateId("1");
 
-        return blogService.addBlog(blog)==1?ResponseData.successful("添加成功"):ResponseData.error("添加失败");
+        return blogService.addBlog(blog)==1?ResponseData.successful("successful"):ResponseData.error("error","添加失败");
     }
 
 

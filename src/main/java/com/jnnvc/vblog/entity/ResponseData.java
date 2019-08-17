@@ -5,49 +5,38 @@ package com.jnnvc.vblog.entity;
  */
 public class ResponseData {
 
-    private int state;
+    private Integer state;
 
     private String msg;
 
     private Object data;
 
-    private ResponseData(int state, String msg, Object data){}
+    private String hint;
 
-    private ResponseData(int state, String msg){}
+    private ResponseData(Integer state, String msg, Object data,String hint){
+        this.state = state;
+        this.msg = msg;
+        this.data = data;
+        this.hint = hint;
+    }
+
 
     private ResponseData(){}
 
     public static ResponseData successful(Object data){
-        ResponseData responseData  = new ResponseData(00,"成功",data);
+        ResponseData responseData  = new ResponseData(00,"成功",data,"success");
         return responseData ;
     }
 
-    public static ResponseData error(String msg){
-        ResponseData responseData = new ResponseData(44,msg);
+    /**
+     * 失败
+     * @param hint 给电脑看的提示，暗示接口调用者错误原因
+     * @param msg 给人看的提示
+     * @return
+     */
+    public static ResponseData error(String hint,String msg){
+        ResponseData responseData = new ResponseData(44,msg,"",hint);
         return responseData;
     }
 
-    public int getState() {
-        return state;
-    }
-
-    public void setState(int state) {
-        this.state = state;
-    }
-
-    public String getMsg() {
-        return msg;
-    }
-
-    public void setMsg(String msg) {
-        this.msg = msg;
-    }
-
-    public Object getData() {
-        return data;
-    }
-
-    public void setData(Object data) {
-        this.data = data;
-    }
 }
