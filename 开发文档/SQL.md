@@ -27,4 +27,5 @@
 
 ### 设计表注意事项
 1.尽量不要与其他模块共用表格
+
 2.ID使用Hutool工具类的生成无分隔符的UUID`IdUtil.fastSimpleUUID()`
