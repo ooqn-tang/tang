@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+</head>
+<body>
+  <!--瀑布流vue 渲染-->
+<div id="app">
+    <div v-infinite-scroll="loadMore" infinite-scroll-disabled="busy" infinite-scroll-distance="10">
+        <div v-for="item in data" :key="item.index">{{item.name}}</div>
+    </div>
+</div>
+
+
+</body>
+<script src="jquery.min.js"></script>
+<script src="vue.min.js"></script>
+<script src="vue-infinite-scroll.js"></script>
+
+<script>
+
+    var app=new Vue({
+          el:"#app",
+        data:{
+            count: 0,
+            data: [],
+            busy: false
+
+        },
+        methods: {
+            loadMore: function() {
+                this.busy = true;
+
+                //数据加载
+                setTimeout(() => {
+                    for (var i = 0, j = 10; i < j; i++) {
+                        this.data.push({name: this.count++ })
+                    }
+                    console.log(this.data)
+                    this.busy = false
+                }, 1000)
+            }
+        }
+
+
+    })
+</script>
+</html>
