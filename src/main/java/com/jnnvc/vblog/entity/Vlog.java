@@ -24,6 +24,15 @@ public class Vlog {
     //视频路径
     private String link;
 
+    //文件状态
+    private String status;
+
+    //文件类型
+    private  Integer fileYpe;
+
+
+    //
+
 
     //
 
