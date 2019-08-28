@@ -1,5 +1,6 @@
 package com.jnnvc.vblog;
 
+import com.jnnvc.vblog.config.MyApplicationContextInitializer;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -14,7 +15,13 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 public class BvlogApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(BvlogApplication.class, args);
+        //SpringApplication.run(BvlogApplication.class, args);
+
+        SpringApplication springApplication = new SpringApplication(BvlogApplication.class);
+        //关键一步：将一个或多个initializer加入至spring容器中
+        springApplication.addInitializers(new MyApplicationContextInitializer());
+        
+        springApplication.run(args);
     }
 
 }

@@ -19,7 +19,7 @@ public class ResponseData {
         this.data = data;
         this.hint = hint;
     }
-
+//上厕所记得冲厕所
 
     private ResponseData(){}
 

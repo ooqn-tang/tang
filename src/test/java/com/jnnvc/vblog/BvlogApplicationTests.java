@@ -1,5 +1,6 @@
 package com.jnnvc.vblog;
 
+import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.http.HttpRequest;
 import com.gargoylesoftware.htmlunit.*;
@@ -10,6 +11,8 @@ import com.jnnvc.vblog.mapper.UserMapper;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,13 +33,18 @@ public class BvlogApplicationTests {
     @Autowired
     private BlogMapper blogMapper;
 
-    //@Test
+    @Test
     public void contextLoads() throws IOException {
 
-        for(int i =0 ; i<100;i++){
+
+        ;
+
+        //FileUtil.writeBytes(FileUtil.readBytes(new File("C:\\Users\\huawei\\Desktop\\vblogdb.sql")),"./file"+"/test.txt");
+
+       /* for(int i =0 ; i<100;i++){
             String cookie = getCookie("http://fgw.sh.gov.cn/zfsp.htm");
         }
-        System.out.println(ls);
+        System.out.println(ls);*/
 
 
         /*HttpRequest httpRequest = HttpRequest.post("http://fgw.sh.gov.cn/manager/JSON-RPC");
