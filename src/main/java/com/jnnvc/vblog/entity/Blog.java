@@ -30,10 +30,10 @@ public class Blog {
     private String summary;
 
     //blog 类型名
-    private String typeName;
+    private String className;
 
     //blog 类型ID
-    private String typeId;
+    private String classId;
 
     //状态ID
     private String stateId;

@@ -2,8 +2,31 @@
 <html xmlns:th="http://www.w3.org/1999/xhtml" xmlns:v-buid="http://www.w3.org/1999/xhtml">
 <head th:replace="page/comm::head"></head>
 <body>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">
+                    评论
+                </h4>
+            </div>
+            <div class="modal-body">
+                <textarea id="comment" class="form-control" rows="3" style="resize:none;"></textarea>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                </button>
+                <button type="button" id="subComment" class="btn btn-primary">
+                    提交更改
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
 <div th:replace="page/comm::navigation"></div>
 <div class="container" id="blogInfo">
+    <input id="blogId" type="hidden" th:value="${blog.id}">
     <div class="row clearfix">
         <div class="col-md-9 column">
             <div class="panel panel-default">
@@ -13,11 +36,75 @@
                     <hr>
                     <div class="markdown-body" th:utext="${blog.text}"></div>
                 </div>
+                <div class="panel-footer">
+                    <div class="input-group">
+                        <input type="text" class="form-control">
+                        <span class="input-group-btn">
+                        <button class="btn btn-default" type="button">评论</button>
+                    </span>
+                    </div><!-- /input-group -->
+<br>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">
+                                <img src="https://avatars0.githubusercontent.com/u/38550226?s=40&amp;u=f1f8ae9fc00eeff54377fe0617c0335a92fad690&amp;v=4" style="height: 16px;" class="fa-image">
+                                芷容
+                                <span class="pull-right">2019-01-01</span>
+                            </h3>
+                        </div>
+                        <div class="panel-body">
+                            不得了的评论
+                            <br>
+
+                        </div>
+                        <div class="panel-body">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">
+                                        <img src="https://avatars0.githubusercontent.com/u/38550226?s=40&amp;u=f1f8ae9fc00eeff54377fe0617c0335a92fad690&amp;v=4" style="height: 16px;" class="fa-image">
+                                        魏符
+                                        <span class="pull-right">2019-01-01</span>
+                                    </h3>
+                                </div>
+                                <div class="panel-body">
+                                    不好看
+                                </div>
+                            </div>
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">
+                                        <img src="https://avatars0.githubusercontent.com/u/38550226?s=40&amp;u=f1f8ae9fc00eeff54377fe0617c0335a92fad690&amp;v=4" style="height: 16px;" class="fa-image">
+                                        黄磊
+                                        <span class="pull-right">2019-01-01</span>
+                                    </h3>
+                                </div>
+                                <div class="panel-body">
+                                    哦(⊙o⊙)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="col-md-3 column">
+
+            <ul id="pl" class="list-group">
+                <li class="list-group-item">评论
+                    <a href="#" class="pull-right" data-toggle="modal" data-target="#myModal">
+                        <span class="glyphicon glyphicon-pencil"></span>
+                    </a>
+                </li>
+                <li class="list-group-item">点赞</li>
+                <li class="list-group-item">收藏</li>
+                <li class="list-group-item">分享</li>
+                <li class="list-group-item">举报</li>
+            </ul>
+
             <div class="list-group">
-                <a href="#" class="list-group-item">评论</a>
+
+
+                <a href="#" class="list-group-item"  >评论</a>
                 <a href="#" class="list-group-item">点赞</a>
                 <a href="#" class="list-group-item">收藏</a>
                 <a href="#" class="list-group-item">分享</a>
@@ -38,22 +125,28 @@
                 <a href="#" class="list-group-item">Java培训报名</a>
                 <a href="#" class="list-group-item">QQ群交流</a>
             </div>
-
         </div>
     </div>
 </div>
-</div>
+
 </body>
 <script>
-    let vm = new Vue({
-        el: '#blogInfo',
-        data: {
-
-        },created: function () {
-
-        },method:{
-
+    $("#subComment").click(function(){
+        let data = {
+            comment:$("#comment").val(),
+            blogId:$("#blogId").val()
         }
+        $.ajax({
+            type:"POST",
+            url:"/blog/comment",
+            contentType: "application/json", //必须这样写
+            dataType:"json",
+            data:JSON.stringify(data),//schoolList是你要提交是json字符串
+            success:function (result) {
+                alert(JSON.stringify(result))
+            }
+
+        })
     })
 </script>
 </html>

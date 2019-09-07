@@ -1,11 +1,14 @@
 package com.jnnvc.vblog.entity;
 
+import lombok.Data;
+
 /**
  * 返回
  */
+@Data
 public class ResponseData {
 
-    private Integer state;
+    private String state;
 
     private String msg;
 
@@ -13,7 +16,7 @@ public class ResponseData {
 
     private String hint;
 
-    private ResponseData(Integer state, String msg, Object data,String hint){
+    private ResponseData(String state, String msg, Object data,String hint){
         this.state = state;
         this.msg = msg;
         this.data = data;
@@ -24,7 +27,7 @@ public class ResponseData {
     private ResponseData(){}
 
     public static ResponseData successful(Object data){
-        ResponseData responseData  = new ResponseData(00,"成功",data,"success");
+        ResponseData responseData  = new ResponseData("00","成功",data,"success");
         return responseData ;
     }
 
@@ -35,7 +38,7 @@ public class ResponseData {
      * @return
      */
     public static ResponseData error(String hint,String msg){
-        ResponseData responseData = new ResponseData(44,msg,"",hint);
+        ResponseData responseData = new ResponseData("44",msg,"",hint);
         return responseData;
     }
 

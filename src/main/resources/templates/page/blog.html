@@ -4,28 +4,23 @@
 <body>
 <div th:replace="page/comm::navigation"></div>
 <div class="container">
-    <div class="row clearfix">
+    <a href="/blog" class="btn btn-default btn-xs">推荐</a>
 
+    <a href="?cls=2" class="btn btn-default btn-xs">Java</a>
+    <a href="?cls=3" class="btn btn-default btn-xs">Python</a>
+    <a href="?cls=4"class="btn btn-default btn-xs">前端</a>
+    <a href="?cls=1" class="btn btn-default btn-xs">日志</a>
+
+    <div class="row clearfix" style="    margin-top: 5px;">
         <div class="col-md-9 column">
             <div class="row clearfix">
-                <!--<div class="col-md-2">
-                    <ul class="nav nav-pills nav-stacked my-nav text-center">
-                        <li class="active"><a href="#">Home</a></li>
-                        <li><a href="?type=java">Java</a></li>
-                        <li><a href="?type=python">python</a></li>
-                        <li><a href="#">VB.Net</a></li>
-                        <li><a href="#">Java</a></li>
-                        <li><a href="#">PHP</a></li>
-                    </ul>
-
-                </div>-->
                 <div class="col-md-12 column">
                     <ul class="list-group">
                         <li class="list-group-item"  th:each="blog:${blogList}">
-                            <a href="#" class="wz" th:text="${blog.title}" th:href="@{/blog/{id}(id=${blog.id})}">24*7 支持</a> . <span th:text="${blog.typeName}">Java</span>
+                            <a href="#" class="wz" th:text="${blog.title}" th:href="@{/blog/{id}(id=${blog.id})}">24*7 支持</a> . <span th:text="${blog.className}">Java</span>
                             <br>
-                            <span th:text="${blog.summary}"></span>
-                            <div><span th:text="${blog.createDate}"></span><span> . 阅读:9百+</span><span style="float:right"><span th:text="${blog.username}">不得了的人物 </span></span> </div>
+                            <div style="padding-top: 10px;padding-bottom: 10px"> <span th:text="${blog.summary}"></span></div>
+                            <div ><span th:text="${blog.createDate}"></span><span> . 阅读:9百+</span><span style="float:right"><span th:text="${blog.username}">不得了的人物 </span> <img src="https://avatars0.githubusercontent.com/u/38550226?s=40&u=f1f8ae9fc00eeff54377fe0617c0335a92fad690&v=4" style="height: 16px;" class="img-circle"></span> </div>
                         </li>
 
                         <li class="list-group-item">

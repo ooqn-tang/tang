@@ -8,6 +8,7 @@ import com.jnnvc.vblog.security.service.impl.MyAuthenticationEntryPoint;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -63,26 +64,33 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
         validateCodeFilter.afterPropertiesSet();
 
         http.addFilterBefore(validateCodeFilter, UsernamePasswordAuthenticationFilter.class)//在拦截器UsernamePasswordAuthenticationFilter前面添加一个拦截器
-                .formLogin()//当前配置文件，用于配置浏览器表单登录
-                .loginPage("/login.html")//配置登录页面
-                .loginProcessingUrl("/doLogin")//登录POST请求
-                .successHandler(myAuthenticationSuccessHandler)//自己重写的登录成功处理器
-                .failureHandler(myAuthenticationFailureHandler)//自己重写的登录失败处理器
+                    .formLogin()//当前配置文件，用于配置浏览器表单登录
+                    .loginPage("/login.html")//配置登录页面
+                    .loginProcessingUrl("/doLogin")//登录POST请求
+                    .successHandler(myAuthenticationSuccessHandler)//自己重写的登录成功处理器
+                    .failureHandler(myAuthenticationFailureHandler)//自己重写的登录失败处理器
                 .and()//结束上一个登录配置，开始“记住我”的配置
-                .rememberMe()//允许配置“记住我”身份验证。
-                .tokenRepository(persistentTokenRepository())//记住我需要生成在数据库保存token，这个配置用于保存token
-                .tokenValiditySeconds(securityProperties.getBrowser().getRememberMeSeconds())//token有效时间
-                .userDetailsService(userDetailsService())//登录时，如果用户没有登录，去数据库查询token，如果拥有有效token直接免登录使用
-                .and()//结束记住我，开始配置那些页面需登录
-                //.authorizeRequests().anyRequest().permitAll()//所有人都可以访问
-                .authorizeRequests()
+                    .rememberMe()//允许配置“记住我”身份验证。
+                    .tokenRepository(persistentTokenRepository())//记住我需要生成在数据库保存token，这个配置用于保存token
+                    .tokenValiditySeconds(securityProperties.getBrowser().getRememberMeSeconds())//token有效时间
+                    .userDetailsService(userDetailsService())//登录时，如果用户没有登录，去数据库查询token，如果拥有有效token直接免登录使用
+                .and()
+                    .authorizeRequests().antMatchers(securityProperties.getIntercept()).authenticated()//指定页面需要登录
+                .and()
+                    .authorizeRequests().anyRequest().permitAll()//所有人都可以访问
+                .and()
+                    .csrf().disable();//关闭csrf安全
+
+
+         /*.authorizeRequests()
                     .antMatchers("/login.html","/require","/doLogin","/code/image",
                             securityProperties.getBrowser().getLoginPage()).permitAll()//antMatchers中的页面需要访问
                 //所有经过身份认证的用户可以访问如何url
-                .anyRequest().authenticated()
-                .and()
-                .csrf().disable();//关闭csrf安全
+                .anyRequest().authenticated()*/
+
     }
+
+
 
 
 }

@@ -1,7 +1,11 @@
 package com.jnnvc.vblog.controller.web;
 
+import cn.hutool.core.util.IdUtil;
+import com.alibaba.fastjson.JSONObject;
+import com.jnnvc.vblog.entity.BlogComment;
 import com.jnnvc.vblog.entity.ResponseData;
 import com.jnnvc.vblog.entity.Blog;
+import com.jnnvc.vblog.entity.User;
 import com.jnnvc.vblog.service.BlogService;
 import com.jnnvc.vblog.service.UserService;
 import com.jnnvc.vblog.utils.ParamUtil;
@@ -26,30 +30,69 @@ public class BlogController {
     @Autowired
     private UserService userService;
 
+    @GetMapping("add")
+    public String toEditor(){
+        return "page/editor";
+    }
+
     //博客，添加，删除，修改，查询
     //添加博客，
     @PostMapping("add")
     @ResponseBody
     public ResponseData add(@RequestBody Map<String,String> requestBody, Principal principal){
 
+        String blogId = IdUtil.fastSimpleUUID();
         String title = requestBody.get("title");
         String text = requestBody.get("text");
         String username = principal.getName();
         String summary = requestBody.get("summary");
+        String state = requestBody.get("state");//1 发布，2 草稿
+        String classId = requestBody.get("classId");
 
-        if (ParamUtil.isNullParams(title,text,username,summary))
+        if (ParamUtil.isNullParams(title,text,username,summary,state))
             return ResponseData.error("ParamsIsNull","参数不全");
 
         Blog blog = new Blog();
+        blog.setId(blogId);
         blog.setUserId(userService.selectUserByName(username).getId());
         blog.setTitle(title);
         blog.setText(text);
         blog.setUsername(username);
         blog.setSummary(summary);
-        blog.setTypeId("1");
-        blog.setStateId("1");
+        blog.setClassId(classId);
+        blog.setStateId(state);
 
         return blogService.addBlog(blog)==1?ResponseData.successful("successful"):ResponseData.error("error","添加失败");
+    }
+
+    //添加评论
+    @PostMapping("/comment")
+    @ResponseBody
+    public ResponseData addComment(@RequestBody Map<String,String> requestBody, Principal principal){
+
+        String comment = requestBody.get("comment");
+        String username = principal.getName();
+        String userId = userService.selectUserByName(username).getId();
+        String blogId = requestBody.get("blogId");
+
+        BlogComment blogComment = new BlogComment();
+        blogComment.setId(IdUtil.fastSimpleUUID());
+        blogComment.setBlogId(blogId);
+        blogComment.setCommentContent(comment);
+        blogComment.setUserId(userId);
+
+        ResponseData responseData = null;
+
+        try {
+            responseData = ResponseData.successful(blogService.addComment(blogComment));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseData.error("BlogDoecNotExist","博客不存在，无法评论");
+        }
+
+        return ResponseData.successful(responseData);
+
+
     }
 
 

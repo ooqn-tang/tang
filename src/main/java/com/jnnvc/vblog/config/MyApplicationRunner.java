@@ -30,7 +30,7 @@ public class MyApplicationRunner implements ApplicationRunner {
         String [] staticLocations = resourceProperties.getStaticLocations();
 
         Arrays.stream(staticLocations).forEach(string ->{
-            System.out.println(FileUtil.mkdir(string));
+            FileUtil.mkdir(string);
         });
     }
 }

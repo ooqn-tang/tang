@@ -1,5 +1,7 @@
 package com.jnnvc.vblog.controller.web;
 
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -11,7 +13,12 @@ import org.springframework.web.bind.annotation.RestController;
  * 3.获取随机推荐微博标题
  * 3.获取广告微博标题
  */
-@RestController
 @RequestMapping("vibo")
+@Controller
 public class ViboController {
+
+    @GetMapping
+    public String toVibo(){
+        return "page/vibo";
+    }
 }
