@@ -6,6 +6,7 @@ import com.jnnvc.vblog.entity.BlogComment;
 import com.jnnvc.vblog.entity.ResponseData;
 import com.jnnvc.vblog.entity.Blog;
 import com.jnnvc.vblog.entity.User;
+import com.jnnvc.vblog.security.model.SessionKey;
 import com.jnnvc.vblog.service.BlogService;
 import com.jnnvc.vblog.service.UserService;
 import com.jnnvc.vblog.utils.ParamUtil;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.security.Principal;
 import java.util.Map;
 
@@ -29,6 +31,9 @@ public class BlogController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private HttpSession httpSession;
 
     @GetMapping("add")
     public String toEditor(){
@@ -68,11 +73,12 @@ public class BlogController {
     //添加评论
     @PostMapping("/comment")
     @ResponseBody
-    public ResponseData addComment(@RequestBody Map<String,String> requestBody, Principal principal){
+    public ResponseData addComment(@RequestBody Map<String,String> requestBody){
+
+        User user = ((User)httpSession.getAttribute(SessionKey.USER_INFO));
 
         String comment = requestBody.get("comment");
-        String username = principal.getName();
-        String userId = userService.selectUserByName(username).getId();
+        String userId = user.getId();
         String blogId = requestBody.get("blogId");
 
         BlogComment blogComment = new BlogComment();
@@ -89,14 +95,9 @@ public class BlogController {
             e.printStackTrace();
             return ResponseData.error("BlogDoecNotExist","博客不存在，无法评论");
         }
-
         return ResponseData.successful(responseData);
 
-
     }
-
-
-
 
     /**
      * 通过博客ID获取博客页面

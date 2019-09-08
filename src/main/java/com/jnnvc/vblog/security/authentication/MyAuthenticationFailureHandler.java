@@ -1,6 +1,7 @@
 package com.jnnvc.vblog.security.authentication;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.jnnvc.vblog.security.model.SessionKey;
 import com.jnnvc.vblog.security.model.SimpleResponse;
 import com.jnnvc.vblog.security.properties.SecurityProperties;
 import org.slf4j.Logger;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Component;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 /**
@@ -30,10 +32,15 @@ public class MyAuthenticationFailureHandler extends SimpleUrlAuthenticationFailu
     @Autowired
     private SecurityProperties securityProperties;
 
+    @Autowired
+    private HttpSession httpSession;
+
     @Override
     public void onAuthenticationFailure(HttpServletRequest httpServletRequest,
                                         HttpServletResponse httpServletResponse,
                                         AuthenticationException e) throws IOException, ServletException {
+
+        httpSession.removeAttribute(SessionKey.USER_INFO);
 
 
         httpServletResponse.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());

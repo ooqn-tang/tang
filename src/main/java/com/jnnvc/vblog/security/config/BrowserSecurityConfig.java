@@ -75,7 +75,7 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
                     .tokenValiditySeconds(securityProperties.getBrowser().getRememberMeSeconds())//token有效时间
                     .userDetailsService(userDetailsService())//登录时，如果用户没有登录，去数据库查询token，如果拥有有效token直接免登录使用
                 .and()
-                    .authorizeRequests().antMatchers(securityProperties.getIntercept()).authenticated()//指定页面需要登录
+                    .authorizeRequests().antMatchers(securityProperties.getIntercept()).authenticated()//指定页面需要登录，配置文件
                 .and()
                     .authorizeRequests().anyRequest().permitAll()//所有人都可以访问
                 .and()

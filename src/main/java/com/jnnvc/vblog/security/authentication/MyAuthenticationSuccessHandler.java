@@ -37,8 +37,10 @@ public class MyAuthenticationSuccessHandler extends SavedRequestAwareAuthenticat
                                         HttpServletResponse httpServletResponse,
                                         Authentication authentication) throws IOException, ServletException {
 
+        //登录成功，跳转页面
         super.onAuthenticationSuccess(httpServletRequest,httpServletResponse,authentication);
-/*
+
+        /*登录成功，返回json
         httpServletResponse.setContentType("application/json;charset=UTF-8");
         httpServletResponse.getWriter().write(objectMapper.writeValueAsString(authentication));*/
 
