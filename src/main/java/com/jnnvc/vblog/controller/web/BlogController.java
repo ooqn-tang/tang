@@ -1,10 +1,9 @@
 package com.jnnvc.vblog.controller.web;
 
 import cn.hutool.core.util.IdUtil;
-import com.alibaba.fastjson.JSONObject;
+import com.jnnvc.vblog.entity.Blog;
 import com.jnnvc.vblog.entity.BlogComment;
 import com.jnnvc.vblog.entity.ResponseData;
-import com.jnnvc.vblog.entity.Blog;
 import com.jnnvc.vblog.entity.User;
 import com.jnnvc.vblog.security.model.SessionKey;
 import com.jnnvc.vblog.service.BlogService;
@@ -16,7 +15,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
-import java.security.Principal;
 import java.util.Map;
 
 /**
@@ -40,29 +38,30 @@ public class BlogController {
         return "page/editor";
     }
 
-    //博客，添加，删除，修改，查询
-    //添加博客，
+    //添加博客
     @PostMapping("add")
     @ResponseBody
-    public ResponseData add(@RequestBody Map<String,String> requestBody, Principal principal){
+    public ResponseData add(@RequestBody Map<String,String> requestBody){
+
+        User user = ((User)httpSession.getAttribute(SessionKey.USER_INFO));
 
         String blogId = IdUtil.fastSimpleUUID();
         String title = requestBody.get("title");
         String text = requestBody.get("text");
-        String username = principal.getName();
+
         String summary = requestBody.get("summary");
         String state = requestBody.get("state");//1 发布，2 草稿
         String classId = requestBody.get("classId");
 
-        if (ParamUtil.isNullParams(title,text,username,summary,state))
+        if (ParamUtil.isNullParams(title,text,summary,state))
             return ResponseData.error("ParamsIsNull","参数不全");
 
         Blog blog = new Blog();
         blog.setId(blogId);
-        blog.setUserId(userService.selectUserByName(username).getId());
+        blog.setUserId(user.getId());
         blog.setTitle(title);
         blog.setText(text);
-        blog.setUsername(username);
+        blog.setUsername(user.getUsername());
         blog.setSummary(summary);
         blog.setClassId(classId);
         blog.setStateId(state);
@@ -123,18 +122,12 @@ public class BlogController {
     //删除博客
     @GetMapping("update/{id}")
     public ResponseData update(@PathVariable("id") String id){
-
-
-
         return null;
     }
 
     //删除博客
     @GetMapping("query/{id}")
     public ResponseData query(@PathVariable("id") String id){
-
-
-
         return null;
     }
 
