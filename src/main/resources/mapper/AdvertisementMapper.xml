@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jnnvc.vblog.mapper.AdvertisementMapper">
+
+    <select id="selectAllAdvertisement" resultType="advertise">
+        select id,title,url,DATE_FORMAT(create_date,"%Y.%m.%d") createDate,delivery_time deliveryTime,description
+            from entity_advertise
+            order by create_date
+    </select>
+
+    <select id="selectById"  resultType="advertise">
+        select id,title,url,DATE_FORMAT(create_date,"%Y.%m.%d") createDate,delivery_time deliveryTime,description
+            from entity_advertise
+            where id = '${id}'
+    </select>
+
+</mapper>

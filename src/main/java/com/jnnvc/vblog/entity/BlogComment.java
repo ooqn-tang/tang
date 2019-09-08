@@ -20,4 +20,5 @@ public class BlogComment {
     private int commentNum;
 
     private String createTime;
+
 }

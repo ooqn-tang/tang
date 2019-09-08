@@ -50,5 +50,6 @@ public class Blog {
     //点赞数
     private Integer praiseCount;
 
-
 }
+
+

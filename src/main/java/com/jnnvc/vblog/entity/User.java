@@ -35,5 +35,4 @@ public class User {
     //职位
     private String position;
 
-
 }
