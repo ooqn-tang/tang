@@ -15,7 +15,7 @@ public class SecurityProperties {
 
     private ValidateCodeProperties code = new ValidateCodeProperties();
 
-    private String intercept = "";
+    private String intercept = "/**";
 
     public String[] getIntercept() {
         return StrUtil.splitToArray(intercept,',');

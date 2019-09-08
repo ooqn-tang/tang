@@ -16,6 +16,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 /**
  * Web项目用于页面跳转，普通用户页面的跳转
  */
@@ -29,7 +32,12 @@ public class IndexController {
     private BlogService blogServiceImpl;
 
     @GetMapping({"index","blog",""})
-    public String toBlog( Model model,@RequestParam(name = "cls", required = false)String cls){
+    public String toBlog(Model model, @RequestParam(name = "cls", required = false)String cls, HttpSession httpSession){
+
+
+        User user = (User)httpSession.getAttribute("USER_INFO");
+
+        System.out.println("User : "+ user);
 
         SecurityContext ctx = SecurityContextHolder.getContext();
         Authentication auth = ctx.getAuthentication();
