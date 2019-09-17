@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="zh-CN"  xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>广告信息展示测试页面</title>
+</head>
+<body>
+    <table border="1" align="center" width="50%">
+        <tr>
+            <th>广告id</th>
+            <th>标题</th>
+            <th>url</th>
+            <th>创建时间</th>
+            <th>播送时间</th>
+            <th>广告描述</th>
+            <th>修改广告</th>
+        </tr>
+        <tr th:each="adv:${session.list}">
+            <td th:text="${adv.id}"></td>
+            <td th:text="${adv.title}"></td>
+            <td th:text="${adv.url}"></td>
+            <td th:text="${adv.createDate}"></td>
+            <td th:text="${adv.deliveryTime}"></td>
+            <td th:text="${adv.description}"></td>
+            <td><a th:href="@{/adminAdv/edit(id=${adv.id})}">修改</a></td>
+        </tr>
+    </table>
+</body>
+</html>

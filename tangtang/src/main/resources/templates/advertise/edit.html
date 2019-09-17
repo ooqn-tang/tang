@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>修改广告信息的测试页面</title>
+</head>
+<body>
+<form th:action="@{/adminAdv/update}" method="post">
+    广告id：<input th:value="${updateAdv.id}" name="id" readonly="readonly"><br>
+    广告标题：<input th:value="${updateAdv.title}" name="title"><br>
+    广告url地址：<input th:value="${updateAdv.url}" name="url"><br>
+    广告创建时间：<input th:value="${updateAdv.createDate}" name="createDate" readonly="readonly"><br>
+    广告投放时间：<input th:value="${updateAdv.deliveryTime}" name="deliveryTime"><br>
+    广告描述：<input th:value="${updateAdv.description}" name="description"><br>
+    <input type="submit" value="确认">
+</form>
+</body>
+</html>

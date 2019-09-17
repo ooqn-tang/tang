@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.ttcxy.tangtang.mapper.BlogMapper">
+
+    <select id="selectBlogCls" resultType="Blog">
+        select b.id,title,DATE_FORMAT(create_date,'%Y.%m.%d')  createDate,username,text,summary,class_name
+        FROM entity_blog b,entity_user u,entity_blog_class c
+        where b.state_id = 1
+        and u.id = b.user_id
+        and b.class_id = c.id
+        and b.class_id = #{cls}
+        order by create_date desc
+    </select>
+
+    <select id="isNotBlog" resultType="int">
+        select count(1) from entity_blog where id = #{blogId}
+    </select>
+
+    <insert id="addComment">
+        insert into entity_blog_comment
+          (id,blog_id,comment_status,comment_user_id,comment_content,create_time)
+          values
+          (#{id},#{blogId},1,#{userId},#{commentContent},NOW())
+    </insert>
+
+    <select id="selectBlog" resultType="Blog">
+        select b.id,title,DATE_FORMAT(create_date,'%Y.%m.%d')  createDate,username,text,summary,class_name
+        FROM entity_blog b,entity_user u,entity_blog_class c
+        where b.state_id = 1
+          and u.id = b.user_id
+          and b.class_id = c.id
+        order by create_date desc
+    </select>
+
+    <select id="getBlogByUUID" resultType="Blog">
+        select b.id,b.title,DATE_FORMAT(b.create_date,'%Y.%m.%d')  createDate,b.summary,b.text,u.username
+        from entity_blog b,entity_user u where b.user_id = u.id and  b.id = #{uuid}
+    </select>
+
+    <insert id="addBlog" parameterType="Blog">
+        insert into entity_blog (id,title,user_id,text,summary,class_id,state_id,create_date)
+        values(#{id},#{title},#{userId},#{text},#{summary},#{classId},#{stateId},now())
+    </insert>
+</mapper>
