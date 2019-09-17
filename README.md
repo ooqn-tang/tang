@@ -1,36 +1,37 @@
-# VBlog
+# TangTang
 
 #### 介绍
-VBlog是Blog 与Vlog简称，一款基于博文与视频博客的邻域社区网站
-
-系统功能介绍：
-    博客：个人学习，生活日志
-    视频：通过视频的方式能更快的传播技术
-    微博：图文即使博客
-    收藏：为用户创建个人收藏目录，并且这些收藏的目录可以推荐给其它用户，一起分享自己的学习状态。
-
+堂堂程序员的项目
 
 #### 软件架构
 软件架构说明
-    SpringBoot2 SpringSecurity MyBatis Redis MySQL Bootstrap3 
-
-当前状态（一期）
-
-一期目标：
-    实现具体功能，
-    
-二期目标：
-    优化页面
-
-三期目标:
-    提高系统性能，
-
-四期目标：
-    后台赋能，开发，博客，微博，视频，收藏推荐算法
-    添加风控系统,对用户信息进行安全检查，黄赌毒，
-
-五期目标：
-    项目集群方案    
 
 
-    
+#### 安装教程
+
+1. xxxx
+2. xxxx
+3. xxxx
+
+#### 使用说明
+
+1. xxxx
+2. xxxx
+3. xxxx
+
+#### 参与贡献
+
+1. Fork 本仓库
+2. 新建 Feat_xxx 分支
+3. 提交代码
+4. 新建 Pull Request
+
+
+#### 码云特技
+
+1. 使用 Readme\_XXX.md 来支持不同的语言，例如 Readme\_en.md, Readme\_zh.md
+2. 码云官方博客 [blog.gitee.com](https://blog.gitee.com)
+3. 你可以 [https://gitee.com/explore](https://gitee.com/explore) 这个地址来了解码云上的优秀开源项目
+4. [GVP](https://gitee.com/gvp) 全称是码云最有价值开源项目，是码云综合评定出的优秀开源项目
+5. 码云官方提供的使用手册 [https://gitee.com/help](https://gitee.com/help)
+6. 码云封面人物是一档用来展示码云会员风采的栏目 [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
