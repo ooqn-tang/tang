@@ -10,13 +10,14 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class TangTangApplication {
 
     public static void main(String[] args) {
-        //SpringApplication.run(BvlogApplication.class, args);
 
         SpringApplication springApplication = new SpringApplication(TangTangApplication.class);
-        //关键一步：将一个或多个initializer加入至spring容器中
+
+        //关键一步：项目启动前调用我
         springApplication.addInitializers(new MyApplicationContextInitializer());
         
         springApplication.run(args);
+
     }
 
 }

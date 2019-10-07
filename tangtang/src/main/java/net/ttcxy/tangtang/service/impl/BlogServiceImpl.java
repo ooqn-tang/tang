@@ -4,6 +4,7 @@ import net.ttcxy.tangtang.entity.params.CommentParam;
 import net.ttcxy.tangtang.entity.params.BlogParam;
 import net.ttcxy.tangtang.mapper.BlogMapper;
 import net.ttcxy.tangtang.entity.Blog;
+import net.ttcxy.tangtang.mapper.PageviewMapper;
 import net.ttcxy.tangtang.service.BlogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,9 @@ public class BlogServiceImpl implements BlogService {
 
     @Autowired
     private BlogMapper blogMapper;
+
+    @Autowired
+    private PageviewMapper pageviewMapper;
 
     @Override
     public List<Blog> selectBlogCls(String cls) {
@@ -56,7 +60,21 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
-    public Blog getBlogByUUID(String uuid) {
-        return blogMapper.getBlogByUUID(uuid);
+    public int like(String userId,String blogId) {
+        try{
+            return blogMapper.insertLike(userId,blogId);
+        }catch (Exception e){
+            return blogMapper.deleteLike(userId,blogId);
+        }
+    }
+
+
+    @Override
+    public Blog getBlogByUUID(String uuid,String userId) {
+
+        //阅读量
+        pageviewMapper.insertPageview(userId,uuid);
+
+        return blogMapper.selectBlogByUUID(uuid);
     }
 }

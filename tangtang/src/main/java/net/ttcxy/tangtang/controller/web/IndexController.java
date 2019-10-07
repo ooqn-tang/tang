@@ -1,7 +1,9 @@
 package net.ttcxy.tangtang.controller.web;
 
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.json.JSONObject;
 import net.ttcxy.tangtang.service.BlogService;
+import net.ttcxy.tangtang.service.impl.AdvertisementServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +28,8 @@ public class IndexController {
     @Autowired
     private BlogService blogServiceImpl;
 
+    @Autowired
+    private AdvertisementServiceImpl advertisementService;
     @GetMapping({"index","blog",""})
     public String toBlog( Model model,@RequestParam(name = "cls", required = false)String cls){
 
@@ -41,6 +45,8 @@ public class IndexController {
             model.addAttribute("blogList",blogServiceImpl.selectBlogCls(cls));
         }
 
+        model.addAttribute("advertises",advertisementService.selectAllAdvertisement());
+        System.out.println(advertisementService.selectAllAdvertisement());
         return "page/blog";
     }
 

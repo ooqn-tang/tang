@@ -32,7 +32,7 @@ public interface BlogMapper {
      * @param uuid
      * @return
      */
-    Blog getBlogByUUID(String uuid);
+    Blog selectBlogByUUID(String uuid);
 
     /**
      * 添加blog
@@ -45,13 +45,13 @@ public interface BlogMapper {
      * 更新博客
      * @return
      */
-    int updateBlog();
+    int updateBlog(Blog blog);
 
     /**
      * 删除博客
      * @return
      */
-    int deleteBlog();
+    int deleteBlog(@Param("id") String id);
 
     /**
      * 评论
@@ -59,4 +59,10 @@ public interface BlogMapper {
      * @return
      */
     int addComment(CommentParam commentParam);
+
+    int deleteLike(@Param("userId") String userId,
+                   @Param("dataId") String dataId);
+
+    int insertLike(@Param("userId") String userId,
+                   @Param("dataId") String dataId);
 }

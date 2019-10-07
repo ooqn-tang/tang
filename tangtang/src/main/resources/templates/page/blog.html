@@ -17,10 +17,16 @@
                 <div class="col-md-12 column">
                     <ul class="list-group">
                         <li class="list-group-item"  th:each="blog:${blogList}">
-                            <a href="#" class="wz" th:text="${blog.title}" th:href="@{/blog/{id}(id=${blog.id})}">24*7 支持</a> . <span th:text="${blog.className}">Java</span>
+                            <a href="#" class="wz" style="font-size: 20px;" th:text="${blog.title}" th:href="@{/blog/{id}(id=${blog.id})}">24*7 支持</a>
                             <br>
-                            <div style="padding-top: 10px;padding-bottom: 10px"> <span th:text="${blog.summary}"></span></div>
-                            <div ><span th:text="${blog.createDate}"></span><span> . 阅读:9百+</span><span style="float:right"><span th:text="${blog.username}">不得了的人物 </span> <img src="https://avatars0.githubusercontent.com/u/38550226?s=40&u=f1f8ae9fc00eeff54377fe0617c0335a92fad690&v=4" style="height: 16px;" class="img-circle"></span> </div>
+                            <div style="padding-top: 10px;padding-bottom: 10px; overflow:hidden" > <span th:text="${blog.summary}" ></span></div>
+                            <div >
+                                <span th:text="${blog.createDate}"></span> .
+                                <span class="text-danger" th:text="${blog.className}">Java</span>
+                                <span style="float:right"><span th:text="${blog.username}">不得了的人物 </span>
+                                    <img src="https://avatars0.githubusercontent.com/u/38550226?s=40&u=f1f8ae9fc00eeff54377fe0617c0335a92fad690&v=4" style="height: 16px;" class="img-circle">
+                                </span>
+                            </div>
                         </li>
 
                         <li class="list-group-item">
@@ -29,7 +35,6 @@
                     </ul>
             </div>
         </div>
-
 
         </div>
         <div class="col-md-3 column">
@@ -44,17 +49,8 @@
                 <li class="list-group-item">免费 Window 空间托管</li>
                 <li class="list-group-item">图像的数量</li>
             </ul>
-            <ul class="list-group">
-                <li class="list-group-item">推荐热点</li>
-                <li class="list-group-item">免费 Window 空间托管</li>
-                <li class="list-group-item">图像的数量</li>
-                <li class="list-group-item">24*7 支持</li>
-                <li class="list-group-item">每年更新成本</li>
-                <li class="list-group-item">折扣优惠</li>
-                <li class="list-group-item">免费域名注册</li>
-                <li class="list-group-item">免费 Window 空间托管</li>
-                <li class="list-group-item">图像的数量</li>
-            </ul>
+
+            <div th:replace="page/comm::advertise"></div>
         </div>
     </div>
 </div>

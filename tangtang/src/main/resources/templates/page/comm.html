@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-CN" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<!--导航菜单-->
 <div th:fragment="navigation">
     <nav role="navigation" class="navbar navbar-default navbar-static-top" style="margin-bottom: 10px;">
         <div class="container">
@@ -16,8 +18,9 @@
                 <ul class="nav navbar-nav ">
                     <!--<li><a href="/index">首页</a></li>-->
                     <li><a href="/blog">博客</a></li>
-                    <li><a href="/vibo">微博</a></li>
-                    <li><a href="/cyun">收藏</a></li>
+                    <li><a href="#">专题</a></li>
+                    <!--<li><a href="/vibo">微博</a></li>-->
+                   <!-- <li><a href="/cyun">收藏</a></li>-->
                 </ul>
                 <form class="navbar-form navbar-left" role="search">
                     <div class="input-group">
@@ -31,7 +34,7 @@
                 <ul class="nav navbar-nav navbar-right ">
                     <li ><a href="#" data-toggle="dropdown" class="dropdown-toggle">发布<strong class="caret"></strong></a>
                         <ul class="dropdown-menu" style="min-width:100%">
-                            <li class="visible-lg-block"><a href="/blog/add">文章</a></li>
+                            <li class="visible-lg-block"><a href="/blog/editor">文章</a></li>
                             <li><a href="#">热点</a></li>
                         </ul>
                     </li>
@@ -50,6 +53,17 @@
     </nav>
 </div>
 
+<!--广告公用块-->
+<div th:fragment="advertise">
+
+    <div class="list-group" >
+        <a href="#" class="list-group-item active">广告</a>
+        <a target="_blank" class="list-group-item" th:each="advertise : ${advertises}" th:text="${advertise.title}" th:href="${advertise.url}"></a>
+
+    </div>
+</div>
+
+<!--需要导入的css,js-->
 <div th:fragment="head">
     <head>
         <meta charset="utf-8">
@@ -63,4 +77,5 @@
         <script src="https://cdn.bootcss.com/vue/2.6.10/vue.min.js"></script>
     </head>
 </div>
+
 </html>

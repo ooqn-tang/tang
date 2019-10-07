@@ -42,7 +42,7 @@ public class Blog {
     private String stateName;
 
     //阅读次数
-    private Integer readCount;
+    private Integer pageviewCount;
 
     //评论数
     private Integer commentCount;

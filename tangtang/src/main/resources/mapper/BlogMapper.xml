@@ -4,13 +4,22 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="net.ttcxy.tangtang.mapper.BlogMapper">
 
-    <select id="selectBlogCls" resultType="Blog">
+    <select id="selectBlogCls" resultType="net.ttcxy.tangtang.entity.Blog">
         select b.id,title,DATE_FORMAT(create_date,'%Y.%m.%d')  createDate,username,text,summary,class_name
         FROM entity_blog b,entity_user u,entity_blog_class c
         where b.state_id = 1
         and u.id = b.user_id
         and b.class_id = c.id
         and b.class_id = #{cls}
+        order by create_date desc
+    </select>
+
+    <select id="selectBlog" resultType="net.ttcxy.tangtang.entity.Blog">
+        select b.id,title,DATE_FORMAT(create_date,'%Y.%m.%d')  createDate,username,text,summary,class_name
+        FROM entity_blog b,entity_user u,entity_blog_class c
+        where b.state_id = 1
+          and u.id = b.user_id
+          and b.class_id = c.id
         order by create_date desc
     </select>
 
@@ -25,22 +34,35 @@
           (#{id},#{blogId},1,#{userId},#{commentContent},NOW())
     </insert>
 
-    <select id="selectBlog" resultType="Blog">
-        select b.id,title,DATE_FORMAT(create_date,'%Y.%m.%d')  createDate,username,text,summary,class_name
-        FROM entity_blog b,entity_user u,entity_blog_class c
-        where b.state_id = 1
-          and u.id = b.user_id
-          and b.class_id = c.id
-        order by create_date desc
+
+
+    <select id="selectBlogByUUID" resultType="net.ttcxy.tangtang.entity.Blog">
+        select b.id,b.title,DATE_FORMAT(b.create_date,'%Y.%m.%d')  createDate,b.summary,b.text,u.username,(
+				SELECT count(1) FROM `entity_pageview` where data_id = #{uuid}
+				) pageviewCount
+
+        from entity_blog b,entity_user u  where b.user_id = u.id and b.id = #{uuid}
     </select>
 
-    <select id="getBlogByUUID" resultType="Blog">
-        select b.id,b.title,DATE_FORMAT(b.create_date,'%Y.%m.%d')  createDate,b.summary,b.text,u.username
-        from entity_blog b,entity_user u where b.user_id = u.id and  b.id = #{uuid}
-    </select>
-
-    <insert id="addBlog" parameterType="Blog">
+    <insert id="addBlog" parameterType="net.ttcxy.tangtang.entity.Blog">
         insert into entity_blog (id,title,user_id,text,summary,class_id,state_id,create_date)
         values(#{id},#{title},#{userId},#{text},#{summary},#{classId},#{stateId},now())
     </insert>
+
+    <update id="updateBlog" parameterType="net.ttcxy.tangtang.entity.Blog">
+        update entity_blog set title = #{title},summary = #{summary},text = #{text},class_id = #{classId},state_id = #{stateId},update_date = NOW()
+        where id = #{id}
+    </update>
+
+    <delete id="deleteBlog">
+        DELETE FROM ENTITY_BLOG WHERE ID = #{id}
+    </delete>
+
+    <insert id="deleteLike">
+        DELETE FROM `entity_like` WHERE USER_ID = #{userId} AND DATA_ID = #{dataId}
+    </insert>
+
+    <delete id="insertLike">
+        INSERT INTO `entity_like` (user_id,data_id,create_date) VALUES (#{userId},#{dataId},NOW())
+    </delete>
 </mapper>

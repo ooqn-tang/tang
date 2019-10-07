@@ -33,13 +33,13 @@ public class BlogController {
     @Autowired
     private HttpSession httpSession;
 
-    @GetMapping("add")
+    @GetMapping("editor")
     public String toEditor(){
         return "page/editor";
     }
 
     //添加博客，
-    @PostMapping("add")
+    @PostMapping("editor")
     @ResponseBody
     public ResponseData add(@RequestBody @Valid BlogParam blogParam){
 
@@ -51,8 +51,6 @@ public class BlogController {
         blogParam.setStateId("1");
 
         Integer influenceCount = blogService.addBlog(blogParam);
-
-        System.out.println("------------------"+influenceCount);
 
         if (influenceCount==1){
             return ResponseData.successful("successful");
@@ -103,10 +101,21 @@ public class BlogController {
      */
     @GetMapping("{blogId}")
     public String toBlogInfo(@PathVariable("blogId") String blogId, Model model){
-        Blog blog = blogService.getBlogByUUID(blogId);
+
+        User user = (User)httpSession.getAttribute(SessionKey.LOGIN_USER_SESSION_KEY);
+
+        String userId = null;
+
+        if (user!=null){
+            userId = user.getId();
+        }else{
+            userId = "0";
+        }
+
+        Blog blog = blogService.getBlogByUUID(blogId,userId);
 
         model.addAttribute(blog);
-        System.out.println("进入blog.html");
+
         return "page/blogInfo";
     }
 
@@ -137,14 +146,20 @@ public class BlogController {
 
     @GetMapping("queryList")
     public ResponseData queryList(@PathVariable("id") String id){
-
-
-
         return null;
     }
 
+    /**
+     * 如果数据库不存在，推荐，如果存在就取消。
+     * @param id
+     * @return
+     */
+    @GetMapping("/like/{id}/insert")
+    @ResponseBody
+    public ResponseData like(@PathVariable("id") String id){
 
+        User user = (User)httpSession.getAttribute(SessionKey.LOGIN_USER_SESSION_KEY);
 
-
-
+        return ResponseData.successful(blogService.like(user.getId(),id));
+    }
 }

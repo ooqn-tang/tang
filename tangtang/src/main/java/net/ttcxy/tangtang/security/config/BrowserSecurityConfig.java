@@ -78,12 +78,6 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
                     .csrf().disable();//关闭csrf安全
 
 
-         /*.authorizeRequests()
-                    .antMatchers("/login.html","/require","/doLogin","/code/image",
-                            securityProperties.getBrowser().getLoginPage()).permitAll()//antMatchers中的页面需要访问
-                //所有经过身份认证的用户可以访问如何url
-                .anyRequest().authenticated()*/
-
     }
 
 

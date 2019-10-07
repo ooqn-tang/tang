@@ -1,111 +1,37 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.w3.org/1999/xhtml" xmlns:v-buid="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.w3.org/1999/xhtml" xmlns:v-buid="http://www.w3.org/1999/xhtml"
+      xmlns:v-on="http://www.w3.org/1999/xhtml">
 <head th:replace="page/comm::head"></head>
 <body>
-
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header ">
-                <h4 class="modal-title" id="myModalLabel">
-                    评论
-                </h4>
-            </div>
-            <div class="modal-body">
-                <textarea id="comment" class="form-control" rows="3" style="resize:none;"></textarea>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">关闭
-                </button>
-                <button type="button" id="subComment" class="btn btn-primary">
-                    提交更改
-                </button>
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal -->
-</div>
 <div th:replace="page/comm::navigation"></div>
-<div class="container" id="blogInfo">
+<div class="container" id="app">
     <input id="blogId" type="hidden" th:value="${blog.id}">
     <div class="row clearfix">
         <div class="col-md-9 column">
             <div class="panel panel-default">
                 <div class="panel-body">
-                    <div><span><a href="#" th:text="${blog.username}"></a></span> . <span th:text="${blog.createDate}">2019-09-09</span> . 阅读:<span>1000+</span><button style="float:right;height: 20px;" class="btn btn-success btn-xs">关注</button> </div>
-                    <h3><strong th:text="${blog.title}">这是一个基本的面板</strong></h3>
+                    <div>
+                        <span><a href="#" th:text="${blog.username}"></a></span>
+                        <span>.</span>
+                        <span th:text="${blog.createDate}">2019-09-09</span>
+                        <span>. 阅读:</span>
+                        <span th:text="${blog.pageviewCount}"></span>
+                        <button style="float:right;height: 20px;" class="btn btn-success btn-xs">关注</button>
+                    </div>
+                    <h3><strong th:text="${blog.title}"></strong></h3>
                     <hr>
                     <div class="markdown-body" th:utext="${blog.text}"></div>
                 </div>
-                <div class="panel-footer" id="plBody">
-                    <p>评论：
-                        <a href="#" class="pull-right" data-toggle="modal" data-target="#myModal">
-                            <span class="glyphicon glyphicon-edit"></span>
-                        </a>
-                    </p>
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <p class="panel-title">
-                                <img src="https://avatars0.githubusercontent.com/u/38550226?s=40&amp;u=f1f8ae9fc00eeff54377fe0617c0335a92fad690&amp;v=4" style="height: 16px;" class="fa-image">
-                                芷容
-                                <span class="pull-right">2019-01-01</span>
-                            </p>
-                        </div>
-                        <div class="panel-body">
-                            不得了的评论
-                            <br>
-
-                        </div>
-
-                        <div class="panel-body">
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <p class="panel-title">
-                                        <img src="https://avatars0.githubusercontent.com/u/38550226?s=40&amp;u=f1f8ae9fc00eeff54377fe0617c0335a92fad690&amp;v=4" style="height: 16px;" class="fa-image">
-                                        魏符
-                                        <span class="pull-right">2019-01-01</span>
-                                    </p>
-                                </div>
-                                <div class="panel-body">
-                                    不好看
-                                </div>
-                            </div>
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <p class="panel-title">
-                                        <img src="https://avatars0.githubusercontent.com/u/38550226?s=40&amp;u=f1f8ae9fc00eeff54377fe0617c0335a92fad690&amp;v=4" style="height: 16px;" class="fa-image">
-                                        黄磊
-                                        <span class="pull-right">2019-01-01</span>
-                                    </p>
-                                </div>
-                                <div class="panel-body">
-                                    哦(⊙o⊙)
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="panel-footer">
+                    <button class="btn btn-default btn-xs" v-on:click="lkClick">喜欢</button>
+                    <button class="btn btn-default btn-xs" v-on:click="scClick">收藏</button>
+                    <button class="btn btn-default btn-xs" v-on:click="fxClick">分享</button>
+                    <button class="btn btn-default btn-xs" v-on:click="jbClick">举报</button>
+                    <a href="#" class="btn btn-default btn-xs">编辑</a>
                 </div>
-
             </div>
         </div>
         <div class="col-md-3 column">
-            <ul id="pl" class="list-group">
-                <li class="list-group-item visible-lg-block" >评论
-                   <span class="glyphicon glyphicon-eye-open pull-right"></span>
-                </li>
-                <li class="list-group-item">点赞
-                    <span class="glyphicon glyphicon-thumbs-up pull-right"></span>
-                </li>
-                <li class="list-group-item">收藏
-                    <span class="glyphicon glyphicon-star pull-right"></span>
-                </li>
-                <li class="list-group-item">分享
-                    <span class="glyphicon glyphicon-share-alt pull-right"></span>
-                </li>
-                <li class="list-group-item">举报
-                    <span class="glyphicon glyphicon-exclamation-sign pull-right"></span>
-                </li>
-            </ul>
-
             <div class="list-group">
                 <a href="#" class="list-group-item active">推荐</a>
                 <a href="#" class="list-group-item">24*7 支持</a>
@@ -113,35 +39,46 @@
                 <a href="#" class="list-group-item">图像的数量</a>
                 <a href="#" class="list-group-item">每年更新成本</a>
             </div>
-
-            <div class="list-group">
-                <a href="#" class="list-group-item active">广告</a>
-                <a href="#" class="list-group-item">官网淘宝店</a>
-                <a href="#" class="list-group-item">Java培训报名</a>
-                <a href="#" class="list-group-item">QQ群交流</a>
-            </div>
+            <div th:replace="page/comm::advertise"></div>
         </div>
     </div>
 </div>
-
 </body>
 <script>
-    $("#subComment").click(function(){
-        let data = {
-            comment:$("#comment").val(),
-            blogId:$("#blogId").val()
-        }
-        $.ajax({
-            type:"POST",
-            url:"/blog/comment",
-            contentType: "application/json", //必须这样写
-            dataType:"json",
-            data:JSON.stringify(data),//schoolList是你要提交是json字符串
-            success:function (result) {
-                alert(JSON.stringify(result))
+
+    let blogId = '[[${blog.id}]]'
+
+    let vm = new Vue({
+        el: '#app',
+        data: {
+            blogid:"",
+            site: "菜鸟教程",
+            url: "www.runoob.com",
+            alexa: "10000"
+        },
+        methods: {
+
+            // 喜欢
+            lkClick(){
+                $.get("/blog/like/"+blogId+"/insert",function(data,status){
+                    alert(JSON.stringify(data));
+                    alert(status)
+                });
+            },
+            // 收藏
+            scClick(){
+                alert(blogId+":收藏")
+            },
+            // 获取分享信息
+            fxClick(){
+                alert(blogId+":分享")
+            },
+            // 举报按钮
+            jbClick(){
+                alert(blogId+":举报")
             }
 
-        })
+        }
     })
 </script>
 </html>

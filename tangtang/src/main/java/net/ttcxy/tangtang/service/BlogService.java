@@ -21,7 +21,7 @@ public interface BlogService {
      */
     List<Blog> selectBlog();
 
-    Blog getBlogByUUID(String uuid);
+    Blog getBlogByUUID(String uuid,String userId);
 
     //添加blog
     int addBlog(BlogParam blogParam);
@@ -33,4 +33,11 @@ public interface BlogService {
     int deleteBlog();
 
     int addComment(CommentParam commentParam) throws Exception;
+
+    /**
+     * 喜欢blog
+     * @param userId
+     * @param blogId
+     */
+    int like(String userId,String blogId);
 }
