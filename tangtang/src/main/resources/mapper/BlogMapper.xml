@@ -4,27 +4,27 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="net.ttcxy.tangtang.mapper.BlogMapper">
 
-    <select id="selectBlogCls" resultType="net.ttcxy.tangtang.entity.Blog">
-        select b.id,title,DATE_FORMAT(create_date,'%Y.%m.%d')  createDate,username,text,summary,class_name
+    <select id="selectBlog" resultType="net.ttcxy.tangtang.entity.Blog">
+      select b.id,title,DATE_FORMAT(create_date,'%Y.%m.%d')  createDate,username,text,class_name,markdown
         FROM entity_blog b,entity_user u,entity_blog_class c
         where b.state_id = 1
         and u.id = b.user_id
         and b.class_id = c.id
-        and b.class_id = #{cls}
+        <if test="cls!=null and cls!=''">
+            and b.class_id = #{cls}
+        </if>
         order by create_date desc
-    </select>
-
-    <select id="selectBlog" resultType="net.ttcxy.tangtang.entity.Blog">
-        select b.id,title,DATE_FORMAT(create_date,'%Y.%m.%d')  createDate,username,text,summary,class_name
-        FROM entity_blog b,entity_user u,entity_blog_class c
-        where b.state_id = 1
-          and u.id = b.user_id
-          and b.class_id = c.id
-        order by create_date desc
+        <if test="pag!=null and pag!=''">
+            limit #{pag},15
+        </if>
     </select>
 
     <select id="isNotBlog" resultType="int">
         select count(1) from entity_blog where id = #{blogId}
+    </select>
+
+    <select id="getBlogByUUIDTextTit" resultType="net.ttcxy.tangtang.entity.Blog">
+        select id,title,class_id,markdown from entity_blog where id = #{blogId}
     </select>
 
     <insert id="addComment">
@@ -37,20 +37,29 @@
 
 
     <select id="selectBlogByUUID" resultType="net.ttcxy.tangtang.entity.Blog">
-        select b.id,b.title,DATE_FORMAT(b.create_date,'%Y.%m.%d')  createDate,b.summary,b.text,u.username,(
+        select b.id,b.title,DATE_FORMAT(b.create_date,'%Y.%m.%d')  createDate,b.text,u.username,(
 				SELECT count(1) FROM `entity_pageview` where data_id = #{uuid}
 				) pageviewCount
 
         from entity_blog b,entity_user u  where b.user_id = u.id and b.id = #{uuid}
     </select>
 
+    <resultMap id="optionList" type="HashMap">
+        <result column="id" property="id"></result>
+        <result column="class_name" property="className"></result>
+    </resultMap>
+
+    <select id="optionList" resultMap="optionList">
+        SELECT id,class_name FROM `entity_blog_class`
+    </select>
+
     <insert id="addBlog" parameterType="net.ttcxy.tangtang.entity.Blog">
-        insert into entity_blog (id,title,user_id,text,summary,class_id,state_id,create_date)
-        values(#{id},#{title},#{userId},#{text},#{summary},#{classId},#{stateId},now())
+        insert into entity_blog (id,title,user_id,text,class_id,state_id,create_date,markdown)
+        values(#{id},#{title},#{userId},#{text},#{classId},#{stateId},now(),#{markdown})
     </insert>
 
     <update id="updateBlog" parameterType="net.ttcxy.tangtang.entity.Blog">
-        update entity_blog set title = #{title},summary = #{summary},text = #{text},class_id = #{classId},state_id = #{stateId},update_date = NOW()
+        update entity_blog set title = #{title},text = #{text},markdown = #{markdown},class_id = #{classId},state_id = #{stateId},update_date = NOW()
         where id = #{id}
     </update>
 
@@ -65,4 +74,8 @@
     <delete id="insertLike">
         INSERT INTO `entity_like` (user_id,data_id,create_date) VALUES (#{userId},#{dataId},NOW())
     </delete>
+
+    <select id="selelcLike" resultType="integer">
+        SELECT count(*) FROM `entity_like`where user_id =  #{userId} and data_id =#{dataId}
+    </select>
 </mapper>

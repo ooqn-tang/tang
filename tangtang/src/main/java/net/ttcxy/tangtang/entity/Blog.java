@@ -26,8 +26,9 @@ public class Blog {
     //内容
     private String text;
 
-    //描述
-    private String summary;
+    //markdown
+    private String markdown;
+
 
     //blog 类型名
     private String className;

@@ -15,16 +15,16 @@ public class BlogParam {
     private String id;
 
     @NotNull
-    @Length(max = 50,min = 10,message = "长度不正确")
+    @Length(min = 1,message = "长度不能小于1")
     private String title;
 
     @NotNull
-    @Length(min = 10,message = "长度不能小于10")
+    @Length(min = 1,message = "长度不能小于1")
     private String text;
 
     @NotNull
-    @Length(max = 50,min = 10,message = "长度不正确")
-    private String summary;
+    @Length(min = 1,message = "长度不能小于1")
+    private String markdown;
 
     private String stateId;
 

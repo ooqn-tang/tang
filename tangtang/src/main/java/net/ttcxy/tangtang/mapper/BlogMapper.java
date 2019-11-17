@@ -6,19 +6,16 @@ import net.ttcxy.tangtang.entity.params.BlogParam;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 public interface BlogMapper {
 
     /**
      * 筛选Blog
      */
-    List<Blog> selectBlogCls(@Param("cls") String cls);
+    List<Blog> selectBlog(@Param("cls") String cls,@Param("pag") Integer pag);
 
-    /**
-     * 查询Blog
-     * @return
-     */
-    List<Blog> selectBlog();
+
 
     /**
      * 通过BlogId获取博客是否存在
@@ -35,6 +32,12 @@ public interface BlogMapper {
     Blog selectBlogByUUID(String uuid);
 
     /**
+     * 获取optionlist
+     * @return
+     */
+    List<Map<String,String>> optionList();
+
+    /**
      * 添加blog
      * @param blogParam
      * @return
@@ -45,7 +48,7 @@ public interface BlogMapper {
      * 更新博客
      * @return
      */
-    int updateBlog(Blog blog);
+    int updateBlog(BlogParam blogParam);
 
     /**
      * 删除博客
@@ -64,5 +67,10 @@ public interface BlogMapper {
                    @Param("dataId") String dataId);
 
     int insertLike(@Param("userId") String userId,
+                   @Param("dataId") String dataId);
+
+    Blog getBlogByUUIDTextTit(@Param("blogId") String uuid);
+
+    int selelcLike(@Param("userId") String userId,
                    @Param("dataId") String dataId);
 }

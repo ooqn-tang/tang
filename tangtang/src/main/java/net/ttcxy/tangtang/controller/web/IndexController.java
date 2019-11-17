@@ -26,28 +26,21 @@ public class IndexController {
     private Logger logger = LoggerFactory.getLogger(getClass());
 
     @Autowired
-    private BlogService blogServiceImpl;
+    private BlogService blogService;
 
     @Autowired
     private AdvertisementServiceImpl advertisementService;
+
     @GetMapping({"index","blog",""})
-    public String toBlog( Model model,@RequestParam(name = "cls", required = false)String cls){
+    public String toBlog( Model model,
+                          @RequestParam(name = "cls", required = false)String cls,
+                          @RequestParam(name = "pag", required = false)Integer pag){
 
-        SecurityContext ctx = SecurityContextHolder.getContext();
-        Authentication auth = ctx.getAuthentication();
-
-
-        System.out.println("user:"+ auth.getPrincipal());
-
-        if (StrUtil.isBlank(cls)){
-            model.addAttribute("blogList",blogServiceImpl.selectBlog());
-        }else{
-            model.addAttribute("blogList",blogServiceImpl.selectBlogCls(cls));
-        }
-
+        model.addAttribute("blogList",blogService.selectBlog(cls,pag));
+        model.addAttribute("clss",blogService.optionList());
         model.addAttribute("advertises",advertisementService.selectAllAdvertisement());
-        System.out.println(advertisementService.selectAllAdvertisement());
         return "page/blog";
+
     }
 
 }

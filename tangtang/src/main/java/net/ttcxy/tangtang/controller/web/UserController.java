@@ -1,6 +1,7 @@
 package net.ttcxy.tangtang.controller.web;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,8 +16,8 @@ public class UserController {
 
     //用户home页
     @GetMapping("{username}")
-    public String toUserHome(@PathVariable("username")String username){
-
+    public String toUserHome(@PathVariable("username")String username, Model model){
+        model.addAttribute("username",username);
         return "page/userhome";
     }
 

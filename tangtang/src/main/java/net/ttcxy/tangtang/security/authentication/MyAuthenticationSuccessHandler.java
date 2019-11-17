@@ -41,7 +41,6 @@ public class MyAuthenticationSuccessHandler extends SavedRequestAwareAuthenticat
                                         HttpServletResponse httpServletResponse,
                                         Authentication authentication) throws IOException, ServletException {
 
-
         //获取登录的用户
         Object principal = authentication.getPrincipal();
 
@@ -51,10 +50,6 @@ public class MyAuthenticationSuccessHandler extends SavedRequestAwareAuthenticat
         }
 
         super.onAuthenticationSuccess(httpServletRequest,httpServletResponse,authentication);
-
-        /*
-        httpServletResponse.setContentType("application/json;charset=UTF-8");
-        httpServletResponse.getWriter().write(objectMapper.writeValueAsString(authentication));*/
 
     }
 }

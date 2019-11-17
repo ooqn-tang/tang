@@ -1,6 +1,7 @@
 package net.ttcxy.tangtang.controller.web;
 
 import cn.hutool.core.util.IdUtil;
+import com.qiniu.util.Auth;
 import net.ttcxy.tangtang.code.ResponseData;
 import net.ttcxy.tangtang.code.SessionKey;
 import net.ttcxy.tangtang.entity.*;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -33,13 +35,35 @@ public class BlogController {
     @Autowired
     private HttpSession httpSession;
 
+
+    @GetMapping("new")
+    public String newBlog(){
+
+        return null;
+    }
+
+    /**
+     * 通过入参判断查询的类别
+     * @return
+     */
+    @GetMapping("cls")
+    public String selectBlogByCls(){
+
+        return null;
+    }
+
+    @GetMapping("insert")
+    public String toInsert(){
+        return "page/insert";
+    }
+
     @GetMapping("editor")
     public String toEditor(){
         return "page/editor";
     }
 
     //添加博客，
-    @PostMapping("editor")
+    @PostMapping("insert")
     @ResponseBody
     public ResponseData add(@RequestBody @Valid BlogParam blogParam){
 
@@ -50,6 +74,7 @@ public class BlogController {
         blogParam.setUserId(user.getId());
         blogParam.setStateId("1");
 
+
         Integer influenceCount = blogService.addBlog(blogParam);
 
         if (influenceCount==1){
@@ -58,6 +83,29 @@ public class BlogController {
             return  ResponseData.error("error");
         }
     }
+
+
+    //更新
+    @GetMapping("update/{id}")
+    public String toUpdate(@PathVariable("id") String id,Model model){
+
+        model.addAttribute("blog", blogService.getBlogByUUIDTextTit(id));
+        return "page/update";
+    }
+
+    @PostMapping("update")
+    @ResponseBody
+    public ResponseData update(@RequestBody @Valid BlogParam blogParam){
+
+        User user = (User)httpSession.getAttribute(SessionKey.LOGIN_USER_SESSION_KEY);
+
+        blogParam.setUserId(user.getId());
+
+
+        return  ResponseData.successful(blogService.updateBlog(blogParam));
+
+    }
+
 
     //添加评论
     @PostMapping("/comment")
@@ -99,12 +147,12 @@ public class BlogController {
      * @param blogId
      * @return
      */
-    @GetMapping("{blogId}")
+    @GetMapping("/get/{blogId}")
     public String toBlogInfo(@PathVariable("blogId") String blogId, Model model){
 
         User user = (User)httpSession.getAttribute(SessionKey.LOGIN_USER_SESSION_KEY);
 
-        String userId = null;
+        String userId;
 
         if (user!=null){
             userId = user.getId();
@@ -115,6 +163,7 @@ public class BlogController {
         Blog blog = blogService.getBlogByUUID(blogId,userId);
 
         model.addAttribute(blog);
+        model.addAttribute("like",blogService.selelcLike(userId,blogId));
 
         return "page/blogInfo";
     }
@@ -126,22 +175,33 @@ public class BlogController {
         return null;
     }
 
-    //删除博客
-    @GetMapping("update/{id}")
-    public ResponseData update(@PathVariable("id") String id){
 
-
-
-        return null;
-    }
 
     //删除博客
     @GetMapping("query/{id}")
     public ResponseData query(@PathVariable("id") String id){
-
-
-
         return null;
+    }
+
+    @PostMapping("img/upload")
+    @ResponseBody
+    public Map<String,String> fileUpdate(@RequestParam(value="editormd-image-file") MultipartFile multipartFile){
+
+        String accessKey = "M6qf3dVX9P5RY1fQWnFItPjw7q8ExvUhFmGRgyHq";
+        String secretKey = "EoiEXLXG_GwLox4TA0W28bVCj3tXkZwT7Le_LK1z";
+        String bucket = "bucket name";
+        Auth auth = Auth.create(accessKey, secretKey);
+        String upToken = auth.uploadToken(bucket);
+
+
+
+        multipartFile.getName();
+        return null;
+
+    }
+
+    public static void main(String[] args) {
+
     }
 
     @GetMapping("queryList")
@@ -161,5 +221,15 @@ public class BlogController {
         User user = (User)httpSession.getAttribute(SessionKey.LOGIN_USER_SESSION_KEY);
 
         return ResponseData.successful(blogService.like(user.getId(),id));
+    }
+
+    /**
+     * 获取博客添加Option列表
+     * @return
+     */
+    @GetMapping("/optionList")
+    @ResponseBody
+    public ResponseData optionList(){
+        return ResponseData.successful(blogService.optionList());
     }
 }

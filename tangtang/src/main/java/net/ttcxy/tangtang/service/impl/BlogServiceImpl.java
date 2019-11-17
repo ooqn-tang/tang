@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class BlogServiceImpl implements BlogService {
@@ -20,17 +21,16 @@ public class BlogServiceImpl implements BlogService {
     @Autowired
     private PageviewMapper pageviewMapper;
 
-    @Override
-    public List<Blog> selectBlogCls(String cls) {
 
-
-
-        return blogMapper.selectBlogCls(cls);
-    }
 
     @Override
-    public List<Blog> selectBlog() {
-        return blogMapper.selectBlog();
+    public List<Blog> selectBlog(String cls,Integer pag) {
+
+        if (pag!=null){
+            pag =  pag <= 1 ? 0 : ((pag - 1) * 15);
+        }
+
+        return blogMapper.selectBlog(cls,pag);
     }
 
     @Override
@@ -39,8 +39,13 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
-    public int updateBlog() {
-        return 0;
+    public List<Map<String, String>> optionList() {
+        return blogMapper.optionList();
+    }
+
+    @Override
+    public int updateBlog(BlogParam blogParam) {
+        return blogMapper.updateBlog(blogParam);
     }
 
     @Override
@@ -64,7 +69,10 @@ public class BlogServiceImpl implements BlogService {
         try{
             return blogMapper.insertLike(userId,blogId);
         }catch (Exception e){
-            return blogMapper.deleteLike(userId,blogId);
+            if (blogMapper.deleteLike(userId,blogId)==1){
+                return -1;
+            }
+            return 0;
         }
     }
 
@@ -76,5 +84,16 @@ public class BlogServiceImpl implements BlogService {
         pageviewMapper.insertPageview(userId,uuid);
 
         return blogMapper.selectBlogByUUID(uuid);
+    }
+
+    @Override
+    public Blog getBlogByUUIDTextTit(String uuid){
+
+        return blogMapper.getBlogByUUIDTextTit(uuid);
+    }
+
+    @Override
+    public int selelcLike(String userId, String dataId) {
+        return blogMapper.selelcLike(userId,dataId);
     }
 }

@@ -31,14 +31,17 @@ public class ValidateCodeController {
     @Autowired
     private SecurityProperties securityProperties;
 
-    @GetMapping("code/image")
+    @GetMapping("code/image.png")
     public void  createCodeImage(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws IOException {
 
         ValidateCode validateCode = createImageCode(new ServletWebRequest(httpServletRequest));
 
         sessionStrategy.setAttribute(new ServletWebRequest(httpServletRequest), SessionKey.SESSION_KEY_IMAGE_CODE, validateCode);
+        httpServletResponse.setContentType("image/png");
 
-        ImageIO.write(validateCode.getImage(),"JPEG",httpServletResponse.getOutputStream());
+        ImageIO.write(validateCode.getImage(),"PNG",httpServletResponse.getOutputStream());
+
+
     }
 
     @GetMapping("code/sms")

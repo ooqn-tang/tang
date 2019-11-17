@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh-CN"  xmlns:th="http://www.w3.org/1999/xhtml"  style="height: 100%;">
+<head>
+    <meta charset="utf-8">
+    <title>网站模型</title>
+    <link rel="stylesheet" href="/static/lib/editormd/css/editormd.min.css" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.bootcss.com/jquery/2.1.2/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/twitter-bootstrap/3.3.7/js/bootstrap.js"></script>
+    <script src="/static/lib/editormd/js/editormd.min.js"></script>
+</head>
+<body style="height: 100%;">
+<div id="test-editormd" style="height: 100%;margin: 0px;border-top: 0;"></div>
+</body>
+<script type="text/javascript">
+    var testEditor;
+    $(function() {
+        testEditor = editormd("test-editormd", {
+            saveHTMLToTextarea: true,
+            width   : "100%",
+            height  : "100%",
+            syncScrolling : "single",
+            path    : "/static/lib/editormd/lib/",
+            imageUpload    : true,
+            imageFormats   : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+            imageUploadURL : "/blog/img/upload",
+            toolbarIcons : function() {
+                return ["title","setClass","undo", "redo", "|", "bold", "del", "italic", "quote", "list-ul", "list-ol", "hr", "link","image","datetime","watch","||","addInfo","saveInfo","butTc"]
+            },
+            toolbarIconTexts:{
+                saveInfo:"草稿",
+                addInfo:"发布",
+                butTc:"退出"
+            },
+            toolbarCustomIcons :{
+                setClass:"<select id='classId' class='form-control' style='width: 120px;'></select>",
+                title   :"<input type='text' id='title' class='form-control' style='width: 500px;' oninput='if(value.length>11)value=value.slice(0,60)' placeholder='标题，最大长度60'>"
+            },
+            toolbarHandlers :{
+                butTc:function(){
+                    let l = window.history.back(-1);
+                    window.location.href="/";
+
+                },
+                addInfo:function(cm, icon, cursor, selection){
+
+                    let data = {
+                            title:$("#title").val(),
+                            text:testEditor.getHTML(),
+                            markdown:testEditor.getMarkdown(),
+                            classId:$("#classId").val(),
+                            stateId:"1"
+                        }
+
+                    $.ajax({
+                        type:"POST",
+                        url:"/blog/insert",
+                        contentType: "application/json", //必须这样写
+                        dataType:"json",
+                        data:JSON.stringify(data),
+                        success:function (data) {
+                            if (data.state=='00'){
+                                alert("添加成功");
+                            }
+                        }
+                    })
+                }
+            },onload : function() {
+                $.ajax({
+                    type:"get",
+                    url:"/blog/optionList",
+                    contentType: "application/json", //必须这样写
+                    success:function (data) {
+                        if (data.state=='00'){
+                            for(let i = 0; i < data.data.length ;i++){
+                                $("#classId").append("<option value="+data.data[i]["id"]+">"+data.data[i]["className"]+"</option>");
+                            }
+                        }
+                    }
+                })
+            }
+        })
+    });
+</script>
+</html>

@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.w3.org/1999/xhtml" xmlns:v-buid="http://www.w3.org/1999/xhtml"
-      xmlns:v-on="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.w3.org/1999/xhtml">
 <head th:replace="page/comm::head"></head>
 <body>
 <div th:replace="page/comm::navigation"></div>
@@ -23,11 +22,10 @@
                     <div class="markdown-body" th:utext="${blog.text}"></div>
                 </div>
                 <div class="panel-footer">
-                    <button class="btn btn-default btn-xs" v-on:click="lkClick">喜欢</button>
-                    <button class="btn btn-default btn-xs" v-on:click="scClick">收藏</button>
-                    <button class="btn btn-default btn-xs" v-on:click="fxClick">分享</button>
-                    <button class="btn btn-default btn-xs" v-on:click="jbClick">举报</button>
-                    <a href="#" class="btn btn-default btn-xs">编辑</a>
+                    <button  th:classappend="${like == 1} ? 'btn btn-danger  btn-xs' : 'btn btn-default btn-xs'" id="lkBut">喜欢</button>
+                    <button class="btn btn-default btn-xs" id="scBut">收藏</button>
+                    <button class="btn btn-default btn-xs" id="fxBut">分享</button>
+                    <a th:href="@{/blog/update/{id}(id=${blog.id})}" class="btn btn-default btn-xs"  th:if="${session.LOGIN_USER_SESSION != null} and ${session.LOGIN_USER_SESSION.username == blog.username}">编辑</a>
                 </div>
             </div>
         </div>
@@ -45,40 +43,31 @@
 </div>
 </body>
 <script>
-
     let blogId = '[[${blog.id}]]'
 
-    let vm = new Vue({
-        el: '#app',
-        data: {
-            blogid:"",
-            site: "菜鸟教程",
-            url: "www.runoob.com",
-            alexa: "10000"
-        },
-        methods: {
+    $("#lkBut").click(function(){
+        $.get("/blog/like/"+blogId+"/insert",function(data,status){
 
-            // 喜欢
-            lkClick(){
-                $.get("/blog/like/"+blogId+"/insert",function(data,status){
-                    alert(JSON.stringify(data));
-                    alert(status)
-                });
-            },
-            // 收藏
-            scClick(){
-                alert(blogId+":收藏")
-            },
-            // 获取分享信息
-            fxClick(){
-                alert(blogId+":分享")
-            },
-            // 举报按钮
-            jbClick(){
-                alert(blogId+":举报")
+            if (data.data == -1){
+                $("#lkBut").removeClass()
+                $("#lkBut").addClass("btn btn-default btn-xs")
             }
 
-        }
+            if (data.data == 1){
+                $("#lkBut").removeClass()
+                $("#lkBut").addClass("btn btn-danger  btn-xs")
+            }
+
+        });
     })
+
+    $("#scBut").click(function(){
+
+    })
+
+    $("#fxBut").click(function(){
+
+    })
+
 </script>
 </html>

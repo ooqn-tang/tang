@@ -29,11 +29,6 @@ public class SecurityUserDetailsService implements UserDetailsService {
 
         User user = userServiceImpl.selectUserByName(username);
 
-        /*User user = new User(username,userServiceImpl.selectUserByName(username).getPassword(),
-                true,true,true,true,
-                AuthorityUtils.commaSeparatedStringToAuthorityList("admin"));
-*/
-        //根据用户名查找用户信息
         return user;
     }
 

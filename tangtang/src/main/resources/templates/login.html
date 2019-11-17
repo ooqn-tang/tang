@@ -6,6 +6,7 @@
     <link href="favicon.ico" rel="shortcut icon" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <link href="https://cdn.bootcss.com/twitter-bootstrap/3.4.0/css/bootstrap.min.css" rel="stylesheet">
+
     <style>
 
         #modelBody{margin-top: 10%;}
@@ -18,7 +19,7 @@
 
 
 <div class="modal-dialog" id="modelBody">
-    <form action="/doLogin" method="post" >
+    <form action="/authentication/form" method="post" >
     <div class="modal-content">
         <div class="modal-header">
             <h4 class="modal-title text-center" id="myModalLabel">登录</h4>
@@ -33,7 +34,7 @@
             <div class="form-group">
                 <div class="input-group">
                     <input type="text" class="form-control" placeholder="验证码" name="imageCode" autocomplete="off">
-                    <span style="padding: 0px" class="input-group-addon"><img style="width: 80px;" height="30" src="/code/image"></span>
+                    <span style="padding: 0px" class="input-group-addon"><img style="width: 80px;" id="code" height="30" src="/code/image.png"></span>
                 </div>
             </div>
 
@@ -54,4 +55,8 @@
 </div><!-- /.modal -->
 
 </body>
+<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+<script>
+
+</script>
 </html>

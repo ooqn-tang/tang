@@ -1,93 +1,166 @@
 <!DOCTYPE html>
-<html lang="zh-CN"  xmlns:th="http://www.w3.org/1999/xhtml"  style="height: 100%;">
+<html lang="en">
+
 <head>
-    <meta charset="utf-8">
-    <title>网站模型</title>
-    <link rel="stylesheet" href="/static/lib/editormd/css/editormd.min.css" />
-    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />
-    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
-    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="https://cdn.bootcss.com/vue/2.6.10/vue.min.js"></script>
+    <meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,height=device-height,initial-scale=1.0,user-scalable=no,minimum-scale=1.0,maximum-scale=1.0"/>
+    <title>md转换为html</title>
+	<link rel="stylesheet" href="/static/editormd/css/editormd.css" />
+	<style>
+	body,html{
+		padding:0px;
+		height:100%;
+		white:100%;
+		margin:0px;
+		}
+	#test-editor{
+		height:calc(100% - 44px) !important;
+		border:0px;
+		border-top: 1px solid #ddd !important;
+		margin:0px
+	}
+	:focus {
+		outline: -webkit-focus-ring-color auto 0px;
+	}
+	#title{
+		width:calc(100% - 125px);
+		box-sizing: border-box;
+		border:0px; 
+		padding: 1px 10px; 
+		font-weight: bold; 
+		height: 40px;
+	}
+
+	.button {
+		box-sizing: border-box;
+		height:43px;
+		width:60px;
+		border:0px;
+		background:#e7e7e7;
+		font-weight: bold; 
+		color:#4c4c44;
+	}
+	.button:active{
+		background:#dddddd;
+	}
+
+
+
+
+	.modal{
+		display: block;
+		position:fixed;
+		left:50%;
+		top:50%;
+		margin-left:-200px;
+		margin-top:-250px;
+		z-index:99999;
+		background-color:white;
+	}
+	.hide{
+		display:none;
+	}
+
+
+	</style>
 </head>
-<body style="height: 100%;">
-<div id="test-editormd" style="height: 100%;margin: 0px;border-top: 0;">
+<body>
+<input data-v-557021a4="" placeholder="请输入标题" id="title">
+<button  class="button" id="bc">保存</button><button  class="button" onClick="javascript :history.go(-1);">取消</button>
+<div id="test-editor">
+<textarea style="display:none;">
+</textarea>
 </div>
+
+
+<div style=" background: rgba(0,0,0,0.3); width: 100%;height: 100%;z-index: 99999; position:fixed;top: 0px;left: 0px;" class=" hide" id="md">
+	<div class="editormd-dialog editormd-image-dialog modal">
+		<div class="editormd-dialog-container">
+			<div class="editormd-form">
+				<br><br>
+				<!--<label>图片地址</label>
+				<input type="text" data-url=""><br>-->
+				<label>分&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;类</label>
+				<select id="classId" style="height: 34px;width: 282px;">
+				</select><br>
+				<!--<label>添加专辑</label>
+                <input type="text" value="http://" data-link=""><br>
+                <label>类&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;型</label>
+                <input type="text" value="http://" data-link=""><br>
+                <label>转载地址</label>
+                <input type="text" value="http://" data-link=""><br>-->
+			</div><div class="editormd-dialog-footer">
+			<button class="editormd-btn">添加草稿</button>
+			<button class="editormd-btn" id="fb">发布</button>
+			<button class="editormd-btn" id="qx">取消</button></div>
+		</div><div class="editormd-dialog-mask editormd-dialog-mask-bg"></div>
+		<div class="editormd-dialog-mask editormd-dialog-mask-con"></div>
+	</div>
 </div>
 </body>
-<script src="/static/lib/editormd/js/jquery.min.js"></script>
-<script src="/static/lib/editormd/js/editormd.min.js"></script>
+<script src="https://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+<script src="/static/editormd/editormd.min.js"></script>
 <script type="text/javascript">
-    var testEditor;
     $(function() {
-        testEditor = editormd("test-editormd", {
-            width   : "100%",
-            height  : "100%",
-            syncScrolling : "single",
-            path    : "/static/lib/editormd/lib/",
-            toolbarIcons : function() {
-                return ["title","setClass","undo", "redo", "|", "bold", "del", "italic", "quote", "list-ul", "list-ol", "hr", "link","image","datetime","watch","||","butCg","addInfo","saveInfo","butTc"]
-            },
-			toolbarIconTexts:{
-            	saveInfo:"草稿",
-				addInfo:"发布",
-
-				butCg:"保存",
-				butTc:"退出"
-			},
-			toolbarCustomIcons :{
-				setClass:"<select id='classId' class=\"form-control\">\n" +
-						"\t\t\t<option value='1'>日志</option>\n" +
-						"\t\t\t<option value='2'>JAVA</option>\n" +
-						"\t\t\t<option value='3'>Python</option>\n" +
-						"\t\t\t<option value='4'>前端</option>\n" +
-						"\t\t</select>",
-				title   : "<input type='text' id='title' class='form-control' style='width: 700px; max-width: 100%;' oninput='if(value.length>11)value=value.slice(0,60)' placeholder='标题，最大长度60'>"
-			},
-			toolbarHandlers :{
-            	butTc:function(){
-					let l = window.history.back(-1);
-					window.location.href="/";
-
-				},
-				addInfo:function(cm, icon, cursor, selection){
-					let title = $("#title").val();
-					let text = $(".editormd-preview-container").html();
-					let summary = $(".editormd-preview-container").text().substring(0,49)
-					let classId = $("#classId").val();
-					let state = "1";
-					let data = {
-						title:title,
-						text:text,
-						summary:summary,
-						classId:classId,
-						state:state
-					}
-					$.ajax({
-						type:"POST",
-						url:"/blog/add",
-						contentType: "application/json", //必须这样写
-						dataType:"json",
-						data:JSON.stringify(data),//schoolList是你要提交是json字符串
-						success:function (data) {
-							if (data.state=='00'){
-								alert("添加成功");
-							}
-						}
-					})
-
-
-				}
-			}
+        var editor = editormd("test-editor", {
+            width  : "100%",
+            path   : "/static/editormd/lib/",
+			saveHTMLToTextarea:true
         });
 
+		$('#bc').click(function(){
+			$('#md').removeClass('hide');
+		});
 
-        /*$("#title").change(function(){
-        	if($("#title").length > 40){
+		$("#qx").click(function(){
+			$('#md').addClass("hide")
+		})
 
+		$("#fb").click(function(){
+			let title = $("#title").val();
+			let html = editor.getHTML();
+			let markdown = editor.getMarkdown();
+			let classId = $("#classId").val();
+
+
+			let data = {
+				title:title,
+				text:html,
+				markdown:markdown,
+				classId:classId
 			}
-		})*/
-    });
 
+			$.ajax({
+				type:"POST",
+				url:"/blog/insert",
+				contentType: "application/json", //必须这样写
+				dataType:"json",
+				data:JSON.stringify(data),
+				success:function (data) {
+					if (data.state=='00'){
+						javascript :history.go(-1);
+					}
+				}
+			})
+
+		})
+
+		editor
+
+		$.ajax({
+			type:"get",
+			url:"/blog/optionList",
+			contentType: "application/json", //必须这样写
+			success:function (data) {
+				if (data.state=='00'){
+					for(let i = 0; i < data.data.length ;i++){
+						$("#classId").append("<option value="+data.data[i]["id"]+">"+data.data[i]["className"]+"</option>");
+					}
+				}
+			}
+		})
+
+    });
 </script>
+
 </html>

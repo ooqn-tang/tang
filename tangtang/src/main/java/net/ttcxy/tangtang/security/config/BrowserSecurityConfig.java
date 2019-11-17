@@ -61,8 +61,8 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.addFilterBefore(validateCodeFilter, UsernamePasswordAuthenticationFilter.class)//在拦截器UsernamePasswordAuthenticationFilter前面添加一个拦截器
                     .formLogin()//当前配置文件，用于配置浏览器表单登录
-                    .loginPage("/login.html")//配置登录页面
-                    .loginProcessingUrl("/doLogin")//登录POST请求
+                    .loginPage("/authentication/require")//配置登录页面
+                    .loginProcessingUrl("/authentication/form")//登录POST请求
                     .successHandler(myAuthenticationSuccessHandler)//自己重写的登录成功处理器
                     .failureHandler(myAuthenticationFailureHandler)//自己重写的登录失败处理器
                 .and()//结束上一个登录配置，开始“记住我”的配置
