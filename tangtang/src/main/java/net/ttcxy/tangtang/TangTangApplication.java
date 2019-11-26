@@ -11,6 +11,8 @@ public class TangTangApplication {
 
     public static void main(String[] args) {
 
+
+
         SpringApplication springApplication = new SpringApplication(TangTangApplication.class);
 
         //关键一步：项目启动前调用我

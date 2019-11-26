@@ -48,9 +48,7 @@ body{
     font-size: 15px;
 }
 
-
-a:hover{text-decoration:none;}
-a{text-decoration:none;}
+a:hover,a:hover,a{text-decoration:none !important;}
 .nava{
     display: inline-block;
     margin-bottom: 0;

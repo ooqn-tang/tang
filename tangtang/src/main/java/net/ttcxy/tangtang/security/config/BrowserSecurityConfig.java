@@ -2,6 +2,7 @@ package net.ttcxy.tangtang.security.config;
 
 import net.ttcxy.tangtang.security.authentication.MyAuthenticationFailureHandler;
 import net.ttcxy.tangtang.security.authentication.MyAuthenticationSuccessHandler;
+import net.ttcxy.tangtang.security.filter.MailValidateCodeFilter;
 import net.ttcxy.tangtang.security.filter.ValidateCodeFilter;
 import net.ttcxy.tangtang.security.properties.SecurityProperties;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,7 +60,14 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
         validateCodeFilter.setSecurityProperties(securityProperties);
         validateCodeFilter.afterPropertiesSet();
 
-        http.addFilterBefore(validateCodeFilter, UsernamePasswordAuthenticationFilter.class)//在拦截器UsernamePasswordAuthenticationFilter前面添加一个拦截器
+
+
+        MailValidateCodeFilter mailValidateCodeFilter = new MailValidateCodeFilter();
+        mailValidateCodeFilter.setAuthenticationFailureHandler(myAuthenticationFailureHandler);
+        mailValidateCodeFilter.setSecurityProperties(securityProperties);
+        mailValidateCodeFilter.afterPropertiesSet();
+
+        http.addFilterBefore(mailValidateCodeFilter, UsernamePasswordAuthenticationFilter.class).addFilterBefore(validateCodeFilter, UsernamePasswordAuthenticationFilter.class)//在拦截器UsernamePasswordAuthenticationFilter前面添加一个拦截器
                     .formLogin()//当前配置文件，用于配置浏览器表单登录
                     .loginPage("/authentication/require")//配置登录页面
                     .loginProcessingUrl("/authentication/form")//登录POST请求

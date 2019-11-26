@@ -52,10 +52,6 @@ public class BlogController {
         return null;
     }
 
-    @GetMapping("insert")
-    public String toInsert(){
-        return "page/insert";
-    }
 
     @GetMapping("editor")
     public String toEditor(){
