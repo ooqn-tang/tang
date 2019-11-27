@@ -8,4 +8,6 @@ public interface UserService {
 
     User selectUserByName(String name) ;
 
+    int insertUser(String username,String password,String mail);
+
 }

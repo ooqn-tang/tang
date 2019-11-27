@@ -2,6 +2,8 @@ package net.ttcxy.tangtang.controller.web;
 
 import net.ttcxy.tangtang.code.ResponseData;
 import net.ttcxy.tangtang.entity.User;
+import net.ttcxy.tangtang.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -34,14 +36,16 @@ public class UserController {
 
     }
 
+    @Autowired
+    private UserService userService;
+
     @PostMapping("register")
     @ResponseBody
     public ResponseData register(@RequestParam("username") String username,
                                  @RequestParam("password") String password,
-                                 @RequestParam("password1") String password1,
                                  @RequestParam("mail") String mail){
 
-        System.out.println(String.format("%s%s%s%s",username,password,password1,mail));
+        userService.insertUser(username,password,mail);
 
         return ResponseData.successful("OK");
     }
