@@ -35,13 +35,13 @@
                 <input type="password" class="form-control" placeholder="确认密码" id="password1" name="password1" autocomplete=" ">
             </div>
             <div class="form-group">
-                <input class="form-control" placeholder="邮箱" name="mail" id="mail" autocomplete="off">
+                <input class="form-control" placeholder="邮箱" name="mail" id="mail" autocomplete="off" >
             </div>
             <div class="form-group">
                 <div class="input-group">
                     <input type="text" class="form-control" name="mailCode"  placeholder="验证码">
                     <span class="input-group-btn">
-                        <button class="btn btn-default" type="button" id="sendmail">发送验证码</button>
+                        <button class="btn btn-default" type="button" id="sendmail">获取</button>
                     </span>
                 </div><!-- /input-group -->
             </div>
@@ -51,7 +51,6 @@
                 <button type="submit" class="btn btn-primary form-control">提交注册</button>
             </div>
             <div class="btn-group" style="width: 100%;">
-               <!-- <button style="width: 33%;" type="button" class="btn btn-default" >社交登录</button>-->
                 <a style="width: 50%;" href="/login.html" type="button" class="btn btn-default">账号登陆</a>
                 <button style="width: 50%;" type="button" class="btn btn-default">忘记密码</button>
             </div>
@@ -64,11 +63,60 @@
 </body>
 <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
 <script>
+
+    let interval;
     $(function(){
         $("#sendmail").click(function(){
-            alert($("#mail").val())
             $.get("code/mail/"+$("#mail").val());
+            $("#sendmail").attr("disabled","disabled")
+            $("#sendmail").text("获取(30)")
+
+            interval = setInterval("sj()",1000);
+
+
         })
+
+
+        $('form').bootstrapValidator({
+            message: 'This value is not valid',
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                username: {
+                    message: '用户名验证失败',
+                    validators: {
+                        notEmpty: {
+                            message: '用户名不能为空'
+                        }
+                    }
+                },
+                email: {
+                    validators: {
+                        notEmpty: {
+                            message: '邮箱地址不能为空'
+                        }
+                    }
+                }
+            }
+        });
+
     })
+
+    let c = 29;
+    function sj(){
+        $("#sendmail").text("获取("+c+")")
+
+        if (c == 0){
+
+            $("#sendmail").text("获取")
+            $("#sendmail").removeAttr("disabled")
+            clearInterval(interval)
+        }
+
+        c --;
+    }
 </script>
 </html>

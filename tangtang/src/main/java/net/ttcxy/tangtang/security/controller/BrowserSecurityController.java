@@ -1,6 +1,7 @@
 package net.ttcxy.tangtang.security.controller;
 
 import cn.hutool.core.util.StrUtil;
+import net.ttcxy.tangtang.code.ResponseData;
 import net.ttcxy.tangtang.code.SessionKey;
 import net.ttcxy.tangtang.entity.User;
 import net.ttcxy.tangtang.security.model.SimpleResponse;
@@ -26,35 +27,22 @@ import java.io.IOException;
 @Controller
 public class BrowserSecurityController {
 
-    private RequestCache requestCache = new HttpSessionRequestCache();
-
-    private Logger logger = LoggerFactory.getLogger(getClass());
-
     private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
-
-
-    @Autowired
-    private SecurityProperties securityProperties;
 
     @GetMapping("/authentication/require")
     @ResponseBody
     @ResponseStatus(code = HttpStatus.UNAUTHORIZED)
-    public SimpleResponse GetRequireAuthentication(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public ResponseData GetRequireAuthentication(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-        SavedRequest savedRequest = requestCache.getRequest(request,response);
+        if (!response.getHeaderNames().contains("X-Requested-With"))
+            redirectStrategy.sendRedirect(request,response,"/login.html");
 
-        if (savedRequest != null) {
-            String target = savedRequest.getRedirectUrl();
-            logger.info("引发跳转的URL：{}，{}",target,savedRequest.getHeaderNames().contains("X-Requested-With"));
-            if (!savedRequest.getHeaderNames().contains("X-Requested-With")){
-                redirectStrategy.sendRedirect(request,response,"/login.html");
-            }
-        }
-        return  new SimpleResponse("未登陆");
+        return ResponseData.successful("退出登陆成功");
     }
 
     @Autowired
-    HttpSession httpSession;
+    private HttpSession httpSession;
+
     @GetMapping("/login.html")
     public String toLogin(){
         User user = (User)httpSession.getAttribute(SessionKey.LOGIN_USER_SESSION_KEY);

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.ttcxy.tangtang.mapper.SpecialMapper">
+
+    <select id="selectSpecial" resultType="net.ttcxy.tangtang.entity.Special">
+      select * from entity_special
+    </select>
+
+    <select id="specialBlogs" resultType="net.ttcxy.tangtang.entity.Special">
+
+
+    </select>
+
+   <insert id="insertSpecial" parameterType="net.ttcxy.tangtang.entity.Special">
+      insert entity_special (`sid`,	`uid`,`title`,`create_date`) values (#{sid},#{uid},#{title},#{createDate})
+   </insert>
+
+
+</mapper>

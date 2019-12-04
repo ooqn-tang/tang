@@ -34,7 +34,7 @@
             <div class="form-group">
                 <div class="input-group">
                     <input type="text" class="form-control" placeholder="验证码" name="imageCode" autocomplete="off">
-                    <span style="padding: 0px" class="input-group-addon"><img style="width: 80px;" id="code" height="30" src="/code/image.png"></span>
+                    <span style="padding: 0px" class="input-group-addon"><img  style="width: 80px;" id="code" height="30" src="/code/image.png"></span>
                 </div>
             </div>
 
@@ -57,6 +57,10 @@
 </body>
 <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
 <script>
-
+$(function(){
+    $("#code").click(function(){
+        $('#code').attr('src',"/code/image.png?dd="+Date.parse(new Date()))
+    })
+})
 </script>
 </html>

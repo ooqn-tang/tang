@@ -1,12 +1,14 @@
 package net.ttcxy.tangtang;
 
 import cn.hutool.core.util.StrUtil;
+import com.alibaba.fastjson.JSON;
 import com.gargoylesoftware.htmlunit.*;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.util.Cookie;
 import net.ttcxy.tangtang.entity.Pageview;
 import net.ttcxy.tangtang.mapper.BlogMapper;
 import net.ttcxy.tangtang.mapper.PageviewMapper;
+import net.ttcxy.tangtang.mapper.SpecialMapper;
 import net.ttcxy.tangtang.mapper.UserMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -24,19 +26,13 @@ import java.util.logging.Level;
 @SpringBootTest
 public class TangTangApplicationTests {
 
-    @Autowired
-    private UserMapper userMapper;
 
     @Autowired
-    private BlogMapper blogMapper;
-
-    @Autowired
-    private PageviewMapper pageviewMapper;
-
+    SpecialMapper specialMapper;
     @Test
     public void contextLoads() throws IOException {
 
-
+        //System.out.println(JSON.toJSONString(specialMapper.selectSpecial()));
 
     }
 
