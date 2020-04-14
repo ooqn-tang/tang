@@ -1,7 +1,7 @@
 package net.ttcxy.tangtang.service;
 
 
-import net.ttcxy.tangtang.entity.Advertise;
+import net.ttcxy.tangtang.entity.dto.Advertise;
 
 import java.util.List;
 

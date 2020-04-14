@@ -1,46 +1,47 @@
 package net.ttcxy.tangtang.controller.web;
 
-import cn.hutool.core.util.StrUtil;
-import cn.hutool.json.JSONObject;
+import net.ttcxy.tangtang.service.AdvertisementService;
 import net.ttcxy.tangtang.service.BlogService;
-import net.ttcxy.tangtang.service.impl.AdvertisementServiceImpl;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpSession;
 
 /**
- * Web项目用于页面跳转，普通用户页面的跳转
+ * Index页面跳转
+ * @author ：HuangLei
+ * @date ：2019/12/11 0011 21:55
  */
 @Controller
-@RequestMapping("/")
 public class IndexController {
-
-    private Logger logger = LoggerFactory.getLogger(getClass());
 
     @Autowired
     private BlogService blogService;
 
     @Autowired
-    private AdvertisementServiceImpl advertisementService;
+    AdvertisementService advertisementService;
 
+    /**
+     * 博客列表页面
+     * @return page
+     */
     @GetMapping({"index","blog",""})
-    public String toBlog( Model model,
-                          @RequestParam(name = "cls", required = false)String cls,
-                          @RequestParam(name = "pag", required = false)Integer pag){
+    public ModelAndView toBlog(@RequestParam(name = "cls", required = false)String cls,
+                               @RequestParam(name = "pg", required = false)Integer pg,
+                               @RequestParam(name = "s", required = false)String s){
 
-        model.addAttribute("blogList",blogService.selectBlog(cls,pag));
-        model.addAttribute("clss",blogService.optionList());
-        model.addAttribute("advertises",advertisementService.selectAllAdvertisement());
-        return "page/blog";
+        ModelAndView modelAndView = new ModelAndView("page/blogList");
+        modelAndView.addObject("clss",blogService.optionList());
 
+        if (s!=null){
+            modelAndView.addObject("blogs",blogService.search(s,pg));
+        }else{
+            modelAndView.addObject("blogs",blogService.selectBlog(cls,pg));
+        }
+
+        return modelAndView;
     }
 
 }

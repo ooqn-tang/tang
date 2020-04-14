@@ -1,53 +1,103 @@
 <!DOCTYPE html>
-<html lang="zh-CN"  xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="zh-CN" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:v-bin="http://www.w3.org/1999/xhtml"
+      xmlns:v-bind="http://www.w3.org/1999/xhtml" xmlns:v-for="http://www.w3.org/1999/xhtml"
+      xmlns:v-on="http://www.w3.org/1999/xhtml">
 <head th:replace="page/comm::head"></head>
 <body>
 <div th:replace="page/comm::navigation"></div>
 
-<div class="container">
+<div class="container" id="app">
     <div class="row clearfix">
-        <div class="col-md-4">
+        <div class="col-md-4 col-md-push-8 ">
             <div class="panel panel-default">
-                <div class="panel-body" style="height: 80px">
-                    <img src="https://www.runoob.com/wp-content/uploads/2014/06/download.png" style="height: 50px; margin:0px 10px 0px 0px ;width: 50px;float:left" class="img-rounded">
-                    <span th:text="${username}" style="float:left">匿名</span><button style="float:right;height: 20px;" class="btn btn-success btn-xs">关注</button></span>
+                <div class="panel-body" >
+                    <div><strong th:text="${user.nickname}">匿名</strong><button class="pull-right btn btn-success btn-xs hidden" id="follower">关注</button></div>
+                    <input type="hidden" th:value="${user.username}" id="username">
+                    <hr>
+                    <div>简介：<span th:text="${user.signature}"></span></div>
                 </div>
             </div>
-            <div class="panel panel-default visible-lg-block">
+            <div class="panel panel-default">
                 <div class="panel-body">
-                    <div class="aside-content clearfix">
-                        生产地：湖南<br>
-                        工厂地：帝都<br>
-                        小兴趣：写bug<br>
-                        我的Url：<a href="http://www.jnnvc.com">www.jnnvc.com</a>    </div>
+                    <button class="btn btn-default btn-xs myBtn" v-on:click="sayHi(0)">所有博客</button>
+                    <button class="btn btn-default btn-xs myBtn" v-on:click="sayHi(2)" th:if="${session.SPRING_SECURITY_CONTEXT !=null && session.SPRING_SECURITY_CONTEXT.authentication.principal.username == username}">我的收藏</button>
+                    <button class="btn btn-default btn-xs myBtn" v-on:click="sayHi(1)">我的喜欢</button>
+                    <button class="btn btn-default btn-xs myBtn" v-on:click="gz()" th:if="${session.SPRING_SECURITY_CONTEXT !=null && session.SPRING_SECURITY_CONTEXT.authentication.principal.username == username}">我的关注</button>
                 </div>
             </div>
-            <div class="panel panel-default visible-lg-block">
-                <div class="panel-body">
-                    成就
+
+            <div v-show="gzShow" class="panel panel-default" style="max-height: 300px;overflow:auto" th:if="${session.SPRING_SECURITY_CONTEXT !=null && session.SPRING_SECURITY_CONTEXT.authentication.principal.username == username}">
+                <div class="list-group" >
+                    <a href="#" class="list-group-item active">关注</a>
+                    <a class="list-group-item" v-for="(item,i) in gzList" v-bind:href="item.username">{{item.nickname}}</a>
                 </div>
             </div>
+
+            <div th:replace="page/comm::advertise"></div>
         </div>
-
-        <div class="col-md-8 column">
-            <ul class="nav nav-tabs">
-                <li class="active"><a href="#">动态</a></li>
-                <li><a href="#">博客</a></li>
-                <li><a href="#">微博</a></li>
-                <li><a href="#">视频</a></li>
-                <li><a href="#">收藏</a></li>
-            </ul>
-            <div class="panel panel-default"  style="border-radius: 0px;border-top: 0px;min-height: 500px;">
-                <div class="panel-body">
-
+        <div class="col-md-8 col-md-pull-4">
+            <ul class="list-group col-md-12" style="padding-right: 0px !important;">
+            <li class="list-group-item" v-for="blog in blogs">
+                <a v-bind:href="'/blog/'+blog.id" class="wz" style="font-size: 18px;">{{blog.title}}</a>
+                <br>
+                <div >
+                    <span v-text="blog.createDate">2020.03.21</span> .
+                    <span class="text-danger">日志</span>
+                    <a  th:if="${session.SPRING_SECURITY_CONTEXT !=null && session.SPRING_SECURITY_CONTEXT.authentication.principal.username == username}" v-bind:href="'/blog/update/'+blog.id" style="float:right;">修改</a>
                 </div>
-            </div>
+            </li>
+
+           <!-- <li class="list-group-item">
+                <a id="syy">上一页</a><a style="float:right;" id="xyy">下一页</a>
+            </li>-->
+        </ul>
         </div>
-
-
-
 
     </div>
+
 </div>
 </body>
+<script>
+    var username = "[[${username}]]";
+    var app = new Vue({
+        el: "#app",//绑定元素
+        //所有数据都放在数据属性中
+        data:{
+            title:"土豆",//类似于模板语言
+            username:"",
+            blogs:[],
+            gzList:[],
+            gzShow:false
+        }, methods: {      //这里使用methods
+
+            sayHi: function (type) {
+                axios
+                    .get("/blog/userblog/"+username+"?type="+type)
+                    .then(response => (this.blogs = response.data.data))
+                    .catch(function (error) { // 请求失败处理
+                        console.log(error);
+                    });
+            },
+            gz(){
+                if (this.gzShow){
+                    this.gzShow = false
+                    return
+                }
+                axios
+                    .get("/user/gz")
+                    .then(response => {
+                        this.gzList = response.data.data
+                        this.gzShow = true;
+                    })
+                    .catch(function (error) { // 请求失败处理
+                        console.log(error);
+                    });
+            }
+        },mounted:function(){
+            this.sayHi(0);
+            //this.gz();
+
+        }
+    })
+</script>
 </html>

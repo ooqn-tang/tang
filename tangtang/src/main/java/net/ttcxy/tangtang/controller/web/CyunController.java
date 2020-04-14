@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
  * 收藏页面相关接口
+ * @author huanglei
  */
 @Controller
 @RequestMapping("cyun")

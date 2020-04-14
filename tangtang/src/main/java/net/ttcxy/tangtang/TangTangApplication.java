@@ -4,14 +4,13 @@ import net.ttcxy.tangtang.config.MyApplicationContextInitializer;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ApplicationContextAware;
 
 @SpringBootApplication
 @MapperScan(basePackages ="net.ttcxy.tangtang.mapper")
 public class TangTangApplication {
 
     public static void main(String[] args) {
-
-
 
         SpringApplication springApplication = new SpringApplication(TangTangApplication.class);
 

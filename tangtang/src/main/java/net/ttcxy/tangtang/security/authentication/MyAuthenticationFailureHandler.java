@@ -1,7 +1,8 @@
 package net.ttcxy.tangtang.security.authentication;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.extern.slf4j.Slf4j;
 import net.ttcxy.tangtang.security.model.SimpleResponse;
 import net.ttcxy.tangtang.security.properties.SecurityProperties;
 import org.slf4j.Logger;
@@ -16,12 +17,14 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Collection;
+import java.util.Enumeration;
+import java.util.Iterator;
 
 /**
  * 登录失败返回JSON
  */
 @Component("myAuthenticationFailureHandler")
-@Slf4j
 public class MyAuthenticationFailureHandler extends SimpleUrlAuthenticationFailureHandler {
 
 
@@ -31,19 +34,17 @@ public class MyAuthenticationFailureHandler extends SimpleUrlAuthenticationFailu
     @Autowired
     private SecurityProperties securityProperties;
 
+    public MyAuthenticationFailureHandler(){
+        this.setDefaultFailureUrl("/login.html?error=true");
+    }
+
     @Override
     public void onAuthenticationFailure(HttpServletRequest httpServletRequest,
                                         HttpServletResponse httpServletResponse,
                                         AuthenticationException e) throws IOException, ServletException {
+        //JSONObject jsonObject = JSON.parseObject(objectMapper.writeValueAsString(new SimpleResponse(e.getMessage())));
 
-
-        httpServletResponse.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
-        httpServletResponse.setContentType("application/json;charset=UTF-8");
-        //配置只返回Message
-        httpServletResponse.getWriter().write(objectMapper.writeValueAsString(new SimpleResponse(e.getMessage())));
-
-        //默认为页面跳转
-        //super.onAuthenticationFailure(httpServletRequest,httpServletResponse,e);
+        super.onAuthenticationFailure(httpServletRequest,httpServletResponse,e);
 
 
     }

@@ -4,7 +4,7 @@ public class BrowserProperties {
 
     private String loginPage = "/login.html";
 
-    private int rememberMeSeconds = 3600;
+    private int rememberMeSeconds = 2592000;
 
     public String getLoginPage() {
         return loginPage;
@@ -16,9 +16,7 @@ public class BrowserProperties {
 
     @Override
     public String toString() {
-        return "BrowserProperties{" +
-                "loginPage='" + loginPage + '\'' +
-                '}';
+        return "BrowserProperties{ loginPage='" + loginPage + '\'' + '}';
     }
 
 

@@ -1,40 +1,53 @@
 package net.ttcxy.tangtang;
 
 
-import java.awt.*;
-import java.awt.event.*;
+import cn.hutool.core.comparator.ComparatorChain;
+import cn.hutool.core.util.PinyinUtil;
+import com.github.stuxuhai.jpinyin.PinyinFormat;
+import com.github.stuxuhai.jpinyin.PinyinHelper;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class WxBot {
 
-    private Frame f;
-    private TextField tf;
-    private Button but;
+    public static void main(String[] args) {
+        int start = Integer.parseInt("4e00", 16);
+        int end = Integer.parseInt("9fa5", 16);
+        StringBuilder sb = new StringBuilder();
+
+        Set<String> ls = new HashSet<String>();
+
+        for (int i = start; i <= end; i++) {
+            sb.append((char) i);
+
+            String[] strings = PinyinHelper.convertToPinyinArray((char) i);
 
 
+            if (strings.length != 0){
+                for (String s : strings){
+                    ls.add(s);
+                }
 
-
-
-
-    private static class MouseHandler extends MouseAdapter{
-        public void mousePressed(MouseEvent event){    //鼠标按下时调用
+            }else{
+                //System.out.println("----------------"+(char)i);
+            }
 
         }
+        ;
+        System.out.println(ls.size());
 
-        public void mouseClicked(MouseEvent event){   //鼠标点击时调用，点击两次则移除矩形
-            System.out.println("aksdjfkldsjf");
+
+        for (String s : ls){
+
+            System.out.println();
         }
+
+
+        ;
     }
-
-    private class MouseMotionHandler implements MouseMotionListener{
-        public void mouseMoved(MouseEvent event){    //鼠标移动时调用
-
-        }
-
-        public void mouseDragged(MouseEvent event){  //鼠标按住拖动时调用
-
-        }
-    }
-
 
 
 

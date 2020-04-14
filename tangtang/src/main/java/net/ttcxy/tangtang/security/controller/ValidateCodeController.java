@@ -5,6 +5,7 @@ import cn.hutool.captcha.LineCaptcha;
 import cn.hutool.core.util.RandomUtil;
 import net.ttcxy.tangtang.code.ResponseData;
 import net.ttcxy.tangtang.code.SessionKey;
+import net.ttcxy.tangtang.mapper.UserMapper;
 import net.ttcxy.tangtang.security.model.ImageValidateCode;
 import net.ttcxy.tangtang.security.model.ValidateCode;
 import net.ttcxy.tangtang.security.properties.SecurityProperties;
@@ -50,15 +51,26 @@ public class ValidateCodeController {
     @Autowired
     private MailServiceTXImpl mailServiceTX;
 
+    @Autowired
+    private UserMapper userMapper;
+
+
     @GetMapping("code/mail/{mail}")
-    public void createCodeMail(@PathVariable String mail, HttpServletRequest httpServletRequest) throws IOException {
+    public ResponseData createCodeMail(@PathVariable String mail, HttpServletRequest httpServletRequest) throws IOException {
 
         String yzm = RandomUtil.randomString(4);
         ValidateCode validateCode = new ValidateCode(yzm,1000);
 
+        int isTrue = userMapper.selectEmailIsTrue(mail);
+        if (isTrue==1){
+            return ResponseData.error("邮箱已经存在");
+        }
+
         sessionStrategy.setAttribute(new ServletWebRequest(httpServletRequest), SessionKey.SESSION_KEY_MAIL_CODE, validateCode);
 
         mailServiceTX.send(mail,"验证码",yzm);
+
+        return ResponseData.successful("true");
     }
 
     @GetMapping("code/sms")

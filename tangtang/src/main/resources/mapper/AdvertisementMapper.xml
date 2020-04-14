@@ -5,22 +5,22 @@
 <mapper namespace="net.ttcxy.tangtang.mapper.AdvertisementMapper">
 
     <!--查询全部广告-->
-    <select id="selectAllAdvertisement" resultType="advertise">
-        select id,title,url,DATE_FORMAT(create_date,"%Y.%m.%d") createDate,delivery_time deliveryTime,description
-            from entity_advertise
+    <select id="selectAllAdvertisement" resultType="net.ttcxy.tangtang.entity.dto.Advertise">
+        select id,title,url,DATE_FORMAT(create_date,'%Y.%m.%d') createDate,delivery_time deliveryTime,description
+            from advertise
             order by create_date
     </select>
 
     <!--根据id查询广告-->
-    <select id="selectById"  resultType="advertise">
-        select id,title,url,DATE_FORMAT(create_date,"%Y.%m.%d") createDate,delivery_time deliveryTime,description
-            from entity_advertise
+    <select id="selectById"  resultType="net.ttcxy.tangtang.entity.dto.Advertise">
+        select id,title,url,DATE_FORMAT(create_date,'%Y.%m.%d') createDate,delivery_time deliveryTime,description
+            from advertise
             where id = #{id}
     </select>
 
     <!--添加一条广告-->
     <insert id="addAdvertisement">
-        insert into entity_advertise
+        insert into advertise
             (id,title,url,create_date,delivery_time,description)
             values
             (#{id},#{title},#{url},now(),#{deliveryTime},#{description})
@@ -28,14 +28,14 @@
 
     <!--更新一条广告-->
     <update id="updateAdvertisement">
-        update entity_advertise
+        update advertise
             set title=#{title},url=#{url},delivery_time=#{deliveryTime},description=#{description}
             where id=#{id}
     </update>
 
     <!--删除一条广告-->
     <delete id="deleteAdvertisement">
-        delete from entity_advertise
+        delete from advertise
             where id=#{id}
     </delete>
 </mapper>

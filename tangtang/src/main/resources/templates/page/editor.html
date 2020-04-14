@@ -78,17 +78,9 @@
 		<div class="editormd-dialog-container">
 			<div class="editormd-form">
 				<br><br>
-				<!--<label>图片地址</label>
-				<input type="text" data-url=""><br>-->
 				<label>分&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;类</label>
 				<select id="classId" style="height: 34px;width: 282px;">
 				</select><br>
-				<!--<label>添加专辑</label>
-                <input type="text" value="http://" data-link=""><br>
-                <label>类&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;型</label>
-                <input type="text" value="http://" data-link=""><br>
-                <label>转载地址</label>
-                <input type="text" value="http://" data-link=""><br>-->
 			</div><div class="editormd-dialog-footer">
 			<button class="editormd-btn">添加草稿</button>
 			<button class="editormd-btn" id="fb">发布</button>
@@ -105,7 +97,8 @@
         var editor = editormd("test-editor", {
             width  : "100%",
             path   : "/static/editormd/lib/",
-			saveHTMLToTextarea:true
+			saveHTMLToTextarea:true,
+			imageUpload    : true
         });
 
 		$('#bc').click(function(){

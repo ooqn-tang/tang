@@ -1,14 +1,33 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper
-        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="net.ttcxy.tangtang.mapper.UserMapper">
+  <resultMap id="BaseResultMap" type="net.ttcxy.tangtang.entity.dto.User">
+      <id column="id" jdbcType="VARCHAR" property="id" />
+      <result column="username" jdbcType="VARCHAR" property="username" />
+      <result column="password" jdbcType="VARCHAR" property="password" />
+      <result column="signature" jdbcType="VARCHAR" property="signature" />
+      <result column="mail" jdbcType="VARCHAR" property="mail" />
+  </resultMap>
 
-    <select id="selectUserByName" resultType="net.ttcxy.tangtang.entity.User">
-        select * from entity_user where username = #{username}
+    <select id="selectEmailIsTrue" resultType="integer">
+        select count(1) from user where mail = #{mail}
     </select>
 
-   <insert id="insertUser" parameterType="net.ttcxy.tangtang.entity.User">
-       insert entity_user (id,username,password) values (#{id},#{username},#{password})
+    <select id="selectUserByName" resultType="net.ttcxy.tangtang.entity.dto.User">
+        select * from user where username = #{username}
+    </select>
+
+   <insert id="insertUser" parameterType="net.ttcxy.tangtang.entity.dto.User">
+       insert user (id,username,password) values (#{id},#{username},#{password})
    </insert>
+
+    <update id="updateUser" parameterType="net.ttcxy.tangtang.entity.dto.User">
+        update user set nickname=#{nickname},mail = #{mail},signature = #{signature} where id = #{id}
+    </update>
+
+    <update id="updateUserPassword" parameterType="net.ttcxy.tangtang.entity.dto.User">
+        update user set password = #{password} where id = #{id}
+    </update>
+
+
 </mapper>

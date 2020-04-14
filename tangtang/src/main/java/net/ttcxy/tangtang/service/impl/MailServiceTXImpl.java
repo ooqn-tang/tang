@@ -16,17 +16,24 @@ public class MailServiceTXImpl implements MailService {
     @Override
     public boolean send(String mail,String title,String val) {
 
+
+
         MailAccount account = new MailAccount();
-        account.setHost("smtp.qq.com");
+        account.setHost("smtp.163.com");
         account.setPort(25);
         account.setAuth(true);
-        account.setFrom("792190997@qq.com");
-        account.setUser("792190997");
-        account.setPass("nvrhhnhdziwibceh");
+        account.setFrom("17674785177@163.com");
+        account.setUser("17674785177");
+        account.setPass("QIMFZXBWRYJEZJPM");
 
         MailUtil.send(account, CollUtil.newArrayList(mail), title, val, false);
 
         return false;
+    }
+
+    public static void main(String[] args) {
+        MailServiceTXImpl mst = new MailServiceTXImpl();
+        mst.send("792190997@qq.com","asdfasdf","dsajfkjdkfj");
     }
 
 }

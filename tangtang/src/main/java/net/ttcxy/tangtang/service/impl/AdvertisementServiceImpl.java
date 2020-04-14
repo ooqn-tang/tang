@@ -1,6 +1,6 @@
 package net.ttcxy.tangtang.service.impl;
 
-import net.ttcxy.tangtang.entity.Advertise;
+import net.ttcxy.tangtang.entity.dto.Advertise;
 import net.ttcxy.tangtang.mapper.AdvertisementMapper;
 import net.ttcxy.tangtang.service.AdvertisementService;
 import org.springframework.beans.factory.annotation.Autowired;

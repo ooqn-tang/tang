@@ -24,11 +24,13 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
 /**
  * 图像验证码连接器
+ * @author Huanglei
  */
 public class ValidateCodeFilter extends OncePerRequestFilter implements InitializingBean {
 
@@ -53,10 +55,9 @@ public class ValidateCodeFilter extends OncePerRequestFilter implements Initiali
     @Override
     public void afterPropertiesSet() throws ServletException {
         super.afterPropertiesSet();
+
         String[] configUrls = StrUtil.splitToArray(securityProperties.getCode().getImage().getUrls(),',');
-        for (String url : configUrls){
-            urls.add(url);
-        }
+        Collections.addAll(urls,configUrls);
     }
 
     @Override
