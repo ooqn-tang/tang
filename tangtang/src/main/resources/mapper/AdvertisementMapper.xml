@@ -5,14 +5,14 @@
 <mapper namespace="net.ttcxy.tangtang.mapper.AdvertisementMapper">
 
     <!--查询全部广告-->
-    <select id="selectAllAdvertisement" resultType="net.ttcxy.tangtang.entity.dto.Advertise">
+    <select id="selectAllAdvertisement" resultType="net.ttcxy.tangtang.entity.Advertise">
         select id,title,url,DATE_FORMAT(create_date,'%Y.%m.%d') createDate,delivery_time deliveryTime,description
             from advertise
             order by create_date
     </select>
 
     <!--根据id查询广告-->
-    <select id="selectById"  resultType="net.ttcxy.tangtang.entity.dto.Advertise">
+    <select id="selectById"  resultType="net.ttcxy.tangtang.entity.Advertise">
         select id,title,url,DATE_FORMAT(create_date,'%Y.%m.%d') createDate,delivery_time deliveryTime,description
             from advertise
             where id = #{id}

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:v-bin="http://www.w3.org/1999/xhtml"
+      xmlns:v-bind="http://www.w3.org/1999/xhtml" xmlns:v-for="http://www.w3.org/1999/xhtml"
+      xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head th:replace="comm::head"></head>
+<body>
+<div th:replace="comm::navigation"></div>
+
+<div class="container" id="app">
+    <div class="row clearfix">
+        <div class="col-md-4 col-md-push-8">
+            <div class="panel panel-default" >
+                <div class="panel-body" >
+                    <div>
+                        <strong th:text="${user.nickname}"></strong>
+                        <a href="/userinfo" th:if="${session.SPRING_SECURITY_CONTEXT !=null && session.SPRING_SECURITY_CONTEXT.authentication.principal.username == username}"><span class="glyphicon glyphicon-cog"></span></a>
+                        <button v-if="bools == 'true'" class="pull-right btn btn-default btn-xs" @click="followerClick">{{follower.text}}</button>
+                    </div>
+
+                    <input type="hidden" th:value="${user.username}" id="username">
+                    <hr>
+                    <div>简介：<span th:text="${user.signature}"></span></div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="btn-group" style="width: 100%;">
+                        <button class="mytab btn btn-default" v-on:click="sayHi(0)">博客</button>
+                        <button class="mytab btn btn-default" v-on:click="sayHi(2)" th:if="${session.SPRING_SECURITY_CONTEXT !=null && session.SPRING_SECURITY_CONTEXT.authentication.principal.username == username}">收藏</button>
+                        <button class="mytab btn btn-default" v-on:click="sayHi(1)">推荐</button>
+                        <button class="mytab btn btn-default" v-on:click="gz()" th:if="${session.SPRING_SECURITY_CONTEXT !=null && session.SPRING_SECURITY_CONTEXT.authentication.principal.username == username}">关注</button>
+                        <a class="mytab btn btn-default" @click="zx" th:if="${session.SPRING_SECURITY_CONTEXT !=null && session.SPRING_SECURITY_CONTEXT.authentication.principal.username == username}">注销</a>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div v-show="gzShow" class="panel panel-default" style="max-height: 300px;overflow:auto" th:if="${session.SPRING_SECURITY_CONTEXT !=null && session.SPRING_SECURITY_CONTEXT.authentication.principal.username == username}">
+                <div class="list-group" >
+                    <a href="#" class="list-group-item active">关注</a>
+                    <a class="list-group-item" v-for="(item,i) in gzList" v-bind:href="item.username">{{item.nickname}}</a>
+                </div>
+            </div>
+
+            <div th:replace="comm::advertise"></div>
+        </div>
+        <div class="col-md-8 col-md-pull-4">
+            <ul class="list-group col-md-12" style="padding-right: 0px !important;">
+            <li class="list-group-item" v-for="(item,index) in blogs">
+                <a v-bind:href="'/post/'+item.id" class="wz">{{item.title}}</a>
+                <br>
+                <div>
+                    <span v-text="item.createDate">2020.03.21</span>
+                    <div class="btn-group pull-right">
+
+                        <a class="btn btn-default btn-xs" v-if="update" @click="deleteBlog(item,index)" th:if="${session.SPRING_SECURITY_CONTEXT !=null && session.SPRING_SECURITY_CONTEXT.authentication.principal.username == username}">删除</a>
+                        <a class="btn btn-default btn-xs" v-if="update" th:if="${session.SPRING_SECURITY_CONTEXT !=null && session.SPRING_SECURITY_CONTEXT.authentication.principal.username == username}" v-bind:href="'/editor?blog='+item.id">修改</a>
+                    </div>
+
+                </div>
+            </li>
+        </ul>
+        </div>
+
+    </div>
+
+</div>
+</body>
+<script>
+    let bools = "[[${session.SPRING_SECURITY_CONTEXT != null}]]"
+
+    var username = $("#username").val();
+    new Vue({
+        el: "#app",//绑定元素
+        //所有数据都放在数据属性中
+        data:{
+            title:"土豆",//类似于模板语言
+            username:username,
+            blogs:[],
+            bools:bools,
+            gzList:[],
+            gzShow:false,
+            update:true,
+            follower:{
+                text:""
+            }
+
+        }, methods: {      //这里使用methods
+
+            zx(){
+                if(confirm("确认退出账号吗？")){
+                    $.get("/logout")
+                    history.go(0)
+                }
+            },
+            deleteBlog(item,index){
+                let _this = this;
+                if(confirm("确认删除吗？")){
+                    $.ajax({
+                        type:"GET",
+                        url:"/blog/delete/"+item.id,
+                        contentType: "application/json",
+                        success:function (result) {
+                            if (result.state==200){
+                                _this.blogs.splice(index,1)
+                            }
+                        }
+                    })
+                }
+            },
+            followerClick(){
+                let _this = this;
+                if (_this.follower.text == '已关注'){
+                    $.ajax({
+                        type:"POST",
+                        url:"/fans/"+username,
+                        contentType: "application/json", //必须这样写
+                        dataType:"json",
+                        success:function (result) {
+                            _this.follower.text = '关注'
+                        }
+                    })
+                } else{
+                    $.ajax({
+                        type:"POST",
+                        url:"/fans/"+username,
+                        contentType: "application/json", //必须这样写
+                        dataType:"json",
+                        success:function (result) {
+                            _this.follower.text = '已关注'
+                        }
+                    })
+
+                }
+            },loadFollower(){
+                let _this = this;
+                $.ajax({
+                    type:"GET",
+                    url:"/fans/"+username,
+                    contentType: "application/json", //必须这样写
+                    success:function (result) {
+                        if (result.data){
+                            _this.follower.text = '已关注'
+                        } else{
+                            _this.follower.text = '关注'
+                        }
+                    }
+                })
+            },
+
+            sayHi: function (type) {
+                if (type!=0){
+                    this.update = false
+                } else{
+                    this.update = true;
+                }
+                let _this = this;
+                $.ajax({
+                    type:"GET",
+                    url:"/blog/userblog/"+username+"?type="+type,
+                    contentType: "application/json", //必须这样写
+                    success:function (result) {
+                        _this.blogs = result.data
+                    }
+                })
+            },
+            gz(){
+                if (this.gzShow){
+                    this.gzShow = false
+                    return
+                }
+                let _this = this;
+                $.ajax({
+                    type:"GET",
+                    url:"/user/gz",
+                    contentType: "application/json", //必须这样写
+                    success:function (result) {
+                        _this.gzList = result.data
+                        _this.gzShow = true;
+                    }
+                })
+            }
+        },created:function(){
+            if (bools=='true'){
+                this.loadFollower()
+            }
+            this.sayHi(0);
+        }
+    })
+</script>
+</html>

@@ -10,9 +10,17 @@ public class SecurityProperties {
 
     private BrowserProperties browser =  new BrowserProperties();
 
-    private ValidateCodeProperties code = new ValidateCodeProperties();
+    private OtherProperties other = new OtherProperties();
 
     private String intercept = "";
+
+    public OtherProperties getOther() {
+        return other;
+    }
+
+    public void setOther(OtherProperties other) {
+        this.other = other;
+    }
 
     public String[] getIntercept() {
         return StrUtil.splitToArray(intercept,',');
@@ -20,14 +28,6 @@ public class SecurityProperties {
 
     public void setIntercept(String intercept) {
         this.intercept = intercept;
-    }
-
-    public ValidateCodeProperties getCode() {
-        return code;
-    }
-
-    public void setCode(ValidateCodeProperties code) {
-        this.code = code;
     }
 
     public BrowserProperties getBrowser() {

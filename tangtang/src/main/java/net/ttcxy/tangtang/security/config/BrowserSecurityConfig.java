@@ -2,27 +2,17 @@ package net.ttcxy.tangtang.security.config;
 
 import net.ttcxy.tangtang.security.authentication.MyAuthenticationFailureHandler;
 import net.ttcxy.tangtang.security.authentication.MyAuthenticationSuccessHandler;
-import net.ttcxy.tangtang.security.filter.MailValidateCodeFilter;
-import net.ttcxy.tangtang.security.filter.MyRememberMeAuthenticationFilter;
-import net.ttcxy.tangtang.security.filter.ValidateCodeFilter;
 import net.ttcxy.tangtang.security.properties.SecurityProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.RememberMeServices;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.rememberme.*;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
 /**
@@ -70,26 +60,7 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-        //创建普通验证码处理器
-        ValidateCodeFilter validateCodeFilter = new ValidateCodeFilter();
-        validateCodeFilter.setAuthenticationFailureHandler(myAuthenticationFailureHandler);
-        validateCodeFilter.setSecurityProperties(securityProperties);
-        validateCodeFilter.afterPropertiesSet();
-
-
-
-
-        //创建邮箱验证处理器
-        MailValidateCodeFilter mailValidateCodeFilter = new MailValidateCodeFilter();
-        mailValidateCodeFilter.setAuthenticationFailureHandler(myAuthenticationFailureHandler);
-        mailValidateCodeFilter.setSecurityProperties(securityProperties);
-        mailValidateCodeFilter.afterPropertiesSet();
-
         http
-                .addFilterBefore(mailValidateCodeFilter, UsernamePasswordAuthenticationFilter.class)
-                //在拦截器UsernamePasswordAuthenticationFilter前面添加一个拦截器
-                .addFilterBefore(validateCodeFilter, UsernamePasswordAuthenticationFilter.class)
-                //当前配置文件，用于配置浏览器表单登录
                 .formLogin()
                 //配置登录页面
                 .loginPage("/authentication/require")
@@ -120,7 +91,7 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
                 //结束上一个配置
                 .and()
                 //关闭csrf安全
-                .csrf().disable();
+                .csrf().disable().headers().frameOptions().disable();;
 
 
     }

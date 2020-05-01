@@ -1,7 +1,6 @@
 package net.ttcxy.tangtang.service.impl;
 
-import net.ttcxy.tangtang.entity.dto.User;
-import org.springframework.beans.factory.annotation.Autowired;
+import net.ttcxy.tangtang.entity.User;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head th:replace="comm::head"></head>
+<body>
+<div th:replace="comm::navigation"></div>
+<div class="container">
+
+    <div class="row clearfix">
+        <div class="col-md-9 column">
+            <div class="row clearfix">
+                <div class="col-md-12 column norlPb">
+                    <ul class="list-group">
+                        <li class="list-group-item nob"  th:each="blog : ${blogs}">
+                            <a href="#" class="wz" th:text="${blog.title}" th:href="@{/post/{id}(id=${blog.id})}">24*7 支持</a>
+                            <br>
+                            <div >
+                                <span th:text="${blog.createDate}"></span>
+                                <a class="pull-right" th:href="@{/us/{id}(id=${blog.username})}" th:text="${blog.nickname}"></a>
+                            </div>
+                        </li>
+
+                        <li class="list-group-item">
+                           <a id="syy">上一页</a><a style="float:right;" id="xyy">下一页</a>
+                        </li>
+                    </ul>
+            </div>
+        </div>
+        </div>
+        <div class="col-md-3 column">
+            <div th:replace="comm::advertise"></div>
+        </div>
+    </div>
+</div>
+</div>
+</body>
+<script>
+    $(function(){
+        $(".list-group-item").mouseover(function(){
+            $(this).find("button").removeClass("hidden")
+        }).mouseout(function(){
+            $(this).find("button").addClass("hidden")
+        })
+
+        let pg = getQueryVariable("pg");
+        if (pg==null || Number(pg) <= 1){
+            $("#syy").css('opacity', '0.2')
+            $("#syy").attr("href","javascript:return false;")
+        }
+
+        if (pg!=null && Number(pg) >= 10){
+            $("#xyy").css('opacity', '0.2')
+            $("#xyy").attr("href","javascript:return false;")
+        }
+
+        $("#syy").click(function(){
+            let p = Number(pg);
+            if (p <= 1){
+                return;
+            }else{
+                window.location.href = UrlUpdateParams(window.location.href, "pg", (--p))
+            }
+        })
+
+        $("#xyy").click(function(){
+            let p = Number(pg)
+            if (p==0)
+                p++;
+            if (p>=10)
+                return
+
+            window.location.href = UrlUpdateParams(window.location.href, "pg", (++p))
+
+        })
+
+        function getQueryVariable(variable){
+            let query = window.location.search.substring(1);
+            let vars = query.split("&");
+            for (let i=0;i<vars.length;i++) {
+                let pair = vars[i].split("=");
+                if(pair[0] == variable){return pair[1];}
+            }
+            return null;
+        }
+
+        function UrlUpdateParams(url, name, value) {
+            let r = url;
+            if (r != null && r != 'undefined' && r != "") {
+                value = encodeURIComponent(value);
+                let reg = new RegExp("(^|)" + name + "=([^&]*)(|$)");
+                let tmp = name + "=" + value;
+                if (url.match(reg) != null) {
+                    r = url.replace(eval(reg), tmp);
+                }
+                else {
+                    if (url.match("[\?]")) {
+                        r = url + "&" + tmp;
+                    } else {
+                        r = url + "?" + tmp;
+                    }
+                }
+            }
+            return r;
+        }
+    })
+</script>
+</html>

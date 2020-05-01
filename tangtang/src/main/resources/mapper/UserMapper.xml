@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="net.ttcxy.tangtang.mapper.UserMapper">
-  <resultMap id="BaseResultMap" type="net.ttcxy.tangtang.entity.dto.User">
+  <resultMap id="BaseResultMap" type="net.ttcxy.tangtang.entity.User">
       <id column="id" jdbcType="VARCHAR" property="id" />
       <result column="username" jdbcType="VARCHAR" property="username" />
       <result column="password" jdbcType="VARCHAR" property="password" />
@@ -12,21 +12,29 @@
     <select id="selectEmailIsTrue" resultType="integer">
         select count(1) from user where mail = #{mail}
     </select>
+    <select id="selectUsernameIsTrue" resultType="integer">
+        select count(1) from user where username = #{username}
+    </select>
 
-    <select id="selectUserByName" resultType="net.ttcxy.tangtang.entity.dto.User">
+
+    <select id="selectUserByName" resultType="net.ttcxy.tangtang.entity.User">
         select * from user where username = #{username}
     </select>
 
-   <insert id="insertUser" parameterType="net.ttcxy.tangtang.entity.dto.User">
-       insert user (id,username,password) values (#{id},#{username},#{password})
+   <insert id="insertUser" parameterType="net.ttcxy.tangtang.entity.User">
+       insert user (id,username,nickname,password,mail,signature) values (#{id},#{username},#{nickname},#{password},#{mail},#{signature})
    </insert>
 
-    <update id="updateUser" parameterType="net.ttcxy.tangtang.entity.dto.User">
+    <update id="updateUser" parameterType="net.ttcxy.tangtang.entity.User">
         update user set nickname=#{nickname},mail = #{mail},signature = #{signature} where id = #{id}
     </update>
 
-    <update id="updateUserPassword" parameterType="net.ttcxy.tangtang.entity.dto.User">
+    <update id="updateUserPassword" parameterType="net.ttcxy.tangtang.entity.User">
         update user set password = #{password} where id = #{id}
+    </update>
+
+    <update id="updateUserByMail">
+        update user set password = #{password} where mail = #{mail}
     </update>
 
 

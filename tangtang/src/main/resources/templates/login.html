@@ -6,7 +6,7 @@
     <link href="favicon.ico" rel="shortcut icon" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <link href="https://cdn.bootcss.com/twitter-bootstrap/3.4.0/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body id="LBG">
 <div class="modal-dialog" id="modelBody">
@@ -22,14 +22,7 @@
             <div class="form-group">
                 <input type="password" class="form-control" placeholder="密码" name="password" autocomplete="off">
             </div>
-            <input type="checkbox" name="remember-me" checked="checked" style="display:none" />
-            <div class="form-group">
-                <div class="input-group">
-                    <input type="text" class="form-control" placeholder="验证码" name="imageCode" autocomplete="off">
-                    <span style="padding: 0px" class="input-group-addon"><img  style="width: 80px;" id="code" height="30" src="/code/image.png"></span>
-                </div>
-            </div>
-            <span th:text="${session.SPRING_SECURITY_LAST_EXCEPTION.message}" th:if="${session.SPRING_SECURITY_LAST_EXCEPTION!=null}"></span>
+            <input type="checkbox" name="remember-me" checked="checked" class="hidden"/>
         </div>
         <div class="modal-footer">
             <div class="form-group">
@@ -37,7 +30,7 @@
             </div>
             <div class="btn-group" style="width: 100%;">
                 <a style="width: 50%;" type="button" href="/register.html" class="btn btn-default">注册</a>
-                <button style="width: 50%;" type="button" class="btn btn-default">忘记密码</button>
+                <a style="width: 50%;" type="button" href="/updatePwd" class="btn btn-default">忘记密码</a>
             </div>
         </div>
     </div><!-- /.modal-content -->

@@ -1,9 +1,8 @@
 package net.ttcxy.tangtang.service;
 
-import net.ttcxy.tangtang.entity.dto.Blog;
+import net.ttcxy.tangtang.entity.Blog;
 
 import java.util.List;
-import java.util.Map;
 
 public interface BlogService {
 
@@ -11,7 +10,7 @@ public interface BlogService {
      * 查询blog
      * @return
      */
-    List<Blog> selectBlog(String cls,Integer pag);
+    List<Blog> selectBlog(Integer pag);
 
     /**
      * 模糊查询blog
@@ -36,8 +35,6 @@ public interface BlogService {
      */
     int addBlog(Blog blog);
 
-    List<Map<String,String>> optionList();
-
     /**
      * 更新博客
      * @param blog
@@ -49,7 +46,7 @@ public interface BlogService {
      * 删除博客
      * @return
      */
-    int deleteBlog();
+    Boolean deleteBlog(String id);
 
     /**
      * 喜欢blog

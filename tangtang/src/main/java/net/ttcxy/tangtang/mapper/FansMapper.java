@@ -1,7 +1,7 @@
 package net.ttcxy.tangtang.mapper;
 
-import net.ttcxy.tangtang.entity.dto.Fans;
-import net.ttcxy.tangtang.entity.dto.User;
+import net.ttcxy.tangtang.entity.Fans;
+import net.ttcxy.tangtang.entity.User;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

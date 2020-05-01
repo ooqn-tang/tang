@@ -3,7 +3,9 @@ package net.ttcxy.tangtang.service.impl;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.extra.mail.MailAccount;
 import cn.hutool.extra.mail.MailUtil;
+import net.ttcxy.tangtang.security.properties.SecurityProperties;
 import net.ttcxy.tangtang.service.MailService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -13,18 +15,21 @@ import org.springframework.stereotype.Service;
 @Service
 public class MailServiceTXImpl implements MailService {
 
+    @Autowired
+    SecurityProperties securityProperties;
+
+
+
     @Override
     public boolean send(String mail,String title,String val) {
 
-
-
         MailAccount account = new MailAccount();
-        account.setHost("smtp.163.com");
-        account.setPort(25);
-        account.setAuth(true);
-        account.setFrom("17674785177@163.com");
-        account.setUser("17674785177");
-        account.setPass("QIMFZXBWRYJEZJPM");
+        account.setHost(securityProperties.getOther().getHost());
+        account.setPort(securityProperties.getOther().getPort());
+        account.setAuth(securityProperties.getOther().getAuth());
+        account.setFrom(securityProperties.getOther().getFrom());
+        account.setUser(securityProperties.getOther().getUser());
+        account.setPass(securityProperties.getOther().getPass());
 
         MailUtil.send(account, CollUtil.newArrayList(mail), title, val, false);
 

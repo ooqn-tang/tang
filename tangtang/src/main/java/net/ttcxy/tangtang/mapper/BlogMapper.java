@@ -1,20 +1,18 @@
 package net.ttcxy.tangtang.mapper;
 
-import net.ttcxy.tangtang.entity.dto.Blog;
+import net.ttcxy.tangtang.entity.Blog;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
-import java.util.Map;
 
 public interface BlogMapper {
 
     /**
      * 筛选Blog
-     * @param cls class
      * @param pag pageCount
      * @return Blogs
      */
-    List<Blog> selectBlog(@Param("cls") String cls,@Param("pag") Integer pag);
+    List<Blog> selectBlog(@Param("pag") Integer pag);
 
     /**
      * 模糊查询
@@ -39,12 +37,6 @@ public interface BlogMapper {
      * @return blog
      */
     Blog selectBlogByUUID(String uuid);
-
-    /**
-     * 获取optionlist
-     * @return optionList
-     */
-    List<Map<String,String>> optionList();
 
     /**
      * 添加blog

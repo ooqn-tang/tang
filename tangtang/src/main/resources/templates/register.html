@@ -6,46 +6,36 @@
     <link href="favicon.ico" rel="shortcut icon" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <link href="https://cdn.bootcss.com/twitter-bootstrap/3.4.0/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/public/static/css/style.css">
 </head>
 <body id="LBG">
 <div class="modal-dialog" id="modelBody">
-    <form action="/register" method="post">
+    <form>
     <div class="modal-content">
         <div class="modal-header">
             <h4 class="modal-title text-center" id="myModalLabel">登录</h4>
         </div>
         <div class="modal-body" id = "model-body">
             <div class="form-group">
-                <input type="text" class="form-control" placeholder="用户名" id="username" name="username">
+                <input type="text" class="form-control"  placeholder="用户名，字母或数值，6~15位" id="username">
             </div>
             <div class="form-group">
-                <input type="password" class="form-control" placeholder="密码" id="password" name="password">
+                <input type="text" class="form-control" placeholder="昵称，2~8位" id="nickname">
             </div>
             <div class="form-group">
-                <input type="password" class="form-control" placeholder="确认密码" id="password1" name="password1">
+                <input type="password" class="form-control" placeholder="密码,6~20位长度" id="password">
             </div>
             <div class="form-group">
-                <input class="form-control" placeholder="邮箱" name="mail" id="mail" autocomplete="off" >
-            </div>
-            <div class="form-group">
-                <div class="input-group">
-                    <input type="text" class="form-control" name="mailCode"  placeholder="验证码">
-                    <span class="input-group-btn">
-                        <button class="btn btn-default" type="button" id="sendmail">获取</button>
-                    </span>
-                </div><!-- /input-group -->
+                <input type="password" class="form-control" placeholder="密码" id="passwordYes">
             </div>
         </div>
         <div class="modal-footer">
             <div class="form-group">
-                <button type="submit" class="btn btn-primary form-control">提交注册</button>
+                <button type="button" id="registerBtn" class="btn btn-primary form-control">提交注册</button>
             </div>
             <div class="btn-group" style="width: 100%;">
-                <a style="width: 50%;" href="/login.html" type="button" class="btn btn-default">账号登陆</a>
-                <!--<button style="width: 50%;" type="button" class="btn btn-default">忘记密码</button>-->
+                <a href="/login.html" style="width: 100%;" type="button" class="btn btn-default">账号登陆</a>
             </div>
-
         </div>
     </div><!-- /.modal-content -->
     </form>
@@ -53,39 +43,36 @@
 </body>
 <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
 <script>
+$("#registerBtn").click(function(){
 
-    //定时器
-    let interval;
-    //计数变量
-    let c = 29;
+    if ($("#password").val()!=$("#passwordYes").val()){
+        alert("密码不一致")
+        return
+    }
 
-    $(function(){
 
-        /*发送邮件验证码*/
-        $("#sendmail").click(function(){
-            $.get("code/mail/"+$("#mail").val(),function (data) {
-                if (data.state == "44") {
-                    alert(data.msg)
-                }else{
-                    $("#sendmail").attr("disabled","disabled")
-                    $("#sendmail").text("获取(30)")
-                    interval = setInterval(sj,1000);
-                }
-            });
-        })
-        function sj(){
-            $("#sendmail").text("获取("+c+")")
-            if (c == 0){
-                $("#sendmail").text("获取")
-                $("#sendmail").removeAttr("disabled")
-                clearInterval(interval)
-                c = 29;
+    let data = {
+        username:$("#username").val(),
+        password:$("#password").val(),
+        nickname:$("#nickname").val()
+    }
+
+    $.ajax({
+        type:"POST",
+        url:"/register",
+        contentType: "application/json", //必须这样写
+        dataType:"json",
+        data:JSON.stringify(data),
+        success:function (data) {
+            if (data.code == 200){
+                alert("注册成功")
+                window.location.href="/login.html"
+            }else{
+                alert(data.message)
             }
-            c --;
         }
     })
 
-
-
+})
 </script>
 </html>

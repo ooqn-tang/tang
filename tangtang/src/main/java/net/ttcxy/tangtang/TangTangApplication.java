@@ -6,9 +6,12 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContextAware;
 
+/**
+ * @author huanglei
+ */
 @SpringBootApplication
 @MapperScan(basePackages ="net.ttcxy.tangtang.mapper")
-public class TangTangApplication {
+public class  TangTangApplication {
 
     public static void main(String[] args) {
 
@@ -18,6 +21,8 @@ public class TangTangApplication {
         springApplication.addInitializers(new MyApplicationContextInitializer());
         
         springApplication.run(args);
+
+
 
     }
 

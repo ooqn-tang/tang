@@ -1,6 +1,6 @@
 package net.ttcxy.tangtang.service.impl;
 
-import net.ttcxy.tangtang.entity.dto.Blog;
+import net.ttcxy.tangtang.entity.Blog;
 import net.ttcxy.tangtang.mapper.BlogMapper;
 import net.ttcxy.tangtang.mapper.PageviewMapper;
 import net.ttcxy.tangtang.service.BlogService;
@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class BlogServiceImpl implements BlogService {
@@ -22,22 +21,22 @@ public class BlogServiceImpl implements BlogService {
 
 
     @Override
-    public List<Blog> selectBlog(String cls,Integer pag) {
+    public List<Blog> selectBlog(Integer pag) {
 
         if (pag!=null){
-            pag =  pag <= 1 ? 0 : ((pag - 1) * 15);
+            pag =  pag <= 1 ? 0 : ((pag - 1) * 20);
         }else {
             pag = 0;
         }
 
-        return blogMapper.selectBlog(cls,pag);
+        return blogMapper.selectBlog(pag);
     }
 
     @Override
     public List<Blog> search(String title,Integer pag) {
 
         if (pag!=null){
-            pag =  pag <= 1 ? 0 : ((pag - 1) * 15);
+            pag =  pag <= 1 ? 0 : ((pag - 1) * 20);
         }else {
             pag = 0;
         }
@@ -54,12 +53,12 @@ public class BlogServiceImpl implements BlogService {
 
     @Override
     public int addBlog(Blog blog) {
-        return blogMapper.addBlog(blog);
-    }
 
-    @Override
-    public List<Map<String, String>> optionList() {
-        return blogMapper.optionList();
+        String markdown = blog.getMarkdown().replaceAll("<","&lt;");
+
+
+
+        return blogMapper.addBlog(blog);
     }
 
     @Override
@@ -68,8 +67,15 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
-    public int deleteBlog() {
-        return 0;
+    public Boolean deleteBlog(String id) {
+
+        int code = blogMapper.deleteBlog(id);
+
+        if (code==1){
+            return true;
+        }
+
+        return false;
     }
 
     @Override
@@ -87,10 +93,6 @@ public class BlogServiceImpl implements BlogService {
 
     @Override
     public Blog getBlogByUUID(String uuid,String userId) {
-
-        //阅读量
-        pageviewMapper.insertPageview(userId,uuid);
-
         return blogMapper.selectBlogByUUID(uuid);
     }
 

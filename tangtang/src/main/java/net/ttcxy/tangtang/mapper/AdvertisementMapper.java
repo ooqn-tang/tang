@@ -1,6 +1,6 @@
 package net.ttcxy.tangtang.mapper;
 
-import net.ttcxy.tangtang.entity.dto.Advertise;
+import net.ttcxy.tangtang.entity.Advertise;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

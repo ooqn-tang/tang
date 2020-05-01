@@ -1,0 +1,75 @@
+<!doctype html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <title>登陆</title>
+    <link href="favicon.ico" rel="shortcut icon" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <link href="https://cdn.bootcss.com/twitter-bootstrap/3.4.0/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body id="LBG">
+
+<div class="modal-dialog" id="modelBody">
+
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title text-center" id="myModalLabel">修改用户信息</h4>
+        </div>
+        <div class="modal-body" id = "model-body">
+            <div class="form-group">
+                <input type="text" class="form-control" th:value="${user.username}" readonly>
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="昵称" th:value="${user.nickname}" id="nickname" autocomplete="off">
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="个人简介" th:value="${user.signature}"   id="signature" autocomplete="off">
+            </div>
+        </div>
+        <div class="modal-footer">
+            <div class="form-group">
+                <button class="btn btn-primary form-control" id="updateUser">确认修改</button>
+            </div>
+            <div class="form-group">
+
+            </div>
+
+            <div class="btn-group" style="width: 100%;">
+                <a style="width: 50%;" class="btn btn-default" href="/pwd">修改密码</a>
+                <a style="width: 50%;" onClick="javascript :history.go(-1);" class="btn btn-default">返回首页</a>
+            </div>
+
+                    </div>
+    </div>
+</div>
+
+</body>
+<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+<script>
+$(function(){
+    $("#updateUser").click(function(){
+        $.ajax({
+            type : "POST",
+            contentType: "application/json",
+            url : "/userinfo",
+            data : JSON.stringify({
+                nickname:$("#nickname").val(),
+                signature:$("#signature").val()
+            }),success : function(result) {
+                if (result.code == 200){
+                    history.go(-1);
+                }else{
+                    alert("修改失败")
+                }
+                console.log(result);
+            },error : function(e){
+                console.log(e.status);
+                console.log(e.responseText);
+            }
+        })
+
+    })
+})
+</script>
+</html>
