@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <title>登陆</title>
     <link href="favicon.ico" rel="shortcut icon" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, userDto-scalable=no" />
     <link href="https://cdn.bootcss.com/twitter-bootstrap/3.4.0/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/style.css">
 </head>
@@ -18,13 +18,13 @@
         </div>
         <div class="modal-body" id = "model-body">
             <div class="form-group">
-                <input type="text" class="form-control" th:value="${user.username}" readonly>
+                <input type="text" class="form-control" th:value="${userDto.username}" readonly>
             </div>
             <div class="form-group">
-                <input type="text" class="form-control" placeholder="昵称" th:value="${user.nickname}" id="nickname" autocomplete="off">
+                <input type="text" class="form-control" placeholder="昵称" th:value="${userDto.nickname}" id="nickname" autocomplete="off">
             </div>
             <div class="form-group">
-                <input type="text" class="form-control" placeholder="个人简介" th:value="${user.signature}"   id="signature" autocomplete="off">
+                <input type="text" class="form-control" placeholder="个人简介" th:value="${userDto.signature}"   id="signature" autocomplete="off">
             </div>
         </div>
         <div class="modal-footer">
@@ -36,7 +36,7 @@
             </div>
 
             <div class="btn-group" style="width: 100%;">
-                <a style="width: 50%;" class="btn btn-default" href="/pwd">修改密码</a>
+                <a style="width: 50%;" class="btn btn-default" href="/password">修改密码</a>
                 <a style="width: 50%;" onClick="javascript :history.go(-1);" class="btn btn-default">返回首页</a>
             </div>
 

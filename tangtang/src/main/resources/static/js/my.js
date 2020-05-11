@@ -34,7 +34,7 @@ $(function(){
     $("#searchBtn").click(function () {
         let sv = $("#searchVal").val();
         if (sv!=""){
-            window.location.href="/?s="+sv;
+            window.location.href="/so?s="+sv;
         }
 
     });

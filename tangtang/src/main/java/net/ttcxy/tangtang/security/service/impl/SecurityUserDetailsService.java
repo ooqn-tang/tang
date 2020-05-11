@@ -1,7 +1,7 @@
 package net.ttcxy.tangtang.security.service.impl;
 
 
-import net.ttcxy.tangtang.entity.User;
+import net.ttcxy.tangtang.entity.UserDto;
 import net.ttcxy.tangtang.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,11 +24,11 @@ public class SecurityUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userServiceImpl.selectUserByName(username);
-        if (user==null){
+        UserDto userDto = userServiceImpl.selectUserByName(username);
+        if (userDto ==null){
             throw new UsernameNotFoundException("用户不存在");
         }
-        return user;
+        return userDto;
     }
 
     public UserService getUserServiceImpl() {

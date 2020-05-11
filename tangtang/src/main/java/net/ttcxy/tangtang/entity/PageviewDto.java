@@ -4,7 +4,7 @@ package net.ttcxy.tangtang.entity;
 import java.util.Date;
 
 
-public class Pageview {
+public class PageviewDto {
 
     private String userId;
 

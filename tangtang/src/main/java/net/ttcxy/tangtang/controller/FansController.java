@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
  * @author ：HuangLei
  * @date ：2020/4/10 0010 20:07
  */
-@Controller
+@RestController
 @RequestMapping("fans")
 public class FansController {
 
@@ -24,7 +24,6 @@ public class FansController {
      * @return
      */
     @GetMapping("{fansName}")
-    @ResponseBody
     public CommonResult selectFans(@PathVariable("fansName") String fansName){
         return CommonResult.success(fansServiceImpl.selectFans(fansName));
     }
@@ -35,7 +34,6 @@ public class FansController {
      * @return
      */
     @PostMapping("{fansName}")
-    @ResponseBody
     public CommonResult insertFans(@PathVariable("fansName") String fansName){
         return CommonResult.success(fansServiceImpl.insertFans(fansName));
     }
@@ -46,7 +44,6 @@ public class FansController {
      * @return
      */
     @DeleteMapping("{fansName}")
-    @ResponseBody
     public CommonResult deleteFans(@PathVariable("fansName") String fansName){
         return CommonResult.success(fansServiceImpl.deleteFans(fansName));
     }

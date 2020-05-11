@@ -6,9 +6,6 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * 配置静态资源的路径
  * @author huanglei
@@ -17,7 +14,7 @@ import java.util.Map;
 public class MvcConfig implements WebMvcConfigurer {
 
     @Autowired
-    private MyHandlerInterceptor myHandlerInterceptor;
+    private NetworkAddressHandlerInterceptor networkAddressHandlerInterceptor;
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
@@ -27,7 +24,7 @@ public class MvcConfig implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(myHandlerInterceptor)
+        registry.addInterceptor(networkAddressHandlerInterceptor)
                 .addPathPatterns("/**")
                 .excludePathPatterns("/**/*.html", "/**/*.js","/**/*.css","/**/*.png","/**/*.gif","/**/*.jpg","/**/*.ttf","/**/*.woff","/**/*.woff2");
     }

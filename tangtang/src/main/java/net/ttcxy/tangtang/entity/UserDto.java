@@ -13,7 +13,7 @@ import java.util.Collection;
  * 用户返回值
  * @author huanglei
  */
-public class User implements UserDetails {
+public class UserDto implements UserDetails {
 
     /**
      * 用户id
@@ -23,19 +23,16 @@ public class User implements UserDetails {
     /**
      * 用户名
      */
-    @Length(min = 5,max = 10)
     private String username;
 
     /**
      * 昵称
      */
-    @Length(min = 5,max = 10)
     private String nickname;
 
     /**
      * 密码
      */
-    @Length(min = 8,max = 15)
     private String password;
 
     /**
@@ -46,8 +43,6 @@ public class User implements UserDetails {
     /**
      * 邮箱
      */
-    @Email
-    @NotNull(message = "邮箱不为NULL")
     private String mail;
 
     public String getNickname() {

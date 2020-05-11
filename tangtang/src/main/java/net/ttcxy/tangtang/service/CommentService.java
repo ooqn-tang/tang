@@ -1,6 +1,6 @@
 package net.ttcxy.tangtang.service;
 
-import net.ttcxy.tangtang.entity.Comment;
+import net.ttcxy.tangtang.entity.CommentDto;
 
 import java.util.List;
 
@@ -12,22 +12,22 @@ public interface CommentService {
 
     /**
      * 添加评论
-     * @param comment
+     * @param commentDto
      * @return
      */
-    boolean insertComment(Comment comment);
+    boolean insertComment(CommentDto commentDto);
 
     /**
      * 通过id删除
      * @param id
      * @return
      */
-    boolean deleteComment(String id);
+    int deleteComment(String id);
 
     /**
      * 查询blog的ID
      * @param blogId
      * @return
      */
-    List<Comment> selectComment(String blogId);
+    List<CommentDto> selectComment(String blogId);
 }

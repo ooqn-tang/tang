@@ -88,7 +88,7 @@ public class AutoWeibo {
             System.setProperty("webdriver.chrome.driver","C:\\Users\\Administrator\\Desktop\\chromedriver.exe");//指定驱动路径
 
             ChromeOptions options = new ChromeOptions();
-            options.addArguments("user-data-dir=C:\\Users\\Administrator\\AppData\\Local\\Google\\Chrome\\User Data");
+            options.addArguments("user-data-dir=C:\\Users\\Administrator\\AppData\\Local\\Google\\Chrome\\UserDto Data");
             driver =new ChromeDriver(options);
 
             Dimension dimension = new Dimension(400, 600);

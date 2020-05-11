@@ -1,6 +1,6 @@
 package net.ttcxy.tangtang.entity;
 
-public class UserRole {
+public class UserRoleDto {
 
     static final long serialVersionUID = 1L;
 

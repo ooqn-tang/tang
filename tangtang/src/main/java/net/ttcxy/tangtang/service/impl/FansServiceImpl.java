@@ -1,10 +1,10 @@
 package net.ttcxy.tangtang.service.impl;
 
 import cn.hutool.core.util.IdUtil;
-import net.ttcxy.tangtang.entity.Fans;
-import net.ttcxy.tangtang.entity.User;
-import net.ttcxy.tangtang.mapper.FansMapper;
-import net.ttcxy.tangtang.mapper.UserMapper;
+import net.ttcxy.tangtang.entity.FansDto;
+import net.ttcxy.tangtang.entity.UserDto;
+import net.ttcxy.tangtang.dao.FansDao;
+import net.ttcxy.tangtang.dao.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,20 +18,20 @@ import java.util.List;
 public class FansServiceImpl {
 
     @Autowired
-    private FansMapper fansMapper;
+    private FansDao fansDao;
 
     @Autowired
     AuthDetailsImpl authDetails;
 
     @Autowired
-    UserMapper userMapper;
+    UserDao userDao;
 
     public Boolean selectFans(String fansName){
-        Fans fans = getFans(fansName);
-        if (fans==null){
+        FansDto fansDto = getFans(fansName);
+        if (fansDto ==null){
             return false;
         }
-        int isOk = fansMapper.selectFans(fans);
+        int isOk = fansDao.selectFans(fansDto);
         if (isOk == 1){
             return true;
         }
@@ -40,11 +40,11 @@ public class FansServiceImpl {
 
     public Boolean insertFans(String fansName) {
         try{
-            Fans fans = getFans(fansName);
-            if (fans==null){
+            FansDto fansDto = getFans(fansName);
+            if (fansDto ==null){
                 return false;
             }
-            int isOk = fansMapper.insertFans(fans);
+            int isOk = fansDao.insertFans(fansDto);
             if (isOk == 1){
                 return true;
             }
@@ -55,34 +55,37 @@ public class FansServiceImpl {
     }
 
     public Boolean deleteFans(String fansName){
-        Fans fans = getFans(fansName);
-        if (fans==null){
+        FansDto fansDto = getFans(fansName);
+        if (fansDto ==null){
             return false;
         }
-        int isOk = fansMapper.deleteFans(fans);
+        int isOk = fansDao.deleteFans(fansDto);
         if (isOk == 1){
             return true;
         }
         return false;
     }
 
-    private Fans getFans(String fansName){
-        User userAuth = authDetails.getUser();
-        if (userAuth==null){
+    private FansDto getFans(String fansName){
+        UserDto userDtoAuth = authDetails.getUser();
+        if (userDtoAuth ==null){
             return null;
         }
-        User user = userMapper.selectUserByName(fansName);
-        Fans fans = new Fans();
-        fans.setId(IdUtil.fastSimpleUUID());
-        fans.setUserId(userAuth.getId());
-        fans.setFollower(user.getId());
-        fans.setCreateDate(new Date());
+        UserDto userDto = userDao.selectUserByName(fansName);
+        FansDto fansDto = new FansDto();
+        fansDto.setId(IdUtil.fastSimpleUUID());
+        fansDto.setUserId(userDtoAuth.getId());
+        fansDto.setFollower(userDto.getId());
+        fansDto.setCreateDate(new Date());
 
-        return fans;
+        return fansDto;
     }
 
 
-    public List<User> selectFansList(String userId) {
-        return fansMapper.selectFansList(userId);
+    public List<UserDto> selectFansList(String userId) {
+        return fansDao.selectFansList(userId);
     }
+
+
+
 }

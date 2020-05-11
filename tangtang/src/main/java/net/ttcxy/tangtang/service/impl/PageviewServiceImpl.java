@@ -1,6 +1,6 @@
 package net.ttcxy.tangtang.service.impl;
 
-import net.ttcxy.tangtang.mapper.PageviewMapper;
+import net.ttcxy.tangtang.dao.PageviewDao;
 import net.ttcxy.tangtang.service.PageviewService;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class PageviewServiceImpl implements PageviewService {
 
     @Autowired
-    private PageviewMapper pageviewMapper;
+    private PageviewDao pageviewDao;
 
 
 }

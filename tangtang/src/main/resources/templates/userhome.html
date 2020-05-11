@@ -8,8 +8,8 @@
 
 <div class="container" id="app">
     <div class="row clearfix">
-        <div class="col-md-4 col-md-push-8">
-            <div class="panel panel-default" >
+        <div class="col-md-4 col-md-push-8 nob-p">
+            <div class="panel panel-default nob" >
                 <div class="panel-body" >
                     <div>
                         <strong th:text="${user.nickname}"></strong>
@@ -22,7 +22,7 @@
                     <div>简介：<span th:text="${user.signature}"></span></div>
                 </div>
             </div>
-            <div class="panel panel-default">
+            <div class="panel panel-default nob">
                 <div class="panel-body">
                     <div class="btn-group" style="width: 100%;">
                         <button class="mytab btn btn-default" v-on:click="sayHi(0)">博客</button>
@@ -34,8 +34,6 @@
                 </div>
             </div>
 
-
-
             <div v-show="gzShow" class="panel panel-default" style="max-height: 300px;overflow:auto" th:if="${session.SPRING_SECURITY_CONTEXT !=null && session.SPRING_SECURITY_CONTEXT.authentication.principal.username == username}">
                 <div class="list-group" >
                     <a href="#" class="list-group-item active">关注</a>
@@ -43,11 +41,14 @@
                 </div>
             </div>
 
-            <div th:replace="comm::advertise"></div>
+            <div class="nob-p visible-md-block visible-lg-block">
+                <div th:replace="comm::advertise" ></div>
+            </div>
+
         </div>
-        <div class="col-md-8 col-md-pull-4">
-            <ul class="list-group col-md-12" style="padding-right: 0px !important;">
-            <li class="list-group-item" v-for="(item,index) in blogs">
+        <div class="col-md-8 col-md-pull-4 nob-p">
+            <ul class="list-group col-md-12 nob" style="padding-right: 0px !important;">
+            <li class="list-group-item nob" v-for="(item,index) in blogs">
                 <a v-bind:href="'/post/'+item.id" class="wz">{{item.title}}</a>
                 <br>
                 <div>
@@ -91,7 +92,7 @@
             zx(){
                 if(confirm("确认退出账号吗？")){
                     $.get("/logout")
-                    history.go(0)
+                    window.location.href="/"
                 }
             },
             deleteBlog(item,index){

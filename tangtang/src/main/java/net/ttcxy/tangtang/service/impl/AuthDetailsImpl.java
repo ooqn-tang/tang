@@ -1,6 +1,7 @@
 package net.ttcxy.tangtang.service.impl;
 
-import net.ttcxy.tangtang.entity.User;
+import cn.hutool.core.util.ObjectUtil;
+import net.ttcxy.tangtang.entity.UserDto;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -12,14 +13,21 @@ import org.springframework.stereotype.Service;
 @Service
 public class AuthDetailsImpl {
 
-    public User getUser(){
+    public UserDto getUser(){
         try{
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-            String currentPrincipalName = authentication.getName();
-            return (User)authentication.getPrincipal();
+            return (UserDto)authentication.getPrincipal();
         }catch(Exception ex){
             return null;
         }
+    }
+
+    public String getUserId(){
+        UserDto userDto = getUser();
+        if (ObjectUtil.isNotNull(userDto)){
+            return userDto.getId();
+        }
+        return null;
     }
 
 }

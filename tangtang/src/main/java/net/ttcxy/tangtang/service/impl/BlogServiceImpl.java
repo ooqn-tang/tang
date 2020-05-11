@@ -1,8 +1,12 @@
 package net.ttcxy.tangtang.service.impl;
 
-import net.ttcxy.tangtang.entity.Blog;
+import com.github.pagehelper.PageHelper;
+import net.ttcxy.tangtang.entity.BlogDto;
+import net.ttcxy.tangtang.dao.BlogDao;
+import net.ttcxy.tangtang.dao.PageviewDao;
 import net.ttcxy.tangtang.mapper.BlogMapper;
-import net.ttcxy.tangtang.mapper.PageviewMapper;
+import net.ttcxy.tangtang.model.Blog;
+import net.ttcxy.tangtang.model.BlogExample;
 import net.ttcxy.tangtang.service.BlogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,15 +17,24 @@ import java.util.List;
 public class BlogServiceImpl implements BlogService {
 
     @Autowired
-    private BlogMapper blogMapper;
+    private BlogDao blogDao;
 
     @Autowired
-    private PageviewMapper pageviewMapper;
+    private PageviewDao pageviewDao;
+
+    @Autowired
+    AuthDetailsImpl authDetails;
 
 
 
     @Override
-    public List<Blog> selectBlog(Integer pag) {
+    public List<BlogDto> selectBlog(Integer pag) {
+        PageHelper.startPage(pag,10);
+        return blogDao.selectBlog();
+    }
+
+    @Override
+    public List<BlogDto> search(String title, Integer pag) {
 
         if (pag!=null){
             pag =  pag <= 1 ? 0 : ((pag - 1) * 20);
@@ -29,47 +42,38 @@ public class BlogServiceImpl implements BlogService {
             pag = 0;
         }
 
-        return blogMapper.selectBlog(pag);
+        return blogDao.search(title,pag);
     }
 
     @Override
-    public List<Blog> search(String title,Integer pag) {
-
-        if (pag!=null){
-            pag =  pag <= 1 ? 0 : ((pag - 1) * 20);
-        }else {
-            pag = 0;
-        }
-
-        return blogMapper.search(title,pag);
-    }
-
-    @Override
-    public List<Blog> searchByUsername(String username ,String type) {
-
-        return blogMapper.searchByUsername(username);
+    public List<BlogDto> searchByUsername(String username , String type) {
+        return blogDao.searchByUsername(username);
     }
 
 
     @Override
-    public int addBlog(Blog blog) {
-
-        String markdown = blog.getMarkdown().replaceAll("<","&lt;");
-
-
-
-        return blogMapper.addBlog(blog);
+    public int addBlog(BlogDto blogDto) {
+        String markdown = blogDto.getMarkdown().replaceAll("<","&lt;");
+        return blogDao.addBlog(blogDto);
     }
 
+    @Autowired
+    private BlogMapper blogMapper;
     @Override
     public int updateBlog(Blog blog) {
-        return blogMapper.updateBlog(blog);
+        String blogId = blog.getId();
+        String userId = authDetails.getUserId();
+
+        BlogExample blogExample = new BlogExample();
+        blogExample.createCriteria().andIdEqualTo(blogId).andUserIdEqualTo(userId);
+
+        return blogMapper.updateByExampleSelective(blog,blogExample);
     }
 
     @Override
     public Boolean deleteBlog(String id) {
 
-        int code = blogMapper.deleteBlog(id);
+        int code = blogDao.deleteBlog(id);
 
         if (code==1){
             return true;
@@ -81,9 +85,9 @@ public class BlogServiceImpl implements BlogService {
     @Override
     public int like(String userId,String blogId) {
         try{
-            return blogMapper.insertLike(userId,blogId);
+            return blogDao.insertLike(userId,blogId);
         }catch (Exception e){
-            if (blogMapper.deleteLike(userId,blogId)==1){
+            if (blogDao.deleteLike(userId,blogId)==1){
                 return -1;
             }
             return 0;
@@ -92,44 +96,44 @@ public class BlogServiceImpl implements BlogService {
 
 
     @Override
-    public Blog getBlogByUUID(String uuid,String userId) {
-        return blogMapper.selectBlogByUUID(uuid);
+    public BlogDto getBlogByUUID(String uuid, String userId) {
+        return blogDao.selectBlogByUUID(uuid);
     }
 
     @Override
-    public Blog getBlogByUUIDTextTit(String uuid){
+    public BlogDto getBlogByUUIDTextTit(String uuid){
 
-        return blogMapper.getBlogByUUIDTextTit(uuid);
+        return blogDao.getBlogByUUIDTextTit(uuid);
     }
 
     @Override
     public int selelcLike(String userId, String dataId) {
-        return blogMapper.selelcLike(userId,dataId);
+        return blogDao.selelcLike(userId,dataId);
     }
 
     @Override
     public int selelcFavorite(String userId, String blogId) {
-        return blogMapper.selelcFavorite(userId,blogId);
+        return blogDao.selelcFavorite(userId,blogId);
     }
 
 
 
     @Override
-    public List<Blog> searchByUserlike(String username) {
-        return blogMapper.searchByUserlike(username);
+    public List<BlogDto> getLikeBlogs(String userId) {
+        return blogDao.getLikeBlogs(userId);
     }
 
     @Override
-    public List<Blog> searchByUserfavorite(String username) {
-        return blogMapper.searchByUserfavorite(username);
+    public List<BlogDto> searchByUserfavorite(String username) {
+        return blogDao.searchByUserfavorite(username);
     }
 
     @Override
     public int favorite(String id, String id1) {
         try{
-            return blogMapper.insertFavorite(id,id1);
+            return blogDao.insertFavorite(id,id1);
         }catch (Exception e){
-            if (blogMapper.deleteFavorite(id,id1)==1){
+            if (blogDao.deleteFavorite(id,id1)==1){
                 return -1;
             }
             return 0;

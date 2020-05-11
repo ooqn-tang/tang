@@ -3,7 +3,7 @@ package net.ttcxy.tangtang.entity;
 /**
  * Blog模型类
  */
-public class Blog {
+public class BlogDto {
 
     /**
      * 博客id

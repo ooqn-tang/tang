@@ -4,7 +4,7 @@
 <head>
     <title>md转换为html</title>
     <meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width,height=device-height,initial-scale=1.0,user-scalable=no,minimum-scale=1.0,maximum-scale=1.0"/>
+	<meta name="viewport" content="width=device-width,height=device-height,initial-scale=1.0,userDto-scalable=no,minimum-scale=1.0,maximum-scale=1.0"/>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <link href="https://cdn.bootcss.com/github-markdown-css/4.0.0/github-markdown.min.css" rel="stylesheet">
 	<style>
@@ -102,11 +102,11 @@
         $("#content").html(html)
     }
 
-    let blog = getUrlParam("blog");
-    if (blog!=null){
+    let blogDto = getUrlParam("blogDto");
+    if (blogDto!=null){
         $.ajax({
             type:"get",
-            url:"/blog/load"+"?blog="+blog,
+            url:"/blogDto/load"+"?blogDto="+blogDto,
             contentType: "application/json", //必须这样写
             success:function (result) {
                 if (result.code==200){
@@ -127,11 +127,11 @@
     }
 
     $("#send").click(function(){
-        let blog = getUrlParam("blog");
-        if (blog==null){
+        let blogDto = getUrlParam("blogDto");
+        if (blogDto==null){
             insert();
         } else{
-            update(blog);
+            update(blogDto);
         }
 
     })
@@ -142,7 +142,7 @@
         let html = marked(markdown)
         $.ajax({
             type:"POST",
-            url:"/blog/insert",
+            url:"/blogDto/insert",
             contentType: "application/json", //必须这样写
             dataType:"json",
             data:JSON.stringify({
@@ -166,7 +166,7 @@
 
         $.ajax({
             type:"POST",
-            url:"/blog/update",
+            url:"/blogDto/update",
             contentType: "application/json", //必须这样写
             dataType:"json",
             data:JSON.stringify({

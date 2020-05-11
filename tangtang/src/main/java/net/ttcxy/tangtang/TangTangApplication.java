@@ -10,7 +10,7 @@ import org.springframework.context.ApplicationContextAware;
  * @author huanglei
  */
 @SpringBootApplication
-@MapperScan(basePackages ="net.ttcxy.tangtang.mapper")
+@MapperScan(basePackages ={"net.ttcxy.tangtang.mapper","net.ttcxy.tangtang.dao"})
 public class  TangTangApplication {
 
     public static void main(String[] args) {

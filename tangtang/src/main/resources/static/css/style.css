@@ -9,7 +9,7 @@ html{
 }
 body{
     padding-right: 0px !important;
-    background-color: #f4f5f5;
+    background-color: #fcfdfd;
 }
 
 #hdt {
@@ -86,7 +86,7 @@ a:hover,a:hover,a{text-decoration:none !important;}
 
 
 @media screen and (max-width: 770px){
-    .norlPb{
+    .nob-p{
         border-left: 0 !important;
         border-right: 0 !important;
         border-radius: 0px !important;
@@ -112,6 +112,8 @@ hr{
 .mytab{
     width: 20%;
 }
+
+
 
 
 

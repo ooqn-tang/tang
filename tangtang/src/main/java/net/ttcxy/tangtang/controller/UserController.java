@@ -1,13 +1,12 @@
 package net.ttcxy.tangtang.controller;
 
+import cn.hutool.core.util.ReUtil;
 import net.ttcxy.tangtang.api.CommonResult;
-import net.ttcxy.tangtang.entity.User;
+import net.ttcxy.tangtang.entity.UserDto;
 import net.ttcxy.tangtang.service.UserService;
 import net.ttcxy.tangtang.service.impl.AuthDetailsImpl;
 import net.ttcxy.tangtang.service.impl.FansServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,23 +15,27 @@ import java.util.List;
  * 用户相关操作
  * @author huanglei
  */
-@Controller
+@RestController
 public class UserController {
 
+    @Autowired
+    private FansServiceImpl fansService;
 
+    @Autowired
+    private AuthDetailsImpl authDetails;
 
-    @GetMapping("userinfo")
-    public String updateUser(Model model){
-        model.addAttribute("user",authDetails.getUser());
-        return "userinfo";
-    }
+    @Autowired
+    private UserService userService;
+
     @PostMapping("userinfo")
     @ResponseBody
-    public CommonResult updateUser(@RequestBody User user){
+    public CommonResult updateUser(@RequestBody UserDto userDto){
         String id = authDetails.getUser().getId();
 
 
-        String nickname = user.getNickname();
+        String nickname = userDto.getNickname();
+
+        ReUtil.contains("dfsdfsd","");
 
         if (nickname!=null){
             int length = 0;
@@ -56,48 +59,30 @@ public class UserController {
 
 
 
-        String signature = user.getSignature();
+        String signature = userDto.getSignature();
 
 
 
 
-        user.setId(id);
-        int yesNo = userService.updateUser(user);
+        userDto.setId(id);
+        int yesNo = userService.updateUser(userDto);
         return CommonResult.success(yesNo);
     }
-
-
-
-    @Autowired
-    FansServiceImpl fansService;
 
     @GetMapping("user/gz")
     @ResponseBody
     public CommonResult gz(){
 
         String userId = authDetails.getUser().getId();
-        List<User> fansList = fansService.selectFansList(userId);
+        List<UserDto> fansList = fansService.selectFansList(userId);
         return CommonResult.success(fansList);
     }
 
-    @Autowired
-    private AuthDetailsImpl authDetails;
 
-
-    @Autowired
-    private UserService userService;
-
-
-
-
-    //退出
-
-    //点赞
-
-    //评论
-
-    //收藏
-
-    //举报
+    @PostMapping("list")
+    @ResponseBody
+    public CommonResult<List<UserDto>> listUser(){
+        return CommonResult.success(userService.listUser());
+    }
 
 }

@@ -6,7 +6,7 @@ import java.util.Date;
  * @author ：HuangLei
  * @date ：2020/4/10 0010 19:52
  */
-public class Fans {
+public class FansDto {
 
     private String id;
 
@@ -14,9 +14,27 @@ public class Fans {
 
     private String follower;
 
+    private String nickname;
+
+    private String username;
+
     private Date createDate;
 
-    public Fans(){}
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
     public String getId() {
         return id;

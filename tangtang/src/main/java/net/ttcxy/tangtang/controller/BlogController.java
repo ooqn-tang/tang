@@ -2,30 +2,30 @@ package net.ttcxy.tangtang.controller;
 
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.StrUtil;
-import com.qiniu.util.Auth;
+import io.swagger.annotations.Api;
 import net.ttcxy.tangtang.api.CommonResult;
-import net.ttcxy.tangtang.entity.Blog;
-import net.ttcxy.tangtang.entity.Comment;
-import net.ttcxy.tangtang.entity.User;
+import net.ttcxy.tangtang.entity.BlogDto;
+import net.ttcxy.tangtang.entity.CommentDto;
+import net.ttcxy.tangtang.entity.UserDto;
+import net.ttcxy.tangtang.model.Blog;
 import net.ttcxy.tangtang.service.BlogService;
 import net.ttcxy.tangtang.service.CommentService;
 import net.ttcxy.tangtang.service.impl.AuthDetailsImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
  * 对博文的增删改查
  * @author huanglei
  */
-@Controller
+@RestController
 @RequestMapping("blog")
+@Api(tags = "BlogController", description = "对博文的增删改查")
 public class BlogController {
 
     @Autowired
@@ -38,11 +38,11 @@ public class BlogController {
     private CommentService commentService;
 
     @GetMapping("userblog/{username}")
-    @ResponseBody
-    public CommonResult blogList(@PathVariable("username") String username, @RequestParam(value = "type",required = false) String type){
+    public CommonResult blogList(@PathVariable("username") String username,
+                                 @RequestParam(value = "type",required = false) String type){
 
         if ("1".equals(type)){
-            return CommonResult.success(blogService.searchByUserlike(username));
+
         } else if ("2".equals(type)){
             return CommonResult.success(blogService.searchByUserfavorite(username));
         }
@@ -50,36 +50,46 @@ public class BlogController {
         return  CommonResult.success(blogService.searchByUsername(username,type));
     }
 
+    /**
+     * 获取自己喜欢的文章
+     * @return
+     */
+    @GetMapping("user-like")
+    public CommonResult<List<BlogDto>> selectByUserLike(){
+        String userId = authDetailsImpl.getUserId();
+        List<BlogDto> likeBlogs = blogService.getLikeBlogs(userId);
+        return CommonResult.success(likeBlogs);
+    }
+
 
 
     /**
      * 添加博客
-     * @param blog blogParam
+     * @param blogDto blogParam
      * @return null
      */
     @PostMapping("insert")
-    @ResponseBody
-    public CommonResult add(@RequestBody Blog blog){
+    public CommonResult add(@RequestBody BlogDto blogDto){
 
-        User user = authDetailsImpl.getUser();
+        String userId = authDetailsImpl.getUserId();
 
-        if (blog!=null){
-            if (StrUtil.isBlank(blog.getTitle())){
+        if (blogDto !=null){
+            if (StrUtil.isBlank(blogDto.getTitle())){
                 return CommonResult.failed("请正确输入内容");
             }
-            if (StrUtil.isBlank(blog.getMarkdown())){
+            if (StrUtil.isBlank(blogDto.getMarkdown())){
                 return CommonResult.failed("请正确输入内容");
             }
-            if (StrUtil.isBlank(blog.getText())){
+            if (StrUtil.isBlank(blogDto.getText())){
                 return CommonResult.failed("请正确输入内容");
             }
         }
 
-        blog.setId(IdUtil.simpleUUID());
-        blog.setUserId(user.getId());
-        blog.setStateId("1");
+        blogDto.setId(IdUtil.simpleUUID());
+        blogDto.setUserId(userId);
+        blogDto.setStateId("1");
 
-        int influenceCount = blogService.addBlog(blog);
+        int influenceCount = blogService.addBlog(blogDto);
 
         if (influenceCount==1){
             return CommonResult.success("添加成功");
@@ -93,19 +103,18 @@ public class BlogController {
 
 
     @PostMapping("comment/insert")
-    @ResponseBody
-    public CommonResult insertComment(@RequestBody Comment comment){
+    public CommonResult insertComment(@RequestBody CommentDto commentDto){
 
-        comment.setId(IdUtil.fastSimpleUUID());
-        comment.setUserId(authDetailsImpl.getUser().getId());
-        comment.setCreateDate(new Date());
-        comment.setStatus("1");
-        comment.setUsername(authDetailsImpl.getUser().getUsername());
-        comment.setNickname(authDetailsImpl.getUser().getNickname());
+        commentDto.setId(IdUtil.fastSimpleUUID());
+        commentDto.setUserId(authDetailsImpl.getUser().getId());
+        commentDto.setCreateDate(new Date());
+        commentDto.setStatus("1");
+        commentDto.setUsername(authDetailsImpl.getUser().getUsername());
+        commentDto.setNickname(authDetailsImpl.getUser().getNickname());
 
 
-        if (commentService.insertComment(comment)){
-            return CommonResult.success(comment);
+        if (commentService.insertComment(commentDto)){
+            return CommonResult.success(commentDto);
         }
 
         return CommonResult.failed("添加失败；");
@@ -113,7 +122,6 @@ public class BlogController {
     }
 
     @GetMapping("comment/{blogId}")
-    @ResponseBody
     public CommonResult selectComment(@PathVariable("blogId") String blogId){
         Map<String,Object> map = new HashMap<>();
         map.put("comments",commentService.selectComment(blogId));
@@ -122,39 +130,36 @@ public class BlogController {
     }
 
     @DeleteMapping("comment/{blogId}")
-    @ResponseBody
     public CommonResult deleteComment(@PathVariable("blogId") String blogId){
-        return CommonResult.success(commentService.deleteComment(blogId));
+        int count = commentService.deleteComment(blogId);
+        if (count > 1){
+            return CommonResult.success(count);
+        }
+        return CommonResult.failed();
+
     }
 
-
-
-
-
     @GetMapping("load")
-    @ResponseBody
     public CommonResult load(@RequestParam(name="blog",required = false) String blogId){
 
-        Blog blogBody = blogService.getBlogByUUIDTextTit(blogId);
-        User user = authDetailsImpl.getUser();
-        if(blogBody.getUserId().equals(user.getId())){
-            return CommonResult.success(blogBody);
+        BlogDto blogDtoBody = blogService.getBlogByUUIDTextTit(blogId);
+        UserDto userDto = authDetailsImpl.getUser();
+        if(blogDtoBody.getUserId().equals(userDto.getId())){
+            return CommonResult.success(blogDtoBody);
         }else{
             return CommonResult.failed("无法修改别人的Blog");
         }
     }
 
     @PostMapping("update")
-    @ResponseBody
     public CommonResult update(@RequestBody Blog blog){
 
-        Blog blogBody = blogService.getBlogByUUIDTextTit(blog.getId());
-        User user = authDetailsImpl.getUser();
-        if(blogBody.getUserId().equals(user.getId())){
-            return CommonResult.success(blogService.updateBlog(blog));
-        }else{
-            return CommonResult.failed("无法修改别人的Blog");
+        int count = blogService.updateBlog(blog);
+        if (count > 0){
+            return CommonResult.success(0);
         }
+        return CommonResult.failed();
+
     }
 
 
@@ -165,7 +170,6 @@ public class BlogController {
      * @return null
      */
     @GetMapping("delete/{id}")
-    @ResponseBody
     public CommonResult delete(@PathVariable("id") String id){
 
         String userId = blogService.getBlogByUUIDTextTit(id).getUserId();
@@ -185,47 +189,14 @@ public class BlogController {
         }
     }
 
-
-    /**
-     * 查询
-     * @param id 查询ID
-     * @return 结果
-     */
-    @GetMapping("query/{id}")
-    public CommonResult query(@PathVariable("id") String id){
-        System.out.println(id);
-        return null;
-    }
-
-   //todo 图片上传
-    @PostMapping("img/upload")
-    @ResponseBody
-    public Map<String,String> fileUpdate(@RequestParam(value="editormd-image-file") MultipartFile multipartFile){
-
-        String accessKey = "M6qf3dVX9P5RY1fQWnFItPjw7q8ExvUhFmGRgyHq";
-        String secretKey = "EoiEXLXG_GwLox4TA0W28bVCj3tXkZwT7Le_LK1z";
-        String bucket = "bucket name";
-        Auth auth = Auth.create(accessKey, secretKey);
-        String upToken = auth.uploadToken(bucket);
-        System.out.println(upToken);
-
-
-        multipartFile.getName();
-        return null;
-
-    }
-
-
-
     /**
      * 喜欢blog.如果数据库不存在，推荐，如果存在就取消。
      * @param id id
      */
     @GetMapping("/like/{id}/insert")
-    @ResponseBody
     public CommonResult like(@PathVariable("id") String id){
-        User user = authDetailsImpl.getUser();
-        return CommonResult.success(blogService.like(user.getId(),id));
+        UserDto userDto = authDetailsImpl.getUser();
+        return CommonResult.success(blogService.like(userDto.getId(),id));
     }
 
     /**
@@ -233,10 +204,9 @@ public class BlogController {
      * @param id id
      */
     @GetMapping("/favorite/{id}/insert")
-    @ResponseBody
     public CommonResult favorite(@PathVariable("id") String id){
-
-        User user = authDetailsImpl.getUser();
-        return CommonResult.success(blogService.favorite(user.getId(),id));
+        UserDto userDto = authDetailsImpl.getUser();
+        int favorite = blogService.favorite(userDto.getId(), id);
+        return CommonResult.success(favorite);
     }
 }

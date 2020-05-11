@@ -1,6 +1,6 @@
 package net.ttcxy.tangtang.security.model;
 
-import net.ttcxy.tangtang.entity.User;
+import net.ttcxy.tangtang.entity.UserDto;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.Valid;
@@ -12,9 +12,9 @@ import javax.validation.constraints.NotNull;
  */
 public class Register {
 
-    @NotNull(message = "user 不能为null")
+    @NotNull(message = "userDto 不能为null")
     @Valid
-    private User user ;
+    private UserDto userDto;
 
     @NotNull(message = "yzm不能为null")
     @Length(min = 4,max = 4,message = "验证码长度为4")
@@ -23,12 +23,12 @@ public class Register {
     @NotNull(message = "token不能为null")
     private String token;
 
-    public User getUser() {
-        return user;
+    public UserDto getUserDto() {
+        return userDto;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserDto(UserDto userDto) {
+        this.userDto = userDto;
     }
 
     public String getYzm() {

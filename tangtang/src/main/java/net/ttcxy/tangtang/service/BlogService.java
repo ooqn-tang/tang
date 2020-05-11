@@ -1,6 +1,7 @@
 package net.ttcxy.tangtang.service;
 
-import net.ttcxy.tangtang.entity.Blog;
+import net.ttcxy.tangtang.entity.BlogDto;
+import net.ttcxy.tangtang.model.Blog;
 
 import java.util.List;
 
@@ -10,13 +11,13 @@ public interface BlogService {
      * 查询blog
      * @return
      */
-    List<Blog> selectBlog(Integer pag);
+    List<BlogDto> selectBlog(Integer pag);
 
     /**
      * 模糊查询blog
      * @return
      */
-    List<Blog> search(String title,Integer pag);
+    List<BlogDto> search(String title, Integer pag);
 
     /**
      * 通过用户名查询所有BLOG
@@ -24,16 +25,16 @@ public interface BlogService {
      * @param type
      * @return
      */
-    List<Blog> searchByUsername(String username,String type);
+    List<BlogDto> searchByUsername(String username, String type);
 
 
 
-    Blog getBlogByUUID(String uuid,String userId);
+    BlogDto getBlogByUUID(String uuid, String userId);
 
     /**
      * 添加blog
      */
-    int addBlog(Blog blog);
+    int addBlog(BlogDto blogDto);
 
     /**
      * 更新博客
@@ -60,7 +61,7 @@ public interface BlogService {
      * @param blogId
      * @return
      */
-    Blog getBlogByUUIDTextTit(String blogId);
+    BlogDto getBlogByUUIDTextTit(String blogId);
 
     /**
      * 查询我是否喜欢了当前Blog
@@ -72,17 +73,16 @@ public interface BlogService {
 
     /**
      * 查询用户喜欢的所有BLOG
-     * @param username
      * @return
      */
-    List<Blog> searchByUserlike(String username);
+    List<BlogDto> getLikeBlogs(String userId);
 
     /**
      * 查询用户的所有收藏
      * @param username
      * @return
      */
-    List<Blog> searchByUserfavorite(String username);
+    List<BlogDto> searchByUserfavorite(String username);
 
     /**
      * 查询所有的收藏

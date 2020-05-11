@@ -1,6 +1,6 @@
 package net.ttcxy.tangtang.controller;
 
-import net.ttcxy.tangtang.entity.User;
+import net.ttcxy.tangtang.entity.UserDto;
 import net.ttcxy.tangtang.service.BlogService;
 import net.ttcxy.tangtang.service.UserService;
 import net.ttcxy.tangtang.service.impl.AuthDetailsImpl;
@@ -28,14 +28,14 @@ public class PageController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private AuthDetailsImpl authDetails;
+
     /**
      * 首页
-     * @param pg 页码
-     * @param modelAndView modelAndView
-     * @return modelAndView
      */
     @GetMapping("")
-    public ModelAndView toHome(@RequestParam(name = "pg", required = false)Integer pg,
+    public ModelAndView toHome(@RequestParam(name = "pg", defaultValue = "1")Integer pg,
                                ModelAndView modelAndView){
 
         modelAndView.setViewName("home");
@@ -45,11 +45,7 @@ public class PageController {
     }
 
     /**
-     * 搜索
-     * @param pg 页面
-     * @param s 搜索参数
-     * @param modelAndView modelAndView
-     * @return ModelAndView
+     * 搜索跳转页面
      */
     @GetMapping("so")
     public ModelAndView toSearch(@RequestParam(name = "pg", required = false)Integer pg,
@@ -61,15 +57,21 @@ public class PageController {
     }
 
     /**
-     * 用户home页
-     * @param username username
-     * @param modelAndView modelAndView
-     * @return modelAndView
+     * 作者页面
      */
-    @GetMapping("us/{username}")
+    @GetMapping("author/{username}")
     public ModelAndView toUserHome(@PathVariable("username")String username, ModelAndView modelAndView){
         modelAndView.setViewName("userhome");
         modelAndView.addObject("user",userService.selectUserByName(username));
+        return modelAndView;
+    }
+
+    /**
+     * 作者列表页面
+     */
+    @GetMapping("authors")
+    public  ModelAndView toAuthors(ModelAndView modelAndView){
+        modelAndView.setViewName("authors");
         return modelAndView;
     }
 
@@ -77,21 +79,18 @@ public class PageController {
 
 
     /**
-     * 打开Blog
-     * @param blogId blogId
-     * @param modelAndView modelAndView
-     * @return modelAndView
+     * 文章页面
      */
     @GetMapping("post/{id}")
     public ModelAndView toBlog(@PathVariable("id")String blogId,
                                ModelAndView modelAndView){
         modelAndView.setViewName("blog");
-        User user = authDetailsImpl.getUser();
+        UserDto userDto = authDetailsImpl.getUser();
 
         String userId;
 
-        if (user!=null){
-            userId = user.getId();
+        if (userDto !=null){
+            userId = userDto.getId();
             // 如果用户没有登陆，不需要查询是否喜欢或收藏
             // 是否喜欢了当前博客
             modelAndView.addObject("like",blogService.selelcLike(userId,blogId));
@@ -105,43 +104,54 @@ public class PageController {
         return modelAndView;
     }
 
-    @GetMapping("user")
-    public ModelAndView toUserHome( ModelAndView modelAndView){
-        modelAndView.setViewName("userhome");
+    /**
+     * 更改用户信息页面
+     */
+    @GetMapping("userinfo")
+    public ModelAndView updateUser(ModelAndView modelAndView){
+        modelAndView.setViewName("userinfo");
+        modelAndView.addObject("user",authDetails.getUser());
         return modelAndView;
     }
+
 
     /**
-     * 更改用户信息
-     * @param modelAndView
+     * 登陆页面
      */
-    @GetMapping("uu")
-    public ModelAndView toUpdateUser( ModelAndView modelAndView){
-        modelAndView.setViewName("userinfo");
-        return modelAndView;
-    }
-
-    @GetMapping("password")
-    public ModelAndView toUpdatePassword( ModelAndView modelAndView){
-        modelAndView.setViewName("password");
-        return modelAndView;
-    }
-
     @GetMapping("login")
     public ModelAndView toLogin( ModelAndView modelAndView){
         modelAndView.setViewName("login");
         return modelAndView;
     }
-    @GetMapping("register")
-    public ModelAndView toRegister( ModelAndView modelAndView){
-        modelAndView.setViewName("register");
+
+    /**
+     * 更改密码页面
+     */
+    @GetMapping("password")
+    public ModelAndView toUpdatePwd(ModelAndView modelAndView){
+        modelAndView.setViewName("password");
+        modelAndView.addObject("user",authDetails.getUser());
         return modelAndView;
     }
 
+    /**
+     * 编辑器
+     */
     @GetMapping("editor")
     public ModelAndView toEditor(ModelAndView modelAndView){
         modelAndView.setViewName("editor");
         return modelAndView;
     }
+
+    /**
+     * 编辑器
+     */
+    @GetMapping("editor2")
+    public ModelAndView toEditor2(ModelAndView modelAndView){
+        modelAndView.setViewName("editor2");
+        return modelAndView;
+    }
+
+
 
 }

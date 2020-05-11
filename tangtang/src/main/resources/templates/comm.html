@@ -16,20 +16,21 @@
             </div>
             <div id="bs-example-navbar-collapse-1" class="collapse navbar-collapse">
                 <ul class="nav navbar-nav ">
+                    <li><a href="/">首页</a></li>
+                    <li><a href="#">导航</a></li>
                 </ul>
                 <form class="navbar-form navbar-left">
                     <div class="input-group">
-                        <input type="text" class="form-control" id="searchVal" th:value="${title}" placeholder="输入关键字" name="s">
+                        <input autocapitalize="none" autocomplete="off" autocorrect="off" type="text" class="form-control" id="searchVal" th:value="${title}" placeholder="输入关键字" name="s">
                         <span class="input-group-btn">
                         <button type="button" class="btn btn-default" id="searchBtn">搜索</button>
                     </span>
                     </div>
                 </form>
-
-                <ul class="nav navbar-nav navbar-right ">
-                    <li><a th:if="${session.SPRING_SECURITY_CONTEXT}!= null" href="/editor"><span class="glyphicon glyphicon-edit"></span> 发布消息</a></li>
-                    <li><a th:if="${session.SPRING_SECURITY_CONTEXT}!= null" th:href="@{/us/{username}(username=${session.SPRING_SECURITY_CONTEXT.authentication.principal.username})}"><span class="glyphicon glyphicon-user"></span> 我的主页</a></li>
-                    <li th:if="${session.SPRING_SECURITY_CONTEXT}== null"><a href="/login.html">登陆</a></li>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a th:if="${session.SPRING_SECURITY_CONTEXT}!= null" href="/editor">发布</a></li>
+                    <li><a th:if="${session.SPRING_SECURITY_CONTEXT}!= null" th:href="@{/author/{username}(username=${session.SPRING_SECURITY_CONTEXT.authentication.principal.username})}">我的</a></li>
+                    <li th:if="${session.SPRING_SECURITY_CONTEXT}== null"><a href="/login">登陆</a></li>
                 </ul>
             </div>
         </div>
@@ -38,9 +39,26 @@
 
 <!--广告公用块-->
 <div th:fragment="advertise">
-    <div class="list-group hidden-xs hidden-sm" >
-        <a href="#" class="list-group-item active">广告</a>
-        <a target="_blank" class="list-group-item" th:each="advertise : ${application.advertises}" th:text="${advertise.title}" th:href="${advertise.url}"></a>
+    <div class="list-group  nob" >
+        <a href="#" class="list-group-item active nob">广告</a>
+        <a target="_blank" class="list-group-item nob" th:each="advertise : ${application.advertises}" th:text="${advertise.title}" th:href="${advertise.url}"></a>
+    </div>
+</div>
+
+<div th:fragment="authors">
+    <div class="panel panel-primary column nob ">
+        <div class="panel-heading" onclick="javascript:window.open('#')">
+            <h1 class="panel-title text-primary" >
+                <strong >带有 title 的面板标题</strong><span style="float: right !important;">&gt;&gt;</span>
+            </h1>
+        </div>
+        <div class="panel-body">
+            这是一个基本的面板
+        </div>
+        <div class="panel-footer">
+            <span >创作：1212</span>
+            <span style="float: right !important;">推荐作者</span>
+        </div>
     </div>
 </div>
 
@@ -59,5 +77,4 @@
         <script src="/js/my.js"></script>
     </head>
 </div>
-
 </html>

@@ -1,6 +1,6 @@
-package net.ttcxy.tangtang.mapper;
+package net.ttcxy.tangtang.dao;
 
-import net.ttcxy.tangtang.entity.Comment;
+import net.ttcxy.tangtang.entity.CommentDto;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 
@@ -10,16 +10,16 @@ import java.util.List;
  * @author ：HuangLei
  * @date ：2020/4/18 0018 15:17
  */
-public interface CommentMapper {
+public interface CommentDao {
 
     /**
      * 添加评论
-     * @param comment 评论
+     * @param commentDto 评论
      * @return
      */
     @Insert("insert into blog_comment (id,blog_id,status,user_id,content,create_date)" +
             "values(#{id},#{blogId},#{status},#{userId},#{content},#{createDate})")
-    int insertComment(Comment comment);
+    int insertComment(CommentDto commentDto);
 
     /**
      * 删除评论 commentId
@@ -34,5 +34,5 @@ public interface CommentMapper {
      * @param blogId
      * @return
      */
-    List<Comment> selectComment(String blogId);
+    List<CommentDto> selectComment(String blogId);
 }

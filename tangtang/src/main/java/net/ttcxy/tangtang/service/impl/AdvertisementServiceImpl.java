@@ -1,7 +1,7 @@
 package net.ttcxy.tangtang.service.impl;
 
-import net.ttcxy.tangtang.entity.Advertise;
-import net.ttcxy.tangtang.mapper.AdvertisementMapper;
+import net.ttcxy.tangtang.entity.AdvertiseDto;
+import net.ttcxy.tangtang.dao.AdvertisementDao;
 import net.ttcxy.tangtang.service.AdvertisementService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,15 +12,15 @@ import java.util.List;
 public class AdvertisementServiceImpl implements AdvertisementService {
 
     @Autowired
-    private AdvertisementMapper advertisementMapper;
+    private AdvertisementDao advertisementDao;
 
     /**
      * 查询全部广告信息
      * @return
      */
     @Override
-    public List<Advertise> selectAllAdvertisement() {
-        return advertisementMapper.selectAllAdvertisement();
+    public List<AdvertiseDto> selectAllAdvertisement() {
+        return advertisementDao.selectAllAdvertisement();
     }
 
     /**
@@ -29,28 +29,28 @@ public class AdvertisementServiceImpl implements AdvertisementService {
      * @return
      */
     @Override
-    public Advertise selectById(String advertisementId) {
-        return advertisementMapper.selectById(advertisementId);
+    public AdvertiseDto selectById(String advertisementId) {
+        return advertisementDao.selectById(advertisementId);
     }
 
     /**
      * 新增一条广告信息
-     * @param advertise 封装的广告信息
+     * @param advertiseDto 封装的广告信息
      * @return
      */
     @Override
-    public int addAdvertisement(Advertise advertise) {
-        return advertisementMapper.addAdvertisement(advertise);
+    public int addAdvertisement(AdvertiseDto advertiseDto) {
+        return advertisementDao.addAdvertisement(advertiseDto);
     }
 
     /**
      * 更新一条广告信息
-     * @param advertise
+     * @param advertiseDto
      * @return
      */
     @Override
-    public int updateAdvertisement(Advertise advertise) {
-        return advertisementMapper.updateAdvertisement(advertise);
+    public int updateAdvertisement(AdvertiseDto advertiseDto) {
+        return advertisementDao.updateAdvertisement(advertiseDto);
     }
 
     /**
@@ -60,7 +60,7 @@ public class AdvertisementServiceImpl implements AdvertisementService {
      */
     @Override
     public int deleteAdvertisement(String advertisementId) {
-        return advertisementMapper.deleteAdvertisement(advertisementId);
+        return advertisementDao.deleteAdvertisement(advertisementId);
     }
 
 

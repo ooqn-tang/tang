@@ -8,10 +8,10 @@ import java.util.List;
  * 收藏
  */
 
-public class Cyun {
+public class CyunDto {
 
     //所有的收藏人列表
-    private List<User> cyunUsers ;
+    private List<UserDto> cyunUserDtos;
 
     //最新收藏时间
     private String dateTime;
@@ -31,12 +31,12 @@ public class Cyun {
     //点赞数
     private Integer praiseCount;
 
-    public List<User> getCyunUsers() {
-        return cyunUsers;
+    public List<UserDto> getCyunUserDtos() {
+        return cyunUserDtos;
     }
 
-    public void setCyunUsers(List<User> cyunUsers) {
-        this.cyunUsers = cyunUsers;
+    public void setCyunUserDtos(List<UserDto> cyunUserDtos) {
+        this.cyunUserDtos = cyunUserDtos;
     }
 
     public String getDateTime() {

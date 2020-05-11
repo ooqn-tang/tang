@@ -9,7 +9,7 @@ import java.util.Date;
  * @author ：HuangLei
  * @date ：2020/4/18 0018 15:14
  */
-public class Comment {
+public class CommentDto {
 
     private String id;
 
@@ -31,7 +31,7 @@ public class Comment {
 
     @Override
     public String toString() {
-        return "Comment{" +
+        return "CommentDto{" +
                 "id='" + id + '\'' +
                 ", blogId='" + blogId + '\'' +
                 ", status='" + status + '\'' +
