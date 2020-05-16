@@ -25,19 +25,19 @@
             <div class="panel panel-default nob">
                 <div class="panel-body">
                     <div class="btn-group" style="width: 100%;">
-                        <button class="mytab btn btn-default" v-on:click="sayHi(0)">博客</button>
-                        <button class="mytab btn btn-default" v-on:click="sayHi(2)" th:if="${session.SPRING_SECURITY_CONTEXT !=null && session.SPRING_SECURITY_CONTEXT.authentication.principal.username == username}">收藏</button>
-                        <button class="mytab btn btn-default" v-on:click="sayHi(1)">推荐</button>
-                        <button class="mytab btn btn-default" v-on:click="gz()" th:if="${session.SPRING_SECURITY_CONTEXT !=null && session.SPRING_SECURITY_CONTEXT.authentication.principal.username == username}">关注</button>
-                        <a class="mytab btn btn-default" @click="zx" th:if="${session.SPRING_SECURITY_CONTEXT !=null && session.SPRING_SECURITY_CONTEXT.authentication.principal.username == username}">注销</a>
+                        <button class="mytab btn btn-default" v-on:click="home()">博客</button>
+                        <button class="mytab btn btn-default" v-on:click="like()" th:if="${session.SPRING_SECURITY_CONTEXT !=null && session.SPRING_SECURITY_CONTEXT.authentication.principal.username == username}">收藏</button>
+                        <button class="mytab btn btn-default" v-on:click="favorite()">推荐</button>
+                        <button class="mytab btn btn-default" v-on:click="fans()" th:if="${session.SPRING_SECURITY_CONTEXT != null && session.SPRING_SECURITY_CONTEXT.authentication.principal.username == username}">关注</button>
+                        <a class="mytab btn btn-default" @click="logout" th:if="${session.SPRING_SECURITY_CONTEXT !=null && session.SPRING_SECURITY_CONTEXT.authentication.principal.username == username}">注销</a>
                     </div>
                 </div>
             </div>
 
-            <div v-show="gzShow" class="panel panel-default" style="max-height: 300px;overflow:auto" th:if="${session.SPRING_SECURITY_CONTEXT !=null && session.SPRING_SECURITY_CONTEXT.authentication.principal.username == username}">
-                <div class="list-group" >
-                    <a href="#" class="list-group-item active">关注</a>
-                    <a class="list-group-item" v-for="(item,i) in gzList" v-bind:href="item.username">{{item.nickname}}</a>
+            <div v-show="gzShow" class="panel panel-default nob-p" style="max-height: 300px;overflow:auto" th:if="${session.SPRING_SECURITY_CONTEXT !=null && session.SPRING_SECURITY_CONTEXT.authentication.principal.username == username}">
+                <div class="list-group nob" >
+                    <a href="#" class="list-group-item active nob">关注</a>
+                    <a class="list-group-item nob" v-for="(item,i) in gzList" v-bind:href="item.username">{{item.nickname}}</a>
                 </div>
             </div>
 
@@ -71,7 +71,7 @@
 <script>
     let bools = "[[${session.SPRING_SECURITY_CONTEXT != null}]]"
 
-    var username = $("#username").val();
+    let username = $("#username").val();
     new Vue({
         el: "#app",//绑定元素
         //所有数据都放在数据属性中
@@ -87,15 +87,14 @@
                 text:""
             }
 
-        }, methods: {      //这里使用methods
-
-            zx(){
+        }, methods: {
+            logout(){
                 if(confirm("确认退出账号吗？")){
-                    $.get("/logout")
+                    $.ajax({ url: "/logout", type: 'get', async: false})
                     window.location.href="/"
                 }
-            },
-            deleteBlog(item,index){
+            }
+            , deleteBlog(item,index){
                 let _this = this;
                 if(confirm("确认删除吗？")){
                     $.ajax({
@@ -103,72 +102,89 @@
                         url:"/blog/delete/"+item.id,
                         contentType: "application/json",
                         success:function (result) {
-                            if (result.state==200){
+                            if (result.code === 200){
                                 _this.blogs.splice(index,1)
                             }
                         }
                     })
                 }
-            },
-            followerClick(){
+            }
+            , followerClick(){
                 let _this = this;
-                if (_this.follower.text == '已关注'){
-                    $.ajax({
-                        type:"POST",
-                        url:"/fans/"+username,
-                        contentType: "application/json", //必须这样写
-                        dataType:"json",
-                        success:function (result) {
-                            _this.follower.text = '关注'
-                        }
-                    })
+                let type,text;
+                if (_this.follower.text === '已关注'){
+                    type = "DELETE";
+                    text = "关注"
                 } else{
-                    $.ajax({
-                        type:"POST",
-                        url:"/fans/"+username,
-                        contentType: "application/json", //必须这样写
-                        dataType:"json",
-                        success:function (result) {
-                            _this.follower.text = '已关注'
-                        }
-                    })
-
+                    type = "POST";
+                    text = "已关注"
                 }
-            },loadFollower(){
+                $.ajax({
+                    type:type,
+                    url:"/fans/"+username,
+                    contentType: "application/json", //必须这样写
+                    dataType:"json",
+                    success:function (result) {
+                        if (result.code === 200) {
+                            _this.follower.text = text;
+                        }
+                    }
+                })
+            }
+            , loadFollower(){
                 let _this = this;
                 $.ajax({
                     type:"GET",
                     url:"/fans/"+username,
                     contentType: "application/json", //必须这样写
                     success:function (result) {
-                        if (result.data){
+                        if (result.code === 200){
                             _this.follower.text = '已关注'
                         } else{
                             _this.follower.text = '关注'
                         }
                     }
                 })
-            },
-
-            sayHi: function (type) {
-                if (type!=0){
-                    this.update = false
-                } else{
-                    this.update = true;
-                }
+            }
+            , like(){
                 let _this = this;
+                this.update = false;
                 $.ajax({
                     type:"GET",
-                    url:"/blog/userblog/"+username+"?type="+type,
+                    url:"/blog/like",
                     contentType: "application/json", //必须这样写
                     success:function (result) {
                         _this.blogs = result.data
                     }
                 })
-            },
-            gz(){
+            }
+            , favorite(){
+                let _this = this;
+                this.update = false;
+                $.ajax({
+                    type:"GET",
+                    url:"/blog/favorite/"+this.username,
+                    contentType: "application/json", //必须这样写
+                    success:function (result) {
+                        _this.blogs = result.data
+                    }
+                })
+            }
+            , home() {
+                let _this = this;
+                this.update = true;
+                $.ajax({
+                    type:"GET",
+                    url:"/blog/home/"+this.username,
+                    contentType: "application/json", //必须这样写
+                    success:function (result) {
+                        _this.blogs = result.data
+                    }
+                })
+            }
+            , fans(){
                 if (this.gzShow){
-                    this.gzShow = false
+                    this.gzShow = false;
                     return
                 }
                 let _this = this;
@@ -177,16 +193,16 @@
                     url:"/user/gz",
                     contentType: "application/json", //必须这样写
                     success:function (result) {
-                        _this.gzList = result.data
+                        _this.gzList = result.data;
                         _this.gzShow = true;
                     }
                 })
             }
         },created:function(){
-            if (bools=='true'){
+            if (bools==='true'){
                 this.loadFollower()
             }
-            this.sayHi(0);
+            this.home();
         }
     })
 </script>

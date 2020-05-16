@@ -93,14 +93,14 @@ public class PageController {
             userId = userDto.getId();
             // 如果用户没有登陆，不需要查询是否喜欢或收藏
             // 是否喜欢了当前博客
-            modelAndView.addObject("like",blogService.selelcLike(userId,blogId));
+            modelAndView.addObject("like",blogService.selectLike(userId,blogId));
             // 是否以及该收藏
-            modelAndView.addObject("favorite",blogService.selelcFavorite(userId,blogId));
+            modelAndView.addObject("favorite",blogService.selectFavorite(userId,blogId));
         }else{
             userId = "0";
         }
         //添加博客到试图中
-        modelAndView.addObject(blogService.getBlogByUUID(blogId,userId));
+        modelAndView.addObject("blog",blogService.getBlogByUUID(blogId,userId));
         return modelAndView;
     }
 

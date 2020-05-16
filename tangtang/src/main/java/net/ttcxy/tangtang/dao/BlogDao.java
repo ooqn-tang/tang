@@ -31,11 +31,11 @@ public interface BlogDao {
     int isNotBlog(@Param("blogId")String blogId);
 
     /**
-     * 通过UUID获取blog信息
-     * @param uuid blog id
+     * 通过ID获取blog信息
+     * @param id blog id
      * @return blog
      */
-    BlogDto selectBlogByUUID(String uuid);
+    BlogDto selectBlogById(String id);
 
     /**
      * 添加blog
@@ -58,31 +58,31 @@ public interface BlogDao {
     int deleteBlog(String id);
 
     int deleteLike(@Param("userId") String userId,
-                   @Param("dataId") String dataId);
+                   @Param("blogId") String blogId);
 
     int insertLike(@Param("userId") String userId,
-                   @Param("dataId") String dataId);
+                   @Param("blogId") String blogId);
 
-    BlogDto getBlogByUUIDTextTit(@Param("blogId") String uuid);
+    BlogDto getBlogByIdTextTit(@Param("id") String id);
 
-    int selelcLike(@Param("userId") String userId,
-                   @Param("dataId") String dataId);
+    int selectLike(@Param("userId") String userId,
+                   @Param("blogId") String blogId);
 
-    int selelcFavorite(@Param("userId") String userId,
-                       @Param("dataId") String dataId);
+    int selectFavorite(@Param("userId") String userId,
+                       @Param("blogId") String blogId);
 
     List<BlogDto> searchByUsername(@Param("username")String username);
 
     List<BlogDto> getLikeBlogs(@Param("userId")String userId);
 
-    List<BlogDto> searchByUserfavorite(@Param("username")String username);
+    List<BlogDto> selectByUserFavorite(@Param("username")String username);
 
 
     int insertFavorite(@Param("userId") String userId,
-                       @Param("dataId") String dataId);
+                       @Param("blogId") String blogId);
 
     int deleteFavorite(@Param("userId") String userId,
-                       @Param("dataId") String dataId);
+                       @Param("blogId") String blogId);
 
 
 }

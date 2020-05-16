@@ -22,10 +22,9 @@ public interface BlogService {
     /**
      * 通过用户名查询所有BLOG
      * @param username
-     * @param type
      * @return
      */
-    List<BlogDto> searchByUsername(String username, String type);
+    List<BlogDto> searchByUsername(String username);
 
 
 
@@ -34,7 +33,7 @@ public interface BlogService {
     /**
      * 添加blog
      */
-    int addBlog(BlogDto blogDto);
+    int insertBlog(Blog blog);
 
     /**
      * 更新博客
@@ -69,20 +68,20 @@ public interface BlogService {
      * @param dataId
      * @return
      */
-    int selelcLike(String userId,String dataId);
+    int selectLike(String userId, String dataId);
 
     /**
      * 查询用户喜欢的所有BLOG
      * @return
      */
-    List<BlogDto> getLikeBlogs(String userId);
+    List<BlogDto> selectLikeBlogs(String userId);
 
     /**
      * 查询用户的所有收藏
      * @param username
      * @return
      */
-    List<BlogDto> searchByUserfavorite(String username);
+    List<BlogDto> selectByUserFavorite(String username);
 
     /**
      * 查询所有的收藏
@@ -98,5 +97,5 @@ public interface BlogService {
      * @param blogId
      * @return
      */
-    int selelcFavorite(String userId, String blogId);
+    int selectFavorite(String userId, String blogId);
 }

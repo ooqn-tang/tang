@@ -4,38 +4,46 @@
 <body data-spy="scroll" data-target="#myScrollspy">
 <div th:replace="comm::navigation"></div>
 <div class="container" id="app">
-    <input id="blogId" type="hidden" th:value="${blogDto.id}">
+    <input id="blogId" type="hidden" th:value="${blog.id}">
     <div class="row">
 
         <div class="col-md-9 column nob-p">
             <div class="panel panel-default nob" style="margin-bottom: 0px;border-bottom: 0px;border-radius: 4px 4px 0px 0px;">
-                <div class="panel-body" id="blogDto-body" style="overflow-y:hidden;">
+                <div class="panel-body" id="blog-body" style="overflow-y:hidden;">
                     <div>
-                        <span><b><a th:href="@{/author/{id}(id=${blogDto.username})}" th:text="${blogDto.nickname}"></a></b></span>
+                        <span><b><a th:href="@{/author/{id}(id=${blog.username})}" th:text="${blog.nickname}"></a></b></span>
                         <span>.</span>
-                        <span th:text="${blogDto.createDate}"></span>
+                        <span th:text="${blog.createDate}"></span>
 
                         <div class="btn-group pull-right">
                             <button class="btn btn-default btn-xs" @click="followerClick" v-text="follower.text"></button>
                             <button class="btn btn-default btn-xs" @click="plBut">评论室</button>
                         </div>
                     </div>
-                    <h3><strong th:text="${blogDto.title}"></strong></h3>
+                    <h3><strong th:text="${blog.title}"></strong></h3>
                     <hr>
-                    <div class="markdown-body" th:utext="${blogDto.text}"></div>
+                    <div class="markdown-body" th:utext="${blog.text}"></div>
                 </div>
                 <div class="panel-footer">
                     <button th:classappend="${like == 1} ? 'btn btn-danger  btn-xs' : 'btn btn-default btn-xs'" id="lkBut">推荐</button>
                     <button th:classappend="${favorite == 1} ? 'btn btn-danger  btn-xs' : 'btn btn-default btn-xs'" class="btn btn-default btn-xs" id="scBut">收藏</button>
-                    <a th:href="'/editor?blogDto='+${blogDto.id}" class="btn btn-default btn-xs"  th:if="${session.SPRING_SECURITY_CONTEXT != null && session.SPRING_SECURITY_CONTEXT.authentication.principal.username == blogDto.username}">编辑</a>
+                    <a th:href="'/editor?blog='+${blog.id}" class="btn btn-default btn-xs"  th:if="${session.SPRING_SECURITY_CONTEXT != null && session.SPRING_SECURITY_CONTEXT.authentication.principal.username == blog.username}">编辑</a>
                 </div>
 
 
             </div>
 
             <div class="panel panel-default nob" style="border-radius: 0px 0px 4px 4px;padding: 0;margin: 0px;">
-                <div class="panel-body"  id="plq" style="overflow-y:scroll;">
-                    <div v-for="(item,index) in comments"><a v-bind:href="'/author/'+ item.username">{{item.nickname}}</a><span style="color:gainsboro" class="pull-right">{{item.createDate}}</span><span style="color:#dca492;margin-right: 10px;" class="pull-right" @click="deleteComment(item.id,index)" v-if="item.username == userDto.username">删除</span><p>{{item.content}}</p><hr></div>
+                <div class="panel-body"  id="plq" style="overflow-y:scroll;word-wrap:break-word">
+                    <div v-for="(item,index) in comments">
+                        <a v-bind:href="'/author/'+ item.username">{{item.nickname}}</a>
+                        <span style="color:gainsboro" class="pull-right">{{item.createDate}}</span>
+                        <span style="color:#dca492;margin-right: 10px;"
+                              class="pull-right"
+                              @click="deleteComment(item.id,index)"
+                              v-if="item.username == user.username">删除</span>
+                        <div>{{item.content}}</div><hr>
+                    </div>
                 </div>
                 <div class="panel-footer">
                     <div class="input-group">
@@ -49,18 +57,27 @@
         </div>
         <div class="col-md-3 column advertise nob-p">
 
-            <div th:replace="comm::authors"></div>
+            <!--<div th:replace="comm::authors"></div>-->
             <div th:replace="comm::advertise"></div>
+
+
+            <div id="myScrollspy" class="visible-md-block visible-lg-block">
+                <ul class="nav nav-tabs nav-stacked" id="myNav" style="">
+                    <li><a>目录</a></li>
+                </ul>
+            </div>
+
+
         </div>
     </div>
 </div>
 </body>
 <script>
-    let blogId = '[[${blogDto.id}]]'
+    let blogId = '[[${blog.id}]]'
 
     $(document).ready(function(){
         $("#lkBut").click(function(){
-            $.get("/blogDto/like/"+blogId+"/insert",function(result){
+            $.get("/blog/like/"+blogId+"/insert",function(result){
 
                 if (result.data == -1){
                     $("#lkBut").removeClass()
@@ -76,7 +93,7 @@
         })
 
         $("#scBut").click(function(){
-            $.get("/blogDto/favorite/"+blogId+"/insert",function(result,status){
+            $.get("/blog/favorite/"+blogId+"/insert",function(result,status){
 
                 if (result.data == -1){
                     $("#scBut").removeClass()
@@ -100,8 +117,8 @@
             comments: [],
             content:"",
             pl:1,
-            userDto:{},
-            username:'[[${blogDto.username}]]',
+            user:{},
+            username:'[[${blog.username}]]',
             follower:{
                 text:"关注",
             }
@@ -110,35 +127,31 @@
         methods: {
             followerClick(){
                 let _this = this;
-                if (_this.follower.text == '已关注'){
-                    $.ajax({
-                        type:"POST",
-                        async:false,
-                        url:"/fansDto/"+_this.username,
-                        contentType: "application/json", //必须这样写
-                        dataType:"json",
-                        success:function (result) {
-                            _this.follower.text = '关注'
-                        }
-                    })
+                let type,text;
+                if (_this.follower.text === '已关注'){
+                    type = "DELETE";
+                    text = "关注"
                 } else{
-                    $.ajax({
-                        type:"POST",
-                        async:false,
-                        url:"/fansDto/"+_this.username,
-                        contentType: "application/json", //必须这样写
-                        dataType:"json",
-                        success:function (result) {
-                            _this.follower.text = '已关注'
-                        }
-                    })
-
+                    type = "POST";
+                    text = "已关注"
                 }
-            },loadFollower(){
+                $.ajax({
+                    type:type,
+                    url:"/fans/"+_this.username,
+                    contentType: "application/json", //必须这样写
+                    dataType:"json",
+                    success:function (result) {
+                        if (result.code === 200) {
+                            _this.follower.text = text;
+                        }
+                    }
+                })
+            }
+            ,loadFollower(){
                 let _this = this;
                 $.ajax({
                     type:"GET",
-                    url:"/fansDto/"+_this.username,
+                    url:"/fans/"+_this.username,
                     contentType: "application/json", //必须这样写
                     success:function (result) {
                         if (result.data){
@@ -148,8 +161,8 @@
                         }
                     }
                 })
-            },
-            send(){
+            }
+            , send(){
 
                 let dataObject = {
                     blogId:blogId,
@@ -159,7 +172,7 @@
                 let _this = this;
                 $.ajax({
                     type:"POST",
-                    url:"/blogDto/commentDto/insert",
+                    url:"/blog/comment/insert",
                     contentType: "application/json", //必须这样写
                     dataType:"json",
                     data:JSON.stringify(dataObject),
@@ -180,41 +193,41 @@
                         }
                     }
                 })
-            },
-            loadComment(){
+            }
+            , loadComment(){
                 $.ajax({
                     type:"GET",
-                    url:"/blogDto/commentDto/"+blogId,
+                    url:"/blog/comment/"+blogId,
                     contentType: "application/json", //必须这样写
                     dataType:"json",
                     success:function (result) {
                         vm.comments=result.data.comments
-                        vm.userDto = result.data.userDto
+                        vm.user = result.data.user
 
                     }
                 })
-            },
-            plBut(){
+            }
+            , plBut(){
                 if (this.pl%2!=0){
-                    $("#blogDto-body").css("height","90px").css("overflow-x","auto")
+                    $("#blog-body").css("height","90px").css("overflow-x","auto")
                     $("#plq").css("height",(window.innerHeight-254)+"px")
-                    $(".advertiseDto").addClass("hidden-xs hidden-sm");
+                    $(".advertise").addClass("hidden-xs hidden-sm");
                 } else{
-                    $("#blogDto-body").css("height","").css("overflow-x","")
+                    $("#blog-body").css("height","").css("overflow-x","")
                     $("#plq").css("height","")
-                    $(".advertiseDto").removeClass("hidden-xs hidden-sm");
+                    $(".advertise").removeClass("hidden-xs hidden-sm");
                 }
                 this.pl++;
-            },
-            deleteComment(id,index){
+            }
+            , deleteComment(id,index){
                 let _this = this;
                 $.ajax({
                     type:"DELETE",
-                    url:"/blogDto/commentDto/"+id,
+                    url:"/blog/comment/"+id,
                     contentType: "application/json", //必须这样写
                     dataType:"json",
                     success:function (data) {
-                        if(data.code == 200){
+                        if(data.code === 200){
                             _this.comments.splice(index, 1);
                         }
                     }
@@ -226,9 +239,57 @@
         }
     })
 
+    $(document).ready(function(){
+        $("#myNav").affix({
+            offset: {
+                top: 300
+            }
+        });
+    });
+
+    $(function(){
+        let padding=[10,25,40];
+        $('.markdown-body').find('h1,h2,h3').each(function(index,item){
+            let headerText=$(this).text();
+            let tagName=$(this)[0].tagName.toLowerCase();
+            let tagIndex=parseInt(tagName.charAt(1))-1;
+            //设置不同等级header的排列及缩进样式
+            $('#myNav').append($('<li style="padding-left:'+padding[tagIndex]+'px display:block;">'+'<a href="#'+$(this).attr("id")+'">'+headerText+'</a></li>'));
+        });
+    });
 
 
+    $("#myNav").css({
+        "width":$("#myScrollspy").width()+"px",
+        "overflow-y":"scroll",
+        "max-height":$(window).height()-340+"px"
+    })
+
+    $("#myScrollspy").css(" max-height","100px")
+    $(window).resize(function () {          //当浏览器大小变化时
+        $("#myNav").css({
+            "width":$("#myScrollspy").width()+"px",
+            "overflow-y":"scroll",
+            "max-height":$(window).height()-40+"px"
+        })
+    });
 
 
+    $(window).scroll(function(){//开始监听滚动条
+        let top = $(document).scrollTop();
+        if(top > 340){
+            $("#myNav").css({
+                "max-height":$(window).height()+"px",
+                "margin"    : "0px",
+                "border-radius": "0 0 0 0 "
+            })
+        }
+        if(top < 340){
+            $("#myNav").css({
+                "max-height":$(window).height()-340+"px"
+
+            })
+        }
+    })
 </script>
 </html>

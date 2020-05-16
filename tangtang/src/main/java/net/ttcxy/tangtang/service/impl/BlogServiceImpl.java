@@ -1,9 +1,9 @@
 package net.ttcxy.tangtang.service.impl;
 
 import com.github.pagehelper.PageHelper;
-import net.ttcxy.tangtang.entity.BlogDto;
 import net.ttcxy.tangtang.dao.BlogDao;
 import net.ttcxy.tangtang.dao.PageviewDao;
+import net.ttcxy.tangtang.entity.BlogDto;
 import net.ttcxy.tangtang.mapper.BlogMapper;
 import net.ttcxy.tangtang.model.Blog;
 import net.ttcxy.tangtang.model.BlogExample;
@@ -18,9 +18,6 @@ public class BlogServiceImpl implements BlogService {
 
     @Autowired
     private BlogDao blogDao;
-
-    @Autowired
-    private PageviewDao pageviewDao;
 
     @Autowired
     AuthDetailsImpl authDetails;
@@ -46,19 +43,18 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
-    public List<BlogDto> searchByUsername(String username , String type) {
+    public List<BlogDto> searchByUsername(String username) {
         return blogDao.searchByUsername(username);
-    }
-
-
-    @Override
-    public int addBlog(BlogDto blogDto) {
-        String markdown = blogDto.getMarkdown().replaceAll("<","&lt;");
-        return blogDao.addBlog(blogDto);
     }
 
     @Autowired
     private BlogMapper blogMapper;
+
+    @Override
+    public int insertBlog(Blog blog) {
+        return blogMapper.insertSelective(blog);
+    }
+
     @Override
     public int updateBlog(Blog blog) {
         String blogId = blog.getId();
@@ -97,35 +93,33 @@ public class BlogServiceImpl implements BlogService {
 
     @Override
     public BlogDto getBlogByUUID(String uuid, String userId) {
-        return blogDao.selectBlogByUUID(uuid);
+        return blogDao.selectBlogById(uuid);
     }
 
     @Override
     public BlogDto getBlogByUUIDTextTit(String uuid){
 
-        return blogDao.getBlogByUUIDTextTit(uuid);
+        return blogDao.getBlogByIdTextTit(uuid);
     }
 
     @Override
-    public int selelcLike(String userId, String dataId) {
-        return blogDao.selelcLike(userId,dataId);
+    public int selectLike(String userId, String blogId) {
+        return blogDao.selectLike(userId,blogId);
     }
 
     @Override
-    public int selelcFavorite(String userId, String blogId) {
-        return blogDao.selelcFavorite(userId,blogId);
+    public int selectFavorite(String userId, String blogId) {
+        return blogDao.selectFavorite(userId,blogId);
     }
 
-
-
     @Override
-    public List<BlogDto> getLikeBlogs(String userId) {
+    public List<BlogDto> selectLikeBlogs(String userId) {
         return blogDao.getLikeBlogs(userId);
     }
 
     @Override
-    public List<BlogDto> searchByUserfavorite(String username) {
-        return blogDao.searchByUserfavorite(username);
+    public List<BlogDto> selectByUserFavorite(String username) {
+        return blogDao.selectByUserFavorite(username);
     }
 
     @Override

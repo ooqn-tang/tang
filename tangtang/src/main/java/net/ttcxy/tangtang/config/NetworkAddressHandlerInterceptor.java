@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
+ * 链接所有请求，搜集日志
  * @author ：HuangLei
  * @date ：2020/4/22 0022 20:12
  */

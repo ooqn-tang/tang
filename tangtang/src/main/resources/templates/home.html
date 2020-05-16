@@ -4,15 +4,13 @@
 <body>
 <div th:replace="comm::navigation"></div>
 <div class="container">
-
     <div class="row">
         <div class="col-md-9 column">
             <div class="row">
                 <div class="col-md-12 column nob-p">
                     <ul class="list-group">
-                        <li class="list-group-item nob"  th:each="blog : ${blogs}">
+                        <li class="list-group-item nob" th:each="blog : ${blogs}">
                             <a href="#" class="wz" th:text="${blog.title}" th:href="@{/post/{id}(id=${blog.id})}"></a>
-                            <br>
                             <div >
                                 <span th:text="${blog.createDate}"></span>
                                 <a class="pull-right" th:href="@{/author/{id}(id=${blog.username})}" th:text="${blog.nickname}"></a>
@@ -28,7 +26,7 @@
         </div>
 
         <div class="col-md-3 column nob-p">
-            <div th:replace="comm::authors"></div>
+           <!-- <div th:replace="comm::authors"></div>-->
             <div th:replace="comm::advertise"></div>
         </div>
     </div>

@@ -5,6 +5,7 @@ import net.ttcxy.tangtang.entity.FansDto;
 import net.ttcxy.tangtang.entity.UserDto;
 import net.ttcxy.tangtang.dao.FansDao;
 import net.ttcxy.tangtang.dao.UserDao;
+import net.ttcxy.tangtang.service.FansService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,55 +16,42 @@ import java.util.List;
  *
  */
 @Service
-public class FansServiceImpl {
+public class FansServiceImpl implements FansService {
 
     @Autowired
     private FansDao fansDao;
 
     @Autowired
-    AuthDetailsImpl authDetails;
+    private AuthDetailsImpl authDetails;
 
     @Autowired
     UserDao userDao;
 
-    public Boolean selectFans(String fansName){
+    @Override
+    public int selectFans(String fansName){
         FansDto fansDto = getFans(fansName);
-        if (fansDto ==null){
-            return false;
-        }
-        int isOk = fansDao.selectFans(fansDto);
-        if (isOk == 1){
-            return true;
-        }
-        return false;
+        return fansDao.selectFans(fansDto);
     }
 
-    public Boolean insertFans(String fansName) {
+    @Override
+    public int insertFans(String fansName) {
         try{
             FansDto fansDto = getFans(fansName);
-            if (fansDto ==null){
-                return false;
-            }
-            int isOk = fansDao.insertFans(fansDto);
-            if (isOk == 1){
-                return true;
-            }
+            return fansDao.insertFans(fansDto);
         }catch (Exception e){
-            return false;
+            return 0;
         }
-        return false;
     }
 
-    public Boolean deleteFans(String fansName){
+    @Override
+    public int deleteFans(String fansName){
         FansDto fansDto = getFans(fansName);
-        if (fansDto ==null){
-            return false;
-        }
-        int isOk = fansDao.deleteFans(fansDto);
-        if (isOk == 1){
-            return true;
-        }
-        return false;
+        return fansDao.deleteFans(fansDto);
+    }
+
+    @Override
+    public List<UserDto> selectFansList(String userId) {
+        return fansDao.selectFansList(userId);
     }
 
     private FansDto getFans(String fansName){
@@ -79,11 +67,6 @@ public class FansServiceImpl {
         fansDto.setCreateDate(new Date());
 
         return fansDto;
-    }
-
-
-    public List<UserDto> selectFansList(String userId) {
-        return fansDao.selectFansList(userId);
     }
 
 

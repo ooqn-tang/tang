@@ -16,16 +16,24 @@ public class MvcConfig implements WebMvcConfigurer {
     @Autowired
     private NetworkAddressHandlerInterceptor networkAddressHandlerInterceptor;
 
-    @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
 
-        registry.addResourceHandler("/static/**").addResourceLocations("classpath:/public/static/");
-    }
-
+    /**
+     * 拦截器，过滤这些请求
+     * @param registry
+     */
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(networkAddressHandlerInterceptor)
                 .addPathPatterns("/**")
-                .excludePathPatterns("/**/*.html", "/**/*.js","/**/*.css","/**/*.png","/**/*.gif","/**/*.jpg","/**/*.ttf","/**/*.woff","/**/*.woff2");
+                .excludePathPatterns(
+                        "/**/*.html",
+                        "/**/*.js",
+                        "/**/*.css",
+                        "/**/*.png",
+                        "/**/*.gif",
+                        "/**/*.jpg",
+                        "/**/*.ttf",
+                        "/**/*.woff",
+                        "/**/*.woff2");
     }
 }

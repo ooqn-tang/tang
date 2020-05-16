@@ -15,17 +15,21 @@ import org.springframework.web.bind.annotation.*;
 public class FansController {
 
     @Autowired
-    FansServiceImpl fansServiceImpl;
+    private FansServiceImpl fansServiceImpl;
 
 
     /**
      * 查询粉丝
-     * @param fansName
-     * @return
+     * @param fansName fansName
+     * @return 影响条数
      */
     @GetMapping("{fansName}")
     public CommonResult selectFans(@PathVariable("fansName") String fansName){
-        return CommonResult.success(fansServiceImpl.selectFans(fansName));
+        int count = fansServiceImpl.selectFans(fansName);
+        if (count > 0){
+            return CommonResult.success(count);
+        }
+        return CommonResult.failed();
     }
 
     /**
@@ -35,7 +39,11 @@ public class FansController {
      */
     @PostMapping("{fansName}")
     public CommonResult insertFans(@PathVariable("fansName") String fansName){
-        return CommonResult.success(fansServiceImpl.insertFans(fansName));
+        int count = fansServiceImpl.insertFans(fansName);
+        if (count > 0){
+            return CommonResult.success(count);
+        }
+        return CommonResult.failed();
     }
 
     /**
@@ -45,6 +53,10 @@ public class FansController {
      */
     @DeleteMapping("{fansName}")
     public CommonResult deleteFans(@PathVariable("fansName") String fansName){
-        return CommonResult.success(fansServiceImpl.deleteFans(fansName));
+        int count = fansServiceImpl.deleteFans(fansName);
+        if (count > 0){
+            return CommonResult.success(count);
+        }
+        return CommonResult.failed();
     }
 }

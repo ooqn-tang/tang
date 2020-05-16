@@ -37,27 +37,28 @@ public class BlogController {
     @Autowired
     private CommentService commentService;
 
-    @GetMapping("userblog/{username}")
-    public CommonResult blogList(@PathVariable("username") String username,
-                                 @RequestParam(value = "type",required = false) String type){
-
-        if ("1".equals(type)){
-
-        } else if ("2".equals(type)){
-            return CommonResult.success(blogService.searchByUserfavorite(username));
-        }
-
-        return  CommonResult.success(blogService.searchByUsername(username,type));
+    @GetMapping("home/{username}")
+    public CommonResult blogList(@PathVariable("username") String username){
+        return  CommonResult.success(blogService.searchByUsername(username));
     }
 
     /**
      * 获取自己喜欢的文章
      * @return
      */
-    @GetMapping("user-like")
+    @GetMapping("favorite/{username}")
+    public CommonResult<List<BlogDto>> selectByUserFavorite(@PathVariable("username") String username){
+        return CommonResult.success(blogService.selectByUserFavorite(username));
+    }
+
+    /**
+     * 获取自己喜欢的文章
+     * @return
+     */
+    @GetMapping("like")
     public CommonResult<List<BlogDto>> selectByUserLike(){
         String userId = authDetailsImpl.getUserId();
-        List<BlogDto> likeBlogs = blogService.getLikeBlogs(userId);
+        List<BlogDto> likeBlogs = blogService.selectLikeBlogs(userId);
         return CommonResult.success(likeBlogs);
     }
 
@@ -65,31 +66,32 @@ public class BlogController {
 
     /**
      * 添加博客
-     * @param blogDto blogParam
+     * @param blog blogParam
      * @return null
      */
     @PostMapping("insert")
-    public CommonResult add(@RequestBody BlogDto blogDto){
+    public CommonResult add(@RequestBody Blog blog){
 
         String userId = authDetailsImpl.getUserId();
 
-        if (blogDto !=null){
-            if (StrUtil.isBlank(blogDto.getTitle())){
+        if (blog !=null){
+            if (StrUtil.isBlank(blog.getTitle())){
                 return CommonResult.failed("请正确输入内容");
             }
-            if (StrUtil.isBlank(blogDto.getMarkdown())){
+            if (StrUtil.isBlank(blog.getMarkdown())){
                 return CommonResult.failed("请正确输入内容");
             }
-            if (StrUtil.isBlank(blogDto.getText())){
+            if (StrUtil.isBlank(blog.getText())){
                 return CommonResult.failed("请正确输入内容");
             }
         }
 
-        blogDto.setId(IdUtil.simpleUUID());
-        blogDto.setUserId(userId);
-        blogDto.setStateId("1");
+        blog.setId(IdUtil.simpleUUID());
+        blog.setUserId(userId);
+        blog.setStateId(1);
+        blog.setCreateDate(new Date());
 
-        int influenceCount = blogService.addBlog(blogDto);
+        int influenceCount = blogService.insertBlog(blog);
 
         if (influenceCount==1){
             return CommonResult.success("添加成功");
@@ -129,10 +131,10 @@ public class BlogController {
         return CommonResult.success(map);
     }
 
-    @DeleteMapping("comment/{blogId}")
-    public CommonResult deleteComment(@PathVariable("blogId") String blogId){
-        int count = commentService.deleteComment(blogId);
-        if (count > 1){
+    @DeleteMapping("comment/{id}")
+    public CommonResult deleteComment(@PathVariable("id") String id){
+        int count = commentService.deleteComment(id);
+        if (count > 0){
             return CommonResult.success(count);
         }
         return CommonResult.failed();

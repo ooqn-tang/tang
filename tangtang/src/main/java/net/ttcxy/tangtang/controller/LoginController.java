@@ -6,6 +6,7 @@ import net.ttcxy.tangtang.api.CommonResult;
 import net.ttcxy.tangtang.entity.UserDto;
 import net.ttcxy.tangtang.service.UserService;
 import net.ttcxy.tangtang.service.impl.AuthDetailsImpl;
+import net.ttcxy.tangtang.util.StringProUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -101,20 +102,9 @@ public class LoginController {
 
             String nickname = userDto.getNickname();
             if (nickname!=null){
-                int length = 0;
-                for (int i = 0; i < nickname.length(); i++) {
-                    int ascii = Character.codePointAt(nickname, i);
-                    if (ascii >= 0 && ascii <= 255) {
-                        length++;
-                    } else {
-                        length += 2;
-                    }
-                }
-
-                if (length>16){
+                int length = StringProUtil.byteSize(nickname);
+                if (length>16 || length<4){
                     return CommonResult.failed("昵称长度为16个之母或8个汉字");
-                }else if (length<4){
-                    return CommonResult.failed("昵称长度为4个之母或两个汉字");
                 }
             }
         }

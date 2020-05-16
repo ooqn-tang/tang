@@ -175,73 +175,73 @@ public class PageviewExample {
             return (Criteria) this;
         }
 
-        public Criteria andDataIdIsNull() {
-            addCriterion("data_id is null");
+        public Criteria andBlogIdIsNull() {
+            addCriterion("blog_id is null");
             return (Criteria) this;
         }
 
-        public Criteria andDataIdIsNotNull() {
-            addCriterion("data_id is not null");
+        public Criteria andBlogIdIsNotNull() {
+            addCriterion("blog_id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andDataIdEqualTo(String value) {
-            addCriterion("data_id =", value, "dataId");
+        public Criteria andBlogIdEqualTo(String value) {
+            addCriterion("blog_id =", value, "blogId");
             return (Criteria) this;
         }
 
-        public Criteria andDataIdNotEqualTo(String value) {
-            addCriterion("data_id <>", value, "dataId");
+        public Criteria andBlogIdNotEqualTo(String value) {
+            addCriterion("blog_id <>", value, "blogId");
             return (Criteria) this;
         }
 
-        public Criteria andDataIdGreaterThan(String value) {
-            addCriterion("data_id >", value, "dataId");
+        public Criteria andBlogIdGreaterThan(String value) {
+            addCriterion("blog_id >", value, "blogId");
             return (Criteria) this;
         }
 
-        public Criteria andDataIdGreaterThanOrEqualTo(String value) {
-            addCriterion("data_id >=", value, "dataId");
+        public Criteria andBlogIdGreaterThanOrEqualTo(String value) {
+            addCriterion("blog_id >=", value, "blogId");
             return (Criteria) this;
         }
 
-        public Criteria andDataIdLessThan(String value) {
-            addCriterion("data_id <", value, "dataId");
+        public Criteria andBlogIdLessThan(String value) {
+            addCriterion("blog_id <", value, "blogId");
             return (Criteria) this;
         }
 
-        public Criteria andDataIdLessThanOrEqualTo(String value) {
-            addCriterion("data_id <=", value, "dataId");
+        public Criteria andBlogIdLessThanOrEqualTo(String value) {
+            addCriterion("blog_id <=", value, "blogId");
             return (Criteria) this;
         }
 
-        public Criteria andDataIdLike(String value) {
-            addCriterion("data_id like", value, "dataId");
+        public Criteria andBlogIdLike(String value) {
+            addCriterion("blog_id like", value, "blogId");
             return (Criteria) this;
         }
 
-        public Criteria andDataIdNotLike(String value) {
-            addCriterion("data_id not like", value, "dataId");
+        public Criteria andBlogIdNotLike(String value) {
+            addCriterion("blog_id not like", value, "blogId");
             return (Criteria) this;
         }
 
-        public Criteria andDataIdIn(List<String> values) {
-            addCriterion("data_id in", values, "dataId");
+        public Criteria andBlogIdIn(List<String> values) {
+            addCriterion("blog_id in", values, "blogId");
             return (Criteria) this;
         }
 
-        public Criteria andDataIdNotIn(List<String> values) {
-            addCriterion("data_id not in", values, "dataId");
+        public Criteria andBlogIdNotIn(List<String> values) {
+            addCriterion("blog_id not in", values, "blogId");
             return (Criteria) this;
         }
 
-        public Criteria andDataIdBetween(String value1, String value2) {
-            addCriterion("data_id between", value1, value2, "dataId");
+        public Criteria andBlogIdBetween(String value1, String value2) {
+            addCriterion("blog_id between", value1, value2, "blogId");
             return (Criteria) this;
         }
 
-        public Criteria andDataIdNotBetween(String value1, String value2) {
-            addCriterion("data_id not between", value1, value2, "dataId");
+        public Criteria andBlogIdNotBetween(String value1, String value2) {
+            addCriterion("blog_id not between", value1, value2, "blogId");
             return (Criteria) this;
         }
 

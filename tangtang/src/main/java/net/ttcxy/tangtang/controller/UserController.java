@@ -1,11 +1,13 @@
 package net.ttcxy.tangtang.controller;
 
 import cn.hutool.core.util.ReUtil;
+import cn.hutool.core.util.StrUtil;
 import net.ttcxy.tangtang.api.CommonResult;
 import net.ttcxy.tangtang.entity.UserDto;
 import net.ttcxy.tangtang.service.UserService;
 import net.ttcxy.tangtang.service.impl.AuthDetailsImpl;
 import net.ttcxy.tangtang.service.impl.FansServiceImpl;
+import net.ttcxy.tangtang.util.StringProUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,27 +33,14 @@ public class UserController {
     @ResponseBody
     public CommonResult updateUser(@RequestBody UserDto userDto){
         String id = authDetails.getUser().getId();
-
-
         String nickname = userDto.getNickname();
 
         ReUtil.contains("dfsdfsd","");
 
-        if (nickname!=null){
-            int length = 0;
-            for (int i = 0; i < nickname.length(); i++) {
-                int ascii = Character.codePointAt(nickname, i);
-                if (ascii >= 0 && ascii <= 255) {
-                    length++;
-                } else {
-                    length += 2;
-                }
-            }
-
-            if (length>16){
+        if (StrUtil.isNotBlank(nickname)){
+            int length = StringProUtil.byteSize(nickname);
+            if (length > 16 || length<4){
                 return CommonResult.failed("昵称长度为16个之母或8个汉字");
-            }else if (length<4){
-                return CommonResult.failed("昵称长度为4个之母或两个汉字");
             }
         }else{
             return CommonResult.failed("昵称长度为4个之母或两个汉字");
@@ -60,14 +49,22 @@ public class UserController {
 
 
         String signature = userDto.getSignature();
-
-
-
-
+        if (StrUtil.isNotBlank(signature)){
+            int length = StringProUtil.byteSize(signature);
+            if (length > 50){
+                return CommonResult.failed("签名长度为50个之母或25个汉字");
+            }
+        }
         userDto.setId(id);
         int yesNo = userService.updateUser(userDto);
+        if (yesNo > 0){
+            UserDto user = authDetails.getUser();
+            user.setNickname(nickname);
+            user.setSignature(signature);
+        }
         return CommonResult.success(yesNo);
     }
+
 
     @GetMapping("user/gz")
     @ResponseBody
@@ -84,5 +81,8 @@ public class UserController {
     public CommonResult<List<UserDto>> listUser(){
         return CommonResult.success(userService.listUser());
     }
+
+
+
 
 }

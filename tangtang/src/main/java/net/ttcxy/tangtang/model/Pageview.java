@@ -9,7 +9,7 @@ public class Pageview implements Serializable {
     private String userId;
 
     @ApiModelProperty(value = "阅读信息ID")
-    private String dataId;
+    private String blogId;
 
     @ApiModelProperty(value = "创建时间")
     private Date createDatetime;
@@ -24,12 +24,12 @@ public class Pageview implements Serializable {
         this.userId = userId;
     }
 
-    public String getDataId() {
-        return dataId;
+    public String getBlogId() {
+        return blogId;
     }
 
-    public void setDataId(String dataId) {
-        this.dataId = dataId;
+    public void setBlogId(String blogId) {
+        this.blogId = blogId;
     }
 
     public Date getCreateDatetime() {
@@ -47,7 +47,7 @@ public class Pageview implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", userId=").append(userId);
-        sb.append(", dataId=").append(dataId);
+        sb.append(", blogId=").append(blogId);
         sb.append(", createDatetime=").append(createDatetime);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");

@@ -31,6 +31,7 @@ public class CommentServiceImpl implements CommentService {
     @Autowired
     private AuthDetailsImpl authDetailsImpl;
 
+    @Autowired
     private BlogCommentMapper blogCommentMapper;
 
     @Override

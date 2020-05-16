@@ -42,10 +42,8 @@ public class MyAuthenticationFailureHandler extends SimpleUrlAuthenticationFailu
     public void onAuthenticationFailure(HttpServletRequest httpServletRequest,
                                         HttpServletResponse httpServletResponse,
                                         AuthenticationException e) throws IOException, ServletException {
-        //JSONObject jsonObject = JSON.parseObject(objectMapper.writeValueAsString(new SimpleResponse(e.getMessage())));
 
         super.onAuthenticationFailure(httpServletRequest,httpServletResponse,e);
-
 
     }
 }

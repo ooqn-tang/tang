@@ -37,7 +37,7 @@
         <javaClientGenerator type="XMLMAPPER" targetPackage="net.ttcxy.tangtang.mapper" targetProject="src\main\java"/>
         <!--生成全部表tableName设为%-->
         <table tableName="%">
-            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+            <!--<generatedKey column="id" sqlStatement="MySql" identity="true"/>-->
         </table>
     </context>
 </generatorConfiguration>

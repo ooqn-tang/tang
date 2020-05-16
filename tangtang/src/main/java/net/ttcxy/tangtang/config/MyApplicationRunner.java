@@ -1,7 +1,7 @@
 package net.ttcxy.tangtang.config;
 
 import cn.hutool.core.io.FileUtil;
-import net.ttcxy.tangtang.service.AdvertisementService;
+import net.ttcxy.tangtang.service.AdvertiseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -24,7 +24,7 @@ public class MyApplicationRunner implements ApplicationRunner {
     private ResourceProperties resourceProperties;
 
     @Autowired
-    private AdvertisementService advertisementService;
+    private AdvertiseService advertiseService;
 
     @Autowired
     private WebApplicationContext webApplicationContext;
@@ -34,7 +34,7 @@ public class MyApplicationRunner implements ApplicationRunner {
      */
     private void mkStaticLocations(){
 
-        Objects.requireNonNull(webApplicationContext.getServletContext()).setAttribute("advertises", advertisementService.selectAllAdvertisement());
+        Objects.requireNonNull(webApplicationContext.getServletContext()).setAttribute("advertises", advertiseService.selectAllAdvertise());
 
         String [] staticLocations = resourceProperties.getStaticLocations();
         Arrays.stream(staticLocations).forEach(FileUtil::mkdir);

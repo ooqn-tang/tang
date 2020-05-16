@@ -29,6 +29,7 @@
                 </form>
                 <ul class="nav navbar-nav navbar-right">
                     <li><a th:if="${session.SPRING_SECURITY_CONTEXT}!= null" href="/editor">发布</a></li>
+                    <li><a th:if="${session.SPRING_SECURITY_CONTEXT}!= null" th:href="@{/author/{username}(username=${session.SPRING_SECURITY_CONTEXT.authentication.principal.username})}">消息</a></li>
                     <li><a th:if="${session.SPRING_SECURITY_CONTEXT}!= null" th:href="@{/author/{username}(username=${session.SPRING_SECURITY_CONTEXT.authentication.principal.username})}">我的</a></li>
                     <li th:if="${session.SPRING_SECURITY_CONTEXT}== null"><a href="/login">登陆</a></li>
                 </ul>
@@ -37,28 +38,11 @@
     </nav>
 </div>
 
-<!--广告公用块-->
+<!--推荐模块-->
 <div th:fragment="advertise">
-    <div class="list-group  nob" >
-        <a href="#" class="list-group-item active nob">广告</a>
+    <div class="list-group nob" >
+        <a href="#" class="list-group-item active nob">推荐</a>
         <a target="_blank" class="list-group-item nob" th:each="advertise : ${application.advertises}" th:text="${advertise.title}" th:href="${advertise.url}"></a>
-    </div>
-</div>
-
-<div th:fragment="authors">
-    <div class="panel panel-primary column nob ">
-        <div class="panel-heading" onclick="javascript:window.open('#')">
-            <h1 class="panel-title text-primary" >
-                <strong >带有 title 的面板标题</strong><span style="float: right !important;">&gt;&gt;</span>
-            </h1>
-        </div>
-        <div class="panel-body">
-            这是一个基本的面板
-        </div>
-        <div class="panel-footer">
-            <span >创作：1212</span>
-            <span style="float: right !important;">推荐作者</span>
-        </div>
     </div>
 </div>
 
