@@ -38,6 +38,7 @@ public class BlogController {
     private CommentService commentService;
 
     @GetMapping("home/{username}")
+
     public CommonResult blogList(@PathVariable("username") String username){
         return  CommonResult.success(blogService.searchByUsername(username));
     }

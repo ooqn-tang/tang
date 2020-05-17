@@ -1,5 +1,6 @@
 package net.ttcxy.tangtang.controller;
 
+import cn.hutool.core.util.RandomUtil;
 import net.ttcxy.tangtang.entity.UserDto;
 import net.ttcxy.tangtang.service.BlogService;
 import net.ttcxy.tangtang.service.UserService;
@@ -37,6 +38,8 @@ public class PageController {
     @GetMapping("")
     public ModelAndView toHome(@RequestParam(name = "pg", defaultValue = "1")Integer pg,
                                ModelAndView modelAndView){
+
+        RandomUtil.randomInt(1);
 
         modelAndView.setViewName("home");
         modelAndView.addObject("blogs",blogService.selectBlog(pg));

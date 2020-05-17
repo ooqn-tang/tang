@@ -1,5 +1,7 @@
 package net.ttcxy.tangtang.security.service.impl;
 
+import com.alibaba.fastjson.JSON;
+import net.ttcxy.tangtang.api.CommonResult;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 
@@ -16,13 +18,9 @@ public class MyAuthenticationEntryPoint implements AuthenticationEntryPoint {
         response.setContentType("application/json;charset=utf-8");
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         PrintWriter out = response.getWriter();
-        StringBuffer sb = new StringBuffer();
-        sb.append("{\"status\":\"error\",\"msg\":\"");
-
-        sb.append("未登陆!");
-
-        sb.append("\"}");
-        out.write(sb.toString());
+        CommonResult<Object> failed = CommonResult.failed("未登陆!");
+        String s = JSON.toJSONString(failed);
+        out.write(s);
         out.flush();
         out.close();
 
