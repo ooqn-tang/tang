@@ -13,6 +13,13 @@ public interface BlogService {
      */
     List<BlogDto> selectBlog(Integer pag);
 
+
+    /**
+     * 查询blog进行随机展示
+     * @return
+     */
+    List<BlogDto> selectBlog();
+
     /**
      * 模糊查询blog
      * @return

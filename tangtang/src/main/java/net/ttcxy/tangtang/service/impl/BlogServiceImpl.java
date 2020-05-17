@@ -1,5 +1,6 @@
 package net.ttcxy.tangtang.service.impl;
 
+import cn.hutool.core.util.RandomUtil;
 import com.github.pagehelper.PageHelper;
 import net.ttcxy.tangtang.dao.BlogDao;
 import net.ttcxy.tangtang.dao.PageviewDao;
@@ -23,23 +24,32 @@ public class BlogServiceImpl implements BlogService {
     AuthDetailsImpl authDetails;
 
 
-
     @Override
     public List<BlogDto> selectBlog(Integer pag) {
-        PageHelper.startPage(pag,10);
+        PageHelper.startPage(pag, 10);
+        return blogDao.selectBlog();
+    }
+
+    @Override
+    public List<BlogDto> selectBlog() {
+        long count = blogMapper.countByExample(new BlogExample());
+        int size = 10;
+        int limitIndex = (int) (count / size);
+        int startIndex = RandomUtil.randomInt(limitIndex);
+        PageHelper.startPage(startIndex, 10);
         return blogDao.selectBlog();
     }
 
     @Override
     public List<BlogDto> search(String title, Integer pag) {
 
-        if (pag!=null){
-            pag =  pag <= 1 ? 0 : ((pag - 1) * 20);
-        }else {
+        if (pag != null) {
+            pag = pag <= 1 ? 0 : ((pag - 1) * 20);
+        } else {
             pag = 0;
         }
 
-        return blogDao.search(title,pag);
+        return blogDao.search(title, pag);
     }
 
     @Override
@@ -63,7 +73,7 @@ public class BlogServiceImpl implements BlogService {
         BlogExample blogExample = new BlogExample();
         blogExample.createCriteria().andIdEqualTo(blogId).andUserIdEqualTo(userId);
 
-        return blogMapper.updateByExampleSelective(blog,blogExample);
+        return blogMapper.updateByExampleSelective(blog, blogExample);
     }
 
     @Override
@@ -71,7 +81,7 @@ public class BlogServiceImpl implements BlogService {
 
         int code = blogDao.deleteBlog(id);
 
-        if (code==1){
+        if (code == 1) {
             return true;
         }
 
@@ -79,11 +89,11 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
-    public int like(String userId,String blogId) {
-        try{
-            return blogDao.insertLike(userId,blogId);
-        }catch (Exception e){
-            if (blogDao.deleteLike(userId,blogId)==1){
+    public int like(String userId, String blogId) {
+        try {
+            return blogDao.insertLike(userId, blogId);
+        } catch (Exception e) {
+            if (blogDao.deleteLike(userId, blogId) == 1) {
                 return -1;
             }
             return 0;
@@ -97,19 +107,19 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
-    public BlogDto getBlogByUUIDTextTit(String uuid){
+    public BlogDto getBlogByUUIDTextTit(String uuid) {
 
         return blogDao.getBlogByIdTextTit(uuid);
     }
 
     @Override
     public int selectLike(String userId, String blogId) {
-        return blogDao.selectLike(userId,blogId);
+        return blogDao.selectLike(userId, blogId);
     }
 
     @Override
     public int selectFavorite(String userId, String blogId) {
-        return blogDao.selectFavorite(userId,blogId);
+        return blogDao.selectFavorite(userId, blogId);
     }
 
     @Override
@@ -124,10 +134,10 @@ public class BlogServiceImpl implements BlogService {
 
     @Override
     public int favorite(String id, String id1) {
-        try{
-            return blogDao.insertFavorite(id,id1);
-        }catch (Exception e){
-            if (blogDao.deleteFavorite(id,id1)==1){
+        try {
+            return blogDao.insertFavorite(id, id1);
+        } catch (Exception e) {
+            if (blogDao.deleteFavorite(id, id1) == 1) {
                 return -1;
             }
             return 0;

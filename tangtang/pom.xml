@@ -62,7 +62,7 @@
             <version>2.1.5.RELEASE</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
-       <dependency>
+        <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
             <version>3.141.59</version>
@@ -118,7 +118,7 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
-       <dependency>
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
@@ -180,9 +180,7 @@
         </dependency>
 
 
-
-
-       <dependency>
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
             <scope>runtime</scope>
@@ -199,6 +197,14 @@
             <artifactId>annotations</artifactId>
             <version>RELEASE</version>
             <scope>compile</scope>
+        </dependency>
+
+        <!--    热部署    -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <scope>runtime</scope>
+            <optional>true</optional>
         </dependency>
     </dependencies>
 
@@ -219,8 +225,8 @@
                 </configuration>
                 <dependencies>
                     <dependency>
-                        <groupId> mysql</groupId>
-                        <artifactId> mysql-connector-java</artifactId>
+                        <groupId>mysql</groupId>
+                        <artifactId>mysql-connector-java</artifactId>
                         <version>8.0.16</version>
                     </dependency>
                     <dependency>
