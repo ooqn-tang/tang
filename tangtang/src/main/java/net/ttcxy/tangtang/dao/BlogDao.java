@@ -16,19 +16,12 @@ public interface BlogDao {
     /**
      * 模糊查询
      * @param title 标题
-     * @param pag 页面
      * @return blogs
      */
-    List<BlogDto> search(@Param("title") String title, @Param("pag") Integer pag);
+    List<BlogDto> search(@Param("title") String title);
 
 
 
-    /**
-     * 通过BlogId获取博客是否存在
-     * @param blogId blogId
-     * @return count
-     */
-    int isNotBlog(@Param("blogId")String blogId);
 
     /**
      * 通过ID获取blog信息
@@ -36,34 +29,6 @@ public interface BlogDao {
      * @return blog
      */
     BlogDto selectBlogById(String id);
-
-    /**
-     * 添加blog
-     * @param blogDto blogDto
-     * @return count
-     */
-    int addBlog(BlogDto blogDto);
-
-    /**
-     * 更新博客
-     * @param blogDto blogDto
-     * @return count
-     */
-    int updateBlog(BlogDto blogDto);
-
-    /**
-     * 删除博客
-     * @return
-     */
-    int deleteBlog(String id);
-
-    int deleteLike(@Param("userId") String userId,
-                   @Param("blogId") String blogId);
-
-    int insertLike(@Param("userId") String userId,
-                   @Param("blogId") String blogId);
-
-    BlogDto getBlogByIdTextTit(@Param("id") String id);
 
     int selectLike(@Param("userId") String userId,
                    @Param("blogId") String blogId);
@@ -73,16 +38,21 @@ public interface BlogDao {
 
     List<BlogDto> searchByUsername(@Param("username")String username);
 
-    List<BlogDto> getLikeBlogs(@Param("userId")String userId);
+    /**
+     * 通过用户ID 查询喜欢泪飙
+     * @param userId
+     * @return
+     */
+    List<BlogDto> selectLikeBlogs(@Param("userId")String userId);
 
+    /**
+     * 通过用户名查询所有数据
+     * @param username 用户名
+     * @return blogDto list
+     */
     List<BlogDto> selectByUserFavorite(@Param("username")String username);
 
 
-    int insertFavorite(@Param("userId") String userId,
-                       @Param("blogId") String blogId);
-
-    int deleteFavorite(@Param("userId") String userId,
-                       @Param("blogId") String blogId);
 
 
 }

@@ -4,7 +4,7 @@ import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 import java.util.Date;
 
-public class Like implements Serializable {
+public class LikeData implements Serializable {
     private String userId;
 
     private String blogId;

@@ -8,6 +8,7 @@ import net.ttcxy.tangtang.entity.BlogDto;
 import net.ttcxy.tangtang.entity.CommentDto;
 import net.ttcxy.tangtang.entity.UserDto;
 import net.ttcxy.tangtang.model.Blog;
+import net.ttcxy.tangtang.model.BlogComment;
 import net.ttcxy.tangtang.service.BlogService;
 import net.ttcxy.tangtang.service.CommentService;
 import net.ttcxy.tangtang.service.impl.AuthDetailsImpl;
@@ -94,6 +95,8 @@ public class BlogController {
 
         int influenceCount = blogService.insertBlog(blog);
 
+
+
         if (influenceCount==1){
             return CommonResult.success("添加成功");
         }else{
@@ -106,18 +109,18 @@ public class BlogController {
 
 
     @PostMapping("comment/insert")
-    public CommonResult insertComment(@RequestBody CommentDto commentDto){
+    public CommonResult insertComment(@RequestBody BlogComment blogComment){
 
-        commentDto.setId(IdUtil.fastSimpleUUID());
-        commentDto.setUserId(authDetailsImpl.getUser().getId());
-        commentDto.setCreateDate(new Date());
-        commentDto.setStatus("1");
-        commentDto.setUsername(authDetailsImpl.getUser().getUsername());
-        commentDto.setNickname(authDetailsImpl.getUser().getNickname());
+        String userId = authDetailsImpl.getUserId();
+        blogComment.setId(IdUtil.fastSimpleUUID());
+        blogComment.setUserId(userId);
+        blogComment.setCreateDate(new Date());
+        blogComment.setStatus(1);
 
+        int count = commentService.insertComment(blogComment);
 
-        if (commentService.insertComment(commentDto)){
-            return CommonResult.success(commentDto);
+        if (count > 0){
+            return CommonResult.success(blogComment);
         }
 
         return CommonResult.failed("添加失败；");
@@ -145,10 +148,10 @@ public class BlogController {
     @GetMapping("load")
     public CommonResult load(@RequestParam(name="blog",required = false) String blogId){
 
-        BlogDto blogDtoBody = blogService.getBlogByUUIDTextTit(blogId);
+        Blog blog = blogService.selectByPrimaryId(blogId);
         UserDto userDto = authDetailsImpl.getUser();
-        if(blogDtoBody.getUserId().equals(userDto.getId())){
-            return CommonResult.success(blogDtoBody);
+        if(blog.getUserId().equals(userDto.getId())){
+            return CommonResult.success(blog);
         }else{
             return CommonResult.failed("无法修改别人的Blog");
         }
@@ -175,10 +178,11 @@ public class BlogController {
     @GetMapping("delete/{id}")
     public CommonResult delete(@PathVariable("id") String id){
 
-        String userId = blogService.getBlogByUUIDTextTit(id).getUserId();
+        String userId = blogService.selectByPrimaryId(id).getUserId();
         if (authDetailsImpl.getUser()!=null){
             if(StrUtil.equals(authDetailsImpl.getUser().getId(),userId)){
-                if(blogService.deleteBlog(id)){
+                int count = blogService.deleteBlog(id);
+                if(count > 0){
                     return CommonResult.success("成功删除");
                 }else{
                     return CommonResult.failed("删除失败");
@@ -204,12 +208,12 @@ public class BlogController {
 
     /**
      * 如果数据库不存在，推荐，如果存在就取消。
-     * @param id id
+     * @param blogId id
      */
-    @GetMapping("/favorite/{id}/insert")
-    public CommonResult favorite(@PathVariable("id") String id){
-        UserDto userDto = authDetailsImpl.getUser();
-        int favorite = blogService.favorite(userDto.getId(), id);
+    @GetMapping("/favorite/{blogId}/insert")
+    public CommonResult favorite(@PathVariable("blogId") String blogId){
+        String userId = authDetailsImpl.getUserId();
+        int favorite = blogService.favorite(userId, blogId);
         return CommonResult.success(favorite);
     }
 }

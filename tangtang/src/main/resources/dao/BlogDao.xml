@@ -6,100 +6,53 @@
 
     <select id="selectBlog" resultType="net.ttcxy.tangtang.entity.BlogDto">
       select b.id,title,DATE_FORMAT(create_date,'%Y.%m.%d')  createDate,username,nickname,text,markdown
-        FROM blog b,user u
+        FROM `blog` b,`user` u
         where b.state_id = 1
         and u.id = b.user_id
         order by create_date desc
     </select>
-
 
 
     <select id="search" resultType="net.ttcxy.tangtang.entity.BlogDto">
         select b.id,title,DATE_FORMAT(create_date,'%Y.%m.%d')  createDate,username,nickname,text,markdown
-        FROM blog b,user u
+        FROM `blog` b,`user` u
         where b.state_id = 1
         and u.id = b.user_id
         and b.title LIKE concat("%",#{title},"%")
         order by create_date desc
-        limit #{pag},20
     </select>
-
-    <select id="isNotBlog" resultType="int">
-        select count(1) from blog where id = #{blogId}
-    </select>
-
-    <select id="getBlogByIdTextTit" resultType="net.ttcxy.tangtang.entity.BlogDto">
-        select id,title,markdown,user_id from blog where id = #{id}
-    </select>
-
-    <select id="selectLike" resultType="integer">
-        SELECT count(*) FROM `like` where user_id =  #{userId} and blog_id =#{blogId}
-    </select>
-
-    <select id="selectFavorite" resultType="integer">
-        SELECT count(*) FROM `favorite` where user_id =  #{userId} and blog_id =#{blogId}
-    </select>
-
 
     <select id="selectBlogById" resultType="net.ttcxy.tangtang.entity.BlogDto">
         select b.id,b.title,DATE_FORMAT(b.create_date,'%Y.%m.%d')  createDate,b.text,u.username,nickname
-        from blog b,user u  where b.user_id = u.id and b.id = #{id}
+        from `blog` b,`user` u
+        where b.user_id = u.id
+        and b.id = #{id}
     </select>
 
     <select id="searchByUsername" resultType="net.ttcxy.tangtang.entity.BlogDto">
         select *,DATE_FORMAT(create_date,'%Y.%m.%d') createDate
-        from blog b, user u
-        where b.user_id = u.id  and username = #{username}
+        from `blog` b, `user` u
+        where b.user_id = u.id
+        and username = #{username}
         order by b.create_date desc
     </select>
 
-    <select id="getLikeBlogs" resultType="net.ttcxy.tangtang.entity.BlogDto">
+    <select id="selectLikeBlogs" resultType="net.ttcxy.tangtang.entity.BlogDto">
         select  b.id,b.title,DATE_FORMAT(b.create_date,'%Y.%m.%d') createDate,u.username
-        from `like` l ,user u,blog b
-        where u.id = l.user_id and b.id = l.blog_id  and u.id = #{userId}
+        from `like_data` l ,`user` u,`blog` b
+        where u.id = l.user_id
+        and b.id = l.blog_id
+        and u.id = #{userId}
         order by l.create_date desc
     </select>
 
     <select id="selectByUserFavorite" resultType="net.ttcxy.tangtang.entity.BlogDto">
         select  b.id,b.title,DATE_FORMAT(b.create_date,'%Y.%m.%d') createDate,u.username
-        from `favorite` l ,user u,blog b
-        where u.id = l.user_id and b.id = l.blog_id and u.username = #{username}
+        from `favorite` l ,`user` u,`blog` b
+        where u.id = l.user_id
+        and b.id = l.blog_id
+        and u.username = #{username}
         order by l.create_date desc
     </select>
-
-    <insert id="deleteLike">
-        DELETE FROM `like`
-        WHERE USER_ID = #{userId} AND blog_id = #{blogId}
-    </insert>
-
-    <insert id="deleteFavorite">
-        DELETE FROM `favorite`
-        WHERE USER_ID = #{userId} AND blog_id = #{blogId}
-    </insert>
-
-
-    <insert id="addBlog" parameterType="net.ttcxy.tangtang.entity.BlogDto">
-        insert into blog (id,title,user_id,text,state_id,create_date,markdown)
-        values(#{id},#{title},#{userId},#{text},#{stateId},now(),#{markdown})
-    </insert>
-    <update id="updateBlog" parameterType="net.ttcxy.tangtang.entity.BlogDto">
-        update blog
-        set title = #{title},text = #{text},markdown = #{markdown},state_id = #{stateId},update_date = NOW()
-        where id = #{id}
-    </update>
-
-    <delete id="deleteBlog">
-        DELETE FROM blog
-        WHERE id = #{id}
-    </delete>
-    <delete id="insertLike">
-        INSERT INTO `like` (user_id,blog_id,create_date)
-        VALUES (#{userId},#{blogId},NOW())
-    </delete>
-
-    <delete id="insertFavorite">
-        INSERT INTO `favorite` (user_id,blog_id,create_date)
-        VALUES (#{userId},#{blogId},NOW())
-    </delete>
 
 </mapper>

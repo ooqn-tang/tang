@@ -1,13 +1,16 @@
 package net.ttcxy.tangtang.controller;
 
+import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSONObject;
 import net.ttcxy.tangtang.api.CommonResult;
 import net.ttcxy.tangtang.entity.UserDto;
+import net.ttcxy.tangtang.model.User;
 import net.ttcxy.tangtang.service.UserService;
 import net.ttcxy.tangtang.service.impl.AuthDetailsImpl;
 import net.ttcxy.tangtang.util.StringProUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.DefaultRedirectStrategy;
@@ -73,15 +76,15 @@ public class LoginController {
 
     @PostMapping("register")
     @ResponseBody
-    public CommonResult register(@RequestBody UserDto userDto){
+    public CommonResult register(@RequestBody User user){
 
 
-        if (userDto ==null){
+        if (user ==null){
             return CommonResult.failed("参数不正确");
         }else{
 
 
-            String username = userDto.getUsername();
+            String username = user.getUsername();
             if (username==null||username.length()<5||username.length()>15){
                 return CommonResult.failed("用户名长度：5~15");
             }
@@ -95,12 +98,12 @@ public class LoginController {
                 return CommonResult.failed("用户名已经存在");
             }
 
-            String password = userDto.getPassword();
+            String password = user.getPassword();
             if (password==null||password.length()<=8||password.length()>=25){
                 return CommonResult.failed("密码长度：8~25");
             }
 
-            String nickname = userDto.getNickname();
+            String nickname = user.getNickname();
             if (nickname!=null){
                 int length = StringProUtil.byteSize(nickname);
                 if (length>16 || length<4){
@@ -109,13 +112,13 @@ public class LoginController {
             }
         }
         try{
-            Boolean addTrue = userService.insertUser(userDto);
-            if (addTrue){
+            int count = userService.insertUser(user);
+            if (count > 0){
                 return CommonResult.success("注册成功");
             }else{
                 return CommonResult.failed("注册失败");
             }
-        }catch (Exception e){
+        }catch (DuplicateKeyException e){
             return CommonResult.failed("用户名已经存在");
         }
 
@@ -142,8 +145,11 @@ public class LoginController {
             return CommonResult.failed("密码长度：8~25");
         }
         userDto.setPassword(new BCryptPasswordEncoder().encode(passwordNew));
-        Boolean bol = userService.updateUserPassword(userDto);
-        if (bol){
+
+        User user = new User();
+        BeanUtil.copyProperties(userDto,user);
+        int count = userService.updateUserPassword(user);
+        if (count > 0){
             return CommonResult.success("修改成功");
         }
         return CommonResult.failed("修改失败");

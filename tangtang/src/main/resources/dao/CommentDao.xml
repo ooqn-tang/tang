@@ -10,8 +10,10 @@
 
     <select id="selectComment" resultType="net.ttcxy.tangtang.entity.CommentDto">
         select bc.user_id,bc.id,bc.blog_id,bc.status,u.nickname,u.username,bc.create_date,bc.content
-        from blog_comment bc , user u
-        where u.id = bc.user_id and bc.blog_id = #{id} order by create_date ASC
+        from `blog_comment` bc , `user` u
+        where u.id = bc.user_id
+        and bc.blog_id = #{id}
+        order by create_date ASC
     </select>
 
 </mapper>

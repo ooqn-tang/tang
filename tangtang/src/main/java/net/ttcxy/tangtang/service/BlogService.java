@@ -5,37 +5,48 @@ import net.ttcxy.tangtang.model.Blog;
 
 import java.util.List;
 
+/**
+ * 博客操作
+ * @author huanglei
+ */
 public interface BlogService {
 
     /**
      * 查询blog
-     * @return
+     * @param page 第几页
+     * @return blogDto list
      */
-    List<BlogDto> selectBlog(Integer pag);
+    List<BlogDto> selectBlog(Integer page);
 
 
     /**
      * 查询blog进行随机展示
-     * @return
+     * @return BlogDto list
      */
     List<BlogDto> selectBlog();
 
     /**
      * 模糊查询blog
-     * @return
+     * @param title 标题
+     * @param page 页码
+     * @return  BlogDto list
      */
-    List<BlogDto> search(String title, Integer pag);
+    List<BlogDto> search(String title, Integer page);
 
     /**
      * 通过用户名查询所有BLOG
-     * @param username
-     * @return
+     * @param username 用户名
+     * @return BlogDto list
      */
     List<BlogDto> searchByUsername(String username);
 
 
-
-    BlogDto getBlogByUUID(String uuid, String userId);
+    /**
+     *通过博客ID查询数据
+     * @param id  id
+     * @return 博客
+     */
+    BlogDto selectBlogById(String id);
 
     /**
      * 添加blog
@@ -53,7 +64,7 @@ public interface BlogService {
      * 删除博客
      * @return
      */
-    Boolean deleteBlog(String id);
+    int deleteBlog(String id);
 
     /**
      * 喜欢blog
@@ -67,7 +78,7 @@ public interface BlogService {
      * @param blogId
      * @return
      */
-    BlogDto getBlogByUUIDTextTit(String blogId);
+    Blog selectByPrimaryId(String blogId);
 
     /**
      * 查询我是否喜欢了当前Blog
@@ -75,7 +86,7 @@ public interface BlogService {
      * @param dataId
      * @return
      */
-    int selectLike(String userId, String dataId);
+    long selectLike(String userId, String dataId);
 
     /**
      * 查询用户喜欢的所有BLOG
@@ -91,18 +102,18 @@ public interface BlogService {
     List<BlogDto> selectByUserFavorite(String username);
 
     /**
-     * 查询所有的收藏
-     * @param id
-     * @param id1
-     * @return
+     * 收藏，如果存在就删除收藏
+     * @param userId 收藏人ID
+     * @param blogId 收藏内容ID
+     * @return count 0 表示没有收藏
      */
-    int favorite(String id, String id1);
+    int favorite(String userId, String blogId);
 
     /**
      * 查询是否收藏
-     * @param userId
-     * @param blogId
-     * @return
+     * @param userId userId
+     * @param blogId blogId
+     * @return long
      */
-    int selectFavorite(String userId, String blogId);
+    long selectFavorite(String userId, String blogId);
 }

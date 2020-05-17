@@ -51,8 +51,8 @@ public class PageController {
      * 搜索跳转页面
      */
     @GetMapping("so")
-    public ModelAndView toSearch(@RequestParam(name = "pg", required = false)Integer pg,
-                                 @RequestParam(name = "s", required = false)String s ,
+    public ModelAndView toSearch(@RequestParam(name = "pg", defaultValue = "0")Integer pg,
+                                 @RequestParam(name = "s", defaultValue = "")String s ,
                                  ModelAndView modelAndView){
         modelAndView.setViewName("home");
         modelAndView.addObject("blogs",blogService.search(s,pg));
@@ -90,20 +90,17 @@ public class PageController {
         modelAndView.setViewName("blog");
         UserDto userDto = authDetailsImpl.getUser();
 
-        String userId;
-
         if (userDto !=null){
-            userId = userDto.getId();
+            String userId = userDto.getId();
             // 如果用户没有登陆，不需要查询是否喜欢或收藏
             // 是否喜欢了当前博客
             modelAndView.addObject("like",blogService.selectLike(userId,blogId));
             // 是否以及该收藏
             modelAndView.addObject("favorite",blogService.selectFavorite(userId,blogId));
-        }else{
-            userId = "0";
         }
+
         //添加博客到试图中
-        modelAndView.addObject("blog",blogService.getBlogByUUID(blogId,userId));
+        modelAndView.addObject("blog",blogService.selectBlogById(blogId));
         return modelAndView;
     }
 

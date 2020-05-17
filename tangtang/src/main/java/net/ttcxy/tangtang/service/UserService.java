@@ -1,6 +1,7 @@
 package net.ttcxy.tangtang.service;
 
 import net.ttcxy.tangtang.entity.UserDto;
+import net.ttcxy.tangtang.model.User;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,24 +18,24 @@ public interface UserService {
 
     /**
      * 添加用户
-     * @param userDto
+     * @param user user
      * @return
      */
-    Boolean insertUser(UserDto userDto);
+    int insertUser(User user);
 
     /**
      * 更新用户
-     * @param userDto
+     * @param user
      * @return
      */
-    int updateUser(UserDto userDto);
+    int updateUser(User user);
 
     /**
      * 更新密码
-     * @param userDto
+     * @param user
      * @return
      */
-    Boolean updateUserPassword(UserDto userDto);
+    int updateUserPassword(User user);
 
     /**
      * 用户是否存在
@@ -56,11 +57,12 @@ public interface UserService {
      * @param password
      * @return
      */
-    Boolean updateUserByMail(String mail,String password);
+    int updateUserByMail(String mail,String password);
 
     /**
      * 用户列表
-     * @return
+     * @param  page page
+     * @return UserDto
      */
-    List<UserDto> listUser();
+    List<User> listUser(Integer page);
 }

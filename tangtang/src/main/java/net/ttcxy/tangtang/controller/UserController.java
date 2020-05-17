@@ -1,9 +1,11 @@
 package net.ttcxy.tangtang.controller;
 
+import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.ReUtil;
 import cn.hutool.core.util.StrUtil;
 import net.ttcxy.tangtang.api.CommonResult;
 import net.ttcxy.tangtang.entity.UserDto;
+import net.ttcxy.tangtang.model.User;
 import net.ttcxy.tangtang.service.UserService;
 import net.ttcxy.tangtang.service.impl.AuthDetailsImpl;
 import net.ttcxy.tangtang.service.impl.FansServiceImpl;
@@ -46,8 +48,6 @@ public class UserController {
             return CommonResult.failed("昵称长度为4个之母或两个汉字");
         }
 
-
-
         String signature = userDto.getSignature();
         if (StrUtil.isNotBlank(signature)){
             int length = StringProUtil.byteSize(signature);
@@ -56,13 +56,17 @@ public class UserController {
             }
         }
         userDto.setId(id);
-        int yesNo = userService.updateUser(userDto);
-        if (yesNo > 0){
-            UserDto user = authDetails.getUser();
-            user.setNickname(nickname);
-            user.setSignature(signature);
+
+        User user = new User();
+        BeanUtil.copyProperties(userDto,user);
+        int count = userService.updateUser(user);
+        if (count > 0){
+            UserDto uu = authDetails.getUser();
+            uu.setNickname(nickname);
+            uu.setSignature(signature);
+            return CommonResult.success(count);
         }
-        return CommonResult.success(yesNo);
+        return CommonResult.failed();
     }
 
 
@@ -78,8 +82,8 @@ public class UserController {
 
     @PostMapping("list")
     @ResponseBody
-    public CommonResult<List<UserDto>> listUser(){
-        return CommonResult.success(userService.listUser());
+    public CommonResult<List<User>> listUser(@RequestParam(defaultValue = "1") Integer page){
+        return CommonResult.success(userService.listUser(page));
     }
 
 

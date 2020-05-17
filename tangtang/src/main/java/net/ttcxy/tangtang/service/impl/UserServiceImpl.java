@@ -1,8 +1,12 @@
 package net.ttcxy.tangtang.service.impl;
 
 import cn.hutool.core.util.IdUtil;
+import com.github.pagehelper.PageHelper;
 import net.ttcxy.tangtang.dao.UserDao;
 import net.ttcxy.tangtang.entity.UserDto;
+import net.ttcxy.tangtang.mapper.UserMapper;
+import net.ttcxy.tangtang.model.User;
+import net.ttcxy.tangtang.model.UserExample;
 import net.ttcxy.tangtang.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
@@ -11,11 +15,18 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * @author huanglei
+ */
 @Service
 public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserDao userDao;
+
+
+    @Autowired
+    private UserMapper userMapper;
 
     @Override
     public UserDto selectUserByName(String username) {
@@ -23,39 +34,24 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Boolean insertUser(UserDto userDto) throws DuplicateKeyException {
-        userDto.setId(IdUtil.simpleUUID());
-        userDto.setPassword(new BCryptPasswordEncoder().encode(userDto.getPassword()));
-
-        int count = userDao.insertUser(userDto);
-        if (count==1){
-            return true;
-        }
-        return false;
+    public int insertUser(User user) throws DuplicateKeyException {
+        user.setId(IdUtil.simpleUUID());
+        String password = user.getPassword();
+        String encodePassword = new BCryptPasswordEncoder().encode(password);
+        user.setPassword(encodePassword);
+        return userMapper.insertSelective(user);
     }
 
     @Override
-    public int updateUser(UserDto userDto) {
-        return userDao.updateUser(userDto);
+    public int updateUser(User user) {
+        return userMapper.updateByPrimaryKeySelective(user);
     }
 
     @Autowired
     AuthDetailsImpl authDetails;
     @Override
-    public Boolean updateUserPassword(UserDto userDto) {
-
-        int code = userDao.updateUserPassword(userDto);
-
-        if (code==1){
-            UserDto authUserDto = authDetails.getUser();
-
-            authUserDto.setNickname(userDto.getNickname());
-            authUserDto.setSignature(userDto.getSignature());
-
-            return true;
-        }else{
-            return false;
-        }
+    public int updateUserPassword(User user) {
+        return userMapper.updateByPrimaryKey(user);
     }
 
     @Override
@@ -69,17 +65,25 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Boolean updateUserByMail(String mail,String password) {
+    public int updateUserByMail(String mail,String password) {
 
-        int count = userDao.updateUserByMail(mail,password);
+        User user = new User();
+        user.setPassword(password);
 
-        if (count==1){
-            return true;
-        }
-        return false;
+        UserExample userExample = new UserExample();
+        userExample.createCriteria().andMailEqualTo(mail).andPasswordEqualTo(password);
+
+
+
+        return userMapper.updateByExampleSelective(user,userExample);
+
     }
-    public List<UserDto> listUser(){
-        return userDao.listUser();
+
+    @Override
+    public List<User> listUser(Integer page){
+        // todo 随机页 page设置为随机数
+        PageHelper.startPage(page, 10);
+        return userMapper.selectByExample(new UserExample());
     }
 
 }

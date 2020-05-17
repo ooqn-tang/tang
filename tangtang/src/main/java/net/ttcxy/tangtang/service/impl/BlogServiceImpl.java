@@ -3,17 +3,21 @@ package net.ttcxy.tangtang.service.impl;
 import cn.hutool.core.util.RandomUtil;
 import com.github.pagehelper.PageHelper;
 import net.ttcxy.tangtang.dao.BlogDao;
-import net.ttcxy.tangtang.dao.PageviewDao;
 import net.ttcxy.tangtang.entity.BlogDto;
 import net.ttcxy.tangtang.mapper.BlogMapper;
-import net.ttcxy.tangtang.model.Blog;
-import net.ttcxy.tangtang.model.BlogExample;
+import net.ttcxy.tangtang.mapper.FavoriteMapper;
+import net.ttcxy.tangtang.mapper.LikeDataMapper;
+import net.ttcxy.tangtang.model.*;
 import net.ttcxy.tangtang.service.BlogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * BlogService impl
+ * @author huanglei
+ */
 @Service
 public class BlogServiceImpl implements BlogService {
 
@@ -41,15 +45,9 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
-    public List<BlogDto> search(String title, Integer pag) {
-
-        if (pag != null) {
-            pag = pag <= 1 ? 0 : ((pag - 1) * 20);
-        } else {
-            pag = 0;
-        }
-
-        return blogDao.search(title, pag);
+    public List<BlogDto> search(String title, Integer page) {
+        PageHelper.startPage(page, 10);
+        return blogDao.search(title);
     }
 
     @Override
@@ -77,54 +75,60 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
-    public Boolean deleteBlog(String id) {
-
-        int code = blogDao.deleteBlog(id);
-
-        if (code == 1) {
-            return true;
-        }
-
-        return false;
+    public int deleteBlog(String id) {
+        return blogMapper.deleteByPrimaryKey(id);
     }
+
+    @Autowired
+    private LikeDataMapper likeMapper;
 
     @Override
     public int like(String userId, String blogId) {
+
+        LikeData likeData = new LikeData();
+        likeData.setBlogId(blogId);
+        likeData.setUserId(userId);
         try {
-            return blogDao.insertLike(userId, blogId);
+            return likeMapper.insertSelective(likeData);
         } catch (Exception e) {
-            if (blogDao.deleteLike(userId, blogId) == 1) {
-                return -1;
-            }
+            LikeDataExample likeExample = new LikeDataExample();
+            likeExample.createCriteria().andBlogIdEqualTo(blogId).andUserIdEqualTo(userId);
+            likeMapper.deleteByExample(likeExample);
             return 0;
+
         }
     }
 
 
     @Override
-    public BlogDto getBlogByUUID(String uuid, String userId) {
-        return blogDao.selectBlogById(uuid);
+    public BlogDto selectBlogById(String id) {
+        return blogDao.selectBlogById(id);
     }
 
     @Override
-    public BlogDto getBlogByUUIDTextTit(String uuid) {
-
-        return blogDao.getBlogByIdTextTit(uuid);
+    public Blog selectByPrimaryId(String id) {
+        return blogMapper.selectByPrimaryKey(id);
     }
 
     @Override
-    public int selectLike(String userId, String blogId) {
-        return blogDao.selectLike(userId, blogId);
+    public long selectLike(String userId, String blogId) {
+        LikeDataExample likeExample = new LikeDataExample();
+        likeExample.createCriteria().andBlogIdEqualTo(blogId).andUserIdEqualTo(userId);
+
+        return likeMapper.countByExample(likeExample);
     }
 
+
     @Override
-    public int selectFavorite(String userId, String blogId) {
-        return blogDao.selectFavorite(userId, blogId);
+    public long selectFavorite(String userId, String blogId) {
+        FavoriteExample favoriteExample = new FavoriteExample();
+        favoriteExample.createCriteria().andBlogIdEqualTo(blogId).andUserIdEqualTo(userId);
+        return favoriteMapper.countByExample(favoriteExample);
     }
 
     @Override
     public List<BlogDto> selectLikeBlogs(String userId) {
-        return blogDao.getLikeBlogs(userId);
+        return blogDao.selectLikeBlogs(userId);
     }
 
     @Override
@@ -132,14 +136,21 @@ public class BlogServiceImpl implements BlogService {
         return blogDao.selectByUserFavorite(username);
     }
 
+    @Autowired
+    private FavoriteMapper favoriteMapper;
+
     @Override
-    public int favorite(String id, String id1) {
+    public int favorite(String userId, String blogId) {
+        Favorite favorite = new Favorite();
+        favorite.setUserId(userId);
+        favorite.setBlogId(blogId);
         try {
-            return blogDao.insertFavorite(id, id1);
+            return favoriteMapper.insertSelective(favorite);
         } catch (Exception e) {
-            if (blogDao.deleteFavorite(id, id1) == 1) {
-                return -1;
-            }
+            FavoriteExample favoriteExample = new FavoriteExample();
+            favoriteExample.createCriteria().andBlogIdEqualTo(blogId).andUserIdEqualTo(userId);
+
+            favoriteMapper.deleteByExample(favoriteExample);
             return 0;
         }
     }

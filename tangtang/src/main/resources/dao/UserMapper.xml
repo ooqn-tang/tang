@@ -12,34 +12,20 @@
   </resultMap>
 
     <select id="selectEmailIsTrue" resultType="integer">
-        select count(1) from user where mail = #{mail}
+        select count(1)
+        from `user`
+        where mail = #{mail}
     </select>
 
     <select id="selectUsernameIsTrue" resultType="integer">
-        select count(1) from user where username = #{username}
+        select count(1)
+        from `user`
+        where username = #{username}
     </select>
 
     <select id="selectUserByName" resultMap="UserMap">
-        select id,username,nickname,password,signature,mail from user where username = #{username}
+        select id,username,nickname,password,signature,mail
+        from `user`
+        where username = #{username}
     </select>
-
-    <select id="listUser" resultMap="UserMap">
-        SELECT u.id,u.username,u.nickname,u.signature FROM user ORDER BY RAND() LIMIT 0,2
-    </select>
-
-   <insert id="insertUser" parameterType="net.ttcxy.tangtang.entity.UserDto">
-       insert user (id,username,nickname,password,mail,signature) values (#{id},#{username},#{nickname},#{password},#{mail},#{signature})
-   </insert>
-
-    <update id="updateUser" parameterType="net.ttcxy.tangtang.entity.UserDto">
-        update user set nickname=#{nickname},mail = #{mail},signature = #{signature} where id = #{id}
-    </update>
-
-    <update id="updateUserPassword" parameterType="net.ttcxy.tangtang.entity.UserDto">
-        update user set password = #{password} where id = #{id}
-    </update>
-
-    <update id="updateUserByMail">
-        update user set password = #{password} where mail = #{mail}
-    </update>
 </mapper>
