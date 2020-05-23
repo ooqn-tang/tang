@@ -2,7 +2,7 @@ package net.ttcxy.tangtang.api;
 
 /**
  * 通用返回对象
- * Created by macro on 2019/4/19.
+ * @author huanglei
  */
 public class CommonResult<T> {
     private long code;

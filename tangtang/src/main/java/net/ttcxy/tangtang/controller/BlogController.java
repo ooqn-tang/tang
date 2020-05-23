@@ -3,12 +3,12 @@ package net.ttcxy.tangtang.controller;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.StrUtil;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import net.ttcxy.tangtang.api.CommonResult;
 import net.ttcxy.tangtang.entity.BlogDto;
 import net.ttcxy.tangtang.entity.CommentDto;
 import net.ttcxy.tangtang.entity.UserDto;
 import net.ttcxy.tangtang.model.Blog;
-import net.ttcxy.tangtang.model.BlogComment;
 import net.ttcxy.tangtang.service.BlogService;
 import net.ttcxy.tangtang.service.CommentService;
 import net.ttcxy.tangtang.service.impl.AuthDetailsImpl;
@@ -21,7 +21,6 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 对博文的增删改查
  * @author huanglei
  */
 @RestController
@@ -39,39 +38,28 @@ public class BlogController {
     private CommentService commentService;
 
     @GetMapping("home/{username}")
-
+    @ApiOperation("用户首页")
     public CommonResult blogList(@PathVariable("username") String username){
         return  CommonResult.success(blogService.searchByUsername(username));
     }
 
-    /**
-     * 获取自己喜欢的文章
-     * @return
-     */
+
     @GetMapping("favorite/{username}")
+    @ApiOperation("获取自己收藏的文章")
     public CommonResult<List<BlogDto>> selectByUserFavorite(@PathVariable("username") String username){
         return CommonResult.success(blogService.selectByUserFavorite(username));
     }
 
-    /**
-     * 获取自己喜欢的文章
-     * @return
-     */
     @GetMapping("like")
+    @ApiOperation("获取自己喜欢的文章")
     public CommonResult<List<BlogDto>> selectByUserLike(){
         String userId = authDetailsImpl.getUserId();
         List<BlogDto> likeBlogs = blogService.selectLikeBlogs(userId);
         return CommonResult.success(likeBlogs);
     }
 
-
-
-    /**
-     * 添加博客
-     * @param blog blogParam
-     * @return null
-     */
     @PostMapping("insert")
+    @ApiOperation("添加博客")
     public CommonResult add(@RequestBody Blog blog){
 
         String userId = authDetailsImpl.getUserId();
@@ -87,15 +75,15 @@ public class BlogController {
                 return CommonResult.failed("请正确输入内容");
             }
         }
-
-        blog.setId(IdUtil.simpleUUID());
+        Date date = new Date();
+        String uuid = IdUtil.simpleUUID();
+        blog.setId(uuid);
         blog.setUserId(userId);
         blog.setStateId(1);
-        blog.setCreateDate(new Date());
+        blog.setCreateDate(date);
+        blog.setUpdateDate(date);
 
         int influenceCount = blogService.insertBlog(blog);
-
-
 
         if (influenceCount==1){
             return CommonResult.success("添加成功");
@@ -109,18 +97,25 @@ public class BlogController {
 
 
     @PostMapping("comment/insert")
-    public CommonResult insertComment(@RequestBody BlogComment blogComment){
+    @ApiOperation("添加博客评论")
+    public CommonResult insertComment(@RequestBody CommentDto commentDto){
 
-        String userId = authDetailsImpl.getUserId();
-        blogComment.setId(IdUtil.fastSimpleUUID());
-        blogComment.setUserId(userId);
-        blogComment.setCreateDate(new Date());
-        blogComment.setStatus(1);
+        if (StrUtil.isBlank(commentDto.getContent())){
+            return CommonResult.failed("评论不能为空");
+        }
 
-        int count = commentService.insertComment(blogComment);
+        UserDto user = authDetailsImpl.getUser();
+        commentDto.setId(IdUtil.fastSimpleUUID());
+        commentDto.setUserId(user.getId());
+        commentDto.setCreateDate(new Date());
+        commentDto.setStatus(1);
+        commentDto.setUsername(user.getUsername());
+        commentDto.setNickname(user.getNickname());
+
+        int count = commentService.insertComment(commentDto);
 
         if (count > 0){
-            return CommonResult.success(blogComment);
+            return CommonResult.success(commentDto);
         }
 
         return CommonResult.failed("添加失败；");
@@ -128,6 +123,7 @@ public class BlogController {
     }
 
     @GetMapping("comment/{blogId}")
+    @ApiOperation("查询博客评论")
     public CommonResult selectComment(@PathVariable("blogId") String blogId){
         Map<String,Object> map = new HashMap<>();
         map.put("comments",commentService.selectComment(blogId));
@@ -136,6 +132,7 @@ public class BlogController {
     }
 
     @DeleteMapping("comment/{id}")
+    @ApiOperation("删除博客评论")
     public CommonResult deleteComment(@PathVariable("id") String id){
         int count = commentService.deleteComment(id);
         if (count > 0){
@@ -146,6 +143,7 @@ public class BlogController {
     }
 
     @GetMapping("load")
+    @ApiOperation("加载博客信息，详细")
     public CommonResult load(@RequestParam(name="blog",required = false) String blogId){
 
         Blog blog = blogService.selectByPrimaryId(blogId);
@@ -158,6 +156,7 @@ public class BlogController {
     }
 
     @PostMapping("update")
+    @ApiOperation("更新博客")
     public CommonResult update(@RequestBody Blog blog){
 
         int count = blogService.updateBlog(blog);
@@ -168,14 +167,8 @@ public class BlogController {
 
     }
 
-
-
-    /**
-     * delete
-     * @param id id
-     * @return null
-     */
     @GetMapping("delete/{id}")
+    @ApiOperation("删除博客")
     public CommonResult delete(@PathVariable("id") String id){
 
         String userId = blogService.selectByPrimaryId(id).getUserId();
@@ -196,21 +189,15 @@ public class BlogController {
         }
     }
 
-    /**
-     * 喜欢blog.如果数据库不存在，推荐，如果存在就取消。
-     * @param id id
-     */
     @GetMapping("/like/{id}/insert")
+    @ApiOperation("喜欢blog.如果数据库不存在，推荐，如果存在就取消。")
     public CommonResult like(@PathVariable("id") String id){
         UserDto userDto = authDetailsImpl.getUser();
         return CommonResult.success(blogService.like(userDto.getId(),id));
     }
 
-    /**
-     * 如果数据库不存在，推荐，如果存在就取消。
-     * @param blogId id
-     */
     @GetMapping("/favorite/{blogId}/insert")
+    @ApiOperation("如果数据库不存在，推荐，如果存在就取消。")
     public CommonResult favorite(@PathVariable("blogId") String blogId){
         String userId = authDetailsImpl.getUserId();
         int favorite = blogService.favorite(userId, blogId);

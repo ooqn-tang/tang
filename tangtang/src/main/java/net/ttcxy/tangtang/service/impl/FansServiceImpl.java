@@ -13,7 +13,8 @@ import java.util.Date;
 import java.util.List;
 
 /**
- *
+ * 粉丝相关
+ * @author huanglei
  */
 @Service
 public class FansServiceImpl implements FansService {

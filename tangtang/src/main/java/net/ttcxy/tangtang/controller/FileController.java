@@ -17,26 +17,17 @@ import org.springframework.web.multipart.MultipartFile;
 public class FileController {
 
 
-    //@Value("${tangtang.static.file}")
-    private String TANGTANG_STATIC_FILE;
-
-    //@Value("${tangtang.static.file-ame}")
-    private String TANGTANG_STATIC_FILE_NAME;
+    /**
+     * 文件存储 位置
+     */
+    @Value("${my-file-data-path}")
+    private String myFileDataPath;
 
 
     @ApiOperation("文件上传")
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult upload(@RequestParam("file") MultipartFile file) {
-
-        //路径
-        String fileHost = TANGTANG_STATIC_FILE + System.lineSeparator() + TANGTANG_STATIC_FILE_NAME + System.lineSeparator();
-
-        String uuid = IdUtil.fastSimpleUUID();
-        file.getOriginalFilename();
-
-
-
         return CommonResult.failed();
     }
 
@@ -44,7 +35,6 @@ public class FileController {
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult delete(@RequestParam("objectName") String objectName) {
-
         return CommonResult.failed();
     }
 }

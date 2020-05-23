@@ -1,5 +1,6 @@
 package net.ttcxy.tangtang.service.impl;
 
+import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.RandomUtil;
 import com.github.pagehelper.PageHelper;
 import net.ttcxy.tangtang.dao.BlogDao;
@@ -7,11 +8,13 @@ import net.ttcxy.tangtang.entity.BlogDto;
 import net.ttcxy.tangtang.mapper.BlogMapper;
 import net.ttcxy.tangtang.mapper.FavoriteMapper;
 import net.ttcxy.tangtang.mapper.LikeDataMapper;
+import net.ttcxy.tangtang.mapper.PageViewMapper;
 import net.ttcxy.tangtang.model.*;
 import net.ttcxy.tangtang.service.BlogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -27,20 +30,24 @@ public class BlogServiceImpl implements BlogService {
     @Autowired
     AuthDetailsImpl authDetails;
 
+    @Autowired
+    private BlogMapper blogMapper;
+
+    @Autowired
+    private FavoriteMapper favoriteMapper;
+
+    @Autowired
+    private PageViewMapper pageViewMapper;
+
+    @Autowired
+    private LikeDataMapper likeMapper;
 
     @Override
     public List<BlogDto> selectBlog(Integer pag) {
         PageHelper.startPage(pag, 10);
-        return blogDao.selectBlog();
-    }
 
-    @Override
-    public List<BlogDto> selectBlog() {
-        long count = blogMapper.countByExample(new BlogExample());
-        int size = 10;
-        int limitIndex = (int) (count / size);
-        int startIndex = RandomUtil.randomInt(limitIndex);
-        PageHelper.startPage(startIndex, 10);
+        long selectBlogCount = selectBlogCount();
+
         return blogDao.selectBlog();
     }
 
@@ -54,9 +61,6 @@ public class BlogServiceImpl implements BlogService {
     public List<BlogDto> searchByUsername(String username) {
         return blogDao.searchByUsername(username);
     }
-
-    @Autowired
-    private BlogMapper blogMapper;
 
     @Override
     public int insertBlog(Blog blog) {
@@ -79,15 +83,13 @@ public class BlogServiceImpl implements BlogService {
         return blogMapper.deleteByPrimaryKey(id);
     }
 
-    @Autowired
-    private LikeDataMapper likeMapper;
-
     @Override
     public int like(String userId, String blogId) {
 
         LikeData likeData = new LikeData();
         likeData.setBlogId(blogId);
         likeData.setUserId(userId);
+        likeData.setCreateDate(new Date());
         try {
             return likeMapper.insertSelective(likeData);
         } catch (Exception e) {
@@ -99,9 +101,15 @@ public class BlogServiceImpl implements BlogService {
         }
     }
 
-
     @Override
     public BlogDto selectBlogById(String id) {
+        PageView pageView = new PageView();
+        pageView.setId(IdUtil.fastSimpleUUID());
+        pageView.setBlogId(id);
+        pageView.setUserId(authDetails.getUserId());
+        pageView.setCreateDatetime(new Date());
+        pageViewMapper.insertSelective(pageView);
+
         return blogDao.selectBlogById(id);
     }
 
@@ -117,7 +125,6 @@ public class BlogServiceImpl implements BlogService {
 
         return likeMapper.countByExample(likeExample);
     }
-
 
     @Override
     public long selectFavorite(String userId, String blogId) {
@@ -136,14 +143,12 @@ public class BlogServiceImpl implements BlogService {
         return blogDao.selectByUserFavorite(username);
     }
 
-    @Autowired
-    private FavoriteMapper favoriteMapper;
-
     @Override
     public int favorite(String userId, String blogId) {
         Favorite favorite = new Favorite();
         favorite.setUserId(userId);
         favorite.setBlogId(blogId);
+        favorite.setCreateDate(new Date());
         try {
             return favoriteMapper.insertSelective(favorite);
         } catch (Exception e) {
@@ -153,5 +158,11 @@ public class BlogServiceImpl implements BlogService {
             favoriteMapper.deleteByExample(favoriteExample);
             return 0;
         }
+    }
+
+    @Override
+    public long selectBlogCount() {
+        // todo 记录博客数量，需要优化性能
+        return blogMapper.countByExample(new BlogExample());
     }
 }

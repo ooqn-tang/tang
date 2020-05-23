@@ -27,7 +27,7 @@ public class AuthDetailsImpl {
         if (ObjectUtil.isNotNull(userDto)){
             return userDto.getId();
         }
-        return null;
+        return "";
     }
 
 }

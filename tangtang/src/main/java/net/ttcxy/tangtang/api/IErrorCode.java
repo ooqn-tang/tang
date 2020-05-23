@@ -2,10 +2,18 @@ package net.ttcxy.tangtang.api;
 
 /**
  * 封装API的错误码
- * Created by macro on 2019/4/19.
+ * @author huanglei
  */
 public interface IErrorCode {
-    long getCode();
+    /**
+     * 错误码
+     * @return 错误码数值
+     */
+     long getCode();
 
+    /**
+     * 消息
+     * @return 错误消息
+     */
     String getMessage();
 }

@@ -8,10 +8,10 @@ public class StringProUtil {
 
     /**
      * 获取字符串的字节数
-     * @param string
-     * @return
+     * @param string 输入字符串
+     * @return 字节数
      */
-    public static int byteSize(String string ){
+    public static int byteSize(String string){
         int length = 0;
         for (int i = 0; i < string.length(); i++) {
             int ascii = Character.codePointAt(string, i);

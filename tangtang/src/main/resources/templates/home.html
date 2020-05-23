@@ -16,9 +16,8 @@
                                 <a class="pull-right" th:href="@{/author/{id}(id=${blog.username})}" th:text="${blog.nickname}"></a>
                             </div>
                         </li>
-
                         <li class="list-group-item nob">
-                           <a id="syy">上一页</a><a class="pull-right" id="xyy">下一页</a>
+                           <a id="up" href="#" class="">上一页</a><a class="pull-right" id="next">下一页</a>
                         </li>
                     </ul>
             </div>
@@ -26,7 +25,6 @@
         </div>
 
         <div class="col-md-3 column nob-p">
-           <!-- <div th:replace="comm::authors"></div>-->
             <div th:replace="comm::advertise"></div>
         </div>
     </div>
@@ -35,71 +33,36 @@
 </body>
 <script>
     $(function(){
-        $(".list-group-item").mouseover(function(){
-            $(this).find("button").removeClass("hidden")
-        }).mouseout(function(){
-            $(this).find("button").addClass("hidden")
-        })
+        let nextId = $("#next");
+        let upId = $("#up");
 
-        let pg = getQueryVariable("pg");
-        if (pg==null || Number(pg) <= 1){
-            $("#syy").css('opacity', '0.2')
-            $("#syy").attr("href","javascript:return false;")
-        }
-
-        if (pg!=null && Number(pg) >= 10){
-            $("#xyy").css('opacity', '0.2')
-            $("#xyy").attr("href","javascript:return false;")
-        }
-
-        $("#syy").click(function(){
+        let nextPageClick = nextId.click(function(){
+            let p = Number(pg);
+            if (p < 0){
+                p++;
+            }
+            if (p > 11){
+                return;
+            }
+            window.location.href = UrlUpdateParams(window.location.href, "pg", (++p))
+        });
+        let upPageClick = upId.click(function(){
             let p = Number(pg);
             if (p <= 1){
                 return;
             }else{
                 window.location.href = UrlUpdateParams(window.location.href, "pg", (--p))
             }
-        })
+        });
 
-        $("#xyy").click(function(){
-            let p = Number(pg)
-            if (p==0)
-                p++;
-            if (p>=10)
-                return
-
-            window.location.href = UrlUpdateParams(window.location.href, "pg", (++p))
-
-        })
-
-        function getQueryVariable(variable){
-            let query = window.location.search.substring(1);
-            let vars = query.split("&");
-            for (let i=0;i<vars.length;i++) {
-                let pair = vars[i].split("=");
-                if(pair[0] == variable){return pair[1];}
-            }
-            return null;
+        let pg = getQueryVariable("pg");
+        if (pg==null || Number(pg) <= 1){
+            upId.css('opacity', '0.2');
+            upId.attr("href","javascript:return false;")
         }
-
-        function UrlUpdateParams(url, name, value) {
-            let r = url;
-            if (r != null && r != 'undefined' && r != "") {
-                value = encodeURIComponent(value);
-                let reg = new RegExp("(^|)" + name + "=([^&]*)(|$)");
-                let tmp = name + "=" + value;
-                if (url.match(reg) != null) {
-                    r = url.replace(eval(reg), tmp);
-                }
-                else {
-                    if (url.match("[\?]")) {
-                        r = url + "&" + tmp;
-                    } else {
-                        r = url + "?" + tmp;
-                    }
-                }
-            }
-            return r;
+        if (pg!=null && Number(pg) >= 10){
+            nextId.css('opacity', '0.2');
+            nextId.attr("href","javascript:return false;")
         }
     })
 </script>

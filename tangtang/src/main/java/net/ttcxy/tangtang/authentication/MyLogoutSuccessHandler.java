@@ -1,7 +1,6 @@
-package net.ttcxy.tangtang.security.authentication;
+package net.ttcxy.tangtang.authentication;
 
 import org.springframework.security.core.Authentication;
-import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 
 import javax.servlet.ServletException;

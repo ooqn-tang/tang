@@ -11,19 +11,13 @@ import java.util.List;
  */
 public interface BlogService {
 
+
     /**
      * 查询blog
      * @param page 第几页
      * @return blogDto list
      */
     List<BlogDto> selectBlog(Integer page);
-
-
-    /**
-     * 查询blog进行随机展示
-     * @return BlogDto list
-     */
-    List<BlogDto> selectBlog();
 
     /**
      * 模糊查询blog
@@ -42,7 +36,7 @@ public interface BlogService {
 
 
     /**
-     *通过博客ID查询数据
+     * 通过博客ID查询数据
      * @param id  id
      * @return 博客
      */
@@ -55,8 +49,8 @@ public interface BlogService {
 
     /**
      * 更新博客
-     * @param blog
-     * @return
+     * @param blog blog
+     * @return 影响的行数
      */
     int updateBlog(Blog blog);
 
@@ -116,4 +110,11 @@ public interface BlogService {
      * @return long
      */
     long selectFavorite(String userId, String blogId);
+
+    /**
+     * 博客的数量
+     * @return 行数
+     */
+    long selectBlogCount();
+
 }

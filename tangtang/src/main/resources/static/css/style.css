@@ -152,5 +152,7 @@ ul.nav-tabs.affix{
     top: 0px; /* Set the top position of pinned element */
 }
 
-
+a{
+    cursor:pointer
+}
 

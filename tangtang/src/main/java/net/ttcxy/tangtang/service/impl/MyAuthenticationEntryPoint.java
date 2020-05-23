@@ -1,4 +1,4 @@
-package net.ttcxy.tangtang.security.service.impl;
+package net.ttcxy.tangtang.service.impl;
 
 import com.alibaba.fastjson.JSON;
 import net.ttcxy.tangtang.api.CommonResult;

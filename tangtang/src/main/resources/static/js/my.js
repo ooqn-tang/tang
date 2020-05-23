@@ -73,8 +73,48 @@ $(function(){
         $("#follower").html("关注")
     }
 
-
-
-
-
 });
+
+function getQueryVariable(variable){
+    let query = window.location.search.substring(1);
+    let vars = query.split("&");
+    for (let i=0;i<vars.length;i++) {
+        let pair = vars[i].split("=");
+        if(pair[0] == variable){return pair[1];}
+    }
+    return null;
+}
+
+function UrlUpdateParams(url, name, value) {
+    let r = url;
+    if (r != null && r != 'undefined' && r != "") {
+        value = encodeURIComponent(value);
+        let reg = new RegExp("(^|)" + name + "=([^&]*)(|$)");
+        let tmp = name + "=" + value;
+        if (url.match(reg) != null) {
+            r = url.replace(eval(reg), tmp);
+        }
+        else {
+            if (url.match("[\?]")) {
+                r = url + "&" + tmp;
+            } else {
+                r = url + "?" + tmp;
+            }
+        }
+    }
+    return r;
+}
+
+String.prototype.signMix= function() {
+    if(arguments.length === 0) return this;
+    let param = arguments[0], str= this;
+    if(typeof(param) === 'object') {
+        for(let key in param)
+            str = str.replace(new RegExp("\\{" + key + "\\}", "g"), param[key]);
+        return str;
+    } else {
+        for(let i = 0; i < arguments.length; i++)
+            str = str.replace(new RegExp("\\{" + i + "\\}", "g"), arguments[i]);
+        return str;
+    }
+}

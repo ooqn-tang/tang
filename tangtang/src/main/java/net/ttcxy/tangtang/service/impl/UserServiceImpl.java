@@ -24,7 +24,6 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserDao userDao;
 
-
     @Autowired
     private UserMapper userMapper;
 
@@ -56,12 +55,20 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Boolean selectUsernameIsTrue(String username) {
-        return userDao.selectUsernameIsTrue(username)!=0?true:false;
+        int count = userDao.selectUsernameIsTrue(username);
+        if (count > 0){
+            return true;
+        }
+        return false;
     }
 
     @Override
     public Boolean selectMailIsTrue(String username) {
-        return userDao.selectEmailIsTrue(username)!=0?true:false;
+        int count = userDao.selectEmailIsTrue(username);
+        if (count > 0){
+            return true;
+        }
+        return false;
     }
 
     @Override
@@ -73,15 +80,12 @@ public class UserServiceImpl implements UserService {
         UserExample userExample = new UserExample();
         userExample.createCriteria().andMailEqualTo(mail).andPasswordEqualTo(password);
 
-
-
         return userMapper.updateByExampleSelective(user,userExample);
 
     }
 
     @Override
     public List<User> listUser(Integer page){
-        // todo 随机页 page设置为随机数
         PageHelper.startPage(page, 10);
         return userMapper.selectByExample(new UserExample());
     }
