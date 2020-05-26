@@ -16,7 +16,7 @@ public class html {
      * @param args
      */
     public static void main(String[] args) {
-        String string = FileUtil.readString("C:\\Users\\Administrator\\Desktop\\12.txt", "utf-8");
+        String string = FileUtil.readString("C:\\Users\\Administrator\\Desktop\\QQ.txt", "utf-8");
 
         Document parse = Jsoup.parse(string);
         Elements td = parse.select("tr");

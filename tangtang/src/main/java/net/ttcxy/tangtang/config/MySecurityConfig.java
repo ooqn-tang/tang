@@ -58,8 +58,6 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-
-
         //允许配置“记住我”身份验证。
         if (tangTangProperties.getSecurity().isRememberMe()){
             http.rememberMe()

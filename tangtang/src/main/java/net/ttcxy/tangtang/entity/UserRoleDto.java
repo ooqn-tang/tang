@@ -1,5 +1,8 @@
 package net.ttcxy.tangtang.entity;
 
+/**
+ * @author huanglei
+ */
 public class UserRoleDto {
 
     static final long serialVersionUID = 1L;

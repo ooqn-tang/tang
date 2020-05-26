@@ -2,6 +2,7 @@ package net.ttcxy.tangtang.entity;
 
 /**
  * Blog模型类
+ * @author huanglei
  */
 public class BlogDto {
 

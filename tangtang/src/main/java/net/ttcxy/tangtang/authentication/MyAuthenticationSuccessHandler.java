@@ -10,7 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * 登录成功返回JSON
+ * 登录成功
+ * @author Administrator
  */
 @Component("myAuthenticationSuccessHandler")
 public class MyAuthenticationSuccessHandler extends SavedRequestAwareAuthenticationSuccessHandler {

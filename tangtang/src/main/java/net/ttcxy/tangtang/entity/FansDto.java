@@ -3,7 +3,7 @@ package net.ttcxy.tangtang.entity;
 import java.util.Date;
 
 /**
- * @author ：HuangLei
+ * @author ：huanglei
  * @date ：2020/4/10 0010 19:52
  */
 public class FansDto {

@@ -15,44 +15,9 @@ import java.io.IOException;
 @SpringBootTest
 public class TangTangApplicationTests {
 
-
-    @Autowired
-    CommentDao commentDao;
-
-
-    @Autowired
-    BlogService blogService;
-
     @Test
-    public void contextLoads() throws IOException {
-
-        System.out.println(commentDao.selectComment("26c0fd33c3a34ee2abdc7b545e9cb287"));
-        ;
-
-
-       /* CommentDto comment = new CommentDto();
-        comment.setId(IdUtil.fastSimpleUUID());
-        comment.setBlogId("1");
-        comment.setContent("asdf");
-        comment.setCreateDate(new Date());
-        comment.setStatus("1");
-        comment.setUserId("11");
-
-        System.out.println(commentDao.insertComment(comment));*/
-        //System.out.println(JSON.toJSONString(specialMapper.selectSpecial()));
+    public void test(){
 
     }
 
-
-    // 维基多格
-    @Test
-    public void vegedogTest() {
-        System.out.println(blogService.selectBlog());
-        System.out.println(blogService.selectBlog());
-        System.out.println(blogService.selectBlog());
-        System.out.println(blogService.selectBlog());
-        System.out.println(blogService.selectBlog());
-        System.out.println(blogService.selectBlog());
-
-    }
 }

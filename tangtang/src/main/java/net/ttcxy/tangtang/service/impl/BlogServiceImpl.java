@@ -14,6 +14,7 @@ import net.ttcxy.tangtang.service.BlogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -45,9 +46,6 @@ public class BlogServiceImpl implements BlogService {
     @Override
     public List<BlogDto> selectBlog(Integer pag) {
         PageHelper.startPage(pag, 10);
-
-        long selectBlogCount = selectBlogCount();
-
         return blogDao.selectBlog();
     }
 

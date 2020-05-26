@@ -2,8 +2,6 @@ package net.ttcxy.tangtang.service.impl;
 
 import cn.hutool.core.util.IdUtil;
 import lombok.extern.slf4j.Slf4j;
-import net.ttcxy.tangtang.entity.AdvertiseDto;
-import net.ttcxy.tangtang.dao.AdvertiseDao;
 import net.ttcxy.tangtang.mapper.AdvertiseMapper;
 import net.ttcxy.tangtang.model.Advertise;
 import net.ttcxy.tangtang.model.AdvertiseExample;
@@ -13,12 +11,12 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * @author huanglei
+ */
 @Service
 @Slf4j
 public class AdvertiseServiceImpl implements AdvertiseService {
-
-    @Autowired(required = false)
-    private AdvertiseDao advertiseDao;
 
     @Autowired
     private AdvertiseMapper advertiseMapper;

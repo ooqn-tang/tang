@@ -3,6 +3,7 @@ package net.ttcxy.tangtang.entity;
 
 /**
  * 广告实体类
+ * @author huanglei
  */
 public class AdvertiseDto {
 

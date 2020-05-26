@@ -3,9 +3,8 @@ package net.ttcxy.tangtang.component;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.core.util.URLUtil;
 import cn.hutool.json.JSONUtil;
-import net.ttcxy.tangtang.entity.WebLog;
 import io.swagger.annotations.ApiOperation;
-import net.logstash.logback.marker.Markers;
+import net.ttcxy.tangtang.entity.WebLog;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.Signature;
@@ -53,6 +52,7 @@ public class WebLogAspect {
 
     @Around("webLog()")
     public Object doAround(ProceedingJoinPoint joinPoint) throws Throwable {
+
         long startTime = System.currentTimeMillis();
         //获取当前请求对象
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
@@ -84,8 +84,7 @@ public class WebLogAspect {
         logMap.put("parameter",webLog.getParameter());
         logMap.put("spendTime",webLog.getSpendTime());
         logMap.put("description",webLog.getDescription());
-//        LOGGER.info("{}", JSONUtil.parse(webLog));
-        LOGGER.info(Markers.appendEntries(logMap), JSONUtil.parse(webLog).toString());
+        LOGGER.info("{}", JSONUtil.parse(webLog));
         return result;
     }
 

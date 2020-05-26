@@ -2,7 +2,7 @@ package net.ttcxy.tangtang.entity;
 
 /**
  * Controller层的日志封装类
- * Created by macro on 2018/4/26.
+ * @author huanglei
  */
 public class WebLog {
     /**

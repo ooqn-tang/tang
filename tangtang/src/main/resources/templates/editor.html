@@ -14,18 +14,15 @@
             border: 0;
             box-sizing:border-box;
         }
-
         html,body{
             width: 100%;
             height: 100%;
         }
-
         #hd{
             height: 40px;
             width: 100%;
             border-bottom: 1px solid black;
         }
-
         #title{
             padding-left: 10px;
             padding-right: 10px;
@@ -37,7 +34,6 @@
             height: 100%;
             outline: none;
         }
-
         .hdBut{
             outline: none;
             width: 70px;
@@ -46,7 +42,6 @@
             border-radius: 0px;
             color: #fff;
         }
-
         .tt{
 
             font-size:18px;
@@ -60,7 +55,6 @@
             cursor: pointer;
             overflow-y:auto;
         }
-
         @media screen and (max-width: 700px) {
             .tt {
                 width: 100%;
@@ -69,7 +63,6 @@
                 display: none;
             }
         }
-
 	</style>
 </head>
 <body>
@@ -83,9 +76,7 @@
 </body>
 <script src="https://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
 <script type="text/javascript">
-
-    var rendererMD = new marked.Renderer();
-
+    let rendererMD = new marked.Renderer();
     marked.setOptions({
         renderer: rendererMD,
         gfm: true,
@@ -96,13 +87,11 @@
         smartLists: true,
         smartypants: false
     });
-
     function keyup(){
         let markdown = $("#text").val();
         let html = marked(markdown)
         $("#content").html(html)
     }
-
     let blog = getUrlParam("blog");
     if (blog!=null){
         $.ajax({
@@ -120,13 +109,11 @@
             }
         })
     }
-
     function getUrlParam(name) {
         let reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
         let r = window.location.search.substr(1).match(reg);  //匹配目标参数
         if (r != null) return unescape(r[2]); return null; //返回参数值
     }
-
     $("#send").click(function(){
         let blog = getUrlParam("blog");
         if (blog==null){
@@ -136,7 +123,6 @@
         }
 
     })
-
     function insert(){
         let title = $("#title").val();
         let markdown = $("#text").val();
@@ -164,7 +150,6 @@
         let title = $("#title").val();
         let markdown = $("#text").val();
         let html = marked(markdown)
-
         $.ajax({
             type:"POST",
             url:"/blog/update",
@@ -185,10 +170,14 @@
             }
         })
     }
-
-
-
-
+    $("#text").scroll(function(event){
+        $("#content").scrollLeft($(this).scrollLeft());
+        $("#content").scrollTop($(this).scrollTop());
+    });
+    $("#content").scroll(function(event) {
+        $("#text").scrollLeft( $(this).scrollLeft());
+        $("#text").scrollTop( $(this).scrollTop());
+    });
 </script>
 
 </html>

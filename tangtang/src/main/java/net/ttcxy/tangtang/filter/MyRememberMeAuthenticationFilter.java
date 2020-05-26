@@ -60,7 +60,6 @@ public class MyRememberMeAuthenticationFilter extends RememberMeAuthenticationFi
 
     @Override
     public void setAuthenticationSuccessHandler(AuthenticationSuccessHandler successHandler) {
-        System.out.println("自动登陆成功------------------------");
         super.setAuthenticationSuccessHandler(successHandler);
     }
 }

@@ -1,9 +1,8 @@
 package net.ttcxy.tangtang.entity;
 
-
-
 /**
  * 角色
+ * @author huanglei
  */
 public class RoleDto {
 

@@ -6,8 +6,8 @@ import com.alibaba.fastjson.JSONObject;
 import net.ttcxy.tangtang.api.CommonResult;
 import net.ttcxy.tangtang.entity.UserDto;
 import net.ttcxy.tangtang.model.User;
+import net.ttcxy.tangtang.properties.TangTangProperties;
 import net.ttcxy.tangtang.service.UserService;
-import net.ttcxy.tangtang.service.impl.AuthDetailsImpl;
 import net.ttcxy.tangtang.util.StringProUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
@@ -25,42 +25,35 @@ import java.io.IOException;
 
 /**
  * 登陆，注册，更改密码
+ * @author huanglei
  */
 @Controller
-public class LoginController {
-    private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
-
-    @GetMapping("/authentication/require")
-    @ResponseBody
-    @ResponseStatus(code = HttpStatus.FOUND)
-    public CommonResult getRequireAuthentication(HttpServletRequest request, HttpServletResponse response) throws IOException {
-
-        if (!response.getHeaderNames().contains("X-Requested-With")){
-            redirectStrategy.sendRedirect(request,response,"/login.html");
-        }
-
-
-        return CommonResult.success("退出登陆成功");
-    }
-
+public class SecurityController {
 
     @Autowired
-    AuthDetailsImpl authDetails;
+    private TangTangProperties tangTangProperties;
 
-    @GetMapping("/login.html")
-    @ResponseStatus(code = HttpStatus.FOUND)
-    public String toLogin(){
-        UserDto userDto = authDetails.getUser();
-        if (userDto !=null){
-            return "redirect:/";
-        }
-        return "login";
-    }
+    private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
+
+    private final static String REQUEST_WITH = "X-Requested-With";
 
     /**
-     * 注册页面
-     * @return register
+     * 未登陆控制器
+     * @param request request
+     * @param response response
+     * @return X-Requested-With 请求返回
+     * @throws IOException IO
      */
+    @GetMapping("/login/require")
+    @ResponseBody
+    @ResponseStatus(code = HttpStatus.FOUND)
+    public CommonResult loginRequire(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        if (!response.getHeaderNames().contains(REQUEST_WITH)){
+            redirectStrategy.sendRedirect(request,response,tangTangProperties.getSecurity().getLoginPagePath());
+        }
+        return CommonResult.success("未登陆");
+    }
+
     /**
      * 注册页面
      */
@@ -79,7 +72,7 @@ public class LoginController {
     public CommonResult register(@RequestBody User user){
 
 
-        if (user ==null){
+        if (user == null){
             return CommonResult.failed("参数不正确");
         }else{
 
