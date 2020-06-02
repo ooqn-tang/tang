@@ -1,9 +1,18 @@
 package net.ttcxy.tangtang.entity;
 
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
 /**
  * Blog模型类
  * @author huanglei
  */
+@Getter
+@Setter
+@ToString
+@EqualsAndHashCode
 public class BlogDto {
 
     /**
@@ -69,109 +78,4 @@ public class BlogDto {
      */
     private Integer praiseCount;
 
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getNickname() {
-        return nickname;
-    }
-
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
-
-    public String getCreateDate() {
-        return createDate;
-    }
-
-    public void setCreateDate(String createDate) {
-        this.createDate = createDate;
-    }
-
-    public String getText() {
-        return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
-    }
-
-    public String getMarkdown() {
-        return markdown;
-    }
-
-    public void setMarkdown(String markdown) {
-        this.markdown = markdown;
-    }
-
-    public String getStateId() {
-        return stateId;
-    }
-
-    public void setStateId(String stateId) {
-        this.stateId = stateId;
-    }
-
-    public String getStateName() {
-        return stateName;
-    }
-
-    public void setStateName(String stateName) {
-        this.stateName = stateName;
-    }
-
-    public Integer getCommentCount() {
-        return commentCount;
-    }
-
-    public void setCommentCount(Integer commentCount) {
-        this.commentCount = commentCount;
-    }
-
-    public Integer getPraiseCount() {
-        return praiseCount;
-    }
-
-    public void setPraiseCount(Integer praiseCount) {
-        this.praiseCount = praiseCount;
-    }
 }

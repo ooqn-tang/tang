@@ -1,8 +1,17 @@
 package net.ttcxy.tangtang.entity;
 
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
 /**
  * @author huanglei
  */
+@Getter
+@Setter
+@ToString
+@EqualsAndHashCode
 public class UserRoleDto {
 
     static final long serialVersionUID = 1L;
@@ -11,23 +20,4 @@ public class UserRoleDto {
 
     private String roleId;
 
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
-    }
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
-
-    public String getRoleId() {
-        return roleId;
-    }
-
-    public void setRoleId(String roleId) {
-        this.roleId = roleId;
-    }
 }
