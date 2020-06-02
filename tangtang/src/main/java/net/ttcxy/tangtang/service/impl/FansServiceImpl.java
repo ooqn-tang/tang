@@ -5,6 +5,7 @@ import net.ttcxy.tangtang.entity.FansDto;
 import net.ttcxy.tangtang.entity.UserDto;
 import net.ttcxy.tangtang.dao.FansDao;
 import net.ttcxy.tangtang.dao.UserDao;
+import net.ttcxy.tangtang.service.AuthDetailsService;
 import net.ttcxy.tangtang.service.FansService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,7 +24,7 @@ public class FansServiceImpl implements FansService {
     private FansDao fansDao;
 
     @Autowired
-    private AuthDetailsImpl authDetails;
+    private AuthDetailsService authDetailsServiceImpl;
 
     @Autowired
     private UserDao userDao;
@@ -56,7 +57,7 @@ public class FansServiceImpl implements FansService {
     }
 
     private FansDto getFans(String fansName){
-        UserDto userDtoAuth = authDetails.getUser();
+        UserDto userDtoAuth = authDetailsServiceImpl.getUser();
         if (userDtoAuth ==null){
             return null;
         }

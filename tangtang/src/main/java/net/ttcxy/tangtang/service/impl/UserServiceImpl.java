@@ -46,8 +46,7 @@ public class UserServiceImpl implements UserService {
         return userMapper.updateByPrimaryKeySelective(user);
     }
 
-    @Autowired
-    AuthDetailsImpl authDetails;
+
     @Override
     public int updateUserPassword(User user) {
         return userMapper.updateByPrimaryKey(user);

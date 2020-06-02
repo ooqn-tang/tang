@@ -1,11 +1,11 @@
 package net.ttcxy.tangtang.service.impl;
 
-import net.ttcxy.tangtang.entity.CommentDto;
 import net.ttcxy.tangtang.dao.CommentDao;
+import net.ttcxy.tangtang.entity.CommentDto;
 import net.ttcxy.tangtang.mapper.BlogCommentMapper;
-import net.ttcxy.tangtang.model.Blog;
 import net.ttcxy.tangtang.model.BlogComment;
 import net.ttcxy.tangtang.model.BlogCommentExample;
+import net.ttcxy.tangtang.service.AuthDetailsService;
 import net.ttcxy.tangtang.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,7 +26,7 @@ public class CommentServiceImpl implements CommentService {
     private BlogCommentMapper blogCommentMapper;
 
     @Autowired
-    private AuthDetailsImpl authDetailsImpl;
+    private AuthDetailsService authDetailsServiceImpl;
 
     @Override
     public int insertComment(BlogComment blogComment) {
@@ -38,7 +38,7 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public int deleteComment(String commentId) {
 
-        String userId = authDetailsImpl.getUserId();
+        String userId = authDetailsServiceImpl.getUserId();
 
         BlogCommentExample blogCommentExample = new BlogCommentExample();
         blogCommentExample.createCriteria()

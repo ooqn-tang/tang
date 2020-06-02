@@ -6,8 +6,8 @@ import cn.hutool.core.util.StrUtil;
 import net.ttcxy.tangtang.api.CommonResult;
 import net.ttcxy.tangtang.entity.UserDto;
 import net.ttcxy.tangtang.model.User;
+import net.ttcxy.tangtang.service.AuthDetailsService;
 import net.ttcxy.tangtang.service.UserService;
-import net.ttcxy.tangtang.service.impl.AuthDetailsImpl;
 import net.ttcxy.tangtang.service.impl.FansServiceImpl;
 import net.ttcxy.tangtang.util.StringProUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +26,7 @@ public class UserController {
     private FansServiceImpl fansService;
 
     @Autowired
-    private AuthDetailsImpl authDetails;
+    private AuthDetailsService authDetailsService;
 
     @Autowired
     private UserService userService;
@@ -34,7 +34,7 @@ public class UserController {
     @PostMapping("userinfo")
     @ResponseBody
     public CommonResult updateUser(@RequestBody UserDto userDto){
-        String id = authDetails.getUser().getId();
+        String id = authDetailsService.getUser().getId();
         String nickname = userDto.getNickname();
 
         ReUtil.contains("dfsdfsd","");
@@ -61,7 +61,7 @@ public class UserController {
         BeanUtil.copyProperties(userDto,user);
         int count = userService.updateUser(user);
         if (count > 0){
-            UserDto uu = authDetails.getUser();
+            UserDto uu = authDetailsService.getUser();
             uu.setNickname(nickname);
             uu.setSignature(signature);
             return CommonResult.success(count);
@@ -74,7 +74,7 @@ public class UserController {
     @ResponseBody
     public CommonResult gz(){
 
-        String userId = authDetails.getUser().getId();
+        String userId = authDetailsService.getUser().getId();
         List<UserDto> fansList = fansService.selectFansList(userId);
         return CommonResult.success(fansList);
     }

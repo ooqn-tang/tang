@@ -9,9 +9,9 @@ import net.ttcxy.tangtang.entity.BlogDto;
 import net.ttcxy.tangtang.entity.CommentDto;
 import net.ttcxy.tangtang.entity.UserDto;
 import net.ttcxy.tangtang.model.Blog;
+import net.ttcxy.tangtang.service.AuthDetailsService;
 import net.ttcxy.tangtang.service.BlogService;
 import net.ttcxy.tangtang.service.CommentService;
-import net.ttcxy.tangtang.service.impl.AuthDetailsImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,7 +32,7 @@ public class BlogController {
     private BlogService blogService;
 
     @Autowired
-    private AuthDetailsImpl authDetailsImpl;
+    private AuthDetailsService authDetailsServiceImpl;
 
     @Autowired
     private CommentService commentService;
@@ -53,7 +53,7 @@ public class BlogController {
     @GetMapping("like")
     @ApiOperation("获取自己喜欢的文章")
     public CommonResult<List<BlogDto>> selectByUserLike(){
-        String userId = authDetailsImpl.getUserId();
+        String userId = authDetailsServiceImpl.getUserId();
         List<BlogDto> likeBlogs = blogService.selectLikeBlogs(userId);
         return CommonResult.success(likeBlogs);
     }
@@ -62,7 +62,7 @@ public class BlogController {
     @ApiOperation("添加博客")
     public CommonResult add(@RequestBody Blog blog){
 
-        String userId = authDetailsImpl.getUserId();
+        String userId = authDetailsServiceImpl.getUserId();
 
         if (blog !=null){
             if (StrUtil.isBlank(blog.getTitle())){
@@ -104,7 +104,7 @@ public class BlogController {
             return CommonResult.failed("评论不能为空");
         }
 
-        UserDto user = authDetailsImpl.getUser();
+        UserDto user = authDetailsServiceImpl.getUser();
         commentDto.setId(IdUtil.fastSimpleUUID());
         commentDto.setUserId(user.getId());
         commentDto.setCreateDate(new Date());
@@ -127,7 +127,7 @@ public class BlogController {
     public CommonResult selectComment(@PathVariable("blogId") String blogId){
         Map<String,Object> map = new HashMap<>();
         map.put("comments",commentService.selectComment(blogId));
-        map.put("user",authDetailsImpl.getUser());
+        map.put("user", authDetailsServiceImpl.getUser());
         return CommonResult.success(map);
     }
 
@@ -147,7 +147,7 @@ public class BlogController {
     public CommonResult load(@RequestParam(name="blog",required = false) String blogId){
 
         Blog blog = blogService.selectByPrimaryId(blogId);
-        UserDto userDto = authDetailsImpl.getUser();
+        UserDto userDto = authDetailsServiceImpl.getUser();
         if(blog.getUserId().equals(userDto.getId())){
             return CommonResult.success(blog);
         }else{
@@ -172,8 +172,8 @@ public class BlogController {
     public CommonResult delete(@PathVariable("id") String id){
 
         String userId = blogService.selectByPrimaryId(id).getUserId();
-        if (authDetailsImpl.getUser()!=null){
-            if(StrUtil.equals(authDetailsImpl.getUser().getId(),userId)){
+        if (authDetailsServiceImpl.getUser()!=null){
+            if(StrUtil.equals(authDetailsServiceImpl.getUser().getId(),userId)){
                 int count = blogService.deleteBlog(id);
                 if(count > 0){
                     return CommonResult.success("成功删除");
@@ -192,14 +192,14 @@ public class BlogController {
     @GetMapping("/like/{id}/insert")
     @ApiOperation("喜欢blog.如果数据库不存在，推荐，如果存在就取消。")
     public CommonResult like(@PathVariable("id") String id){
-        UserDto userDto = authDetailsImpl.getUser();
+        UserDto userDto = authDetailsServiceImpl.getUser();
         return CommonResult.success(blogService.like(userDto.getId(),id));
     }
 
     @GetMapping("/favorite/{blogId}/insert")
     @ApiOperation("如果数据库不存在，推荐，如果存在就取消。")
     public CommonResult favorite(@PathVariable("blogId") String blogId){
-        String userId = authDetailsImpl.getUserId();
+        String userId = authDetailsServiceImpl.getUserId();
         int favorite = blogService.favorite(userId, blogId);
         return CommonResult.success(favorite);
     }

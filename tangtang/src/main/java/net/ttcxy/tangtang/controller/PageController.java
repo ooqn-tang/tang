@@ -2,9 +2,9 @@ package net.ttcxy.tangtang.controller;
 
 import cn.hutool.core.util.RandomUtil;
 import net.ttcxy.tangtang.entity.UserDto;
+import net.ttcxy.tangtang.service.AuthDetailsService;
 import net.ttcxy.tangtang.service.BlogService;
 import net.ttcxy.tangtang.service.UserService;
-import net.ttcxy.tangtang.service.impl.AuthDetailsImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,16 +21,13 @@ import org.springframework.web.servlet.ModelAndView;
 public class PageController {
 
     @Autowired
-    private AuthDetailsImpl authDetailsImpl;
+    private AuthDetailsService authDetailsServiceImpl;
 
     @Autowired
     private BlogService blogService;
 
     @Autowired
     private UserService userService;
-
-    @Autowired
-    private AuthDetailsImpl authDetails;
 
     /**
      * 首页
@@ -88,7 +85,7 @@ public class PageController {
     public ModelAndView toBlog(@PathVariable("id")String blogId,
                                ModelAndView modelAndView){
         modelAndView.setViewName("blog");
-        UserDto userDto = authDetailsImpl.getUser();
+        UserDto userDto = authDetailsServiceImpl.getUser();
 
         if (userDto !=null){
             String userId = userDto.getId();
@@ -110,7 +107,7 @@ public class PageController {
     @GetMapping("userinfo")
     public ModelAndView updateUser(ModelAndView modelAndView){
         modelAndView.setViewName("userinfo");
-        modelAndView.addObject("user",authDetails.getUser());
+        modelAndView.addObject("user",authDetailsServiceImpl.getUser());
         return modelAndView;
     }
 
@@ -130,7 +127,7 @@ public class PageController {
     @GetMapping("password")
     public ModelAndView toUpdatePwd(ModelAndView modelAndView){
         modelAndView.setViewName("password");
-        modelAndView.addObject("user",authDetails.getUser());
+        modelAndView.addObject("user",authDetailsServiceImpl.getUser());
         return modelAndView;
     }
 

@@ -1,7 +1,6 @@
 package net.ttcxy.tangtang.service.impl;
 
 import cn.hutool.core.util.IdUtil;
-import cn.hutool.core.util.RandomUtil;
 import com.github.pagehelper.PageHelper;
 import net.ttcxy.tangtang.dao.BlogDao;
 import net.ttcxy.tangtang.entity.BlogDto;
@@ -10,11 +9,11 @@ import net.ttcxy.tangtang.mapper.FavoriteMapper;
 import net.ttcxy.tangtang.mapper.LikeDataMapper;
 import net.ttcxy.tangtang.mapper.PageViewMapper;
 import net.ttcxy.tangtang.model.*;
+import net.ttcxy.tangtang.service.AuthDetailsService;
 import net.ttcxy.tangtang.service.BlogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -29,7 +28,7 @@ public class BlogServiceImpl implements BlogService {
     private BlogDao blogDao;
 
     @Autowired
-    AuthDetailsImpl authDetails;
+    private AuthDetailsService authDetailsServiceImpl;
 
     @Autowired
     private BlogMapper blogMapper;
@@ -68,7 +67,7 @@ public class BlogServiceImpl implements BlogService {
     @Override
     public int updateBlog(Blog blog) {
         String blogId = blog.getId();
-        String userId = authDetails.getUserId();
+        String userId = authDetailsServiceImpl.getUserId();
 
         BlogExample blogExample = new BlogExample();
         blogExample.createCriteria().andIdEqualTo(blogId).andUserIdEqualTo(userId);
@@ -104,7 +103,7 @@ public class BlogServiceImpl implements BlogService {
         PageView pageView = new PageView();
         pageView.setId(IdUtil.fastSimpleUUID());
         pageView.setBlogId(id);
-        pageView.setUserId(authDetails.getUserId());
+        pageView.setUserId(authDetailsServiceImpl.getUserId());
         pageView.setCreateDatetime(new Date());
         pageViewMapper.insertSelective(pageView);
 
