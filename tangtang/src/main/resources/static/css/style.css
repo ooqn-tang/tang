@@ -1,6 +1,9 @@
 .wz{
     font-size: 18px;
 }
+[v-cloak] {
+    display: none !important;;
+}
 html{
 
     overflow-y:scroll;

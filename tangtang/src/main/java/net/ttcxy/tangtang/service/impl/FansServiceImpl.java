@@ -26,7 +26,7 @@ public class FansServiceImpl implements FansService {
     private AuthDetailsImpl authDetails;
 
     @Autowired
-    UserDao userDao;
+    private UserDao userDao;
 
     @Override
     public int selectFans(String fansName){

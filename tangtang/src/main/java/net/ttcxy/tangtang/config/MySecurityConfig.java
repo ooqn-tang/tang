@@ -1,8 +1,10 @@
 package net.ttcxy.tangtang.config;
 
+import net.ttcxy.tangtang.authentication.MyAuthenticationEntryPoint;
 import net.ttcxy.tangtang.authentication.MyAuthenticationFailureHandler;
 import net.ttcxy.tangtang.authentication.MyAuthenticationSuccessHandler;
 import net.ttcxy.tangtang.properties.TangTangProperties;
+import net.ttcxy.tangtang.util.SpringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -52,12 +54,15 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
         JdbcTokenRepositoryImpl tokenRepository = new JdbcTokenRepositoryImpl();
         tokenRepository.setDataSource(dataSource);
         return tokenRepository;
-
-
     }
+
+
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+
+        http.exceptionHandling().authenticationEntryPoint(SpringUtil.getBean(MyAuthenticationEntryPoint.class));
+
         //允许配置“记住我”身份验证。
         if (tangTangProperties.getSecurity().isRememberMe()){
             http.rememberMe()
@@ -69,7 +74,8 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
             .userDetailsService(userDetailsService);
         }
 
-        //指定url需要登陆，解决和下面配置冲突，（顺序考前优先级高）
+        // 指定url需要登陆，解决和下面配置冲突，（配置顺序靠前优先级高，这些URL即使被下面通配符匹配了，也需要登陆，
+        // 比如/user/** 不需要登陆，但是/user/admin需要登陆）
         String[] privateUrl = tangTangProperties.getSecurity().getPrivateUrl().split(",");
         http.authorizeRequests().antMatchers(privateUrl).authenticated();
 

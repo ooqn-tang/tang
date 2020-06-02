@@ -16,7 +16,6 @@ public class MyWebMvcConfig implements WebMvcConfigurer {
     @Autowired
     private NetworkAddressHandlerInterceptor networkAddressHandlerInterceptor;
 
-
     /**
      * 拦截器，过滤这些请求
      */

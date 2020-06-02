@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="zh-CN" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:v-on="http://www.w3.org/1999/xhtml">
-<head th:replace="comm::head"></head>
+<head th:include="comm::head"></head>
 <body>
-<div th:replace="comm::navigation"></div>
+<div th:include="comm::navigation"></div>
 <div class="container">
     <div class="row">
         <div class="col-md-9 column">
@@ -25,45 +25,34 @@
         </div>
 
         <div class="col-md-3 column nob-p">
-            <div th:replace="comm::advertise"></div>
+            <div th:include="comm::advertise"></div>
         </div>
     </div>
 </div>
 </div>
 </body>
+<footer th:include="comm::footer"></footer>
 <script>
     $(function(){
-        let nextId = $("#next");
-        let upId = $("#up");
-
-        let nextPageClick = nextId.click(function(){
-            let p = Number(pg);
-            if (p < 0){
-                p++;
-            }
-            if (p > 11){
-                return;
-            }
+        let next = $("#next");
+        let up = $("#up");
+        let p = Number(getQueryVariable("pg"));
+        if (p <= 0){
+            up.css('opacity', '0.2')
+            up.attr("href","javascript:return false;")
+        }
+        if (p >= 10){
+            next.css('opacity', '0.2')
+            next.attr("href","javascript:return false;")
+        }
+        next.click(function(){
+            if (p >= 10){return}
             window.location.href = UrlUpdateParams(window.location.href, "pg", (++p))
         });
-        let upPageClick = upId.click(function(){
-            let p = Number(pg);
-            if (p <= 1){
-                return;
-            }else{
-                window.location.href = UrlUpdateParams(window.location.href, "pg", (--p))
-            }
+        up.click(function(){
+            if (p <= 0){return}
+            window.location.href = UrlUpdateParams(window.location.href, "pg", (--p))
         });
-
-        let pg = getQueryVariable("pg");
-        if (pg==null || Number(pg) <= 1){
-            upId.css('opacity', '0.2');
-            upId.attr("href","javascript:return false;")
-        }
-        if (pg!=null && Number(pg) >= 10){
-            nextId.css('opacity', '0.2');
-            nextId.attr("href","javascript:return false;")
-        }
     })
 </script>
 </html>

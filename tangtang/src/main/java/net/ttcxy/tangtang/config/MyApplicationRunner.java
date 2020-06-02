@@ -34,6 +34,7 @@ public class MyApplicationRunner implements ApplicationRunner {
         mkStaticLocations();
     }
 
+
     /**
      * 检查项目是否外部化静态资源文件，如果设置了，判断外部文件夹是否创建，没有就创建
      */

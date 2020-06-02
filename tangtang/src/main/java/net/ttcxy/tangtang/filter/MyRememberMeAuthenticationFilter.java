@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * 记住我处理器
+ * 记住我处理器 执行记住我操作
  * @author ：HuangLei
  * @date ：2020/4/3 0003 19:14
  */

@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="zh-CN" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:v-bin="http://www.w3.org/1999/xhtml"
-      xmlns:v-bind="http://www.w3.org/1999/xhtml" xmlns:v-for="http://www.w3.org/1999/xhtml"
+<html lang="zh-CN" xmlns:th="http://www.w3.org/1999/xhtml"
+      xmlns:v-bind="http://www.w3.org/1999/xhtml"
       xmlns:v-on="http://www.w3.org/1999/xhtml">
-<head th:replace="comm::head"></head>
+<head th:include="comm::head"></head>
 <body>
-<div th:replace="comm::navigation"></div>
+<div th:include="comm::navigation"></div>
 
-<div class="container" id="app">
+<div class="container" id="app" v-cloak>
     <div class="row clearfix">
         <div class="col-md-4 col-md-push-8 nob-p">
             <div class="panel panel-default nob" >
@@ -68,9 +68,9 @@
 
 </div>
 </body>
+<footer th:replace="comm::footer"></footer>
 <script>
     let bools = "[[${session.SPRING_SECURITY_CONTEXT != null}]]"
-
     let username = $("#username").val();
     new Vue({
         el: "#app",//绑定元素

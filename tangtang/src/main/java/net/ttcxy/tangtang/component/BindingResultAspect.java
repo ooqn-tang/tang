@@ -19,10 +19,10 @@ import org.springframework.validation.FieldError;
 @Order(2)
 public class BindingResultAspect {
     @Pointcut("execution(public * net.ttcxy.tangtang.controller.*.*(..))")
-    public void BindingResult() {
+    public void bindingResult() {
     }
 
-    @Around("BindingResult()")
+    @Around("bindingResult()")
     public Object doAround(ProceedingJoinPoint joinPoint) throws Throwable {
         Object[] args = joinPoint.getArgs();
         for (Object arg : args) {

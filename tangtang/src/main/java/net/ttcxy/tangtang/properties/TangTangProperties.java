@@ -1,6 +1,5 @@
 package net.ttcxy.tangtang.properties;
 
-import cn.hutool.core.util.StrUtil;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
@@ -11,10 +10,20 @@ import org.springframework.stereotype.Component;
 @ConfigurationProperties(prefix = "tangtang")
 public class TangTangProperties {
 
+    /**
+     * 安全相关配置
+     */
     SpringSecurityProperties security = new SpringSecurityProperties();
 
-    //CloudApiConfig cloudApi = new CloudApiConfig();
+    /**
+     * API相关配置
+     */
+    CloudProperties cloud = new CloudProperties();
 
+    /**
+     * 系统配置
+     */
+    SysConfigProperties sys = new SysConfigProperties();
 
     public SpringSecurityProperties getSecurity() {
         return security;
