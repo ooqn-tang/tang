@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>md转换为html</title>
+    <title>编辑器</title>
     <meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width,height=device-height,initial-scale=1.0,user-scalable=no,minimum-scale=1.0,maximum-scale=1.0"/>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
@@ -164,19 +164,32 @@
             success:function (result) {
                 if (result.code==200){
                     javascript :history.go(-1);
+                }else if(result.code==500){
+                    alert("别瞎搞")
                 }else{
                     alert(data.message)
                 }
             }
         })
     }
-    $("#text").scroll(function(event){
-        $("#content").scrollLeft($(this).scrollLeft());
-        $("#content").scrollTop($(this).scrollTop());
+    $("#text").scroll(function(){
+        let h = $(this)[0].scrollHeight - $("#content")[0].scrollHeight;
+        if (scrollId == "text"){
+            $("#content").scrollTop($(this).scrollTop());
+        }
+
     });
-    $("#content").scroll(function(event) {
-        $("#text").scrollLeft( $(this).scrollLeft());
-        $("#text").scrollTop( $(this).scrollTop());
+    $("#content").scroll(function() {
+        if (scrollId == "content"){
+            $("#text").scrollTop($(this).scrollTop());
+        }
+    });
+    let scrollId = null;
+    $("#text").mouseover(function(){
+        scrollId = "text"
+    });
+    $("#content").mouseover(function(){
+        scrollId = "content"
     });
 </script>
 

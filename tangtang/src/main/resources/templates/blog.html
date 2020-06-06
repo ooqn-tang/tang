@@ -18,7 +18,7 @@
                     <div>
                         <strong><a th:href="@{/author/{id}(id=${blog.username})}" th:text="${blog.nickname}"></a></strong>
                         &nbsp;&nbsp;
-                        <span style="color:#b4b4b4" th:text="${blog.createDate}"></span>
+                        <span style="color:#b4b4b4" th:text="${#dates.format(blog.createDate,'yyyy.MM.dd')}"></span>
                         <div class="btn-group pull-right">
                             <button class="btn btn-default btn-xs" @click="followerClick" >{{follower.text}}</button>
                         </div>

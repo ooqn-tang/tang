@@ -4,6 +4,7 @@ import net.ttcxy.tangtang.entity.BlogDto;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * 博客
@@ -20,6 +21,13 @@ public interface BlogDao {
      * 模糊查询
      */
     List<BlogDto> search(@Param("title") String title);
+
+    /**
+     * 查询所有ID
+     */
+    Set<String> selectId();
+
+    BlogDto selectByIdTitle(String id);
 
     /**
      * 通过ID获取blog信息

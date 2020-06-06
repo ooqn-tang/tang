@@ -1,7 +1,7 @@
 package net.ttcxy.tangtang.util;
 
 /**
- * String util pro
+ * String util pro 对String操作的其他方法
  * @author huanglei
  */
 public class StringProUtil {

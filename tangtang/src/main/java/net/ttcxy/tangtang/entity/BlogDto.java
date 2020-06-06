@@ -1,9 +1,9 @@
 package net.ttcxy.tangtang.entity;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.*;
+
+import java.util.Date;
 
 /**
  * Blog模型类
@@ -43,7 +43,8 @@ public class BlogDto {
     /**
      * 时间
      */
-    private String createDate;
+    @JsonFormat(pattern="yyyy.MM.dd")
+    private Date createDate;
 
     /**
      * 内容

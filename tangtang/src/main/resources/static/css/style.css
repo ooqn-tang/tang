@@ -5,38 +5,13 @@
     display: none !important;;
 }
 html{
-
     overflow-y:scroll;
-
-
 }
 body{
     padding-right: 0px !important;
     background-color: #fcfdfd;
 }
 
-#hdt {
-    width: 100%;
-    overflow: hidden;
-}
-#hdt::-webkit-scrollbar {/*滚动条整体样式*/
-    width: 5px;     /*高宽分别对应横竖滚动条的尺寸*/
-    height: 5px;
-}
-#hdt::-webkit-scrollbar-thumb {/*滚动条里面小方块*/
-    border-radius: 10px;
-    -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
-    background: #CFD1C4;
-}
-#hdt::-webkit-scrollbar-track {/*滚动条里面轨道*/
-    -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
-    border-radius: 10px;
-    background: #EDEDED;
-}
-#modelBody{margin-top: 10%;}
-@media only screen and (max-device-width:480px){
-    #modelBody{margin-top: 30%;}
-}
 .my-nav{
     background-color: #FFFFFF;
     padding: 6px;
@@ -53,9 +28,7 @@ body{
 #plBody p{
     font-size: 15px;
 }
-#LBG{
-     background: url(https://cn.bing.com//th?id=OHR.CahuitaNP_ZH-CN3985565209_1920x1080.jpg) no-repeat center center fixed;
-}
+
 
 a:hover,a:hover,a{text-decoration:none !important;}
 .nava{

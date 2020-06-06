@@ -1,11 +1,13 @@
 package net.ttcxy.tangtang.controller;
 
 import cn.hutool.core.util.RandomUtil;
+import net.ttcxy.tangtang.entity.BlogDto;
 import net.ttcxy.tangtang.entity.UserDto;
 import net.ttcxy.tangtang.service.AuthDetailsService;
 import net.ttcxy.tangtang.service.BlogService;
 import net.ttcxy.tangtang.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -61,8 +63,14 @@ public class PageController {
      */
     @GetMapping("author/{username}")
     public ModelAndView toUserHome(@PathVariable("username")String username, ModelAndView modelAndView){
+        UserDto userDto = userService.selectUserByName(username);
+        if (userDto == null){
+            modelAndView.setStatus(HttpStatus.NOT_FOUND);
+            modelAndView.setViewName("404");
+            return modelAndView;
+        }
         modelAndView.setViewName("userhome");
-        modelAndView.addObject("user",userService.selectUserByName(username));
+        modelAndView.addObject("user",userDto);
         return modelAndView;
     }
 
@@ -84,8 +92,16 @@ public class PageController {
     @GetMapping("post/{id}")
     public ModelAndView toBlog(@PathVariable("id")String blogId,
                                ModelAndView modelAndView){
-        modelAndView.setViewName("blog");
+
         UserDto userDto = authDetailsServiceImpl.getUser();
+
+        BlogDto blogDto = blogService.selectBlogById(blogId);
+
+        if (blogDto == null){
+            modelAndView.setStatus(HttpStatus.NOT_FOUND);
+            modelAndView.setViewName("404");
+            return modelAndView;
+        }
 
         if (userDto !=null){
             String userId = userDto.getId();
@@ -97,7 +113,9 @@ public class PageController {
         }
 
         //添加博客到试图中
-        modelAndView.addObject("blog",blogService.selectBlogById(blogId));
+        modelAndView.addObject("blog",blogDto);
+
+        modelAndView.setViewName("blog");
         return modelAndView;
     }
 

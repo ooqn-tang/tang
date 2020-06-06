@@ -40,4 +40,12 @@ public class MyScheduling {
             }
         }
     }
+
+    /**
+     * 定时更新随机博客 10分钟更新一次
+     */
+    @Scheduled(fixedDelay = 1000 * 60 * 10)
+    public void a(){
+
+    }
 }

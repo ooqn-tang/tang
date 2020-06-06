@@ -19,6 +19,8 @@ public interface BlogService {
      */
     List<BlogDto> selectBlog(Integer page);
 
+    void blogIsNull();
+
     /**
      * 模糊查询blog
      * @param title 标题
