@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.w3.org/1999/xhtml"
+      xmlns:v-bind="http://www.w3.org/1999/xhtml"
+      xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />
+    <title th:text="${user.username} + '堂堂程序员'"></title>
+    <link href="https://cdn.bootcss.com/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+    <link href="https://cdn.bootcss.com/github-markdown-css/4.0.0/github-markdown.min.css" rel="stylesheet">
+    <script src="https://cdn.bootcss.com/vue/2.6.10/vue.min.js"></script>
+</head>
+
+<body>
+<div th:include="comm::navigation"></div>
+
+<div class="container" id="app" v-cloak>
+    <div class="row clearfix">
+        <div class="col-md-4 col-md-push-8 nob-p">
+            <div class="panel panel-default nob" >
+                <div class="panel-body" >
+                    <div>
+                        <strong th:text="${user.nickname}"></strong>
+                        <a href="/userinfo"><span class="glyphicon glyphicon-cog"></span></a>
+                        <button v-if="show" class="pull-right btn btn-default btn-xs" v-on:click="followerClick">{{follower.text}}</button>
+                    </div>
+
+                    <input type="hidden" th:value="${user.username}" id="username">
+                    <hr>
+                    <div>简介：<span th:text="${user.signature}"></span></div>
+                </div>
+            </div>
+            <div class="panel panel-default nob">
+                <div class="panel-body">
+                    <div class="btn-group" style="width: 100%;">
+                        <button class="mytab btn btn-default" v-on:click="cl(),home()">博客</button>
+                        <button class="mytab btn btn-default" v-on:click="cl(),like()" th:if="${session.SPRING_SECURITY_CONTEXT !=null && session.SPRING_SECURITY_CONTEXT.authentication.principal.username == username}">收藏</button>
+                        <button class="mytab btn btn-default" v-on:click="cl(),favorite()">推荐</button>
+                        <button class="mytab btn btn-default" v-on:click="fans" th:if="${session.SPRING_SECURITY_CONTEXT != null && session.SPRING_SECURITY_CONTEXT.authentication.principal.username == username}">关注</button>
+                        <a class="mytab btn btn-default" v-on:click="logout" th:if="${session.SPRING_SECURITY_CONTEXT !=null && session.SPRING_SECURITY_CONTEXT.authentication.principal.username == username}">注销</a>
+                    </div>
+                </div>
+            </div>
+            <div v-show="gzShow" class="panel panel-default nob-p" style="max-height: 300px;overflow:auto" th:if="${session.SPRING_SECURITY_CONTEXT !=null && session.SPRING_SECURITY_CONTEXT.authentication.principal.username == username}">
+                <div class="list-group nob" >
+                    <a href="#" class="list-group-item active nob">关注</a>
+                    <a class="list-group-item nob" v-for="(item,i) in gzList" v-bind:href="item.username">{{item.nickname}}</a>
+                </div>
+            </div>
+            <div class="nob-p visible-md-block visible-lg-block">
+                <div th:replace="comm::advertise" ></div>
+            </div>
+        </div>
+        <div class="col-md-8 col-md-pull-4 nob-p">
+            <ul class="list-group col-md-12 nob" style="padding-right: 0px !important;" v-if="show">
+                <li class="list-group-item nob" v-for="(item,index) in blog.list">
+                    <a v-bind:href="'/post/'+item.id" class="wz">{{item.title}}</a>
+                    <br>
+                    <div>
+                        <span v-text="item.createDate">2020.03.21</span>
+                        <div class="btn-group pull-right">
+                            <a class="btn btn-default btn-xs" v-if="update" v-on:click="deleteBlog(item,index)" th:if="${session.SPRING_SECURITY_CONTEXT !=null && session.SPRING_SECURITY_CONTEXT.authentication.principal.username == username}">删除</a>
+                            <a class="btn btn-default btn-xs" v-if="update" th:if="${session.SPRING_SECURITY_CONTEXT !=null && session.SPRING_SECURITY_CONTEXT.authentication.principal.username == username}" v-bind:href="'/editor?blog='+item.id">修改</a>
+                        </div>
+                    </div>
+                </li>
+                <li class="list-group-item nob">
+                    <a v-bind:class="blog.isFirstPage?'jy':''"
+                       v-on:click="more(pageNum -= 1)">上一页</a>
+                    &nbsp;
+                    <a v-bind:class="blog.isLastPage?'jy':''"
+                       class="pull-right"
+                       v-on:click="more(pageNum += 1)">下一页</a>
+                </li>
+            </ul>
+            <ul class="list-group" v-if="!show">
+                <li class="list-group-item nob">
+                    加载中...
+                </li>
+            </ul>
+        </div>
+    </div>
+
+</div>
+</body>
+<script src="https://cdn.bootcss.com/jquery/2.1.2/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/twitter-bootstrap/3.3.7/js/bootstrap.js"></script>
+<script src="/js/my.js"></script>
+<script>
+    let username = $("#username").val();
+    new Vue({
+        el: "#app",//绑定元素
+        //所有数据都放在数据属性中
+        data:{
+            username:username,
+            gzList:[],
+            gzShow:false,
+            update:true,
+            selectType:"home",
+            pageNum:1,
+            follower:{
+                text:""
+            },
+            show:false,
+            blog:{
+                list:[],
+                isFirstPage:false,
+                isLastPage:true,
+            }
+        }, methods: {
+            logout(){
+                if(confirm("确认退出账号吗？")){
+                    $.ajax({ url: "/logout", type: 'get', async: false})
+                    window.location.href="/"
+                }
+            },
+            cl(){
+                this.pageNum = 1
+            },
+            deleteBlog(item,index){
+                let _this = this;
+                if(confirm("确认删除吗？")){
+                    $.ajax({
+                        type:"GET",
+                        url:"/blog/delete/"+item.id,
+                        contentType: "application/json",
+                        success:function (result) {
+                            if (result.code === 200){
+                                _this.blog.list.splice(index,1)
+                            }
+                        }
+                    })
+                }
+            },
+            followerClick(){
+                let _this = this;
+                let type,text;
+                if (_this.follower.text === '已关注'){
+                    type = "DELETE";
+                    text = "关注"
+                } else{
+                    type = "POST";
+                    text = "已关注"
+                }
+                $.ajax({
+                    type:type,
+                    url:"/fans/"+username,
+                    contentType: "application/json", //必须这样写
+                    dataType:"json",
+                    success:function (result) {
+                        if (result.code === 200) {
+                            _this.follower.text = text;
+                        }
+                    }
+                })
+            },
+            loadFollower(b){
+                let _this = this;
+                $.ajax({
+                    type:"GET",
+                    url:"/fans/"+username,
+                    contentType: "application/json", //必须这样写
+                    success:function (result) {
+                        if (result.code === 200){
+                            _this.follower.text = '已关注'
+                        } else{
+                            _this.follower.text = '关注'
+                        }
+                    }
+                })
+            },
+            like(){
+                let _this = this;
+                this.update = false;
+                this.selectType = "like"
+                this.show = false;
+                $.ajax({
+                    type:"GET",
+                    url:"/blog/like",
+                    contentType: "application/json", //必须这样写
+                    data:{
+                        page:this.pageNum
+                    },
+                    success:function (result) {
+                        _this.blog = result.data
+                        sleep(500)
+                        _this.show = true
+
+                    }
+                })
+            },
+            favorite(){
+                let _this = this;
+                this.update = false;
+                this.selectType = "favorite"
+                this.show = false
+                $.ajax({
+                    type:"GET",
+                    url:"/blog/favorite/"+this.username,
+                    contentType: "application/json", //必须这样写
+                    data:{
+                        page:this.pageNum
+                    },
+                    success:function (result) {
+                        _this.blog = result.data
+                        sleep(500)
+                        _this.show = true
+                    }
+                })
+            },
+            home() {
+                let _this = this;
+                this.update = true;
+                this.selectType = "home"
+                this.show = false
+                $.ajax({
+                    type:"GET",
+                    url:"/blog/home/"+this.username,
+                    contentType: "application/json", //必须这样写
+                    data:{
+                      page:this.pageNum
+                    },
+                    success:function (result) {
+                        _this.blog = result.data
+                        sleep(500)
+                        _this.show = true
+                    }
+                })
+            },
+            fans(){
+                if (this.gzShow){
+                    this.gzShow = false;
+                    return
+                }
+                let _this = this;
+                $.ajax({
+                    type:"GET",
+                    url:"/user/gz",
+                    contentType: "application/json", //必须这样写
+                    success:function (result) {
+                        _this.gzList = result.data;
+                        _this.gzShow = true;
+                    }
+                })
+            },
+            more(){
+                let type = this.selectType;
+                if (type === "home"){
+                    this.blog = {}
+                    this.home()
+                }
+                if (type === "like"){
+                    this.blog = {}
+                    this.like()
+                }
+                if (type === "favorite"){
+                    this.blog = {}
+                    this.favorite()
+                }
+            }
+        },mounted(){
+            this.loadFollower()
+            this.home()
+        }
+    })
+</script>
+</html>
