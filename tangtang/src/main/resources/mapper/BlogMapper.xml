@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="net.ttcxy.tangtang.mapper.BlogMapper">
-  <resultMap id="BaseResultMap" type="net.ttcxy.tangtang.model.Blog">
+<mapper namespace="net.ttcxy.mapper.BlogMapper">
+  <resultMap id="BaseResultMap" type="net.ttcxy.model.Blog">
     <id column="id" jdbcType="VARCHAR" property="id" />
     <result column="title" jdbcType="VARCHAR" property="title" />
     <result column="user_id" jdbcType="VARCHAR" property="userId" />
@@ -9,7 +9,7 @@
     <result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
     <result column="state_id" jdbcType="INTEGER" property="stateId" />
   </resultMap>
-  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="net.ttcxy.tangtang.model.Blog">
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="net.ttcxy.model.Blog">
     <result column="text" jdbcType="LONGVARCHAR" property="text" />
     <result column="markdown" jdbcType="LONGVARCHAR" property="markdown" />
   </resultMap>
@@ -77,7 +77,7 @@
   <sql id="Blob_Column_List">
     text, markdown
   </sql>
-  <select id="selectByExampleWithBLOBs" parameterType="net.ttcxy.tangtang.model.BlogExample" resultMap="ResultMapWithBLOBs">
+  <select id="selectByExampleWithBLOBs" parameterType="net.ttcxy.model.BlogExample" resultMap="ResultMapWithBLOBs">
     select
     <if test="distinct">
       distinct
@@ -93,7 +93,7 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByExample" parameterType="net.ttcxy.tangtang.model.BlogExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="net.ttcxy.model.BlogExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -119,13 +119,13 @@
     delete from blog
     where id = #{id,jdbcType=VARCHAR}
   </delete>
-  <delete id="deleteByExample" parameterType="net.ttcxy.tangtang.model.BlogExample">
+  <delete id="deleteByExample" parameterType="net.ttcxy.model.BlogExample">
     delete from blog
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="net.ttcxy.tangtang.model.Blog">
+  <insert id="insert" parameterType="net.ttcxy.model.Blog">
     insert into blog (id, title, user_id, 
       create_date, update_date, state_id, 
       text, markdown)
@@ -133,7 +133,7 @@
       #{createDate,jdbcType=TIMESTAMP}, #{updateDate,jdbcType=TIMESTAMP}, #{stateId,jdbcType=INTEGER}, 
       #{text,jdbcType=LONGVARCHAR}, #{markdown,jdbcType=LONGVARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="net.ttcxy.tangtang.model.Blog">
+  <insert id="insertSelective" parameterType="net.ttcxy.model.Blog">
     insert into blog
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -188,7 +188,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="net.ttcxy.tangtang.model.BlogExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="net.ttcxy.model.BlogExample" resultType="java.lang.Long">
     select count(*) from blog
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -252,7 +252,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="net.ttcxy.tangtang.model.Blog">
+  <update id="updateByPrimaryKeySelective" parameterType="net.ttcxy.model.Blog">
     update blog
     <set>
       <if test="title != null">
@@ -279,7 +279,7 @@
     </set>
     where id = #{id,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="net.ttcxy.tangtang.model.Blog">
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="net.ttcxy.model.Blog">
     update blog
     set title = #{title,jdbcType=VARCHAR},
       user_id = #{userId,jdbcType=VARCHAR},
@@ -290,7 +290,7 @@
       markdown = #{markdown,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="net.ttcxy.tangtang.model.Blog">
+  <update id="updateByPrimaryKey" parameterType="net.ttcxy.model.Blog">
     update blog
     set title = #{title,jdbcType=VARCHAR},
       user_id = #{userId,jdbcType=VARCHAR},

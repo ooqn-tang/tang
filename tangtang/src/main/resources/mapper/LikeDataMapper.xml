@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="net.ttcxy.tangtang.mapper.LikeDataMapper">
-  <resultMap id="BaseResultMap" type="net.ttcxy.tangtang.model.LikeData">
+<mapper namespace="net.ttcxy.mapper.LikeDataMapper">
+  <resultMap id="BaseResultMap" type="net.ttcxy.model.LikeData">
     <result column="user_id" jdbcType="VARCHAR" property="userId" />
     <result column="blog_id" jdbcType="VARCHAR" property="blogId" />
     <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
@@ -67,7 +67,7 @@
   <sql id="Base_Column_List">
     user_id, blog_id, create_date
   </sql>
-  <select id="selectByExample" parameterType="net.ttcxy.tangtang.model.LikeDataExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="net.ttcxy.model.LikeDataExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -81,19 +81,19 @@
       order by ${orderByClause}
     </if>
   </select>
-  <delete id="deleteByExample" parameterType="net.ttcxy.tangtang.model.LikeDataExample">
+  <delete id="deleteByExample" parameterType="net.ttcxy.model.LikeDataExample">
     delete from like_data
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="net.ttcxy.tangtang.model.LikeData">
+  <insert id="insert" parameterType="net.ttcxy.model.LikeData">
     insert into like_data (user_id, blog_id, create_date
       )
     values (#{userId,jdbcType=VARCHAR}, #{blogId,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}
       )
   </insert>
-  <insert id="insertSelective" parameterType="net.ttcxy.tangtang.model.LikeData">
+  <insert id="insertSelective" parameterType="net.ttcxy.model.LikeData">
     insert into like_data
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="userId != null">
@@ -118,7 +118,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="net.ttcxy.tangtang.model.LikeDataExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="net.ttcxy.model.LikeDataExample" resultType="java.lang.Long">
     select count(*) from like_data
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />

@@ -6,6 +6,7 @@
     <link href="favicon.ico" rel="shortcut icon" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <link href="https://cdn.bootcss.com/twitter-bootstrap/3.4.0/css/bootstrap.min.css" rel="stylesheet">
+
     <style>
         html,body {
             width: 100%;
@@ -56,7 +57,9 @@
     </div>
 </div>
 </body>
-<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/jquery/2.1.2/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/twitter-bootstrap/3.3.7/js/bootstrap.js"></script>
+<script src="/js/my.js"></script>
 <script>
 $(function(){
     $("#updateUser").click(function(){
@@ -68,9 +71,9 @@ $(function(){
                 nickname:$("#nickname").val(),
                 signature:$("#signature").val()
             }),success : function(result) {
-                if (result.code == 200){
+                if (result.code === 200){
                     history.go(-1);
-                }else{
+                } else {
                     alert("修改失败:"+result.message)
                 }
                 console.log(result);

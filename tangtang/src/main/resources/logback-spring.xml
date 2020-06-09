@@ -18,7 +18,7 @@
             <pattern>${FILE_LOG_PATTERN}</pattern>
         </encoder>
     </appender>
-    <root level="INFO">
+    <root>
         <appender-ref ref="CONSOLE"/>
         <appender-ref ref="FILE"/>
     </root>

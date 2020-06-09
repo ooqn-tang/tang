@@ -1,8 +1,20 @@
 .wz{
     font-size: 18px;
 }
+.my-wz{
+    display:-webkit-box;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    -webkit-line-clamp:3;
+    -webkit-box-orient:vertical;
+    white-space: nowrap;
+}
+.jy{
+    pointer-events:none;color: #b4b4b4
+}
+
 [v-cloak] {
-    display: none !important;;
+    display: none !important;
 }
 html{
     overflow-y:scroll;
@@ -28,7 +40,9 @@ body{
 #plBody p{
     font-size: 15px;
 }
-
+#LBG{
+     background: url(https://cn.bing.com//th?id=OHR.CahuitaNP_ZH-CN3985565209_1920x1080.jpg) no-repeat center center fixed;
+}
 
 a:hover,a:hover,a{text-decoration:none !important;}
 .nava{
@@ -88,7 +102,6 @@ hr{
 .mytab{
     width: 20%;
 }
-
 
 
 

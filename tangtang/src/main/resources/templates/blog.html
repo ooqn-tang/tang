@@ -1,12 +1,23 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.w3.org/1999/xhtml" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<html lang="zh-CN"  xmlns:th="http://www.w3.org/1999/xhtml" xmlns:v-bind="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="utf-8" name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />
-    <title th:text="${blog.title} + ' - 堂堂程序员'"></title>
+    <title th:text="${blog.title}  + ' - 堂堂程序员'"></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />
+    <link href="/favicon.ico" rel="icon"/>
+    <link href="/css/style.css" rel="stylesheet"/>
     <link href="https://cdn.bootcss.com/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="/css/style.css">
     <link href="https://cdn.bootcss.com/github-markdown-css/4.0.0/github-markdown.min.css" rel="stylesheet">
     <script src="https://cdn.bootcss.com/vue/2.6.10/vue.min.js"></script>
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?7449589c273ee75cf0c7def43d91fa44";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
 </head>
 <body>
 <div th:replace="comm::navigation"></div>
@@ -20,7 +31,7 @@
                         &nbsp;&nbsp;
                         <span style="color:#b4b4b4" th:text="${#dates.format(blog.createDate,'yyyy.MM.dd')}"></span>
                         <div class="btn-group pull-right">
-                            <button class="btn btn-default btn-xs" @click="followerClick" >{{follower.text}}</button>
+                            <button class="btn btn-default btn-xs"  @click="followerClick" >{{follower.text}}</button>
                         </div>
                     </div>
                     <h3><strong th:text="${blog.title}"></strong></h3>
@@ -43,7 +54,7 @@
                         <span style="color:#dca492;margin-right: 10px;"
                               class="pull-right"
                               @click="deleteComment(item.id,index)"
-                              v-if="item.username == user.username">删除</span>
+                              v-if="item.username == commentUsername">删除</span>
                         <div>{{item.content}}</div><hr>
                     </div>
                 </div>
@@ -63,7 +74,9 @@
     </div>
 </div>
 </body>
-<footer th:include="comm::footer"></footer>
+<script src="https://cdn.bootcss.com/jquery/2.1.2/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/twitter-bootstrap/3.3.7/js/bootstrap.js"></script>
+<script src="/js/my.js"></script>
 <script>
     let vm = new Vue({
         el: "#app",
@@ -72,38 +85,36 @@
             comments: [],
             content:"",
             pl:1,
-            user:{},
+            commentUsername:"",
             username:'[[${blog.username}]]',
             follower:{
                 text:"关注",
             }
         },
         methods: {
-            likeClick(){{
-                    $.get("/blog/like/"+this.blogId+"/insert",function(result){
+            likeClick(){
+                $.get("/blog/like/"+this.blogId+"/insert",function(result){
+                    let lkBut = $("#lkBut")
+                    if (result.data === 1){
+                        lkBut.removeClass();
+                        lkBut.addClass("btn btn-danger  btn-xs")
+                    }else{
+                        lkBut.removeClass();
+                        lkBut.addClass("btn btn-default btn-xs")
+                    }
+                });
 
-                        if (result.data == 1){
-                            $("#lkBut").removeClass();
-                            $("#lkBut").addClass("btn btn-danger  btn-xs")
-
-                        }else{
-                            $("#lkBut").removeClass();
-                            $("#lkBut").addClass("btn btn-default btn-xs")
-                        }
-
-
-                    });
-                }
             },
             favoriteClick(){
                 $.get("/blog/favorite/"+this.blogId+"/insert",function(result){
+                    let scBut = $("#scBut")
                     if (result.data === 1){
-                        $("#scBut").removeClass();
-                        $("#scBut ").addClass("btn btn-danger btn-xs")
+                        scBut.removeClass();
+                        scBut.addClass("btn btn-danger btn-xs")
 
                     }else{
-                        $("#scBut").removeClass();
-                        $("#scBut").addClass("btn btn-default btn-xs")
+                        scBut.removeClass();
+                        scBut.addClass("btn btn-default btn-xs")
                     }
                 });
             },
@@ -128,8 +139,8 @@
                         }
                     }
                 })
-            }
-            ,loadFollower(){
+            },
+            loadFollower(){
                 let _this = this;
                 $.ajax({
                     type:"GET",
@@ -143,13 +154,13 @@
                         }
                     }
                 })
-            }
-            , send(){
+            },
+            send(){
+                let _this = this;
                 let dataObject = {
                     blogId:this.blogId,
                     content:this.content
                 };
-                let _this = this;
                 $.ajax({
                     type:"POST",
                     url:"/blog/comment/insert",
@@ -161,17 +172,13 @@
                         if(result.code === 200){
                             _this.content = "";
                             _this.comments.push(result.data);
-                            setTimeout(function (){
-                                let scrollDom = document.getElementById('commentBody');
-                                scrollDom.scrollTop = (scrollDom.scrollHeight +10000)
-                            }, 0);
                         }else{
                             alert(result.message)
                         }
                     }
                 })
-            }
-            , loadComment(){
+            },
+            loadComment(){
                 $.ajax({
                     type:"GET",
                     url:"/blog/comment/"+this.blogId,
@@ -179,11 +186,11 @@
                     dataType:"json",
                     success:function (result) {
                         vm.comments = result.data.comments;
-                        vm.user = result.data.user;
+                        vm.commentUsername = result.data.user.username;
                     }
                 })
-            }
-            , commentClick(){
+            },
+            commentClick(){
                 if (this.pl % 2 != 0){
                     $("#blog-body").css("height","90px").css("overflow-x","auto");
                     $("#commentBody").css("height",(window.innerHeight-254)+"px");
@@ -194,8 +201,8 @@
                     $(".advertise").removeClass("hidden-xs hidden-sm");
                 }
                 this.pl++;
-            }
-            , deleteComment(id,index){
+            },
+            deleteComment(id,index){
                 let _this = this;
                 $.ajax({
                     type:"DELETE",

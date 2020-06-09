@@ -99,12 +99,10 @@
             url:"/blog/load"+"?blog="+blog,
             contentType: "application/json", //必须这样写
             success:function (result) {
-                if (result.code==200){
+                if (result.code===200){
                     $("#text").val(result.data.markdown)
                     $("#title").val(result.data.title)
                     keyup()
-                }else{
-                    alert(result.message)
                 }
             }
         })
@@ -138,10 +136,8 @@
                 text:html
             }),
             success:function (result) {
-                if (result.code==200){
+                if (result.code===200){
                     javascript :history.go(-1);
-                }else{
-                    alert(result.message)
                 }
             }
         })
@@ -162,12 +158,10 @@
                 id:id
             }),
             success:function (result) {
-                if (result.code==200){
+                if (result.code === 200){
                     javascript :history.go(-1);
-                }else if(result.code==500){
+                }else if(result.code === 500){
                     alert("别瞎搞")
-                }else{
-                    alert(data.message)
                 }
             }
         })
