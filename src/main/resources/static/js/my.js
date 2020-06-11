@@ -129,6 +129,23 @@ function sleep(numberMillis) {
     }
 }
 
+function changeURLArg(url,arg,arg_val){
+    let pattern=arg+'=([^&]*)';
+    let replaceText=arg+'='+arg_val;
+    if(url.match(pattern)){
+        let tmp='/('+ arg+'=)([^&]*)/gi';
+        tmp=url.replace(eval(tmp),replaceText);
+        return tmp;
+    }else{
+        if(url.match('[\?]')){
+            return url+'&'+replaceText;
+        }else{
+            return url+'?'+replaceText;
+        }
+    }
+}
+
+
 new Vue({
     el: "#search",
     data: {
@@ -138,5 +155,72 @@ new Vue({
         searchClick(){
             window.location.href = "/so?s=" + this.searchValue
         }
+    }
+})
+
+
+
+new Vue({
+    el: "#home",//绑定元素
+    //所有数据都放在数据属性中
+    data:{
+        pageNum:1,
+        show:false,
+        blog:{
+            list:[],
+            isFirstPage:false,
+            isLastPage:true,
+        }
+    }, methods: {
+        page(){
+            let search = getQueryVariable("s");
+            this.show = false
+            if (search !== null){
+                this.search(search)
+            }else{
+                this.blogs()
+            }
+        },
+        blogs(){
+            let _this = this
+            $.ajax({
+                type:"GET",
+                url:"/blog/blogs",
+                contentType: "application/json", //必须这样写
+                data:{
+                    page:_this.pageNum
+                },
+                success(result) {
+                    _this.blog = result.data
+                    _this.show = true
+                },error(){
+                    alert("加载失败了？")
+                }
+            })
+        },
+        search(search){
+            let _this = this
+            $.ajax({
+                type:"GET",
+                url:"/blog/so",
+                contentType: "application/json", //必须这样写
+                data:{
+                    page:_this.pageNum,
+                    search:search
+                },
+                success:function (result) {
+                    _this.blog = result.data
+                    _this.show = true
+                },error(){
+                    alert("加载失败了？")
+                }
+            })
+        }
+    },mounted(){
+        let page = getQueryVariable("page");
+        if (page != null){
+            this.pageNum = page
+        }
+        this.page()
     }
 })

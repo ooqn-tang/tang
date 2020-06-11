@@ -4,7 +4,7 @@
       xmlns:v-on="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8" name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />
-    <title th:text="${user.username} + '堂堂程序员'"></title>
+    <title th:text="${user.username}"></title>
     <link href="https://cdn.bootcss.com/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/style.css">
     <link href="https://cdn.bootcss.com/github-markdown-css/4.0.0/github-markdown.min.css" rel="stylesheet">
@@ -80,7 +80,6 @@
             </ul>
         </div>
     </div>
-
 </div>
 </body>
 <script src="https://cdn.bootcss.com/jquery/2.1.2/jquery.min.js"></script>
@@ -183,7 +182,6 @@
                     },
                     success:function (result) {
                         _this.blog = result.data
-                        sleep(500)
                         _this.show = true
 
                     }
@@ -203,7 +201,6 @@
                     },
                     success:function (result) {
                         _this.blog = result.data
-                        sleep(500)
                         _this.show = true
                     }
                 })
@@ -222,7 +219,6 @@
                     },
                     success:function (result) {
                         _this.blog = result.data
-                        sleep(500)
                         _this.show = true
                     }
                 })

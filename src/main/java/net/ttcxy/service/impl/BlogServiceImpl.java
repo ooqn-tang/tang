@@ -48,6 +48,12 @@ public class BlogServiceImpl implements BlogService {
     private LikeDataMapper likeMapper;
 
     @Override
+    public PageInfo<BlogDto> showDt(Integer page) {
+        PageHelper.startPage(page, 100);
+        return new PageInfo<>(blogDao.selectBlogDt());
+    }
+
+    @Override
     public PageInfo<BlogDto> search(String title, Integer page) {
         PageHelper.startPage(page, 15);
         return new PageInfo<>(blogDao.search(title));

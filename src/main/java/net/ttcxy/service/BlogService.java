@@ -13,6 +13,9 @@ import java.util.List;
 public interface BlogService {
 
 
+    PageInfo<BlogDto> showDt(Integer page);
+
+
     /**
      * 模糊查询blog
      * @param title 标题

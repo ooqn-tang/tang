@@ -17,6 +17,8 @@ public interface BlogDao {
      */
     List<BlogDto> selectBlog();
 
+    List<BlogDto> selectBlogDt();
+
     /**
      * 模糊查询
      */

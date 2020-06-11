@@ -22,7 +22,7 @@
 </head>
 <body>
 <div th:include="comm::navigation"></div>
-<div class="container" id="app" >
+<div class="container" id="home" >
     <div class="row" v-clock>
         <div class="col-md-9 column">
             <div class="row">
@@ -63,71 +63,4 @@
 <script src="https://cdn.bootcss.com/jquery/2.1.2/jquery.min.js"></script>
 <script src="https://cdn.bootcss.com/twitter-bootstrap/3.3.7/js/bootstrap.js"></script>
 <script src="/js/my.js"></script>
-<script>
-    new Vue({
-        el: "#app",//绑定元素
-        //所有数据都放在数据属性中
-        data:{
-            pageNum:1,
-            show:false,
-            blog:{
-                list:[],
-                isFirstPage:false,
-                isLastPage:true,
-            }
-        }, methods: {
-            page(){
-                let queryVariable = getQueryVariable("s");
-                if (queryVariable !== null){
-                    this.search()
-                }else{
-                    this.blogs()
-                }
-            },
-            blogs(){
-                let _this = this;
-                this.show = false
-                $.ajax({
-                    type:"GET",
-                    url:"/blog/blogs",
-                    contentType: "application/json", //必须这样写
-                    data:{
-                        page:_this.pageNum
-                    },
-                    success(result) {
-                        _this.blog = result.data
-                        console.log(_this.blog)
-                        sleep(500)
-                        _this.show = true
-                    },error(){
-                        alert("加载失败了？")
-                    }
-                })
-            },
-            search(){
-                let _this = this;
-                this.show = false
-                $.ajax({
-                    type:"GET",
-                    url:"/blog/so",
-                    contentType: "application/json", //必须这样写
-                    data:{
-                        page:_this.pageNum,
-                        search:getQueryVariable("s")
-                    },
-                    success:function (result) {
-                        _this.blog = result.data
-                        console.log(_this.blog)
-                        sleep(500)
-                        _this.show = true
-                    },error(){
-                        alert("加载失败了？")
-                    }
-                })
-            }
-        },created(){
-            this.page()
-        }
-    })
-</script>
 </html>

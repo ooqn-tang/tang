@@ -10,6 +10,7 @@ import net.ttcxy.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -31,6 +32,15 @@ public class PageController {
 
     @Autowired
     private UserService userService;
+
+    /**
+     * 地图
+     */
+    @GetMapping("map")
+    public String toDt(Model model,@RequestParam(defaultValue = "1") Integer page){
+        model.addAttribute(blogService.showDt(page));
+        return "map";
+    }
 
     /**
      * 首页
