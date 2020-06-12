@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="net.ttcxy.mapper.PersistentLoginsMapper">
-  <resultMap id="BaseResultMap" type="net.ttcxy.model.PersistentLogins">
+<mapper namespace="net.ttcxy.tang.mapper.PersistentLoginsMapper">
+  <resultMap id="BaseResultMap" type="net.ttcxy.tang.model.PersistentLogins">
     <id column="series" jdbcType="VARCHAR" property="series" />
     <result column="username" jdbcType="VARCHAR" property="username" />
     <result column="token" jdbcType="VARCHAR" property="token" />
@@ -68,7 +68,7 @@
   <sql id="Base_Column_List">
     series, username, token, last_used
   </sql>
-  <select id="selectByExample" parameterType="net.ttcxy.model.PersistentLoginsExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="net.ttcxy.tang.model.PersistentLoginsExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -92,19 +92,19 @@
     delete from persistent_logins
     where series = #{series,jdbcType=VARCHAR}
   </delete>
-  <delete id="deleteByExample" parameterType="net.ttcxy.model.PersistentLoginsExample">
+  <delete id="deleteByExample" parameterType="net.ttcxy.tang.model.PersistentLoginsExample">
     delete from persistent_logins
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="net.ttcxy.model.PersistentLogins">
+  <insert id="insert" parameterType="net.ttcxy.tang.model.PersistentLogins">
     insert into persistent_logins (series, username, token, 
       last_used)
     values (#{series,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, #{token,jdbcType=VARCHAR}, 
       #{lastUsed,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="net.ttcxy.model.PersistentLogins">
+  <insert id="insertSelective" parameterType="net.ttcxy.tang.model.PersistentLogins">
     insert into persistent_logins
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="series != null">
@@ -135,7 +135,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="net.ttcxy.model.PersistentLoginsExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="net.ttcxy.tang.model.PersistentLoginsExample" resultType="java.lang.Long">
     select count(*) from persistent_logins
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -171,7 +171,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="net.ttcxy.model.PersistentLogins">
+  <update id="updateByPrimaryKeySelective" parameterType="net.ttcxy.tang.model.PersistentLogins">
     update persistent_logins
     <set>
       <if test="username != null">
@@ -186,7 +186,7 @@
     </set>
     where series = #{series,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="net.ttcxy.model.PersistentLogins">
+  <update id="updateByPrimaryKey" parameterType="net.ttcxy.tang.model.PersistentLogins">
     update persistent_logins
     set username = #{username,jdbcType=VARCHAR},
       token = #{token,jdbcType=VARCHAR},

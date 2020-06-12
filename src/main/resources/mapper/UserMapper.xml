@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="net.ttcxy.mapper.UserMapper">
-  <resultMap id="BaseResultMap" type="net.ttcxy.model.User">
+<mapper namespace="net.ttcxy.tang.mapper.UserMapper">
+  <resultMap id="BaseResultMap" type="net.ttcxy.tang.model.User">
     <id column="id" jdbcType="VARCHAR" property="id" />
     <result column="username" jdbcType="VARCHAR" property="username" />
     <result column="nickname" jdbcType="VARCHAR" property="nickname" />
@@ -70,7 +70,7 @@
   <sql id="Base_Column_List">
     id, username, nickname, password, mail, signature
   </sql>
-  <select id="selectByExample" parameterType="net.ttcxy.model.UserExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="net.ttcxy.tang.model.UserExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -94,13 +94,13 @@
     delete from user
     where id = #{id,jdbcType=VARCHAR}
   </delete>
-  <delete id="deleteByExample" parameterType="net.ttcxy.model.UserExample">
+  <delete id="deleteByExample" parameterType="net.ttcxy.tang.model.UserExample">
     delete from user
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="net.ttcxy.model.User">
+  <insert id="insert" parameterType="net.ttcxy.tang.model.User">
     insert into user (id, username, nickname, 
       password, mail, signature
       )
@@ -108,7 +108,7 @@
       #{password,jdbcType=VARCHAR}, #{mail,jdbcType=VARCHAR}, #{signature,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="net.ttcxy.model.User">
+  <insert id="insertSelective" parameterType="net.ttcxy.tang.model.User">
     insert into user
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -151,7 +151,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="net.ttcxy.model.UserExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="net.ttcxy.tang.model.UserExample" resultType="java.lang.Long">
     select count(*) from user
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -195,7 +195,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="net.ttcxy.model.User">
+  <update id="updateByPrimaryKeySelective" parameterType="net.ttcxy.tang.model.User">
     update user
     <set>
       <if test="username != null">
@@ -216,7 +216,7 @@
     </set>
     where id = #{id,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="net.ttcxy.model.User">
+  <update id="updateByPrimaryKey" parameterType="net.ttcxy.tang.model.User">
     update user
     set username = #{username,jdbcType=VARCHAR},
       nickname = #{nickname,jdbcType=VARCHAR},
