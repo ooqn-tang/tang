@@ -67,4 +67,16 @@ public class FansDto {
     public void setCreateDate(Date createDate) {
         this.createDate = createDate;
     }
+
+    @Override
+    public String toString() {
+        return "FansDto{" +
+                "id='" + id + '\'' +
+                ", userId='" + userId + '\'' +
+                ", follower='" + follower + '\'' +
+                ", nickname='" + nickname + '\'' +
+                ", username='" + username + '\'' +
+                ", createDate=" + createDate +
+                '}';
+    }
 }

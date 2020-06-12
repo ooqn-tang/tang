@@ -1,8 +1,6 @@
 package net.ttcxy.tang.entity;
 
 
-import java.util.Objects;
-
 /**
  * 广告实体类
  * @author huanglei
@@ -67,5 +65,17 @@ public class AdvertiseDto {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    @Override
+    public String toString() {
+        return "AdvertiseDto{" +
+                "id='" + id + '\'' +
+                ", title='" + title + '\'' +
+                ", url='" + url + '\'' +
+                ", createDate='" + createDate + '\'' +
+                ", deliveryTime='" + deliveryTime + '\'' +
+                ", description='" + description + '\'' +
+                '}';
     }
 }

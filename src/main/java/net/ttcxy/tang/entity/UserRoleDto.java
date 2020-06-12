@@ -30,4 +30,12 @@ public class UserRoleDto {
     public void setRoleId(String roleId) {
         this.roleId = roleId;
     }
+
+    @Override
+    public String toString() {
+        return "UserRoleDto{" +
+                "userId='" + userId + '\'' +
+                ", roleId='" + roleId + '\'' +
+                '}';
+    }
 }

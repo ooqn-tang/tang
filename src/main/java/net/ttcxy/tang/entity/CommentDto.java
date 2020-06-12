@@ -45,4 +45,13 @@ public class CommentDto extends BlogComment {
     public void setNickname(String nickname) {
         this.nickname = nickname;
     }
+
+    @Override
+    public String toString() {
+        return "CommentDto{" +
+                "createDate=" + createDate +
+                ", username='" + username + '\'' +
+                ", nickname='" + nickname + '\'' +
+                '}';
+    }
 }

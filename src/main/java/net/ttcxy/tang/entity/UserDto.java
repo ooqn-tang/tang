@@ -116,4 +116,16 @@ public class UserDto implements UserDetails {
     public void setMail(String mail) {
         this.mail = mail;
     }
+
+    @Override
+    public String toString() {
+        return "UserDto{" +
+                "id='" + id + '\'' +
+                ", username='" + username + '\'' +
+                ", nickname='" + nickname + '\'' +
+                ", password='" + password + '\'' +
+                ", signature='" + signature + '\'' +
+                ", mail='" + mail + '\'' +
+                '}';
+    }
 }

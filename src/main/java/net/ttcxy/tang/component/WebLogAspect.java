@@ -39,16 +39,16 @@ public class WebLogAspect {
 
     private Logger logger = LoggerFactory.getLogger(getClass());
 
-    @Pointcut("execution(public * net.ttcxy.tangtang.controller.*.*(..))")
+    @Pointcut("execution(public * net.ttcxy.tang.controller.*.*(..))")
     public void webLog() {
     }
 
     @Before("webLog()")
-    public void doBefore(JoinPoint joinPoint) throws Throwable {
+    public void doBefore(JoinPoint joinPoint) {
     }
 
     @AfterReturning(value = "webLog()", returning = "ret")
-    public void doAfterReturning(Object ret) throws Throwable {
+    public void doAfterReturning(Object ret) {
     }
 
     @Around("webLog()")

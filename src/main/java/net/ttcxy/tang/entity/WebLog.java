@@ -141,4 +141,21 @@ public class WebLog {
     public void setResult(Object result) {
         this.result = result;
     }
+
+    @Override
+    public String toString() {
+        return "WebLog{" +
+                "description='" + description + '\'' +
+                ", username='" + username + '\'' +
+                ", startTime=" + startTime +
+                ", spendTime=" + spendTime +
+                ", basePath='" + basePath + '\'' +
+                ", uri='" + uri + '\'' +
+                ", url='" + url + '\'' +
+                ", method='" + method + '\'' +
+                ", ip='" + ip + '\'' +
+                ", parameter=" + parameter +
+                ", result=" + result +
+                '}';
+    }
 }
