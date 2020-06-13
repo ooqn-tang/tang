@@ -198,6 +198,12 @@ public class BlogServiceImpl implements BlogService {
         return new PageInfo<>(dtos);
     }
 
+    @Override
+    public BlogDto random() {
+        int randomInt = RandomUtil.randomInt(0, randomBlogs.size());
+        return blogDao.selectByIdTitle(randomBlogs.get(randomInt));
+    }
+
     public static void main(String[] args) {
         List<String> list = new ArrayList<>();
         list.add("1");

@@ -36,6 +36,7 @@ public class MyAuthenticationEntryPoint implements AuthenticationEntryPoint {
             String headerName = headerNames.nextElement();
             if (REQUEST_WITH.equalsIgnoreCase(headerName)){
                 CommonResult<String> commonResult =  CommonResult.failed(ResultCode.UNAUTHORIZED);
+                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
                 response.setContentType("application/json;charset=utf-8");
                 ObjectMapper objectMapper = new ObjectMapper();
                 response.getWriter().print(objectMapper.writeValueAsString(commonResult));

@@ -41,11 +41,11 @@ public class UserController {
 
         if (StrUtil.isNotBlank(nickname)){
             int length = StringProUtil.byteSize(nickname);
-            if (length > 16 || length<4){
-                return CommonResult.failed("昵称长度为16个之母或8个汉字");
+            if (length > 16 || length < 4){
+                return CommonResult.failed("昵称长度：汉字 2 ~ 8,字母 4 ~ 16");
             }
         }else{
-            return CommonResult.failed("昵称长度为4个之母或两个汉字");
+            return CommonResult.failed("昵称长度：汉字 2 ~ 8,字母 4 ~ 16");
         }
 
         String signature = userDto.getSignature();

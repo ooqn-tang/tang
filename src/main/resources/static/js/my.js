@@ -224,3 +224,19 @@ new Vue({
         this.page()
     }
 })
+
+
+$.ajaxSetup({
+    dataType: "json",
+    cache: false,
+    xhrFields: {
+        withCredentials: true
+    },
+    complete(xhr) {
+        //token过期，则跳转到登录页面
+        if(xhr.responseJSON.code === 401){
+            alert("请登录")
+            throw "请登录"
+        }
+    }
+});

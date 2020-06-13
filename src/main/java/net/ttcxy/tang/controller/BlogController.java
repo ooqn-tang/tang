@@ -51,6 +51,13 @@ public class BlogController {
     public CommonResult<PageInfo<BlogDto>> selectBlogs(@RequestParam(value = "page" ,defaultValue = "1")Integer page){
         return CommonResult.success(blogService.selectBlogs(page));
     }
+
+    @GetMapping("random")
+    @ApiOperation("随机获取一条")
+    public CommonResult<BlogDto> random(){
+        return CommonResult.success(blogService.random());
+    }
+
     /**
      * 搜索跳转页面
      */

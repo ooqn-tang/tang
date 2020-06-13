@@ -113,6 +113,8 @@ public class PageController {
         //添加博客到试图中
         modelAndView.addObject("blog",blogDto);
 
+        modelAndView.addObject("random",blogService.random());
+
         modelAndView.setViewName("blog");
         return modelAndView;
     }

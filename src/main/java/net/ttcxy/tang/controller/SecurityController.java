@@ -51,8 +51,8 @@ public class SecurityController {
             return CommonResult.failed("参数不正确");
         }else{
             String username = user.getUsername();
-            if (username==null||username.length()<5||username.length()>15){
-                return CommonResult.failed("用户名长度：5~15");
+            if (username==null||username.length() < 2  ||username.length() > 15){
+                return CommonResult.failed("用户名长度：2 ~ 15");
             }
 
             String regex = "^[a-z0-9A-Z]+$";
@@ -65,15 +65,15 @@ public class SecurityController {
             }
 
             String password = user.getPassword();
-            if (password==null||password.length()<=8||password.length()>=25){
-                return CommonResult.failed("密码长度：8~25");
+            if (password == null || password.length() < 8 || password.length() > 25){
+                return CommonResult.failed("密码长度：8 ~ 25");
             }
 
             String nickname = user.getNickname();
             if (nickname!=null){
                 int length = StringProUtil.byteSize(nickname);
                 if (length>16 || length<4){
-                    return CommonResult.failed("昵称长度为16个之母或8个汉字");
+                    return CommonResult.failed("昵称长度为4 ~ 16个之母或2 ~ 8个汉字");
                 }
             }
         }

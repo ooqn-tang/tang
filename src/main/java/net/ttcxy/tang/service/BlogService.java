@@ -108,4 +108,10 @@ public interface BlogService {
 
 
     PageInfo<BlogDto> selectBlogs(Integer page);
+
+    /**
+     * 随机获取一条博客
+     * @return
+     */
+    BlogDto random();
 }

@@ -29,7 +29,6 @@
                 </form>
                 <ul class="nav navbar-nav navbar-right">
                     <li><a th:if="${session.SPRING_SECURITY_CONTEXT}!= null" href="/editor">发布</a></li>
-                    <!--<li><a th:if="${session.SPRING_SECURITY_CONTEXT}!= null">消息</a></li>-->
                     <li><a th:if="${session.SPRING_SECURITY_CONTEXT}!= null" th:href="@{/author/{username}(username=${session.SPRING_SECURITY_CONTEXT.authentication.principal.username})}">我的</a></li>
                     <li th:if="${session.SPRING_SECURITY_CONTEXT}== null"><a href="/login">登陆</a></li>
                 </ul>
@@ -40,7 +39,7 @@
 
 <div th:fragment="advertise">
     <div class="list-group nob" >
-        <a href="#" class="list-group-item active nob">推荐</a>
+        <a class="list-group-item active nob">推荐</a>
         <a target="_blank" class="list-group-item nob" th:each="advertise : ${application.advertises}" th:text="${advertise.title}" th:href="${advertise.url}"></a>
     </div>
     <div class="panel panel-default nob">
