@@ -9,6 +9,9 @@
     -webkit-box-orient:vertical;
     white-space: nowrap;
 }
+.load{
+    line-height:70px;height: 100px;text-align:center
+}
 .jy{
     pointer-events:none;color: #b4b4b4
 }

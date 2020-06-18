@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 /**
  * @author huanglei
  */
-@Component
+@Component("UserDetailsService")
 public class SecurityUserDetailsServiceImpl implements UserDetailsService {
 
     Logger logger = LoggerFactory.getLogger(this.getClass());

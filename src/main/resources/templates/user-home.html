@@ -19,7 +19,7 @@
                 <div class="panel-body" >
                     <div>
                         <strong th:text="${user.nickname}"></strong>
-                        <a href="/userinfo"><span class="glyphicon glyphicon-cog"></span></a>
+                        <a href="/user/info"><span class="glyphicon glyphicon-cog"></span></a>
                         <button v-if="showFollower" class="pull-right btn btn-default btn-xs" @click="followerClick">{{follower.text}}</button>
                     </div>
 
@@ -72,7 +72,7 @@
                 </li>
             </ul>
             <ul class="list-group" v-if="!show">
-                <li class="list-group-item nob">
+                <li class="list-group-item nob load">
                     加载中...
                 </li>
             </ul>
@@ -89,6 +89,7 @@
         el: "#app",//绑定元素
         //所有数据都放在数据属性中
         data:{
+            loginUser: "[[${session.SPRING_SECURITY_CONTEXT}]]" == "",
             username:username,
             gzList:[],
             gzShow:false,
@@ -154,6 +155,11 @@
             },
             loadFollower(){
                 let _this = this;
+                if (this.loginUser){
+                    _this.follower.text = '关注'
+                    return
+                }
+
                 $.ajax({
                     type:"GET",
                     url:"/fans/"+username,
@@ -170,9 +176,9 @@
             },
             like(){
                 let _this = this;
+                _this.show = false
                 this.update = false;
                 this.selectType = "like"
-                this.show = false;
                 $.ajax({
                     type:"GET",
                     url:"/blog/like",
@@ -182,16 +188,16 @@
                     },
                     success:function (result) {
                         _this.blog = result.data
+                        sleep(300)
                         _this.show = true
-
                     }
                 })
             },
             favorite(){
                 let _this = this;
+                _this.show = false
                 this.update = false;
                 this.selectType = "favorite"
-                this.show = false
                 $.ajax({
                     type:"GET",
                     url:"/blog/favorite/"+this.username,
@@ -201,15 +207,20 @@
                     },
                     success:function (result) {
                         _this.blog = result.data
+                        sleep(300)
                         _this.show = true
                     }
                 })
             },
+            more(page){
+                this.pageNum = page
+                this.page()
+            },
             home() {
                 let _this = this;
+                _this.show = false
                 this.update = true;
                 this.selectType = "home"
-                this.show = false
                 $.ajax({
                     type:"GET",
                     url:"/blog/home/"+this.username,
@@ -219,6 +230,7 @@
                     },
                     success:function (result) {
                         _this.blog = result.data
+                        sleep(300)
                         _this.show = true
                     }
                 })
@@ -231,7 +243,7 @@
                 let _this = this;
                 $.ajax({
                     type:"GET",
-                    url:"/user/gz",
+                    url:"/user/fans",
                     contentType: "application/json", //必须这样写
                     success:function (result) {
                         _this.gzList = result.data;
@@ -240,17 +252,16 @@
                 })
             },
             page(){
-                let type = this.selectType;
+                let type = this.selectType
+                this.blog = {}
+                this.show = false
                 if (type === "home"){
-                    this.blog = {}
                     this.home()
                 }
                 if (type === "like"){
-                    this.blog = {}
                     this.like()
                 }
                 if (type === "favorite"){
-                    this.blog = {}
                     this.favorite()
                 }
             }

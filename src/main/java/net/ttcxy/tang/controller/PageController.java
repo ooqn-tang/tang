@@ -35,9 +35,18 @@ public class PageController {
      * 地图
      */
     @GetMapping("map")
-    public String toDt(Model model,@RequestParam(defaultValue = "1") Integer page){
+    public String toMap(Model model,@RequestParam(defaultValue = "1") Integer page){
         model.addAttribute(blogService.showDt(page));
         return "map";
+    }
+
+    /**
+     * 注册页面
+     */
+    @GetMapping("register")
+    public ModelAndView toRegister(ModelAndView modelAndView){
+        modelAndView.setViewName("register");
+        return modelAndView;
     }
 
     /**
@@ -67,29 +76,16 @@ public class PageController {
             modelAndView.setViewName("404");
             return modelAndView;
         }
-        modelAndView.setViewName("userhome");
+        modelAndView.setViewName("user-home");
         modelAndView.addObject("user",userDto);
         return modelAndView;
     }
 
     /**
-     * 作者列表页面
-     */
-    @GetMapping("authors")
-    public  ModelAndView toAuthors(ModelAndView modelAndView){
-        modelAndView.setViewName("authors");
-        return modelAndView;
-    }
-
-
-
-
-    /**
      * 文章页面
      */
     @GetMapping("post/{id}")
-    public ModelAndView toBlog(@PathVariable("id")String blogId,
-                               ModelAndView modelAndView){
+    public ModelAndView toBlog(@PathVariable("id")String blogId, ModelAndView modelAndView){
 
         UserDto userDto = authDetailsServiceImpl.getUser();
 
@@ -122,13 +118,12 @@ public class PageController {
     /**
      * 更改用户信息页面
      */
-    @GetMapping("userinfo")
+    @GetMapping("user/info")
     public ModelAndView updateUser(ModelAndView modelAndView){
-        modelAndView.setViewName("userinfo");
+        modelAndView.setViewName("user-info");
         modelAndView.addObject("user",authDetailsServiceImpl.getUser());
         return modelAndView;
     }
-
 
     /**
      * 登陆页面
@@ -157,16 +152,5 @@ public class PageController {
         modelAndView.setViewName("editor");
         return modelAndView;
     }
-
-    /**
-     * 编辑器
-     */
-    @GetMapping("editor2")
-    public ModelAndView toEditor2(ModelAndView modelAndView){
-        modelAndView.setViewName("editor2");
-        return modelAndView;
-    }
-
-
 
 }

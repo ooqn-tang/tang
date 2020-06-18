@@ -115,17 +115,27 @@
     }
     $("#send").click(function(){
         let blog = getUrlParam("blog");
-        if (blog==null){
-            insert();
-        } else{
-            update(blog);
-        }
-
-    })
-    function insert(){
         let title = $("#title").val();
         let markdown = $("#text").val();
         let html = marked(markdown)
+
+        if (title == ""){
+            alert("标题不能为空")
+            return
+        }
+        if (markdown == ""){
+            alert("内容不能为空")
+            return
+        }
+
+        if (blog==null){
+            insert(title,markdown,html);
+        } else{
+            update(blog,title,markdown,html);
+        }
+
+    })
+    function insert(title,markdown,html){
         $.ajax({
             type:"POST",
             url:"/blog/insert",
@@ -139,14 +149,13 @@
             success:function (result) {
                 if (result.code===200){
                     javascript :history.go(-1);
+                }else{
+                    alert(result.message)
                 }
             }
         })
     }
-    function update(id){
-        let title = $("#title").val();
-        let markdown = $("#text").val();
-        let html = marked(markdown)
+    function update(id,title,markdown,html){
         $.ajax({
             type:"POST",
             url:"/blog/update",
@@ -161,8 +170,8 @@
             success:function (result) {
                 if (result.code === 200){
                     javascript :history.go(-1);
-                }else if(result.code === 500){
-                    alert("别瞎搞")
+                }else{
+                    alert(result.message)
                 }
             }
         })

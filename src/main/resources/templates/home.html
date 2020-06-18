@@ -13,8 +13,8 @@
 </head>
 <body>
 <div th:include="comm::navigation"></div>
-<div class="container" id="home" >
-    <div class="row" v-clock>
+<div class="container" id="home" v-clock>
+    <div class="row">
         <div class="col-md-9 column">
             <div class="row">
                 <div class="col-md-12 column nob-p">
@@ -36,7 +36,7 @@
                         </li>
                     </ul>
                     <ul class="list-group" v-if="!show">
-                        <li class="list-group-item nob">
+                        <li class="list-group-item nob load">
                             加载中...
                         </li>
                     </ul>
@@ -54,6 +54,74 @@
 <script src="https://cdn.bootcss.com/jquery/2.1.2/jquery.min.js"></script>
 <script src="https://cdn.bootcss.com/twitter-bootstrap/3.3.7/js/bootstrap.js"></script>
 <script src="/js/my.js"></script>
+<script>
+    new Vue({
+        el: "#home",//绑定元素
+        //所有数据都放在数据属性中
+        data:{
+            pageNum:1,
+            show:false,
+            blog:{
+                list:[],
+                isFirstPage:false,
+                isLastPage:true,
+            }
+        }, methods: {
+            page(){
+                let search = getQueryVariable("s");
+                this.show = false
+                if (search !== null){
+                    this.search(search)
+                }else{
+                    this.blogs()
+                }
+            },
+            blogs(){
+                let _this = this
+                $.ajax({
+                    type:"GET",
+                    url:"/blog/blogs",
+                    contentType: "application/json", //必须这样写
+                    data:{
+                        page:_this.pageNum
+                    },
+                    success(result) {
+                        _this.blog = result.data
+                        sleep(500)
+                        _this.show = true
+                    },error(){
+                        alert("加载失败了？")
+                    }
+                })
+
+            },
+            search(search){
+                let _this = this
+                $.ajax({
+                    type:"GET",
+                    url:"/blog/so",
+                    contentType: "application/json", //必须这样写
+                    data:{
+                        page:_this.pageNum,
+                        search:search
+                    },
+                    success:function (result) {
+                        _this.blog = result.data
+                        _this.show = true
+                    },error(){
+                        alert("加载失败了？")
+                    }
+                })
+            }
+        },mounted(){
+            let page = getQueryVariable("page");
+            if (page != null){
+                this.pageNum = page
+            }
+            this.page()
+        }
+    })
+</script>
 <script>
     var _hmt = _hmt || [];
     (function() {
