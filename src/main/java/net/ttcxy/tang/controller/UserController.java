@@ -24,7 +24,7 @@ import java.util.Map;
  * 用户相关操作
  * @author huanglei
  */
-@Controller
+@RestController
 public class UserController {
 
     @Autowired
@@ -37,7 +37,6 @@ public class UserController {
     private UserService userService;
 
     @PostMapping(value = "user/info")
-    @ResponseBody
     public CommonResult updateUser(@RequestBody UserDto userDto){
         String id = authDetailsService.getUser().getId();
         String nickname = userDto.getNickname();
@@ -74,14 +73,11 @@ public class UserController {
         return CommonResult.failed();
     }
 
-
     /**
      * 关注用户
-     * @return
      */
     @GetMapping("user/fans")
-    @ResponseBody
-    public CommonResult fans(){
+    public CommonResult<List<UserDto>> fans(){
         String userId = authDetailsService.getUser().getId();
         List<UserDto> fansList = fansService.selectFansList(userId);
         return CommonResult.success(fansList);
@@ -90,16 +86,13 @@ public class UserController {
 
     /**
      * User列表
-     * @param page
+     * @param page 页码
      * @return
      */
     @PostMapping("list")
-    @ResponseBody
     public CommonResult<List<User>> listUser(@RequestParam(defaultValue = "1") Integer page){
         return CommonResult.success(userService.listUser(page));
     }
-
-
 
     /**
      * 注册请求
@@ -107,7 +100,6 @@ public class UserController {
      * @return 状态
      */
     @PostMapping("register")
-    @ResponseBody
     public CommonResult register(@RequestBody User user){
 
         if (user == null){
@@ -160,7 +152,6 @@ public class UserController {
      * @return 修改状态
      */
     @PostMapping("password")
-    @ResponseBody
     public CommonResult updatePassword(@RequestBody Map<String,String> mapBody){
         String username = mapBody.get("username");
         String passwordOld = mapBody.get("passwordOld");

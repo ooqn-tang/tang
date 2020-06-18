@@ -32,6 +32,14 @@ public class PageController {
     private UserService userService;
 
     /**
+     * 首页
+     */
+    @GetMapping
+    public String toHome(){
+        return "home";
+    }
+
+    /**
      * 地图
      */
     @GetMapping("map")
@@ -44,18 +52,11 @@ public class PageController {
      * 注册页面
      */
     @GetMapping("register")
-    public ModelAndView toRegister(ModelAndView modelAndView){
-        modelAndView.setViewName("register");
-        return modelAndView;
+    public String toRegister(){
+        return "register";
     }
 
-    /**
-     * 首页
-     */
-    @GetMapping("")
-    public String toHome(){
-        return "home";
-    }
+
 
     /**
      * 搜索跳转页面
