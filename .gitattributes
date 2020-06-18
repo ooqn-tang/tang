@@ -1,0 +1,5 @@
+*.js linguist-language=java；
+*.css linguist-language=java；
+*.html linguist-language=java;
+*.sql inguist-language=java;
+sql inguist-language=java;
