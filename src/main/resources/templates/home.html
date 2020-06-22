@@ -1,65 +1,100 @@
 <!DOCTYPE html>
-<html lang="zh-CN" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:v-bind="http://www.w3.org/1999/xhtml"
-      xmlns:v-on="http://www.w3.org/1999/xhtml">
+<html lang="zh-CN" xmlns:th="http://www.w3.org/1999/xhtml"
+      xmlns:v-bind="http://www.w3.org/1999/xhtml">
 <head>
-    <title>堂堂程序员</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0"/>
-    <meta data-n-head="true" data-hid="description" name="description" content="堂堂程序员网站是目前为止，可能是最好用的程序员网站，并且可能是最简洁的网站之一，采用极简设计美学用最简单的样式功能实现你需要的大多数功能">
-    <link href="/favicon.ico" rel="icon"/>
-    <link href="/css/style.css" rel="stylesheet"/>
-    <link href="https://cdn.bootcss.com/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
+    <meta charset="utf-8" name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />
+    <title th:text="${user.username} + ' - 堂堂程序员'"></title>
+    <link href="https://cdn.bootcss.com/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+    <link href="https://cdn.bootcss.com/github-markdown-css/4.0.0/github-markdown.min.css" rel="stylesheet">
     <script src="https://cdn.bootcss.com/vue/2.6.10/vue.min.js"></script>
 </head>
 <body>
 <div th:include="comm::navigation"></div>
-<div class="container" id="home" v-clock>
-    <div class="row">
-        <div class="col-md-9 column">
-            <div class="row">
-                <div class="col-md-12 column nob-p">
-                    <ul class="list-group" v-if="show">
-                        <li class="list-group-item nob" v-for="(item,index) in blog.list">
-                            <a class="wz my-wz"  v-bind:href="'/post/'+item.id" v-text="item.title">
-                            </a>
-                            <div >
-                                <span v-text="item.createDate"></span>
-                                <a class="pull-right"  v-bind:href="'/author/'+item.username"  v-text="item.nickname"></a>
-                            </div>
-                        </li>
-                        <li class="list-group-item nob">
-                           <a v-bind:class="blog.isFirstPage?'jy':''"
-                              v-on:click="page(pageNum-=1)">上一页</a>
-                            <a v-bind:class="blog.isLastPage?'jy':''"
-                               class="pull-right"
-                               v-on:click="page(pageNum+=1)" >下一页</a>
-                        </li>
-                    </ul>
-                    <ul class="list-group" v-if="!show">
-                        <li class="list-group-item nob load">
-                            加载中...
-                        </li>
-                    </ul>
+
+<div class="container" id="app" v-cloak>
+    <div class="row clearfix">
+        <div class="col-md-4 col-md-push-8 nob-p">
+            <div class="panel panel-default nob" >
+                <div class="panel-body" >
+                    <strong th:text="${user.nickname}"></strong>
+                    <button  v-show="!isThisUser"  class="pull-right btn btn-default btn-xs" @click="followerClick" v-text="follower"></button>
+                    <hr>
+                    <input type="hidden" th:value="${user.username}" id="username">
+                    <div>简介：<span th:text="${user.signature}"></span></div>
+                </div>
+            </div>
+            <div class="panel panel-default nob">
+                <div class="panel-body">
+                    <div class="btn-group" style="width: 100%">
+                        <button class="btn btn-default btn-sm W20" v-bind:class="{ W50 : !isThisUser }" @click="cl(),home()">博客</button>
+                        <button class="btn btn-default btn-sm W20" v-bind:class="{ W50 : !isThisUser }" @click="cl(),like()">推荐</button>
+                        <button class="btn btn-default btn-sm W20" @click="fans" v-if="isThisUser">关注</button>
+                        <a class="btn btn-default btn-sm W20" href="/user/info" v-if="isThisUser">设置</a>
+                        <a class="btn btn-default btn-sm W20" @click="logout" v-if="isThisUser">注销</a>
+                    </div>
+                </div>
+            </div>
+            <div v-show="showFans" class="panel panel-default nob-p" v-if="isThisUser">
+                <div class="list-group nob" >
+                    <a href="#" class="list-group-item active nob">关注</a>
+                    <a class="list-group-item nob" v-for="(item,i) in fansList" v-bind:href="item.username" v-text="item.nickname"></a>
+                </div>
+            </div>
+            <div class="nob-p visible-md-block visible-lg-block">
+                <div th:replace="comm::advertise" ></div>
             </div>
         </div>
-        </div>
+        <div class="col-md-8 col-md-pull-4 nob-p">
 
-        <div class="col-md-3 column nob-p">
-            <div th:include="comm::advertise"></div>
+            <ul class="list-group nob" v-if="show">
+                <li class="list-group-item nob" v-for="(item,index) in blog.list">
+                    <a v-bind:href="'/post/'+item.id" class="wz" v-text="item.title"></a>
+                    <br>
+                    <div>
+                        <span v-text="item.createDate"></span>
+                        <div class="btn-group pull-right">
+                            <a class="btn btn-default btn-xs" v-if="isThisUser" @click="deleteBlog(item,index)" >删除</a>
+                            <a class="btn btn-default btn-xs" v-if="isThisUser" v-bind:href="'/editor?blog='+item.id">修改</a>
+                        </div>
+                    </div>
+                </li>
+                <li class="list-group-item nob">
+                    <a v-bind:class="blog.isFirstPage?'jy':''"
+                       @click="more(pageNum -= 1)">上一页</a>
+                    &nbsp;
+                    <a v-bind:class="blog.isLastPage?'jy':''"
+                       class="pull-right"
+                       @click="more(pageNum += 1)">下一页</a>
+                </li>
+            </ul>
+            <ul class="list-group" v-if="!show">
+                <li class="list-group-item nob load">
+                    加载中...
+                </li>
+            </ul>
         </div>
     </div>
-</div>
 </div>
 </body>
 <script src="https://cdn.bootcss.com/jquery/2.1.2/jquery.min.js"></script>
 <script src="https://cdn.bootcss.com/twitter-bootstrap/3.3.7/js/bootstrap.js"></script>
 <script src="/js/my.js"></script>
 <script>
+    let username = $("#username").val();
     new Vue({
-        el: "#home",//绑定元素
+        el: "#app",//绑定元素
         //所有数据都放在数据属性中
         data:{
+            isLoginUser:[[${session.SPRING_SECURITY_CONTEXT != null}]],
+            isThisUser:[[${session.SPRING_SECURITY_CONTEXT !=null && session.SPRING_SECURITY_CONTEXT.authentication.principal.username == username}]],
+            username:username,
+            fansList:[],
+            showFans:false,
+            update:true,
+            selectType:"home",
             pageNum:1,
+            follower:"关注",
             show:false,
             blog:{
                 list:[],
@@ -67,58 +102,142 @@
                 isLastPage:true,
             }
         }, methods: {
-            page(){
-                let search = getQueryVariable("s");
-                this.show = false
-                if (search !== null){
-                    this.search(search)
-                }else{
-                    this.blogs()
+            logout(){
+                if(confirm("确认退出账号吗？")){
+                    $.ajax({ url: "/logout", type: 'get', async: false})
+                    history.go(0)
                 }
             },
-            blogs(){
-                let _this = this
+            cl(){
+                this.pageNum = 1
+            },
+            deleteBlog(item,index){
+                let _this = this;
+                if(confirm("确认删除吗？")){
+                    $.ajax({
+                        type:"GET",
+                        url:"/blog/delete/"+item.id,
+                        contentType: "application/json",
+                        success:function (result) {
+                            if (result.code === 200){
+                                _this.blog.list.splice(index,1)
+                            }
+                        }
+                    })
+                }
+            },
+            followerClick(){
+                let _this = this;
+                let type,text;
+                if (_this.follower === '已关注'){
+                    type = "DELETE";
+                    text = "关注"
+                } else{
+                    type = "POST";
+                    text = "已关注"
+                }
                 $.ajax({
-                    type:"GET",
-                    url:"/blog/blogs",
+                    type:type,
+                    url:"/fans/"+username,
                     contentType: "application/json", //必须这样写
-                    data:{
-                        page:_this.pageNum
-                    },
-                    success(result) {
-                        _this.blog = result.data
-                        sleep(500)
-                        _this.show = true
-                    },error(){
-                        alert("加载失败了？")
+                    dataType:"json",
+                    success:function (result) {
+                        if (result.code === 200) {
+                            _this.follower = text;
+                        }
                     }
                 })
-
             },
-            search(search){
-                let _this = this
+            loadFans(){
+                if (this.isLoginUser){
+                    let _this = this;
+                    $.ajax({
+                        type:"GET",
+                        url:"/fans/"+username,
+                        contentType: "application/json", //必须这样写
+                        success:function (result) {
+                            if (result.code === 200){
+                                _this.follower = '已关注'
+                            } else{
+                                _this.follower = '关注'
+                            }
+                        }
+                    })
+                }
+            },
+            like(){
+                let _this = this;
+                _this.show = false
+                this.update = false;
+                this.selectType = "like"
                 $.ajax({
                     type:"GET",
-                    url:"/blog/so",
+                    url:"/blog/like",
                     contentType: "application/json", //必须这样写
                     data:{
-                        page:_this.pageNum,
-                        search:search
+                        page:this.pageNum,
+                        username:this.username
                     },
                     success:function (result) {
                         _this.blog = result.data
+                        sleep(300)
                         _this.show = true
-                    },error(){
-                        alert("加载失败了？")
                     }
                 })
+            },
+            more(page){
+                this.pageNum = page
+                this.page()
+            },
+            home() {
+                let _this = this;
+                _this.show = false
+                this.update = true;
+                this.selectType = "home"
+                $.ajax({
+                    type:"GET",
+                    url:"/blog/home/"+this.username,
+                    contentType: "application/json", //必须这样写
+                    data:{
+                      page:this.pageNum
+                    },
+                    success:function (result) {
+                        _this.blog = result.data
+                        sleep(300)
+                        _this.show = true
+                    }
+                })
+            },
+            fans(){
+                if (this.showFans){
+                    this.showFans = false;
+                    return
+                }
+                let _this = this;
+                $.ajax({
+                    type:"GET",
+                    url:"/user/fans",
+                    contentType: "application/json", //必须这样写
+                    success:function (result) {
+                        _this.fansList = result.data;
+                        _this.showFans = true;
+                    }
+                })
+            },
+            page(){
+                let type = this.selectType
+                this.blog = {}
+                this.show = false
+                if (type === "home"){
+                    this.home()
+                }
+                if (type === "like"){
+                    this.like()
+                }
             }
         },mounted(){
-            let page = getQueryVariable("page");
-            if (page != null){
-                this.pageNum = page
-            }
-            this.page()
+            this.loadFans()
+            this.home()
         }
     })
 </script>

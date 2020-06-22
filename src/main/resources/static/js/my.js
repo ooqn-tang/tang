@@ -153,10 +153,18 @@ new Vue({
     },
     methods: {
         searchClick(){
-            window.location.href = "/so?s=" + this.searchValue
+            let search = getQueryVariable("s");
+            if(search !== null){
+                index.search(this.searchValue)
+            }else{
+                window.location.href = "/so?s=" + this.searchValue
+            }
+
         }
     }
 })
+
+
 
 $.ajaxSetup({
     dataType: "json",

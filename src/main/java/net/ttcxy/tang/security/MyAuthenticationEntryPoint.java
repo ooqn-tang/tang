@@ -1,4 +1,4 @@
-package net.ttcxy.tang.authentication;
+package net.ttcxy.tang.security;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;

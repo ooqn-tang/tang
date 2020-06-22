@@ -1,4 +1,4 @@
-package net.ttcxy.tang.authentication;
+package net.ttcxy.tang.security;
 
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;

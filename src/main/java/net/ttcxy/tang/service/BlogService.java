@@ -81,30 +81,7 @@ public interface BlogService {
      * 查询用户喜欢的所有BLOG
      * @return
      */
-    PageInfo<BlogDto> selectLikeBlogs(String userId,Integer page);
-
-    /**
-     * 查询用户的所有收藏
-     * @param username
-     * @return
-     */
-    PageInfo<BlogDto> selectByUserFavorite(String username,Integer page);
-
-    /**
-     * 收藏，如果存在就删除收藏
-     * @param userId 收藏人ID
-     * @param blogId 收藏内容ID
-     * @return count 0 表示没有收藏
-     */
-    int favorite(String userId, String blogId);
-
-    /**
-     * 查询是否收藏
-     * @param userId userId
-     * @param blogId blogId
-     * @return long
-     */
-    long selectFavorite(String userId, String blogId);
+    PageInfo<BlogDto> selectLikeBlogs(String username,Integer page);
 
 
     PageInfo<BlogDto> selectBlogs(Integer page);

@@ -44,12 +44,7 @@ public interface BlogDao {
     /**
      * 通过用户ID 查询喜欢泪飙
      */
-    List<BlogDto> selectLikeBlogs(@Param("userId")String userId);
-
-    /**
-     * 通过用户名查询所有数据
-     */
-    List<BlogDto> selectByUserFavorite(@Param("username")String username);
+    List<BlogDto> selectLikeBlogs(@Param("username")String username);
 
 
 

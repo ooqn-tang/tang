@@ -8,6 +8,7 @@ import net.ttcxy.tang.service.AuthDetailsService;
 import net.ttcxy.tang.dao.FansDao;
 import net.ttcxy.tang.service.FansService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -40,7 +41,8 @@ public class FansServiceImpl implements FansService {
         try{
             FansDto fansDto = getFans(fansName);
             return fansDao.insertFans(fansDto);
-        }catch (Exception e){
+        }catch (DuplicateKeyException e){
+            deleteFans(fansName);
             return 0;
         }
     }

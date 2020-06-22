@@ -36,7 +36,7 @@ public class PageController {
      */
     @GetMapping
     public String toHome(){
-        return "home";
+        return "index";
     }
 
     /**
@@ -63,7 +63,7 @@ public class PageController {
      */
     @GetMapping("so")
     public String toSearch(){
-        return "home";
+        return "index";
     }
 
     /**
@@ -77,7 +77,7 @@ public class PageController {
             modelAndView.setViewName("404");
             return modelAndView;
         }
-        modelAndView.setViewName("user-home");
+        modelAndView.setViewName("home");
         modelAndView.addObject("user",userDto);
         return modelAndView;
     }
@@ -103,8 +103,6 @@ public class PageController {
             // 如果用户没有登陆，不需要查询是否喜欢或收藏
             // 是否喜欢了当前博客
             modelAndView.addObject("like",blogService.selectLike(userId,blogId));
-            // 是否以及该收藏
-            modelAndView.addObject("favorite",blogService.selectFavorite(userId,blogId));
         }
 
         //添加博客到试图中
@@ -121,7 +119,7 @@ public class PageController {
      */
     @GetMapping("user/info")
     public ModelAndView updateUser(ModelAndView modelAndView){
-        modelAndView.setViewName("user-info");
+        modelAndView.setViewName("info");
         modelAndView.addObject("user",authDetailsServiceImpl.getUser());
         return modelAndView;
     }

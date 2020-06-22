@@ -67,21 +67,10 @@ public class BlogController {
         return CommonResult.success(blogService.search(search,page));
     }
 
-
-
-    @GetMapping("favorite/{username}")
-    @ApiOperation("获取自己收藏的文章")
-    public CommonResult<PageInfo<BlogDto>> selectByUserFavorite(
-            @PathVariable("username") String username,
-            @RequestParam(value = "page" ,defaultValue = "1")Integer page){
-        return CommonResult.success(blogService.selectByUserFavorite(username,page));
-    }
-
     @GetMapping("like")
     @ApiOperation("获取自己喜欢的文章")
-    public CommonResult<PageInfo<BlogDto>> selectByUserLike(Integer page){
-        String userId = authDetailsServiceImpl.getUserId();
-        return CommonResult.success(blogService.selectLikeBlogs(userId,page));
+    public CommonResult<PageInfo<BlogDto>> selectByUserLike(Integer page,String username){
+        return CommonResult.success(blogService.selectLikeBlogs(username,page));
     }
 
     @PostMapping("insert")
@@ -220,13 +209,5 @@ public class BlogController {
     public CommonResult like(@PathVariable("id") String id){
         UserDto userDto = authDetailsServiceImpl.getUser();
         return CommonResult.success(blogService.like(userDto.getId(),id));
-    }
-
-    @GetMapping("/favorite/{blogId}/insert")
-    @ApiOperation("如果数据库不存在，推荐，如果存在就取消。")
-    public CommonResult favorite(@PathVariable("blogId") String blogId){
-        String userId = authDetailsServiceImpl.getUserId();
-        int favorite = blogService.favorite(userId, blogId);
-        return CommonResult.success(favorite);
     }
 }

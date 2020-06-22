@@ -54,17 +54,9 @@
         from `like_data` l ,`user` u,`blog` b
         where u.id = l.user_id
         and b.id = l.blog_id
-        and u.id = #{userId}
-        order by l.create_date desc
-    </select>
-
-    <select id="selectByUserFavorite" resultType="net.ttcxy.tang.entity.BlogDto">
-        select  b.id,b.title,b.create_date createDate,u.username
-        from `favorite` l ,`user` u,`blog` b
-        where u.id = l.user_id
-        and b.id = l.blog_id
         and u.username = #{username}
         order by l.create_date desc
     </select>
+
 
 </mapper>

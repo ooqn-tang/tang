@@ -22,7 +22,7 @@
                         &nbsp;&nbsp;
                         <span style="color:#b4b4b4" th:text="${#dates.format(blog.createDate,'yyyy.MM.dd')}"></span>
                         <div class="btn-group pull-right">
-                            <button class="btn btn-default btn-xs"  @click="followerClick" >{{follower.text}}</button>
+                            <button class="btn btn-default btn-xs"  @click="followerClick" v-text="follower.text"></button>
                         </div>
                     </div>
                     <h3><strong th:text="${blog.title}"></strong></h3>
@@ -31,31 +31,33 @@
                 </div>
                 <div class="panel-footer">
                     <button th:classappend="${like == 1} ? 'btn btn-danger  btn-xs' : 'btn btn-default btn-xs'" @click="likeClick" id="lkBut">推荐</button>
-                    <button th:classappend="${favorite == 1} ? 'btn btn-danger  btn-xs' : 'btn btn-default btn-xs'" @click="favoriteClick" class="btn btn-default btn-xs" id="scBut">收藏</button>
                     <a th:href="'/editor?blog='+${blog.id}" class="btn btn-default btn-xs"  th:if="${session.SPRING_SECURITY_CONTEXT != null && session.SPRING_SECURITY_CONTEXT.authentication.principal.username == blog.username}">编辑</a>
                 </div>
             </div>
 
             <div class="panel panel-default nob">
                 <div class="panel-heading">
-                    评论
+                    <strong>评论</strong>
                 </div>
-                <div class="panel-body"  id="commentBody" style="overflow-y:scroll;word-wrap:break-word">
-                    <div v-for="(item,index) in comments">
-                        <a v-bind:href="'/author/'+ item.username">{{item.nickname}}</a>
-                        <span style="color:gainsboro" class="pull-right">{{item.createDate}}</span>
+                <div class="panel-body"  id="commentBody" style="word-wrap:break-word">
+                    <div v-for="(item,index) in comments" v-if="comments.length > 0 ">
+                        <a v-bind:href="'/author/'+ item.username" v-text="item.nickname"></a>
+                        <span style="color:gainsboro" class="pull-right" v-text="item.createDate"></span>
                         <span style="color:#dca492;margin-right: 10px;"
                               class="pull-right"
                               @click="deleteComment(item.id,index)"
                               v-if="item.username == commentUsername">删除</span>
-                        <div>{{item.content}}</div><hr>
+                        <div v-text="item.content"></div><hr>
+                    </div>
+                    <div v-if="comments.length == 0">
+                        没有评论...
                     </div>
                 </div>
                 <div class="panel-footer">
                     <div class="input-group">
                         <input type="text" class="form-control " v-model="content">
                         <span class="input-group-btn">
-                        <button type="button" class="btn btn-default" @click="send">发送</button>
+                        <button type="button" class="btn btn-default" @click="send">评论</button>
                     </span>
                     </div>
                 </div>
@@ -115,22 +117,6 @@
                     }
                 });
 
-            },
-            favoriteClick(){
-                if (this.loginUser){
-                    alert("请登录")
-                    return
-                }
-                $.get("/blog/favorite/"+this.blogId+"/insert",function(result){
-                    let scBut = $("#scBut")
-                    if (result.data === 1){
-                        scBut.removeClass();
-                        scBut.addClass("btn btn-danger btn-xs")
-                    }else{
-                        scBut.removeClass();
-                        scBut.addClass("btn btn-default btn-xs")
-                    }
-                });
             },
             followerClick(){
                 if (this.loginUser){
@@ -211,6 +197,7 @@
                     contentType: "application/json",
                     dataType:"json",
                     success:function (result) {
+                        sleep(500)
                         vm.comments = result.data.comments;
                         vm.commentUsername = result.data.user.username;
                     }

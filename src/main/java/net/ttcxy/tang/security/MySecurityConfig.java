@@ -1,10 +1,6 @@
-package net.ttcxy.tang.config;
+package net.ttcxy.tang.security;
 
-import net.ttcxy.tang.authentication.MyAuthenticationEntryPoint;
-import net.ttcxy.tang.authentication.MyAuthenticationFailureHandler;
-import net.ttcxy.tang.authentication.MyAuthenticationSuccessHandler;
 import net.ttcxy.tang.properties.TangProperties;
-import net.ttcxy.tang.util.SpringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,7 +9,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.authentication.rememberme.*;
 
 import javax.sql.DataSource;

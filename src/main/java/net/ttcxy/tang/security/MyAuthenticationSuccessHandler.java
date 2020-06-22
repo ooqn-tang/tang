@@ -1,4 +1,4 @@
-package net.ttcxy.tang.authentication;
+package net.ttcxy.tang.security;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;

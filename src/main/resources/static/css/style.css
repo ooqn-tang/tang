@@ -10,7 +10,7 @@
     white-space: nowrap;
 }
 .load{
-    line-height:70px;height: 100px;text-align:center
+    line-height:72px;height: 100px;text-align:center
 }
 .jy{
     pointer-events:none;color: #b4b4b4
@@ -102,8 +102,11 @@ hr{
     margin-bottom: 5px !important;
 }
 
-.mytab{
+.W20{
     width: 20%;
+}
+.W50{
+    width: 50%;
 }
 
 

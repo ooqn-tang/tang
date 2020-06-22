@@ -4,14 +4,14 @@ import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.RandomUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import net.ttcxy.tang.entity.BlogDto;
-import net.ttcxy.tang.model.*;
-import net.ttcxy.tang.service.AuthDetailsService;
 import net.ttcxy.tang.dao.BlogDao;
+import net.ttcxy.tang.entity.BlogDto;
 import net.ttcxy.tang.mapper.BlogMapper;
 import net.ttcxy.tang.mapper.FavoriteMapper;
 import net.ttcxy.tang.mapper.LikeDataMapper;
 import net.ttcxy.tang.mapper.PageViewMapper;
+import net.ttcxy.tang.model.*;
+import net.ttcxy.tang.service.AuthDetailsService;
 import net.ttcxy.tang.service.BlogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -144,41 +144,16 @@ public class BlogServiceImpl implements BlogService {
         return likeMapper.countByExample(likeExample);
     }
 
-    @Override
-    public long selectFavorite(String userId, String blogId) {
-        FavoriteExample favoriteExample = new FavoriteExample();
-        favoriteExample.createCriteria().andBlogIdEqualTo(blogId).andUserIdEqualTo(userId);
-        return favoriteMapper.countByExample(favoriteExample);
-    }
+
 
     @Override
-    public PageInfo<BlogDto> selectLikeBlogs(String userId,Integer page) {
+    public PageInfo<BlogDto> selectLikeBlogs(String username,Integer page) {
         PageHelper.startPage(page,15);
-        return new PageInfo<>(blogDao.selectLikeBlogs(userId));
+        return new PageInfo<>(blogDao.selectLikeBlogs(username));
     }
 
-    @Override
-    public PageInfo<BlogDto> selectByUserFavorite(String username,Integer page) {
-        PageHelper.startPage(page,15);
-        return new PageInfo<>(blogDao.selectByUserFavorite(username));
-    }
 
-    @Override
-    public int favorite(String userId, String blogId) {
-        Favorite favorite = new Favorite();
-        favorite.setUserId(userId);
-        favorite.setBlogId(blogId);
-        favorite.setCreateDate(new Date());
-        try {
-            return favoriteMapper.insertSelective(favorite);
-        } catch (Exception e) {
-            FavoriteExample favoriteExample = new FavoriteExample();
-            favoriteExample.createCriteria().andBlogIdEqualTo(blogId).andUserIdEqualTo(userId);
 
-            favoriteMapper.deleteByExample(favoriteExample);
-            return 0;
-        }
-    }
 
 
     public static List<String> getRandomBlogs() {
