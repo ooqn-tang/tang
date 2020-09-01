@@ -1,7 +1,7 @@
 package net.ttcxy.tang.dao;
 
-import net.ttcxy.tang.entity.FansDto;
-import net.ttcxy.tang.entity.UserDto;
+import net.ttcxy.tang.entity.Fans;
+import net.ttcxy.tang.entity.LoginUser;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -16,17 +16,17 @@ public interface FansDao {
     /**
      * 查询是否为粉丝
      */
-    int selectFans(FansDto fansDto);
+    int selectFans(Fans fans);
 
     /**
      * 添加粉丝
      */
-    int insertFans(FansDto fansDto);
+    int insertFans(Fans fans);
 
     /**
      * 删除粉丝
      */
-    int deleteFans(FansDto fansDto);
+    int deleteFans(Fans fans);
 
-    List<UserDto> selectFansList(@Param("userId")String userId);
+    List<LoginUser> selectFansList(@Param("userId")String userId);
 }

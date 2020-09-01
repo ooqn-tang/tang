@@ -4,46 +4,35 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.Set;
 
 /**
  * 用户返回值
- * @author huanglei
+ * created by tang on 2020/09/01
  */
-public class UserDto implements UserDetails {
+public class LoginUser implements UserDetails {
 
-    /**
-     * 用户id
-     */
     private String id;
 
-    /**
-     * 用户名
-     */
     private String username;
 
-    /**
-     * 昵称
-     */
-    private String nickname;
-
-    /**
-     * 密码
-     */
     private String password;
 
-    /**
-     * 签名
-     */
+    private String nickname;
+
     private String signature;
 
-    /**
-     * 邮箱
-     */
     private String mail;
+
+    private Set<Role> roles;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 
     @Override

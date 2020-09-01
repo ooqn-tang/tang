@@ -1,9 +1,9 @@
 package net.ttcxy.tang.service;
 
-import net.ttcxy.tang.entity.UserDto;
+import net.ttcxy.tang.entity.LoginUser;
 
 public interface AuthDetailsService {
-    UserDto getUser();
+    LoginUser getUser();
 
     String getUserId();
 }

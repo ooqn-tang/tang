@@ -3,7 +3,7 @@ package net.ttcxy.tang.controller;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.ReUtil;
 import cn.hutool.core.util.StrUtil;
-import net.ttcxy.tang.entity.UserDto;
+import net.ttcxy.tang.entity.LoginUser;
 import net.ttcxy.tang.model.User;
 import net.ttcxy.tang.api.CommonResult;
 import net.ttcxy.tang.service.AuthDetailsService;
@@ -35,9 +35,9 @@ public class UserController {
     private UserService userService;
 
     @PostMapping(value = "user/info")
-    public CommonResult updateUser(@RequestBody UserDto userDto){
+    public CommonResult updateUser(@RequestBody LoginUser loginUser){
         String id = authDetailsService.getUser().getId();
-        String nickname = userDto.getNickname();
+        String nickname = loginUser.getNickname();
 
         ReUtil.contains("dfsdfsd","");
 
@@ -50,20 +50,20 @@ public class UserController {
             return CommonResult.failed("昵称长度：汉字 2 ~ 8,字母 4 ~ 16");
         }
 
-        String signature = userDto.getSignature();
+        String signature = loginUser.getSignature();
         if (StrUtil.isNotBlank(signature)){
             int length = StringProUtil.byteSize(signature);
             if (length > 50){
                 return CommonResult.failed("签名长度为50个之母或25个汉字");
             }
         }
-        userDto.setId(id);
+        loginUser.setId(id);
 
         User user = new User();
-        BeanUtil.copyProperties(userDto,user);
+        BeanUtil.copyProperties(loginUser,user);
         int count = userService.updateUser(user);
         if (count > 0){
-            UserDto uu = authDetailsService.getUser();
+            LoginUser uu = authDetailsService.getUser();
             uu.setNickname(nickname);
             uu.setSignature(signature);
             return CommonResult.success(count);
@@ -75,9 +75,9 @@ public class UserController {
      * 关注用户
      */
     @GetMapping("user/fans")
-    public CommonResult<List<UserDto>> fans(){
+    public CommonResult<List<LoginUser>> fans(){
         String userId = authDetailsService.getUser().getId();
-        List<UserDto> fansList = fansService.selectFansList(userId);
+        List<LoginUser> fansList = fansService.selectFansList(userId);
         return CommonResult.success(fansList);
     }
 
@@ -154,20 +154,20 @@ public class UserController {
         String username = mapBody.get("username");
         String passwordOld = mapBody.get("passwordOld");
         String passwordNew = mapBody.get("passwordNew");
-        UserDto userDto = userService.selectUserByName(username);
-        if (userDto ==null){
+        LoginUser loginUser = userService.selectUserByName(username);
+        if (loginUser ==null){
             return CommonResult.failed("用户不存在");
         }
-        if (!new BCryptPasswordEncoder().matches(passwordOld, userDto.getPassword())){
+        if (!new BCryptPasswordEncoder().matches(passwordOld, loginUser.getPassword())){
             return CommonResult.failed("密码不正确");
         }
         if (StrUtil.isBlank(passwordNew)||passwordNew.length()<=8||passwordNew.length()>=25){
             return CommonResult.failed("密码长度：8~25");
         }
-        userDto.setPassword(new BCryptPasswordEncoder().encode(passwordNew));
+        loginUser.setPassword(new BCryptPasswordEncoder().encode(passwordNew));
 
         User user = new User();
-        BeanUtil.copyProperties(userDto,user);
+        BeanUtil.copyProperties(loginUser,user);
         int count = userService.updateUserPassword(user);
         if (count > 0){
             return CommonResult.success("修改成功");

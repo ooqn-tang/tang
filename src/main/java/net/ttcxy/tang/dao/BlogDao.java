@@ -1,6 +1,6 @@
 package net.ttcxy.tang.dao;
 
-import net.ttcxy.tang.entity.BlogDto;
+import net.ttcxy.tang.entity.Blog;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -15,36 +15,36 @@ public interface BlogDao {
     /**
      * 筛选Blog
      */
-    List<BlogDto> selectBlog();
+    List<Blog> selectBlog();
 
-    List<BlogDto> selectBlogDt();
+    List<Blog> selectBlogDt();
 
     /**
      * 模糊查询
      */
-    List<BlogDto> search(String title);
+    List<Blog> search(String title);
 
     /**
      * 查询所有ID
      */
     Set<String> selectId();
 
-    BlogDto selectByIdTitle(String id);
+    Blog selectByIdTitle(String id);
 
     /**
      * 通过ID获取blog信息
      */
-    BlogDto selectBlogById(String id);
+    Blog selectBlogById(String id);
 
     /**
      * 通过用户名查询博客
      */
-    List<BlogDto> searchByUsername(@Param("username")String username);
+    List<Blog> searchByUsername(@Param("username")String username);
 
     /**
      * 通过用户ID 查询喜欢泪飙
      */
-    List<BlogDto> selectLikeBlogs(@Param("username")String username);
+    List<Blog> selectLikeBlogs(@Param("username")String username);
 
 
 

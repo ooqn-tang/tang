@@ -1,7 +1,7 @@
 package net.ttcxy.tang.service.impl;
 
 import cn.hutool.core.util.ObjectUtil;
-import net.ttcxy.tang.entity.UserDto;
+import net.ttcxy.tang.entity.LoginUser;
 import net.ttcxy.tang.service.AuthDetailsService;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -16,10 +16,10 @@ import org.springframework.stereotype.Service;
 public class AuthDetailsServiceImpl implements AuthDetailsService {
 
     @Override
-    public UserDto getUser(){
+    public LoginUser getUser(){
         try{
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-            return (UserDto)authentication.getPrincipal();
+            return (LoginUser)authentication.getPrincipal();
         }catch(Exception ex){
             return null;
         }
@@ -27,9 +27,9 @@ public class AuthDetailsServiceImpl implements AuthDetailsService {
 
     @Override
     public String getUserId(){
-        UserDto userDto = getUser();
-        if (ObjectUtil.isNotNull(userDto)){
-            return userDto.getId();
+        LoginUser loginUser = getUser();
+        if (ObjectUtil.isNotNull(loginUser)){
+            return loginUser.getId();
         }
         return "";
     }

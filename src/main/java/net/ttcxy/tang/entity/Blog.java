@@ -8,7 +8,7 @@ import java.util.Date;
  * Blog模型类
  * @author huanglei
  */
-public class BlogDto {
+public class Blog {
 
     /**
      * 博客id

@@ -1,6 +1,6 @@
 package net.ttcxy.tang.config;
 
-import net.ttcxy.tang.entity.UserDto;
+import net.ttcxy.tang.entity.LoginUser;
 import net.ttcxy.tang.service.AuthDetailsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,8 +29,8 @@ public class NetworkAddressHandlerInterceptor implements HandlerInterceptor {
      */
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
-        UserDto userDto = authDetailsService.getUser();
-        String userId = userDto == null ? "未登陆用户": userDto.getId();
+        LoginUser loginUser = authDetailsService.getUser();
+        String userId = loginUser == null ? "未登陆用户": loginUser.getId();
         String address = request.getLocalAddr();
         logger.info("userId ：{}，address ：{}" , userId , address);
         return true;

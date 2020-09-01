@@ -1,6 +1,6 @@
 package net.ttcxy.tang.service;
 
-import net.ttcxy.tang.entity.UserDto;
+import net.ttcxy.tang.entity.LoginUser;
 import net.ttcxy.tang.model.User;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +14,7 @@ public interface UserService {
      * @param name
      * @return
      */
-    UserDto selectUserByName(String name) ;
+    LoginUser selectUserByName(String name) ;
 
     /**
      * 添加用户

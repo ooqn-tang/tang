@@ -1,7 +1,7 @@
 package net.ttcxy.tang.service.impl;
 
 import net.ttcxy.tang.dao.CommentDao;
-import net.ttcxy.tang.entity.CommentDto;
+import net.ttcxy.tang.entity.Comment;
 import net.ttcxy.tang.model.BlogComment;
 import net.ttcxy.tang.model.BlogCommentExample;
 import net.ttcxy.tang.service.AuthDetailsService;
@@ -49,7 +49,7 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public List<CommentDto> selectComment(String blogId) {
+    public List<Comment> selectComment(String blogId) {
         return commentDao.selectComment(blogId);
     }
 }

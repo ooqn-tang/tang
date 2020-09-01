@@ -3,7 +3,7 @@ package net.ttcxy.tang.service.impl;
 import cn.hutool.core.util.IdUtil;
 import com.github.pagehelper.PageHelper;
 import net.ttcxy.tang.dao.UserDao;
-import net.ttcxy.tang.entity.UserDto;
+import net.ttcxy.tang.entity.LoginUser;
 import net.ttcxy.tang.model.User;
 import net.ttcxy.tang.model.UserExample;
 import net.ttcxy.tang.mapper.UserMapper;
@@ -28,7 +28,7 @@ public class UserServiceImpl implements UserService {
     private UserMapper userMapper;
 
     @Override
-    public UserDto selectUserByName(String username) {
+    public LoginUser selectUserByName(String username) {
         return userDao.selectUserByName(username);
     }
 

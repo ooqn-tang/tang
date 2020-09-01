@@ -5,7 +5,7 @@ package net.ttcxy.tang.entity;
  * 广告实体类
  * @author huanglei
  */
-public class AdvertiseDto {
+public class Advertise {
 
     private String id;
 

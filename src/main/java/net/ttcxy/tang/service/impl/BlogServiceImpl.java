@@ -5,7 +5,7 @@ import cn.hutool.core.util.RandomUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import net.ttcxy.tang.dao.BlogDao;
-import net.ttcxy.tang.entity.BlogDto;
+import net.ttcxy.tang.entity.Blog;
 import net.ttcxy.tang.mapper.BlogMapper;
 import net.ttcxy.tang.mapper.FavoriteMapper;
 import net.ttcxy.tang.mapper.LikeDataMapper;
@@ -48,25 +48,25 @@ public class BlogServiceImpl implements BlogService {
     private LikeDataMapper likeMapper;
 
     @Override
-    public PageInfo<BlogDto> showDt(Integer page) {
+    public PageInfo<Blog> showDt(Integer page) {
         PageHelper.startPage(page, 100);
         return new PageInfo<>(blogDao.selectBlogDt());
     }
 
     @Override
-    public PageInfo<BlogDto> search(String title, Integer page) {
+    public PageInfo<Blog> search(String title, Integer page) {
         PageHelper.startPage(page, 15);
         return new PageInfo<>(blogDao.search(title));
     }
 
     @Override
-    public PageInfo<BlogDto> searchByUsername(String username,Integer page) {
+    public PageInfo<Blog> searchByUsername(String username, Integer page) {
         PageHelper.startPage(page,15);
         return  new PageInfo<>(blogDao.searchByUsername(username));
     }
 
     @Override
-    public int insertBlog(Blog blog) {
+    public int insertBlog(net.ttcxy.tang.model.Blog blog) {
         int count = blogMapper.insertSelective(blog);
         if (count > 0){
             randomBlogs.add(blog.getId());
@@ -75,7 +75,7 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
-    public int updateBlog(Blog blog) {
+    public int updateBlog(net.ttcxy.tang.model.Blog blog) {
         String blogId = blog.getId();
         String userId = authDetailsServiceImpl.getUserId();
 
@@ -118,9 +118,9 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
-    public BlogDto selectBlogById(String id) {
-        BlogDto blogDto = blogDao.selectBlogById(id);
-        if (blogDto != null){
+    public Blog selectBlogById(String id) {
+        Blog blog = blogDao.selectBlogById(id);
+        if (blog != null){
             PageView pageView = new PageView();
             pageView.setId(IdUtil.fastSimpleUUID());
             pageView.setBlogId(id);
@@ -128,11 +128,11 @@ public class BlogServiceImpl implements BlogService {
             pageView.setCreateDatetime(new Date());
             pageViewMapper.insertSelective(pageView);
         }
-        return blogDto;
+        return blog;
     }
 
     @Override
-    public Blog selectByPrimaryId(String id) {
+    public net.ttcxy.tang.model.Blog selectByPrimaryId(String id) {
         return blogMapper.selectByPrimaryKey(id);
     }
 
@@ -147,7 +147,7 @@ public class BlogServiceImpl implements BlogService {
 
 
     @Override
-    public PageInfo<BlogDto> selectLikeBlogs(String username,Integer page) {
+    public PageInfo<Blog> selectLikeBlogs(String username, Integer page) {
         PageHelper.startPage(page,15);
         return new PageInfo<>(blogDao.selectLikeBlogs(username));
     }
@@ -161,20 +161,20 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
-    public PageInfo<BlogDto> selectBlogs(Integer page) {
+    public PageInfo<Blog> selectBlogs(Integer page) {
         int randomInt = RandomUtil.randomInt(0, randomBlogs.size());
-        BlogDto blogDto = blogDao.selectByIdTitle(randomBlogs.get(randomInt));
+        Blog blog = blogDao.selectByIdTitle(randomBlogs.get(randomInt));
 
         PageHelper.startPage(page,15);
-        List<BlogDto> dtos = blogDao.selectBlog();
-        if (blogDto!=null){
-            dtos.add(0,blogDto);
+        List<Blog> dtos = blogDao.selectBlog();
+        if (blog !=null){
+            dtos.add(0, blog);
         }
         return new PageInfo<>(dtos);
     }
 
     @Override
-    public BlogDto random() {
+    public Blog random() {
         int randomInt = RandomUtil.randomInt(0, randomBlogs.size());
         return blogDao.selectByIdTitle(randomBlogs.get(randomInt));
     }

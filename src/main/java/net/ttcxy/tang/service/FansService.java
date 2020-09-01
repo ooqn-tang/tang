@@ -1,6 +1,6 @@
 package net.ttcxy.tang.service;
 
-import net.ttcxy.tang.entity.UserDto;
+import net.ttcxy.tang.entity.LoginUser;
 
 import java.util.List;
 
@@ -12,6 +12,6 @@ public interface FansService {
 
     int deleteFans(String fansName);
 
-    List<UserDto> selectFansList(String userId);
+    List<LoginUser> selectFansList(String userId);
 
 }
