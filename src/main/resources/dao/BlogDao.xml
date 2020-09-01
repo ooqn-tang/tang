@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.ttcxy.tang.dao.BlogDao">
+    <select id="selectBlog" resultType="net.ttcxy.tang.entity.BlogDto">
+      select b.id,title,create_date  createDate,username,nickname
+        FROM `blog` b,`user` u
+        where u.id = b.user_id
+        and  b.state_id = 1
+        order by create_date desc
+    </select>
+    <select id="selectBlogDt" resultType="net.ttcxy.tang.entity.BlogDto">
+      select id,title
+        FROM `blog`
+        order by create_date
+    </select>
+    <select id="selectId" resultType="String">
+        select id FROM `blog`
+        where state_id = 1
+    </select>
+    <select id="selectByIdTitle" resultType="net.ttcxy.tang.entity.BlogDto">
+        select b.id,title,create_date createDate,username,nickname
+        FROM `blog` b,`user` u
+        where u.id = b.user_id
+        and  b.id = #{id}
+    </select>
+    <select id="search" resultType="net.ttcxy.tang.entity.BlogDto">
+        select b.id,title,create_date createDate,username,nickname
+        FROM `blog` b,`user` u
+        where u.id = b.user_id
+        and  b.state_id = 1
+        and b.title LIKE concat("%"#{title},"%")
+        order by create_date desc
+    </select>
+
+    <select id="selectBlogById" resultType="net.ttcxy.tang.entity.BlogDto">
+        select b.id,b.title,b.create_date createDate,b.text,u.username,nickname
+        from `blog` b,`user` u
+        where b.user_id = u.id
+        and b.id = #{id}
+    </select>
+
+    <select id="searchByUsername" resultType="net.ttcxy.tang.entity.BlogDto">
+        select *, create_date  createDate
+        from `blog` b, `user` u
+        where b.user_id = u.id
+        and username = #{username}
+        order by b.create_date desc
+    </select>
+
+    <select id="selectLikeBlogs" resultType="net.ttcxy.tang.entity.BlogDto">
+        select  b.id,b.title,b.create_date createDate,u.username
+        from `like_data` l ,`user` u,`blog` b
+        where u.id = l.user_id
+        and b.id = l.blog_id
+        and u.username = #{username}
+        order by l.create_date desc
+    </select>
+
+
+</mapper>
