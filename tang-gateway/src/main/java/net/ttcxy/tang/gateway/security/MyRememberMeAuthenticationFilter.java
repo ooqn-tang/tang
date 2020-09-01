@@ -1,4 +1,4 @@
-package net.ttcxy.tang.gateway.filter;
+package net.ttcxy.tang.gateway.security;
 
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.authentication.AuthenticationManager;

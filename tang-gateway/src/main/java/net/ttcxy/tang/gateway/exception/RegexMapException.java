@@ -1,4 +1,4 @@
-package net.ttcxy.tang.gateway.util.exception;
+package net.ttcxy.tang.gateway.exception;
 
 /**
  * @author huanglei
