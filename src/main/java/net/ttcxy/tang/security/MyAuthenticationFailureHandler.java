@@ -1,8 +1,10 @@
 package net.ttcxy.tang.security;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 import org.springframework.stereotype.Component;
+import sun.security.provider.certpath.OCSPResponse;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,6 +22,8 @@ public class MyAuthenticationFailureHandler extends SimpleUrlAuthenticationFailu
                                         HttpServletResponse httpServletResponse,
                                         AuthenticationException exception) throws IOException {
         // TODO 需要修改为异步FROM表单登陆
-        httpServletResponse.sendRedirect("/login");
+        httpServletResponse.setContentType("application/json;charset=utf-8");
+        httpServletResponse.setStatus(403);
+        httpServletResponse.getWriter().append(exception.getMessage());
     }
 }

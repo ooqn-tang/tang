@@ -1,10 +1,12 @@
 package net.ttcxy.tang.entity;
 
+import org.springframework.security.core.GrantedAuthority;
+
 /**
  * 角色
  * @author huanglei
  */
-public class RoleDto {
+public class GroupDto implements GrantedAuthority {
 
     static final long serialVersionUID = 1L;
 
@@ -33,10 +35,7 @@ public class RoleDto {
     }
 
     @Override
-    public String toString() {
-        return "RoleDto{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                '}';
+    public String getAuthority() {
+        return "ROLE_" + name;
     }
 }

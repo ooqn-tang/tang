@@ -3,7 +3,7 @@ package net.ttcxy.tang.entity;
 /**
  * @author huanglei
  */
-public class UserRoleDto {
+public class UserGroupDto {
 
     static final long serialVersionUID = 1L;
 
@@ -31,11 +31,4 @@ public class UserRoleDto {
         this.roleId = roleId;
     }
 
-    @Override
-    public String toString() {
-        return "UserRoleDto{" +
-                "userId='" + userId + '\'' +
-                ", roleId='" + roleId + '\'' +
-                '}';
-    }
 }

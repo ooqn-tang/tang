@@ -2,6 +2,7 @@ package net.ttcxy.tang.security;
 
 import net.ttcxy.tang.properties.TangProperties;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -78,7 +79,7 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
                 //结束上一个登录配置，开始“记住我”的配置
                 .and()
                 //关闭csrf安全
-                .csrf().disable();
+                .csrf();
     }
 
     /**

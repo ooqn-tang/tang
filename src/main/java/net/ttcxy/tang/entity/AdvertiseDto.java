@@ -67,15 +67,4 @@ public class AdvertiseDto {
         this.description = description;
     }
 
-    @Override
-    public String toString() {
-        return "AdvertiseDto{" +
-                "id='" + id + '\'' +
-                ", title='" + title + '\'' +
-                ", url='" + url + '\'' +
-                ", createDate='" + createDate + '\'' +
-                ", deliveryTime='" + deliveryTime + '\'' +
-                ", description='" + description + '\'' +
-                '}';
-    }
 }

@@ -1,7 +1,7 @@
 package net.ttcxy.tang.dao;
 
 import net.ttcxy.tang.entity.FansDto;
-import net.ttcxy.tang.entity.UserDto;
+import net.ttcxy.tang.entity.LoginUser;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -28,5 +28,5 @@ public interface FansDao {
      */
     int deleteFans(FansDto fansDto);
 
-    List<UserDto> selectFansList(@Param("userId")String userId);
+    List<LoginUser> selectFansList(@Param("userId")String userId);
 }

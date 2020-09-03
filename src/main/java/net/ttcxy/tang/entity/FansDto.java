@@ -68,15 +68,4 @@ public class FansDto {
         this.createDate = createDate;
     }
 
-    @Override
-    public String toString() {
-        return "FansDto{" +
-                "id='" + id + '\'' +
-                ", userId='" + userId + '\'' +
-                ", follower='" + follower + '\'' +
-                ", nickname='" + nickname + '\'' +
-                ", username='" + username + '\'' +
-                ", createDate=" + createDate +
-                '}';
-    }
 }

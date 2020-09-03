@@ -178,22 +178,4 @@ public class BlogDto {
         this.praiseCount = praiseCount;
     }
 
-    @Override
-    public String toString() {
-        return "BlogDto{" +
-                "id='" + id + '\'' +
-                ", title='" + title + '\'' +
-                ", username='" + username + '\'' +
-                ", nickname='" + nickname + '\'' +
-                ", userId='" + userId + '\'' +
-                ", createDate=" + createDate +
-                ", text='" + text + '\'' +
-                ", markdown='" + markdown + '\'' +
-                ", type='" + type + '\'' +
-                ", stateId='" + stateId + '\'' +
-                ", stateName='" + stateName + '\'' +
-                ", commentCount=" + commentCount +
-                ", praiseCount=" + praiseCount +
-                '}';
-    }
 }

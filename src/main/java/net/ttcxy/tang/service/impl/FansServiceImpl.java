@@ -3,7 +3,7 @@ package net.ttcxy.tang.service.impl;
 import cn.hutool.core.util.IdUtil;
 import net.ttcxy.tang.dao.UserDao;
 import net.ttcxy.tang.entity.FansDto;
-import net.ttcxy.tang.entity.UserDto;
+import net.ttcxy.tang.entity.LoginUser;
 import net.ttcxy.tang.service.AuthDetailsService;
 import net.ttcxy.tang.dao.FansDao;
 import net.ttcxy.tang.service.FansService;
@@ -54,20 +54,20 @@ public class FansServiceImpl implements FansService {
     }
 
     @Override
-    public List<UserDto> selectFansList(String userId) {
+    public List<LoginUser> selectFansList(String userId) {
         return fansDao.selectFansList(userId);
     }
 
     private FansDto getFans(String fansName){
-        UserDto userDtoAuth = authDetailsServiceImpl.getUser();
-        if (userDtoAuth ==null){
+        LoginUser loginUserAuth = authDetailsServiceImpl.getUser();
+        if (loginUserAuth ==null){
             return null;
         }
-        UserDto userDto = userDao.selectUserByName(fansName);
+        LoginUser loginUser = userDao.selectUserByName(fansName);
         FansDto fansDto = new FansDto();
         fansDto.setId(IdUtil.fastSimpleUUID());
-        fansDto.setUserId(userDtoAuth.getId());
-        fansDto.setFollower(userDto.getId());
+        fansDto.setUserId(loginUserAuth.getId());
+        fansDto.setFollower(loginUser.getId());
         fansDto.setCreateDate(new Date());
 
         return fansDto;

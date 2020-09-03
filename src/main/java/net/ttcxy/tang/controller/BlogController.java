@@ -7,7 +7,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import net.ttcxy.tang.entity.BlogDto;
 import net.ttcxy.tang.entity.CommentDto;
-import net.ttcxy.tang.entity.UserDto;
+import net.ttcxy.tang.entity.LoginUser;
 import net.ttcxy.tang.model.Blog;
 import net.ttcxy.tang.api.CommonResult;
 import net.ttcxy.tang.service.AuthDetailsService;
@@ -119,7 +119,7 @@ public class BlogController {
             return CommonResult.failed("评论不能为空");
         }
 
-        UserDto user = authDetailsServiceImpl.getUser();
+        LoginUser user = authDetailsServiceImpl.getUser();
         commentDto.setId(IdUtil.fastSimpleUUID());
         commentDto.setUserId(user.getId());
         commentDto.setCreateDate(new Date());
@@ -162,8 +162,8 @@ public class BlogController {
     public CommonResult load(@RequestParam(name="blog",required = false) String blogId){
 
         Blog blog = blogService.selectByPrimaryId(blogId);
-        UserDto userDto = authDetailsServiceImpl.getUser();
-        if(blog.getUserId().equals(userDto.getId())){
+        LoginUser loginUser = authDetailsServiceImpl.getUser();
+        if(blog.getUserId().equals(loginUser.getId())){
             return CommonResult.success(blog);
         }else{
             return CommonResult.failed("无法修改别人的Blog");
@@ -207,7 +207,7 @@ public class BlogController {
     @GetMapping("/like/{id}/insert")
     @ApiOperation("喜欢blog.如果数据库不存在，推荐，如果存在就取消。")
     public CommonResult like(@PathVariable("id") String id){
-        UserDto userDto = authDetailsServiceImpl.getUser();
-        return CommonResult.success(blogService.like(userDto.getId(),id));
+        LoginUser loginUser = authDetailsServiceImpl.getUser();
+        return CommonResult.success(blogService.like(loginUser.getId(),id));
     }
 }

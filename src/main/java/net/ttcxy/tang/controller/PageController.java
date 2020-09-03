@@ -1,7 +1,7 @@
 package net.ttcxy.tang.controller;
 
 import net.ttcxy.tang.entity.BlogDto;
-import net.ttcxy.tang.entity.UserDto;
+import net.ttcxy.tang.entity.LoginUser;
 import net.ttcxy.tang.service.AuthDetailsService;
 import net.ttcxy.tang.service.BlogService;
 import net.ttcxy.tang.service.UserService;
@@ -71,14 +71,14 @@ public class PageController {
      */
     @GetMapping("author/{username}")
     public ModelAndView toUserHome(@PathVariable("username")String username, ModelAndView modelAndView){
-        UserDto userDto = userService.selectUserByName(username);
-        if (userDto == null){
+        LoginUser loginUser = userService.selectUserByName(username);
+        if (loginUser == null){
             modelAndView.setStatus(HttpStatus.NOT_FOUND);
             modelAndView.setViewName("404");
             return modelAndView;
         }
         modelAndView.setViewName("home");
-        modelAndView.addObject("user",userDto);
+        modelAndView.addObject("user", loginUser);
         return modelAndView;
     }
 
@@ -88,7 +88,7 @@ public class PageController {
     @GetMapping("post/{id}")
     public ModelAndView toBlog(@PathVariable("id")String blogId, ModelAndView modelAndView){
 
-        UserDto userDto = authDetailsServiceImpl.getUser();
+        LoginUser loginUser = authDetailsServiceImpl.getUser();
 
         BlogDto blogDto = blogService.selectBlogById(blogId);
 
@@ -98,8 +98,8 @@ public class PageController {
             return modelAndView;
         }
 
-        if (userDto !=null){
-            String userId = userDto.getId();
+        if (loginUser !=null){
+            String userId = loginUser.getId();
             // 如果用户没有登陆，不需要查询是否喜欢或收藏
             // 是否喜欢了当前博客
             modelAndView.addObject("like",blogService.selectLike(userId,blogId));

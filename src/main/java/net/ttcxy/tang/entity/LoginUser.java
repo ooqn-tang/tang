@@ -4,12 +4,13 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.Set;
 
 /**
  * 用户返回值
  * @author huanglei
  */
-public class UserDto implements UserDetails {
+public class LoginUser implements UserDetails {
 
     /**
      * 用户id
@@ -41,9 +42,14 @@ public class UserDto implements UserDetails {
      */
     private String mail;
 
+    /**
+     * 用户组
+     */
+    private Set<GroupDto> groups;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return groups;
     }
 
     @Override
@@ -117,15 +123,4 @@ public class UserDto implements UserDetails {
         this.mail = mail;
     }
 
-    @Override
-    public String toString() {
-        return "UserDto{" +
-                "id='" + id + '\'' +
-                ", username='" + username + '\'' +
-                ", nickname='" + nickname + '\'' +
-                ", password='" + password + '\'' +
-                ", signature='" + signature + '\'' +
-                ", mail='" + mail + '\'' +
-                '}';
-    }
 }

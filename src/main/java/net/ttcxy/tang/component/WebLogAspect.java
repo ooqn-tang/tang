@@ -4,7 +4,7 @@ import cn.hutool.core.util.StrUtil;
 import cn.hutool.core.util.URLUtil;
 import cn.hutool.json.JSONUtil;
 import io.swagger.annotations.ApiOperation;
-import net.ttcxy.tang.entity.WebLog;
+import net.ttcxy.tang.entity.WebLogDto;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.Signature;
@@ -59,33 +59,33 @@ public class WebLogAspect {
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = attributes.getRequest();
         //记录请求信息(通过Logstash传入Elasticsearch)
-        WebLog webLog = new WebLog();
+        WebLogDto webLogDto = new WebLogDto();
         Object result = joinPoint.proceed();
         Signature signature = joinPoint.getSignature();
         MethodSignature methodSignature = (MethodSignature) signature;
         Method method = methodSignature.getMethod();
         if (method.isAnnotationPresent(ApiOperation.class)) {
             ApiOperation log = method.getAnnotation(ApiOperation.class);
-            webLog.setDescription(log.value());
+            webLogDto.setDescription(log.value());
         }
         long endTime = System.currentTimeMillis();
         String urlStr = request.getRequestURL().toString();
-        webLog.setBasePath(StrUtil.removeSuffix(urlStr, URLUtil.url(urlStr).getPath()));
-        webLog.setIp(request.getRemoteUser());
-        webLog.setMethod(request.getMethod());
-        webLog.setParameter(getParameter(method, joinPoint.getArgs()));
-        webLog.setResult(result);
-        webLog.setSpendTime((int) (endTime - startTime));
-        webLog.setStartTime(startTime);
-        webLog.setUri(request.getRequestURI());
-        webLog.setUrl(request.getRequestURL().toString());
+        webLogDto.setBasePath(StrUtil.removeSuffix(urlStr, URLUtil.url(urlStr).getPath()));
+        webLogDto.setIp(request.getRemoteUser());
+        webLogDto.setMethod(request.getMethod());
+        webLogDto.setParameter(getParameter(method, joinPoint.getArgs()));
+        webLogDto.setResult(result);
+        webLogDto.setSpendTime((int) (endTime - startTime));
+        webLogDto.setStartTime(startTime);
+        webLogDto.setUri(request.getRequestURI());
+        webLogDto.setUrl(request.getRequestURL().toString());
         Map<String,Object> logMap = new HashMap<>();
-        logMap.put("url",webLog.getUrl());
-        logMap.put("method",webLog.getMethod());
-        logMap.put("parameter",webLog.getParameter());
-        logMap.put("spendTime",webLog.getSpendTime());
-        logMap.put("description",webLog.getDescription());
-        logger.info("{}", JSONUtil.parse(webLog));
+        logMap.put("url", webLogDto.getUrl());
+        logMap.put("method", webLogDto.getMethod());
+        logMap.put("parameter", webLogDto.getParameter());
+        logMap.put("spendTime", webLogDto.getSpendTime());
+        logMap.put("description", webLogDto.getDescription());
+        logger.info("{}", JSONUtil.parse(webLogDto));
         return result;
     }
 
