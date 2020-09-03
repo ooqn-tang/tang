@@ -3,9 +3,9 @@ package net.ttcxy.tang.entity;
 
 /**
  * 广告实体类
- * @author huanglei
+ * created by huanglei on 2020/09/01
  */
-public class AdvertiseDto {
+public class Advertise {
 
     private String id;
 
