@@ -1,4 +1,4 @@
-package net.ttcxy.tang.util.exception;
+package net.ttcxy.tang.exception;
 
 /**
  * @author huanglei

@@ -1,6 +1,6 @@
 package net.ttcxy.tang.util;
 
-import net.ttcxy.tang.util.exception.RegexMapException;
+import net.ttcxy.tang.exception.RegexMapException;
 
 import java.util.Map;
 import java.util.regex.Pattern;

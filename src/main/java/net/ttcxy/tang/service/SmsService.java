@@ -1,7 +1,5 @@
 package net.ttcxy.tang.service;
 
-import org.springframework.stereotype.Service;
-
 public interface SmsService {
 
     /**

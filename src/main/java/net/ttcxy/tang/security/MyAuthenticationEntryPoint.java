@@ -6,7 +6,6 @@ import net.ttcxy.tang.api.CommonResult;
 import net.ttcxy.tang.api.ResultCode;
 import net.ttcxy.tang.properties.TangProperties;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;

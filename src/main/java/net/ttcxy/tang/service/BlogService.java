@@ -1,8 +1,7 @@
 package net.ttcxy.tang.service;
 
 import com.github.pagehelper.PageInfo;
-import net.ttcxy.tang.entity.BlogDto;
-import net.ttcxy.tang.model.Blog;
+import net.ttcxy.tang.entity.Blog;
 
 /**
  * 博客操作
@@ -11,7 +10,7 @@ import net.ttcxy.tang.model.Blog;
 public interface BlogService {
 
 
-    PageInfo<BlogDto> showDt(Integer page);
+    PageInfo<Blog> showDt(Integer page);
 
 
     /**
@@ -20,14 +19,14 @@ public interface BlogService {
      * @param page 页码
      * @return  BlogDto list
      */
-    PageInfo<BlogDto> search(String title, Integer page);
+    PageInfo<Blog> search(String title, Integer page);
 
     /**
      * 通过用户名查询所有BLOG
      * @param username 用户名
      * @return BlogDto list
      */
-    PageInfo<BlogDto> searchByUsername(String username,Integer page);
+    PageInfo<Blog> searchByUsername(String username, Integer page);
 
 
     /**
@@ -35,19 +34,19 @@ public interface BlogService {
      * @param id  id
      * @return 博客
      */
-    BlogDto selectBlogById(String id);
+    Blog selectBlogById(String id);
 
     /**
      * 添加blog
      */
-    int insertBlog(Blog blog);
+    int insertBlog(net.ttcxy.tang.model.Blog blog);
 
     /**
      * 更新博客
      * @param blog blog
      * @return 影响的行数
      */
-    int updateBlog(Blog blog);
+    int updateBlog(net.ttcxy.tang.model.Blog blog);
 
     /**
      * 删除博客
@@ -67,7 +66,7 @@ public interface BlogService {
      * @param blogId
      * @return
      */
-    Blog selectByPrimaryId(String blogId);
+    net.ttcxy.tang.model.Blog selectByPrimaryId(String blogId);
 
     /**
      * 查询我是否喜欢了当前Blog
@@ -81,14 +80,14 @@ public interface BlogService {
      * 查询用户喜欢的所有BLOG
      * @return
      */
-    PageInfo<BlogDto> selectLikeBlogs(String username,Integer page);
+    PageInfo<Blog> selectLikeBlogs(String username, Integer page);
 
 
-    PageInfo<BlogDto> selectBlogs(Integer page);
+    PageInfo<Blog> selectBlogs(Integer page);
 
     /**
      * 随机获取一条博客
      * @return
      */
-    BlogDto random();
+    Blog random();
 }

@@ -1,7 +1,6 @@
 package net.ttcxy.tang.controller.admin;
 
 import io.swagger.annotations.Api;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
