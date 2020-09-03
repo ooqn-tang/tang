@@ -39,7 +39,7 @@ public class WebLogAspect {
 
     private Logger logger = LoggerFactory.getLogger(getClass());
 
-    @Pointcut("execution(public * net.ttcxy.tang.controller.*.*(..))")
+    @Pointcut("execution(public * net.ttcxy.tang.gateway.controller.*.*(..))")
     public void webLog() {
     }
 
