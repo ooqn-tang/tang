@@ -30,11 +30,11 @@
             <property name="nullCatalogMeansCurrent" value="true" />
         </jdbcConnection>
 
-        <javaModelGenerator targetPackage="net.ttcxy.tang.model" targetProject="src\main\java"/>
+        <javaModelGenerator targetPackage="net.ttcxy.tang.gateway.model" targetProject="src\main\java"/>
 
         <sqlMapGenerator targetPackage="mapper" targetProject="src\main\resources"/>
 
-        <javaClientGenerator type="XMLMAPPER" targetPackage="net.ttcxy.tang.mapper" targetProject="src\main\java"/>
+        <javaClientGenerator type="XMLMAPPER" targetPackage="net.ttcxy.tang.gateway.mapper" targetProject="src\main\java"/>
         <!--生成全部表tableName设为%-->
         <table tableName="%">
             <!--<generatedKey column="id" sqlStatement="MySql" identity="true"/>-->
