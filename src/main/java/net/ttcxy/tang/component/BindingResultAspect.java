@@ -18,7 +18,7 @@ import org.springframework.validation.FieldError;
 @Component
 @Order(2)
 public class BindingResultAspect {
-    @Pointcut("execution(public * net.ttcxy.tang.controller.*.*(..))")
+    @Pointcut("execution(public * net.ttcxy.tang.gateway.controller.*.*(..))")
     public void bindingResult() {
     }
 
