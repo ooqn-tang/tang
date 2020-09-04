@@ -3,12 +3,12 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="net.ttcxy.tang.dao.CommentDao">
-    <resultMap id="CommentMap" type="net.ttcxy.tang.entity.Comment">
+    <resultMap id="CommentMap" type="net.ttcxy.tang.entity.CommentDto">
         <id column="id" jdbcType="VARCHAR" property="id" />
         <result column="blog_id" jdbcType="VARCHAR" property="blogId"/>
     </resultMap>
 
-    <select id="selectComment" resultType="net.ttcxy.tang.entity.Comment">
+    <select id="selectComment" resultType="net.ttcxy.tang.entity.CommentDto">
         select bc.user_id,bc.id,bc.blog_id,bc.status,u.nickname,u.username,bc.create_date,bc.content
         from `blog_comment` bc , `user` u
         where u.id = bc.user_id

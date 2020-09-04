@@ -10,7 +10,7 @@ import java.util.Date;
  * @author ：huanglei
  * @date ：2020/4/18 0018 15:14
  */
-public class Comment extends BlogComment {
+public class CommentDto extends BlogComment {
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @JsonFormat(pattern="yyyy.MM.dd",timezone = "GMT+8")

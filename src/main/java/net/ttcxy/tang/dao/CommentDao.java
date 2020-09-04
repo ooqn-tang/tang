@@ -1,6 +1,6 @@
 package net.ttcxy.tang.dao;
 
-import net.ttcxy.tang.entity.Comment;
+import net.ttcxy.tang.entity.CommentDto;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 
@@ -18,7 +18,7 @@ public interface CommentDao {
      */
     @Insert("insert into blog_comment (id,blog_id,status,user_id,content,create_date)" +
             "values(#{id},#{blogId},#{status},#{userId},#{content},#{createDate})")
-    int insertComment(Comment comment);
+    int insertComment(CommentDto commentDto);
 
     /**
      * 删除评论 commentId
@@ -29,5 +29,5 @@ public interface CommentDao {
     /**
      * 通过BlogId 查询评论
      */
-    List<Comment> selectComment(String blogId);
+    List<CommentDto> selectComment(String blogId);
 }

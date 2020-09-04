@@ -29,7 +29,7 @@
 </head>
 <body>
 <div class="modal-dialog content">
-    <form action="/login/form" method="post" >
+    <form action="/doLogin" method="post" >
     <div class="modal-content">
         <div class="modal-header">
             <h4 class="modal-title text-center" id="myModalLabel" >登录</h4>
@@ -47,6 +47,7 @@
             <div class="form-group">
                 <button type="submit" class="btn btn-primary form-control">登录</button>
             </div>
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
             <div class="btn-group" style="width: 100%;">
                 <a style="width: 50%;" type="button" href="/register" class="btn btn-default">注册</a>
                 <a style="width: 50%;" type="button" href="/" class="btn btn-default">返回首页</a>

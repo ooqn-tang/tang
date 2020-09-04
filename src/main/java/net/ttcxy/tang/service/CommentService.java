@@ -1,6 +1,6 @@
 package net.ttcxy.tang.service;
 
-import net.ttcxy.tang.entity.Comment;
+import net.ttcxy.tang.entity.CommentDto;
 import net.ttcxy.tang.model.BlogComment;
 
 import java.util.List;
@@ -30,5 +30,5 @@ public interface CommentService {
      * @param blogId
      * @return
      */
-    List<Comment> selectComment(String blogId);
+    List<CommentDto> selectComment(String blogId);
 }

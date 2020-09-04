@@ -93,11 +93,11 @@
 
         $("#content").html(html)
     }
-    let blog = getUrlParam("blog");
-    if (blog!=null){
+    let blogDto = getUrlParam("blogDto");
+    if (blogDto!=null){
         $.ajax({
             type:"get",
-            url:"/blog/load"+"?blog="+blog,
+            url:"/blogDto/load"+"?blogDto="+blogDto,
             contentType: "application/json", //必须这样写
             success:function (result) {
                 if (result.code===200){
@@ -114,7 +114,7 @@
         if (r != null) return unescape(r[2]); return null; //返回参数值
     }
     $("#send").click(function(){
-        let blog = getUrlParam("blog");
+        let blogDto = getUrlParam("blogDto");
         let title = $("#title").val();
         let markdown = $("#text").val();
         let html = marked(markdown)
@@ -128,17 +128,17 @@
             return
         }
 
-        if (blog==null){
+        if (blogDto==null){
             insert(title,markdown,html);
         } else{
-            update(blog,title,markdown,html);
+            update(blogDto,title,markdown,html);
         }
 
     })
     function insert(title,markdown,html){
         $.ajax({
             type:"POST",
-            url:"/blog/insert",
+            url:"/blogDto/insert",
             contentType: "application/json", //必须这样写
             dataType:"json",
             data:JSON.stringify({
@@ -158,7 +158,7 @@
     function update(id,title,markdown,html){
         $.ajax({
             type:"POST",
-            url:"/blog/update",
+            url:"/blogDto/update",
             contentType: "application/json", //必须这样写
             dataType:"json",
             data:JSON.stringify({

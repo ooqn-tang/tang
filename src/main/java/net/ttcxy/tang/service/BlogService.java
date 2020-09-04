@@ -1,7 +1,7 @@
 package net.ttcxy.tang.service;
 
 import com.github.pagehelper.PageInfo;
-import net.ttcxy.tang.entity.Blog;
+import net.ttcxy.tang.entity.BlogDto;
 
 /**
  * 博客操作
@@ -10,7 +10,7 @@ import net.ttcxy.tang.entity.Blog;
 public interface BlogService {
 
 
-    PageInfo<Blog> showDt(Integer page);
+    PageInfo<BlogDto> showDt(Integer page);
 
 
     /**
@@ -19,14 +19,14 @@ public interface BlogService {
      * @param page 页码
      * @return  BlogDto list
      */
-    PageInfo<Blog> search(String title, Integer page);
+    PageInfo<BlogDto> search(String title, Integer page);
 
     /**
      * 通过用户名查询所有BLOG
      * @param username 用户名
      * @return BlogDto list
      */
-    PageInfo<Blog> searchByUsername(String username, Integer page);
+    PageInfo<BlogDto> searchByUsername(String username, Integer page);
 
 
     /**
@@ -34,7 +34,7 @@ public interface BlogService {
      * @param id  id
      * @return 博客
      */
-    Blog selectBlogById(String id);
+    BlogDto selectBlogById(String id);
 
     /**
      * 添加blog
@@ -80,14 +80,14 @@ public interface BlogService {
      * 查询用户喜欢的所有BLOG
      * @return
      */
-    PageInfo<Blog> selectLikeBlogs(String username, Integer page);
+    PageInfo<BlogDto> selectLikeBlogs(String username, Integer page);
 
 
-    PageInfo<Blog> selectBlogs(Integer page);
+    PageInfo<BlogDto> selectBlogs(Integer page);
 
     /**
      * 随机获取一条博客
      * @return
      */
-    Blog random();
+    BlogDto random();
 }

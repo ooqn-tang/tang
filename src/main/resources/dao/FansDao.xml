@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="net.ttcxy.tang.dao.FansDao">
-  <resultMap id="FansMap" type="net.ttcxy.tang.entity.Fans">
+  <resultMap id="FansMap" type="net.ttcxy.tang.entity.FansDto">
       <id column="id" jdbcType="VARCHAR" property="id" />
       <result column="follower" jdbcType="VARCHAR" property="follower" />
       <result column="user_id" jdbcType="VARCHAR" property="userId" />
@@ -10,7 +10,7 @@
       <result column="create_date" jdbcType="VARCHAR" property="createDate" />
   </resultMap>
 
-    <select id="selectFans"  resultType="Integer" parameterType="net.ttcxy.tang.entity.Fans">
+    <select id="selectFans"  resultType="Integer" parameterType="net.ttcxy.tang.entity.FansDto">
       select count(1)
       from `fans`
       where user_id = #{userId}
@@ -25,12 +25,12 @@
         order by f.create_date Desc
     </select>
 
-    <insert id="insertFans" parameterType="net.ttcxy.tang.entity.Fans">
+    <insert id="insertFans" parameterType="net.ttcxy.tang.entity.FansDto">
         insert into `fans` (id,user_id,follower,create_date)
         values (#{id},#{userId},#{follower},#{createDate})
     </insert>
 
-   <delete id="deleteFans" parameterType="net.ttcxy.tang.entity.Fans">
+   <delete id="deleteFans" parameterType="net.ttcxy.tang.entity.FansDto">
        delete
        from `fans`
        where user_id = #{userId}

@@ -36,7 +36,7 @@ public class SpringSecurityProperties {
     /**
      * 登陆请求
      */
-    private String formLoginApi = "/login/form";
+    private String formLoginApi = "/doLogin";
 
 
     /**

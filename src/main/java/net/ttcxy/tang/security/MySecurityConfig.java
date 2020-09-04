@@ -79,7 +79,7 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
                 //结束上一个登录配置，开始“记住我”的配置
                 .and()
                 //关闭csrf安全
-                .csrf();
+                .csrf().disable();
     }
 
     /**
