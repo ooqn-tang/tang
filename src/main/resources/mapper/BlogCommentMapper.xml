@@ -4,9 +4,9 @@
   <resultMap id="BaseResultMap" type="net.ttcxy.tang.model.BlogComment">
     <id column="id" jdbcType="VARCHAR" property="id" />
     <result column="blog_id" jdbcType="VARCHAR" property="blogId" />
+    <result column="status" jdbcType="INTEGER" property="status" />
     <result column="user_id" jdbcType="VARCHAR" property="userId" />
     <result column="content" jdbcType="VARCHAR" property="content" />
-    <result column="status" jdbcType="INTEGER" property="status" />
     <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -68,7 +68,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, blog_id, user_id, content, status, create_date
+    id, blog_id, status, user_id, content, create_date
   </sql>
   <select id="selectByExample" parameterType="net.ttcxy.tang.model.BlogCommentExample" resultMap="BaseResultMap">
     select
@@ -101,11 +101,11 @@
     </if>
   </delete>
   <insert id="insert" parameterType="net.ttcxy.tang.model.BlogComment">
-    insert into blog_comment (id, blog_id, user_id, 
-      content, status, create_date
+    insert into blog_comment (id, blog_id, status, 
+      user_id, content, create_date
       )
-    values (#{id,jdbcType=VARCHAR}, #{blogId,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, 
-      #{content,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{createDate,jdbcType=TIMESTAMP}
+    values (#{id,jdbcType=VARCHAR}, #{blogId,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
+      #{userId,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}
       )
   </insert>
   <insert id="insertSelective" parameterType="net.ttcxy.tang.model.BlogComment">
@@ -117,14 +117,14 @@
       <if test="blogId != null">
         blog_id,
       </if>
+      <if test="status != null">
+        status,
+      </if>
       <if test="userId != null">
         user_id,
       </if>
       <if test="content != null">
         content,
-      </if>
-      <if test="status != null">
-        status,
       </if>
       <if test="createDate != null">
         create_date,
@@ -137,14 +137,14 @@
       <if test="blogId != null">
         #{blogId,jdbcType=VARCHAR},
       </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
       <if test="userId != null">
         #{userId,jdbcType=VARCHAR},
       </if>
       <if test="content != null">
         #{content,jdbcType=VARCHAR},
-      </if>
-      <if test="status != null">
-        #{status,jdbcType=INTEGER},
       </if>
       <if test="createDate != null">
         #{createDate,jdbcType=TIMESTAMP},
@@ -166,14 +166,14 @@
       <if test="record.blogId != null">
         blog_id = #{record.blogId,jdbcType=VARCHAR},
       </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
       <if test="record.userId != null">
         user_id = #{record.userId,jdbcType=VARCHAR},
       </if>
       <if test="record.content != null">
         content = #{record.content,jdbcType=VARCHAR},
-      </if>
-      <if test="record.status != null">
-        status = #{record.status,jdbcType=INTEGER},
       </if>
       <if test="record.createDate != null">
         create_date = #{record.createDate,jdbcType=TIMESTAMP},
@@ -187,9 +187,9 @@
     update blog_comment
     set id = #{record.id,jdbcType=VARCHAR},
       blog_id = #{record.blogId,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=INTEGER},
       user_id = #{record.userId,jdbcType=VARCHAR},
       content = #{record.content,jdbcType=VARCHAR},
-      status = #{record.status,jdbcType=INTEGER},
       create_date = #{record.createDate,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -201,14 +201,14 @@
       <if test="blogId != null">
         blog_id = #{blogId,jdbcType=VARCHAR},
       </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
       <if test="userId != null">
         user_id = #{userId,jdbcType=VARCHAR},
       </if>
       <if test="content != null">
         content = #{content,jdbcType=VARCHAR},
-      </if>
-      <if test="status != null">
-        status = #{status,jdbcType=INTEGER},
       </if>
       <if test="createDate != null">
         create_date = #{createDate,jdbcType=TIMESTAMP},
@@ -219,9 +219,9 @@
   <update id="updateByPrimaryKey" parameterType="net.ttcxy.tang.model.BlogComment">
     update blog_comment
     set blog_id = #{blogId,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
       user_id = #{userId,jdbcType=VARCHAR},
       content = #{content,jdbcType=VARCHAR},
-      status = #{status,jdbcType=INTEGER},
       create_date = #{createDate,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=VARCHAR}
   </update>

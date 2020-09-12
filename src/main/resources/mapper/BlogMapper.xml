@@ -85,7 +85,7 @@
     <include refid="Base_Column_List" />
     ,
     <include refid="Blob_Column_List" />
-    from blogDto
+    from blog
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -99,7 +99,7 @@
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from blogDto
+    from blog
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -112,21 +112,21 @@
     <include refid="Base_Column_List" />
     ,
     <include refid="Blob_Column_List" />
-    from blogDto
+    from blog
     where id = #{id,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-    delete from blogDto
+    delete from blog
     where id = #{id,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="net.ttcxy.tang.model.BlogExample">
-    delete from blogDto
+    delete from blog
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
   <insert id="insert" parameterType="net.ttcxy.tang.model.Blog">
-    insert into blogDto (id, title, user_id,
+    insert into blog (id, title, user_id, 
       create_date, update_date, state_id, 
       text, markdown)
     values (#{id,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, 
@@ -134,7 +134,7 @@
       #{text,jdbcType=LONGVARCHAR}, #{markdown,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="net.ttcxy.tang.model.Blog">
-    insert into blogDto
+    insert into blog
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
@@ -189,13 +189,13 @@
     </trim>
   </insert>
   <select id="countByExample" parameterType="net.ttcxy.tang.model.BlogExample" resultType="java.lang.Long">
-    select count(*) from blogDto
+    select count(*) from blog
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update blogDto
+    update blog
     <set>
       <if test="record.id != null">
         id = #{record.id,jdbcType=VARCHAR},
@@ -227,7 +227,7 @@
     </if>
   </update>
   <update id="updateByExampleWithBLOBs" parameterType="map">
-    update blogDto
+    update blog
     set id = #{record.id,jdbcType=VARCHAR},
       title = #{record.title,jdbcType=VARCHAR},
       user_id = #{record.userId,jdbcType=VARCHAR},
@@ -241,7 +241,7 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update blogDto
+    update blog
     set id = #{record.id,jdbcType=VARCHAR},
       title = #{record.title,jdbcType=VARCHAR},
       user_id = #{record.userId,jdbcType=VARCHAR},
@@ -253,7 +253,7 @@
     </if>
   </update>
   <update id="updateByPrimaryKeySelective" parameterType="net.ttcxy.tang.model.Blog">
-    update blogDto
+    update blog
     <set>
       <if test="title != null">
         title = #{title,jdbcType=VARCHAR},
@@ -280,7 +280,7 @@
     where id = #{id,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKeyWithBLOBs" parameterType="net.ttcxy.tang.model.Blog">
-    update blogDto
+    update blog
     set title = #{title,jdbcType=VARCHAR},
       user_id = #{userId,jdbcType=VARCHAR},
       create_date = #{createDate,jdbcType=TIMESTAMP},
@@ -291,7 +291,7 @@
     where id = #{id,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="net.ttcxy.tang.model.Blog">
-    update blogDto
+    update blog
     set title = #{title,jdbcType=VARCHAR},
       user_id = #{userId,jdbcType=VARCHAR},
       create_date = #{createDate,jdbcType=TIMESTAMP},

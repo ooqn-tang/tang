@@ -1,10 +1,8 @@
 package net.ttcxy.tang.security;
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 import org.springframework.stereotype.Component;
-import sun.security.provider.certpath.OCSPResponse;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,7 +10,7 @@ import java.io.IOException;
 
 /**
  * 登录失败
- * @author huanglei
+ * created by huanglei on 2020/09/01
  */
 @Component("myAuthenticationFailureHandler")
 public class MyAuthenticationFailureHandler extends SimpleUrlAuthenticationFailureHandler {

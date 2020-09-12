@@ -24,7 +24,7 @@
                         </li>
                     </ul>
                     <ul class="list-group" v-if="show" v-clock>
-                        <li class="list-group-item nob" v-for="(item,index) in blogDto.list">
+                        <li class="list-group-item nob" v-for="(item,index) in blog.list">
                             <a class="wz my-wz"  v-bind:href="'/post/'+item.id" v-text="item.title"></a>
                             <div >
                                 <span v-text="item.createDate"></span>
@@ -32,9 +32,9 @@
                             </div>
                         </li>
                         <li class="list-group-item nob">
-                           <a v-bind:class="blogDto.isFirstPage?'jy':''"
+                           <a v-bind:class="blog.isFirstPage?'jy':''"
                               v-on:click="page(pageNum-=1)">上一页</a>
-                            <a v-bind:class="blogDto.isLastPage?'jy':''"
+                            <a v-bind:class="blog.isLastPage?'jy':''"
                                class="pull-right"
                                v-on:click="page(pageNum+=1)" >下一页</a>
                         </li>
@@ -62,7 +62,7 @@
         data:{
             pageNum:1,
             show:false,
-            blogDto:{
+            blog:{
                 list:[],
                 isFirstPage:false,
                 isLastPage:true,
@@ -81,13 +81,13 @@
                 let _this = this
                 $.ajax({
                     type:"GET",
-                    url:"/blogDto/blogs",
+                    url:"/blog/blogs",
                     contentType: "application/json", //必须这样写
                     data:{
                         page:_this.pageNum
                     },
                     success(result) {
-                        _this.blogDto = result.data
+                        _this.blog = result.data
                         sleep(500)
                         _this.show = true
                     },error(){
@@ -100,14 +100,14 @@
                 let _this = this
                 $.ajax({
                     type:"GET",
-                    url:"/blogDto/so",
+                    url:"/blog/so",
                     contentType: "application/json", //必须这样写
                     data:{
                         page:_this.pageNum,
                         search:search
                     },
                     success:function (result) {
-                        _this.blogDto = result.data
+                        _this.blog = result.data
                         _this.show = true
                     },error(){
                         alert("加载失败了？")

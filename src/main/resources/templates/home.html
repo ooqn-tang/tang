@@ -48,22 +48,22 @@
         <div class="col-md-8 col-md-pull-4 nob-p">
 
             <ul class="list-group nob" v-if="show">
-                <li class="list-group-item nob" v-for="(item,index) in blogDto.list">
+                <li class="list-group-item nob" v-for="(item,index) in blog.list">
                     <a v-bind:href="'/post/'+item.id" class="wz" v-text="item.title"></a>
                     <br>
                     <div>
                         <span v-text="item.createDate"></span>
                         <div class="btn-group pull-right">
                             <a class="btn btn-default btn-xs" v-if="isThisUser" @click="deleteBlog(item,index)" >删除</a>
-                            <a class="btn btn-default btn-xs" v-if="isThisUser" v-bind:href="'/editor?blogDto='+item.id">修改</a>
+                            <a class="btn btn-default btn-xs" v-if="isThisUser" v-bind:href="'/editor?blog='+item.id">修改</a>
                         </div>
                     </div>
                 </li>
                 <li class="list-group-item nob">
-                    <a v-bind:class="blogDto.isFirstPage?'jy':''"
+                    <a v-bind:class="blog.isFirstPage?'jy':''"
                        @click="more(pageNum -= 1)">上一页</a>
                     &nbsp;
-                    <a v-bind:class="blogDto.isLastPage?'jy':''"
+                    <a v-bind:class="blog.isLastPage?'jy':''"
                        class="pull-right"
                        @click="more(pageNum += 1)">下一页</a>
                 </li>
@@ -96,7 +96,7 @@
             pageNum:1,
             follower:"关注",
             show:false,
-            blogDto:{
+            blog:{
                 list:[],
                 isFirstPage:false,
                 isLastPage:true,
@@ -116,11 +116,11 @@
                 if(confirm("确认删除吗？")){
                     $.ajax({
                         type:"GET",
-                        url:"/blogDto/delete/"+item.id,
+                        url:"/blog/delete/"+item.id,
                         contentType: "application/json",
                         success:function (result) {
                             if (result.code === 200){
-                                _this.blogDto.list.splice(index,1)
+                                _this.blog.list.splice(index,1)
                             }
                         }
                     })
@@ -172,14 +172,14 @@
                 this.selectType = "like"
                 $.ajax({
                     type:"GET",
-                    url:"/blogDto/like",
+                    url:"/blog/like",
                     contentType: "application/json", //必须这样写
                     data:{
                         page:this.pageNum,
                         username:this.username
                     },
                     success:function (result) {
-                        _this.blogDto = result.data
+                        _this.blog = result.data
                         sleep(300)
                         _this.show = true
                     }
@@ -196,13 +196,13 @@
                 this.selectType = "home"
                 $.ajax({
                     type:"GET",
-                    url:"/blogDto/home/"+this.username,
+                    url:"/blog/home/"+this.username,
                     contentType: "application/json", //必须这样写
                     data:{
                       page:this.pageNum
                     },
                     success:function (result) {
-                        _this.blogDto = result.data
+                        _this.blog = result.data
                         sleep(300)
                         _this.show = true
                     }
@@ -226,7 +226,7 @@
             },
             page(){
                 let type = this.selectType
-                this.blogDto = {}
+                this.blog = {}
                 this.show = false
                 if (type === "home"){
                     this.home()

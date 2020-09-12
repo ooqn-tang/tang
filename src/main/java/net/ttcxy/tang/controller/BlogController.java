@@ -10,6 +10,7 @@ import net.ttcxy.tang.entity.CommentDto;
 import net.ttcxy.tang.entity.LoginUser;
 import net.ttcxy.tang.model.Blog;
 import net.ttcxy.tang.api.CommonResult;
+import net.ttcxy.tang.model.BlogComment;
 import net.ttcxy.tang.service.AuthDetailsService;
 import net.ttcxy.tang.service.BlogService;
 import net.ttcxy.tang.service.CommentService;
@@ -113,27 +114,26 @@ public class BlogController {
 
     @PostMapping("comment/insert")
     @ApiOperation("添加博客评论")
-    public CommonResult insertComment(@RequestBody CommentDto commentDto){
+    public CommonResult insertComment(@RequestBody BlogComment blogComment){
 
-        if (StrUtil.isBlank(commentDto.getContent())){
+        if (StrUtil.isBlank(blogComment.getContent())){
             return CommonResult.failed("评论不能为空");
         }
 
         LoginUser user = authDetailsServiceImpl.getUser();
-        commentDto.setId(IdUtil.fastSimpleUUID());
-        commentDto.setUserId(user.getId());
-        commentDto.setCreateDate(new Date());
-        commentDto.setStatus(1);
-        commentDto.setUsername(user.getUsername());
-        commentDto.setNickname(user.getNickname());
 
-        int count = commentService.insertComment(commentDto);
+
+        blogComment.setId(IdUtil.fastSimpleUUID());
+        blogComment.setUserId(user.getId());
+        blogComment.setCreateDate(new Date());
+        blogComment.setStatus(1);
+
+        int count = commentService.insertComment(blogComment);
 
         if (count > 0){
-            return CommonResult.success(commentDto);
+            return CommonResult.success(count);
         }
-
-        return CommonResult.failed("添加失败；");
+        return CommonResult.failed("添加失败");
 
     }
 

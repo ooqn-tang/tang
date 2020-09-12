@@ -5,18 +5,19 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class BlogComment implements Serializable {
+
     private String id;
 
     private String blogId;
+
+    @ApiModelProperty(value = "评论状态")
+    private Integer status;
 
     @ApiModelProperty(value = "评论人")
     private String userId;
 
     @ApiModelProperty(value = "评论内容")
     private String content;
-
-    @ApiModelProperty(value = "评论状态")
-    private Integer status;
 
     private Date createDate;
 
@@ -38,6 +39,14 @@ public class BlogComment implements Serializable {
         this.blogId = blogId;
     }
 
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
     public String getUserId() {
         return userId;
     }
@@ -52,14 +61,6 @@ public class BlogComment implements Serializable {
 
     public void setContent(String content) {
         this.content = content;
-    }
-
-    public Integer getStatus() {
-        return status;
-    }
-
-    public void setStatus(Integer status) {
-        this.status = status;
     }
 
     public Date getCreateDate() {
@@ -78,9 +79,9 @@ public class BlogComment implements Serializable {
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
         sb.append(", blogId=").append(blogId);
+        sb.append(", status=").append(status);
         sb.append(", userId=").append(userId);
         sb.append(", content=").append(content);
-        sb.append(", status=").append(status);
         sb.append(", createDate=").append(createDate);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");

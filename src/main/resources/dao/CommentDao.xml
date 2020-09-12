@@ -5,7 +5,11 @@
 <mapper namespace="net.ttcxy.tang.dao.CommentDao">
     <resultMap id="CommentMap" type="net.ttcxy.tang.entity.CommentDto">
         <id column="id" jdbcType="VARCHAR" property="id" />
-        <result column="blog_id" jdbcType="VARCHAR" property="blogId"/>
+        <result column="blog_id" jdbcType="VARCHAR" property="blogId" />
+        <result column="status" jdbcType="INTEGER" property="status" />
+        <result column="user_id" jdbcType="VARCHAR" property="userId" />
+        <result column="content" jdbcType="VARCHAR" property="content" />
+        <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
     </resultMap>
 
     <select id="selectComment" resultType="net.ttcxy.tang.entity.CommentDto">

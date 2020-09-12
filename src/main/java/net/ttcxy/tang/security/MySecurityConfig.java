@@ -82,17 +82,13 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable();
     }
 
-    /**
-     * 注入PasswordEncoder
-     * @return PasswordEncoder
-     */
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
     /**
-     * 记住登陆
+     * 记住登陆 数据查询
      */
     @Bean
     public PersistentTokenRepository persistentTokenRepository() {

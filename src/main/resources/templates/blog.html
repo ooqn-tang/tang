@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-CN"  xmlns:th="http://www.w3.org/1999/xhtml" xmlns:v-bind="http://www.w3.org/1999/xhtml">
 <head>
-    <title th:text="${blogDto.title}  + ' - 堂堂程序员'"></title>
+    <title th:text="${blog.title}  + ' - 堂堂程序员'"></title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />
     <link href="/favicon.ico" rel="icon"/>
@@ -16,22 +16,22 @@
     <div class="row">
         <div class="col-md-9 column nob-p">
             <div class="panel panel-default nob" >
-                <div class="panel-body" id="blogDto-body" style="overflow-y:hidden;">
+                <div class="panel-body" id="blog-body" style="overflow-y:hidden;">
                     <div>
-                        <strong><a th:href="@{/author/{id}(id=${blogDto.username})}" th:text="${blogDto.nickname}"></a></strong>
+                        <strong><a th:href="@{/author/{id}(id=${blog.username})}" th:text="${blog.nickname}"></a></strong>
                         &nbsp;&nbsp;
-                        <span style="color:#b4b4b4" th:text="${#dates.format(blogDto.createDate,'yyyy.MM.dd')}"></span>
+                        <span style="color:#b4b4b4" th:text="${#dates.format(blog.createDate,'yyyy.MM.dd')}"></span>
                         <div class="btn-group pull-right">
                             <button class="btn btn-default btn-xs"  @click="followerClick" v-text="follower.text"></button>
                         </div>
                     </div>
-                    <h3><strong th:text="${blogDto.title}"></strong></h3>
+                    <h3><strong th:text="${blog.title}"></strong></h3>
                     <hr>
-                    <div class="markdown-body" th:utext="${blogDto.text}"></div>
+                    <div class="markdown-body" th:utext="${blog.text}"></div>
                 </div>
                 <div class="panel-footer">
                     <button th:classappend="${like == 1} ? 'btn btn-danger  btn-xs' : 'btn btn-default btn-xs'" @click="likeClick" id="lkBut">推荐</button>
-                    <a th:href="'/editor?blogDto='+${blogDto.id}" class="btn btn-default btn-xs"  th:if="${session.SPRING_SECURITY_CONTEXT != null && session.SPRING_SECURITY_CONTEXT.authentication.principal.username == blogDto.username}">编辑</a>
+                    <a th:href="'/editor?blog='+${blog.id}" class="btn btn-default btn-xs"  th:if="${session.SPRING_SECURITY_CONTEXT != null && session.SPRING_SECURITY_CONTEXT.authentication.principal.username == blog.username}">编辑</a>
                 </div>
             </div>
 
@@ -89,8 +89,8 @@
     let vm = new Vue({
         el: "#app",
         data: {
-            blogId:'[[${blogDto.id}]]',
-            username:'[[${blogDto.username}]]',
+            blogId:'[[${blog.id}]]',
+            username:'[[${blog.username}]]',
             loginUser:"[[${session.SPRING_SECURITY_CONTEXT}]]" == "",
             follower:{
                 text:"关注",
@@ -106,7 +106,7 @@
                     alert("请登录")
                     return
                 }
-                $.get("/blogDto/like/"+this.blogId+"/insert",function(result){
+                $.get("/blog/like/"+this.blogId+"/insert",function(result){
                     let lkBut = $("#lkBut")
                     if (result.data === 1){
                         lkBut.removeClass();
@@ -175,7 +175,7 @@
                 };
                 $.ajax({
                     type:"POST",
-                    url:"/blogDto/commentDto/insert",
+                    url:"/blog/comment/insert",
                     contentType: "application/json", //必须这样写
                     dataType:"json",
                     data:JSON.stringify(dataObject),
@@ -193,7 +193,7 @@
             loadComment(){
                 $.ajax({
                     type:"GET",
-                    url:"/blogDto/commentDto/"+this.blogId,
+                    url:"/blog/comment/"+this.blogId,
                     contentType: "application/json",
                     dataType:"json",
                     success:function (result) {
@@ -205,11 +205,11 @@
             },
             commentClick(){
                 if (this.pl % 2 != 0){
-                    $("#blogDto-body").css("height","90px").css("overflow-x","auto");
+                    $("#blog-body").css("height","90px").css("overflow-x","auto");
                     $("#commentBody").css("height",(window.innerHeight-254)+"px");
                     $(".advertise").addClass("hidden-xs hidden-sm");
                 } else{
-                    $("#blogDto-body").css("height","").css("overflow-x","");
+                    $("#blog-body").css("height","").css("overflow-x","");
                     $("#commentBody").css("height","");
                     $(".advertise").removeClass("hidden-xs hidden-sm");
                 }
@@ -219,7 +219,7 @@
                 let _this = this;
                 $.ajax({
                     type:"DELETE",
-                    url:"/blogDto/commentDto/"+id,
+                    url:"/blog/comment/"+id,
                     contentType: "application/json", //必须这样写
                     dataType:"json",
                     success:function (data) {
