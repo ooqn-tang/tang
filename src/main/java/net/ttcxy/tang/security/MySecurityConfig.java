@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.rememberme.*;
 
 import javax.sql.DataSource;
@@ -42,6 +43,9 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 
         http.exceptionHandling().authenticationEntryPoint(getMyAuthenticationEntryPoint());
+
+        // 登录拦截器前面添加验证码拦截器
+        http.addFilterBefore(getMyVerifyCodeFilter(),UsernamePasswordAuthenticationFilter.class);
 
         //允许配置“记住我”身份验证。
         if (tangProperties.getSecurity().isRememberMe()) {
@@ -103,5 +107,10 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public MyAuthenticationEntryPoint getMyAuthenticationEntryPoint(){
         return new MyAuthenticationEntryPoint();
+    }
+
+    @Bean
+    public MyVerifyCodeFilter getMyVerifyCodeFilter(){
+        return new MyVerifyCodeFilter();
     }
 }

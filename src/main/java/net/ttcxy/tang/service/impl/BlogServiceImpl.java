@@ -4,13 +4,13 @@ import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.RandomUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import net.ttcxy.tang.dao.BlogDao;
-import net.ttcxy.tang.entity.BlogDto;
-import net.ttcxy.tang.mapper.BlogMapper;
-import net.ttcxy.tang.mapper.FavoriteMapper;
-import net.ttcxy.tang.mapper.LikeDataMapper;
-import net.ttcxy.tang.mapper.PageViewMapper;
-import net.ttcxy.tang.model.*;
+import net.ttcxy.tang.db.dao.BlogDao;
+import net.ttcxy.tang.entity.dto.BlogDto;
+import net.ttcxy.tang.db.mapper.BlogMapper;
+import net.ttcxy.tang.db.mapper.FavoriteMapper;
+import net.ttcxy.tang.db.mapper.LikeDataMapper;
+import net.ttcxy.tang.db.mapper.PageViewMapper;
+import net.ttcxy.tang.entity.model.*;
 import net.ttcxy.tang.service.AuthDetailsService;
 import net.ttcxy.tang.service.BlogService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,7 +66,7 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
-    public int insertBlog(net.ttcxy.tang.model.Blog blog) {
+    public int insertBlog(net.ttcxy.tang.entity.model.Blog blog) {
         int count = blogMapper.insertSelective(blog);
         if (count > 0){
             randomBlogs.add(blog.getId());
@@ -75,7 +75,7 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
-    public int updateBlog(net.ttcxy.tang.model.Blog blog) {
+    public int updateBlog(net.ttcxy.tang.entity.model.Blog blog) {
         String blogId = blog.getId();
         String userId = authDetailsServiceImpl.getUserId();
 
@@ -132,7 +132,7 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
-    public net.ttcxy.tang.model.Blog selectByPrimaryId(String id) {
+    public net.ttcxy.tang.entity.model.Blog selectByPrimaryId(String id) {
         return blogMapper.selectByPrimaryKey(id);
     }
 

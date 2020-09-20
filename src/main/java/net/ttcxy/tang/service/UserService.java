@@ -1,7 +1,7 @@
 package net.ttcxy.tang.service;
 
 import net.ttcxy.tang.entity.LoginUser;
-import net.ttcxy.tang.model.User;
+import net.ttcxy.tang.entity.model.User;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

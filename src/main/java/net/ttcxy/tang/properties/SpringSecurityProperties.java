@@ -7,6 +7,8 @@ package net.ttcxy.tang.properties;
 public class SpringSecurityProperties {
 
 
+
+
     /**
      * 记住登陆
      */
@@ -31,12 +33,15 @@ public class SpringSecurityProperties {
     /**
      * 登陆页面
      */
-    private String loginPagePath = "/login";
+    private String loginPagePath = "/";
 
     /**
      * 登陆请求
      */
     private String formLoginApi = "/doLogin";
+
+    // 默认登录请求
+    private String verifyUri = formLoginApi;
 
 
     /**
@@ -49,6 +54,14 @@ public class SpringSecurityProperties {
      * token有效时间
      */
     private int tokenTime = 2592000;
+
+    public String getVerifyUri() {
+        return verifyUri;
+    }
+
+    public void setVerifyUri(String verifyUri) {
+        this.verifyUri = verifyUri;
+    }
 
     public String getPrivateUrl() {
         return privateUrl;

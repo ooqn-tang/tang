@@ -1,11 +1,11 @@
 package net.ttcxy.tang.service.impl;
 
-import net.ttcxy.tang.dao.CommentDao;
-import net.ttcxy.tang.entity.CommentDto;
-import net.ttcxy.tang.model.BlogComment;
-import net.ttcxy.tang.model.BlogCommentExample;
+import net.ttcxy.tang.db.dao.CommentDao;
+import net.ttcxy.tang.entity.dto.CommentDto;
+import net.ttcxy.tang.entity.model.BlogComment;
+import net.ttcxy.tang.entity.model.BlogCommentExample;
 import net.ttcxy.tang.service.AuthDetailsService;
-import net.ttcxy.tang.mapper.BlogCommentMapper;
+import net.ttcxy.tang.db.mapper.BlogCommentMapper;
 import net.ttcxy.tang.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

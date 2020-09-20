@@ -79,6 +79,12 @@ a:hover,a:hover,a{text-decoration:none !important;}
 
 
 @media screen and (max-width: 770px){
+
+    #loginModal {
+        margin:10px;
+        padding-right: 0px !important;
+    }
+
     .nob-p{
         border-left: 0 !important;
         border-right: 0 !important;
@@ -151,3 +157,9 @@ a{
     cursor:pointer
 }
 
+#loginModal {
+    margin:5px auto;
+    width: 100%;
+    max-width: 600px;
+    padding: 10px !important;
+}

@@ -1,6 +1,6 @@
 package net.ttcxy.tang.config;
 
-import net.ttcxy.tang.model.Advertise;
+import net.ttcxy.tang.entity.model.Advertise;
 import net.ttcxy.tang.service.AdvertiseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.EnableScheduling;

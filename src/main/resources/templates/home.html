@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="/css/style.css">
     <link href="https://cdn.bootcss.com/github-markdown-css/4.0.0/github-markdown.min.css" rel="stylesheet">
     <script src="https://cdn.bootcss.com/vue/2.6.10/vue.min.js"></script>
+    <div th:include="comm::login"></div>
 </head>
 <body>
 <div th:include="comm::navigation"></div>
@@ -54,8 +55,8 @@
                     <div>
                         <span v-text="item.createDate"></span>
                         <div class="btn-group pull-right">
-                            <a class="btn btn-default btn-xs" v-if="isThisUser" @click="deleteBlog(item,index)" >删除</a>
-                            <a class="btn btn-default btn-xs" v-if="isThisUser" v-bind:href="'/editor?blog='+item.id">修改</a>
+                            <a class="btn btn-default btn-xs" v-if="isThisUser && selectType == 'home'" @click="deleteBlog(item,index)" >删除</a>
+                            <a class="btn btn-default btn-xs" v-if="isThisUser && selectType == 'home'" v-bind:href="'/editor?blog='+item.id">修改</a>
                         </div>
                     </div>
                 </li>

@@ -1,11 +1,11 @@
 package net.ttcxy.tang.service.impl;
 
 import cn.hutool.core.util.IdUtil;
-import net.ttcxy.tang.dao.UserDao;
-import net.ttcxy.tang.entity.FansDto;
+import net.ttcxy.tang.db.dao.UserDao;
+import net.ttcxy.tang.entity.dto.FansDto;
 import net.ttcxy.tang.entity.LoginUser;
 import net.ttcxy.tang.service.AuthDetailsService;
-import net.ttcxy.tang.dao.FansDao;
+import net.ttcxy.tang.db.dao.FansDao;
 import net.ttcxy.tang.service.FansService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;

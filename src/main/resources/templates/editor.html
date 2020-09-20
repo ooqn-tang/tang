@@ -28,15 +28,16 @@
             padding-right: 10px;
             font-size:24px;
             line-height:30px;
-            width:-webkit-calc(100% - 140px);
-            width:-moz-calc(100% - 140px);
-            width:calc(100% - 140px);
+            width:-webkit-calc(100% - 120px);
+            width:-moz-calc(100% - 120px);
+            width:calc(100% - 120px);
             height: 100%;
             outline: none;
         }
         .hdBut{
+            border-left: 1px #b5adad solid;
             outline: none;
-            width: 70px;
+            width: 40px;
             float: right;height: 100%;
             background: #337ab7;;
             border-radius: 0px;
@@ -67,11 +68,13 @@
 </head>
 <body>
 <div id="hd">
-    <input id="title" placeholder="标题" style="background: #f4f4f4">
-    <input class="hdBut" type="button" value="取消" onClick="javascript :history.go(-1);">
-    <input class="hdBut" id="send" type="button" value="发布" >
+    <input id="title" placeholder="标题" style="background: #f4f4f4"/>
+    <input class="hdBut" type="button" value="取消" onClick="javascript :history.go(-1);"/>
+    <input class="hdBut" id="send" type="button" value="发布" />
+    <input class="hdBut" id="image" type="button" value="图片" onclick="document.getElementById('file').click()" />
+    <input type="file" id="file"  name="file" style="display: none" accept=".gif,.jpg,.jpeg,.bmp,.png,.psd"/>
 </div>
-<textarea onKeyUp="keyup()" class="tt" style="float: left;border-right: 1px solid black;background-color: #e2e3e4;" id="text" placeholder="请输入Markdown"></textarea>
+<textarea onKeyUp="keyup()" class="tt" style="float: left;border-right: 1px solid black;background-color: #e2e3e4;" id="text" placeholder="请输入Markdown&#x000A;上传的文件如果没有在当前页面引用将会被删除"></textarea>
 <div class="tt ttdiv markdown-body" style="float:right;border-left: 1px solid black;background: #fff8eb;" id="content"></div>
 </body>
 <script src="https://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
@@ -176,6 +179,7 @@
             }
         })
     }
+
     $("#text").scroll(function(){
         let h = $(this)[0].scrollHeight - $("#content")[0].scrollHeight;
         if (scrollId == "text"){
@@ -195,6 +199,39 @@
     $("#content").mouseover(function(){
         scrollId = "content"
     });
+
+
+
+    document.getElementById('file').addEventListener('change', function (event) {
+        let $file = event.currentTarget;
+        let formData = new FormData();
+        let file = $file.files;
+        formData = new FormData();
+        formData.append("file", file[0]);
+        $.ajax({
+            url: '/file/upload',
+            type: 'POST',
+            dataType: 'json',
+            data: formData,
+            contentType: false,
+            processData: false
+        }).done(data => {
+            copyText(data["data"],function(){alert("文件上传成功，通过粘贴获取url路径")})
+        }).fail(data => {
+            console.log(data);
+        });
+    });
+
+    function copyText(text, callback){ // text: 要复制的内容， callback: 回调
+        var tag = document.createElement('input');
+        tag.setAttribute('id', 'cp_hgz_input');
+        tag.value = text;
+        document.getElementsByTagName('body')[0].appendChild(tag);
+        document.getElementById('cp_hgz_input').select();
+        document.execCommand('copy');
+        document.getElementById('cp_hgz_input').remove();
+        if(callback) {callback(text)}
+    }
 </script>
 
 </html>

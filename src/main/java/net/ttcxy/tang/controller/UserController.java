@@ -4,7 +4,7 @@ import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.ReUtil;
 import cn.hutool.core.util.StrUtil;
 import net.ttcxy.tang.entity.LoginUser;
-import net.ttcxy.tang.model.User;
+import net.ttcxy.tang.entity.model.User;
 import net.ttcxy.tang.api.CommonResult;
 import net.ttcxy.tang.service.AuthDetailsService;
 import net.ttcxy.tang.service.UserService;

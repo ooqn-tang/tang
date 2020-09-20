@@ -1,7 +1,7 @@
 package net.ttcxy.tang.config;
 
 import cn.hutool.core.io.FileUtil;
-import net.ttcxy.tang.dao.BlogDao;
+import net.ttcxy.tang.db.dao.BlogDao;
 import net.ttcxy.tang.service.AdvertiseService;
 import net.ttcxy.tang.service.impl.BlogServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;

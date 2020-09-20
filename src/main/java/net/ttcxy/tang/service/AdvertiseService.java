@@ -1,7 +1,7 @@
 package net.ttcxy.tang.service;
 
 
-import net.ttcxy.tang.model.Advertise;
+import net.ttcxy.tang.entity.model.Advertise;
 
 import java.util.List;
 

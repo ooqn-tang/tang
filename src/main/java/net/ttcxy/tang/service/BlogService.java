@@ -1,7 +1,7 @@
 package net.ttcxy.tang.service;
 
 import com.github.pagehelper.PageInfo;
-import net.ttcxy.tang.entity.BlogDto;
+import net.ttcxy.tang.entity.dto.BlogDto;
 
 /**
  * 博客操作
@@ -39,14 +39,14 @@ public interface BlogService {
     /**
      * 添加blog
      */
-    int insertBlog(net.ttcxy.tang.model.Blog blog);
+    int insertBlog(net.ttcxy.tang.entity.model.Blog blog);
 
     /**
      * 更新博客
      * @param blog blog
      * @return 影响的行数
      */
-    int updateBlog(net.ttcxy.tang.model.Blog blog);
+    int updateBlog(net.ttcxy.tang.entity.model.Blog blog);
 
     /**
      * 删除博客
@@ -66,7 +66,7 @@ public interface BlogService {
      * @param blogId
      * @return
      */
-    net.ttcxy.tang.model.Blog selectByPrimaryId(String blogId);
+    net.ttcxy.tang.entity.model.Blog selectByPrimaryId(String blogId);
 
     /**
      * 查询我是否喜欢了当前Blog

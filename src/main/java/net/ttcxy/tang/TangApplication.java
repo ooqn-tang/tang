@@ -9,7 +9,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @author huanglei
  */
 @SpringBootApplication
-@MapperScan(basePackages ={"net.ttcxy.tang.mapper","net.ttcxy.tang.dao"})
+@MapperScan(basePackages ={"net.ttcxy.tang.db"})
 public class TangApplication {
 
     public static void main(String[] args) {

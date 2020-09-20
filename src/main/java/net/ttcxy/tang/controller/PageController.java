@@ -1,6 +1,6 @@
 package net.ttcxy.tang.controller;
 
-import net.ttcxy.tang.entity.BlogDto;
+import net.ttcxy.tang.entity.dto.BlogDto;
 import net.ttcxy.tang.entity.LoginUser;
 import net.ttcxy.tang.service.AuthDetailsService;
 import net.ttcxy.tang.service.BlogService;
@@ -121,15 +121,6 @@ public class PageController {
     public ModelAndView updateUser(ModelAndView modelAndView){
         modelAndView.setViewName("info");
         modelAndView.addObject("user",authDetailsServiceImpl.getUser());
-        return modelAndView;
-    }
-
-    /**
-     * 登陆页面
-     */
-    @GetMapping("login")
-    public ModelAndView toLogin( ModelAndView modelAndView){
-        modelAndView.setViewName("login");
         return modelAndView;
     }
 

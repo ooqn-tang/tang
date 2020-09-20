@@ -1,5 +1,6 @@
 package net.ttcxy.tang.entity;
 
+import net.ttcxy.tang.entity.dto.GroupDto;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 

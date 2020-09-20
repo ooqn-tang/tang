@@ -1,9 +1,9 @@
 package net.ttcxy.tang.service.impl;
 
 import cn.hutool.core.util.IdUtil;
-import net.ttcxy.tang.mapper.AdvertiseMapper;
-import net.ttcxy.tang.model.Advertise;
-import net.ttcxy.tang.model.AdvertiseExample;
+import net.ttcxy.tang.db.mapper.AdvertiseMapper;
+import net.ttcxy.tang.entity.model.Advertise;
+import net.ttcxy.tang.entity.model.AdvertiseExample;
 import net.ttcxy.tang.service.AdvertiseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
