@@ -5,6 +5,7 @@ import net.ttcxy.tang.db.dao.BlogDao;
 import net.ttcxy.tang.service.AdvertiseService;
 import net.ttcxy.tang.service.impl.BlogServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.autoconfigure.web.ResourceProperties;
@@ -22,8 +23,8 @@ import java.util.Objects;
 @Component
 public class MyApplicationRunner implements ApplicationRunner {
 
-    @Autowired
-    private ResourceProperties resourceProperties;
+    @Value("${my-file-data-path}")
+    private String myFileDataPath;
 
     @Autowired
     private AdvertiseService advertiseService;
@@ -45,8 +46,10 @@ public class MyApplicationRunner implements ApplicationRunner {
     private void mkStaticLocations(){
         Objects.requireNonNull(webApplicationContext.getServletContext())
                 .setAttribute("advertises", advertiseService.selectAllAdvertise());
-        String [] staticLocations = resourceProperties.getStaticLocations();
-        Arrays.stream(staticLocations).forEach(FileUtil::mkdir);
+
+        if (!FileUtil.isDirectory(myFileDataPath)) {
+            FileUtil.mkdir(myFileDataPath);
+        }
         BlogServiceImpl.getRandomBlogs().addAll(blogDao.selectId());
     }
 }

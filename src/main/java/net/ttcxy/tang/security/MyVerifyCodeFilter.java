@@ -16,9 +16,12 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * created by HuangLei on 2020/9/20
+ */
 public class MyVerifyCodeFilter extends OncePerRequestFilter {
 
-    private Set<String> urls = new HashSet<>();
+    private static final Set<String> URLS = new HashSet<>();
 
     @Autowired
     private TangProperties tangProperties;
@@ -31,7 +34,7 @@ public class MyVerifyCodeFilter extends OncePerRequestFilter {
         super.initFilterBean();
         String verifyUri = tangProperties.getSecurity().getVerifyUri();
         if (StrUtil.isNotBlank(verifyUri)){
-            urls.addAll(Arrays.asList(verifyUri.split(",")));
+            URLS.addAll(Arrays.asList(verifyUri.split(",")));
         }
 
     }
@@ -40,15 +43,16 @@ public class MyVerifyCodeFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String remoteHost = request.getRequestURI();
         String verify = ServletRequestUtils.getStringParameter(request, "verify");
-        String verifyCode = (String) request.getSession().getAttribute("verify_code");
+        String verifyCode = (String) request.getSession().getAttribute(MySecurityContext.VERIFY_CODE);
 
-        for (String url : urls) {
+        for (String url : URLS) {
             if (url.equals(remoteHost)){
-                if (StrUtil.equals(verifyCode,verify)){
-                    request.getSession().removeAttribute("verify_code");
+                if (verifyCode != null && StrUtil.equals(verifyCode,verify)){
+                    request.getSession().removeAttribute(MySecurityContext.VERIFY_CODE);
                     break;
                 }else{
                     myAuthenticationFailureHandler.onAuthenticationFailure(request,response,new VerifyCodeException("验证码不正确"));
+                    request.getSession().removeAttribute(MySecurityContext.VERIFY_CODE);
                     return;
                 }
             }
