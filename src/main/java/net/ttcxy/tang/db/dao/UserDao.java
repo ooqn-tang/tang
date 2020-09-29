@@ -1,6 +1,7 @@
 package net.ttcxy.tang.db.dao;
 
 import net.ttcxy.tang.entity.LoginUser;
+import net.ttcxy.tang.entity.model.User;
 
 /**
  * 用户
@@ -22,6 +23,13 @@ public interface UserDao {
      * 查询用户详细信息
      */
     LoginUser selectUserByName(String username);
+
+    /**
+     * 昵称是否存在
+     */
+    int selectNicknameIsTrue(String nickname);
+
+    LoginUser selectLoginUserByMail(String mail);
 
     //TODO 通过用户ID 查询这个用户用于的权限
 

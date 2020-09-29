@@ -11,6 +11,7 @@
     <div th:include="comm::login"></div>
 </head>
 <body>
+
 <div th:include="comm::navigation"></div>
 
 <div class="container" id="app" v-cloak>
@@ -19,26 +20,25 @@
             <div class="panel panel-default nob" >
                 <div class="panel-body" >
                     <strong th:text="${user.nickname}"></strong>
-                    <button  v-show="!isThisUser"  class="pull-right btn btn-default btn-xs" @click="followerClick" v-text="follower"></button>
+                    <button v-show="!isThisUser"  class="pull-right btn btn-default btn-xs" @click="followerClick" v-text="follower"></button>
                     <hr>
-                    <input type="hidden" th:value="${user.username}" id="username">
                     <div>简介：<span th:text="${user.signature}"></span></div>
                 </div>
             </div>
             <div class="panel panel-default nob">
                 <div class="panel-body">
-                    <div class="btn-group" style="width: 100%">
-                        <button class="btn btn-default btn-sm W20" v-bind:class="{ W50 : !isThisUser }" @click="cl(),home()">博客</button>
-                        <button class="btn btn-default btn-sm W20" v-bind:class="{ W50 : !isThisUser }" @click="cl(),like()">推荐</button>
+                    <div class="btn-group W100">
+                        <button class="btn btn-default btn-sm W20" v-bind:class="{ W50 : !isThisUser }" @click="cl(),home(),showFans = false">博客</button>
+                        <button class="btn btn-default btn-sm W20" v-bind:class="{ W50 : !isThisUser }" @click="cl(),like(),showFans = false">推荐</button>
                         <button class="btn btn-default btn-sm W20" @click="fans" v-if="isThisUser">关注</button>
                         <a class="btn btn-default btn-sm W20" href="/user/info" v-if="isThisUser">设置</a>
                         <a class="btn btn-default btn-sm W20" @click="logout" v-if="isThisUser">注销</a>
                     </div>
                 </div>
             </div>
-            <div v-show="showFans" class="panel panel-default nob-p" v-if="isThisUser">
+            <div v-show="showFans" class="nob-p" v-if="isThisUser">
                 <div class="list-group nob" >
-                    <a href="#" class="list-group-item active nob">关注</a>
+                    <a class="list-group-item active nob">关注</a>
                     <a class="list-group-item nob" v-for="(item,i) in fansList" v-bind:href="item.username" v-text="item.nickname"></a>
                 </div>
             </div>
@@ -47,10 +47,9 @@
             </div>
         </div>
         <div class="col-md-8 col-md-pull-4 nob-p">
-
             <ul class="list-group nob" v-if="show">
                 <li class="list-group-item nob" v-for="(item,index) in blog.list">
-                    <a v-bind:href="'/post/'+item.id" class="wz" v-text="item.title"></a>
+                    <a class="blog-title" target="_blank" v-bind:href="'/post/'+item.id" v-text="item.title"></a>
                     <br>
                     <div>
                         <span v-text="item.createDate"></span>
@@ -60,17 +59,16 @@
                         </div>
                     </div>
                 </li>
+                <li class="list-group-item nob load-context" v-if="blog.list.length == 0">
+                    什么也没有啊...
+                </li>
                 <li class="list-group-item nob">
-                    <a v-bind:class="blog.isFirstPage?'jy':''"
-                       @click="more(pageNum -= 1)">上一页</a>
-                    &nbsp;
-                    <a v-bind:class="blog.isLastPage?'jy':''"
-                       class="pull-right"
-                       @click="more(pageNum += 1)">下一页</a>
+                    <a v-bind:class="blog.isFirstPage?'page':''" @click="more(pageNum -= 1)">上一页</a>
+                    <a v-bind:class="blog.isLastPage?'page':''" @click="more(pageNum += 1)" class="pull-right">下一页</a>
                 </li>
             </ul>
             <ul class="list-group" v-if="!show">
-                <li class="list-group-item nob load">
+                <li class="list-group-item nob load-context">
                     加载中...
                 </li>
             </ul>
@@ -82,13 +80,13 @@
 <script src="https://cdn.bootcss.com/twitter-bootstrap/3.3.7/js/bootstrap.js"></script>
 <script src="/js/my.js"></script>
 <script>
-    let username = $("#username").val();
+    let username = '[[${user.username}]]'
     new Vue({
         el: "#app",//绑定元素
         //所有数据都放在数据属性中
         data:{
-            isLoginUser:[[${session.SPRING_SECURITY_CONTEXT != null}]],
-            isThisUser:[[${session.SPRING_SECURITY_CONTEXT !=null && session.SPRING_SECURITY_CONTEXT.authentication.principal.username == username}]],
+            isLoginUser:[[${session.SPRING_SECURITY_CONTEXT != null}]], // 表示登录的用户
+            isThisUser:[[${session.SPRING_SECURITY_CONTEXT !=null && session.SPRING_SECURITY_CONTEXT.authentication.principal.username == username}]], // 表示访问自己的首页
             username:username,
             fansList:[],
             showFans:false,
@@ -241,14 +239,5 @@
             this.home()
         }
     })
-</script>
-<script>
-    var _hmt = _hmt || [];
-    (function() {
-        var hm = document.createElement("script");
-        hm.src = "https://hm.baidu.com/hm.js?7449589c273ee75cf0c7def43d91fa44";
-        var s = document.getElementsByTagName("script")[0];
-        s.parentNode.insertBefore(hm, s);
-    })();
 </script>
 </html>

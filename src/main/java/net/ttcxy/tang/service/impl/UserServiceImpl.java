@@ -33,6 +33,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public LoginUser selectLoginUserByMail(String mail) {
+        return userDao.selectLoginUserByMail(mail);
+    }
+
+    @Override
     public int insertUser(User user) throws DuplicateKeyException {
         user.setId(IdUtil.simpleUUID());
         String password = user.getPassword();
@@ -49,12 +54,21 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public int updateUserPassword(User user) {
-        return userMapper.updateByPrimaryKey(user);
+        return userMapper.updateByPrimaryKeySelective(user);
     }
 
     @Override
     public Boolean selectUsernameIsTrue(String username) {
         int count = userDao.selectUsernameIsTrue(username);
+        if (count > 0){
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public Boolean selectNicknameIsTrue(String nickname) {
+        int count = userDao.selectNicknameIsTrue(nickname);
         if (count > 0){
             return true;
         }
@@ -88,5 +102,4 @@ public class UserServiceImpl implements UserService {
         PageHelper.startPage(page, 10);
         return userMapper.selectByExample(new UserExample());
     }
-
 }

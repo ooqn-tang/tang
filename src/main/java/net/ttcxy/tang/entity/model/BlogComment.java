@@ -5,18 +5,14 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class BlogComment implements Serializable {
-
     private String id;
 
     private String blogId;
 
-    @ApiModelProperty(value = "评论状态")
     private Integer status;
 
-    @ApiModelProperty(value = "评论人")
     private String userId;
 
-    @ApiModelProperty(value = "评论内容")
     private String content;
 
     private Date createDate;

@@ -49,7 +49,12 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public List<CommentDto> selectComment(String blogId) {
-        return commentDao.selectComment(blogId);
+    public List<CommentDto> selectComments(String blogId) {
+        return commentDao.selectComments(blogId);
+    }
+
+    @Override
+    public CommentDto selectComment(String commentId) {
+        return commentDao.selectComment(commentId);
     }
 }

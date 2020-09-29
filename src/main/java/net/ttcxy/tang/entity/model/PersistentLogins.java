@@ -1,12 +1,13 @@
 package net.ttcxy.tang.entity.model;
 
+import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 import java.util.Date;
 
 public class PersistentLogins implements Serializable {
-    private String series;
-
     private String username;
+
+    private String series;
 
     private String token;
 
@@ -14,20 +15,20 @@ public class PersistentLogins implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    public String getSeries() {
-        return series;
-    }
-
-    public void setSeries(String series) {
-        this.series = series;
-    }
-
     public String getUsername() {
         return username;
     }
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getSeries() {
+        return series;
+    }
+
+    public void setSeries(String series) {
+        this.series = series;
     }
 
     public String getToken() {
@@ -52,8 +53,8 @@ public class PersistentLogins implements Serializable {
         sb.append(getClass().getSimpleName());
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
-        sb.append(", series=").append(series);
         sb.append(", username=").append(username);
+        sb.append(", series=").append(series);
         sb.append(", token=").append(token);
         sb.append(", lastUsed=").append(lastUsed);
         sb.append(", serialVersionUID=").append(serialVersionUID);

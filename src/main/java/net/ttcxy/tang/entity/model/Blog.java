@@ -5,27 +5,21 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class Blog implements Serializable {
+    @ApiModelProperty(value = "id")
     private String id;
 
-    @ApiModelProperty(value = "博客标题")
     private String title;
 
-    @ApiModelProperty(value = "作者ID")
     private String userId;
 
-    @ApiModelProperty(value = "创建时间")
     private Date createDate;
 
-    @ApiModelProperty(value = "更新时间")
     private Date updateDate;
 
-    @ApiModelProperty(value = "状态ID,发布状态，草稿状态，退回状态，删除状态")
     private Integer stateId;
 
-    @ApiModelProperty(value = "博文文本")
     private String text;
 
-    @ApiModelProperty(value = "markdown")
     private String markdown;
 
     private static final long serialVersionUID = 1L;

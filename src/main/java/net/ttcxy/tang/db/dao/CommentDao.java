@@ -29,5 +29,7 @@ public interface CommentDao {
     /**
      * 通过BlogId 查询评论
      */
-    List<CommentDto> selectComment(String blogId);
+    List<CommentDto> selectComments(String blogId);
+
+    CommentDto selectComment(String commentId);
 }

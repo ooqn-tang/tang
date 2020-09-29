@@ -30,5 +30,10 @@ public interface CommentService {
      * @param blogId
      * @return
      */
-    List<CommentDto> selectComment(String blogId);
+    List<CommentDto> selectComments(String blogId);
+
+    /**
+     * 评论ID
+     */
+    CommentDto selectComment(String commentId);
 }

@@ -2,11 +2,15 @@ package net.ttcxy.tang.security.controller;
 
 import cn.hutool.captcha.CaptchaUtil;
 import cn.hutool.captcha.CircleCaptcha;
+import cn.hutool.captcha.generator.RandomGenerator;
 import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.lang.Validator;
 import cn.hutool.extra.mail.MailAccount;
 import cn.hutool.extra.mail.MailUtil;
 import net.ttcxy.tang.api.CommonResult;
+import net.ttcxy.tang.entity.param.RegisterParam;
 import net.ttcxy.tang.security.MySecurityContext;
+import net.ttcxy.tang.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.server.Session;
 import org.springframework.http.ResponseEntity;
@@ -55,13 +59,18 @@ public class LoginUserController {
 
     }
 
+    @Autowired
+    UserService userService;
+
     @PostMapping("verifyMail/{mail}")
     @ResponseBody
-    public CommonResult sendMailVerify(@PathVariable("mail") String mail){
-
+    public CommonResult<String> sendMailVerify(@PathVariable("mail") String mail){
         try{
-            CircleCaptcha captcha = CaptchaUtil.createCircleCaptcha(128, 32, 4, 20);
-            String code = captcha.getCode();
+            if (!Validator.isEmail(mail)) {
+                return CommonResult.failed("邮箱不正确");
+            }
+
+            String code = new RandomGenerator(4).generate();
 
             MailAccount account = new MailAccount();
             account.setHost("smtp.qq.com");
@@ -72,7 +81,12 @@ public class LoginUserController {
             account.setPass("muijiqqfyyyyhbhc");
             MailUtil.send(account, mail, "验证码：" + code, "验证码邮件，无需回复。", false);
 
+            RegisterParam registerParam = new RegisterParam();
+            registerParam.setMail(mail);
+            registerParam.setVerify(code);
+
             httpSession.setAttribute(MySecurityContext.VERIFY_CODE,code);
+            httpSession.setAttribute(MySecurityContext.REG_VERIFY_DATA,registerParam);
 
             return CommonResult.success("发送成功");
         }catch (Exception e){

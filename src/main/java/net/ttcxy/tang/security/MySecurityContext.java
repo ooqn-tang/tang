@@ -4,4 +4,5 @@ package net.ttcxy.tang.security;
  */
 public class MySecurityContext {
     public final static String VERIFY_CODE = "VERIFY_CODE";
+    public final static String REG_VERIFY_DATA = "REG_VERIFY_DATA";
 }

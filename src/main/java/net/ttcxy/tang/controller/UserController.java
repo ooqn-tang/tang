@@ -1,20 +1,27 @@
 package net.ttcxy.tang.controller;
 
+import cn.hutool.captcha.generator.RandomGenerator;
 import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.util.IdUtil;
+import cn.hutool.core.util.RandomUtil;
 import cn.hutool.core.util.ReUtil;
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.extra.mail.MailAccount;
+import cn.hutool.extra.mail.MailUtil;
+import net.ttcxy.tang.api.CommonResult;
 import net.ttcxy.tang.entity.LoginUser;
 import net.ttcxy.tang.entity.model.User;
-import net.ttcxy.tang.api.CommonResult;
+import net.ttcxy.tang.entity.param.RegisterParam;
+import net.ttcxy.tang.security.MySecurityContext;
 import net.ttcxy.tang.service.AuthDetailsService;
 import net.ttcxy.tang.service.UserService;
 import net.ttcxy.tang.service.impl.FansServiceImpl;
 import net.ttcxy.tang.util.StringProUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DuplicateKeyException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Map;
 
@@ -33,6 +40,9 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private HttpSession httpSession;
 
     @PostMapping(value = "user/info")
     public CommonResult updateUser(@RequestBody LoginUser loginUser){
@@ -94,86 +104,101 @@ public class UserController {
 
     /**
      * 注册请求
-     * @param user user
+     * @param register register
      * @return 状态
      */
     @PostMapping("register")
-    public CommonResult register(@RequestBody User user){
+    public CommonResult<String> register(@RequestBody RegisterParam register){
 
-        if (user == null){
+
+
+        if (register == null){
             return CommonResult.failed("参数不正确");
         }else{
-            String username = user.getUsername();
-            if (username==null||username.length() < 2  ||username.length() > 15){
-                return CommonResult.failed("用户名长度：2 ~ 15");
-            }
+            String password = register.getPassword();
+            String passwordRe = "(?=.*?[a-z])(?=.*?[0-9]){8,25}";
+            if(ReUtil.contains(passwordRe,password)){
+                RegisterParam registerParam = (RegisterParam)httpSession.getAttribute(MySecurityContext.REG_VERIFY_DATA);
+                String mail = registerParam.getMail();
 
-            String regex = "^[a-z0-9A-Z]+$";
-            if(!username.matches(regex)){
-                return CommonResult.failed("用户名必须为数字和字母");
-            }
-
-            if (userService.selectUsernameIsTrue(username)){
-                return CommonResult.failed("用户名已经存在");
-            }
-
-            String password = user.getPassword();
-            if (password == null || password.length() < 8 || password.length() > 25){
-                return CommonResult.failed("密码长度：8 ~ 25");
-            }
-
-            String nickname = user.getNickname();
-            if (nickname!=null){
-                int length = StringProUtil.byteSize(nickname);
-                if (length>16 || length<4){
-                    return CommonResult.failed("昵称长度为4 ~ 16个之母或2 ~ 8个汉字");
+                Boolean aBoolean = userService.selectMailIsTrue(mail);
+                if (aBoolean){
+                    return CommonResult.failed("邮箱以存在");
                 }
-            }
-        }
-        try{
-            int count = userService.insertUser(user);
-            if (count > 0){
-                return CommonResult.success("注册成功");
-            }else{
-                return CommonResult.failed("注册失败");
-            }
-        }catch (DuplicateKeyException e){
-            return CommonResult.failed("用户名已经存在");
-        }
 
+                User user = new User();
+                user.setPassword(password);
+                user.setMail(mail);
+                String username = getUsername();
+                user.setNickname(username);
+                user.setUsername(username);
+
+                user.setId(IdUtil.fastSimpleUUID());
+
+                int i = userService.insertUser(user);
+                if (i > 0){
+                    return CommonResult.success("注册成功");
+                }
+            }else{
+                return CommonResult.failed();
+            }
+
+        }
+        return null;
 
     }
 
     /**
      * 密码修改
-     * @param mapBody mapBody
+     * @param register register
      * @return 修改状态
      */
     @PostMapping("password")
-    public CommonResult updatePassword(@RequestBody Map<String,String> mapBody){
-        String username = mapBody.get("username");
-        String passwordOld = mapBody.get("passwordOld");
-        String passwordNew = mapBody.get("passwordNew");
-        LoginUser loginUser = userService.selectUserByName(username);
-        if (loginUser ==null){
-            return CommonResult.failed("用户不存在");
-        }
-        if (!new BCryptPasswordEncoder().matches(passwordOld, loginUser.getPassword())){
-            return CommonResult.failed("密码不正确");
-        }
-        if (StrUtil.isBlank(passwordNew)||passwordNew.length()<=8||passwordNew.length()>=25){
-            return CommonResult.failed("密码长度：8~25");
-        }
-        loginUser.setPassword(new BCryptPasswordEncoder().encode(passwordNew));
+    public CommonResult<String> updatePassword(@RequestBody RegisterParam register){
+        if (register == null){
+            return CommonResult.failed("参数不正确");
+        }else{
+            String password = register.getPassword();
+            String passwordRe = "(?=.*?[a-z])(?=.*?[0-9]){8,25}";
+            if(ReUtil.contains(passwordRe,password)){
+                RegisterParam registerParam = (RegisterParam)httpSession.getAttribute(MySecurityContext.REG_VERIFY_DATA);
+                if (registerParam == null){
+                    return CommonResult.failed("没有收到验证码");
+                }
+                String mail = registerParam.getMail();
 
-        User user = new User();
-        BeanUtil.copyProperties(loginUser,user);
-        int count = userService.updateUserPassword(user);
-        if (count > 0){
-            return CommonResult.success("修改成功");
+                LoginUser user = userService.selectLoginUserByMail(mail);
+                if (user == null){
+                    return CommonResult.failed("邮箱未注册");
+                }
+                User updateUser = new User();
+                updateUser.setId(user.getId());
+                updateUser.setPassword(new BCryptPasswordEncoder().encode(password));
+                int i = userService.updateUserPassword(updateUser);
+                if (i > 0){
+                    return CommonResult.success("密码更新成功");
+                }
+            }else{
+                return CommonResult.failed();
+            }
+
         }
-        return CommonResult.failed("修改失败");
+        return null;
     }
 
 
+    public static void main(String[] args) {
+        System.out.println(ReUtil.contains("(?=.*?[a-z])(?=.*?[0-9]){8,25}","o1rd"));
+    }
+
+    private String getUsername(){
+        while(true){
+            String name = "t" + RandomUtil.randomNumbers(9);
+            Boolean isUsername = userService.selectUsernameIsTrue(name);
+            Boolean isNickname = userService.selectNicknameIsTrue(name);
+            if (!isUsername && !isNickname){
+                return name;
+            }
+        }
+    }
 }

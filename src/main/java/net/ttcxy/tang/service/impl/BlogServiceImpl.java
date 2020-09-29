@@ -101,19 +101,18 @@ public class BlogServiceImpl implements BlogService {
 
     @Override
     public int like(String userId, String blogId) {
-
-        LikeData likeData = new LikeData();
-        likeData.setBlogId(blogId);
-        likeData.setUserId(userId);
-        likeData.setCreateDate(new Date());
-        try {
-            return likeMapper.insertSelective(likeData);
-        } catch (Exception e) {
-            LikeDataExample likeExample = new LikeDataExample();
-            likeExample.createCriteria().andBlogIdEqualTo(blogId).andUserIdEqualTo(userId);
-            likeMapper.deleteByExample(likeExample);
+        LikeDataExample likeDataExample = new LikeDataExample();
+        likeDataExample.createCriteria().andBlogIdEqualTo(blogId).andUserIdEqualTo(userId);
+        long l = likeMapper.countByExample(likeDataExample);
+        if (l > 0){
+            likeMapper.deleteByExample(likeDataExample);
             return 0;
-
+        }else{
+            LikeData likeData = new LikeData();
+            likeData.setBlogId(blogId);
+            likeData.setUserId(userId);
+            likeData.setCreateDate(new Date());
+            return likeMapper.insertSelective(likeData);
         }
     }
 

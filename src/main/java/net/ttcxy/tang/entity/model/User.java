@@ -6,19 +6,14 @@ import java.io.Serializable;
 public class User implements Serializable {
     private String id;
 
-    @ApiModelProperty(value = "用户名")
     private String username;
 
-    @ApiModelProperty(value = "昵称")
     private String nickname;
 
-    @ApiModelProperty(value = "用户密码")
     private String password;
 
-    @ApiModelProperty(value = "邮箱号")
     private String mail;
 
-    @ApiModelProperty(value = "简介")
     private String signature;
 
     private static final long serialVersionUID = 1L;

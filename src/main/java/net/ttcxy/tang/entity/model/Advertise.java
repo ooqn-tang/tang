@@ -7,19 +7,14 @@ import java.util.Date;
 public class Advertise implements Serializable {
     private String id;
 
-    @ApiModelProperty(value = "广告标题")
     private String title;
 
-    @ApiModelProperty(value = "广告地址")
     private String url;
 
-    @ApiModelProperty(value = "创建时间")
     private Date createDate;
 
-    @ApiModelProperty(value = "投放时间")
     private Integer deliveryTime;
 
-    @ApiModelProperty(value = "广告描述")
     private String description;
 
     private static final long serialVersionUID = 1L;

@@ -28,23 +28,22 @@
             padding-right: 10px;
             font-size:24px;
             line-height:30px;
-            width:-webkit-calc(100% - 120px);
-            width:-moz-calc(100% - 120px);
-            width:calc(100% - 120px);
+            width:-webkit-calc(100% - 150px);
+            width:-moz-calc(100% - 150px);
+            width:calc(100% - 150px);
             height: 100%;
             outline: none;
         }
         .hdBut{
             border-left: 1px #b5adad solid;
             outline: none;
-            width: 40px;
+            width:50px;
             float: right;height: 100%;
             background: #337ab7;;
-            border-radius: 0px;
+            border-radius: 0;
             color: #fff;
         }
         .tt{
-
             font-size:18px;
             width: 50%;
             padding: 10px;
@@ -60,7 +59,7 @@
             .tt {
                 width: 100%;
             }
-            .ttdiv{
+            .t-div{
                 display: none;
             }
         }
@@ -68,14 +67,14 @@
 </head>
 <body>
 <div id="hd">
-    <input id="title" placeholder="标题" style="background: #f4f4f4"/>
-    <input class="hdBut" type="button" value="取消" onClick="javascript :history.go(-1);"/>
-    <input class="hdBut" id="send" type="button" value="发布" />
-    <input class="hdBut" id="image" type="button" value="图片" onclick="document.getElementById('file').click()" />
+    <input type="text" id="title" placeholder="标题" style="background: #f4f4f4"/>
+    <input type="button" class="hdBut"  value="取消" onClick="window.close()"/>
+    <input type="button" id="send" class="hdBut"  value="发布" />
+    <input type="button"id="image" class="hdBut"   value="图片" onclick="document.getElementById('file').click()" />
     <input type="file" id="file"  name="file" style="display: none" accept=".gif,.jpg,.jpeg,.bmp,.png,.psd"/>
 </div>
 <textarea onKeyUp="keyup()" class="tt" style="float: left;border-right: 1px solid black;background-color: #e2e3e4;" id="text" placeholder="请输入Markdown&#x000A;上传的文件如果没有在当前页面引用将会被删除"></textarea>
-<div class="tt ttdiv markdown-body" style="float:right;border-left: 1px solid black;background: #fff8eb;" id="content"></div>
+<div class="tt t-div markdown-body" style="float:right;border-left: 1px solid black;background: #fff8eb;" id="content"></div>
 </body>
 <script src="https://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
 <script type="text/javascript">
@@ -199,8 +198,6 @@
     $("#content").mouseover(function(){
         scrollId = "content"
     });
-
-
 
     document.getElementById('file').addEventListener('change', function (event) {
         let $file = event.currentTarget;

@@ -125,16 +125,6 @@ public class PageController {
     }
 
     /**
-     * 更改密码页面
-     */
-    @GetMapping("password")
-    public ModelAndView toUpdatePwd(ModelAndView modelAndView){
-        modelAndView.setViewName("password");
-        modelAndView.addObject("user",authDetailsServiceImpl.getUser());
-        return modelAndView;
-    }
-
-    /**
      * 编辑器
      */
     @GetMapping("editor")

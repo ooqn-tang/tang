@@ -105,76 +105,6 @@ public class PersistentLoginsExample {
             criteria.add(new Criterion(condition, value1, value2));
         }
 
-        public Criteria andSeriesIsNull() {
-            addCriterion("series is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andSeriesIsNotNull() {
-            addCriterion("series is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andSeriesEqualTo(String value) {
-            addCriterion("series =", value, "series");
-            return (Criteria) this;
-        }
-
-        public Criteria andSeriesNotEqualTo(String value) {
-            addCriterion("series <>", value, "series");
-            return (Criteria) this;
-        }
-
-        public Criteria andSeriesGreaterThan(String value) {
-            addCriterion("series >", value, "series");
-            return (Criteria) this;
-        }
-
-        public Criteria andSeriesGreaterThanOrEqualTo(String value) {
-            addCriterion("series >=", value, "series");
-            return (Criteria) this;
-        }
-
-        public Criteria andSeriesLessThan(String value) {
-            addCriterion("series <", value, "series");
-            return (Criteria) this;
-        }
-
-        public Criteria andSeriesLessThanOrEqualTo(String value) {
-            addCriterion("series <=", value, "series");
-            return (Criteria) this;
-        }
-
-        public Criteria andSeriesLike(String value) {
-            addCriterion("series like", value, "series");
-            return (Criteria) this;
-        }
-
-        public Criteria andSeriesNotLike(String value) {
-            addCriterion("series not like", value, "series");
-            return (Criteria) this;
-        }
-
-        public Criteria andSeriesIn(List<String> values) {
-            addCriterion("series in", values, "series");
-            return (Criteria) this;
-        }
-
-        public Criteria andSeriesNotIn(List<String> values) {
-            addCriterion("series not in", values, "series");
-            return (Criteria) this;
-        }
-
-        public Criteria andSeriesBetween(String value1, String value2) {
-            addCriterion("series between", value1, value2, "series");
-            return (Criteria) this;
-        }
-
-        public Criteria andSeriesNotBetween(String value1, String value2) {
-            addCriterion("series not between", value1, value2, "series");
-            return (Criteria) this;
-        }
-
         public Criteria andUsernameIsNull() {
             addCriterion("username is null");
             return (Criteria) this;
@@ -242,6 +172,76 @@ public class PersistentLoginsExample {
 
         public Criteria andUsernameNotBetween(String value1, String value2) {
             addCriterion("username not between", value1, value2, "username");
+            return (Criteria) this;
+        }
+
+        public Criteria andSeriesIsNull() {
+            addCriterion("series is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSeriesIsNotNull() {
+            addCriterion("series is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSeriesEqualTo(String value) {
+            addCriterion("series =", value, "series");
+            return (Criteria) this;
+        }
+
+        public Criteria andSeriesNotEqualTo(String value) {
+            addCriterion("series <>", value, "series");
+            return (Criteria) this;
+        }
+
+        public Criteria andSeriesGreaterThan(String value) {
+            addCriterion("series >", value, "series");
+            return (Criteria) this;
+        }
+
+        public Criteria andSeriesGreaterThanOrEqualTo(String value) {
+            addCriterion("series >=", value, "series");
+            return (Criteria) this;
+        }
+
+        public Criteria andSeriesLessThan(String value) {
+            addCriterion("series <", value, "series");
+            return (Criteria) this;
+        }
+
+        public Criteria andSeriesLessThanOrEqualTo(String value) {
+            addCriterion("series <=", value, "series");
+            return (Criteria) this;
+        }
+
+        public Criteria andSeriesLike(String value) {
+            addCriterion("series like", value, "series");
+            return (Criteria) this;
+        }
+
+        public Criteria andSeriesNotLike(String value) {
+            addCriterion("series not like", value, "series");
+            return (Criteria) this;
+        }
+
+        public Criteria andSeriesIn(List<String> values) {
+            addCriterion("series in", values, "series");
+            return (Criteria) this;
+        }
+
+        public Criteria andSeriesNotIn(List<String> values) {
+            addCriterion("series not in", values, "series");
+            return (Criteria) this;
+        }
+
+        public Criteria andSeriesBetween(String value1, String value2) {
+            addCriterion("series between", value1, value2, "series");
+            return (Criteria) this;
+        }
+
+        public Criteria andSeriesNotBetween(String value1, String value2) {
+            addCriterion("series not between", value1, value2, "series");
             return (Criteria) this;
         }
 

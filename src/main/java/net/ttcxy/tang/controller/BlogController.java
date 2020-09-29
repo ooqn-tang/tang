@@ -7,6 +7,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import net.ttcxy.tang.entity.dto.BlogDto;
 import net.ttcxy.tang.entity.LoginUser;
+import net.ttcxy.tang.entity.dto.CommentDto;
 import net.ttcxy.tang.entity.model.Blog;
 import net.ttcxy.tang.api.CommonResult;
 import net.ttcxy.tang.entity.model.BlogComment;
@@ -113,7 +114,7 @@ public class BlogController {
 
     @PostMapping("comment/insert")
     @ApiOperation("添加博客评论")
-    public CommonResult insertComment(@RequestBody BlogComment blogComment){
+    public CommonResult<CommentDto> insertComment(@RequestBody BlogComment blogComment){
 
         if (StrUtil.isBlank(blogComment.getContent())){
             return CommonResult.failed("评论不能为空");
@@ -121,8 +122,8 @@ public class BlogController {
 
         LoginUser user = authDetailsServiceImpl.getUser();
 
-
-        blogComment.setId(IdUtil.fastSimpleUUID());
+        String commentId = IdUtil.fastSimpleUUID();
+        blogComment.setId(commentId);
         blogComment.setUserId(user.getId());
         blogComment.setCreateDate(new Date());
         blogComment.setStatus(1);
@@ -130,7 +131,8 @@ public class BlogController {
         int count = commentService.insertComment(blogComment);
 
         if (count > 0){
-            return CommonResult.success(count);
+            CommentDto commentDto = commentService.selectComment(commentId);
+            return CommonResult.success(commentDto);
         }
         return CommonResult.failed("添加失败");
 
@@ -140,7 +142,7 @@ public class BlogController {
     @ApiOperation("查询博客评论")
     public CommonResult selectComment(@PathVariable("blogId") String blogId){
         Map<String,Object> map = new HashMap<>();
-        map.put("comments",commentService.selectComment(blogId));
+        map.put("comments",commentService.selectComments(blogId));
         map.put("user", authDetailsServiceImpl.getUser());
         return CommonResult.success(map);
     }

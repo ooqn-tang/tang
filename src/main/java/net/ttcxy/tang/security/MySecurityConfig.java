@@ -113,4 +113,8 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
     public MyVerifyCodeFilter getMyVerifyCodeFilter(){
         return new MyVerifyCodeFilter();
     }
+
+    public static void main(String[] args) {
+        System.out.println(new BCryptPasswordEncoder().encode("admin"));
+    }
 }

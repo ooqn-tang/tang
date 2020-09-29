@@ -16,6 +16,9 @@ public interface UserService {
      */
     LoginUser selectUserByName(String name) ;
 
+
+    LoginUser selectLoginUserByMail(String mail);
+
     /**
      * 添加用户
      * @param user user
@@ -45,6 +48,13 @@ public interface UserService {
     Boolean selectUsernameIsTrue(String username);
 
     /**
+     * 用户是否存在
+     * @param nickname
+     * @return
+     */
+    Boolean selectNicknameIsTrue(String nickname);
+
+    /**
      * 用户邮箱是否存在
      * @param username
      * @return
@@ -65,4 +75,7 @@ public interface UserService {
      * @return UserDto
      */
     List<User> listUser(Integer page);
+
+
+
 }

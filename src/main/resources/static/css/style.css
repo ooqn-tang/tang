@@ -1,165 +1,75 @@
-.wz{
-    font-size: 18px;
-}
-.my-wz{
-    display:-webkit-box;
-    overflow:hidden;
-    text-overflow:ellipsis;
-    -webkit-line-clamp:3;
-    -webkit-box-orient:vertical;
-    white-space: nowrap;
-}
-.load{
-    line-height:72px;height: 100px;text-align:center
-}
-.jy{
-    pointer-events:none;color: #b4b4b4
-}
-
 [v-cloak] {
     display: none !important;
 }
-html{
-    overflow-y:scroll;
-}
-body{
-    padding-right: 0px !important;
-    background-color: #fcfdfd;
-}
-
-.my-nav{
-    background-color: #FFFFFF;
-    padding: 6px;
-}
-
-#pl li:hover{
-    background: #ddd;
 
 
-}
-#plBody{
-    font-size:12px;
-}
-#plBody p{
-    font-size: 15px;
-}
-#LBG{
-     background: url(https://cn.bing.com//th?id=OHR.CahuitaNP_ZH-CN3985565209_1920x1080.jpg) no-repeat center center fixed;
-}
 
-a:hover,a:hover,a{text-decoration:none !important;}
-.nava{
-    display: inline-block;
-    margin-bottom: 0;
-    font-weight: 400;
-    text-align: center;
-    white-space: nowrap;
-    vertical-align: middle;
-    -ms-touch-action: manipulation;
-    touch-action: manipulation;
-    cursor: pointer;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    background-image: none;
-    border: 1px solid transparent;
-    color: #333;
-    background-color: #fff;
-    border-color: #ccc;
-    padding: 1px 5px;
-    font-size: 12px;
-    line-height: 1.5;
-    border-radius: 3px;
+@media screen and (max-width:1000px) and (min-width:770px){
+    .visible-my{
+        display: none;
+    }
 }
-
-.speecial{
-    margin-top: 5px;
-    margin-bottom: 5px;
-}
-
-
 @media screen and (max-width: 770px){
-
     #loginModal {
         margin:10px;
-        padding-right: 0px !important;
+        padding-right: 0 !important;
     }
-
     .nob-p{
         border-left: 0 !important;
         border-right: 0 !important;
-        border-radius: 0px !important;
+        border-radius: 0 !important;
         padding-left: 0 !important;
         padding-right: 0 !important;
     }
     .nob{
-        border-radius: 0px !important;
+        border-radius: 0 !important;
         border-left: 0 !important;
         border-right: 0 !important;
     }
 }
 
-hr{
-    margin-top: 5px !important;
-    margin-bottom:5px !important;
-}
-
-.myBtn{
-    margin-bottom: 5px !important;
-}
-
-.W20{
-    width: 20%;
-}
-.W50{
-    width: 50%;
-}
-
-
-
-
-
-ul.nav-tabs{
-    width: 140px;
-    margin-top: 20px;
-    border-radius: 4px;
-    border: 1px solid #ddd;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.067);
-}
-ul.nav-tabs li{
-    margin: 0;
-    border-top: 1px solid #ddd;
-}
-ul.nav-tabs li:first-child{
-    border-top: none;
-}
-ul.nav-tabs li a{
-    margin: 0;
-    padding: 8px 16px;
-    border-radius: 0;
-}
-ul.nav-tabs li.active a, ul.nav-tabs li.active a:hover{
-    color: #fff;
-    background: #0088cc;
-    border: 1px solid #0088cc;
-}
-ul.nav-tabs li:first-child a{
-    border-radius: 4px 4px 0 0;
-}
-ul.nav-tabs li:last-child a{
-    border-radius: 0 0 4px 4px;
-}
-ul.nav-tabs.affix{
-    top: 0px; /* Set the top position of pinned element */
-}
-
-a{
-    cursor:pointer
-}
-
+/*登录模态框*/
 #loginModal {
     margin:5px auto;
     width: 100%;
     max-width: 600px;
     padding: 10px !important;
+}
+/*百分比*/
+.W33{
+    width:33%
+}
+.W34{
+    width:34%
+}
+.W100{
+    width: 100%
+}
+.W20{
+    width: 20%
+}
+.W50{
+    width: 50%
+}
+/*A标签*/
+a:hover,a:hover,a{
+    text-decoration:none !important;
+    cursor:pointer
+}
+.page{
+    pointer-events:none;
+    color: #b4b4b4
+}
+.blog-title{
+    font-size: 18px;
+}
+.load-context{
+    height: 100px;
+    text-align: center;
+    line-height: 70px;
+    font-size: 10px;
+}
+hr{
+    margin-top: 8px !important;
+    margin-bottom: 8px !important;
 }

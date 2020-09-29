@@ -14,14 +14,12 @@
 <body>
 <div th:replace="comm::navigation"></div>
 <div class="container" id="app" v-cloak>
-
     <div class="row">
         <div class="col-md-9 column nob-p">
             <div class="panel panel-default nob" >
                 <div class="panel-body" id="blog-body" style="overflow-y:hidden;">
                     <div>
                         <strong><a th:href="@{/author/{id}(id=${blog.username})}" th:text="${blog.nickname}"></a></strong>
-                        &nbsp;&nbsp;
                         <span style="color:#b4b4b4" th:text="${#dates.format(blog.createDate,'yyyy.MM.dd')}"></span>
                         <div class="btn-group pull-right">
                             <button class="btn btn-default btn-xs"  @click="followerClick" v-text="follower.text"></button>
@@ -36,7 +34,6 @@
                     <a th:href="'/editor?blog='+${blog.id}" class="btn btn-default btn-xs"  th:if="${session.SPRING_SECURITY_CONTEXT != null && session.SPRING_SECURITY_CONTEXT.authentication.principal.username == blog.username}">编辑</a>
                 </div>
             </div>
-
             <div class="panel panel-default nob">
                 <div class="panel-heading">
                     <strong>评论</strong>
@@ -64,19 +61,15 @@
                     </div>
                 </div>
             </div>
-
-
             <div class="panel panel-default nob">
                 <div class="panel-body">
-                    <a class="wz my-wz" th:href="'/post/'+${random.id}" th:text="${random.title}"></a>
+                    <a class="blog-title" th:href="'/post/'+${random.id}" th:text="${random.title}"></a>
                     <div>
                         <span th:text="${#dates.format(random.createDate, 'yyyy.MM.dd')}"></span>
                         <a class="pull-right" th:href="@{/author/{id}(id=${random.username})}" th:text="${random.nickname}"></a>
                     </div>
                 </div>
             </div>
-
-
         </div>
         <div class="col-md-3 column advertise nob-p">
             <div th:replace="comm::advertise"></div>
@@ -108,17 +101,21 @@
                     alert("请登录")
                     return
                 }
-                $.get("/blog/like/"+this.blogId+"/insert",function(result){
-                    let lkBut = $("#lkBut")
-                    if (result.data === 1){
-                        lkBut.removeClass();
-                        lkBut.addClass("btn btn-danger  btn-xs")
-                    }else{
-                        lkBut.removeClass();
-                        lkBut.addClass("btn btn-default btn-xs")
+                $.ajax({
+                    type:"GET",
+                    url:"/blog/like/"+this.blogId+"/insert",
+                    contentType: "application/json",
+                    success:function (result) {
+                        let lkBut = $("#lkBut")
+                        if (result.data === 1){
+                            lkBut.removeClass();
+                            lkBut.addClass("btn btn-danger  btn-xs")
+                        }else{
+                            lkBut.removeClass();
+                            lkBut.addClass("btn btn-default btn-xs")
+                        }
                     }
-                });
-
+                })
             },
             followerClick(){
                 if (this.loginUser){
@@ -184,6 +181,7 @@
                     async:false,
                     success:function (result) {
                         if(result.code === 200){
+
                             _this.content = "";
                             _this.comments.push(result.data);
                         }else{
@@ -193,6 +191,9 @@
                 })
             },
             loadComment(){
+                if (this.loginUser){
+                    return
+                }
                 $.ajax({
                     type:"GET",
                     url:"/blog/comment/"+this.blogId,
@@ -236,12 +237,5 @@
             this.loadComment();
         }
     })
-    var _hmt = _hmt || [];
-    (function() {
-        var hm = document.createElement("script");
-        hm.src = "https://hm.baidu.com/hm.js?7449589c273ee75cf0c7def43d91fa44";
-        var s = document.getElementsByTagName("script")[0];
-        s.parentNode.insertBefore(hm, s);
-    })();
 </script>
 </html>

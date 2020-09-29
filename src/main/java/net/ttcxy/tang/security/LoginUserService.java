@@ -1,6 +1,7 @@
 package net.ttcxy.tang.security;
 
 
+import cn.hutool.core.lang.Validator;
 import net.ttcxy.tang.entity.LoginUser;
 import net.ttcxy.tang.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,13 @@ public class LoginUserService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        LoginUser loginUser = userServiceImpl.selectUserByName(username);
+
+        LoginUser loginUser = null;
+        if (Validator.isEmail(username)){
+            loginUser = userServiceImpl.selectLoginUserByMail(username);
+        }else{
+            loginUser = userServiceImpl.selectUserByName(username);
+        }
         if (loginUser ==null){
             throw new UsernameNotFoundException("用户不存在");
         }

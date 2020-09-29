@@ -5,26 +5,15 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class PageView implements Serializable {
-    private String id;
-
-    @ApiModelProperty(value = "阅读者")
     private String userId;
 
-    @ApiModelProperty(value = "阅读信息ID")
     private String blogId;
 
-    @ApiModelProperty(value = "创建时间")
     private Date createDatetime;
 
+    private String id;
+
     private static final long serialVersionUID = 1L;
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
 
     public String getUserId() {
         return userId;
@@ -50,16 +39,24 @@ public class PageView implements Serializable {
         this.createDatetime = createDatetime;
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append(getClass().getSimpleName());
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
-        sb.append(", id=").append(id);
         sb.append(", userId=").append(userId);
         sb.append(", blogId=").append(blogId);
         sb.append(", createDatetime=").append(createDatetime);
+        sb.append(", id=").append(id);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

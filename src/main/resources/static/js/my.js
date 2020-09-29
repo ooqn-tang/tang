@@ -145,27 +145,6 @@ function changeURLArg(url,arg,arg_val){
     }
 }
 
-
-new Vue({
-    el: "#search",
-    data: {
-        searchValue:""
-    },
-    methods: {
-        searchClick(){
-            let search = getQueryVariable("s");
-            if(search !== null){
-                index.search(this.searchValue)
-            }else{
-                window.location.href = "/so?s=" + this.searchValue
-            }
-
-        }
-    }
-})
-
-
-
 $.ajaxSetup({
     dataType: "json",
     cache: false,
@@ -173,10 +152,9 @@ $.ajaxSetup({
         withCredentials: true
     },
     complete(xhr) {
-        //token过期，则跳转到登录页面
-        if(xhr.responseJSON.code === 401){
+        if(xhr.status === 401){
             alert("请登录")
-            throw "请登录"
+            throw "请登录";
         }
     }
 });
@@ -189,3 +167,4 @@ function toData(data){
     }
     return ret
 }
+
