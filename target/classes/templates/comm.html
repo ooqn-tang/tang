@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:v-on="http://www.w3.org/1999/xhtml"
+      xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<!--导航菜单-->
+<div th:fragment="navigation">
+    <nav role="navigation" class="navbar navbar-default navbar-static-top" style="margin-bottom: 10px;">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" class="navbar-toggle">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href="/" class="navbar-brand">堂堂程序员</a>
+            </div>
+            <div id="bs-example-navbar-collapse-1" class="collapse navbar-collapse">
+                <ul class="nav navbar-nav ">
+                    <li><a href="/">首页</a></li>
+                    <li><a href="#">文章</a></li>
+                    <li><a href="#">文件</a></li>
+                    <li><a href="#">牛皮<span class="visible-my">🐂</span></a></li>
+                </ul>
+                <form class="navbar-form navbar-left">
+                    <div class="input-group" id="search">
+                        <input autocapitalize="none" autocomplete="off" autocorrect="off" type="text" class="form-control" v-model="searchValue" th:value="${title}" placeholder="输入关键字" name="s">
+                        <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" @click="searchClick">🔍</button>
+                    </span>
+                    </div>
+                    <script>
+                        new Vue({
+                            el: "#search",
+                            data: {
+                                searchValue:""
+                            },
+                            methods: {
+                                searchClick(){
+                                    let search = getQueryVariable("s");
+                                    if(search !== null){
+                                        index.search(this.searchValue)
+                                    }else{
+                                        window.location.href = "/so?s=" + this.searchValue
+                                    }
+                                }
+                            }
+                        })
+                    </script>
+                </form>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a th:if="${session.SPRING_SECURITY_CONTEXT}!= null"   data-toggle="modal" data-target="#release">发布</a></li>
+                    <li><a th:if="${session.SPRING_SECURITY_CONTEXT}!= null" th:href="@{/author/{username}(username=${session.SPRING_SECURITY_CONTEXT.authentication.principal.username})}">我的</a></li>
+                    <li th:if="${session.SPRING_SECURITY_CONTEXT}== null"><a data-toggle="modal" data-target="#loginModal">登陆</a></li>
+                    <!-- 模态框（Modal）  -->
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="modal fade" id="release" tabindex="-1" role="dialog" aria-labelledby="releaseLoabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="releaseLoabel">
+                        发布
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <a target="_blank" href="/editor" type="button" class="btn btn-default W100" style="margin-bottom: 10px" @click="password()">文章</a>
+                    <button type="button" class="btn btn-default W100" style="margin-bottom: 10px" @click="password()">文件</button>
+                    <button type="button" class="btn btn-default W100" style="margin-bottom: 10px" @click="password()">牛皮</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+</div>
+
+<div th:fragment="login">
+    <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" data-backdrop="static" aria-hidden="true">
+        <form>
+            <div class="modal-content">
+                <!--Modal 标题-->
+                <div class="modal-header">
+                    <h4 class="modal-title text-center" v-text="title"></h4>
+                </div>
+                <div class="modal-body" id = "model-body">
+                    <!--注册，忘记密码邮箱-->
+                    <label v-if="title == '注册' || title == '忘记密码'">邮箱：</label>
+                    <div class="form-group" v-if="title == '注册' || title == '忘记密码'">
+                        <input type="text" class="form-control" placeholder="邮箱号" v-model="user.mail" autocomplete="off">
+                    </div>
+                    <!--登录时显示-->
+                    <label v-if="title == '登录'">邮箱 / 用户名：</label>
+                    <div class="form-group" v-if="title == '登录'">
+                        <input type="text" class="form-control" placeholder="用户名" v-model="user.username" autocomplete="off">
+                    </div>
+                    <label>密码：</label>
+                    <div class="form-group">
+                        <input type="password" class="form-control" placeholder="密码" v-model="user.password" autocomplete="off">
+                    </div>
+                    <label v-if="title == '注册' || title == '忘记密码'">确认密码：</label>
+                    <div class="form-group" v-if="title == '注册' || title == '忘记密码'">
+                        <input type="password" class="form-control" placeholder="密码" v-model="user.confirmPassword" autocomplete="off">
+                    </div>
+                    <label v-text="yzm"></label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" v-model="user.verify">
+                        <span v-if="title == '登录'" class="input-group-addon" style="padding: 0"><img alt="验证码" @click="rImg" v-bind:src="verifyUrl" height="32"/> </span>
+                        <span class="input-group-btn" v-if="title != '登录'">
+                            <button class="btn btn-default" type="button" @click="sendVerify">获取验证码</button>
+                        </span>
+                    </div>
+                    <input type="checkbox" name="remember-me" checked="checked" class="hidden"/>
+                </div>
+                <div class="modal-footer">
+                    <div class="btn-group W100" style="margin-bottom: 10px" v-if="title == '登录'">
+                        <button type="button" class="btn btn-default W33">QQ</button>
+                        <button type="button" class="btn btn-default W33">微信</button>
+                        <button type="button" class="btn btn-primary W34" @click="login()">登录</button>
+                    </div>
+                    <div class="btn-group W100" style="margin-bottom: 10px" v-if="title == '注册'">
+                        <button type="button" class="btn btn-primary W100" @click="register()">确认注册</button>
+                    </div>
+                    <div class="btn-group W100" style="margin-bottom: 10px" v-if="title == '忘记密码'">
+                        <button type="button" class="btn btn-primary W100"  @click="password()">修改密码</button>
+                    </div>
+                    <div class="btn-group W100">
+                        <a type="button" class="btn btn-default W33" v-if="title != '登录'" @click="title='登录',yzm='验证码：'">账户登录</a>
+                        <a type="button" class="btn btn-default W33" v-if="title != '注册'" @click="title='注册',yzm='邮箱验证码：'">注册账户</a>
+                        <a type="button" class="btn btn-default W33" v-if="title != '忘记密码'" @click="title='忘记密码',yzm='邮箱验证码：'">忘记密码</a>
+                        <a type="button" class="btn btn-default W34" data-dismiss="modal">取消登录</a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <script>
+        new Vue({
+            el:"#loginModal",
+            data:{
+                zc:true,
+                dl:false,
+                title:"登录",
+                yzm:"验证码",
+                user:{
+                    username:"",
+                    password:"",
+                    confirmPassword:"",
+                    verify:"",
+                    mail:"",
+                    'remember-me':true
+                },
+                verifyUrl:""
+            },
+            methods: {
+                login(){
+                    let _this = this
+                    $.ajax({
+                        type:"POST",
+                        url:"/doLogin",
+                        contentType: "application/x-www-form-urlencoded",
+                        data:_this.user,
+                        dataType:"JSON",
+                        error:function (err){
+                            if(err.responseText == "登录成功"){
+                                location.reload();
+                            }else{
+                                alert(err.responseText)
+                                _this.rImg()
+                            }
+                        }
+                    });
+                },
+                rImg(){
+                    this.verifyUrl = "/verify?t=" + Date.parse(new Date())
+                },
+                sendVerify(){
+                    let _this = this
+                    $.ajax({
+                        type:"POST",
+                        url:"/verifyMail/" + _this.user.mail,
+                        success:function(result){
+                            alert(result.data)
+                        }
+                    });
+                },
+                register(){
+                    let _this = this;
+                    if (this.user.password === this.user.confirmPassword){
+                        $.ajax({
+                            type:"POST",
+                            url:"/register",
+                            contentType: "application/json;charset=UTF-8",
+                            data:JSON.stringify(_this.user),
+                            dataType:"JSON",
+                            success:function(result){
+                                if (result.code == 200){
+                                    alert(result.data)
+                                }else{
+                                    alert(result.message)
+                                    _this.rImg()
+                                }
+                            }
+                        });
+                        return
+                    }
+                    alert("两次密码不一致")
+                },
+                password(){
+                    let _this = this;
+                    if (this.user.password === this.user.confirmPassword) {
+                        $.ajax({
+                            type: "POST",
+                            url: "/password",
+                            contentType: "application/json;charset=UTF-8",
+                            data: JSON.stringify(_this.user),
+                            dataType: "JSON",
+                            success: function (result) {
+                                alert(result.data)
+                            }
+                        });
+                        return
+                    }
+                    alert("两次密码不一致")
+                }
+            },
+            mounted(){
+                this.rImg()
+            }
+        })
+    </script>
+</div>
+
+
+<div th:fragment="advertise">
+    <div class="list-group nob" >
+        <a class="list-group-item active nob">推荐</a>
+        <a target="_blank" class="list-group-item nob" th:each="advertise : ${application.advertises}" th:text="${advertise.title}" th:href="${advertise.url}"></a>
+    </div>
+    <div class="panel panel-default nob">
+        <div class="panel-body nob">
+            <p><a href="http://www.ttcxy.net/post/0b0d396713a54e2fbf714478d740e53e" target="_blank">关于</a></p>
+            <p><a href="http://www.ttcxy.net/post/98b255d539f743e193e398bfa9b97cfd" target="_blank">友情链接</a></p>
+            <p><a href="http://beian.miit.gov.cn" target="_blank">湘ICP备20009234号</a></p>
+            <a class="hidden" href="/map">地图</a>
+        </div>
+    </div>
+</div>
+
+</html>

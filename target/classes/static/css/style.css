@@ -1,0 +1,75 @@
+[v-cloak] {
+    display: none !important;
+}
+
+
+
+@media screen and (max-width:1000px) and (min-width:770px){
+    .visible-my{
+        display: none;
+    }
+}
+@media screen and (max-width: 770px){
+    #loginModal {
+        margin:10px;
+        padding-right: 0 !important;
+    }
+    .nob-p{
+        border-left: 0 !important;
+        border-right: 0 !important;
+        border-radius: 0 !important;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+    .nob{
+        border-radius: 0 !important;
+        border-left: 0 !important;
+        border-right: 0 !important;
+    }
+}
+
+/*登录模态框*/
+#loginModal {
+    margin:5px auto;
+    width: 100%;
+    max-width: 600px;
+    padding: 10px !important;
+}
+/*百分比*/
+.W33{
+    width:33%
+}
+.W34{
+    width:34%
+}
+.W100{
+    width: 100%
+}
+.W20{
+    width: 20%
+}
+.W50{
+    width: 50%
+}
+/*A标签*/
+a:hover,a:hover,a{
+    text-decoration:none !important;
+    cursor:pointer
+}
+.page{
+    pointer-events:none;
+    color: #b4b4b4
+}
+.blog-title{
+    font-size: 18px;
+}
+.load-context{
+    height: 100px;
+    text-align: center;
+    line-height: 70px;
+    font-size: 10px;
+}
+hr{
+    margin-top: 8px !important;
+    margin-bottom: 8px !important;
+}
