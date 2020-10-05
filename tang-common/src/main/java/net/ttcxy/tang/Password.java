@@ -1,4 +1,4 @@
-package net.ttcxy.tang.gateway.tool;
+package net.ttcxy.tang;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
