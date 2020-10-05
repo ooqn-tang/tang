@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh-CN"  xmlns:th="http://www.w3.org/1999/xhtml" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />
+    <link href="/favicon.ico" rel="icon"/>
+    <link href="/css/style.css" rel="stylesheet"/>
+    <link href="https://cdn.bootcss.com/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcss.com/github-markdown-css/4.0.0/github-markdown.min.css" rel="stylesheet">
+    <script src="https://cdn.bootcss.com/vue/2.6.10/vue.min.js"></script>
+    <div th:include="comm::login"></div>
+</head>
+<body>
+<div th:replace="comm::navigation"></div>
+<div class="container" id="nui" v-cloak>
+    <div class="row">
+        <div class="col-md-9 column nob-p">
+<!--            primary, .text-success, .text--->
+            <div class="panel panel-primary nob" >
+                <div class="panel-body bg-primary">
+                    <H4>牛皮正在被开发中。</H4>
+                </div>
+                <div class="panel-footer">
+                    <button class="btn btn-default btn-xs">真牛</button>
+                    <button class="btn btn-default btn-xs">观摩牛人</button>
+                    <button class="btn btn-default btn-xs">牛言</button>
+                    <span style="float:right">2020.10.10</span>
+                </div>
+            </div>
+            <div class="panel panel-primary nob" >
+                <div class="panel-body bg-primary">
+                    <H4>昨天面试阿里，感觉他们既然人员不行，我决定不去他们那。</H4>
+                </div>
+                <div class="panel-footer">
+                    <button class="btn btn-default btn-xs">真牛</button>
+                    <button class="btn btn-default btn-xs">观摩牛人</button>
+                    <button class="btn btn-default btn-xs">牛言</button>
+                    <span style="float:right">2020.10.10</span>
+                </div>
+            </div>
+            <div class="panel panel-primary nob" >
+                <div class="panel-body bg-primary">
+                    <H4>老板娘让我以后不要敲代码了，明天配她出去逛逛街，旅游，但是我拒绝了，堂堂的程序员只想和代码一起生活。</H4>
+                </div>
+                <div class="panel-footer">
+                    <button class="btn btn-default btn-xs">真牛</button>
+                    <button class="btn btn-default btn-xs">观摩牛人</button>
+                    <button class="btn btn-default btn-xs">牛言</button>
+                    <span style="float:right">2020.10.10</span>
+                </div>
+            </div>
+            <div class="panel panel-primary nob" >
+                <div class="panel-body bg-primary">
+                    <H4>只要牛皮够响，就没有什么Bug可以对我造成伤害。</H4>
+                </div>
+                <div class="panel-footer">
+                    <button class="btn btn-default btn-xs">真牛</button>
+                    <button class="btn btn-default btn-xs">观摩牛人</button>
+                    <button class="btn btn-default btn-xs">牛言</button>
+                    <span style="float:right">2020.10.10</span>
+                </div>
+            </div>
+            <div class="panel panel-primary nob" >
+                <div class="panel-body bg-primary">
+                    <H4>获取更多牛皮</H4>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 column advertise nob-p">
+            <div th:replace="comm::advertise"></div>
+        </div>
+    </div>
+</div>
+</body>
+<script src="https://cdn.bootcss.com/jquery/2.1.2/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/twitter-bootstrap/3.3.7/js/bootstrap.js"></script>
+<script src="/js/my.js"></script>
+<script>
+    new Vue({
+        el: "#nui",
+        data: {
+
+        },
+        methods: {
+
+        },created(){
+
+        }
+    })
+</script>
+</html>
