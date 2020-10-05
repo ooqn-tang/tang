@@ -1,0 +1,5 @@
+/tang-gateway/target/
+/tang-generator/target/
+.idea/
+tang-gateway/tang-gateway.iml
+tang-generator/tang-generator.iml
