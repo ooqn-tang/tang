@@ -1,7 +1,7 @@
 # Tang
 
 #### 介绍
-本项目为多人博客系统，仅门户网站没有管理系统，网站采用极简设计风格，过滤已切可以忽略的功能🙃
+多人博客系统
 
 #### 软件架构
 SpringBoot2 + MyBatis + SpringSecurity + thymeleaf + Bootstrap3 + MySQL
