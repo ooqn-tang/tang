@@ -16,8 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 /**
  * 项目的所有页面跳转
- * @author leilei
- * @date 2020/05/01
+ * created by huanglei on 2020/05/01
  */
 @Controller
 public class PageController {

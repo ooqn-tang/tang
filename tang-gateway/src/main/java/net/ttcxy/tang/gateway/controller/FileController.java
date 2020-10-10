@@ -13,8 +13,7 @@ import java.io.File;
 import java.io.IOException;
 
 /**
- * @author ：HuangLei
- * @date ：2020/4/16 0016 19:53
+ * created by huanglei on 2020/10/10
  */
 @RestController
 @RequestMapping("file")
@@ -33,7 +32,7 @@ public class FileController {
     @ApiOperation("文件上传")
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult upload(@RequestParam("file") MultipartFile file) throws IOException {
+    public CommonResult<String> upload(@RequestParam("file") MultipartFile file) throws IOException {
 
         String[] split = file.getOriginalFilename().split("\\.");
         if (split.length == 0){
@@ -61,7 +60,7 @@ public class FileController {
     @ApiOperation("文件删除")
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult delete(@RequestParam("objectName") String objectName) {
+    public CommonResult<String> delete(@RequestParam("objectName") String objectName) {
         return CommonResult.failed();
     }
 

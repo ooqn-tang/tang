@@ -4,26 +4,20 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 /**
- * @author huanglei
+ * created by huanglei on 2020/10/10
  */
 @Component
 @ConfigurationProperties(prefix = "tang")
 public class TangProperties {
 
-    /**
-     * 安全相关配置
-     */
-    SpringSecurityProperties security = new SpringSecurityProperties();
+    //安全相关配置
+    private SpringSecurityProperties security = new SpringSecurityProperties();
 
-    /**
-     * API相关配置
-     */
-    CloudProperties cloud = new CloudProperties();
+    //API相关配置
+    private CloudProperties cloud = new CloudProperties();
 
-    /**
-     * 系统配置
-     */
-    SysConfigProperties sys = new SysConfigProperties();
+    //系统配置
+    private SysConfigProperties sys = new SysConfigProperties();
 
     public SpringSecurityProperties getSecurity() {
         return security;

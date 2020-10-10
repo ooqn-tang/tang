@@ -12,6 +12,14 @@
         <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
     </resultMap>
 
+    <insert id="insertComment">
+        insert into blog_comment (id,blog_id,status,user_id,content,create_date) values(#{id},#{blogId},#{status},#{userId},#{content},#{createDate})
+    </insert>
+
+    <delete id="deleteComment">
+        delete from blog_comment where id = #{id}
+    </delete>
+
     <select id="selectComments" resultType="net.ttcxy.tang.gateway.entity.dto.CommentDto">
         select bc.user_id,bc.id,bc.blog_id,bc.status,u.nickname,u.username,bc.create_date,bc.content
         from `blog_comment` bc , `user` u

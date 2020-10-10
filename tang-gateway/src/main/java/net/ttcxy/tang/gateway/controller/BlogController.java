@@ -22,7 +22,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @author huanglei
+ * created by huanglei on 2020/10/10
  */
 @RestController
 @RequestMapping("blog")
@@ -40,7 +40,7 @@ public class BlogController {
 
     @GetMapping("home/{username}")
     @ApiOperation("用户首页")
-    public CommonResult blogList(
+    public CommonResult<PageInfo<BlogDto>> blogList(
             @PathVariable("username") String username,
             @RequestParam(value = "page" ,defaultValue = "1")Integer page){
         return  CommonResult.success(blogService.searchByUsername(username,page));
@@ -76,7 +76,7 @@ public class BlogController {
 
     @PostMapping("insert")
     @ApiOperation("添加博客")
-    public CommonResult add(@RequestBody Blog blog){
+    public CommonResult<String> add(@RequestBody Blog blog){
 
         String userId = authDetailsServiceImpl.getUserId();
 

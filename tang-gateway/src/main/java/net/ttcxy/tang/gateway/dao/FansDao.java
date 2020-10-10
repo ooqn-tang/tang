@@ -8,7 +8,7 @@ import java.util.List;
 
 /**
  * 粉丝
- * @author huanglei
+ * created by huanglei on 2020/10/10
  */
 public interface FansDao {
 

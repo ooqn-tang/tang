@@ -3,8 +3,7 @@ package net.ttcxy.tang.gateway.entity.dto;
 import java.util.Date;
 
 /**
- * @author ：huanglei
- * @date ：2020/4/10 0010 19:52
+ * created by huanglei on 2020/10/10
  */
 public class FansDto {
 

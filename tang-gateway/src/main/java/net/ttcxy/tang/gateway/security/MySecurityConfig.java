@@ -17,8 +17,7 @@ import javax.sql.DataSource;
 
 /**
  * SpringSecurity 配置
- *
- * @author huanglei
+ * created by huanglei on 2020/10/10
  */
 @Configuration
 public class MySecurityConfig extends WebSecurityConfigurerAdapter {

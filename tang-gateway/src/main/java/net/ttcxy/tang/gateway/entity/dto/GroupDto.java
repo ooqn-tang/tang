@@ -4,7 +4,7 @@ import org.springframework.security.core.GrantedAuthority;
 
 /**
  * 角色
- * @author huanglei
+ * created by huanglei on 2020/10/10
  */
 public class GroupDto implements GrantedAuthority {
 

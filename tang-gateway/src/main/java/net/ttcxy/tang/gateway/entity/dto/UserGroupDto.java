@@ -1,7 +1,7 @@
 package net.ttcxy.tang.gateway.entity.dto;
 
 /**
- * @author huanglei
+ * created by huanglei on 2020/10/10
  */
 public class UserGroupDto {
 

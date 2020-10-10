@@ -4,7 +4,7 @@ import net.ttcxy.tang.gateway.entity.LoginUser;
 
 /**
  * 用户
- * @author huanglei
+ * created by huanglei on 2020/10/10
  */
 public interface UserDao {
 

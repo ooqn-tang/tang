@@ -7,8 +7,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import java.util.Date;
 
 /**
- * @author ：huanglei
- * @date ：2020/4/18 0018 15:14
+ * created by huanglei on 2020/10/10
  */
 public class CommentDto{
 

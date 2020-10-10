@@ -6,8 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * @author ：HuangLei
- * @date ：2020/4/10 0010 20:07
+ * created by huanglei on 2020/10/10
  */
 @RestController
 @RequestMapping("fans")
@@ -19,11 +18,9 @@ public class FansController {
 
     /**
      * 查询粉丝
-     * @param fansName fansName
-     * @return 影响条数
      */
     @GetMapping("{fansName}")
-    public CommonResult selectFans(@PathVariable("fansName") String fansName){
+    public CommonResult<Integer> selectFans(@PathVariable("fansName") String fansName){
         int count = fansServiceImpl.selectFans(fansName);
         if (count > 0){
             return CommonResult.success(count);
@@ -33,11 +30,9 @@ public class FansController {
 
     /**
      * 关注粉丝
-     * @param fansName
-     * @return
      */
     @PostMapping("{fansName}")
-    public CommonResult insertFans(@PathVariable("fansName") String fansName){
+    public CommonResult<Integer> insertFans(@PathVariable("fansName") String fansName){
         int count = fansServiceImpl.insertFans(fansName);
         if (count > 0){
             return CommonResult.success(count);
@@ -47,11 +42,9 @@ public class FansController {
 
     /**
      * 取消粉丝
-     * @param fansName
-     * @return
      */
     @DeleteMapping("{fansName}")
-    public CommonResult deleteFans(@PathVariable("fansName") String fansName){
+    public CommonResult<Integer> deleteFans(@PathVariable("fansName") String fansName){
         int count = fansServiceImpl.deleteFans(fansName);
         if (count > 0){
             return CommonResult.success(count);

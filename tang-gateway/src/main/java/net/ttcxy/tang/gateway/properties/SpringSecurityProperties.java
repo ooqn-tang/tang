@@ -2,11 +2,9 @@ package net.ttcxy.tang.gateway.properties;
 
 /**
  * SpringSecurity 配置文件
- * @author huanlgei
+ * created by huanglei on 2020/10/10
  */
 public class SpringSecurityProperties {
-
-
 
 
     /**
@@ -55,12 +53,12 @@ public class SpringSecurityProperties {
      */
     private int tokenTime = 2592000;
 
-    public String getVerifyUri() {
-        return verifyUri;
+    public boolean isRememberMe() {
+        return rememberMe;
     }
 
-    public void setVerifyUri(String verifyUri) {
-        this.verifyUri = verifyUri;
+    public void setRememberMe(boolean rememberMe) {
+        this.rememberMe = rememberMe;
     }
 
     public String getPrivateUrl() {
@@ -71,20 +69,20 @@ public class SpringSecurityProperties {
         this.privateUrl = privateUrl;
     }
 
-    public int getTokenTime() {
-        return tokenTime;
-    }
-
-    public void setTokenTime(int tokenTime) {
-        this.tokenTime = tokenTime;
-    }
-
     public String getOpenUrl() {
         return openUrl;
     }
 
     public void setOpenUrl(String openUrl) {
         this.openUrl = openUrl;
+    }
+
+    public String getIgnoringUrl() {
+        return ignoringUrl;
+    }
+
+    public void setIgnoringUrl(String ignoringUrl) {
+        this.ignoringUrl = ignoringUrl;
     }
 
     public String getLoginPagePath() {
@@ -103,6 +101,14 @@ public class SpringSecurityProperties {
         this.formLoginApi = formLoginApi;
     }
 
+    public String getVerifyUri() {
+        return verifyUri;
+    }
+
+    public void setVerifyUri(String verifyUri) {
+        this.verifyUri = verifyUri;
+    }
+
     public String getTokenLoginApi() {
         return tokenLoginApi;
     }
@@ -111,20 +117,12 @@ public class SpringSecurityProperties {
         this.tokenLoginApi = tokenLoginApi;
     }
 
-    public boolean isRememberMe() {
-        return rememberMe;
+    public int getTokenTime() {
+        return tokenTime;
     }
 
-    public void setRememberMe(boolean rememberMe) {
-        this.rememberMe = rememberMe;
-    }
-
-    public String getIgnoringUrl() {
-        return ignoringUrl;
-    }
-
-    public void setIgnoringUrl(String ignoringUrl) {
-        this.ignoringUrl = ignoringUrl;
+    public void setTokenTime(int tokenTime) {
+        this.tokenTime = tokenTime;
     }
 
     @Override
