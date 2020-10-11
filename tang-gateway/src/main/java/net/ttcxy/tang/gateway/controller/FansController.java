@@ -1,7 +1,7 @@
 package net.ttcxy.tang.gateway.controller;
 
 import net.ttcxy.tang.gateway.service.impl.FansServiceImpl;
-import net.ttcxy.tang.gateway.api.CommonResult;
+import net.ttcxy.tang.api.CommonResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 /**
  * created by huanglei on 2020/09/01
  */
-@Component("userDetailsService")
+@Component("loginUserService")
 public class LoginUserService implements UserDetailsService {
 
     @Autowired

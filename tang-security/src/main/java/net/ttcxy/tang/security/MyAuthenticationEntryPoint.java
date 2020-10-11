@@ -1,10 +1,10 @@
-package net.ttcxy.tang.gateway.security;
+package net.ttcxy.tang.security;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import net.ttcxy.tang.gateway.properties.TangProperties;
-import net.ttcxy.tang.gateway.api.CommonResult;
-import net.ttcxy.tang.gateway.api.ResultCode;
+import net.ttcxy.tang.api.CommonResult;
+import net.ttcxy.tang.api.ResultCode;
+import net.ttcxy.tang.security.properties.SecurityProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
@@ -25,7 +25,7 @@ public class MyAuthenticationEntryPoint implements AuthenticationEntryPoint {
     private final static String REQUEST_WITH = "X-Requested-With";
 
     @Autowired
-    private TangProperties tangProperties;
+    private SecurityProperties securityProperties;
 
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException e) throws IOException {
@@ -43,6 +43,6 @@ public class MyAuthenticationEntryPoint implements AuthenticationEntryPoint {
             }
         }
         response.setContentType("text/html;charset=utf-8");
-        response.sendRedirect(tangProperties.getSecurity().getLoginPagePath());
+        response.sendRedirect(securityProperties.getLoginPagePath());
     }
 }

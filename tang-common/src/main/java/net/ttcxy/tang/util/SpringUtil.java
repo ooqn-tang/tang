@@ -1,4 +1,4 @@
-package net.ttcxy.tang.gateway.util;
+package net.ttcxy.tang.util;
 
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;

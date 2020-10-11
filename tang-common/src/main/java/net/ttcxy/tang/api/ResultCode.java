@@ -1,4 +1,4 @@
-package net.ttcxy.tang.gateway.api;
+package net.ttcxy.tang.api;
 
 /**
  * 枚举了一些常用API操作码

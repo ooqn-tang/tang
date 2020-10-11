@@ -1,4 +1,4 @@
-package net.ttcxy.tang.gateway.api;
+package net.ttcxy.tang.api;
 
 import com.github.pagehelper.PageInfo;
 import org.springframework.data.domain.Page;

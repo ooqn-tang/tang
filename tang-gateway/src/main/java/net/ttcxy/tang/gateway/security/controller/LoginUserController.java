@@ -6,9 +6,9 @@ import cn.hutool.captcha.generator.RandomGenerator;
 import cn.hutool.core.lang.Validator;
 import cn.hutool.extra.mail.MailAccount;
 import cn.hutool.extra.mail.MailUtil;
-import net.ttcxy.tang.gateway.api.CommonResult;
+import net.ttcxy.tang.api.CommonResult;
 import net.ttcxy.tang.gateway.entity.param.RegisterParam;
-import net.ttcxy.tang.gateway.security.MySecurityContext;
+import net.ttcxy.tang.security.MySecurityContext;
 import net.ttcxy.tang.gateway.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -57,7 +57,7 @@ public class LoginUserController {
     }
 
     @Autowired
-    UserService userService;
+    private UserService userService;
 
     @PostMapping("verifyMail/{mail}")
     @ResponseBody

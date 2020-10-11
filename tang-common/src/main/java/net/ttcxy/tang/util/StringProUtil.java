@@ -1,4 +1,4 @@
-package net.ttcxy.tang.gateway.util;
+package net.ttcxy.tang.util;
 
 /**
  * String util pro 对String操作的其他方法

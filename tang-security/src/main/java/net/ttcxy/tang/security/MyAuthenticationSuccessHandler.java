@@ -1,4 +1,4 @@
-package net.ttcxy.tang.gateway.security;
+package net.ttcxy.tang.security;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
@@ -13,7 +13,7 @@ import java.io.IOException;
  * created by huanglei on 2020/01/01
  */
 @Component("myAuthenticationSuccessHandler")
-public class   MyAuthenticationSuccessHandler extends SavedRequestAwareAuthenticationSuccessHandler {
+public class MyAuthenticationSuccessHandler extends SavedRequestAwareAuthenticationSuccessHandler {
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest httpServletRequest,

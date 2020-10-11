@@ -9,23 +9,15 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>tang-gateway</artifactId>
+    <artifactId>tang-security</artifactId>
 
     <dependencies>
-        <dependency>
-            <groupId>net.ttcxy</groupId>
-            <artifactId>tang-generator</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
         <dependency>
             <groupId>net.ttcxy</groupId>
             <artifactId>tang-common</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
-        <dependency>
-            <groupId>net.ttcxy</groupId>
-            <artifactId>tang-security</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
     </dependencies>
+
+
 </project>

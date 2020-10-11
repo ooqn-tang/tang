@@ -1,4 +1,4 @@
-package net.ttcxy.tang.gateway.util;
+package net.ttcxy.tang.util;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;

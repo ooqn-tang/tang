@@ -1,6 +1,6 @@
 package net.ttcxy.tang.gateway.exception;
 
-import net.ttcxy.tang.gateway.api.IErrorCode;
+import net.ttcxy.tang.api.IErrorCode;
 
 /**
  * 断言处理类，用于抛出各种API异常

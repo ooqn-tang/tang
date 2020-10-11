@@ -7,25 +7,18 @@ import org.springframework.stereotype.Component;
  * created by huanglei on 2020/10/10
  */
 @Component
-@ConfigurationProperties(prefix = "tang")
+@ConfigurationProperties(prefix = "tang.app")
 public class TangProperties {
 
-    //安全相关配置
-    private SpringSecurityProperties security = new SpringSecurityProperties();
-
-    //API相关配置
+    /**
+     * API相关配置
+     */
     private CloudProperties cloud = new CloudProperties();
 
-    //系统配置
+    /**
+     * 系统配置
+     */
     private SysConfigProperties sys = new SysConfigProperties();
-
-    public SpringSecurityProperties getSecurity() {
-        return security;
-    }
-
-    public void setSecurity(SpringSecurityProperties security) {
-        this.security = security;
-    }
 
     public CloudProperties getCloud() {
         return cloud;

@@ -1,7 +1,6 @@
-package net.ttcxy.tang.gateway.security.exception;
+package net.ttcxy.tang.security.exception;
 
 import org.springframework.security.core.AuthenticationException;
-
 
 /**
  * created by HuangLei on 2020/9/20

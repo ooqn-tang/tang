@@ -1,4 +1,4 @@
-package net.ttcxy.tang.gateway.api;
+package net.ttcxy.tang.api;
 
 /**
  * 封装API的错误码

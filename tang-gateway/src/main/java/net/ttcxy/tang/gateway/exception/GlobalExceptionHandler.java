@@ -1,6 +1,6 @@
 package net.ttcxy.tang.gateway.exception;
 
-import net.ttcxy.tang.gateway.api.CommonResult;
+import net.ttcxy.tang.api.CommonResult;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;

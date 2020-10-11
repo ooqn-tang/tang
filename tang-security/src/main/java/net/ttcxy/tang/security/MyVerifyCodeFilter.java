@@ -1,8 +1,8 @@
-package net.ttcxy.tang.gateway.security;
+package net.ttcxy.tang.security;
 
 import cn.hutool.core.util.StrUtil;
-import net.ttcxy.tang.gateway.properties.TangProperties;
-import net.ttcxy.tang.gateway.security.exception.VerifyCodeException;
+import net.ttcxy.tang.security.exception.VerifyCodeException;
+import net.ttcxy.tang.security.properties.SecurityProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -23,7 +23,7 @@ public class MyVerifyCodeFilter extends OncePerRequestFilter {
     private static final Set<String> URLS = new HashSet<>();
 
     @Autowired
-    private TangProperties tangProperties;
+    private SecurityProperties securityProperties;
 
     @Autowired
     private MyAuthenticationFailureHandler myAuthenticationFailureHandler;
@@ -31,7 +31,7 @@ public class MyVerifyCodeFilter extends OncePerRequestFilter {
     @Override
     protected void initFilterBean() throws ServletException {
         super.initFilterBean();
-        String verifyUri = tangProperties.getSecurity().getVerifyUri();
+        String verifyUri = securityProperties.getVerifyUri();
         if (StrUtil.isNotBlank(verifyUri)){
             URLS.addAll(Arrays.asList(verifyUri.split(",")));
         }

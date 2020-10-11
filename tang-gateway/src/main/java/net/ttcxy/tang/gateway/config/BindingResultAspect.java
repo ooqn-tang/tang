@@ -1,6 +1,6 @@
 package net.ttcxy.tang.gateway.config;
 
-import net.ttcxy.tang.gateway.api.CommonResult;
+import net.ttcxy.tang.api.CommonResult;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;

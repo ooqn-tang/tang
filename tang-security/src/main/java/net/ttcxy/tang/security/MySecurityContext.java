@@ -1,4 +1,4 @@
-package net.ttcxy.tang.gateway.security;
+package net.ttcxy.tang.security;
 /**
  * created by HuangLei on 2020/9/20
  */

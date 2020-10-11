@@ -1,11 +1,15 @@
-package net.ttcxy.tang.gateway.properties;
+package net.ttcxy.tang.security.properties;
+
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.stereotype.Component;
 
 /**
- * SpringSecurity 配置文件
  * created by huanglei on 2020/10/10
  */
-public class SpringSecurityProperties {
+@ConfigurationProperties(prefix = "tang.security")
+public class SecurityProperties {
 
+    private boolean securitySession = true;
 
     /**
      * 记住登陆
@@ -52,6 +56,14 @@ public class SpringSecurityProperties {
      * token有效时间
      */
     private int tokenTime = 2592000;
+
+    public boolean isSecuritySession() {
+        return securitySession;
+    }
+
+    public void setSecuritySession(boolean securitySession) {
+        this.securitySession = securitySession;
+    }
 
     public boolean isRememberMe() {
         return rememberMe;
