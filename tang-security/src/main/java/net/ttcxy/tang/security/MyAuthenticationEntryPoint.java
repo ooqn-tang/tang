@@ -4,7 +4,6 @@ package net.ttcxy.tang.security;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import net.ttcxy.tang.api.CommonResult;
 import net.ttcxy.tang.api.ResultCode;
-import net.ttcxy.tang.security.properties.SecurityProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;

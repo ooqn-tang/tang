@@ -4,7 +4,7 @@ import net.ttcxy.tang.security.MyAuthenticationEntryPoint;
 import net.ttcxy.tang.security.MyAuthenticationFailureHandler;
 import net.ttcxy.tang.security.MyAuthenticationSuccessHandler;
 import net.ttcxy.tang.security.MyVerifyCodeFilter;
-import net.ttcxy.tang.security.properties.SecurityProperties;
+import net.ttcxy.tang.security.SecurityProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;

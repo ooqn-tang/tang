@@ -1,4 +1,4 @@
-package net.ttcxy.tang.security.properties;
+package net.ttcxy.tang.security;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;

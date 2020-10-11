@@ -1,4 +1,4 @@
-package net.ttcxy.tang.security.exception;
+package net.ttcxy.tang.security;
 
 import org.springframework.security.core.AuthenticationException;
 

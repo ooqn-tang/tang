@@ -1,8 +1,6 @@
 package net.ttcxy.tang.security;
 
 import cn.hutool.core.util.StrUtil;
-import net.ttcxy.tang.security.exception.VerifyCodeException;
-import net.ttcxy.tang.security.properties.SecurityProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
