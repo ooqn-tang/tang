@@ -12,7 +12,7 @@ import net.ttcxy.tang.gateway.service.AuthDetailsService;
 import net.ttcxy.tang.gateway.service.UserService;
 import net.ttcxy.tang.gateway.service.impl.FansServiceImpl;
 import net.ttcxy.tang.model.User;
-import net.ttcxy.tang.security.MySecurityContext;
+import net.ttcxy.tang.security.MySecurityData;
 import net.ttcxy.tang.util.StringProUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -114,7 +114,7 @@ public class UserController {
             String password = register.getPassword();
             String passwordRe = "(?=.*?[a-z])(?=.*?[0-9]){8,25}";
             if(ReUtil.contains(passwordRe,password)){
-                RegisterParam registerParam = (RegisterParam)httpSession.getAttribute(MySecurityContext.REG_VERIFY_DATA);
+                RegisterParam registerParam = (RegisterParam)httpSession.getAttribute(MySecurityData.REG_VERIFY_DATA);
                 String mail = registerParam.getMail();
 
                 Boolean aBoolean = userService.selectMailIsTrue(mail);
@@ -157,7 +157,7 @@ public class UserController {
             String password = register.getPassword();
             String passwordRe = "(?=.*?[a-z])(?=.*?[0-9]){8,25}";
             if(ReUtil.contains(passwordRe,password)){
-                RegisterParam registerParam = (RegisterParam)httpSession.getAttribute(MySecurityContext.REG_VERIFY_DATA);
+                RegisterParam registerParam = (RegisterParam)httpSession.getAttribute(MySecurityData.REG_VERIFY_DATA);
                 if (registerParam == null){
                     return CommonResult.failed("没有收到验证码");
                 }

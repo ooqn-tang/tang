@@ -17,9 +17,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * 记住我处理器 执行记住我操作
- * @author ：HuangLei
- * @date ：2020/4/3 0003 19:14
+ * 如果想对记住我进行特殊操作可以在这实现你需要的功能
+ * created by huanglei on 2020/09/09
  */
 public class MyRememberMeAuthenticationFilter extends RememberMeAuthenticationFilter {
 

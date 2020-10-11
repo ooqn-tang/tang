@@ -8,7 +8,7 @@ import cn.hutool.extra.mail.MailAccount;
 import cn.hutool.extra.mail.MailUtil;
 import net.ttcxy.tang.api.CommonResult;
 import net.ttcxy.tang.gateway.entity.param.RegisterParam;
-import net.ttcxy.tang.security.MySecurityContext;
+import net.ttcxy.tang.security.MySecurityData;
 import net.ttcxy.tang.gateway.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -52,7 +52,7 @@ public class LoginUserController {
             }
         }
 
-        httpSession.setAttribute(MySecurityContext.VERIFY_CODE,code);
+        httpSession.setAttribute(MySecurityData.VERIFY_CODE,code);
 
     }
 
@@ -82,8 +82,8 @@ public class LoginUserController {
             registerParam.setMail(mail);
             registerParam.setVerify(code);
 
-            httpSession.setAttribute(MySecurityContext.VERIFY_CODE,code);
-            httpSession.setAttribute(MySecurityContext.REG_VERIFY_DATA,registerParam);
+            httpSession.setAttribute(MySecurityData.VERIFY_CODE,code);
+            httpSession.setAttribute(MySecurityData.REG_VERIFY_DATA,registerParam);
 
             return CommonResult.success("发送成功");
         }catch (Exception e){

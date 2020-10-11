@@ -9,10 +9,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * 登录成功
+ * 登录成功处理器
  * created by huanglei on 2020/01/01
  */
-@Component("myAuthenticationSuccessHandler")
 public class MyAuthenticationSuccessHandler extends SavedRequestAwareAuthenticationSuccessHandler {
 
     @Override

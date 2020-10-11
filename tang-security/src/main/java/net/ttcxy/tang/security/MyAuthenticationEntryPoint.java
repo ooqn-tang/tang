@@ -15,10 +15,9 @@ import java.io.IOException;
 import java.util.Enumeration;
 
 /**
- * 这里配置了没有权限的处理器，如果 请求头中包含 X-Requested-With 返回JSON 如果不包含，放回到登录页面
+ * 这里配置了没有权限的处理器，如果 请求头中包含 X-Requested-With 返回JSON 如果不包含，跳转到登录页面
  * created by huanglei on 2020/10/10
  */
-@Component
 public class MyAuthenticationEntryPoint implements AuthenticationEntryPoint {
 
     private final static String REQUEST_WITH = "X-Requested-With";

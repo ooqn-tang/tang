@@ -9,10 +9,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * 登录失败
+ * 登录失败处理器
  * created by huanglei on 2020/09/01
  */
-@Component("myAuthenticationFailureHandler")
 public class MyAuthenticationFailureHandler extends SimpleUrlAuthenticationFailureHandler {
 
     @Override

@@ -1,7 +1,6 @@
 package net.ttcxy.tang.security;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.stereotype.Component;
 
 /**
  * created by huanglei on 2020/10/10
@@ -42,7 +41,9 @@ public class SecurityProperties {
      */
     private String formLoginApi = "/doLogin";
 
-    // 默认登录请求
+    /**
+     * 默认登录请求
+     */
     private String verifyUri = formLoginApi;
 
 

@@ -20,6 +20,7 @@ import javax.sql.DataSource;
 
 /**
  * 基于Session的安全配置文件
+ * 继承本接口 必须实现 重写userDetailsService()
  * created by huanglei on 2020/10/10
  */
 public class SessionSecurityConfig extends WebSecurityConfigurerAdapter {
@@ -27,11 +28,11 @@ public class SessionSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired(required = false)
     private DataSource dataSource;
 
-
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-
+        // 由于本安全框架独立于应用模块，调用的模块需要注入userDetailsService Bean
+        http.userDetailsService(userDetailsService());
+        // 没有权限的处理器
         http.exceptionHandling().authenticationEntryPoint(getMyAuthenticationEntryPoint());
         // 登录拦截器前面添加验证码拦截器
         http.addFilterBefore(getMyVerifyCodeFilter(), UsernamePasswordAuthenticationFilter.class);
@@ -69,13 +70,6 @@ public class SessionSecurityConfig extends WebSecurityConfigurerAdapter {
                 //关闭csrf安全
                 .csrf().disable();
     }
-
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService())
-                .passwordEncoder(passwordEncoder());
-    }
-
 
     @Bean
     public PasswordEncoder passwordEncoder() {

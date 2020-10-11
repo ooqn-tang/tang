@@ -14,6 +14,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
+ * 自定义的验证码处理器，URLS集合里的请求表示需要在请求参数中包含验证码
  * created by HuangLei on 2020/9/20
  */
 public class MyVerifyCodeFilter extends OncePerRequestFilter {
@@ -40,16 +41,16 @@ public class MyVerifyCodeFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String remoteHost = request.getRequestURI();
         String verify = ServletRequestUtils.getStringParameter(request, "verify");
-        String verifyCode = (String) request.getSession().getAttribute(MySecurityContext.VERIFY_CODE);
+        String verifyCode = (String) request.getSession().getAttribute(MySecurityData.VERIFY_CODE);
 
         for (String url : URLS) {
             if (url.equals(remoteHost)){
                 if (verifyCode != null && StrUtil.equals(verifyCode,verify)){
-                    request.getSession().removeAttribute(MySecurityContext.VERIFY_CODE);
+                    request.getSession().removeAttribute(MySecurityData.VERIFY_CODE);
                     break;
                 }else{
                     myAuthenticationFailureHandler.onAuthenticationFailure(request,response,new VerifyCodeException("验证码不正确"));
-                    request.getSession().removeAttribute(MySecurityContext.VERIFY_CODE);
+                    request.getSession().removeAttribute(MySecurityData.VERIFY_CODE);
                     return;
                 }
             }
