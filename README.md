@@ -6,6 +6,15 @@
 #### 软件架构
 SpringBoot2 + MyBatis + SpringSecurity + thymeleaf + Bootstrap3 + MySQL
 
+#### 后端模块
+
+tang
+    - other 
+    - tang-admin 管理模块
+    - tang-common 公共代码
+    - tang-gateway 门户代码
+    - tang-generator 代码自动生成
+    - tang-security 安全模块
 
 #### 主要界面
 
