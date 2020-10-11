@@ -7,7 +7,7 @@
 SpringBoot2 + MyBatis + SpringSecurity + thymeleaf + Bootstrap3 + MySQL
 
 #### 后端模块
-
+```
 tang
     - other 
     - tang-admin 管理模块
@@ -15,7 +15,7 @@ tang
     - tang-gateway 门户代码
     - tang-generator 代码自动生成
     - tang-security 安全模块
-
+```
 #### 主要界面
 
 ![](https://images.gitee.com/uploads/images/2020/1011/182328_c6fa13e2_1998317.png "QQ截图20201011182214.png")
