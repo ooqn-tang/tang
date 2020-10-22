@@ -132,4 +132,21 @@ public class PageController {
         return modelAndView;
     }
 
+    /**
+     * 编辑器
+     */
+    @GetMapping("fast")
+    public ModelAndView toFast(ModelAndView modelAndView){
+        modelAndView.setViewName("fast");
+        return modelAndView;
+    }
+    /**
+     * 视频
+     */
+    @GetMapping("navigation")
+    public ModelAndView toNavigation(ModelAndView modelAndView){
+        modelAndView.setViewName("navigation");
+        return modelAndView;
+    }
+
 }

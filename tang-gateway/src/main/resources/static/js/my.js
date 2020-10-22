@@ -153,7 +153,7 @@ $.ajaxSetup({
     },
     complete(xhr) {
         if(xhr.status === 401){
-            alert("请登录")
+            $('#loginModal').modal("show")
             throw "请登录";
         }
     }
