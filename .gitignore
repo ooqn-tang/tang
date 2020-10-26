@@ -1,5 +1,7 @@
+/tang-admin/target/
+/tang-common/target/
 /tang-gateway/target/
 /tang-generator/target/
+/tang-security/target/
 .idea/
-tang-gateway/tang-gateway.iml
-tang-generator/tang-generator.iml
+*.iml
