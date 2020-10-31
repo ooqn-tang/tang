@@ -77,7 +77,7 @@ public class BlogServiceImpl implements BlogService {
     @Override
     public int updateBlog(Blog blog) {
         String blogId = blog.getId();
-        String userId = currentAuthorServiceImpl.getUserId();
+        String userId = currentAuthorServiceImpl.getAuthorId();
 
         BlogExample blogExample = new BlogExample();
         blogExample.createCriteria().andIdEqualTo(blogId).andUserIdEqualTo(userId);
@@ -122,7 +122,7 @@ public class BlogServiceImpl implements BlogService {
             PageView pageView = new PageView();
             pageView.setId(IdUtil.fastSimpleUUID());
             pageView.setBlogId(id);
-            pageView.setUserId(currentAuthorServiceImpl.getUserId());
+            pageView.setUserId(currentAuthorServiceImpl.getAuthorId());
             pageView.setCreateDatetime(new Date());
             pageViewMapper.insertSelective(pageView);
         }

@@ -25,28 +25,28 @@ public interface AuthorService {
      * @param mail 邮箱
      * @return 登录用户
      */
-    AuthorLogin selectLoginUserByMail(String mail);
+    AuthorLogin selectLoginAuthorByMail(String mail);
 
     /**
      * 添加用户
      * @param author user
      * @return 影响的行数
      */
-    int insertUser(net.ttcxy.tang.model.Author author);
+    int insertAuthor(net.ttcxy.tang.model.Author author);
 
     /**
      * 更新用户
      * @param author user
      * @return 影响的行数
      */
-    int updateUser(net.ttcxy.tang.model.Author author);
+    int updateAuthor(net.ttcxy.tang.model.Author author);
 
     /**
      * 更新密码
      * @param author user
      * @return 影响的行数
      */
-    int updateUserPassword(net.ttcxy.tang.model.Author author);
+    int updateAuthorPassword(net.ttcxy.tang.model.Author author);
 
     /**
      * 用户是否存在
@@ -82,7 +82,7 @@ public interface AuthorService {
      * @param page 页码
      * @return 列表
      */
-    List<net.ttcxy.tang.model.Author> listUser(Integer page);
+    List<net.ttcxy.tang.model.Author> listAuthor(Integer page);
 
 
 

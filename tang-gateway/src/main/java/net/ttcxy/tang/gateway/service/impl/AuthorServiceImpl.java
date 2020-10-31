@@ -4,6 +4,7 @@ import cn.hutool.core.util.IdUtil;
 import com.github.pagehelper.PageHelper;
 import net.ttcxy.tang.gateway.dao.AuthorDao;
 import net.ttcxy.tang.gateway.entity.AuthorLogin;
+import net.ttcxy.tang.model.Author;
 import net.ttcxy.tang.model.AuthorExample;
 import net.ttcxy.tang.mapper.AuthorMapper;
 import net.ttcxy.tang.gateway.service.AuthorService;
@@ -33,12 +34,12 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     @Override
-    public AuthorLogin selectLoginUserByMail(String mail) {
+    public AuthorLogin selectLoginAuthorByMail(String mail) {
         return authorDao.selectAuthorByMail(mail);
     }
 
     @Override
-    public int insertUser(net.ttcxy.tang.model.Author author) throws DuplicateKeyException {
+    public int insertAuthor(Author author) throws DuplicateKeyException {
         author.setId(IdUtil.simpleUUID());
         String password = author.getPassword();
         String encodePassword = new BCryptPasswordEncoder().encode(password);
@@ -47,13 +48,13 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     @Override
-    public int updateUser(net.ttcxy.tang.model.Author author) {
+    public int updateAuthor(Author author) {
         return authorMapper.updateByPrimaryKeySelective(author);
     }
 
 
     @Override
-    public int updateUserPassword(net.ttcxy.tang.model.Author author) {
+    public int updateAuthorPassword(Author author) {
         return authorMapper.updateByPrimaryKeySelective(author);
     }
 
@@ -78,7 +79,7 @@ public class AuthorServiceImpl implements AuthorService {
     @Override
     public int updateUserByMail(String mail,String password) {
 
-        net.ttcxy.tang.model.Author author = new net.ttcxy.tang.model.Author();
+        Author author = new Author();
         author.setPassword(password);
 
         AuthorExample authorExample = new AuthorExample();
@@ -89,7 +90,7 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     @Override
-    public List<net.ttcxy.tang.model.Author> listUser(Integer page){
+    public List<Author> listAuthor(Integer page){
         PageHelper.startPage(page, 10);
         return authorMapper.selectByExample(new AuthorExample());
     }

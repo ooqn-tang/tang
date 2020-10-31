@@ -28,7 +28,7 @@ public class NetworkAddressHandlerInterceptor implements HandlerInterceptor {
      */
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
-        AuthorLogin author = currentAuthorService.getUser();
+        AuthorLogin author = currentAuthorService.getAuthor();
         String userId = author == null ? "未登陆用户": author.getId();
         String address = request.getLocalAddr();
         logger.info("userId ：{}，address ：{}" , userId , address);

@@ -59,7 +59,7 @@ public class FansServiceImpl implements FansService {
     }
 
     private FansDto getFans(String fansName){
-        AuthorLogin authorAuth = currentAuthorServiceImpl.getUser();
+        AuthorLogin authorAuth = currentAuthorServiceImpl.getAuthor();
         if (authorAuth ==null){
             return null;
         }

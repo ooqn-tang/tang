@@ -2,12 +2,9 @@ package net.ttcxy.tang.gateway.security;
 
 
 import cn.hutool.core.lang.Validator;
-import cn.hutool.core.util.ObjectUtil;
 import net.ttcxy.tang.gateway.entity.AuthorLogin;
 import net.ttcxy.tang.gateway.service.AuthorService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -27,7 +24,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
         AuthorLogin author = null;
         if (Validator.isEmail(username)){
-            author = authorService.selectLoginUserByMail(username);
+            author = authorService.selectLoginAuthorByMail(username);
         }else{
             author = authorService.selectUserByName(username);
         }

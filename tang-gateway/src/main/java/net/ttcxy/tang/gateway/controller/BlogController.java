@@ -26,7 +26,7 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("blog")
-@Api(tags = "BlogController", description = "对博文的增删改查")
+@Api(tags = "BlogController")
 public class BlogController {
 
     @Autowired
@@ -78,7 +78,7 @@ public class BlogController {
     @ApiOperation("添加博客")
     public CommonResult<String> add(@RequestBody Blog blog){
 
-        String userId = currentAuthorServiceImpl.getUserId();
+        String userId = currentAuthorServiceImpl.getAuthorId();
 
         if (blog !=null){
             if (StrUtil.isBlank(blog.getTitle())){
@@ -120,7 +120,7 @@ public class BlogController {
             return CommonResult.failed("评论不能为空");
         }
 
-        AuthorLogin user = currentAuthorServiceImpl.getUser();
+        AuthorLogin user = currentAuthorServiceImpl.getAuthor();
 
         String commentId = IdUtil.fastSimpleUUID();
         blogComment.setId(commentId);
@@ -143,7 +143,7 @@ public class BlogController {
     public CommonResult selectComment(@PathVariable("blogId") String blogId){
         Map<String,Object> map = new HashMap<>();
         map.put("comments",commentService.selectComments(blogId));
-        map.put("user", currentAuthorServiceImpl.getUser());
+        map.put("author", currentAuthorServiceImpl.getAuthor());
         return CommonResult.success(map);
     }
 
@@ -163,7 +163,7 @@ public class BlogController {
     public CommonResult load(@RequestParam(name="blog",required = false) String blogId){
 
         Blog blog = blogService.selectByPrimaryId(blogId);
-        AuthorLogin author = currentAuthorServiceImpl.getUser();
+        AuthorLogin author = currentAuthorServiceImpl.getAuthor();
         if(blog.getUserId().equals(author.getId())){
             return CommonResult.success(blog);
         }else{
@@ -188,8 +188,8 @@ public class BlogController {
     public CommonResult delete(@PathVariable("id") String id){
 
         String userId = blogService.selectByPrimaryId(id).getUserId();
-        if (currentAuthorServiceImpl.getUser()!=null){
-            if(StrUtil.equals(currentAuthorServiceImpl.getUser().getId(),userId)){
+        if (currentAuthorServiceImpl.getAuthor()!=null){
+            if(StrUtil.equals(currentAuthorServiceImpl.getAuthor().getId(),userId)){
                 int count = blogService.deleteBlog(id);
                 if(count > 0){
                     return CommonResult.success("成功删除");
@@ -208,7 +208,7 @@ public class BlogController {
     @GetMapping("/like/{id}/insert")
     @ApiOperation("喜欢blog.如果数据库不存在，推荐，如果存在就取消。")
     public CommonResult like(@PathVariable("id") String id){
-        AuthorLogin author = currentAuthorServiceImpl.getUser();
+        AuthorLogin author = currentAuthorServiceImpl.getAuthor();
         return CommonResult.success(blogService.like(author.getId(),id));
     }
 }

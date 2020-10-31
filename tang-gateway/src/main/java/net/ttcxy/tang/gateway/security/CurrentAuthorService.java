@@ -8,14 +8,14 @@ import net.ttcxy.tang.gateway.entity.AuthorLogin;
  */
 public interface CurrentAuthorService {
     /**
-     * 获取在线用户
+     * 获取当前作者
      * @return LoginUser
      */
-    AuthorLogin getUser();
+    AuthorLogin getAuthor();
 
     /**
-     * 获取当前用户Id
+     * 获取当前作者Id
      * @return user id
      */
-    String getUserId();
+    String getAuthorId();
 }

@@ -4,6 +4,8 @@ import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.RandomUtil;
 import cn.hutool.core.util.ReUtil;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import net.ttcxy.tang.api.CommonResult;
 import net.ttcxy.tang.gateway.entity.AuthorLogin;
 import net.ttcxy.tang.gateway.entity.param.RegisterParam;
@@ -11,6 +13,7 @@ import net.ttcxy.tang.gateway.security.CurrentAuthorService;
 import net.ttcxy.tang.gateway.service.FansService;
 import net.ttcxy.tang.gateway.service.AuthorService;
 import net.ttcxy.tang.gateway.security.MySecurityData;
+import net.ttcxy.tang.model.Author;
 import net.ttcxy.tang.util.TextUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -23,8 +26,9 @@ import java.util.List;
  * 用户相关操作
  * @author huanglei
  */
-@RestController
-public class UserController {
+@RestController("author")
+@Api("作者创作类")
+public class AuthorController {
 
     @Autowired
     private FansService fansService;
@@ -38,12 +42,11 @@ public class UserController {
     @Autowired
     private HttpSession httpSession;
 
-    @PostMapping(value = "user/info")
-    public CommonResult<Integer> updateUser(@RequestBody AuthorLogin loginAuthor){
-        String id = currentAuthorService.getUser().getId();
-        String nickname = loginAuthor.getNickname();
-
-        ReUtil.contains("dfsdfsd","");
+    @PostMapping(value = "info")
+    @ApiOperation("高兴作者")
+    public CommonResult<Integer> updateAuthor(@RequestBody AuthorLogin authorLogin){
+        String id = currentAuthorService.getAuthor().getId();
+        String nickname = authorLogin.getNickname();
 
         if (cn.hutool.core.util.StrUtil.isNotBlank(nickname)){
             int length = TextUtil.byteSize(nickname);
@@ -54,22 +57,22 @@ public class UserController {
             return CommonResult.failed("昵称长度：汉字 2 ~ 8,字母 4 ~ 16");
         }
 
-        String signature = loginAuthor.getSignature();
+        String signature = authorLogin.getSignature();
         if (cn.hutool.core.util.StrUtil.isNotBlank(signature)){
             int length = TextUtil.byteSize(signature);
             if (length > 50){
                 return CommonResult.failed("签名长度为50个之母或25个汉字");
             }
         }
-        loginAuthor.setId(id);
+        authorLogin.setId(id);
 
-        net.ttcxy.tang.model.Author author = new net.ttcxy.tang.model.Author();
-        BeanUtil.copyProperties(loginAuthor, author);
-        int count = authorService.updateUser(author);
+        Author author = new Author();
+        BeanUtil.copyProperties(authorLogin, author);
+        int count = authorService.updateAuthor(author);
         if (count > 0){
-            AuthorLogin uu = currentAuthorService.getUser();
-            uu.setNickname(nickname);
-            uu.setSignature(signature);
+            AuthorLogin al = currentAuthorService.getAuthor();
+            al.setNickname(nickname);
+            al.setSignature(signature);
             return CommonResult.success(count);
         }
         return CommonResult.failed();
@@ -78,22 +81,22 @@ public class UserController {
     /**
      * 关注用户
      */
-    @GetMapping("user/fans")
+    @GetMapping("fans")
     public CommonResult<List<AuthorLogin>> fans(){
-        String userId = currentAuthorService.getUser().getId();
-        List<AuthorLogin> fansList = fansService.selectFansList(userId);
+        String authorId = currentAuthorService.getAuthor().getId();
+        List<AuthorLogin> fansList = fansService.selectFansList(authorId);
         return CommonResult.success(fansList);
     }
 
 
     /**
-     * User列表
+     * author列表
      * @param page 页码
-     * @return List<User>
+     * @return List<author>
      */
     @PostMapping("list")
-    public CommonResult<List<net.ttcxy.tang.model.Author>> listUser(@RequestParam(defaultValue = "1") Integer page){
-        return CommonResult.success(authorService.listUser(page));
+    public CommonResult<List<Author>> listAuthor(@RequestParam(defaultValue = "1") Integer page){
+        return CommonResult.success(authorService.listAuthor(page));
     }
 
     /**
@@ -103,8 +106,6 @@ public class UserController {
      */
     @PostMapping("register")
     public CommonResult<String> register(@RequestBody RegisterParam register){
-
-
 
         if (register == null){
             return CommonResult.failed("参数不正确");
@@ -120,7 +121,7 @@ public class UserController {
                     return CommonResult.failed("邮箱以存在");
                 }
 
-                net.ttcxy.tang.model.Author author = new net.ttcxy.tang.model.Author();
+                Author author = new Author();
                 author.setPassword(password);
                 author.setMail(mail);
                 String username = getUsername();
@@ -129,7 +130,7 @@ public class UserController {
 
                 author.setId(IdUtil.fastSimpleUUID());
 
-                int i = authorService.insertUser(author);
+                int i = authorService.insertAuthor(author);
                 if (i > 0){
                     return CommonResult.success("注册成功");
                 }
@@ -161,14 +162,14 @@ public class UserController {
                 }
                 String mail = registerParam.getMail();
 
-                AuthorLogin user = authorService.selectLoginUserByMail(mail);
-                if (user == null){
+                AuthorLogin authorLogin = authorService.selectLoginAuthorByMail(mail);
+                if (authorLogin == null){
                     return CommonResult.failed("邮箱未注册");
                 }
-                net.ttcxy.tang.model.Author updateAuthor = new net.ttcxy.tang.model.Author();
-                updateAuthor.setId(user.getId());
+                Author updateAuthor = new Author();
+                updateAuthor.setId(authorLogin.getId());
                 updateAuthor.setPassword(new BCryptPasswordEncoder().encode(password));
-                int i = authorService.updateUserPassword(updateAuthor);
+                int i = authorService.updateAuthorPassword(updateAuthor);
                 if (i > 0){
                     return CommonResult.success("密码更新成功");
                 }
@@ -178,11 +179,6 @@ public class UserController {
 
         }
         return null;
-    }
-
-
-    public static void main(String[] args) {
-        System.out.println(ReUtil.contains("(?=.*?[a-z])(?=.*?[0-9]){8,25}","o1rd"));
     }
 
     private String getUsername(){

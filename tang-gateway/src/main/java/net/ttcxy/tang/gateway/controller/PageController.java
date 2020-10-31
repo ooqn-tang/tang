@@ -60,14 +60,14 @@ public class PageController {
      */
     @GetMapping("author/{username}")
     public ModelAndView toUserHome(@PathVariable("username")String username, ModelAndView modelAndView){
-        AuthorLogin author = authorService.selectUserByName(username);
-        if (author == null){
+        AuthorLogin authorLogin = authorService.selectUserByName(username);
+        if (authorLogin == null){
             modelAndView.setStatus(HttpStatus.NOT_FOUND);
             modelAndView.setViewName("404");
             return modelAndView;
         }
-        modelAndView.setViewName("home");
-        modelAndView.addObject("user", author);
+        modelAndView.setViewName("author");
+        modelAndView.addObject(authorLogin);
         return modelAndView;
     }
 
@@ -77,7 +77,7 @@ public class PageController {
     @GetMapping("post/{id}")
     public ModelAndView toBlog(@PathVariable("id")String blogId, ModelAndView modelAndView){
 
-        AuthorLogin author = currentAuthorService.getUser();
+        AuthorLogin authorLogin = currentAuthorService.getAuthor();
 
         BlogDto blogDto = blogService.selectBlogById(blogId);
 
@@ -87,15 +87,15 @@ public class PageController {
             return modelAndView;
         }
 
-        if (author !=null){
-            String userId = author.getId();
+        if (authorLogin !=null){
+            String userId = authorLogin.getId();
             // 如果用户没有登陆，不需要查询是否喜欢或收藏
             // 是否喜欢了当前博客
-            modelAndView.addObject("like",blogService.selectLike(userId,blogId));
+            modelAndView.addObject(blogService.selectLike(userId,blogId));
         }
 
         //添加博客到试图中
-        modelAndView.addObject("blog",blogDto);
+        modelAndView.addObject(blogDto);
 
         modelAndView.addObject("random",blogService.random());
 
@@ -106,10 +106,10 @@ public class PageController {
     /**
      * 更改用户信息页面
      */
-    @GetMapping("user/info")
+    @GetMapping("author/info")
     public ModelAndView updateUser(ModelAndView modelAndView){
-        modelAndView.setViewName("info");
-        modelAndView.addObject("user", currentAuthorService.getUser());
+        modelAndView.setViewName("setting");
+        modelAndView.addObject(currentAuthorService.getAuthor());
         return modelAndView;
     }
 

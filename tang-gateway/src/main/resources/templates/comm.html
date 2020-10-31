@@ -173,12 +173,12 @@
                     if (this.author.password === this.author.confirmPassword){
                         $.ajax({
                             type:"POST",
-                            url:"/register",
+                            url:"/author/register",
                             contentType: "application/json;charset=UTF-8",
                             data:JSON.stringify(_this.author),
                             dataType:"JSON",
                             success:function(result){
-                                if (result.code == 200){
+                                if (result.code === 200){
                                     alert(result.data)
                                 }else{
                                     alert(result.message)
@@ -195,7 +195,7 @@
                     if (this.author.password === this.author.confirmPassword) {
                         $.ajax({
                             type: "POST",
-                            url: "/password",
+                            url: "/author/password",
                             contentType: "application/json;charset=UTF-8",
                             data: JSON.stringify(_this.author),
                             dataType: "JSON",

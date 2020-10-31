@@ -35,7 +35,7 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public int deleteComment(String commentId) {
-        String userId = currentAuthorServiceImpl.getUserId();
+        String userId = currentAuthorServiceImpl.getAuthorId();
         BlogCommentExample blogCommentExample = new BlogCommentExample();
         blogCommentExample.createCriteria()
                 .andUserIdEqualTo(userId)
