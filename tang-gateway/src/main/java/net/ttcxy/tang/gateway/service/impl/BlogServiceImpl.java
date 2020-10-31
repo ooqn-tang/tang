@@ -7,7 +7,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import net.ttcxy.tang.gateway.dao.BlogDao;
 import net.ttcxy.tang.gateway.entity.dto.BlogDto;
-import net.ttcxy.tang.gateway.security.AuthDetailsService;
+import net.ttcxy.tang.gateway.security.CurrentAuthorService;
 import net.ttcxy.tang.gateway.service.BlogService;
 import net.ttcxy.tang.mapper.BlogMapper;
 import net.ttcxy.tang.mapper.LikeDataMapper;
@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 
 /**
- * BlogService impl
+ * 博客服务
  * @author huanglei
  */
 @Service
@@ -36,7 +36,7 @@ public class BlogServiceImpl implements BlogService {
     private BlogDao blogDao;
 
     @Autowired
-    private AuthDetailsService authDetailsServiceImpl;
+    private CurrentAuthorService currentAuthorServiceImpl;
 
     @Autowired
     private BlogMapper blogMapper;
@@ -77,7 +77,7 @@ public class BlogServiceImpl implements BlogService {
     @Override
     public int updateBlog(Blog blog) {
         String blogId = blog.getId();
-        String userId = authDetailsServiceImpl.getUserId();
+        String userId = currentAuthorServiceImpl.getUserId();
 
         BlogExample blogExample = new BlogExample();
         blogExample.createCriteria().andIdEqualTo(blogId).andUserIdEqualTo(userId);
@@ -122,7 +122,7 @@ public class BlogServiceImpl implements BlogService {
             PageView pageView = new PageView();
             pageView.setId(IdUtil.fastSimpleUUID());
             pageView.setBlogId(id);
-            pageView.setUserId(authDetailsServiceImpl.getUserId());
+            pageView.setUserId(currentAuthorServiceImpl.getUserId());
             pageView.setCreateDatetime(new Date());
             pageViewMapper.insertSelective(pageView);
         }

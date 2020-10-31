@@ -2,7 +2,7 @@ package net.ttcxy.tang.gateway.controller;
 
 import net.ttcxy.tang.gateway.entity.AuthorLogin;
 import net.ttcxy.tang.gateway.entity.dto.BlogDto;
-import net.ttcxy.tang.gateway.security.AuthDetailsService;
+import net.ttcxy.tang.gateway.security.CurrentAuthorService;
 import net.ttcxy.tang.gateway.service.BlogService;
 import net.ttcxy.tang.gateway.service.AuthorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class PageController {
 
     @Autowired
-    private AuthDetailsService authDetailsService;
+    private CurrentAuthorService currentAuthorService;
 
     @Autowired
     private BlogService blogService;
@@ -77,7 +77,7 @@ public class PageController {
     @GetMapping("post/{id}")
     public ModelAndView toBlog(@PathVariable("id")String blogId, ModelAndView modelAndView){
 
-        AuthorLogin author = authDetailsService.getUser();
+        AuthorLogin author = currentAuthorService.getUser();
 
         BlogDto blogDto = blogService.selectBlogById(blogId);
 
@@ -109,7 +109,7 @@ public class PageController {
     @GetMapping("user/info")
     public ModelAndView updateUser(ModelAndView modelAndView){
         modelAndView.setViewName("info");
-        modelAndView.addObject("user",authDetailsService.getUser());
+        modelAndView.addObject("user", currentAuthorService.getUser());
         return modelAndView;
     }
 

@@ -6,7 +6,7 @@ import net.ttcxy.tang.gateway.entity.AuthorLogin;
  * 获取当前用户消息
  * @author huanglei
  */
-public interface AuthDetailsService {
+public interface CurrentAuthorService {
     /**
      * 获取在线用户
      * @return LoginUser

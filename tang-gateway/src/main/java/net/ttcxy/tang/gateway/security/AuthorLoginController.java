@@ -23,11 +23,11 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 /**
- * 登录用户需要的配置
+ * 创作者登录相关
  * @author huanglei
  */
 @Controller
-public class AuthorController {
+public class AuthorLoginController {
 
     @Autowired
     private HttpSession httpSession;

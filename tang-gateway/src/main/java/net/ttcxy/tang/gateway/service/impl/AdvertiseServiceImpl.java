@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
+ * 广告
  * @author huanglei
  */
 @Service
@@ -20,9 +21,6 @@ public class AdvertiseServiceImpl implements AdvertiseService {
     private AdvertiseMapper advertiseMapper;
 
 
-    /**
-     * 查询全部广告信息
-     */
     @Override
     public List<Advertise> selectAllAdvertise() {
         AdvertiseExample advertiseExample = new AdvertiseExample();
@@ -30,19 +28,11 @@ public class AdvertiseServiceImpl implements AdvertiseService {
         return advertiseMapper.selectByExample(advertiseExample);
     }
 
-    /**
-     * 根据主键查询广告信息
-     * @param id 广告ID
-     */
     @Override
     public Advertise selectById(String id) {
         return advertiseMapper.selectByPrimaryKey(id);
     }
 
-    /**
-     * 新增一条广告信息
-     * @param advertise 封装的广告信息
-     */
     @Override
     public int insertAdvertise(Advertise advertise) {
         String uuid = IdUtil.fastSimpleUUID();
@@ -50,19 +40,11 @@ public class AdvertiseServiceImpl implements AdvertiseService {
         return advertiseMapper.insertSelective(advertise);
     }
 
-    /**
-     * 更新一条广告信息
-     * @param advertise 广告
-     */
     @Override
     public int updateAdvertise(Advertise advertise) {
         return advertiseMapper.updateByPrimaryKey(advertise);
     }
 
-    /**
-     * 删除一条广告信息
-     * @param id 要删除的广告id
-     */
     @Override
     public int deleteAdvertise(String id) {
         return advertiseMapper.deleteByPrimaryKey(id);

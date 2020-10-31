@@ -3,7 +3,7 @@ package net.ttcxy.tang.gateway.service.impl;
 import net.ttcxy.tang.gateway.service.SmsService;
 
 /**
- * 阿里验证码实现
+ * 阿里验证码服务
  * @author huanglei
  */
 public class SmsServiceAliImpl implements SmsService {

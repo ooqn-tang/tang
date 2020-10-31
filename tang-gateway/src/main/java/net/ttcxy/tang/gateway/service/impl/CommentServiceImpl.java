@@ -5,7 +5,7 @@ import net.ttcxy.tang.mapper.BlogCommentMapper;
 import net.ttcxy.tang.gateway.entity.dto.CommentDto;
 import net.ttcxy.tang.model.BlogComment;
 import net.ttcxy.tang.model.BlogCommentExample;
-import net.ttcxy.tang.gateway.security.AuthDetailsService;
+import net.ttcxy.tang.gateway.security.CurrentAuthorService;
 import net.ttcxy.tang.gateway.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,25 +26,20 @@ public class CommentServiceImpl implements CommentService {
     private BlogCommentMapper blogCommentMapper;
 
     @Autowired
-    private AuthDetailsService authDetailsServiceImpl;
+    private CurrentAuthorService currentAuthorServiceImpl;
 
     @Override
     public int insertComment(BlogComment blogComment) {
         return blogCommentMapper.insertSelective(blogComment);
     }
 
-
-
     @Override
     public int deleteComment(String commentId) {
-
-        String userId = authDetailsServiceImpl.getUserId();
-
+        String userId = currentAuthorServiceImpl.getUserId();
         BlogCommentExample blogCommentExample = new BlogCommentExample();
         blogCommentExample.createCriteria()
                 .andUserIdEqualTo(userId)
                 .andIdEqualTo(commentId);
-
         return blogCommentMapper.deleteByExample(blogCommentExample);
     }
 

@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
+ * 创作者服务
  * @author huanglei
  */
 @Service
@@ -59,28 +60,19 @@ public class AuthorServiceImpl implements AuthorService {
     @Override
     public Boolean selectUsernameIsTrue(String username) {
         int count = authorDao.selectUsernameIsTrue(username);
-        if (count > 0){
-            return true;
-        }
-        return false;
+        return count > 0;
     }
 
     @Override
     public Boolean selectNicknameIsTrue(String nickname) {
         int count = authorDao.selectNicknameIsTrue(nickname);
-        if (count > 0){
-            return true;
-        }
-        return false;
+        return count > 0;
     }
 
     @Override
     public Boolean selectMailIsTrue(String username) {
         int count = authorDao.selectEmailIsTrue(username);
-        if (count > 0){
-            return true;
-        }
-        return false;
+        return count > 0;
     }
 
     @Override

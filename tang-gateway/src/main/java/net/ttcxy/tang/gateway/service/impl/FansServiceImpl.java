@@ -5,7 +5,7 @@ import net.ttcxy.tang.gateway.dao.FansDao;
 import net.ttcxy.tang.gateway.dao.AuthorDao;
 import net.ttcxy.tang.gateway.entity.AuthorLogin;
 import net.ttcxy.tang.gateway.entity.dto.FansDto;
-import net.ttcxy.tang.gateway.security.AuthDetailsService;
+import net.ttcxy.tang.gateway.security.CurrentAuthorService;
 import net.ttcxy.tang.gateway.service.FansService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
@@ -15,7 +15,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * 粉丝相关
+ * 粉丝相关服务
  * @author huanglei
  */
 @Service
@@ -25,7 +25,7 @@ public class FansServiceImpl implements FansService {
     private FansDao fansDao;
 
     @Autowired
-    private AuthDetailsService authDetailsServiceImpl;
+    private CurrentAuthorService currentAuthorServiceImpl;
 
     @Autowired
     private AuthorDao authorDao;
@@ -59,7 +59,7 @@ public class FansServiceImpl implements FansService {
     }
 
     private FansDto getFans(String fansName){
-        AuthorLogin authorAuth = authDetailsServiceImpl.getUser();
+        AuthorLogin authorAuth = currentAuthorServiceImpl.getUser();
         if (authorAuth ==null){
             return null;
         }
@@ -72,7 +72,5 @@ public class FansServiceImpl implements FansService {
 
         return fansDto;
     }
-
-
 
 }

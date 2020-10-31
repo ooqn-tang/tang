@@ -8,7 +8,7 @@ import io.swagger.annotations.ApiOperation;
 import net.ttcxy.tang.gateway.entity.dto.BlogDto;
 import net.ttcxy.tang.gateway.entity.AuthorLogin;
 import net.ttcxy.tang.gateway.entity.dto.CommentDto;
-import net.ttcxy.tang.gateway.security.AuthDetailsService;
+import net.ttcxy.tang.gateway.security.CurrentAuthorService;
 import net.ttcxy.tang.gateway.service.BlogService;
 import net.ttcxy.tang.gateway.service.CommentService;
 import net.ttcxy.tang.model.Blog;
@@ -33,7 +33,7 @@ public class BlogController {
     private BlogService blogService;
 
     @Autowired
-    private AuthDetailsService authDetailsServiceImpl;
+    private CurrentAuthorService currentAuthorServiceImpl;
 
     @Autowired
     private CommentService commentService;
@@ -78,7 +78,7 @@ public class BlogController {
     @ApiOperation("添加博客")
     public CommonResult<String> add(@RequestBody Blog blog){
 
-        String userId = authDetailsServiceImpl.getUserId();
+        String userId = currentAuthorServiceImpl.getUserId();
 
         if (blog !=null){
             if (StrUtil.isBlank(blog.getTitle())){
@@ -120,7 +120,7 @@ public class BlogController {
             return CommonResult.failed("评论不能为空");
         }
 
-        AuthorLogin user = authDetailsServiceImpl.getUser();
+        AuthorLogin user = currentAuthorServiceImpl.getUser();
 
         String commentId = IdUtil.fastSimpleUUID();
         blogComment.setId(commentId);
@@ -143,7 +143,7 @@ public class BlogController {
     public CommonResult selectComment(@PathVariable("blogId") String blogId){
         Map<String,Object> map = new HashMap<>();
         map.put("comments",commentService.selectComments(blogId));
-        map.put("user", authDetailsServiceImpl.getUser());
+        map.put("user", currentAuthorServiceImpl.getUser());
         return CommonResult.success(map);
     }
 
@@ -163,7 +163,7 @@ public class BlogController {
     public CommonResult load(@RequestParam(name="blog",required = false) String blogId){
 
         Blog blog = blogService.selectByPrimaryId(blogId);
-        AuthorLogin author = authDetailsServiceImpl.getUser();
+        AuthorLogin author = currentAuthorServiceImpl.getUser();
         if(blog.getUserId().equals(author.getId())){
             return CommonResult.success(blog);
         }else{
@@ -188,8 +188,8 @@ public class BlogController {
     public CommonResult delete(@PathVariable("id") String id){
 
         String userId = blogService.selectByPrimaryId(id).getUserId();
-        if (authDetailsServiceImpl.getUser()!=null){
-            if(StrUtil.equals(authDetailsServiceImpl.getUser().getId(),userId)){
+        if (currentAuthorServiceImpl.getUser()!=null){
+            if(StrUtil.equals(currentAuthorServiceImpl.getUser().getId(),userId)){
                 int count = blogService.deleteBlog(id);
                 if(count > 0){
                     return CommonResult.success("成功删除");
@@ -208,7 +208,7 @@ public class BlogController {
     @GetMapping("/like/{id}/insert")
     @ApiOperation("喜欢blog.如果数据库不存在，推荐，如果存在就取消。")
     public CommonResult like(@PathVariable("id") String id){
-        AuthorLogin author = authDetailsServiceImpl.getUser();
+        AuthorLogin author = currentAuthorServiceImpl.getUser();
         return CommonResult.success(blogService.like(author.getId(),id));
     }
 }

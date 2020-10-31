@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
  * @author huanglei
  */
 @Component
-public class UserDetailsServiceImpl implements UserDetailsService, AuthDetailsService {
+public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
     private AuthorService authorService;
@@ -37,23 +37,5 @@ public class UserDetailsServiceImpl implements UserDetailsService, AuthDetailsSe
         return author;
     }
 
-    @Override
-    public AuthorLogin getUser(){
-        try{
-            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-            return (AuthorLogin)authentication.getPrincipal();
-        }catch(Exception ex){
-            return null;
-        }
-    }
-
-    @Override
-    public String getUserId(){
-        AuthorLogin author = getUser();
-        if (ObjectUtil.isNotNull(author)){
-            return author.getId();
-        }
-        return "";
-    }
 
 }

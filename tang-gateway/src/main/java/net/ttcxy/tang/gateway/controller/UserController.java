@@ -7,7 +7,7 @@ import cn.hutool.core.util.ReUtil;
 import net.ttcxy.tang.api.CommonResult;
 import net.ttcxy.tang.gateway.entity.AuthorLogin;
 import net.ttcxy.tang.gateway.entity.param.RegisterParam;
-import net.ttcxy.tang.gateway.security.AuthDetailsService;
+import net.ttcxy.tang.gateway.security.CurrentAuthorService;
 import net.ttcxy.tang.gateway.service.FansService;
 import net.ttcxy.tang.gateway.service.AuthorService;
 import net.ttcxy.tang.gateway.security.MySecurityData;
@@ -30,7 +30,7 @@ public class UserController {
     private FansService fansService;
 
     @Autowired
-    private AuthDetailsService authDetailsService;
+    private CurrentAuthorService currentAuthorService;
 
     @Autowired
     private AuthorService authorService;
@@ -40,7 +40,7 @@ public class UserController {
 
     @PostMapping(value = "user/info")
     public CommonResult<Integer> updateUser(@RequestBody AuthorLogin loginAuthor){
-        String id = authDetailsService.getUser().getId();
+        String id = currentAuthorService.getUser().getId();
         String nickname = loginAuthor.getNickname();
 
         ReUtil.contains("dfsdfsd","");
@@ -67,7 +67,7 @@ public class UserController {
         BeanUtil.copyProperties(loginAuthor, author);
         int count = authorService.updateUser(author);
         if (count > 0){
-            AuthorLogin uu = authDetailsService.getUser();
+            AuthorLogin uu = currentAuthorService.getUser();
             uu.setNickname(nickname);
             uu.setSignature(signature);
             return CommonResult.success(count);
@@ -80,7 +80,7 @@ public class UserController {
      */
     @GetMapping("user/fans")
     public CommonResult<List<AuthorLogin>> fans(){
-        String userId = authDetailsService.getUser().getId();
+        String userId = currentAuthorService.getUser().getId();
         List<AuthorLogin> fansList = fansService.selectFansList(userId);
         return CommonResult.success(fansList);
     }
