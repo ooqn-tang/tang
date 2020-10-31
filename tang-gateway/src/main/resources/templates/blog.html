@@ -3,7 +3,7 @@
 <head>
     <title th:text="${blog.title}  + ' - 堂堂程序员'"></title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,author-scalable=0" />
     <link href="/favicon.ico" rel="icon"/>
     <link href="/css/style.css" rel="stylesheet"/>
     <link href="https://cdn.bootcss.com/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
@@ -86,7 +86,7 @@
         data: {
             blogId:'[[${blog.id}]]',
             username:'[[${blog.username}]]',
-            loginUser:"[[${session.SPRING_SECURITY_CONTEXT}]]" == "",
+            author:"[[${session.SPRING_SECURITY_CONTEXT}]]" == "",
             follower:{
                 text:"关注",
             },
@@ -97,7 +97,7 @@
         },
         methods: {
             likeClick(){
-                if (this.loginUser){
+                if (this.author){
                     $('#loginModal').modal("show")
                     return
                 }
@@ -118,7 +118,7 @@
                 })
             },
             followerClick(){
-                if (this.loginUser){
+                if (this.author){
                     $('#loginModal').modal("show")
                     return
                 }
@@ -149,7 +149,7 @@
                 })
             },
             loadFollower(){
-                if (this.loginUser){
+                if (this.author){
                     return
                 }
                 let _this = this;
@@ -190,7 +190,7 @@
                 })
             },
             loadComment(){
-                if (this.loginUser){
+                if (this.author){
                     return
                 }
                 $.ajax({
@@ -201,7 +201,7 @@
                     success:function (result) {
                         sleep(500)
                         vm.comments = result.data.comments;
-                        vm.commentUsername = result.data.user.username;
+                        vm.commentUsername = result.data.author.username;
                     }
                 })
             },

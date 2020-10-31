@@ -1,7 +1,6 @@
 package net.ttcxy.tang.gateway.service;
 
-import net.ttcxy.tang.gateway.entity.LoginUser;
-import net.ttcxy.tang.model.User;
+import net.ttcxy.tang.gateway.entity.AuthorLogin;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,14 +10,14 @@ import java.util.List;
  * @author huanglei
  */
 @Service
-public interface UserService {
+public interface AuthorService {
 
     /**
      * 通过用户名查询
      * @param name 用户名
      * @return 登录用户
      */
-    LoginUser selectUserByName(String name) ;
+    AuthorLogin selectUserByName(String name) ;
 
 
     /**
@@ -26,28 +25,28 @@ public interface UserService {
      * @param mail 邮箱
      * @return 登录用户
      */
-    LoginUser selectLoginUserByMail(String mail);
+    AuthorLogin selectLoginUserByMail(String mail);
 
     /**
      * 添加用户
-     * @param user user
+     * @param author user
      * @return 影响的行数
      */
-    int insertUser(User user);
+    int insertUser(net.ttcxy.tang.model.Author author);
 
     /**
      * 更新用户
-     * @param user user
+     * @param author user
      * @return 影响的行数
      */
-    int updateUser(User user);
+    int updateUser(net.ttcxy.tang.model.Author author);
 
     /**
      * 更新密码
-     * @param user user
+     * @param author user
      * @return 影响的行数
      */
-    int updateUserPassword(User user);
+    int updateUserPassword(net.ttcxy.tang.model.Author author);
 
     /**
      * 用户是否存在
@@ -83,7 +82,7 @@ public interface UserService {
      * @param page 页码
      * @return 列表
      */
-    List<User> listUser(Integer page);
+    List<net.ttcxy.tang.model.Author> listUser(Integer page);
 
 
 

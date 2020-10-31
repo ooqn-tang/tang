@@ -1,0 +1,8 @@
+{
+  "properties": [
+    {
+      "name": "my-file-data",
+      "type": "java.lang.String",
+      "description": "Description for my-file-data."
+    }
+  ] }

@@ -8,7 +8,7 @@ import cn.hutool.extra.mail.MailAccount;
 import cn.hutool.extra.mail.MailUtil;
 import net.ttcxy.tang.api.CommonResult;
 import net.ttcxy.tang.gateway.entity.param.RegisterParam;
-import net.ttcxy.tang.gateway.service.UserService;
+import net.ttcxy.tang.gateway.service.AuthorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,13 +27,13 @@ import java.io.IOException;
  * @author huanglei
  */
 @Controller
-public class LoginUserController {
+public class AuthorController {
 
     @Autowired
     private HttpSession httpSession;
 
     @Autowired
-    private UserService userService;
+    private AuthorService authorService;
 
     @GetMapping("verify")
     public void getVerifyCode(HttpServletRequest request, HttpServletResponse response) throws IOException {

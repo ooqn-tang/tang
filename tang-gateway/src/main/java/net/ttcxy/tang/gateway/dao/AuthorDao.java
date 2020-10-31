@@ -1,12 +1,12 @@
 package net.ttcxy.tang.gateway.dao;
 
-import net.ttcxy.tang.gateway.entity.LoginUser;
+import net.ttcxy.tang.gateway.entity.AuthorLogin;
 
 /**
  * 用户
  * @author huanglei
  */
-public interface UserDao {
+public interface AuthorDao {
 
     /**
      * 通过邮箱查询用户是否存在
@@ -27,7 +27,7 @@ public interface UserDao {
      * @param username 用户名
      * @return 登录用户消息
      */
-    LoginUser selectUserByName(String username);
+    AuthorLogin selectAuthorByName(String username);
 
     /**
      * 昵称是否存在
@@ -41,6 +41,6 @@ public interface UserDao {
      * @param mail 邮箱
      * @return 登录用户
      */
-    LoginUser selectLoginUserByMail(String mail);
+    AuthorLogin selectAuthorByMail(String mail);
 
 }

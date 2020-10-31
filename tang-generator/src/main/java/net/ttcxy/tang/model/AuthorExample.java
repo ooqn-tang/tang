@@ -3,14 +3,14 @@ package net.ttcxy.tang.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserExample {
+public class AuthorExample {
     protected String orderByClause;
 
     protected boolean distinct;
 
     protected List<Criteria> oredCriteria;
 
-    public UserExample() {
+    public AuthorExample() {
         oredCriteria = new ArrayList<Criteria>();
     }
 

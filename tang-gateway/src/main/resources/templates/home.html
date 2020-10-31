@@ -2,8 +2,8 @@
 <html lang="zh-CN" xmlns:th="http://www.w3.org/1999/xhtml"
       xmlns:v-bind="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="utf-8" name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />
-    <title th:text="${user.username} + ' - 堂堂程序员'"></title>
+    <meta charset="utf-8" name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,author-scalable=0" />
+    <title th:text="${author.username} + ' - 堂堂程序员'"></title>
     <link href="https://cdn.bootcss.com/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/style.css">
     <link href="https://cdn.bootcss.com/github-markdown-css/4.0.0/github-markdown.min.css" rel="stylesheet">
@@ -19,10 +19,10 @@
         <div class="col-md-4 col-md-push-8 nob-p">
             <div class="panel panel-default nob" >
                 <div class="panel-body" >
-                    <strong th:text="${user.nickname}"></strong>
+                    <strong th:text="${author.nickname}"></strong>
                     <button v-show="!isThisUser"  class="pull-right btn btn-default btn-xs" @click="followerClick" v-text="follower"></button>
                     <hr>
-                    <div>简介：<span th:text="${user.signature}"></span></div>
+                    <div>简介：<span th:text="${author.signature}"></span></div>
                 </div>
             </div>
             <div class="panel panel-default nob">
@@ -31,7 +31,7 @@
                         <button class="btn btn-default btn-sm W20" v-bind:class="{ W50 : !isThisUser }" @click="cl(),home(),showFans = false">博客</button>
                         <button class="btn btn-default btn-sm W20" v-bind:class="{ W50 : !isThisUser }" @click="cl(),like(),showFans = false">推荐</button>
                         <button class="btn btn-default btn-sm W20" @click="fans" v-if="isThisUser">关注</button>
-                        <a class="btn btn-default btn-sm W20" href="/user/info" v-if="isThisUser">设置</a>
+                        <a class="btn btn-default btn-sm W20" href="/author/info" v-if="isThisUser">设置</a>
                         <a class="btn btn-default btn-sm W20" @click="logout" v-if="isThisUser">注销</a>
                     </div>
                 </div>
@@ -80,7 +80,7 @@
 <script src="https://cdn.bootcss.com/twitter-bootstrap/3.3.7/js/bootstrap.js"></script>
 <script src="/js/my.js"></script>
 <script>
-    let username = '[[${user.username}]]'
+    let username = '[[${author.username}]]'
     new Vue({
         el: "#app",//绑定元素
         //所有数据都放在数据属性中
@@ -215,7 +215,7 @@
                 let _this = this;
                 $.ajax({
                     type:"GET",
-                    url:"/user/fans",
+                    url:"/author/fans",
                     contentType: "application/json", //必须这样写
                     success:function (result) {
                         _this.fansList = result.data;

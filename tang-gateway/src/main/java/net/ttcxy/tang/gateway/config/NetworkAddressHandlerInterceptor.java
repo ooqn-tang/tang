@@ -1,7 +1,7 @@
 package net.ttcxy.tang.gateway.config;
 
-import net.ttcxy.tang.gateway.entity.LoginUser;
-import net.ttcxy.tang.gateway.service.AuthDetailsService;
+import net.ttcxy.tang.gateway.entity.AuthorLogin;
+import net.ttcxy.tang.gateway.security.AuthDetailsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,8 +28,8 @@ public class NetworkAddressHandlerInterceptor implements HandlerInterceptor {
      */
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
-        LoginUser loginUser = authDetailsService.getUser();
-        String userId = loginUser == null ? "未登陆用户": loginUser.getId();
+        AuthorLogin author = authDetailsService.getUser();
+        String userId = author == null ? "未登陆用户": author.getId();
         String address = request.getLocalAddr();
         logger.info("userId ：{}，address ：{}" , userId , address);
         return true;

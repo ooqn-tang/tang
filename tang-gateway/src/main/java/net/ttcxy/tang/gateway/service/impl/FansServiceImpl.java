@@ -2,10 +2,10 @@ package net.ttcxy.tang.gateway.service.impl;
 
 import cn.hutool.core.util.IdUtil;
 import net.ttcxy.tang.gateway.dao.FansDao;
-import net.ttcxy.tang.gateway.dao.UserDao;
+import net.ttcxy.tang.gateway.dao.AuthorDao;
+import net.ttcxy.tang.gateway.entity.AuthorLogin;
 import net.ttcxy.tang.gateway.entity.dto.FansDto;
-import net.ttcxy.tang.gateway.entity.LoginUser;
-import net.ttcxy.tang.gateway.service.AuthDetailsService;
+import net.ttcxy.tang.gateway.security.AuthDetailsService;
 import net.ttcxy.tang.gateway.service.FansService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
@@ -28,7 +28,7 @@ public class FansServiceImpl implements FansService {
     private AuthDetailsService authDetailsServiceImpl;
 
     @Autowired
-    private UserDao userDao;
+    private AuthorDao authorDao;
 
     @Override
     public int selectFans(String fansName){
@@ -54,20 +54,20 @@ public class FansServiceImpl implements FansService {
     }
 
     @Override
-    public List<LoginUser> selectFansList(String userId) {
+    public List<AuthorLogin> selectFansList(String userId) {
         return fansDao.selectFansList(userId);
     }
 
     private FansDto getFans(String fansName){
-        LoginUser loginUserAuth = authDetailsServiceImpl.getUser();
-        if (loginUserAuth ==null){
+        AuthorLogin authorAuth = authDetailsServiceImpl.getUser();
+        if (authorAuth ==null){
             return null;
         }
-        LoginUser loginUser = userDao.selectUserByName(fansName);
+        AuthorLogin author = authorDao.selectAuthorByName(fansName);
         FansDto fansDto = new FansDto();
         fansDto.setId(IdUtil.fastSimpleUUID());
-        fansDto.setUserId(loginUserAuth.getId());
-        fansDto.setFollower(loginUser.getId());
+        fansDto.setUserId(authorAuth.getId());
+        fansDto.setFollower(author.getId());
         fansDto.setCreateDate(new Date());
 
         return fansDto;

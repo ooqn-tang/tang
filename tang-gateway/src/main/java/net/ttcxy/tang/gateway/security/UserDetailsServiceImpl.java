@@ -2,9 +2,12 @@ package net.ttcxy.tang.gateway.security;
 
 
 import cn.hutool.core.lang.Validator;
-import net.ttcxy.tang.gateway.entity.LoginUser;
-import net.ttcxy.tang.gateway.service.UserService;
+import cn.hutool.core.util.ObjectUtil;
+import net.ttcxy.tang.gateway.entity.AuthorLogin;
+import net.ttcxy.tang.gateway.service.AuthorService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -14,23 +17,43 @@ import org.springframework.stereotype.Component;
  * @author huanglei
  */
 @Component
-public class UserDetailsServiceImpl implements UserDetailsService {
+public class UserDetailsServiceImpl implements UserDetailsService, AuthDetailsService {
 
     @Autowired
-    private UserService userService;
+    private AuthorService authorService;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        LoginUser loginUser = null;
+        AuthorLogin author = null;
         if (Validator.isEmail(username)){
-            loginUser = userService.selectLoginUserByMail(username);
+            author = authorService.selectLoginUserByMail(username);
         }else{
-            loginUser = userService.selectUserByName(username);
+            author = authorService.selectUserByName(username);
         }
-        if (loginUser ==null){
+        if (author ==null){
             throw new UsernameNotFoundException("用户不存在");
         }
-        return loginUser;
+        return author;
     }
+
+    @Override
+    public AuthorLogin getUser(){
+        try{
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            return (AuthorLogin)authentication.getPrincipal();
+        }catch(Exception ex){
+            return null;
+        }
+    }
+
+    @Override
+    public String getUserId(){
+        AuthorLogin author = getUser();
+        if (ObjectUtil.isNotNull(author)){
+            return author.getId();
+        }
+        return "";
+    }
+
 }

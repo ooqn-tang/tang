@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <title>登陆</title>
     <link href="/favicon.ico" rel="shortcut icon" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, author-scalable=no" />
     <link href="https://cdn.bootcss.com/twitter-bootstrap/3.4.0/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.bootcss.com/vue/2.6.10/vue.min.js"></script>
     <style>
@@ -27,20 +27,20 @@
             <div class="modal-body">
                 <label>用户名：</label>
                 <div class="form-group">
-                    <input type="text" class="form-control" v-model="user.username" readonly>
+                    <input type="text" class="form-control" v-model="author.username" readonly>
                 </div>
                 <label>昵称：</label>
                 <div class="form-group">
-                    <input type="text" class="form-control" placeholder="昵称" v-model="user.nickname" autocomplete="off">
+                    <input type="text" class="form-control" placeholder="昵称" v-model="author.nickname" autocomplete="off">
                 </div>
                 <label>个人简介：</label>
                 <div class="form-group">
-                    <input type="text" class="form-control" placeholder="个人简介" v-model="user.signature" autocomplete="off">
+                    <input type="text" class="form-control" placeholder="个人简介" v-model="author.signature" autocomplete="off">
                 </div>
             </div>
             <div class="modal-footer">
                 <div class="form-group">
-                    <button class="btn btn-primary form-control" @click="updateUser()">确认修改</button>
+                    <button class="btn btn-primary form-control" @click="updateAuthor()">确认修改</button>
                 </div>
                 <div class="btn-group" style="width: 100%;">
                     <a style="width: 100%;" onClick="history.go(-1);" class="btn btn-default">返回页面</a>
@@ -56,21 +56,21 @@
     new Vue({
         el: "#info",
         data:{
-            user:{
-                nickname:"[[${user.nickname}]]",
-                signature:"[[${user.signature}]]",
-                username:'[[${user.username}]]'
+            author:{
+                nickname:"[[${author.nickname}]]",
+                signature:"[[${author.signature}]]",
+                username:'[[${author.username}]]'
             }
         }, methods: {
-            updateUser(){
+            updateAuthor(){
                 let _this = this
                 $.ajax({
                     type : "POST",
                     contentType: "application/json",
-                    url : "/user/info",
+                    url : "/author/info",
                     data : JSON.stringify({
-                        nickname:_this.user.nickname,
-                        signature:_this.user.signature
+                        nickname:_this.author.nickname,
+                        signature:_this.author.signature
                     }),success : function(result) {
                         if (result.code === 200){
                             history.go(-1);

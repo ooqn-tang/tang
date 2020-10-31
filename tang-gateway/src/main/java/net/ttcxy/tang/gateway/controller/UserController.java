@@ -5,12 +5,11 @@ import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.RandomUtil;
 import cn.hutool.core.util.ReUtil;
 import net.ttcxy.tang.api.CommonResult;
-import net.ttcxy.tang.gateway.entity.LoginUser;
+import net.ttcxy.tang.gateway.entity.AuthorLogin;
 import net.ttcxy.tang.gateway.entity.param.RegisterParam;
-import net.ttcxy.tang.gateway.service.AuthDetailsService;
+import net.ttcxy.tang.gateway.security.AuthDetailsService;
 import net.ttcxy.tang.gateway.service.FansService;
-import net.ttcxy.tang.gateway.service.UserService;
-import net.ttcxy.tang.model.User;
+import net.ttcxy.tang.gateway.service.AuthorService;
 import net.ttcxy.tang.gateway.security.MySecurityData;
 import net.ttcxy.tang.util.TextUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,15 +33,15 @@ public class UserController {
     private AuthDetailsService authDetailsService;
 
     @Autowired
-    private UserService userService;
+    private AuthorService authorService;
 
     @Autowired
     private HttpSession httpSession;
 
     @PostMapping(value = "user/info")
-    public CommonResult<Integer> updateUser(@RequestBody LoginUser loginUser){
+    public CommonResult<Integer> updateUser(@RequestBody AuthorLogin loginAuthor){
         String id = authDetailsService.getUser().getId();
-        String nickname = loginUser.getNickname();
+        String nickname = loginAuthor.getNickname();
 
         ReUtil.contains("dfsdfsd","");
 
@@ -55,20 +54,20 @@ public class UserController {
             return CommonResult.failed("昵称长度：汉字 2 ~ 8,字母 4 ~ 16");
         }
 
-        String signature = loginUser.getSignature();
+        String signature = loginAuthor.getSignature();
         if (cn.hutool.core.util.StrUtil.isNotBlank(signature)){
             int length = TextUtil.byteSize(signature);
             if (length > 50){
                 return CommonResult.failed("签名长度为50个之母或25个汉字");
             }
         }
-        loginUser.setId(id);
+        loginAuthor.setId(id);
 
-        User user = new User();
-        BeanUtil.copyProperties(loginUser,user);
-        int count = userService.updateUser(user);
+        net.ttcxy.tang.model.Author author = new net.ttcxy.tang.model.Author();
+        BeanUtil.copyProperties(loginAuthor, author);
+        int count = authorService.updateUser(author);
         if (count > 0){
-            LoginUser uu = authDetailsService.getUser();
+            AuthorLogin uu = authDetailsService.getUser();
             uu.setNickname(nickname);
             uu.setSignature(signature);
             return CommonResult.success(count);
@@ -80,9 +79,9 @@ public class UserController {
      * 关注用户
      */
     @GetMapping("user/fans")
-    public CommonResult<List<LoginUser>> fans(){
+    public CommonResult<List<AuthorLogin>> fans(){
         String userId = authDetailsService.getUser().getId();
-        List<LoginUser> fansList = fansService.selectFansList(userId);
+        List<AuthorLogin> fansList = fansService.selectFansList(userId);
         return CommonResult.success(fansList);
     }
 
@@ -93,8 +92,8 @@ public class UserController {
      * @return List<User>
      */
     @PostMapping("list")
-    public CommonResult<List<User>> listUser(@RequestParam(defaultValue = "1") Integer page){
-        return CommonResult.success(userService.listUser(page));
+    public CommonResult<List<net.ttcxy.tang.model.Author>> listUser(@RequestParam(defaultValue = "1") Integer page){
+        return CommonResult.success(authorService.listUser(page));
     }
 
     /**
@@ -116,21 +115,21 @@ public class UserController {
                 RegisterParam registerParam = (RegisterParam)httpSession.getAttribute(MySecurityData.REG_VERIFY_DATA);
                 String mail = registerParam.getMail();
 
-                Boolean aBoolean = userService.selectMailIsTrue(mail);
+                Boolean aBoolean = authorService.selectMailIsTrue(mail);
                 if (aBoolean){
                     return CommonResult.failed("邮箱以存在");
                 }
 
-                User user = new User();
-                user.setPassword(password);
-                user.setMail(mail);
+                net.ttcxy.tang.model.Author author = new net.ttcxy.tang.model.Author();
+                author.setPassword(password);
+                author.setMail(mail);
                 String username = getUsername();
-                user.setNickname(username);
-                user.setUsername(username);
+                author.setNickname(username);
+                author.setUsername(username);
 
-                user.setId(IdUtil.fastSimpleUUID());
+                author.setId(IdUtil.fastSimpleUUID());
 
-                int i = userService.insertUser(user);
+                int i = authorService.insertUser(author);
                 if (i > 0){
                     return CommonResult.success("注册成功");
                 }
@@ -162,14 +161,14 @@ public class UserController {
                 }
                 String mail = registerParam.getMail();
 
-                LoginUser user = userService.selectLoginUserByMail(mail);
+                AuthorLogin user = authorService.selectLoginUserByMail(mail);
                 if (user == null){
                     return CommonResult.failed("邮箱未注册");
                 }
-                User updateUser = new User();
-                updateUser.setId(user.getId());
-                updateUser.setPassword(new BCryptPasswordEncoder().encode(password));
-                int i = userService.updateUserPassword(updateUser);
+                net.ttcxy.tang.model.Author updateAuthor = new net.ttcxy.tang.model.Author();
+                updateAuthor.setId(user.getId());
+                updateAuthor.setPassword(new BCryptPasswordEncoder().encode(password));
+                int i = authorService.updateUserPassword(updateAuthor);
                 if (i > 0){
                     return CommonResult.success("密码更新成功");
                 }
@@ -189,8 +188,8 @@ public class UserController {
     private String getUsername(){
         while(true){
             String name = "t" + RandomUtil.randomNumbers(9);
-            Boolean isUsername = userService.selectUsernameIsTrue(name);
-            Boolean isNickname = userService.selectNicknameIsTrue(name);
+            Boolean isUsername = authorService.selectUsernameIsTrue(name);
+            Boolean isNickname = authorService.selectNicknameIsTrue(name);
             if (!isUsername && !isNickname){
                 return name;
             }

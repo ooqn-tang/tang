@@ -11,7 +11,7 @@ import java.util.Set;
  * 用户返回值
  * @author huanglei
  */
-public class LoginUser implements UserDetails {
+public class AuthorLogin implements UserDetails {
 
     /**
      * 用户id

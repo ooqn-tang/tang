@@ -1,6 +1,6 @@
-package net.ttcxy.tang.gateway.service;
+package net.ttcxy.tang.gateway.security;
 
-import net.ttcxy.tang.gateway.entity.LoginUser;
+import net.ttcxy.tang.gateway.entity.AuthorLogin;
 
 /**
  * 获取当前用户消息
@@ -11,7 +11,7 @@ public interface AuthDetailsService {
      * 获取在线用户
      * @return LoginUser
      */
-    LoginUser getUser();
+    AuthorLogin getUser();
 
     /**
      * 获取当前用户Id

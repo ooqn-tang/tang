@@ -1,6 +1,6 @@
 package net.ttcxy.tang.gateway.service;
 
-import net.ttcxy.tang.gateway.entity.LoginUser;
+import net.ttcxy.tang.gateway.entity.AuthorLogin;
 
 import java.util.List;
 
@@ -31,6 +31,6 @@ public interface FansService {
      * @param userId user id
      * @return 登录用户
      */
-    List<LoginUser> selectFansList(String userId);
+    List<AuthorLogin> selectFansList(String userId);
 
 }

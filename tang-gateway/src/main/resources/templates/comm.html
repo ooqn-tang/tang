@@ -67,24 +67,24 @@
                     <!--注册，忘记密码邮箱-->
                     <label v-if="title == '注册' || title == '忘记密码'">邮箱：</label>
                     <div class="form-group" v-if="title == '注册' || title == '忘记密码'">
-                        <input type="text" class="form-control" placeholder="邮箱号" v-model="user.mail" autocomplete="off">
+                        <input type="text" class="form-control" placeholder="邮箱号" v-model="author.mail" autocomplete="off">
                     </div>
                     <!--登录时显示-->
                     <label v-if="title == '登录'">邮箱 / 用户名：</label>
                     <div class="form-group" v-if="title == '登录'">
-                        <input type="text" class="form-control" placeholder="用户名" v-model="user.username" autocomplete="off">
+                        <input type="text" class="form-control" placeholder="用户名" v-model="author.username" autocomplete="off">
                     </div>
                     <label>密码：</label>
                     <div class="form-group">
-                        <input type="password" class="form-control" placeholder="密码" v-model="user.password" autocomplete="off">
+                        <input type="password" class="form-control" placeholder="密码" v-model="author.password" autocomplete="off">
                     </div>
                     <label v-if="title == '注册' || title == '忘记密码'">确认密码：</label>
                     <div class="form-group" v-if="title == '注册' || title == '忘记密码'">
-                        <input type="password" class="form-control" placeholder="密码" v-model="user.confirmPassword" autocomplete="off">
+                        <input type="password" class="form-control" placeholder="密码" v-model="author.confirmPassword" autocomplete="off">
                     </div>
                     <label v-text="yzm + (mailCount > 0 ? mailCount : '')"></label>
                     <div class="input-group">
-                        <input type="text" class="form-control" v-model="user.verify">
+                        <input type="text" class="form-control" v-model="author.verify">
                         <span v-if="title == '登录'" class="input-group-addon" style="padding: 0"><img alt="验证码" @click="rImg" v-bind:src="verifyUrl" height="32"/> </span>
                         <span class="input-group-btn" v-if="title != '登录'">
                             <button class="btn btn-default" type="button" @click="sendVerify">获取验证码</button>
@@ -122,7 +122,7 @@
                 dl:false,
                 title:"登录",
                 yzm:"验证码",
-                user:{
+                author:{
                     username:"",
                     password:"",
                     confirmPassword:"",
@@ -140,7 +140,7 @@
                         type:"POST",
                         url:"/doLogin",
                         contentType: "application/x-www-form-urlencoded",
-                        data:_this.user,
+                        data:_this.author,
                         dataType:"JSON",
                         error:function (err){
                             if(err.responseText == "登录成功"){
@@ -160,7 +160,7 @@
                     _this.mailCount = 60
                     $.ajax({
                         type:"POST",
-                        url:"/verifyMail/" + _this.user.mail
+                        url:"/verifyMail/" + _this.author.mail
                     });
                     setInterval(() => {
                         setTimeout(function(){
@@ -170,12 +170,12 @@
                 },
                 register(){
                     let _this = this;
-                    if (this.user.password === this.user.confirmPassword){
+                    if (this.author.password === this.author.confirmPassword){
                         $.ajax({
                             type:"POST",
                             url:"/register",
                             contentType: "application/json;charset=UTF-8",
-                            data:JSON.stringify(_this.user),
+                            data:JSON.stringify(_this.author),
                             dataType:"JSON",
                             success:function(result){
                                 if (result.code == 200){
@@ -192,12 +192,12 @@
                 },
                 password(){
                     let _this = this;
-                    if (this.user.password === this.user.confirmPassword) {
+                    if (this.author.password === this.author.confirmPassword) {
                         $.ajax({
                             type: "POST",
                             url: "/password",
                             contentType: "application/json;charset=UTF-8",
-                            data: JSON.stringify(_this.user),
+                            data: JSON.stringify(_this.author),
                             dataType: "JSON",
                             success: function (result) {
                                 alert(result.data)

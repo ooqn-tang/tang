@@ -1,10 +1,10 @@
 package net.ttcxy.tang.gateway.controller;
 
+import net.ttcxy.tang.gateway.entity.AuthorLogin;
 import net.ttcxy.tang.gateway.entity.dto.BlogDto;
-import net.ttcxy.tang.gateway.entity.LoginUser;
-import net.ttcxy.tang.gateway.service.AuthDetailsService;
+import net.ttcxy.tang.gateway.security.AuthDetailsService;
 import net.ttcxy.tang.gateway.service.BlogService;
-import net.ttcxy.tang.gateway.service.UserService;
+import net.ttcxy.tang.gateway.service.AuthorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -28,7 +28,7 @@ public class PageController {
     private BlogService blogService;
 
     @Autowired
-    private UserService userService;
+    private AuthorService authorService;
 
     /**
      * 首页
@@ -60,14 +60,14 @@ public class PageController {
      */
     @GetMapping("author/{username}")
     public ModelAndView toUserHome(@PathVariable("username")String username, ModelAndView modelAndView){
-        LoginUser loginUser = userService.selectUserByName(username);
-        if (loginUser == null){
+        AuthorLogin author = authorService.selectUserByName(username);
+        if (author == null){
             modelAndView.setStatus(HttpStatus.NOT_FOUND);
             modelAndView.setViewName("404");
             return modelAndView;
         }
         modelAndView.setViewName("home");
-        modelAndView.addObject("user", loginUser);
+        modelAndView.addObject("user", author);
         return modelAndView;
     }
 
@@ -77,7 +77,7 @@ public class PageController {
     @GetMapping("post/{id}")
     public ModelAndView toBlog(@PathVariable("id")String blogId, ModelAndView modelAndView){
 
-        LoginUser loginUser = authDetailsService.getUser();
+        AuthorLogin author = authDetailsService.getUser();
 
         BlogDto blogDto = blogService.selectBlogById(blogId);
 
@@ -87,8 +87,8 @@ public class PageController {
             return modelAndView;
         }
 
-        if (loginUser !=null){
-            String userId = loginUser.getId();
+        if (author !=null){
+            String userId = author.getId();
             // 如果用户没有登陆，不需要查询是否喜欢或收藏
             // 是否喜欢了当前博客
             modelAndView.addObject("like",blogService.selectLike(userId,blogId));
