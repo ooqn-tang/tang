@@ -12,7 +12,7 @@ import net.ttcxy.tang.gateway.service.AuthDetailsService;
 import net.ttcxy.tang.gateway.service.UserService;
 import net.ttcxy.tang.gateway.service.impl.FansServiceImpl;
 import net.ttcxy.tang.model.User;
-import net.ttcxy.tang.security.MySecurityData;
+import net.ttcxy.tang.gateway.security.MySecurityData;
 import net.ttcxy.tang.util.StringProUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -41,7 +41,7 @@ public class UserController {
     private HttpSession httpSession;
 
     @PostMapping(value = "user/info")
-    public CommonResult updateUser(@RequestBody LoginUser loginUser){
+    public CommonResult<Integer> updateUser(@RequestBody LoginUser loginUser){
         String id = authDetailsService.getUser().getId();
         String nickname = loginUser.getNickname();
 
@@ -91,7 +91,7 @@ public class UserController {
     /**
      * User列表
      * @param page 页码
-     * @return
+     * @return List<User>
      */
     @PostMapping("list")
     public CommonResult<List<User>> listUser(@RequestParam(defaultValue = "1") Integer page){

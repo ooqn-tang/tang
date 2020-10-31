@@ -43,11 +43,8 @@ public class FileController {
             return CommonResult.failed("请上传正确文件");
         }
 
-
         String urlFileName = IdUtil.fastSimpleUUID() + "." + split[split.length - 1];
         String path = myFileDataPath + File.separator + urlFileName;
-
-
 
         try {
             FileUtil.writeBytes(file.getBytes(),path);
@@ -63,12 +60,5 @@ public class FileController {
     public CommonResult<String> delete(@RequestParam("objectName") String objectName) {
         return CommonResult.failed();
     }
-
-
-    public static void main(String[] args) {
-
-
-    }
-
 
 }

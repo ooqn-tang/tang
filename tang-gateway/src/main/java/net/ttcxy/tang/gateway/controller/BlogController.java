@@ -82,10 +82,10 @@ public class BlogController {
 
         if (blog !=null){
             if (StrUtil.isBlank(blog.getTitle())){
-                return CommonResult.failed("请正确输入内容");
+                return CommonResult.failed("请输入标题");
             }
             if (StrUtil.isBlank(blog.getMarkdown())){
-                return CommonResult.failed("请正确输入内容");
+                return CommonResult.failed("请输入内容");
             }
             if (StrUtil.isBlank(blog.getText())){
                 return CommonResult.failed("请正确输入内容");

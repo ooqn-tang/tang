@@ -8,7 +8,6 @@
         <module>tang-generator</module>
         <module>tang-admin</module>
         <module>tang-common</module>
-        <module>tang-security</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
