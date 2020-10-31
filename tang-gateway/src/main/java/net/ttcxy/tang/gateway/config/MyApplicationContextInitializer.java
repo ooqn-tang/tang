@@ -11,12 +11,11 @@ import org.springframework.stereotype.Component;
  * @author huanglei
  */
 @Component
-public class MyApplicationContextInitializer implements ApplicationContextInitializer {
+public class MyApplicationContextInitializer implements ApplicationContextInitializer<ConfigurableApplicationContext> {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
     @Override
     public void initialize(ConfigurableApplicationContext applicationContext) {
-
         checkFilePath();
         logger.info("我被调用了。。。");
     }
@@ -27,5 +26,4 @@ public class MyApplicationContextInitializer implements ApplicationContextInitia
     private void checkFilePath(){
 
     }
-
 }

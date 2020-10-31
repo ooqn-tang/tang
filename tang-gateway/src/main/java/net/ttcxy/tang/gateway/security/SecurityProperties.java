@@ -3,7 +3,7 @@ package net.ttcxy.tang.gateway.security;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
- * created by huanglei on 2020/10/10
+ * @author huanglei
  */
 @ConfigurationProperties(prefix = "tang.security")
 public class SecurityProperties {

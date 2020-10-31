@@ -6,7 +6,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
- * created by huanglei on 2020/01/01
+ * @author huanglei
  */
 @SpringBootApplication
 @MapperScan(basePackages ={"net.ttcxy.tang.mapper","net.ttcxy.tang.gateway.dao"})

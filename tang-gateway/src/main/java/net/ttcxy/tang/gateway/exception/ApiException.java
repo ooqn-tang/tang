@@ -4,7 +4,7 @@ import net.ttcxy.tang.api.IErrorCode;
 
 /**
  * 自定义API异常
- * created by huanglei on 2020/10/10
+ * @author huanglei
  */
 public class ApiException extends RuntimeException {
     private IErrorCode errorCode;

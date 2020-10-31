@@ -8,7 +8,6 @@ import cn.hutool.extra.mail.MailAccount;
 import cn.hutool.extra.mail.MailUtil;
 import net.ttcxy.tang.api.CommonResult;
 import net.ttcxy.tang.gateway.entity.param.RegisterParam;
-import net.ttcxy.tang.gateway.security.MySecurityData;
 import net.ttcxy.tang.gateway.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,13 +23,17 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 /**
- * created by HuangLei on 2020/9/20
+ * 登录用户需要的配置
+ * @author huanglei
  */
 @Controller
 public class LoginUserController {
 
     @Autowired
     private HttpSession httpSession;
+
+    @Autowired
+    private UserService userService;
 
     @GetMapping("verify")
     public void getVerifyCode(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -55,9 +58,6 @@ public class LoginUserController {
         httpSession.setAttribute(MySecurityData.VERIFY_CODE,code);
 
     }
-
-    @Autowired
-    private UserService userService;
 
     @PostMapping("verifyMail/{mail}")
     @ResponseBody
@@ -91,16 +91,5 @@ public class LoginUserController {
             return CommonResult.failed("发送失败");
         }
 
-    }
-
-    public static void main(String[] args) {
-        MailAccount account = new MailAccount();
-        account.setHost("smtp.qq.com");
-        account.setPort(587);
-        account.setAuth(true);
-        account.setFrom("1604403854@qq.com");
-        account.setUser("1604403854@qq.com");
-        account.setPass("muijiqqfyyyyhbhc");
-        MailUtil.send(account, "792190997@qq.com", "验证码：", "验证码邮件，无需回复。", false);
     }
 }

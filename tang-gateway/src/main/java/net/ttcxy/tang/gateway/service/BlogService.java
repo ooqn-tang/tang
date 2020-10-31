@@ -4,6 +4,8 @@ import com.github.pagehelper.PageInfo;
 import net.ttcxy.tang.model.Blog;
 import net.ttcxy.tang.gateway.entity.dto.BlogDto;
 
+import java.util.List;
+
 /**
  * 博客操作
  * @author huanglei
@@ -91,4 +93,8 @@ public interface BlogService {
      * @return
      */
     BlogDto random();
+
+    List<String> getRandomBlogs();
+
+
 }

@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * 退出成功实现这个接口
- * created by huanglei on 2020/10/10
+ * @author huanglei
  */
 public class MyLogoutSuccessHandler implements LogoutSuccessHandler {
 

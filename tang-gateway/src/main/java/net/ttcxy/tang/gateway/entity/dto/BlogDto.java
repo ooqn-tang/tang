@@ -6,7 +6,7 @@ import java.util.Date;
 
 /**
  * Blog模型类
- * created by huanglei on 2020/10/10
+ * @author huanglei
  */
 public class BlogDto {
 

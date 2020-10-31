@@ -1,7 +1,7 @@
 package net.ttcxy.tang.gateway.security;
 /**
  * 配置一些全局变量
- * created by HuangLei on 2020/9/20
+ * @author huanglei
  */
 public class MySecurityData {
     public final static String VERIFY_CODE = "VERIFY_CODE";

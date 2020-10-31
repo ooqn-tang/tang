@@ -11,22 +11,22 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
 /**
- * created by huanglei on 2020/09/01
+ * @author huanglei
  */
-@Component("loginUserService")
-public class LoginUserService implements UserDetailsService {
+@Component
+public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
-    private UserService userServiceImpl;
+    private UserService userService;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
         LoginUser loginUser = null;
         if (Validator.isEmail(username)){
-            loginUser = userServiceImpl.selectLoginUserByMail(username);
+            loginUser = userService.selectLoginUserByMail(username);
         }else{
-            loginUser = userServiceImpl.selectUserByName(username);
+            loginUser = userService.selectUserByName(username);
         }
         if (loginUser ==null){
             throw new UsernameNotFoundException("用户不存在");

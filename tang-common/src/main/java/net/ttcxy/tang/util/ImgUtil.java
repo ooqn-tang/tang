@@ -6,9 +6,10 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
- * created by HuangLei on 2020/9/15
+ * 图片工具
+ * @author huanglei
  */
-public class ImgProUtil {
+public class ImgUtil {
     public static boolean isNotImage(InputStream inputStream){
         try {
             BufferedImage read = ImageIO.read(inputStream);

@@ -13,8 +13,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
- * @author ：HuangLei
- * @date ：2020/4/18 0018 18:18
+ * @author huanglei
  */
 @Service
 public class CommentServiceImpl implements CommentService {

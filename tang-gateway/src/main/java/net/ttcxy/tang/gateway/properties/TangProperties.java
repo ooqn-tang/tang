@@ -4,7 +4,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 /**
- * created by huanglei on 2020/10/10
+ * @author huanglei
  */
 @Component
 @ConfigurationProperties(prefix = "tang.app")

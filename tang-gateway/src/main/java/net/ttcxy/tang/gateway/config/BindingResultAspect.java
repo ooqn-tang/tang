@@ -21,7 +21,6 @@ public class BindingResultAspect {
     @Pointcut("execution(public * net.ttcxy.tang.gateway.controller.*.*(..))")
     public void bindingResult() {
     }
-
     @Around("bindingResult()")
     public Object doAround(ProceedingJoinPoint joinPoint) throws Throwable {
         Object[] args = joinPoint.getArgs();

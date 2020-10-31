@@ -3,7 +3,7 @@ package net.ttcxy.tang.gateway.config;
 import cn.hutool.core.io.FileUtil;
 import net.ttcxy.tang.gateway.dao.BlogDao;
 import net.ttcxy.tang.gateway.service.AdvertiseService;
-import net.ttcxy.tang.gateway.service.impl.BlogServiceImpl;
+import net.ttcxy.tang.gateway.service.BlogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationArguments;
@@ -33,6 +33,9 @@ public class MyApplicationRunner implements ApplicationRunner {
     @Autowired
     private BlogDao blogDao;
 
+    @Autowired
+    private BlogService blogService;
+
     @Override
     public void run(ApplicationArguments args) {
         mkStaticLocations();
@@ -48,6 +51,7 @@ public class MyApplicationRunner implements ApplicationRunner {
         if (!FileUtil.isDirectory(myFileDataPath)) {
             FileUtil.mkdir(myFileDataPath);
         }
-        BlogServiceImpl.getRandomBlogs().addAll(blogDao.selectId());
+        blogService.getRandomBlogs().addAll(blogDao.selectId());
     }
+
 }

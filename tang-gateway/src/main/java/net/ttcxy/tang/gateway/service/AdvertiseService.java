@@ -5,6 +5,9 @@ import net.ttcxy.tang.model.Advertise;
 
 import java.util.List;
 
+/**
+ * @author huanglei
+ */
 public interface AdvertiseService {
 
     /**

@@ -4,16 +4,15 @@ import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.RandomUtil;
 import cn.hutool.core.util.ReUtil;
-import cn.hutool.core.util.StrUtil;
 import net.ttcxy.tang.api.CommonResult;
 import net.ttcxy.tang.gateway.entity.LoginUser;
 import net.ttcxy.tang.gateway.entity.param.RegisterParam;
 import net.ttcxy.tang.gateway.service.AuthDetailsService;
+import net.ttcxy.tang.gateway.service.FansService;
 import net.ttcxy.tang.gateway.service.UserService;
-import net.ttcxy.tang.gateway.service.impl.FansServiceImpl;
 import net.ttcxy.tang.model.User;
 import net.ttcxy.tang.gateway.security.MySecurityData;
-import net.ttcxy.tang.util.StringProUtil;
+import net.ttcxy.tang.util.TextUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
@@ -23,13 +22,13 @@ import java.util.List;
 
 /**
  * 用户相关操作
- * created by huanglei on 2020/10/10
+ * @author huanglei
  */
 @RestController
 public class UserController {
 
     @Autowired
-    private FansServiceImpl fansService;
+    private FansService fansService;
 
     @Autowired
     private AuthDetailsService authDetailsService;
@@ -47,8 +46,8 @@ public class UserController {
 
         ReUtil.contains("dfsdfsd","");
 
-        if (StrUtil.isNotBlank(nickname)){
-            int length = StringProUtil.byteSize(nickname);
+        if (cn.hutool.core.util.StrUtil.isNotBlank(nickname)){
+            int length = TextUtil.byteSize(nickname);
             if (length > 16 || length < 4){
                 return CommonResult.failed("昵称长度：汉字 2 ~ 8,字母 4 ~ 16");
             }
@@ -57,8 +56,8 @@ public class UserController {
         }
 
         String signature = loginUser.getSignature();
-        if (StrUtil.isNotBlank(signature)){
-            int length = StringProUtil.byteSize(signature);
+        if (cn.hutool.core.util.StrUtil.isNotBlank(signature)){
+            int length = TextUtil.byteSize(signature);
             if (length > 50){
                 return CommonResult.failed("签名长度为50个之母或25个汉字");
             }

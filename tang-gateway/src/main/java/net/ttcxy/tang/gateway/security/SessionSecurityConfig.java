@@ -20,7 +20,7 @@ import javax.sql.DataSource;
 /**
  * 基于Session的安全配置文件
  * 继承本接口 必须实现 重写userDetailsService()
- * created by huanglei on 2020/10/10
+ * @author huanglei
  */
 public class SessionSecurityConfig extends WebSecurityConfigurerAdapter {
 

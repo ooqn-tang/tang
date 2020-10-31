@@ -1,17 +1,17 @@
 package net.ttcxy.tang.gateway.service.impl;
 
+import cn.hutool.core.thread.ThreadUtil;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.RandomUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import net.ttcxy.tang.gateway.dao.BlogDao;
-import net.ttcxy.tang.mapper.BlogMapper;
-import net.ttcxy.tang.mapper.FavoriteMapper;
-import net.ttcxy.tang.mapper.LikeDataMapper;
-import net.ttcxy.tang.mapper.PageViewMapper;
 import net.ttcxy.tang.gateway.entity.dto.BlogDto;
 import net.ttcxy.tang.gateway.service.AuthDetailsService;
 import net.ttcxy.tang.gateway.service.BlogService;
+import net.ttcxy.tang.mapper.BlogMapper;
+import net.ttcxy.tang.mapper.LikeDataMapper;
+import net.ttcxy.tang.mapper.PageViewMapper;
 import net.ttcxy.tang.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
 
 /**
  * BlogService impl
@@ -27,7 +28,9 @@ import java.util.List;
 @Service
 public class BlogServiceImpl implements BlogService {
 
-    private static final List<String> randomBlogs = new ArrayList<>(1000);
+    private static final List<String> RANDOM_BLOGS = new ArrayList<>(1000);
+
+    private static final ExecutorService executorService = ThreadUtil.newExecutor(50);
 
     @Autowired
     private BlogDao blogDao;
@@ -37,9 +40,6 @@ public class BlogServiceImpl implements BlogService {
 
     @Autowired
     private BlogMapper blogMapper;
-
-    @Autowired
-    private FavoriteMapper favoriteMapper;
 
     @Autowired
     private PageViewMapper pageViewMapper;
@@ -69,7 +69,7 @@ public class BlogServiceImpl implements BlogService {
     public int insertBlog(Blog blog) {
         int count = blogMapper.insertSelective(blog);
         if (count > 0){
-            randomBlogs.add(blog.getId());
+            RANDOM_BLOGS.add(blog.getId());
         }
         return count;
     }
@@ -88,13 +88,12 @@ public class BlogServiceImpl implements BlogService {
 
     @Override
     public int deleteBlog(String id) {
-
         int count = blogMapper.deleteByPrimaryKey(id);
         if (count > 0){
-            //删除随机博客
-            new Thread(()->{
-                randomBlogs.remove(id);
-            }).start();
+            //删除博客
+            executorService.execute(()->{
+                RANDOM_BLOGS.remove(id);
+            });
         }
         return count;
     }
@@ -151,18 +150,15 @@ public class BlogServiceImpl implements BlogService {
         return new PageInfo<>(blogDao.selectLikeBlogs(username));
     }
 
-
-
-
-
-    public static List<String> getRandomBlogs() {
-        return randomBlogs;
+    @Override
+    public List<String> getRandomBlogs() {
+        return RANDOM_BLOGS;
     }
 
     @Override
     public PageInfo<BlogDto> selectBlogs(Integer page) {
-        int randomInt = RandomUtil.randomInt(0, randomBlogs.size());
-        BlogDto blogDto = blogDao.selectByIdTitle(randomBlogs.get(randomInt));
+        int randomInt = RandomUtil.randomInt(0, RANDOM_BLOGS.size());
+        BlogDto blogDto = blogDao.selectByIdTitle(RANDOM_BLOGS.get(randomInt));
 
         PageHelper.startPage(page,15);
         List<BlogDto> dtos = blogDao.selectBlog();
@@ -174,17 +170,7 @@ public class BlogServiceImpl implements BlogService {
 
     @Override
     public BlogDto random() {
-        int randomInt = RandomUtil.randomInt(0, randomBlogs.size());
-        return blogDao.selectByIdTitle(randomBlogs.get(randomInt));
-    }
-
-    public static void main(String[] args) {
-        List<String> list = new ArrayList<>();
-        list.add("1");
-        list.add("2");
-        list.add("3");
-        System.out.println(list);
-        list.add(0,"0");
-        System.out.println(list);
+        int randomInt = RandomUtil.randomInt(0, RANDOM_BLOGS.size());
+        return blogDao.selectByIdTitle(RANDOM_BLOGS.get(randomInt));
     }
 }

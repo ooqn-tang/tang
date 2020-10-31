@@ -7,7 +7,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 import java.util.Date;
 
 /**
- * created by huanglei on 2020/10/10
+ * 评论
+ * @author huanglei
  */
 public class CommentDto{
 

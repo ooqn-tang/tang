@@ -3,7 +3,7 @@ package net.ttcxy.tang.gateway.entity.dto;
 
 /**
  * 广告实体类
- * created by huanglei on 2020/09/01
+ * @author huanglei
  */
 public class AdvertiseDto {
 

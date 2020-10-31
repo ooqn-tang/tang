@@ -19,7 +19,7 @@ import javax.sql.DataSource;
 
 /**
  * SpringSecurity 配置
- * created by huanglei on 2020/10/10
+ * @author huanglei
  */
 @Configuration
 @EnableWebSecurity
@@ -27,11 +27,12 @@ import javax.sql.DataSource;
 public class MySecurityConfig  extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    private LoginUserService loginUserService;
+    private UserDetailsServiceImpl userDetailsServiceImpl;
 
     @Autowired
     private DataSource dataSource;
 
+    @Override
     protected void configure(HttpSecurity http) throws Exception {
         // 由于本安全框架独立于应用模块，调用的模块需要注入userDetailsService Bean
         http.userDetailsService(userDetailsService());
@@ -74,9 +75,13 @@ public class MySecurityConfig  extends WebSecurityConfigurerAdapter {
                 .csrf().disable();
     }
 
-    @Bean
+    /**
+     * 查询登录的用户
+     * @return UserDetailsService
+     */
+    @Override
     public UserDetailsService userDetailsService() {
-        return username -> loginUserService.loadUserByUsername(username);
+        return username -> userDetailsServiceImpl.loadUserByUsername(username);
     }
     @Bean
     public PasswordEncoder passwordEncoder() {

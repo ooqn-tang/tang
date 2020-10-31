@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * 全局异常处理
- * created by huanglei on 2020/10/10
+ * @author huanglei
  */
 @ControllerAdvice
 public class GlobalExceptionHandler {

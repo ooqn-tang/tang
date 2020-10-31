@@ -18,7 +18,7 @@ import java.io.IOException;
 
 /**
  * 如果想对记住我进行特殊操作可以在这实现你需要的功能
- * created by huanglei on 2020/09/09
+ * @author huanglei
  */
 public class MyRememberMeAuthenticationFilter extends RememberMeAuthenticationFilter {
 

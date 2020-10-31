@@ -9,24 +9,35 @@ import java.util.List;
 
 /**
  * 评论
- * created by huanglei on 2020/10/10
+ * @author huanglei
  */
 public interface CommentDao {
 
     /**
      * 添加评论
+     * @param commentDto 评论
+     * @return 影响的行数
      */
     int insertComment(CommentDto commentDto);
 
     /**
      * 删除评论 commentId
+     * @param id id
+     * @return 影响的行数
      */
     int deleteComment(@Param("id") String id);
 
     /**
      * 通过BlogId 查询评论
+     * @param blogId blogId
+     * @return 评论列表
      */
     List<CommentDto> selectComments(String blogId);
 
+    /**
+     * 通过评论ID查询评论
+     * @param commentId 评论ID
+     * @return 评论详细详细
+     */
     CommentDto selectComment(String commentId);
 }

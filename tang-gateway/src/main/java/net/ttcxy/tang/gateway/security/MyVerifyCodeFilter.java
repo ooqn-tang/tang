@@ -15,7 +15,7 @@ import java.util.Set;
 
 /**
  * 自定义的验证码处理器，URLS集合里的请求表示需要在请求参数中包含验证码
- * created by HuangLei on 2020/9/20
+ * @author huanglei
  */
 public class MyVerifyCodeFilter extends OncePerRequestFilter {
 

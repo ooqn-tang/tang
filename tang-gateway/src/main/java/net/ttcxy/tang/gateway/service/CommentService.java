@@ -6,8 +6,7 @@ import net.ttcxy.tang.model.BlogComment;
 import java.util.List;
 
 /**
- * @author ：HuangLei
- * @date ：2020/4/18 0018 18:10
+ * @author huanglei
  */
 public interface CommentService {
 

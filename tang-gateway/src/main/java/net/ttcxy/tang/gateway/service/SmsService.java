@@ -1,5 +1,9 @@
 package net.ttcxy.tang.gateway.service;
 
+
+/**
+ * @author huanglei
+ */
 public interface SmsService {
 
     /**

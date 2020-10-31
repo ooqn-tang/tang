@@ -9,8 +9,7 @@ import org.springframework.stereotype.Service;
 
 /**
  * 获取当前用户
- * @author ：HuangLei
- * @date ：2020/4/3 0003 17:28
+ * @author huanglei
  */
 @Service
 public class AuthDetailsServiceImpl implements AuthDetailsService {

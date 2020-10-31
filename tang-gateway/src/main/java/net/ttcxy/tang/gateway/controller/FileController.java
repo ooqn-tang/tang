@@ -4,7 +4,7 @@ import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.IdUtil;
 import io.swagger.annotations.ApiOperation;
 import net.ttcxy.tang.api.CommonResult;
-import net.ttcxy.tang.util.ImgProUtil;
+import net.ttcxy.tang.util.ImgUtil;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -13,7 +13,7 @@ import java.io.File;
 import java.io.IOException;
 
 /**
- * created by huanglei on 2020/10/10
+ * @author huanglei
  */
 @RestController
 @RequestMapping("file")
@@ -39,7 +39,7 @@ public class FileController {
             return CommonResult.failed();
         }
 
-        if (ImgProUtil.isNotImage(file.getInputStream())){
+        if (ImgUtil.isNotImage(file.getInputStream())){
             return CommonResult.failed("请上传正确文件");
         }
 

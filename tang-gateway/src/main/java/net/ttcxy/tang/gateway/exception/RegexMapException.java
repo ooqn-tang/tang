@@ -1,7 +1,7 @@
 package net.ttcxy.tang.gateway.exception;
 
 /**
- * created by huanglei on 2020/10/10
+ * @author huanglei
  */
 public class RegexMapException extends Throwable {
     public RegexMapException(String v) {

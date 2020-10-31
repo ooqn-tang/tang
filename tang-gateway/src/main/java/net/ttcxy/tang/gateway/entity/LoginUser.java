@@ -9,7 +9,7 @@ import java.util.Set;
 
 /**
  * 用户返回值
- * created by huanglei on 2020/10/10
+ * @author huanglei
  */
 public class LoginUser implements UserDetails {
 

@@ -10,7 +10,7 @@ import java.io.IOException;
 
 /**
  * 登录成功处理器
- * created by huanglei on 2020/01/01
+ * @author huanglei
  */
 public class MyAuthenticationSuccessHandler extends SavedRequestAwareAuthenticationSuccessHandler {
 

@@ -1,7 +1,8 @@
 package net.ttcxy.tang.gateway.entity.param;
 
 /**
- * created by huanglei on 2020/9/24
+ * 注册参数
+ * @author huanglei
  */
 public class RegisterParam {
 

@@ -4,7 +4,9 @@ package net.ttcxy.tang.util;
  * String util pro 对String操作的其他方法
  * @author huanglei
  */
-public class StringProUtil {
+public class TextUtil {
+
+
 
     /**
      * 获取字符串的字节数

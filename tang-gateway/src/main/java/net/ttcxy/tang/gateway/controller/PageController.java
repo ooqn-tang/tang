@@ -1,10 +1,10 @@
 package net.ttcxy.tang.gateway.controller;
 
+import net.ttcxy.tang.gateway.entity.dto.BlogDto;
+import net.ttcxy.tang.gateway.entity.LoginUser;
 import net.ttcxy.tang.gateway.service.AuthDetailsService;
 import net.ttcxy.tang.gateway.service.BlogService;
 import net.ttcxy.tang.gateway.service.UserService;
-import net.ttcxy.tang.gateway.entity.dto.BlogDto;
-import net.ttcxy.tang.gateway.entity.LoginUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -16,13 +16,13 @@ import org.springframework.web.servlet.ModelAndView;
 
 /**
  * 项目的所有页面跳转
- * created by huanglei on 2020/05/01
+ * @author huanglei
  */
 @Controller
 public class PageController {
 
     @Autowired
-    private AuthDetailsService authDetailsServiceImpl;
+    private AuthDetailsService authDetailsService;
 
     @Autowired
     private BlogService blogService;
@@ -46,16 +46,6 @@ public class PageController {
         model.addAttribute(blogService.showDt(page));
         return "map";
     }
-
-    /**
-     * 注册页面
-     */
-    @GetMapping("register")
-    public String toRegister(){
-        return "register";
-    }
-
-
 
     /**
      * 搜索跳转页面
@@ -87,7 +77,7 @@ public class PageController {
     @GetMapping("post/{id}")
     public ModelAndView toBlog(@PathVariable("id")String blogId, ModelAndView modelAndView){
 
-        LoginUser loginUser = authDetailsServiceImpl.getUser();
+        LoginUser loginUser = authDetailsService.getUser();
 
         BlogDto blogDto = blogService.selectBlogById(blogId);
 
@@ -119,7 +109,7 @@ public class PageController {
     @GetMapping("user/info")
     public ModelAndView updateUser(ModelAndView modelAndView){
         modelAndView.setViewName("info");
-        modelAndView.addObject("user",authDetailsServiceImpl.getUser());
+        modelAndView.addObject("user",authDetailsService.getUser());
         return modelAndView;
     }
 
