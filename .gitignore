@@ -1,7 +1,3 @@
-/tang-admin/target/
-/tang-common/target/
-/tang-gateway/target/
-/tang-generator/target/
-/tang-security/target/
+/*/target/
 .idea/
 *.iml
