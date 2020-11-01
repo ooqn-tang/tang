@@ -7,7 +7,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import net.ttcxy.tang.gateway.dao.BlogDao;
 import net.ttcxy.tang.gateway.entity.dto.BlogDto;
-import net.ttcxy.tang.gateway.security.CurrentAuthorService;
+import net.ttcxy.tang.gateway.code.security.CurrentAuthorService;
 import net.ttcxy.tang.gateway.service.BlogService;
 import net.ttcxy.tang.mapper.BlogMapper;
 import net.ttcxy.tang.mapper.LikeDataMapper;

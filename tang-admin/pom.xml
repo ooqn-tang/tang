@@ -11,5 +11,13 @@
 
     <artifactId>tang-admin</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>net.ttcxy</groupId>
+            <artifactId>tang-common</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
+
 
 </project>

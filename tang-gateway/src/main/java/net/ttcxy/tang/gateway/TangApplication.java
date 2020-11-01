@@ -1,9 +1,6 @@
 package net.ttcxy.tang.gateway;
 
-import cn.hutool.core.util.ArrayUtil;
-import net.ttcxy.tang.gateway.config.MyApplicationContextInitializer;
 import org.mybatis.spring.annotation.MapperScan;
-import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.util.Arrays;

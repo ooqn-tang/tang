@@ -2,7 +2,7 @@ package net.ttcxy.tang.gateway.controller;
 
 import net.ttcxy.tang.gateway.entity.AuthorLogin;
 import net.ttcxy.tang.gateway.entity.dto.BlogDto;
-import net.ttcxy.tang.gateway.security.CurrentAuthorService;
+import net.ttcxy.tang.gateway.code.security.CurrentAuthorService;
 import net.ttcxy.tang.gateway.service.BlogService;
 import net.ttcxy.tang.gateway.service.AuthorService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -5,7 +5,7 @@ import net.ttcxy.tang.gateway.dao.FansDao;
 import net.ttcxy.tang.gateway.dao.AuthorDao;
 import net.ttcxy.tang.gateway.entity.AuthorLogin;
 import net.ttcxy.tang.gateway.entity.dto.FansDto;
-import net.ttcxy.tang.gateway.security.CurrentAuthorService;
+import net.ttcxy.tang.gateway.code.security.CurrentAuthorService;
 import net.ttcxy.tang.gateway.service.FansService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
