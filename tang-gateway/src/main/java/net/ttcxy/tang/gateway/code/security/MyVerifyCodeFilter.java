@@ -38,7 +38,8 @@ public class MyVerifyCodeFilter extends OncePerRequestFilter {
     }
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+            throws ServletException, IOException {
         String remoteHost = request.getRequestURI();
         String verify = ServletRequestUtils.getStringParameter(request, "verify");
         String verifyCode = (String) request.getSession().getAttribute(MySecurityData.VERIFY_CODE);
@@ -55,6 +56,6 @@ public class MyVerifyCodeFilter extends OncePerRequestFilter {
                 }
             }
         }
-        super.doFilter(request,response,filterChain);
+        super. doFilter(request,response,filterChain);
     }
 }
