@@ -5,6 +5,8 @@ import net.ttcxy.tang.mapper.BlogCommentMapper;
 import net.ttcxy.tang.gateway.entity.dto.CommentDto;
 import net.ttcxy.tang.gateway.code.security.CurrentAuthorService;
 import net.ttcxy.tang.gateway.service.CommentService;
+import net.ttcxy.tang.model.BlogComment;
+import net.ttcxy.tang.model.BlogCommentExample;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -13,6 +13,7 @@ import net.ttcxy.tang.gateway.code.security.CurrentAuthorService;
 import net.ttcxy.tang.gateway.service.FansService;
 import net.ttcxy.tang.gateway.service.AuthorService;
 import net.ttcxy.tang.gateway.code.security.MySecurityData;
+import net.ttcxy.tang.model.Author;
 import net.ttcxy.tang.util.TextUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;

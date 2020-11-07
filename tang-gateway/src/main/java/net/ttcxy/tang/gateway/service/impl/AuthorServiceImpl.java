@@ -6,6 +6,8 @@ import net.ttcxy.tang.gateway.dao.AuthorDao;
 import net.ttcxy.tang.gateway.entity.AuthorLogin;
 import net.ttcxy.tang.mapper.AuthorMapper;
 import net.ttcxy.tang.gateway.service.AuthorService;
+import net.ttcxy.tang.model.Author;
+import net.ttcxy.tang.model.AuthorExample;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;

@@ -3,6 +3,8 @@ package net.ttcxy.tang.gateway.service.impl;
 import cn.hutool.core.util.IdUtil;
 import net.ttcxy.tang.mapper.AdvertiseMapper;
 import net.ttcxy.tang.gateway.service.AdvertiseService;
+import net.ttcxy.tang.model.Advertise;
+import net.ttcxy.tang.model.AdvertiseExample;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
