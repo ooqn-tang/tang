@@ -8,6 +8,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import net.ttcxy.tang.api.CommonResult;
 import net.ttcxy.tang.gateway.entity.AuthorLogin;
+import net.ttcxy.tang.gateway.entity.param.AuthorParam;
 import net.ttcxy.tang.gateway.entity.param.RegisterParam;
 import net.ttcxy.tang.gateway.code.security.CurrentAuthorService;
 import net.ttcxy.tang.gateway.service.FansService;
@@ -20,6 +21,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
@@ -42,13 +46,13 @@ public class AuthorController {
     @Autowired
     private HttpSession httpSession;
 
-    @PostMapping(value = "info")
-    @ApiOperation("高兴作者")
-    public CommonResult<Integer> updateAuthor(@RequestBody AuthorLogin authorLogin){
+    @PostMapping(value = "update")
+    @ApiOperation("更新作者")
+    public CommonResult<Integer> updateAuthor(@RequestBody @Valid AuthorParam authorParam){
         String id = currentAuthorService.getAuthor().getId();
-        String nickname = authorLogin.getNickname();
+        String nickname = authorParam.getNickname();
 
-        if (cn.hutool.core.util.StrUtil.isNotBlank(nickname)){
+        if (StrUtil.isNotBlank(nickname)){
             int length = TextUtil.byteSize(nickname);
             if (length > 16 || length < 4){
                 return CommonResult.failed("昵称长度：汉字 2 ~ 8,字母 4 ~ 16");
@@ -105,40 +109,29 @@ public class AuthorController {
      * @return 状态
      */
     @PostMapping("register")
-    public CommonResult<String> register(@RequestBody RegisterParam register){
+    public CommonResult<String> register(@RequestBody @Valid @NotNull(message = "参数不能为空") RegisterParam register){
 
-        if (register == null){
-            return CommonResult.failed("参数不正确");
-        }else{
-            String password = register.getPassword();
-            String passwordRe = "(?=.*?[a-z])(?=.*?[0-9]){8,25}";
-            if(ReUtil.contains(passwordRe,password)){
-                RegisterParam registerParam = (RegisterParam)httpSession.getAttribute(MySecurityData.REG_VERIFY_DATA);
-                String mail = registerParam.getMail();
+        String mail = register.getMail();
+        String password = register.getPassword();
 
-                Boolean aBoolean = authorService.selectMailIsTrue(mail);
-                if (aBoolean){
-                    return CommonResult.failed("邮箱以存在");
-                }
-
-                Author author = new Author();
-                author.setPassword(password);
-                author.setMail(mail);
-                String username = getUsername();
-                author.setNickname(username);
-                author.setUsername(username);
-
-                author.setId(IdUtil.fastSimpleUUID());
-
-                int i = authorService.insertAuthor(author);
-                if (i > 0){
-                    return CommonResult.success("注册成功");
-                }
-            }else{
-                return CommonResult.failed();
-            }
-
+        Boolean aBoolean = authorService.selectMailIsTrue(mail);
+        if (aBoolean){
+            return CommonResult.failed("邮箱以存在");
         }
+
+        String username = getUsername();
+        Author author = new Author();
+        author.setId(IdUtil.fastSimpleUUID());
+        author.setPassword(password);
+        author.setMail(mail);
+        author.setNickname(username);
+        author.setUsername(username);
+
+        int count = authorService.insertAuthor(author);
+        if (count > 0){
+            return CommonResult.success("注册成功");
+        }
+
         return null;
 
     }
@@ -149,35 +142,25 @@ public class AuthorController {
      * @return 修改状态
      */
     @PostMapping("password")
-    public CommonResult<String> updatePassword(@RequestBody RegisterParam register){
-        if (register == null){
-            return CommonResult.failed("参数不正确");
-        }else{
-            String password = register.getPassword();
-            String passwordRe = "(?=.*?[a-z])(?=.*?[0-9]){8,25}";
-            if(ReUtil.contains(passwordRe,password)){
-                RegisterParam registerParam = (RegisterParam)httpSession.getAttribute(MySecurityData.REG_VERIFY_DATA);
-                if (registerParam == null){
-                    return CommonResult.failed("没有收到验证码");
-                }
-                String mail = registerParam.getMail();
+    public CommonResult<String> updatePassword(@RequestBody @Valid @NotNull(message = "参数不能为空") RegisterParam register){
 
-                AuthorLogin authorLogin = authorService.selectLoginAuthorByMail(mail);
-                if (authorLogin == null){
-                    return CommonResult.failed("邮箱未注册");
-                }
-                Author updateAuthor = new Author();
-                updateAuthor.setId(authorLogin.getId());
-                updateAuthor.setPassword(new BCryptPasswordEncoder().encode(password));
-                int i = authorService.updateAuthorPassword(updateAuthor);
-                if (i > 0){
-                    return CommonResult.success("密码更新成功");
-                }
-            }else{
-                return CommonResult.failed();
-            }
+        String mail = register.getMail();
+        String password = register.getPassword();
 
+        AuthorLogin authorLogin = authorService.selectLoginAuthorByMail(mail);
+        if (authorLogin == null){
+            return CommonResult.failed("邮箱未注册");
         }
+
+        Author author = new Author();
+        author.setId(authorLogin.getId());
+        author.setPassword(new BCryptPasswordEncoder().encode(password));
+
+        int count = authorService.updateAuthorPassword(author);
+        if (count > 0){
+            return CommonResult.success("密码更新成功");
+        }
+
         return null;
     }
 
