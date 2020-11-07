@@ -28,7 +28,7 @@ import java.util.concurrent.ExecutorService;
 @Service
 public class BlogServiceImpl implements BlogService {
 
-    private static final List<String> RANDOM_BLOGS = new ArrayList<>(1000);
+    private static final List<String> randomBlogs= new ArrayList<>(1000);
 
     private static final ExecutorService executorService = ThreadUtil.newExecutor(50);
 
@@ -69,7 +69,7 @@ public class BlogServiceImpl implements BlogService {
     public int insertBlog(Blog blog) {
         int count = blogMapper.insertSelective(blog);
         if (count > 0){
-            RANDOM_BLOGS.add(blog.getId());
+            randomBlogs.add(blog.getId());
         }
         return count;
     }
@@ -92,7 +92,7 @@ public class BlogServiceImpl implements BlogService {
         if (count > 0){
             //删除博客
             executorService.execute(()->{
-                RANDOM_BLOGS.remove(id);
+                randomBlogs.remove(id);
             });
         }
         return count;
@@ -152,25 +152,19 @@ public class BlogServiceImpl implements BlogService {
 
     @Override
     public List<String> getRandomBlogs() {
-        return RANDOM_BLOGS;
+        return randomBlogs;
     }
 
     @Override
     public PageInfo<BlogDto> selectBlogs(Integer page) {
-        int randomInt = RandomUtil.randomInt(0, RANDOM_BLOGS.size());
-        BlogDto blogDto = blogDao.selectByIdTitle(RANDOM_BLOGS.get(randomInt));
-
         PageHelper.startPage(page,15);
-        List<BlogDto> dtos = blogDao.selectBlog();
-        if (blogDto !=null){
-            dtos.add(0, blogDto);
-        }
-        return new PageInfo<>(dtos);
+        List<BlogDto> dtoList = blogDao.selectBlog();
+        return new PageInfo<>(dtoList);
     }
 
     @Override
     public BlogDto random() {
-        int randomInt = RandomUtil.randomInt(0, RANDOM_BLOGS.size());
-        return blogDao.selectByIdTitle(RANDOM_BLOGS.get(randomInt));
+        int randomInt = RandomUtil.randomInt(0, randomBlogs.size());
+        return blogDao.selectByIdTitle(randomBlogs.get(randomInt));
     }
 }

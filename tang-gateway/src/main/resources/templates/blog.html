@@ -15,8 +15,8 @@
 <div th:replace="comm::navigation"></div>
 <div class="container" id="app" v-cloak>
     <div class="row">
-        <div class="col-md-9 column nob-p">
-            <div class="panel panel-default nob" >
+        <div class="col-md-9 column">
+            <div class="panel panel-default" >
                 <div class="panel-body" id="blog-body" style="overflow-y:hidden;">
                     <div>
                         <strong><a th:href="@{/author/{id}(id=${blogDto.username})}" th:text="${blogDto.nickname}"></a></strong>
@@ -34,7 +34,7 @@
                     <a @click="updateBlog" class="btn btn-default btn-xs"  th:if="${session.SPRING_SECURITY_CONTEXT != null && session.SPRING_SECURITY_CONTEXT.authentication.principal.username == blogDto.username}" >编辑</a>
                 </div>
             </div>
-            <div class="panel panel-default nob">
+            <div class="panel panel-default">
                 <div class="panel-heading">
                     <strong>评论</strong>
                 </div>
@@ -61,7 +61,7 @@
                     </div>
                 </div>
             </div>
-            <div class="panel panel-default nob">
+            <div class="panel panel-default">
                 <div class="panel-body">
                     <a class="blog-title" th:href="'/post/'+${random.id}" th:text="${random.title}"></a>
                     <div>
@@ -71,7 +71,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-3 column advertise nob-p">
+        <div class="col-md-3 column advertise">
             <div th:replace="comm::advertise"></div>
         </div>
     </div>

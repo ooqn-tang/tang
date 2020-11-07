@@ -85,6 +85,11 @@ public interface BlogService {
     PageInfo<BlogDto> selectLikeBlogs(String username, Integer page);
 
 
+    /**
+     * 获取博客列表
+     * @param page
+     * @return
+     */
     PageInfo<BlogDto> selectBlogs(Integer page);
 
     /**

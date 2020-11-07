@@ -44,7 +44,6 @@ public class BlogController {
         return  CommonResult.success(blogService.searchByUsername(username,page));
     }
 
-
     @GetMapping("blogs")
     @ApiOperation("查询博客")
     public CommonResult<PageInfo<BlogDto>> selectBlogs(@RequestParam(value = "page" ,defaultValue = "1")Integer page){
@@ -57,10 +56,8 @@ public class BlogController {
         return CommonResult.success(blogService.random());
     }
 
-    /**
-     * 搜索跳转页面
-     */
     @GetMapping("so")
+    @ApiOperation("搜索")
     public CommonResult<PageInfo<BlogDto>> toSearch(@RequestParam(name = "page", defaultValue = "1")Integer page,
                                       @RequestParam(name = "search", defaultValue = "")String search ){
         return CommonResult.success(blogService.search(search,page));
@@ -74,11 +71,10 @@ public class BlogController {
 
     @PostMapping("insert")
     @ApiOperation("添加博客")
-    public CommonResult<String> add(@RequestBody Blog blog){
-
+    public CommonResult<String> insertBlog(@RequestBody Blog blog){
         String userId = currentAuthorServiceImpl.getAuthorId();
 
-        if (blog !=null){
+        if (blog != null){
             if (StrUtil.isBlank(blog.getTitle())){
                 return CommonResult.failed("请输入标题");
             }

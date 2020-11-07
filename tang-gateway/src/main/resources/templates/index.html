@@ -18,21 +18,21 @@
     <div class="row">
         <div class="col-md-9 column">
             <div class="row">
-                <div class="col-md-12 column nob-p">
+                <div class="col-md-12 column">
                     <ul class="list-group" v-if="!show">
-                        <li class="list-group-item nob load-context">
+                        <li class="list-group-item load-context">
                             加载中...
                         </li>
                     </ul>
                     <ul class="list-group" v-if="show" v-clock>
-                        <li class="list-group-item nob" v-for="(item,index) in blog.list">
+                        <li class="list-group-item" v-for="(item,index) in blog.list">
                             <a class="blog-title" target="_blank" v-bind:href="'/post/'+item.id" v-text="item.title"></a>
                             <div>
                                 <span v-text="item.createDate" style="color: #00285a"></span>
                                 <a class="pull-right" v-bind:href="'/author/'+item.username" v-text="item.nickname"></a>
                             </div>
                         </li>
-                        <li class="list-group-item nob">
+                        <li class="list-group-item">
                             <a v-bind:class="blog.isFirstPage?'page':''" v-on:click="page(pageNum-=1)">上一页</a>
                             <a v-bind:class="blog.isLastPage?'page':''" class="pull-right" v-on:click="page(pageNum+=1)" >下一页</a>
                         </li>
@@ -40,7 +40,7 @@
             </div>
         </div>
         </div>
-        <div class="col-md-3 column nob-p">
+        <div class="col-md-3 column">
             <div th:include="comm::advertise"></div>
         </div>
     </div>

@@ -16,8 +16,8 @@
 
 <div class="container" id="app" v-cloak>
     <div class="row clearfix">
-        <div class="col-md-4 col-md-push-8 nob-p">
-            <div class="panel panel-default nob" >
+        <div class="col-md-4 col-md-push-8">
+            <div class="panel panel-default" >
                 <div class="panel-body" >
                     <strong th:text="${authorLogin.nickname}"></strong>
                     <button v-show="!isThisUser"  class="pull-right btn btn-default btn-xs" @click="followerClick" v-text="follower"></button>
@@ -25,7 +25,7 @@
                     <div>简介：<span th:text="${authorLogin.signature}"></span></div>
                 </div>
             </div>
-            <div class="panel panel-default nob">
+            <div class="panel panel-default">
                 <div class="panel-body">
                     <div class="btn-group W100">
                         <button class="btn btn-default btn-sm W20" v-bind:class="{ W50 : !isThisUser }" @click="cl(),author(),showFans = false">博客</button>
@@ -36,19 +36,19 @@
                     </div>
                 </div>
             </div>
-            <div v-show="showFans" class="nob-p" v-if="isThisUser">
-                <div class="list-group nob" >
-                    <a class="list-group-item active nob">关注</a>
-                    <a class="list-group-item nob" v-for="(item,i) in fansList" v-bind:href="item.username" v-text="item.nickname"></a>
+            <div v-show="showFans" v-if="isThisUser">
+                <div class="list-group" >
+                    <a class="list-group-item active">关注</a>
+                    <a class="list-group-item" v-for="(item,i) in fansList" v-bind:href="item.username" v-text="item.nickname"></a>
                 </div>
             </div>
-            <div class="nob-p visible-md-block visible-lg-block">
+            <div class="visible-md-block visible-lg-block">
                 <div th:replace="comm::advertise" ></div>
             </div>
         </div>
-        <div class="col-md-8 col-md-pull-4 nob-p">
-            <ul class="list-group nob" v-if="show">
-                <li class="list-group-item nob" v-for="(item,index) in blog.list">
+        <div class="col-md-8 col-md-pull-4">
+            <ul class="list-group" v-if="show">
+                <li class="list-group-item" v-for="(item,index) in blog.list">
                     <a class="blog-title" target="_blank" v-bind:href="'/post/'+item.id" v-text="item.title"></a>
                     <br>
                     <div>
@@ -59,16 +59,16 @@
                         </div>
                     </div>
                 </li>
-                <li class="list-group-item nob load-context" v-if="blog.list.length == 0">
+                <li class="list-group-item load-context" v-if="blog.list.length == 0">
                     什么也没有啊...
                 </li>
-                <li class="list-group-item nob">
+                <li class="list-group-item">
                     <a v-bind:class="blog.isFirstPage?'page':''" @click="more(pageNum -= 1)">上一页</a>
                     <a v-bind:class="blog.isLastPage?'page':''" @click="more(pageNum += 1)" class="pull-right">下一页</a>
                 </li>
             </ul>
             <ul class="list-group" v-if="!show">
-                <li class="list-group-item nob load-context">
+                <li class="list-group-item load-context">
                     加载中...
                 </li>
             </ul>
