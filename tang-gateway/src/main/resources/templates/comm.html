@@ -218,17 +218,17 @@
 
 <div th:fragment="advertise">
     <div class="list-group nob" >
-        <a class="list-group-item active nob ">排行<span class="glyphicon glyphicon-star pull-right"></span></a>
+        <a class="list-group-item active nob ">排行<span class="pull-right">&gt;&gt; </span></a>
         <a target="_blank" class="list-group-item nob">Outages</a>
         <a target="_blank" class="list-group-item nob">考拉君</a>
         <a target="_blank" class="list-group-item nob">巴啦啦</a>
     </div>
     <div class="list-group nob" >
-        <a class="list-group-item active nob">推荐<span class="glyphicon glyphicon-bookmark pull-right"></span></a>
+        <a class="list-group-item active nob">推荐<span class="pull-right">&gt;&gt; </span></a>
         <a target="_blank" class="list-group-item nob" th:each="advertise : ${application.advertises}" th:text="${advertise.title}" th:href="${advertise.url}"></a>
     </div>
     <div class="list-group nob" >
-        <a class="list-group-item active nob">广播<span class="glyphicon glyphicon-comment pull-right"></span></a>
+        <a class="list-group-item active nob">广播<span class="pull-right icon-feed"></span></a>
         <a target="_blank" class="list-group-item nob" th:each="advertise : ${application.advertises}" th:text="${advertise.title}" th:href="${advertise.url}"></a>
     </div>
     <div class="panel panel-default nob">
