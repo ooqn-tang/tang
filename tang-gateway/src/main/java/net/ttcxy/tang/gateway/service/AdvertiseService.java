@@ -1,8 +1,6 @@
 package net.ttcxy.tang.gateway.service;
 
 
-import net.ttcxy.tang.model.Advertise;
-
 import java.util.List;
 
 /**

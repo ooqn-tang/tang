@@ -1,7 +1,6 @@
 package net.ttcxy.tang.gateway.service;
 
 import net.ttcxy.tang.gateway.entity.dto.CommentDto;
-import net.ttcxy.tang.model.BlogComment;
 
 import java.util.List;
 

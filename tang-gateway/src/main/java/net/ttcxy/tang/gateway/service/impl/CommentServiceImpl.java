@@ -3,8 +3,6 @@ package net.ttcxy.tang.gateway.service.impl;
 import net.ttcxy.tang.gateway.dao.CommentDao;
 import net.ttcxy.tang.mapper.BlogCommentMapper;
 import net.ttcxy.tang.gateway.entity.dto.CommentDto;
-import net.ttcxy.tang.model.BlogComment;
-import net.ttcxy.tang.model.BlogCommentExample;
 import net.ttcxy.tang.gateway.code.security.CurrentAuthorService;
 import net.ttcxy.tang.gateway.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;

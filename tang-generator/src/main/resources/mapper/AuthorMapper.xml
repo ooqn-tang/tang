@@ -101,7 +101,7 @@
     </if>
   </delete>
   <insert id="insert" parameterType="net.ttcxy.tang.model.Author">
-    insert into author (id, username, nickname,
+    insert into author (id, username, nickname, 
       password, mail, signature
       )
     values (#{id,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR}, 

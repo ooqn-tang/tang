@@ -11,9 +11,7 @@ import net.ttcxy.tang.gateway.entity.dto.CommentDto;
 import net.ttcxy.tang.gateway.code.security.CurrentAuthorService;
 import net.ttcxy.tang.gateway.service.BlogService;
 import net.ttcxy.tang.gateway.service.CommentService;
-import net.ttcxy.tang.model.Blog;
 import net.ttcxy.tang.api.CommonResult;
-import net.ttcxy.tang.model.BlogComment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

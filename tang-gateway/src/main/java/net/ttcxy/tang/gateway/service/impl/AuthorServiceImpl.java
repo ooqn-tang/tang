@@ -4,8 +4,6 @@ import cn.hutool.core.util.IdUtil;
 import com.github.pagehelper.PageHelper;
 import net.ttcxy.tang.gateway.dao.AuthorDao;
 import net.ttcxy.tang.gateway.entity.AuthorLogin;
-import net.ttcxy.tang.model.Author;
-import net.ttcxy.tang.model.AuthorExample;
 import net.ttcxy.tang.mapper.AuthorMapper;
 import net.ttcxy.tang.gateway.service.AuthorService;
 import org.springframework.beans.factory.annotation.Autowired;

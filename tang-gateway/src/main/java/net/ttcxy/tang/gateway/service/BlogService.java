@@ -1,7 +1,6 @@
 package net.ttcxy.tang.gateway.service;
 
 import com.github.pagehelper.PageInfo;
-import net.ttcxy.tang.model.Blog;
 import net.ttcxy.tang.gateway.entity.dto.BlogDto;
 
 import java.util.List;
