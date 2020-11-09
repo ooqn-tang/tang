@@ -31,7 +31,7 @@
                         <button class="btn btn-default btn-sm W20" v-bind:class="{ W50 : !isThisUser }" @click="cl(),author(),showFans = false">博客</button>
                         <button class="btn btn-default btn-sm W20" v-bind:class="{ W50 : !isThisUser }" @click="cl(),like(),showFans = false">推荐</button>
                         <button class="btn btn-default btn-sm W20" @click="fans" v-if="isThisUser">关注</button>
-                        <a class="btn btn-default btn-sm W20" href="/author/info" v-if="isThisUser">设置</a>
+                        <a class="btn btn-default btn-sm W20" href="/author/setting" v-if="isThisUser">设置</a>
                         <a class="btn btn-default btn-sm W20" @click="logout" v-if="isThisUser">注销</a>
                     </div>
                 </div>
@@ -219,7 +219,7 @@
                 let _this = this;
                 $.ajax({
                     type:"GET",
-                    url:"/fans",
+                    url:"/fans/list",
                     contentType: "application/json", //必须这样写
                     success:function (result) {
                         _this.fansList = result.data;

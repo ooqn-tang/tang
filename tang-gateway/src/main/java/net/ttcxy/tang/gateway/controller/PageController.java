@@ -89,9 +89,8 @@ public class PageController {
 
         if (authorLogin !=null){
             String userId = authorLogin.getId();
-            // 如果用户没有登陆，不需要查询是否喜欢或收藏
             // 是否喜欢了当前博客
-            modelAndView.addObject(blogService.selectLike(userId,blogId));
+            modelAndView.addObject("like",blogService.selectLike(userId,blogId));
         }
 
         //添加博客到试图中
@@ -106,7 +105,7 @@ public class PageController {
     /**
      * 更改用户信息页面
      */
-    @GetMapping("author/info")
+    @GetMapping("author/setting")
     public ModelAndView updateUser(ModelAndView modelAndView){
         modelAndView.setViewName("setting");
         modelAndView.addObject(currentAuthorService.getAuthor());

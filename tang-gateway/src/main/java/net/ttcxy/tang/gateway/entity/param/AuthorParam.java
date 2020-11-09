@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 /**
  * @author huanglei
@@ -23,6 +24,7 @@ public class AuthorParam {
     @Email(message = "邮箱格式不正确")
     private String mail;
 
+    @Size(max = 50,message = "签名长度为50")
     private String signature;
 
 }
