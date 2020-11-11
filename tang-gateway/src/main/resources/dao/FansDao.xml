@@ -12,27 +12,27 @@
 
     <select id="selectFans"  resultType="Integer" parameterType="net.ttcxy.tang.gateway.entity.dto.FansDto">
       select count(1)
-      from `fans`
+      from `uts_fans`
       where user_id = #{userId}
       and follower = #{follower}
     </select>
 
     <select id="selectFansList" resultMap="FansMap">
         select user_id,username,nickname
-        from `fans` f,`author` u
+        from `uts_fans` f,`uts_author` u
         where u.id = f.follower
         and f.user_id = #{userId}
         order by f.create_date Desc
     </select>
 
     <insert id="insertFans" parameterType="net.ttcxy.tang.gateway.entity.dto.FansDto">
-        insert into `fans` (id,user_id,follower,create_date)
+        insert into `uts_fans` (id,user_id,follower,create_date)
         values (#{id},#{userId},#{follower},#{createDate})
     </insert>
 
    <delete id="deleteFans" parameterType="net.ttcxy.tang.gateway.entity.dto.FansDto">
        delete
-       from `fans`
+       from `uts_fans`
        where user_id = #{userId}
        and follower = #{follower}
    </delete>

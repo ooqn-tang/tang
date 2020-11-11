@@ -13,16 +13,16 @@
     </resultMap>
 
     <insert id="insertComment">
-        insert into blog_comment (id,blog_id,status,user_id,content,create_date) values(#{id},#{blogId},#{status},#{userId},#{content},#{createDate})
+        insert into dts_blog_comment (id,blog_id,status,user_id,content,create_date) values(#{id},#{blogId},#{status},#{userId},#{content},#{createDate})
     </insert>
 
     <delete id="deleteComment">
-        delete from blog_comment where id = #{id}
+        delete from dts_blog_comment where id = #{id}
     </delete>
 
     <select id="selectComments" resultType="net.ttcxy.tang.gateway.entity.dto.CommentDto">
         select bc.user_id,bc.id,bc.blog_id,bc.status,u.nickname,u.username,bc.create_date,bc.content
-        from `blog_comment` bc , `author` u
+        from `dts_blog_comment` bc , `uts_author` u
         where u.id = bc.user_id
         and bc.blog_id = #{id}
         order by create_date ASC
@@ -30,7 +30,7 @@
 
     <select id="selectComment" resultType="net.ttcxy.tang.gateway.entity.dto.CommentDto">
         select bc.user_id,bc.id,bc.blog_id,bc.status,u.nickname,u.username,bc.create_date,bc.content
-        from `blog_comment` bc , `author` u
+        from `dts_blog_comment` bc , `uts_author` u
         where u.id = bc.user_id
         and bc.id = #{id}
     </select>

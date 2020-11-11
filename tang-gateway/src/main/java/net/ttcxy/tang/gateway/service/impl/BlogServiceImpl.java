@@ -5,13 +5,13 @@ import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.RandomUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import net.ttcxy.tang.gateway.code.security.CurrentAuthorService;
 import net.ttcxy.tang.gateway.dao.BlogDao;
 import net.ttcxy.tang.gateway.entity.dto.BlogDto;
-import net.ttcxy.tang.gateway.code.security.CurrentAuthorService;
 import net.ttcxy.tang.gateway.service.BlogService;
-import net.ttcxy.tang.mapper.BlogMapper;
-import net.ttcxy.tang.mapper.LikeDataMapper;
-import net.ttcxy.tang.mapper.PageViewMapper;
+import net.ttcxy.tang.mapper.DtsBlogMapper;
+import net.ttcxy.tang.mapper.DtsLikeDataMapper;
+import net.ttcxy.tang.mapper.StsPageViewMapper;
 import net.ttcxy.tang.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,13 +39,13 @@ public class BlogServiceImpl implements BlogService {
     private CurrentAuthorService currentAuthorServiceImpl;
 
     @Autowired
-    private BlogMapper blogMapper;
+    private DtsBlogMapper blogMapper;
 
     @Autowired
-    private PageViewMapper pageViewMapper;
+    private StsPageViewMapper pageViewMapper;
 
     @Autowired
-    private LikeDataMapper likeMapper;
+    private DtsLikeDataMapper likeMapper;
 
     @Override
     public PageInfo<BlogDto> showDt(Integer page) {
@@ -66,7 +66,7 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
-    public int insertBlog(Blog blog) {
+    public int insertBlog(DtsBlog blog) {
         int count = blogMapper.insertSelective(blog);
         if (count > 0){
             randomBlogs.add(blog.getId());
@@ -75,11 +75,11 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
-    public int updateBlog(Blog blog) {
+    public int updateBlog(DtsBlog blog) {
         String blogId = blog.getId();
         String userId = currentAuthorServiceImpl.getAuthorId();
 
-        BlogExample blogExample = new BlogExample();
+        DtsBlogExample blogExample = new DtsBlogExample();
         blogExample.createCriteria().andIdEqualTo(blogId).andUserIdEqualTo(userId);
 
 
@@ -100,14 +100,14 @@ public class BlogServiceImpl implements BlogService {
 
     @Override
     public int like(String userId, String blogId) {
-        LikeDataExample likeDataExample = new LikeDataExample();
+        DtsLikeDataExample likeDataExample = new DtsLikeDataExample();
         likeDataExample.createCriteria().andBlogIdEqualTo(blogId).andUserIdEqualTo(userId);
         long l = likeMapper.countByExample(likeDataExample);
         if (l > 0){
             likeMapper.deleteByExample(likeDataExample);
             return 0;
         }else{
-            LikeData likeData = new LikeData();
+            DtsLikeData likeData = new DtsLikeData();
             likeData.setBlogId(blogId);
             likeData.setUserId(userId);
             likeData.setCreateDate(new Date());
@@ -119,7 +119,7 @@ public class BlogServiceImpl implements BlogService {
     public BlogDto selectBlogById(String id) {
         BlogDto blogDto = blogDao.selectBlogById(id);
         if (blogDto != null){
-            PageView pageView = new PageView();
+            StsPageView pageView = new StsPageView();
             pageView.setId(IdUtil.fastSimpleUUID());
             pageView.setBlogId(id);
             pageView.setUserId(currentAuthorServiceImpl.getAuthorId());
@@ -130,13 +130,13 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
-    public Blog selectByPrimaryId(String id) {
+    public DtsBlog selectByPrimaryId(String id) {
         return blogMapper.selectByPrimaryKey(id);
     }
 
     @Override
     public long selectLike(String userId, String blogId) {
-        LikeDataExample likeExample = new LikeDataExample();
+        DtsLikeDataExample likeExample = new DtsLikeDataExample();
         likeExample.createCriteria().andBlogIdEqualTo(blogId).andUserIdEqualTo(userId);
 
         return likeMapper.countByExample(likeExample);

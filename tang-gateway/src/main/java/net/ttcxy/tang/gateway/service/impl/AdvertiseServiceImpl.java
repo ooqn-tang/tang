@@ -1,10 +1,10 @@
 package net.ttcxy.tang.gateway.service.impl;
 
 import cn.hutool.core.util.IdUtil;
-import net.ttcxy.tang.mapper.AdvertiseMapper;
 import net.ttcxy.tang.gateway.service.AdvertiseService;
-import net.ttcxy.tang.model.Advertise;
-import net.ttcxy.tang.model.AdvertiseExample;
+import net.ttcxy.tang.mapper.DtsAdvertiseMapper;
+import net.ttcxy.tang.model.DtsAdvertise;
+import net.ttcxy.tang.model.DtsAdvertiseExample;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,30 +18,30 @@ import java.util.List;
 public class AdvertiseServiceImpl implements AdvertiseService {
 
     @Autowired
-    private AdvertiseMapper advertiseMapper;
+    private DtsAdvertiseMapper advertiseMapper;
 
 
     @Override
-    public List<Advertise> selectAllAdvertise() {
-        AdvertiseExample advertiseExample = new AdvertiseExample();
+    public List<DtsAdvertise> selectAllAdvertise() {
+        DtsAdvertiseExample advertiseExample = new DtsAdvertiseExample();
         advertiseExample.createCriteria();
         return advertiseMapper.selectByExample(advertiseExample);
     }
 
     @Override
-    public Advertise selectById(String id) {
+    public DtsAdvertise selectById(String id) {
         return advertiseMapper.selectByPrimaryKey(id);
     }
 
     @Override
-    public int insertAdvertise(Advertise advertise) {
+    public int insertAdvertise(DtsAdvertise advertise) {
         String uuid = IdUtil.fastSimpleUUID();
         advertise.setId(uuid);
         return advertiseMapper.insertSelective(advertise);
     }
 
     @Override
-    public int updateAdvertise(Advertise advertise) {
+    public int updateAdvertise(DtsAdvertise advertise) {
         return advertiseMapper.updateByPrimaryKey(advertise);
     }
 

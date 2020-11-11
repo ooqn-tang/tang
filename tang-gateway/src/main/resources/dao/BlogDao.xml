@@ -5,29 +5,29 @@
 <mapper namespace="net.ttcxy.tang.gateway.dao.BlogDao">
     <select id="selectBlog" resultType="net.ttcxy.tang.gateway.entity.dto.BlogDto">
       select b.id,title,create_date  createDate,username,nickname
-        FROM `blog` b,`author` u
+        FROM `dts_blog` b,`uts_author` u
         where u.id = b.user_id
         and  b.state_id = 1
         order by create_date desc
     </select>
     <select id="selectBlogDt" resultType="net.ttcxy.tang.gateway.entity.dto.BlogDto">
       select id,title
-        FROM `blog`
+        FROM `dts_blog`
         order by create_date
     </select>
     <select id="selectId" resultType="String">
-        select id FROM `blog`
+        select id FROM `dts_blog`
         where state_id = 1
     </select>
     <select id="selectByIdTitle" resultType="net.ttcxy.tang.gateway.entity.dto.BlogDto">
         select b.id,title,create_date createDate,username,nickname
-        FROM `blog` b,`author` u
+        FROM `dts_blog` b,`uts_author` u
         where u.id = b.user_id
         and  b.id = #{id}
     </select>
     <select id="search" resultType="net.ttcxy.tang.gateway.entity.dto.BlogDto">
         select b.id,title,create_date createDate,username,nickname
-        FROM `blog` b,`author` u
+        FROM `dts_blog` b,`uts_author` u
         where u.id = b.user_id
         and  b.state_id = 1
         and b.title LIKE concat("%"#{title},"%")
@@ -36,14 +36,14 @@
 
     <select id="selectBlogById" resultType="net.ttcxy.tang.gateway.entity.dto.BlogDto">
         select b.id,b.title,b.create_date createDate,b.text,u.username,nickname
-        from `blog` b,`author` u
+        from `dts_blog` b,`uts_author` u
         where b.user_id = u.id
         and b.id = #{id}
     </select>
 
     <select id="searchByUsername" resultType="net.ttcxy.tang.gateway.entity.dto.BlogDto">
         select *, create_date  createDate
-        from `blog` b, `author` u
+        from `dts_blog` b, `uts_author` u
         where b.user_id = u.id
         and username = #{username}
         order by b.create_date desc
@@ -51,7 +51,7 @@
 
     <select id="selectLikeBlogs" resultType="net.ttcxy.tang.gateway.entity.dto.BlogDto">
         select  b.id,b.title,b.create_date createDate,u.username
-        from `like_data` l ,`author` u,`blog` b
+        from `dts_like_data` l ,`uts_author` u,`dts_blog` b
         where u.id = l.user_id
         and b.id = l.blog_id
         and u.username = #{username}

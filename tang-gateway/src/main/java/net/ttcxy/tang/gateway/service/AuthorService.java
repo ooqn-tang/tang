@@ -1,6 +1,7 @@
 package net.ttcxy.tang.gateway.service;
 
 import net.ttcxy.tang.gateway.entity.AuthorLogin;
+import net.ttcxy.tang.model.UtsAuthor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -32,21 +33,21 @@ public interface AuthorService {
      * @param author user
      * @return 影响的行数
      */
-    int insertAuthor(net.ttcxy.tang.model.Author author);
+    int insertAuthor(UtsAuthor author);
 
     /**
      * 更新用户
      * @param author user
      * @return 影响的行数
      */
-    int updateAuthor(net.ttcxy.tang.model.Author author);
+    int updateAuthor(UtsAuthor author);
 
     /**
      * 更新密码
      * @param author user
      * @return 影响的行数
      */
-    int updateAuthorPassword(net.ttcxy.tang.model.Author author);
+    int updateAuthorPassword(UtsAuthor author);
 
     /**
      * 用户是否存在
@@ -82,7 +83,7 @@ public interface AuthorService {
      * @param page 页码
      * @return 列表
      */
-    List<net.ttcxy.tang.model.Author> listAuthor(Integer page);
+    List<UtsAuthor> listAuthor(Integer page);
 
 
 

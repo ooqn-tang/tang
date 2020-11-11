@@ -2,7 +2,7 @@ package net.ttcxy.tang.gateway.service;
 
 import com.github.pagehelper.PageInfo;
 import net.ttcxy.tang.gateway.entity.dto.BlogDto;
-import net.ttcxy.tang.model.Blog;
+import net.ttcxy.tang.model.DtsBlog;
 
 import java.util.List;
 
@@ -42,14 +42,14 @@ public interface BlogService {
     /**
      * 添加blog
      */
-    int insertBlog(Blog blog);
+    int insertBlog(DtsBlog blog);
 
     /**
      * 更新博客
      * @param blog blog
      * @return 影响的行数
      */
-    int updateBlog(Blog blog);
+    int updateBlog(DtsBlog blog);
 
     /**
      * 删除博客
@@ -69,7 +69,7 @@ public interface BlogService {
      * @param blogId
      * @return
      */
-    Blog selectByPrimaryId(String blogId);
+    DtsBlog selectByPrimaryId(String blogId);
 
     /**
      * 查询我是否喜欢了当前Blog

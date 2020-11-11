@@ -1,7 +1,7 @@
 package net.ttcxy.tang.gateway.code;
 
 import net.ttcxy.tang.gateway.service.AdvertiseService;
-import net.ttcxy.tang.model.Advertise;
+import net.ttcxy.tang.model.DtsAdvertise;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -30,7 +30,7 @@ public class MyScheduling {
      */
     @Scheduled(fixedDelay = 1000 * 60 * 10)
     public void advertiseTimerUpdate(){
-        List<Advertise>  advertises = advertiseService.selectAllAdvertise();
+        List<DtsAdvertise>  advertises = advertiseService.selectAllAdvertise();
         if (advertises != null){
             ServletContext servletContext = webApplicationContext.getServletContext();
             if (servletContext!=null){

@@ -1,7 +1,7 @@
 package net.ttcxy.tang.gateway.service;
 
 import net.ttcxy.tang.gateway.entity.dto.CommentDto;
-import net.ttcxy.tang.model.BlogComment;
+import net.ttcxy.tang.model.DtsBlogComment;
 
 import java.util.List;
 
@@ -15,7 +15,7 @@ public interface CommentService {
      * @param blogComment
      * @return
      */
-    int insertComment(BlogComment blogComment);
+    int insertComment(DtsBlogComment blogComment);
 
     /**
      * 通过id删除

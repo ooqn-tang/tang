@@ -13,25 +13,25 @@
 
     <select id="selectEmailIsTrue" resultType="integer">
         select count(1)
-        from `author`
+        from `uts_author`
         where mail = #{mail}
     </select>
 
     <select id="selectUsernameIsTrue" resultType="integer">
         select count(1)
-        from `author`
+        from `uts_author`
         where username = #{username}
     </select>
 
     <select id="selectNicknameIsTrue" resultType="integer">
         select count(1)
-        from `author`
+        from `uts_author`
         where nickname = #{nickname}
     </select>
 
     <select id="selectAuthorByMail" resultMap="AuthorMap">
         select id,username,nickname,password,signature,mail
-        from `author`
+        from `uts_author`
         where mail = #{mail}
     </select>
 
@@ -39,13 +39,13 @@
 
     <select id="selectAuthorByName" resultMap="AuthorMap">
         select id,username,nickname,password,signature,mail
-        from `author`
+        from `uts_author`
         where username = #{username}
     </select>
 
     <select id="selectLoginAuthorByMail" resultMap="AuthorMap">
         select id,username,nickname,password,signature,mail
-        from `author`
+        from `uts_author`
         where mail = #{mail}
     </select>
 </mapper>

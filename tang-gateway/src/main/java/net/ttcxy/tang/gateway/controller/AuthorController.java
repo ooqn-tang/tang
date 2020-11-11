@@ -12,7 +12,7 @@ import net.ttcxy.tang.gateway.entity.AuthorLogin;
 import net.ttcxy.tang.gateway.entity.param.AuthorParam;
 import net.ttcxy.tang.gateway.entity.param.RegisterParam;
 import net.ttcxy.tang.gateway.service.AuthorService;
-import net.ttcxy.tang.model.Author;
+import net.ttcxy.tang.model.UtsAuthor;
 import net.ttcxy.tang.util.TextUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -47,7 +47,7 @@ public class AuthorController {
             return ResponseResult.failed("昵称长度：汉字 2 ~ 8,字母 4 ~ 16");
         }
 
-        Author author = new Author();
+        UtsAuthor author = new UtsAuthor();
         BeanUtil.copyProperties(authorParam, author);
 
         author.setId(id);
@@ -89,7 +89,7 @@ public class AuthorController {
         }
 
         String username = getUsername();
-        Author author = new Author();
+        UtsAuthor author = new UtsAuthor();
         author.setId(IdUtil.fastSimpleUUID());
         author.setPassword(password);
         author.setMail(mail);
@@ -121,7 +121,7 @@ public class AuthorController {
             return ResponseResult.failed("邮箱未注册");
         }
 
-        Author author = new Author();
+        UtsAuthor author = new UtsAuthor();
         author.setId(authorLogin.getId());
         author.setPassword(new BCryptPasswordEncoder().encode(password));
 

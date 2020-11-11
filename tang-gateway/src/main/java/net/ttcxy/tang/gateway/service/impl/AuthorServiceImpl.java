@@ -4,10 +4,10 @@ import cn.hutool.core.util.IdUtil;
 import com.github.pagehelper.PageHelper;
 import net.ttcxy.tang.gateway.dao.AuthorDao;
 import net.ttcxy.tang.gateway.entity.AuthorLogin;
-import net.ttcxy.tang.mapper.AuthorMapper;
 import net.ttcxy.tang.gateway.service.AuthorService;
-import net.ttcxy.tang.model.Author;
-import net.ttcxy.tang.model.AuthorExample;
+import net.ttcxy.tang.mapper.UtsAuthorMapper;
+import net.ttcxy.tang.model.UtsAuthor;
+import net.ttcxy.tang.model.UtsAuthorExample;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -26,7 +26,7 @@ public class AuthorServiceImpl implements AuthorService {
     private AuthorDao authorDao;
 
     @Autowired
-    private AuthorMapper authorMapper;
+    private UtsAuthorMapper authorMapper;
 
     @Override
     public AuthorLogin selectUserByName(String username) {
@@ -39,7 +39,7 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     @Override
-    public int insertAuthor(Author author) throws DuplicateKeyException {
+    public int insertAuthor(UtsAuthor author) throws DuplicateKeyException {
         author.setId(IdUtil.simpleUUID());
         String password = author.getPassword();
         String encodePassword = new BCryptPasswordEncoder().encode(password);
@@ -48,13 +48,13 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     @Override
-    public int updateAuthor(Author author) {
+    public int updateAuthor(UtsAuthor author) {
         return authorMapper.updateByPrimaryKeySelective(author);
     }
 
 
     @Override
-    public int updateAuthorPassword(Author author) {
+    public int updateAuthorPassword(UtsAuthor author) {
         return authorMapper.updateByPrimaryKeySelective(author);
     }
 
@@ -79,10 +79,10 @@ public class AuthorServiceImpl implements AuthorService {
     @Override
     public int updateUserByMail(String mail,String password) {
 
-        Author author = new Author();
+        UtsAuthor author = new UtsAuthor();
         author.setPassword(password);
 
-        AuthorExample authorExample = new AuthorExample();
+        UtsAuthorExample authorExample = new UtsAuthorExample();
         authorExample.createCriteria().andMailEqualTo(mail).andPasswordEqualTo(password);
 
         return authorMapper.updateByExampleSelective(author, authorExample);
@@ -90,8 +90,8 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     @Override
-    public List<Author> listAuthor(Integer page){
+    public List<UtsAuthor> listAuthor(Integer page){
         PageHelper.startPage(page, 10);
-        return authorMapper.selectByExample(new AuthorExample());
+        return authorMapper.selectByExample(new UtsAuthorExample());
     }
 }

@@ -4,20 +4,18 @@ import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.StrUtil;
-import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import net.ttcxy.tang.api.ResponseResult;
 import net.ttcxy.tang.gateway.code.security.CurrentAuthorService;
 import net.ttcxy.tang.gateway.entity.AuthorLogin;
-import net.ttcxy.tang.gateway.entity.dto.BlogDto;
 import net.ttcxy.tang.gateway.entity.dto.CommentDto;
 import net.ttcxy.tang.gateway.entity.param.BlogCommentParam;
 import net.ttcxy.tang.gateway.entity.param.BlogParam;
 import net.ttcxy.tang.gateway.service.BlogService;
 import net.ttcxy.tang.gateway.service.CommentService;
-import net.ttcxy.tang.model.Blog;
-import net.ttcxy.tang.model.BlogComment;
+import net.ttcxy.tang.model.DtsBlog;
+import net.ttcxy.tang.model.DtsBlogComment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -78,7 +76,7 @@ public class BlogController {
     @PostMapping("insert")
     @ApiOperation("添加博客")
     public ResponseResult<?> insert(@RequestBody @Valid BlogParam blogParam){
-        Blog blog = new Blog();
+        DtsBlog blog = new DtsBlog();
         BeanUtil.copyProperties(blogParam,blog);
 
         Date date = DateUtil.date();
@@ -124,7 +122,7 @@ public class BlogController {
     @ApiOperation("更新博客")
     public ResponseResult<?> update(@RequestBody BlogParam blogParam){
 
-        Blog blog = new Blog();
+        DtsBlog blog = new DtsBlog();
         BeanUtil.copyProperties(blogParam,blog);
 
         int count = blogService.updateBlog(blog);
@@ -147,7 +145,7 @@ public class BlogController {
 
         AuthorLogin user = currentAuthorServiceImpl.getAuthor();
 
-        BlogComment blogComment = new BlogComment();
+        DtsBlogComment blogComment = new DtsBlogComment();
         BeanUtil.copyProperties(blogCommentParam,blogComment);
 
         String commentId = IdUtil.fastSimpleUUID();
@@ -189,7 +187,7 @@ public class BlogController {
     @ApiOperation("加载博客信息，详细")
     public ResponseResult<?> load(@RequestParam(name="blog",required = false) String blogId){
 
-        Blog blog = blogService.selectByPrimaryId(blogId);
+        DtsBlog blog = blogService.selectByPrimaryId(blogId);
         AuthorLogin author = currentAuthorServiceImpl.getAuthor();
         if(blog.getUserId().equals(author.getId())){
             return ResponseResult.success(blog);
