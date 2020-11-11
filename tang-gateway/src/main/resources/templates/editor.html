@@ -111,11 +111,10 @@
                 text:html
             }),
             success:function (result) {
-                if (result.code===200){
-                    window.close();
-                }else{
-                    alert(result.message)
-                }
+                window.close();
+            },
+            error(e){
+                alert(e)
             }
         })
     }
@@ -132,16 +131,15 @@
                 id:id
             }),
             success:function (result) {
-                if (result.code === 200){
-                    window.close();
-                }else{
-                    alert(result.message)
-                }
+                window.close();
+            },
+            error(e){
+                alert(e)
             }
         })
     }
     function copyText(text, callback){ // text: 要复制的内容， callback: 回调
-        var tag = document.createElement('input');
+        let tag = document.createElement('input');
         tag.setAttribute('id', 'cp_hgz_input');
         tag.value = text;
         document.getElementsByTagName('body')[0].appendChild(tag);
@@ -216,11 +214,9 @@
             url:"/blog/load"+"?blog="+blog,
             contentType: "application/json", //必须这样写
             success:function (result) {
-                if (result.code===200){
-                    $("#text").val(result.data.markdown)
-                    $("#title").val(result.data.title)
-                    keyup()
-                }
+                $("#text").val(result.data.markdown)
+                $("#title").val(result.data.title)
+                keyup()
             }
         })
     }

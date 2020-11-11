@@ -71,13 +71,12 @@
                     data : JSON.stringify({
                         nickname:_this.author.nickname,
                         signature:_this.author.signature
-                    }),success : function(result) {
-                        if (result.code === 200){
-                            history.go(-1);
-                        } else {
-                            alert(result.message)
-                        }
-                    },error : function(e){
+                    }),
+                    success(result) {
+                        history.go(-1);
+                    },
+                    error(e){
+                        alert("asdfasdf")
                         alert(e.responseText);
                     }
                 })

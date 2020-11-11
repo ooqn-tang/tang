@@ -1,5 +1,6 @@
 package net.ttcxy.tang.gateway.code.security;
 
+import net.ttcxy.tang.gateway.code.properties.SecurityProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

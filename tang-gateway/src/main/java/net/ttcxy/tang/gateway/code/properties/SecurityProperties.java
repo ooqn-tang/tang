@@ -1,4 +1,4 @@
-package net.ttcxy.tang.gateway.code.security;
+package net.ttcxy.tang.gateway.code.properties;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 

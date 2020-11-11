@@ -2,8 +2,9 @@ package net.ttcxy.tang.gateway.controller;
 
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.IdUtil;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import net.ttcxy.tang.api.CommonResult;
+import net.ttcxy.tang.api.ResponseResult;
 import net.ttcxy.tang.util.ImgUtil;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +18,7 @@ import java.io.IOException;
  */
 @RestController
 @RequestMapping("file")
+@Api("FileController")
 public class FileController {
 
 
@@ -32,15 +34,15 @@ public class FileController {
     @ApiOperation("文件上传")
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult<String> upload(@RequestParam("file") MultipartFile file) throws IOException {
+    public ResponseResult<?> upload(@RequestParam("file") MultipartFile file) throws IOException {
 
         String[] split = file.getOriginalFilename().split("\\.");
         if (split.length == 0){
-            return CommonResult.failed();
+            return ResponseResult.failed();
         }
 
         if (ImgUtil.isNotImage(file.getInputStream())){
-            return CommonResult.failed("请上传正确文件");
+            return ResponseResult.failed("请上传正确文件");
         }
 
         String urlFileName = IdUtil.fastSimpleUUID() + "." + split[split.length - 1];
@@ -49,16 +51,16 @@ public class FileController {
         try {
             FileUtil.writeBytes(file.getBytes(),path);
         } catch (IOException e) {
-            return CommonResult.failed(e.getMessage());
+            return ResponseResult.failed(e.getMessage());
         }
-        return CommonResult.success( "/" + myFileStaticPath + "/" + urlFileName);
+        return ResponseResult.success( "/" + myFileStaticPath + "/" + urlFileName);
     }
 
     @ApiOperation("文件删除")
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult<String> delete(@RequestParam("objectName") String objectName) {
-        return CommonResult.failed();
+    public ResponseResult<?> delete(@RequestParam("objectName") String objectName) {
+        return ResponseResult.failed();
     }
 
 }

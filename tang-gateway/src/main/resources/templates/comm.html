@@ -178,12 +178,11 @@
                             data:JSON.stringify(_this.author),
                             dataType:"JSON",
                             success:function(result){
-                                if (result.code === 200){
-                                    alert(result.data)
-                                }else{
-                                    alert(result.message)
-                                    _this.rImg()
-                                }
+                                alert(result.data)
+                            },
+                            error(e){
+                                alert(e)
+                                _this.rImg()
                             }
                         });
                         return

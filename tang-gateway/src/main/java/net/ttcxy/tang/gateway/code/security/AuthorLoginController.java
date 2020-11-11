@@ -6,7 +6,7 @@ import cn.hutool.captcha.generator.RandomGenerator;
 import cn.hutool.core.lang.Validator;
 import cn.hutool.extra.mail.MailAccount;
 import cn.hutool.extra.mail.MailUtil;
-import net.ttcxy.tang.api.CommonResult;
+import net.ttcxy.tang.api.ResponseResult;
 import net.ttcxy.tang.gateway.entity.param.RegisterParam;
 import net.ttcxy.tang.gateway.service.AuthorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,10 +61,10 @@ public class AuthorLoginController {
 
     @PostMapping("verifyMail/{mail}")
     @ResponseBody
-    public CommonResult<String> sendMailVerify(@PathVariable("mail") String mail){
+    public ResponseResult<?> sendMailVerify(@PathVariable("mail") String mail){
         try{
             if (!Validator.isEmail(mail)) {
-                return CommonResult.failed("邮箱不正确");
+                return ResponseResult.failed("邮箱不正确");
             }
 
             String code = new RandomGenerator(4).generate();
@@ -85,10 +85,10 @@ public class AuthorLoginController {
             httpSession.setAttribute(MySecurityData.VERIFY_CODE,code);
             httpSession.setAttribute(MySecurityData.REG_VERIFY_DATA,registerParam);
 
-            return CommonResult.success("发送成功");
+            return ResponseResult.success("发送成功");
         }catch (Exception e){
             e.printStackTrace();
-            return CommonResult.failed("发送失败");
+            return ResponseResult.failed("发送失败");
         }
 
     }

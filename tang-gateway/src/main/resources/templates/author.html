@@ -121,9 +121,7 @@
                         url:"/blog/delete/"+item.id,
                         contentType: "application/json",
                         success:function (result) {
-                            if (result.code === 200){
-                                _this.blog.list.splice(index,1)
-                            }
+                            _this.blog.list.splice(index,1)
                         }
                     })
                 }
@@ -132,21 +130,19 @@
                 let _this = this;
                 let type,text;
                 if (_this.follower === '已关注'){
-                    type = "DELETE";
+                    type = "delete";
                     text = "关注"
                 } else{
-                    type = "POST";
+                    type = "insert";
                     text = "已关注"
                 }
                 $.ajax({
                     type:type,
-                    url:"/fans/"+username,
+                    url:"/fans/" + type + "/" + username,
                     contentType: "application/json", //必须这样写
                     dataType:"json",
                     success:function (result) {
-                        if (result.code === 200) {
-                            _this.follower = text;
-                        }
+                        _this.follower = text;
                     }
                 })
             },
@@ -158,10 +154,10 @@
                         url:"/fans/"+username,
                         contentType: "application/json", //必须这样写
                         success:function (result) {
-                            if (result.code === 200){
-                                _this.follower = '已关注'
-                            } else{
+                            if (_this.follower === '已关注'){
                                 _this.follower = '关注'
+                            } else{
+                                _this.follower = '已关注'
                             }
                         }
                     })

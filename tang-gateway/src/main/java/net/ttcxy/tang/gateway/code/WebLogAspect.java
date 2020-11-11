@@ -32,9 +32,9 @@ import java.util.Map;
  * 统一日志处理切面
  * @author huanglei
  */
-//@Aspect
-//@Component
-//@Order(1)
+@Aspect
+@Component
+@Order(1)
 public class WebLogAspect {
 
     private Logger logger = LoggerFactory.getLogger(getClass());

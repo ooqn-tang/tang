@@ -2,12 +2,11 @@ package net.ttcxy.tang.gateway.controller;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.IdUtil;
-import cn.hutool.core.util.NumberUtil;
 import cn.hutool.core.util.RandomUtil;
 import cn.hutool.core.util.StrUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import net.ttcxy.tang.api.CommonResult;
+import net.ttcxy.tang.api.ResponseResult;
 import net.ttcxy.tang.gateway.code.security.CurrentAuthorService;
 import net.ttcxy.tang.gateway.entity.AuthorLogin;
 import net.ttcxy.tang.gateway.entity.param.AuthorParam;
@@ -40,13 +39,12 @@ public class AuthorController {
 
     @PostMapping(value = "update")
     @ApiOperation("更新作者")
-    public CommonResult<String> updateAuthor(@RequestBody @Valid AuthorParam authorParam){
+    public ResponseResult<?> updateAuthor(@RequestBody @Valid AuthorParam authorParam){
         String id = currentAuthorService.getAuthor().getId();
         String nickname = authorParam.getNickname();
         int length = TextUtil.byteSize(nickname);
-
         if (StrUtil.isNotBlank(nickname) && (length > 16 || length < 4)){
-            return CommonResult.failed("昵称长度：汉字 2 ~ 8,字母 4 ~ 16");
+            return ResponseResult.failed("昵称长度：汉字 2 ~ 8,字母 4 ~ 16");
         }
 
         Author author = new Author();
@@ -58,9 +56,9 @@ public class AuthorController {
             AuthorLogin authorLogin = currentAuthorService.getAuthor();
             authorLogin.setNickname(authorParam.getNickname());
             authorLogin.setSignature(authorParam.getSignature());
-            return CommonResult.success("更新成功");
+            return ResponseResult.success("更新成功");
         }
-        return CommonResult.failed();
+        return ResponseResult.failed();
     }
 
 
@@ -70,8 +68,8 @@ public class AuthorController {
      * @return List<author>
      */
     @PostMapping("list")
-    public CommonResult<List<Author>> listAuthor(@RequestParam(defaultValue = "1") Integer page){
-        return CommonResult.success(authorService.listAuthor(page));
+    public ResponseResult<?> listAuthor(@RequestParam(defaultValue = "1") Integer page){
+        return ResponseResult.success(authorService.listAuthor(page));
     }
 
     /**
@@ -80,14 +78,14 @@ public class AuthorController {
      * @return 状态
      */
     @PostMapping("register")
-    public CommonResult<String> register(@RequestBody @Valid @NotNull(message = "参数不能为空") RegisterParam register){
+    public ResponseResult<?> register(@RequestBody @Valid @NotNull(message = "参数不能为空") RegisterParam register){
 
         String mail = register.getMail();
         String password = register.getPassword();
 
         Boolean aBoolean = authorService.selectMailIsTrue(mail);
         if (aBoolean){
-            return CommonResult.failed("邮箱以存在");
+            return ResponseResult.failed("邮箱以存在");
         }
 
         String username = getUsername();
@@ -100,7 +98,7 @@ public class AuthorController {
 
         int count = authorService.insertAuthor(author);
         if (count > 0){
-            return CommonResult.success("注册成功");
+            return ResponseResult.success("注册成功");
         }
 
         return null;
@@ -113,14 +111,14 @@ public class AuthorController {
      * @return 修改状态
      */
     @PostMapping("password")
-    public CommonResult<String> updatePassword(@RequestBody @Valid @NotNull(message = "参数不能为空") RegisterParam register){
+    public ResponseResult<?> updatePassword(@RequestBody @Valid @NotNull(message = "参数不能为空") RegisterParam register){
 
         String mail = register.getMail();
         String password = register.getPassword();
 
         AuthorLogin authorLogin = authorService.selectLoginAuthorByMail(mail);
         if (authorLogin == null){
-            return CommonResult.failed("邮箱未注册");
+            return ResponseResult.failed("邮箱未注册");
         }
 
         Author author = new Author();
@@ -129,7 +127,7 @@ public class AuthorController {
 
         int count = authorService.updateAuthorPassword(author);
         if (count > 0){
-            return CommonResult.success("密码更新成功");
+            return ResponseResult.success("密码更新成功");
         }
 
         return null;

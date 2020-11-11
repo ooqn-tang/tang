@@ -19,7 +19,7 @@ public class MyAuthenticationFailureHandler extends SimpleUrlAuthenticationFailu
                                         AuthenticationException exception) throws IOException {
         // TODO 需要修改为异步FROM表单登陆
         httpServletResponse.setContentType("application/json;charset=utf-8");
-        httpServletResponse.setStatus(403);
+        httpServletResponse.setStatus(400);
         httpServletResponse.getWriter().append(exception.getMessage());
     }
 }

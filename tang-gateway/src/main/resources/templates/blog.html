@@ -142,12 +142,11 @@
                     url:"/fans/"+_this.username,
                     contentType: "application/json",
                     dataType:"json",
-                    success:function (result) {
-                        if (result.code === 200) {
-                            _this.follower.text = text
-                        }else{
-                            alert(result.message)
-                        }
+                    success(result) {
+                        _this.follower.text = text
+                    },
+                    error(e){
+                        alert(e)
                     }
                 })
             },
@@ -183,12 +182,11 @@
                     data:JSON.stringify(dataObject),
                     async:false,
                     success:function (result) {
-                        if(result.code === 200){
-                            _this.content = "";
-                            _this.comments.push(result.data);
-                        }else{
-                            alert(result.message)
-                        }
+                        _this.content = "";
+                        _this.comments.push(result.data);
+                    },
+                    error(e){
+                        alert(e)
                     }
                 })
             },
@@ -223,14 +221,12 @@
             deleteComment(id,index){
                 let _this = this;
                 $.ajax({
-                    type:"DELETE",
-                    url:"/blog/comment/"+id,
+                    type:"POST",
+                    url:"/blog/comment/delete/"+id,
                     contentType: "application/json", //必须这样写
                     dataType:"json",
                     success:function (data) {
-                        if(data.code === 200){
-                            _this.comments.splice(index, 1);
-                        }
+                        _this.comments.splice(index, 1);
                     }
                 })
             }
