@@ -1,9 +1,9 @@
 package net.ttcxy.tang.gateway.code;
 
 import cn.hutool.core.io.FileUtil;
-import net.ttcxy.tang.gateway.dao.BlogDao;
-import net.ttcxy.tang.gateway.service.AdvertiseService;
-import net.ttcxy.tang.gateway.service.BlogService;
+import net.ttcxy.tang.gateway.dao.DtsBlogDao;
+import net.ttcxy.tang.gateway.service.StsAdvertiseService;
+import net.ttcxy.tang.gateway.service.DtsBlogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationArguments;
@@ -25,16 +25,16 @@ public class MyApplicationRunner implements ApplicationRunner {
     private String myFileDataPath;
 
     @Autowired
-    private AdvertiseService advertiseService;
+    private StsAdvertiseService stsAdvertiseService;
 
     @Autowired
     private WebApplicationContext webApplicationContext;
 
     @Autowired
-    private BlogDao blogDao;
+    private DtsBlogDao dtsBlogDao;
 
     @Autowired
-    private BlogService blogService;
+    private DtsBlogService blogService;
 
     @Override
     public void run(ApplicationArguments args) {
@@ -46,12 +46,12 @@ public class MyApplicationRunner implements ApplicationRunner {
      */
     private void mkStaticLocations(){
         Objects.requireNonNull(webApplicationContext.getServletContext())
-                .setAttribute("advertises", advertiseService.selectAllAdvertise());
+                .setAttribute("advertises", stsAdvertiseService.selectAllAdvertise());
 
         if (!FileUtil.isDirectory(myFileDataPath)) {
             FileUtil.mkdir(myFileDataPath);
         }
-        blogService.getRandomBlogs().addAll(blogDao.selectId());
+        blogService.getRandomBlogs().addAll(dtsBlogDao.selectId());
     }
 
 }

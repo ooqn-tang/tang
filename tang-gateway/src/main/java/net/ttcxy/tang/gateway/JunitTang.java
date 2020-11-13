@@ -1,8 +1,8 @@
 package net.ttcxy.tang.gateway;
 
 import cn.hutool.json.JSONUtil;
-import net.ttcxy.tang.gateway.dao.ResourceDao;
-import net.ttcxy.tang.gateway.dao.RoleDao;
+import net.ttcxy.tang.gateway.dao.UtsResourceDao;
+import net.ttcxy.tang.gateway.dao.UtsRoleDao;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,13 +14,13 @@ import org.springframework.test.context.junit4.SpringRunner;
 public class JunitTang {
 
     @Autowired
-    ResourceDao resourceDao;
+    UtsResourceDao utsResourceDao;
 
     @Autowired
-    RoleDao roleDao;
+    UtsRoleDao utsRoleDao;
 
     @Test
     public void doTest() {
-        System.out.println(JSONUtil.toJsonStr(roleDao.selectRoleListByAuthorId("c894e7a08bf041e985876d31b3977141")));
+        System.out.println(JSONUtil.toJsonStr(utsRoleDao.selectRoleListByAuthorId("c894e7a08bf041e985876d31b3977141")));
     }
 }

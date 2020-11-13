@@ -2,15 +2,14 @@ package net.ttcxy.tang.gateway.code.security;
 
 
 import cn.hutool.core.lang.Validator;
-import net.ttcxy.tang.gateway.dao.RoleDao;
-import net.ttcxy.tang.gateway.entity.AuthorLogin;
-import net.ttcxy.tang.gateway.entity.dto.RoleDto;
-import net.ttcxy.tang.gateway.service.AuthorService;
+import net.ttcxy.tang.gateway.dao.UtsRoleDao;
+import net.ttcxy.tang.gateway.entity.UtsAuthorLogin;
+import net.ttcxy.tang.gateway.entity.dto.UtsRoleDto;
+import net.ttcxy.tang.gateway.service.UtsAuthorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,15 +21,15 @@ import java.util.List;
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
-    private AuthorService authorService;
+    private UtsAuthorService authorService;
 
     @Autowired
-    private RoleDao roleDao;
+    private UtsRoleDao utsRoleDao;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        AuthorLogin author = null;
+        UtsAuthorLogin author = null;
         if (Validator.isEmail(username)){
             author = authorService.selectLoginAuthorByMail(username);
         }else{
@@ -40,8 +39,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             throw new UsernameNotFoundException("用户不存在");
         }
         String authorId = author.getId();
-        List<RoleDto> roleDtoList = roleDao.selectRoleListByAuthorId(authorId);
-        author.setRoleDtoList(roleDtoList);
+        List<UtsRoleDto> utsRoleDtoList = utsRoleDao.selectRoleListByAuthorId(authorId);
+        author.setRoleDtoList(utsRoleDtoList);
 
         return author;
     }

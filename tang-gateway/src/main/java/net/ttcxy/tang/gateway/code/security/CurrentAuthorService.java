@@ -1,6 +1,6 @@
 package net.ttcxy.tang.gateway.code.security;
 
-import net.ttcxy.tang.gateway.entity.AuthorLogin;
+import net.ttcxy.tang.gateway.entity.UtsAuthorLogin;
 
 /**
  * 获取当前用户消息
@@ -11,7 +11,7 @@ public interface CurrentAuthorService {
      * 获取当前作者
      * @return LoginUser
      */
-    AuthorLogin getAuthor();
+    UtsAuthorLogin getAuthor();
 
     /**
      * 获取当前作者Id

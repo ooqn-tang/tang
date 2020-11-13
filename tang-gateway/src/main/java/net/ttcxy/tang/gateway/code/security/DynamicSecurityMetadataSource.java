@@ -1,8 +1,8 @@
 package net.ttcxy.tang.gateway.code.security;
 
-import net.ttcxy.tang.gateway.entity.dto.ResourceDto;
-import net.ttcxy.tang.gateway.entity.dto.RoleDto;
-import net.ttcxy.tang.gateway.service.ResourceService;
+import net.ttcxy.tang.gateway.entity.dto.UtsResourceDto;
+import net.ttcxy.tang.gateway.entity.dto.UtsRoleDto;
+import net.ttcxy.tang.gateway.service.UtsResourceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.access.SecurityConfig;
@@ -23,15 +23,15 @@ public class DynamicSecurityMetadataSource implements FilterInvocationSecurityMe
     private final AntPathMatcher antPathMatcher = new AntPathMatcher();
 
     @Autowired
-    private ResourceService resourceService;
+    private UtsResourceService utsResourceService;
 
     @Override
     public Collection<ConfigAttribute> getAttributes(Object object) throws IllegalArgumentException {
         String requestUrl = ((FilterInvocation) object).getRequestUrl();
-        List<ResourceDto> resourceList = resourceService.resourceList();
-        for (ResourceDto resourceDto : resourceList){
-            if (antPathMatcher.match(resourceDto.getPath(),requestUrl)){
-                List<RoleDto> roles = resourceDto.getRoleDtoList();
+        List<UtsResourceDto> resourceList = utsResourceService.resourceList();
+        for (UtsResourceDto utsResourceDto : resourceList){
+            if (antPathMatcher.match(utsResourceDto.getPath(),requestUrl)){
+                List<UtsRoleDto> roles = utsResourceDto.getRoleDtoList();
                 String[] roleStr = new String[roles.size()];
                 for (int i = 0; i < roles.size(); i++) {
                     roleStr[i] = "ROLE_" + roles.get(i).getValue();

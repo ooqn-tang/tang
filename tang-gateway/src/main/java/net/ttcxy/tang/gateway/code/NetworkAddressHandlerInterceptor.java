@@ -1,6 +1,6 @@
 package net.ttcxy.tang.gateway.code;
 
-import net.ttcxy.tang.gateway.entity.AuthorLogin;
+import net.ttcxy.tang.gateway.entity.UtsAuthorLogin;
 import net.ttcxy.tang.gateway.code.security.CurrentAuthorService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,7 +28,7 @@ public class NetworkAddressHandlerInterceptor implements HandlerInterceptor {
      */
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
-        AuthorLogin author = currentAuthorService.getAuthor();
+        UtsAuthorLogin author = currentAuthorService.getAuthor();
         String userId = author == null ? "未登陆用户": author.getId();
         String address = request.getLocalAddr();
         logger.info("userId ：{}，address ：{}" , userId , address);

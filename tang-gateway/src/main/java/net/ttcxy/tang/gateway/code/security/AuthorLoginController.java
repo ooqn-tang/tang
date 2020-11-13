@@ -4,12 +4,10 @@ import cn.hutool.captcha.CaptchaUtil;
 import cn.hutool.captcha.CircleCaptcha;
 import cn.hutool.captcha.generator.RandomGenerator;
 import cn.hutool.core.lang.Validator;
-import cn.hutool.extra.mail.MailAccount;
-import cn.hutool.extra.mail.MailUtil;
 import net.ttcxy.tang.api.ResponseResult;
-import net.ttcxy.tang.gateway.entity.param.RegisterParam;
-import net.ttcxy.tang.gateway.service.AuthorService;
-import net.ttcxy.tang.gateway.service.MailService;
+import net.ttcxy.tang.gateway.entity.param.UtsRegisterParam;
+import net.ttcxy.tang.gateway.service.UtsAuthorService;
+import net.ttcxy.tang.gateway.service.StsMailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,7 +32,7 @@ public class AuthorLoginController {
     private HttpSession httpSession;
 
     @Autowired
-    private AuthorService authorService;
+    private UtsAuthorService authorService;
 
     @GetMapping("verify")
     public void getVerifyCode(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -69,14 +67,14 @@ public class AuthorLoginController {
             }
 
             String code = new RandomGenerator(4).generate();
-            boolean yes = mailService.sendMail(mail, "验证码:" + code, "系统消息无需回复");
+            boolean yes = stsMailService.sendMail(mail, "验证码:" + code, "系统消息无需回复");
 
             if (yes){
-                RegisterParam registerParam = new RegisterParam();
-                registerParam.setMail(mail);
-                registerParam.setVerify(code);
+                UtsRegisterParam utsRegisterParam = new UtsRegisterParam();
+                utsRegisterParam.setMail(mail);
+                utsRegisterParam.setVerify(code);
                 httpSession.setAttribute(MySecurityData.VERIFY_CODE,code);
-                httpSession.setAttribute(MySecurityData.REG_VERIFY_DATA,registerParam);
+                httpSession.setAttribute(MySecurityData.REG_VERIFY_DATA, utsRegisterParam);
             }
 
             return ResponseResult.success("发送成功");
@@ -88,5 +86,5 @@ public class AuthorLoginController {
     }
 
     @Autowired
-    MailService mailService;
+    StsMailService stsMailService;
 }

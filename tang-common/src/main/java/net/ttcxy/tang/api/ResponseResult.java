@@ -1,6 +1,5 @@
 package net.ttcxy.tang.api;
 
-import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,22 +12,22 @@ import java.util.Map;
  * 通用返回对象
  * @author huanglei
  */
-public class ResponseResult<T> extends HttpEntity<T> {
+public class ResponseResult<T> extends ResponseEntity<T> {
 
-    private ResponseResult() {
-        super();
+    public ResponseResult(HttpStatus status) {
+        super(status);
     }
 
-    private ResponseResult(T body) {
-        super(body);
+    public ResponseResult(T body, HttpStatus status) {
+        super(body, status);
     }
 
-    private ResponseResult(MultiValueMap<String, String> headers) {
-        super(headers);
+    public ResponseResult(MultiValueMap<String, String> headers, HttpStatus status) {
+        super(headers, status);
     }
 
-    private ResponseResult(T body, MultiValueMap<String, String> headers) {
-        super(body, headers);
+    public ResponseResult(T body, MultiValueMap<String, String> headers, HttpStatus status) {
+        super(body, headers, status);
     }
 
     @Override
@@ -68,7 +67,7 @@ public class ResponseResult<T> extends HttpEntity<T> {
     public static <T> ResponseResult<?> success(T data) {
         Map<String,T> map = new HashMap<>();
         map.put("data",data);
-        return new ResponseResult<>(map);
+        return new ResponseResult<>(map,HttpStatus.OK);
     }
 
     /**
@@ -85,7 +84,7 @@ public class ResponseResult<T> extends HttpEntity<T> {
     public static <T> ResponseResult<?> failed(T data) {
         Map<String,T> map = new HashMap<>();
         map.put("data",data);
-        return new ResponseResult<>(map);
+        return new ResponseResult<>(map,HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
 
@@ -95,7 +94,7 @@ public class ResponseResult<T> extends HttpEntity<T> {
     public static <T> ResponseResult<?> validateFailed(T data) {
         Map<String,T> map = new HashMap<>();
         map.put("data",data);
-        return new ResponseResult<>(map);
+        return new ResponseResult<>(map, HttpStatus.NOT_FOUND);
     }
 
     /**
@@ -104,7 +103,7 @@ public class ResponseResult<T> extends HttpEntity<T> {
     public static <T> ResponseResult<?> unauthorized(T data) {
         Map<String,T> map = new HashMap<>();
         map.put("data",data);
-        return new ResponseResult<>(map);
+        return new ResponseResult<>(map,HttpStatus.UNAUTHORIZED);
     }
 
     /**
@@ -113,7 +112,7 @@ public class ResponseResult<T> extends HttpEntity<T> {
     public static <T> ResponseResult<?> forbidden(T data) {
         Map<String,T> map = new HashMap<>();
         map.put("data",data);
-        return new ResponseResult<>(map);
+        return new ResponseResult<>(map,HttpStatus.FORBIDDEN);
     }
 
 }
