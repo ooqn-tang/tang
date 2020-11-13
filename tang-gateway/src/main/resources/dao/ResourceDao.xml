@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.ttcxy.tang.gateway.dao.ResourceDao">
+    <resultMap id="BaseResultMap" type="net.ttcxy.tang.gateway.entity.dto.ResourceDto">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="parent_id" jdbcType="VARCHAR" property="parentId" />
+        <result column="node" jdbcType="VARCHAR" property="node" />
+        <result column="path" jdbcType="VARCHAR" property="path" />
+        <result column="name" jdbcType="VARCHAR" property="name" />
+        <result column="level" jdbcType="VARCHAR" property="level" />
+        <result column="type" jdbcType="VARCHAR" property="type" />
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+        <collection property="roleDtoList" ofType="net.ttcxy.tang.gateway.entity.dto.RoleDto" column="role_id">
+            <id column="roleId" jdbcType="VARCHAR" property="id"/>
+            <result column="role_name" jdbcType="VARCHAR" property="name"/>
+            <result column="role_value" jdbcType="VARCHAR" property="value"/>
+        </collection>
+    </resultMap>
+
+    <select id="selectResource" resultMap="BaseResultMap">
+        select t1.id , t1.path,t1.name,t1.type,t2.role_id ,t3.role_name,t3.role_value
+        from uts_resource t1
+        left join uts_resource_role t2 on t1.id = t2.resource_id
+        left join uts_role t3 on t2.role_id = t3.id
+    </select>
+</mapper>

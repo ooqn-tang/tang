@@ -9,6 +9,7 @@ import cn.hutool.extra.mail.MailUtil;
 import net.ttcxy.tang.api.ResponseResult;
 import net.ttcxy.tang.gateway.entity.param.RegisterParam;
 import net.ttcxy.tang.gateway.service.AuthorService;
+import net.ttcxy.tang.gateway.service.MailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -68,22 +69,15 @@ public class AuthorLoginController {
             }
 
             String code = new RandomGenerator(4).generate();
+            boolean yes = mailService.sendMail(mail, "验证码:" + code, "系统消息无需回复");
 
-            MailAccount account = new MailAccount();
-            account.setHost("smtp.qq.com");
-            account.setPort(25);
-            account.setAuth(true);
-            account.setFrom("1604403854@qq.com");
-            account.setUser("1604403854@qq.com");
-            account.setPass("muijiqqfyyyyhbhc");
-            MailUtil.send(account, mail, "验证码：" + code, "验证码邮件，无需回复。", false);
-
-            RegisterParam registerParam = new RegisterParam();
-            registerParam.setMail(mail);
-            registerParam.setVerify(code);
-
-            httpSession.setAttribute(MySecurityData.VERIFY_CODE,code);
-            httpSession.setAttribute(MySecurityData.REG_VERIFY_DATA,registerParam);
+            if (yes){
+                RegisterParam registerParam = new RegisterParam();
+                registerParam.setMail(mail);
+                registerParam.setVerify(code);
+                httpSession.setAttribute(MySecurityData.VERIFY_CODE,code);
+                httpSession.setAttribute(MySecurityData.REG_VERIFY_DATA,registerParam);
+            }
 
             return ResponseResult.success("发送成功");
         }catch (Exception e){
@@ -92,4 +86,7 @@ public class AuthorLoginController {
         }
 
     }
+
+    @Autowired
+    MailService mailService;
 }

@@ -1,11 +1,13 @@
 package net.ttcxy.tang.gateway.code.properties;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.stereotype.Component;
 
 /**
  * @author huanglei
  */
 @ConfigurationProperties(prefix = "tang.security")
+@Component
 public class SecurityProperties {
 
     private boolean securitySession = true;
@@ -14,17 +16,6 @@ public class SecurityProperties {
      * 记住登陆
      */
     private boolean rememberMe = false;
-
-    /**
-     * 需要登陆的URL
-     */
-    private String privateUrl;
-
-    /**
-     * 开发OPEN URL
-     */
-    private String openUrl;
-
 
     /**
      * 不需要csrf保护的页面给
@@ -48,12 +39,6 @@ public class SecurityProperties {
 
 
     /**
-     * 获取token登陆
-     */
-    private String tokenLoginApi;
-
-
-    /**
      * token有效时间
      */
     private int tokenTime = 2592000;
@@ -72,22 +57,6 @@ public class SecurityProperties {
 
     public void setRememberMe(boolean rememberMe) {
         this.rememberMe = rememberMe;
-    }
-
-    public String getPrivateUrl() {
-        return privateUrl;
-    }
-
-    public void setPrivateUrl(String privateUrl) {
-        this.privateUrl = privateUrl;
-    }
-
-    public String getOpenUrl() {
-        return openUrl;
-    }
-
-    public void setOpenUrl(String openUrl) {
-        this.openUrl = openUrl;
     }
 
     public String getIgnoringUrl() {
@@ -122,14 +91,6 @@ public class SecurityProperties {
         this.verifyUri = verifyUri;
     }
 
-    public String getTokenLoginApi() {
-        return tokenLoginApi;
-    }
-
-    public void setTokenLoginApi(String tokenLoginApi) {
-        this.tokenLoginApi = tokenLoginApi;
-    }
-
     public int getTokenTime() {
         return tokenTime;
     }
@@ -142,12 +103,9 @@ public class SecurityProperties {
     public String toString() {
         return "SpringSecurityProperties{" +
                 "rememberMe=" + rememberMe +
-                ", privateUrl='" + privateUrl + '\'' +
-                ", openUrl='" + openUrl + '\'' +
                 ", ignoringUrl='" + ignoringUrl + '\'' +
                 ", loginPagePath='" + loginPagePath + '\'' +
                 ", formLoginApi='" + formLoginApi + '\'' +
-                ", tokenLoginApi='" + tokenLoginApi + '\'' +
                 ", tokenTime=" + tokenTime +
                 '}';
     }

@@ -3,6 +3,7 @@ package net.ttcxy.tang.gateway.code.security;
 import cn.hutool.core.util.StrUtil;
 import net.ttcxy.tang.gateway.code.properties.SecurityProperties;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -18,6 +19,7 @@ import java.util.Set;
  * 自定义的验证码处理器，URLS集合里的请求表示需要在请求参数中包含验证码
  * @author huanglei
  */
+@Component
 public class MyVerifyCodeFilter extends OncePerRequestFilter {
 
     private static final Set<String> URLS = new HashSet<>();

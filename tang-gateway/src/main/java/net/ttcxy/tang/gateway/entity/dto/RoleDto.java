@@ -2,17 +2,26 @@ package net.ttcxy.tang.gateway.entity.dto;
 
 import org.springframework.security.core.GrantedAuthority;
 
+import java.util.Date;
+
 /**
  * 角色
  * @author huanglei
  */
-public class GroupDto implements GrantedAuthority {
+public class RoleDto implements GrantedAuthority {
 
     static final long serialVersionUID = 1L;
 
     private String id;
 
     private String name;
+
+    private String value;
+
+    private Date createTime;
+
+
+
 
     public static long getSerialVersionUID() {
         return serialVersionUID;
@@ -34,8 +43,24 @@ public class GroupDto implements GrantedAuthority {
         this.name = name;
     }
 
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
     @Override
     public String getAuthority() {
-        return "ROLE_" + name;
+        return "ROLE_" + value;
     }
 }

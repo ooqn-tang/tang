@@ -1,10 +1,11 @@
 package net.ttcxy.tang.gateway.entity;
 
-import net.ttcxy.tang.gateway.entity.dto.GroupDto;
+import net.ttcxy.tang.gateway.entity.dto.RoleDto;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -46,11 +47,11 @@ public class AuthorLogin implements UserDetails {
     /**
      * 用户组
      */
-    private Set<GroupDto> groups;
+    private List<RoleDto> roleDtoList;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return groups;
+        return roleDtoList;
     }
 
     @Override
@@ -124,4 +125,11 @@ public class AuthorLogin implements UserDetails {
         this.mail = mail;
     }
 
+    public List<RoleDto> getRoleDtoList() {
+        return roleDtoList;
+    }
+
+    public void setRoleDtoList(List<RoleDto> roleDtoList) {
+        this.roleDtoList = roleDtoList;
+    }
 }
