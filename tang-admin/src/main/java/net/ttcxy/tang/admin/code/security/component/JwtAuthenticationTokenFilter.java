@@ -1,6 +1,6 @@
 package net.ttcxy.tang.admin.code.security.component;
 
-import net.ttcxy.tang.admin.code.security.util.JwtTokenUtil;
+import net.ttcxy.tang.admin.code.security.JwtTokenService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,10 +29,10 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
     @Autowired
     private UserDetailsService userDetailsService;
     @Autowired
-    private JwtTokenUtil jwtTokenUtil;
-    @Value("${jwt.tokenHeader}")
+    private JwtTokenService jwtTokenService;
+    @Value("${tang.security.jwt.tokenHeader}")
     private String tokenHeader;
-    @Value("${jwt.tokenHead}")
+    @Value("${tang.security.jwt.tokenHead}")
     private String tokenHead;
 
     @Override
@@ -41,12 +41,12 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
                                     FilterChain chain) throws ServletException, IOException {
         String authHeader = request.getHeader(this.tokenHeader);
         if (authHeader != null && authHeader.startsWith(this.tokenHead)) {
-            String authToken = authHeader.substring(this.tokenHead.length()); // The part after "Bearer "
-            String username = jwtTokenUtil.getUserNameFromToken(authToken);
-            LOGGER.info("checking username:{}", username);
+            String authToken = authHeader.substring(this.tokenHead.length());
+            String username = jwtTokenService.getUserNameFromToken(authToken);
+            LOGGER.info("checking username : {}", username);
             if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-                UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
-                if (jwtTokenUtil.validateToken(authToken, userDetails)) {
+                UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+                if (jwtTokenService.validateToken(authToken, userDetails)) {
                     UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
                     authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                     LOGGER.info("authenticated user:{}", username);

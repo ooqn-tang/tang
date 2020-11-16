@@ -1,4 +1,4 @@
-package net.ttcxy.tang.admin.code.security.util;
+package net.ttcxy.tang.admin.code.security;
 
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.StrUtil;
@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Component;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -23,17 +24,19 @@ import java.util.Map;
  * {"sub":"wang","created":1489079981393,"exp":1489684781}
  * signature的生成算法：
  * HMACSHA512(base64UrlEncode(header) + "." +base64UrlEncode(payload),secret)
- * Created by macro on 2018/4/26.
+ * @author macro
+ * @date 2018/4/26
  */
-public class JwtTokenUtil {
-    private static final Logger LOGGER = LoggerFactory.getLogger(JwtTokenUtil.class);
+@Component
+public class JwtTokenService {
+    private static final Logger LOGGER = LoggerFactory.getLogger(JwtTokenService.class);
     private static final String CLAIM_KEY_USERNAME = "sub";
     private static final String CLAIM_KEY_CREATED = "created";
-    @Value("${jwt.secret}")
+    @Value("${tang.security.jwt.secret}")
     private String secret;
-    @Value("${jwt.expiration}")
+    @Value("${tang.security.jwt.expiration}")
     private Long expiration;
-    @Value("${jwt.tokenHead}")
+    @Value("${tang.security.jwt.tokenHead}")
     private String tokenHead;
 
     /**

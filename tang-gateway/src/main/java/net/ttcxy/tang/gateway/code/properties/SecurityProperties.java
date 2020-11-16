@@ -18,11 +18,6 @@ public class SecurityProperties {
     private boolean rememberMe = false;
 
     /**
-     * 不需要csrf保护的页面给
-     */
-    private String ignoringUrl;
-
-    /**
      * 登陆页面
      */
     private String loginPagePath = "/";
@@ -57,14 +52,6 @@ public class SecurityProperties {
 
     public void setRememberMe(boolean rememberMe) {
         this.rememberMe = rememberMe;
-    }
-
-    public String getIgnoringUrl() {
-        return ignoringUrl;
-    }
-
-    public void setIgnoringUrl(String ignoringUrl) {
-        this.ignoringUrl = ignoringUrl;
     }
 
     public String getLoginPagePath() {
@@ -103,7 +90,6 @@ public class SecurityProperties {
     public String toString() {
         return "SpringSecurityProperties{" +
                 "rememberMe=" + rememberMe +
-                ", ignoringUrl='" + ignoringUrl + '\'' +
                 ", loginPagePath='" + loginPagePath + '\'' +
                 ", formLoginApi='" + formLoginApi + '\'' +
                 ", tokenTime=" + tokenTime +

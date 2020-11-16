@@ -1,5 +1,6 @@
 package net.ttcxy.tang.admin.code.security.component;
 
+import cn.hutool.json.JSONUtil;
 import net.ttcxy.tang.api.ResponseResult;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
@@ -23,11 +24,12 @@ public class RestAuthenticationEntryPoint implements AuthenticationEntryPoint {
         response.setCharacterEncoding("UTF-8");
         response.setContentType("application/json");
 
-        ResponseResult<?> unauthorized = ResponseResult.unauthorized(authException.getMessage());
+        ResponseResult<?> unauthorized = ResponseResult.unauthorized("未登录");
         int statusCodeValue = unauthorized.getStatusCodeValue();
         response.setStatus(statusCodeValue);
 
-        response.getWriter().println(unauthorized);
+        response.getWriter().println(JSONUtil.parse(unauthorized));
+        System.out.println();
         response.getWriter().flush();
     }
 }
