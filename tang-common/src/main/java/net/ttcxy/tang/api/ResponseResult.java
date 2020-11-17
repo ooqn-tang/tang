@@ -1,5 +1,6 @@
 package net.ttcxy.tang.api;
 
+import cn.hutool.json.JSONUtil;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,19 +15,19 @@ import java.util.Map;
  */
 public class ResponseResult<T> extends ResponseEntity<T> {
 
-    public ResponseResult(HttpStatus status) {
+    private ResponseResult(HttpStatus status) {
         super(status);
     }
 
-    public ResponseResult(T body, HttpStatus status) {
+    private ResponseResult(T body, HttpStatus status) {
         super(body, status);
     }
 
-    public ResponseResult(MultiValueMap<String, String> headers, HttpStatus status) {
+    private ResponseResult(MultiValueMap<String, String> headers, HttpStatus status) {
         super(headers, status);
     }
 
-    public ResponseResult(T body, MultiValueMap<String, String> headers, HttpStatus status) {
+    private ResponseResult(T body, MultiValueMap<String, String> headers, HttpStatus status) {
         super(body, headers, status);
     }
 
@@ -79,6 +80,7 @@ public class ResponseResult<T> extends ResponseEntity<T> {
 
     /**
      * 失败返回结果
+     * 500 Internal Server Error
      * @param data 错误码
      */
     public static <T> ResponseResult<?> failed(T data) {
@@ -90,6 +92,7 @@ public class ResponseResult<T> extends ResponseEntity<T> {
 
     /**
      * 参数验证失败返回结果
+     * 404 Not Found.
      */
     public static <T> ResponseResult<?> validateFailed(T data) {
         Map<String,T> map = new HashMap<>();
@@ -99,6 +102,7 @@ public class ResponseResult<T> extends ResponseEntity<T> {
 
     /**
      * 未登录返回结果
+     * 401 Unauthorized
      */
     public static <T> ResponseResult<?> unauthorized(T data) {
         Map<String,T> map = new HashMap<>();
@@ -108,6 +112,7 @@ public class ResponseResult<T> extends ResponseEntity<T> {
 
     /**
      * 未授权返回结果
+     * 403 Forbidden
      */
     public static <T> ResponseResult<?> forbidden(T data) {
         Map<String,T> map = new HashMap<>();
@@ -115,4 +120,7 @@ public class ResponseResult<T> extends ResponseEntity<T> {
         return new ResponseResult<>(map,HttpStatus.FORBIDDEN);
     }
 
+
+    public static void main(String[] args) {
+    }
 }

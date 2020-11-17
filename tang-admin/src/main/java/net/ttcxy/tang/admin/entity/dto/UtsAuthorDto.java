@@ -55,4 +55,8 @@ public class UtsAuthorDto implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+    public void setPassword(String o) {
+        utsAuthor.setPassword(o);
+    }
 }

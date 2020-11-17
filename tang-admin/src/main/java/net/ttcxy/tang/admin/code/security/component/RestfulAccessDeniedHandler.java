@@ -1,7 +1,5 @@
 package net.ttcxy.tang.admin.code.security.component;
 
-import cn.hutool.json.JSONUtil;
-import net.ttcxy.tang.api.ResponseResult;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.stereotype.Component;
@@ -26,8 +24,6 @@ public class RestfulAccessDeniedHandler implements AccessDeniedHandler{
         response.setCharacterEncoding("UTF-8");
         response.setContentType("application/json");
         response.setStatus(401);
-        response.getWriter().println(JSONUtil.parse(ResponseResult.forbidden(e.getMessage())));
-        System.out.println(JSONUtil.parse(ResponseResult.forbidden(e.getMessage())));
-        response.getWriter().flush();
+        response.getWriter().println(e.getMessage());response.getWriter().flush();
     }
 }

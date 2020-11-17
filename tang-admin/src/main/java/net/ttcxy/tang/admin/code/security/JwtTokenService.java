@@ -2,6 +2,7 @@ package net.ttcxy.tang.admin.code.security;
 
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.json.JSONUtil;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -121,6 +122,7 @@ public class JwtTokenService {
         Map<String, Object> claims = new HashMap<>();
         claims.put(CLAIM_KEY_USERNAME, userDetails.getUsername());
         claims.put(CLAIM_KEY_CREATED, new Date());
+        claims.put("AUTHOR_INFO", JSONUtil.parse(userDetails));
         return generateToken(claims);
     }
 
