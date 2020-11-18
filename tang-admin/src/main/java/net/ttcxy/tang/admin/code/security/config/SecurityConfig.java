@@ -2,7 +2,6 @@ package net.ttcxy.tang.admin.code.security.config;
 
 import net.ttcxy.tang.admin.code.properties.SecurityProperties;
 import net.ttcxy.tang.admin.code.security.component.*;
-import net.ttcxy.tang.admin.code.security.JwtTokenService;
 import net.ttcxy.tang.admin.server.UtsAuthorService;
 import net.ttcxy.tang.admin.server.UtsResourceService;
 import net.ttcxy.tang.entity.model.UtsResource;
@@ -50,13 +49,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private SecurityProperties securityProperties;
 
     @Autowired
-    private DynamicAccessDecisionManager dynamicAccessDecisionManager;
-
-    @Autowired
     private DynamicSecurityFilter dynamicSecurityFilter;
-
-    @Autowired
-    private DynamicSecurityMetadataSource dynamicSecurityMetadataSource;
 
     @Autowired
     private UtsAuthorService utsAuthorService;
@@ -64,26 +57,25 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private UtsResourceService utsResourceService;
 
-    @Autowired(required = false)
+    @Autowired
     private UserDetailsService userDetailsService;
 
     @Autowired
-    private JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter;
-
-    @Autowired
-    private JwtTokenService JwtTokenService;
+    private AuthenticationTokenFilter authenticationTokenFilter;
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
+
         ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry registry = httpSecurity
                 .authorizeRequests();
-        //不需要保护的资源路径允许访问
+        // 不需要保护的资源路径允许访问
         for (String url : securityProperties.getUrls()) {
             registry.antMatchers(url).permitAll();
         }
-        //允许跨域请求的OPTIONS请求
+        // 允许跨域请求的OPTIONS请求
         registry.antMatchers(HttpMethod.OPTIONS)
                 .permitAll();
+
         // 任何请求需要身份认证
         registry.and()
                 .authorizeRequests()
@@ -102,8 +94,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authenticationEntryPoint(restAuthenticationEntryPoint)
                 // 自定义权限拦截器JWT过滤器
                 .and()
-                .addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);
-        //动态权限配置时添加动态权限校验过滤器
+                .addFilterBefore(authenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);
+        // 动态权限配置时添加动态权限校验过滤器
         registry.and().addFilterBefore(dynamicSecurityFilter, FilterSecurityInterceptor.class);
     }
 
@@ -111,8 +103,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
     }
-
-
 
     @Bean
     PasswordEncoder passwordEncoder() {
