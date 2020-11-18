@@ -1,8 +1,8 @@
 package net.ttcxy.tang.gateway.code.security;
 
-import net.ttcxy.tang.gateway.entity.dto.UtsResourceDto;
-import net.ttcxy.tang.gateway.entity.dto.UtsRoleDto;
-import net.ttcxy.tang.gateway.service.UtsResourceService;
+import net.ttcxy.tang.entity.dto.UtsResourceDto;
+import net.ttcxy.tang.entity.dto.UtsRoleDto;
+import net.ttcxy.tang.service.UtsResourceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.access.SecurityConfig;

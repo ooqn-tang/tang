@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 /**
  * @author huanglei
  */
-@MapperScan(basePackages ={"net.ttcxy.tang.mapper","net.ttcxy.tang.gateway.dao"})
+@MapperScan(basePackages ={"net.ttcxy.tang.db.mapper","net.ttcxy.tang.db.dao"})
 @Component
 public class MyBatisConfig {
 }

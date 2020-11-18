@@ -8,7 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @author huanglei
  */
 @SpringBootApplication(scanBasePackages = {"net.ttcxy"})
-@MapperScan(basePackages ={"net.ttcxy.tang.mapper","net.ttcxy.tang.admin.dao"})
+@MapperScan(basePackages ={"net.ttcxy.tang.db.mapper","net.ttcxy.tang.admin.dao"})
 public class AdminApplication {
     public static void main(String[] args) {
         SpringApplication springApplication = new SpringApplication(AdminApplication.class);

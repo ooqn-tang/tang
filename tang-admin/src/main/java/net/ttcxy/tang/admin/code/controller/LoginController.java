@@ -1,12 +1,11 @@
 package net.ttcxy.tang.admin.code.controller;
 
 import net.ttcxy.tang.admin.code.security.JwtTokenService;
-import net.ttcxy.tang.admin.entity.dto.UtsAuthorDto;
+import net.ttcxy.tang.entity.dto.UtsAuthorDto;
 import net.ttcxy.tang.admin.server.UtsAuthorServer;
 import net.ttcxy.tang.api.ResponseResult;
 import net.ttcxy.tang.model.UtsAuthor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 

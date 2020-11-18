@@ -1,7 +1,7 @@
 package net.ttcxy.tang.gateway.code;
 
-import net.ttcxy.tang.gateway.entity.UtsAuthorLogin;
-import net.ttcxy.tang.gateway.code.security.CurrentAuthorService;
+import net.ttcxy.tang.entity.UtsAuthorLogin;
+import net.ttcxy.tang.service.CurrentAuthorService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

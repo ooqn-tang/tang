@@ -1,7 +1,7 @@
 package net.ttcxy.tang.gateway.code;
 
-import net.ttcxy.tang.gateway.service.StsAdvertiseService;
-import net.ttcxy.tang.model.DtsAdvertise;
+import net.ttcxy.tang.service.StsAdvertiseService;
+import net.ttcxy.tang.entity.model.DtsAdvertise;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;

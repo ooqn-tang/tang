@@ -5,7 +5,7 @@ import net.ttcxy.tang.admin.code.security.component.*;
 import net.ttcxy.tang.admin.code.security.JwtTokenService;
 import net.ttcxy.tang.admin.server.UtsAuthorService;
 import net.ttcxy.tang.admin.server.UtsResourceService;
-import net.ttcxy.tang.model.UtsResource;
+import net.ttcxy.tang.entity.model.UtsResource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.ttcxy.tang.db.dao.DtsCommentDao">
+    <resultMap id="CommentMap" type="net.ttcxy.tang.entity.dto.DtsCommentDto">
+        <id column="id" jdbcType="VARCHAR" property="id" />
+        <result column="blog_id" jdbcType="VARCHAR" property="blogId" />
+        <result column="status" jdbcType="INTEGER" property="status" />
+        <result column="user_id" jdbcType="VARCHAR" property="userId" />
+        <result column="content" jdbcType="VARCHAR" property="content" />
+        <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    </resultMap>
+
+    <insert id="insertComment">
+        insert into dts_blog_comment (id,blog_id,status,user_id,content,create_date) values(#{id},#{blogId},#{status},#{userId},#{content},#{createDate})
+    </insert>
+
+    <delete id="deleteComment">
+        delete from dts_blog_comment where id = #{id}
+    </delete>
+
+    <select id="selectComments" resultType="net.ttcxy.tang.entity.dto.DtsCommentDto">
+        select bc.user_id,bc.id,bc.blog_id,bc.status,u.nickname,u.username,bc.create_date,bc.content
+        from `dts_blog_comment` bc , `uts_author` u
+        where u.id = bc.user_id
+        and bc.blog_id = #{id}
+        order by create_date ASC
+    </select>
+
+    <select id="selectComment" resultType="net.ttcxy.tang.entity.dto.DtsCommentDto">
+        select bc.user_id,bc.id,bc.blog_id,bc.status,u.nickname,u.username,bc.create_date,bc.content
+        from `dts_blog_comment` bc , `uts_author` u
+        where u.id = bc.user_id
+        and bc.id = #{id}
+    </select>
+
+</mapper>

@@ -3,9 +3,9 @@ package net.ttcxy.tang.gateway.controller;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import net.ttcxy.tang.api.ResponseResult;
-import net.ttcxy.tang.gateway.code.security.CurrentAuthorService;
-import net.ttcxy.tang.gateway.entity.UtsAuthorLogin;
-import net.ttcxy.tang.gateway.service.UtsFansService;
+import net.ttcxy.tang.service.CurrentAuthorService;
+import net.ttcxy.tang.entity.UtsAuthorLogin;
+import net.ttcxy.tang.service.UtsFansService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

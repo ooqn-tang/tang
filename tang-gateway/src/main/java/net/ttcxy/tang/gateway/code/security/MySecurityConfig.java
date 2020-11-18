@@ -40,18 +40,22 @@ public class MySecurityConfig  extends WebSecurityConfigurerAdapter {
     private DataSource dataSource;
 
     @Autowired
-    DynamicSecurityFilter dynamicSecurityFilter;
+    private DynamicSecurityFilter dynamicSecurityFilter;
 
     @Autowired
-    MyAuthenticationFailureHandler myAuthenticationFailureHandler;
+    private MyAuthenticationFailureHandler myAuthenticationFailureHandler;
+
     @Autowired
-    MyAuthenticationSuccessHandler myAuthenticationSuccessHandler;
+    private MyAuthenticationSuccessHandler myAuthenticationSuccessHandler;
+
     @Autowired
-    SecurityProperties securityProperties;
+    private SecurityProperties securityProperties;
+
     @Autowired
-    MyAuthenticationEntryPoint myAuthenticationEntryPoint;
+    private MyAuthenticationEntryPoint myAuthenticationEntryPoint;
+
     @Autowired
-    MyVerifyCodeFilter myVerifyCodeFilter;
+    private MyVerifyCodeFilter myVerifyCodeFilter;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {

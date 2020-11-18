@@ -1,6 +1,7 @@
 package net.ttcxy.tang.gateway.code.security;
 
 import cn.hutool.core.util.StrUtil;
+import net.ttcxy.tang.entity.MySecurityData;
 import net.ttcxy.tang.gateway.code.properties.SecurityProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

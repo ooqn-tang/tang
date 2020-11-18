@@ -1,10 +1,10 @@
 package net.ttcxy.tang.gateway.controller;
 
-import net.ttcxy.tang.gateway.entity.UtsAuthorLogin;
-import net.ttcxy.tang.gateway.entity.dto.DtsBlogDto;
-import net.ttcxy.tang.gateway.code.security.CurrentAuthorService;
-import net.ttcxy.tang.gateway.service.DtsBlogService;
-import net.ttcxy.tang.gateway.service.UtsAuthorService;
+import net.ttcxy.tang.entity.UtsAuthorLogin;
+import net.ttcxy.tang.entity.dto.DtsBlogDto;
+import net.ttcxy.tang.service.CurrentAuthorService;
+import net.ttcxy.tang.service.DtsBlogService;
+import net.ttcxy.tang.service.UtsAuthorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
