@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -45,17 +46,14 @@ public class GlobalExceptionHandler {
     }
 
     /**
-     * ApiException 参数校验统一异常处理
+     * ConstraintViolationException 参数校验统一异常处理
      */
     @ResponseBody
     @ExceptionHandler(value = ConstraintViolationException.class)
     public ResponseResult<?> errorHandler(ConstraintViolationException ex) {
         logger.error(ex.getMessage(),ex);
         Set<ConstraintViolation<?>> violations = ex.getConstraintViolations();
-        for (ConstraintViolation<?> item : violations) {
-            return ResponseResult.validateFailed(item.getMessage());
-        }
-        return ResponseResult.validateFailed("验证异常");
+        return ResponseResult.validateFailed(violations.iterator().next().getMessage());
     }
 
     /**
@@ -65,12 +63,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(value = MethodArgumentNotValidException.class)
     public ResponseResult<?> errorHandler(MethodArgumentNotValidException ex) {
         logger.error(ex.getMessage(),ex);
-        BindingResult bindingResult = ex.getBindingResult();
-        if(CollUtil.isNotEmpty(bindingResult.getFieldErrors())){
-            for (FieldError fieldError : bindingResult.getFieldErrors()) {
-                return ResponseResult.validateFailed(fieldError.getDefaultMessage());
-            }
-        }
-        return ResponseResult.validateFailed("验证异常");
+        String str = ex.getBindingResult().getFieldErrors().get(0).getDefaultMessage();
+        return ResponseResult.validateFailed(str);
     }
 }
