@@ -1,6 +1,7 @@
 package net.ttcxy.tang.service;
 
 import net.ttcxy.tang.entity.dto.UtsResourceDto;
+import net.ttcxy.tang.entity.model.UtsResource;
 
 import java.util.List;
 
@@ -9,4 +10,6 @@ import java.util.List;
  */
 public interface UtsResourceService {
     List<UtsResourceDto> resourceList();
+
+    List<UtsResource> listAll();
 }

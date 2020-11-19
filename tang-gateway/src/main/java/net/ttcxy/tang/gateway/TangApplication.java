@@ -1,6 +1,6 @@
 package net.ttcxy.tang.gateway;
 
-import net.ttcxy.tang.gateway.code.MyApplicationContextInitializer;
+import net.ttcxy.tang.gateway.config.MyApplicationContextInitializer;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
