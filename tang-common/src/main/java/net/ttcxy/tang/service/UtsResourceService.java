@@ -11,5 +11,5 @@ import java.util.List;
 public interface UtsResourceService {
     List<UtsResourceDto> resourceList();
 
-    List<UtsResource> listAll();
+    List<UtsResourceDto> listAll();
 }

@@ -3,6 +3,7 @@ package net.ttcxy.tang.admin.security.component;
 import cn.hutool.core.util.URLUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.ConfigAttribute;
+import org.springframework.security.access.SecurityConfig;
 import org.springframework.security.web.FilterInvocation;
 import org.springframework.security.web.access.intercept.FilterInvocationSecurityMetadataSource;
 import org.springframework.stereotype.Component;
@@ -14,12 +15,13 @@ import java.util.*;
 
 /**
  * 动态权限数据源，用于获取动态权限规则
+ * 主要功能返回当前资源需要的权限列表
  * @author huanglei
  */
 @Component
 public class DynamicSecurityMetadataSource implements FilterInvocationSecurityMetadataSource {
 
-    private static Map<String, ConfigAttribute> configAttributeMap = null;
+    private static Map<String, Collection<ConfigAttribute>> configAttributeMap = null;
 
     @Autowired
     private DynamicSecurityService dynamicSecurityService;
@@ -29,17 +31,12 @@ public class DynamicSecurityMetadataSource implements FilterInvocationSecurityMe
         configAttributeMap = dynamicSecurityService.loadDataSource();
     }
 
-    public void clearDataSource() {
-        configAttributeMap.clear();
-        configAttributeMap = null;
-    }
-
     @Override
     public Collection<ConfigAttribute> getAttributes(Object o) throws IllegalArgumentException {
         if (configAttributeMap == null){
             this.loadDataSource();
         }
-        List<ConfigAttribute>  configAttributes = new ArrayList<>();
+        List<ConfigAttribute> configAttributes = new ArrayList<>();
         //获取当前访问的路径
         String url = ((FilterInvocation) o).getRequestUrl();
         String path = URLUtil.getPath(url);
@@ -49,12 +46,13 @@ public class DynamicSecurityMetadataSource implements FilterInvocationSecurityMe
         while (iterator.hasNext()) {
             String pattern = iterator.next();
             if (pathMatcher.match(pattern, path)) {
-                configAttributes.add(configAttributeMap.get(pattern));
+                configAttributes.addAll(configAttributeMap.get(pattern));
             }
         }
         // 未设置操作请求权限，返回空集合
         return configAttributes;
     }
+
 
     @Override
     public Collection<ConfigAttribute> getAllConfigAttributes() {

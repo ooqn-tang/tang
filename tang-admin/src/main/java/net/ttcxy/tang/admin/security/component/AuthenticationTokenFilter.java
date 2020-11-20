@@ -1,11 +1,11 @@
 package net.ttcxy.tang.admin.security.component;
 
-import net.ttcxy.tang.entity.dto.UtsAuthorDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -30,7 +30,7 @@ public class AuthenticationTokenFilter extends OncePerRequestFilter {
     @Value("${tang.security.tokenHeader}")
     private String tokenHeader;
 
-    public static Map<String, UtsAuthorDto> authorDtoMap = new HashMap<>();
+    public static Map<String, UserDetails> authorDtoMap = new HashMap<>();
 
     @Override
     protected void doFilterInternal(HttpServletRequest request,
@@ -38,12 +38,12 @@ public class AuthenticationTokenFilter extends OncePerRequestFilter {
                                     FilterChain chain) throws ServletException, IOException {
         String authHeader = request.getHeader(this.tokenHeader);
         if (authHeader != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            UtsAuthorDto utsAuthorDto = authorDtoMap.get(authHeader);
-            LOGGER.info("checking username : {}", utsAuthorDto);
-            if (utsAuthorDto != null) {
-                UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(utsAuthorDto, null, utsAuthorDto.getAuthorities());
+            UserDetails userDetails = authorDtoMap.get(authHeader);
+            LOGGER.info("checking username : {}", userDetails);
+            if (userDetails != null) {
+                UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
                 authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                LOGGER.info("authenticated user:{}", utsAuthorDto.getUsername());
+                LOGGER.info("authenticated user:{}", userDetails.getUsername());
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }
         }

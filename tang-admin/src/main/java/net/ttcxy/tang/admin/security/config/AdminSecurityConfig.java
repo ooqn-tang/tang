@@ -2,6 +2,8 @@ package net.ttcxy.tang.admin.security.config;
 
 import net.ttcxy.tang.admin.security.component.*;
 import net.ttcxy.tang.code.properties.SecurityProperties;
+import net.ttcxy.tang.entity.dto.UtsResourceDto;
+import net.ttcxy.tang.entity.dto.UtsRoleDto;
 import net.ttcxy.tang.entity.model.UtsResource;
 import net.ttcxy.tang.service.UtsAuthorService;
 import net.ttcxy.tang.service.UtsResourceService;
@@ -10,6 +12,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.access.ConfigAttribute;
+import org.springframework.security.access.SecurityConfig;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -24,8 +27,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 
@@ -37,7 +39,7 @@ import java.util.concurrent.ConcurrentHashMap;
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
+public class AdminSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private RestfulAccessDeniedHandler restfulAccessDeniedHandler;
@@ -120,12 +122,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public DynamicSecurityService dynamicSecurityService() {
         return () -> {
-            Map<String, ConfigAttribute> map = new ConcurrentHashMap<>();
-            List<UtsResource> resourceList = utsResourceService.listAll();
-            for (UtsResource resource : resourceList) {
-                //map.put(resource.getPath(), new org.springframework.security.access.SecurityConfig(resource.getId() + ":" + resource.getName()));
+            Map<String, Collection<ConfigAttribute>> map = new ConcurrentHashMap<>();
+            List<UtsResourceDto> resourceList = utsResourceService.listAll();
+            for (UtsResourceDto resource : resourceList) {
+                Set<ConfigAttribute> configAttributeSet = new HashSet<>();
+                for (UtsRoleDto utsRoleDto : resource.getRoleDtoList()) {
+                    configAttributeSet.add(new SecurityConfig(utsRoleDto.getAuthority()));
+                }
+                map.put(resource.getPath(),configAttributeSet);
             }
             return map;
         };
     }
+
+
 }
