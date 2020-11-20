@@ -20,8 +20,12 @@ public class UtsRoleDto implements GrantedAuthority {
 
     private Date createTime;
 
+    public UtsRoleDto(){
 
-
+    }
+    public UtsRoleDto(String value){
+        this.value = value;
+    }
 
     public static long getSerialVersionUID() {
         return serialVersionUID;

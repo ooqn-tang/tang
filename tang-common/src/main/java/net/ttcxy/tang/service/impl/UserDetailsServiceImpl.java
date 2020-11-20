@@ -4,6 +4,7 @@ package net.ttcxy.tang.service.impl;
 import cn.hutool.core.lang.Validator;
 import net.ttcxy.tang.db.dao.UtsRoleDao;
 import net.ttcxy.tang.entity.UtsAuthorLogin;
+import net.ttcxy.tang.entity.dto.UtsAuthorDto;
 import net.ttcxy.tang.entity.dto.UtsRoleDto;
 import net.ttcxy.tang.service.UtsAuthorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,7 @@ import java.util.List;
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
-    private UtsAuthorService authorService;
+    private UtsAuthorService utsAuthorService;
 
     @Autowired
     private UtsRoleDao utsRoleDao;
@@ -29,20 +30,21 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        UtsAuthorLogin author = null;
+        UtsAuthorLogin utsAuthorLogin = null;
+
         if (Validator.isEmail(username)){
-            author = authorService.selectLoginAuthorByMail(username);
+            utsAuthorLogin = utsAuthorService.selectLoginAuthorByMail(username);
         }else{
-            author = authorService.selectUserByName(username);
+            utsAuthorLogin = utsAuthorService.selectUserByName(username);
         }
-        if (author == null){
+        if (utsAuthorLogin == null){
             throw new UsernameNotFoundException("用户不存在");
         }
-        String authorId = author.getId();
+        String authorId = utsAuthorLogin.getId();
         List<UtsRoleDto> utsRoleDtoList = utsRoleDao.selectRoleListByAuthorId(authorId);
-        author.setRoleDtoList(utsRoleDtoList);
+        utsAuthorLogin.setRoleDtoList(utsRoleDtoList);
 
-        return author;
+        return utsAuthorLogin;
     }
 
 

@@ -29,16 +29,20 @@ public class DynamicSecurityFilter extends AbstractSecurityInterceptor implement
     private SecurityProperties securityProperties;
 
     @Autowired
-    public void setMyAccessDecisionManager(DynamicAccessDecisionManager dynamicAccessDecisionManager) {
+    DynamicAccessDecisionManager dynamicAccessDecisionManager;
+
+    @Autowired
+    public void setMyAccessDecisionManager() {
         super.setAccessDecisionManager(dynamicAccessDecisionManager);
     }
-
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
     }
 
+
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
+        setAccessDecisionManager(dynamicAccessDecisionManager);
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         FilterInvocation fi = new FilterInvocation(servletRequest, servletResponse, filterChain);
         //OPTIONS请求直接放行
