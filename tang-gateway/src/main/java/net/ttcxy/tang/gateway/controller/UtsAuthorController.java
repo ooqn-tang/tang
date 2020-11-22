@@ -11,7 +11,7 @@ import net.ttcxy.tang.service.CurrentAuthorService;
 import net.ttcxy.tang.entity.UtsMemberLogin;
 import net.ttcxy.tang.entity.param.UtsAuthorParam;
 import net.ttcxy.tang.entity.param.UtsRegisterParam;
-import net.ttcxy.tang.service.UtsAuthorService;
+import net.ttcxy.tang.service.UtsMemberService;
 import net.ttcxy.tang.entity.model.UtsMember;
 import net.ttcxy.tang.util.TextUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +34,7 @@ public class UtsAuthorController {
     private CurrentAuthorService currentAuthorService;
 
     @Autowired
-    private UtsAuthorService authorService;
+    private UtsMemberService authorService;
 
     @PostMapping(value = "update")
     @ApiOperation("更新作者")
@@ -115,7 +115,7 @@ public class UtsAuthorController {
         String mail = register.getMail();
         String password = register.getPassword();
 
-        UtsMemberLogin utsMemberLogin = authorService.selectLoginAuthorByMail(mail);
+        UtsMemberLogin utsMemberLogin = authorService.selectLoginMemberByMail(mail);
         if (utsMemberLogin == null){
             return ResponseResult.failed("邮箱未注册");
         }

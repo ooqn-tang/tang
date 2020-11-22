@@ -4,7 +4,7 @@ import cn.hutool.core.util.IdUtil;
 import com.github.pagehelper.PageHelper;
 import net.ttcxy.tang.db.dao.UtsMemberDao;
 import net.ttcxy.tang.entity.UtsMemberLogin;
-import net.ttcxy.tang.service.UtsAuthorService;
+import net.ttcxy.tang.service.UtsMemberService;
 import net.ttcxy.tang.db.mapper.UtsMemberMapper;
 import net.ttcxy.tang.entity.model.UtsMember;
 import net.ttcxy.tang.entity.model.UtsMemberExample;
@@ -20,7 +20,7 @@ import java.util.List;
  * @author huanglei
  */
 @Service
-public class UtsAuthorServiceImpl implements UtsAuthorService {
+public class UtsMemberServiceImpl implements UtsMemberService {
 
     @Autowired
     private UtsMemberDao utsMemberDao;
@@ -34,7 +34,7 @@ public class UtsAuthorServiceImpl implements UtsAuthorService {
     }
 
     @Override
-    public UtsMemberLogin selectLoginAuthorByMail(String mail) {
+    public UtsMemberLogin selectLoginMemberByMail(String mail) {
         return utsMemberDao.selectMemberByMail(mail);
     }
 

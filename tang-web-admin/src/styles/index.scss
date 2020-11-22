@@ -16,11 +16,6 @@ label {
   font-weight: 700;
 }
 
-html {
-  height: 100%;
-  box-sizing: border-box;
-}
-
 #app {
   height: 100%;
 }
@@ -59,7 +54,55 @@ div:focus {
   }
 }
 
-// main-container global css
-.app-container {
-  padding: 20px;
+.t-block{
+  padding: 10px;
+  margin: 10px;
+  background-color: white;
+}
+
+.app-main{
+  height: 0px;
+  background-color: #e8e8e8;
+  overflow-y: scroll !important;
+}
+
+
+
+
+
+
+
+
+
+
+
+/*css主要部分的样式*/
+/*定义滚动条宽高及背景，宽高分别对应横竖滚动条的尺寸*/
+
+::-webkit-scrollbar {
+width: 8px; /*对垂直流动条有效*/
+height: 8px; /*对水平流动条有效*/
+}
+
+/*定义滚动条的轨道颜色、内阴影及圆角*/
+::-webkit-scrollbar-track{
+background-color: rgb(112, 198, 255);
+border-radius: 0px;
+}
+
+
+/*定义滑块颜色、内阴影及圆角*/
+::-webkit-scrollbar-thumb{
+border-radius: 0px;
+background-color: #003264;
+}
+
+/*定义两端按钮的样式*/
+::-webkit-scrollbar-button {
+  height: 0;
+}
+
+/*定义右下角汇合处的样式*/
+::-webkit-scrollbar-corner {
+background:khaki;
 }

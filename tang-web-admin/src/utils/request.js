@@ -11,7 +11,7 @@ const service = axios.create({
 service.interceptors.request.use(
   config => {
     if (store.getters.token) {
-      config.headers['X-Token'] = getToken()
+      config.headers['token'] = getToken()
     }
     return config
   },
@@ -23,9 +23,7 @@ service.interceptors.request.use(
 
 service.interceptors.response.use(
   response => {
-    console.log('a')
     const res = response
-    alert(JSON.stringify(res))
     if (res.status !== 200) {
       Message({
         message: res.message || 'Error',

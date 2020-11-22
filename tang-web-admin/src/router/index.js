@@ -26,41 +26,58 @@ export const constantRoutes = [
       path: 'dashboard',
       name: 'Dashboard',
       component: () => import('@/views/dashboard/index'),
-      meta: { title: 'Dashboard', icon: 'dashboard' }
+      meta: { title: '系统罗盘', icon: 'dashboard' }
     }]
   },
 
   {
-    path: '/example',
+    path: '/member',
     component: Layout,
-    redirect: '/example/table',
-    name: 'Example',
-    meta: { title: 'Example', icon: 'el-icon-s-help' },
     children: [
       {
-        path: 'table',
-        name: 'Table',
-        component: () => import('@/views/table/index'),
-        meta: { title: 'Table', icon: 'table' }
-      },
-      {
-        path: 'tree',
-        name: 'Tree',
-        component: () => import('@/views/tree/index'),
-        meta: { title: 'Tree', icon: 'tree' }
+        path: 'member',
+        name: 'member',
+        component: () => import('@/views/member/index'),
+        meta: { title: '成员管理', icon: 'el-icon-s-custom' }
       }
     ]
   },
 
   {
-    path: '/form',
+    path: '/role',
     component: Layout,
     children: [
       {
         path: 'index',
-        name: 'Form',
-        component: () => import('@/views/form/index'),
-        meta: { title: 'Form', icon: 'form' }
+        name: 'role',
+        component: () => import('@/views/role/index'),
+        meta: { title: '角色管理', icon: 'el-icon-s-opportunity' }
+      }
+    ]
+  },
+
+  {
+    path: '/csgl',
+    component: Layout,
+    children: [
+      {
+        path: 'index',
+        name: 'csgl',
+        component: () => import('@/views/role/index'),
+        meta: { title: '参数管理', icon: 'el-icon-s-order' }
+      }
+    ]
+  },
+
+  {
+    path: '/tjgl',
+    component: Layout,
+    children: [
+      {
+        path: 'index',
+        name: 'tjgl',
+        component: () => import('@/views/role/index'),
+        meta: { title: '推荐管理', icon: 'el-icon-s-promotion' }
       }
     ]
   },

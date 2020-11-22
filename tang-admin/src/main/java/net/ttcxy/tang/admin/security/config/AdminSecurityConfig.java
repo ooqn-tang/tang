@@ -4,8 +4,7 @@ import net.ttcxy.tang.admin.security.component.*;
 import net.ttcxy.tang.code.properties.SecurityProperties;
 import net.ttcxy.tang.entity.dto.UtsResourceDto;
 import net.ttcxy.tang.entity.dto.UtsRoleDto;
-import net.ttcxy.tang.entity.model.UtsResource;
-import net.ttcxy.tang.service.UtsAuthorService;
+import net.ttcxy.tang.service.UtsMemberService;
 import net.ttcxy.tang.service.UtsResourceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -54,7 +53,7 @@ public class AdminSecurityConfig extends WebSecurityConfigurerAdapter {
     private DynamicSecurityFilter dynamicSecurityFilter;
 
     @Autowired
-    private UtsAuthorService utsAuthorService;
+    private UtsMemberService utsMemberService;
 
     @Autowired
     private UtsResourceService utsResourceService;

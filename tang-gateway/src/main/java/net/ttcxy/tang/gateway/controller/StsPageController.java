@@ -4,7 +4,7 @@ import net.ttcxy.tang.entity.UtsMemberLogin;
 import net.ttcxy.tang.entity.dto.DtsBlogDto;
 import net.ttcxy.tang.service.CurrentAuthorService;
 import net.ttcxy.tang.service.DtsBlogService;
-import net.ttcxy.tang.service.UtsAuthorService;
+import net.ttcxy.tang.service.UtsMemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -28,7 +28,7 @@ public class StsPageController {
     private DtsBlogService blogService;
 
     @Autowired
-    private UtsAuthorService authorService;
+    private UtsMemberService authorService;
 
     /**
      * 首页

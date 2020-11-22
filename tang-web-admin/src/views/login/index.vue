@@ -166,6 +166,10 @@ $cursor: #fff;
     color: #454545;
   }
 }
+
+html{
+  height: 100% !important;
+}
 </style>
 
 <style lang="scss" scoped>

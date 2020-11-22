@@ -11,7 +11,7 @@ import java.util.List;
  * @author huanglei
  */
 @Service
-public interface UtsAuthorService {
+public interface UtsMemberService {
 
     /**
      * 通过用户名查询
@@ -26,7 +26,7 @@ public interface UtsAuthorService {
      * @param mail 邮箱
      * @return 登录用户
      */
-    UtsMemberLogin selectLoginAuthorByMail(String mail);
+    UtsMemberLogin selectLoginMemberByMail(String mail);
 
     /**
      * 添加用户

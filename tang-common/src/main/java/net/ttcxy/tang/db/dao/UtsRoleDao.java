@@ -8,5 +8,5 @@ import java.util.List;
  * @author huanglei
  */
 public interface UtsRoleDao {
-    List<UtsRoleDto> selectRoleListByAuthorId(String authorId);
+    List<UtsRoleDto> selectRoleListByMemberId(String authorId);
 }

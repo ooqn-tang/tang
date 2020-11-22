@@ -124,10 +124,6 @@ public class UtsMemberLogin implements UserDetails {
         this.mail = mail;
     }
 
-    public List<UtsRoleDto> getRoleDtoList() {
-        return utsRoleDtoList;
-    }
-
     public void setRoleDtoList(List<UtsRoleDto> utsRoleDtoList) {
         this.utsRoleDtoList = utsRoleDtoList;
     }

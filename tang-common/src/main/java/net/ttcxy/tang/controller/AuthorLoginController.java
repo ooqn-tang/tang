@@ -7,7 +7,7 @@ import cn.hutool.core.lang.Validator;
 import net.ttcxy.tang.api.ResponseResult;
 import net.ttcxy.tang.entity.MySecurityData;
 import net.ttcxy.tang.entity.param.UtsRegisterParam;
-import net.ttcxy.tang.service.UtsAuthorService;
+import net.ttcxy.tang.service.UtsMemberService;
 import net.ttcxy.tang.service.StsMailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -33,7 +33,7 @@ public class AuthorLoginController {
     private HttpSession httpSession;
 
     @Autowired
-    private UtsAuthorService authorService;
+    private UtsMemberService authorService;
 
     @GetMapping("verify")
     public void getVerifyCode(HttpServletRequest request, HttpServletResponse response) throws IOException {
