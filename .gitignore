@@ -2,3 +2,4 @@
 .idea/
 *.iml
 /**/application.properties
+/tang-web-admin/node_modules
