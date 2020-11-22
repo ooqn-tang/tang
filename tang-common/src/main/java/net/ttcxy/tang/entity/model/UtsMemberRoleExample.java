@@ -4,14 +4,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class UtsAuthorRoleExample {
+public class UtsMemberRoleExample {
     protected String orderByClause;
 
     protected boolean distinct;
 
     protected List<Criteria> oredCriteria;
 
-    public UtsAuthorRoleExample() {
+    public UtsMemberRoleExample() {
         oredCriteria = new ArrayList<Criteria>();
     }
 
@@ -175,73 +175,73 @@ public class UtsAuthorRoleExample {
             return (Criteria) this;
         }
 
-        public Criteria andAuthorIdIsNull() {
-            addCriterion("author_id is null");
+        public Criteria andMemberIdIsNull() {
+            addCriterion("member_id is null");
             return (Criteria) this;
         }
 
-        public Criteria andAuthorIdIsNotNull() {
-            addCriterion("author_id is not null");
+        public Criteria andMemberIdIsNotNull() {
+            addCriterion("member_id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andAuthorIdEqualTo(String value) {
-            addCriterion("author_id =", value, "authorId");
+        public Criteria andMemberIdEqualTo(String value) {
+            addCriterion("member_id =", value, "memberId");
             return (Criteria) this;
         }
 
-        public Criteria andAuthorIdNotEqualTo(String value) {
-            addCriterion("author_id <>", value, "authorId");
+        public Criteria andMemberIdNotEqualTo(String value) {
+            addCriterion("member_id <>", value, "memberId");
             return (Criteria) this;
         }
 
-        public Criteria andAuthorIdGreaterThan(String value) {
-            addCriterion("author_id >", value, "authorId");
+        public Criteria andMemberIdGreaterThan(String value) {
+            addCriterion("member_id >", value, "memberId");
             return (Criteria) this;
         }
 
-        public Criteria andAuthorIdGreaterThanOrEqualTo(String value) {
-            addCriterion("author_id >=", value, "authorId");
+        public Criteria andMemberIdGreaterThanOrEqualTo(String value) {
+            addCriterion("member_id >=", value, "memberId");
             return (Criteria) this;
         }
 
-        public Criteria andAuthorIdLessThan(String value) {
-            addCriterion("author_id <", value, "authorId");
+        public Criteria andMemberIdLessThan(String value) {
+            addCriterion("member_id <", value, "memberId");
             return (Criteria) this;
         }
 
-        public Criteria andAuthorIdLessThanOrEqualTo(String value) {
-            addCriterion("author_id <=", value, "authorId");
+        public Criteria andMemberIdLessThanOrEqualTo(String value) {
+            addCriterion("member_id <=", value, "memberId");
             return (Criteria) this;
         }
 
-        public Criteria andAuthorIdLike(String value) {
-            addCriterion("author_id like", value, "authorId");
+        public Criteria andMemberIdLike(String value) {
+            addCriterion("member_id like", value, "memberId");
             return (Criteria) this;
         }
 
-        public Criteria andAuthorIdNotLike(String value) {
-            addCriterion("author_id not like", value, "authorId");
+        public Criteria andMemberIdNotLike(String value) {
+            addCriterion("member_id not like", value, "memberId");
             return (Criteria) this;
         }
 
-        public Criteria andAuthorIdIn(List<String> values) {
-            addCriterion("author_id in", values, "authorId");
+        public Criteria andMemberIdIn(List<String> values) {
+            addCriterion("member_id in", values, "memberId");
             return (Criteria) this;
         }
 
-        public Criteria andAuthorIdNotIn(List<String> values) {
-            addCriterion("author_id not in", values, "authorId");
+        public Criteria andMemberIdNotIn(List<String> values) {
+            addCriterion("member_id not in", values, "memberId");
             return (Criteria) this;
         }
 
-        public Criteria andAuthorIdBetween(String value1, String value2) {
-            addCriterion("author_id between", value1, value2, "authorId");
+        public Criteria andMemberIdBetween(String value1, String value2) {
+            addCriterion("member_id between", value1, value2, "memberId");
             return (Criteria) this;
         }
 
-        public Criteria andAuthorIdNotBetween(String value1, String value2) {
-            addCriterion("author_id not between", value1, value2, "authorId");
+        public Criteria andMemberIdNotBetween(String value1, String value2) {
+            addCriterion("member_id not between", value1, value2, "memberId");
             return (Criteria) this;
         }
 

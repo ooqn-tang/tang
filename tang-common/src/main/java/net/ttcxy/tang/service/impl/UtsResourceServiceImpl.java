@@ -19,21 +19,10 @@ import java.util.List;
 public class UtsResourceServiceImpl implements UtsResourceService {
 
     @Autowired
-    UtsResourceDao utsResourceDao;
-
-
-    @Override
-    public List<UtsResourceDto> resourceList() {
-        return utsResourceDao.selectResource();
-    }
+    private UtsResourceDao utsResourceDao;
 
     @Override
     public List<UtsResourceDto> listAll() {
-        List<UtsResourceDto> utsResourceDtoList = new ArrayList<>();
-        UtsResourceDto utsResourceDto = new UtsResourceDto();
-        utsResourceDto.setPath("/a");
-        List<UtsRoleDto> utsRoleDtoList = new ArrayList<>();
-        utsResourceDto.setRoleDtoList(utsRoleDtoList);
-        return utsResourceDtoList;
+        return utsResourceDao.selectResource();
     }
 }

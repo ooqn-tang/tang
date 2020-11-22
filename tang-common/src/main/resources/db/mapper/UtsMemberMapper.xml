@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="net.ttcxy.tang.db.mapper.UtsAuthorMapper">
-  <resultMap id="BaseResultMap" type="net.ttcxy.tang.entity.model.UtsAuthor">
+<mapper namespace="net.ttcxy.tang.db.mapper.UtsMemberMapper">
+  <resultMap id="BaseResultMap" type="net.ttcxy.tang.entity.model.UtsMember">
     <id column="id" jdbcType="VARCHAR" property="id" />
     <result column="username" jdbcType="VARCHAR" property="username" />
     <result column="nickname" jdbcType="VARCHAR" property="nickname" />
@@ -72,13 +72,13 @@
   <sql id="Base_Column_List">
     id, username, nickname, password, mail, signature, create_time, state
   </sql>
-  <select id="selectByExample" parameterType="net.ttcxy.tang.entity.model.UtsAuthorExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="net.ttcxy.tang.entity.model.UtsMemberExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from uts_author
+    from uts_member
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -89,29 +89,29 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from uts_author
+    from uts_member
     where id = #{id,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-    delete from uts_author
+    delete from uts_member
     where id = #{id,jdbcType=VARCHAR}
   </delete>
-  <delete id="deleteByExample" parameterType="net.ttcxy.tang.entity.model.UtsAuthorExample">
-    delete from uts_author
+  <delete id="deleteByExample" parameterType="net.ttcxy.tang.entity.model.UtsMemberExample">
+    delete from uts_member
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="net.ttcxy.tang.entity.model.UtsAuthor">
-    insert into uts_author (id, username, nickname, 
+  <insert id="insert" parameterType="net.ttcxy.tang.entity.model.UtsMember">
+    insert into uts_member (id, username, nickname, 
       password, mail, signature, 
       create_time, state)
     values (#{id,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR}, 
       #{password,jdbcType=VARCHAR}, #{mail,jdbcType=VARCHAR}, #{signature,jdbcType=VARCHAR}, 
       #{createTime,jdbcType=TIMESTAMP}, #{state,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="net.ttcxy.tang.entity.model.UtsAuthor">
-    insert into uts_author
+  <insert id="insertSelective" parameterType="net.ttcxy.tang.entity.model.UtsMember">
+    insert into uts_member
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
@@ -165,14 +165,14 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="net.ttcxy.tang.entity.model.UtsAuthorExample" resultType="java.lang.Long">
-    select count(*) from uts_author
+  <select id="countByExample" parameterType="net.ttcxy.tang.entity.model.UtsMemberExample" resultType="java.lang.Long">
+    select count(*) from uts_member
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update uts_author
+    update uts_member
     <set>
       <if test="record.id != null">
         id = #{record.id,jdbcType=VARCHAR},
@@ -204,7 +204,7 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update uts_author
+    update uts_member
     set id = #{record.id,jdbcType=VARCHAR},
       username = #{record.username,jdbcType=VARCHAR},
       nickname = #{record.nickname,jdbcType=VARCHAR},
@@ -217,8 +217,8 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="net.ttcxy.tang.entity.model.UtsAuthor">
-    update uts_author
+  <update id="updateByPrimaryKeySelective" parameterType="net.ttcxy.tang.entity.model.UtsMember">
+    update uts_member
     <set>
       <if test="username != null">
         username = #{username,jdbcType=VARCHAR},
@@ -244,8 +244,8 @@
     </set>
     where id = #{id,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="net.ttcxy.tang.entity.model.UtsAuthor">
-    update uts_author
+  <update id="updateByPrimaryKey" parameterType="net.ttcxy.tang.entity.model.UtsMember">
+    update uts_member
     set username = #{username,jdbcType=VARCHAR},
       nickname = #{nickname,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},

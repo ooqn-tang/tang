@@ -17,6 +17,8 @@ import java.io.IOException;
 
 /**
  * 动态权限过滤器，用于实现基于路径的动态权限过滤
+ *
+ * 检测当前路径是否需要请求
  * @author huanglei
  */
 @Component
@@ -35,6 +37,7 @@ public class DynamicSecurityFilter extends AbstractSecurityInterceptor implement
     public void setMyAccessDecisionManager() {
         super.setAccessDecisionManager(dynamicAccessDecisionManager);
     }
+
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
     }

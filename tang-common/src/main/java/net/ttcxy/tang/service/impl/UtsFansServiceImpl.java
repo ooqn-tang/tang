@@ -2,8 +2,8 @@ package net.ttcxy.tang.service.impl;
 
 import cn.hutool.core.util.IdUtil;
 import net.ttcxy.tang.db.dao.UtsFansDao;
-import net.ttcxy.tang.db.dao.UtsAuthorDao;
-import net.ttcxy.tang.entity.UtsAuthorLogin;
+import net.ttcxy.tang.db.dao.UtsMemberDao;
+import net.ttcxy.tang.entity.UtsMemberLogin;
 import net.ttcxy.tang.entity.dto.UtsFansDto;
 import net.ttcxy.tang.service.CurrentAuthorService;
 import net.ttcxy.tang.service.UtsFansService;
@@ -28,7 +28,7 @@ public class UtsFansServiceImpl implements UtsFansService {
     private CurrentAuthorService currentAuthorServiceImpl;
 
     @Autowired
-    private UtsAuthorDao utsAuthorDao;
+    private UtsMemberDao utsMemberDao;
 
     @Override
     public int selectFans(String fansName){
@@ -54,16 +54,16 @@ public class UtsFansServiceImpl implements UtsFansService {
     }
 
     @Override
-    public List<UtsAuthorLogin> selectFansList(String userId) {
+    public List<UtsMemberLogin> selectFansList(String userId) {
         return utsFansDao.selectFansList(userId);
     }
 
     private UtsFansDto getFans(String fansName){
-        UtsAuthorLogin authorAuth = currentAuthorServiceImpl.getAuthor();
+        UtsMemberLogin authorAuth = currentAuthorServiceImpl.getAuthor();
         if (authorAuth ==null){
             return null;
         }
-        UtsAuthorLogin author = utsAuthorDao.selectAuthorByName(fansName);
+        UtsMemberLogin author = utsMemberDao.selectMemberByName(fansName);
         UtsFansDto utsFansDto = new UtsFansDto();
         utsFansDto.setId(IdUtil.fastSimpleUUID());
         utsFansDto.setUserId(authorAuth.getId());

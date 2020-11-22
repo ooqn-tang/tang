@@ -9,7 +9,5 @@ import java.util.List;
  * @author huanglei
  */
 public interface UtsResourceService {
-    List<UtsResourceDto> resourceList();
-
     List<UtsResourceDto> listAll();
 }

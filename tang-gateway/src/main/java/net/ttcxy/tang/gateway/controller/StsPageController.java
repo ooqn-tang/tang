@@ -1,6 +1,6 @@
 package net.ttcxy.tang.gateway.controller;
 
-import net.ttcxy.tang.entity.UtsAuthorLogin;
+import net.ttcxy.tang.entity.UtsMemberLogin;
 import net.ttcxy.tang.entity.dto.DtsBlogDto;
 import net.ttcxy.tang.service.CurrentAuthorService;
 import net.ttcxy.tang.service.DtsBlogService;
@@ -60,14 +60,14 @@ public class StsPageController {
      */
     @GetMapping("author/{username}")
     public ModelAndView toUserHome(@PathVariable("username")String username, ModelAndView modelAndView){
-        UtsAuthorLogin utsAuthorLogin = authorService.selectUserByName(username);
-        if (utsAuthorLogin == null){
+        UtsMemberLogin utsMemberLogin = authorService.selectUserByName(username);
+        if (utsMemberLogin == null){
             modelAndView.setStatus(HttpStatus.NOT_FOUND);
             modelAndView.setViewName("404");
             return modelAndView;
         }
         modelAndView.setViewName("author");
-        modelAndView.addObject(utsAuthorLogin);
+        modelAndView.addObject(utsMemberLogin);
         return modelAndView;
     }
 
@@ -77,7 +77,7 @@ public class StsPageController {
     @GetMapping("post/{id}")
     public ModelAndView toBlog(@PathVariable("id")String blogId, ModelAndView modelAndView){
 
-        UtsAuthorLogin utsAuthorLogin = currentAuthorService.getAuthor();
+        UtsMemberLogin utsMemberLogin = currentAuthorService.getAuthor();
 
         DtsBlogDto dtsBlogDto = blogService.selectBlogById(blogId);
 
@@ -87,8 +87,8 @@ public class StsPageController {
             return modelAndView;
         }
 
-        if (utsAuthorLogin !=null){
-            String userId = utsAuthorLogin.getId();
+        if (utsMemberLogin !=null){
+            String userId = utsMemberLogin.getId();
             // 是否喜欢了当前博客
             modelAndView.addObject("like",blogService.selectLike(userId,blogId));
         }

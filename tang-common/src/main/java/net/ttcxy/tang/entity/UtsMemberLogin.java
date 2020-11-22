@@ -11,7 +11,7 @@ import java.util.List;
  * 用户返回值
  * @author huanglei
  */
-public class UtsAuthorLogin implements UserDetails {
+public class UtsMemberLogin implements UserDetails {
 
     /**
      * 用户id

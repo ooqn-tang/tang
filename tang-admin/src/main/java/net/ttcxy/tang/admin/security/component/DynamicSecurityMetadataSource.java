@@ -26,28 +26,37 @@ public class DynamicSecurityMetadataSource implements FilterInvocationSecurityMe
     @Autowired
     private DynamicSecurityService dynamicSecurityService;
 
+    /**
+     * 刷新权限
+     */
     @PostConstruct
     public void loadDataSource() {
         configAttributeMap = dynamicSecurityService.loadDataSource();
     }
 
+    /**
+     * 需要对权限进行认证的请求，获取当前请求需要的权限
+     * @param o 请求路径
+     */
     @Override
     public Collection<ConfigAttribute> getAttributes(Object o) throws IllegalArgumentException {
         if (configAttributeMap == null){
             this.loadDataSource();
         }
-        List<ConfigAttribute> configAttributes = new ArrayList<>();
+        Set<ConfigAttribute> configAttributes = new HashSet<>();
         //获取当前访问的路径
         String url = ((FilterInvocation) o).getRequestUrl();
         String path = URLUtil.getPath(url);
         PathMatcher pathMatcher = new AntPathMatcher();
-        Iterator<String> iterator = configAttributeMap.keySet().iterator();
         //获取访问该路径所需资源
-        while (iterator.hasNext()) {
-            String pattern = iterator.next();
+        for (String pattern : configAttributeMap.keySet()) {
             if (pathMatcher.match(pattern, path)) {
                 configAttributes.addAll(configAttributeMap.get(pattern));
             }
+        }
+        // 没有角色添加访客角色
+        if (configAttributes.size() == 0){
+            configAttributes.add(new SecurityConfig("ROLE_ANONYMOUS"));
         }
         // 未设置操作请求权限，返回空集合
         return configAttributes;

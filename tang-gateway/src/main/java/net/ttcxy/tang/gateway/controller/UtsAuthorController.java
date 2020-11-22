@@ -8,11 +8,11 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import net.ttcxy.tang.api.ResponseResult;
 import net.ttcxy.tang.service.CurrentAuthorService;
-import net.ttcxy.tang.entity.UtsAuthorLogin;
+import net.ttcxy.tang.entity.UtsMemberLogin;
 import net.ttcxy.tang.entity.param.UtsAuthorParam;
 import net.ttcxy.tang.entity.param.UtsRegisterParam;
 import net.ttcxy.tang.service.UtsAuthorService;
-import net.ttcxy.tang.entity.model.UtsAuthor;
+import net.ttcxy.tang.entity.model.UtsMember;
 import net.ttcxy.tang.util.TextUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -46,15 +46,15 @@ public class UtsAuthorController {
             return ResponseResult.failed("昵称长度：汉字 2 ~ 8,字母 4 ~ 16");
         }
 
-        UtsAuthor author = new UtsAuthor();
+        UtsMember author = new UtsMember();
         BeanUtil.copyProperties(utsAuthorParam, author);
 
         author.setId(id);
         int count = authorService.updateAuthor(author);
         if (count > 0){
-            UtsAuthorLogin utsAuthorLogin = currentAuthorService.getAuthor();
-            utsAuthorLogin.setNickname(utsAuthorParam.getNickname());
-            utsAuthorLogin.setSignature(utsAuthorParam.getSignature());
+            UtsMemberLogin utsMemberLogin = currentAuthorService.getAuthor();
+            utsMemberLogin.setNickname(utsAuthorParam.getNickname());
+            utsMemberLogin.setSignature(utsAuthorParam.getSignature());
             return ResponseResult.success("更新成功");
         }
         return ResponseResult.failed();
@@ -88,7 +88,7 @@ public class UtsAuthorController {
         }
 
         String username = getUsername();
-        UtsAuthor author = new UtsAuthor();
+        UtsMember author = new UtsMember();
         author.setId(IdUtil.fastSimpleUUID());
         author.setPassword(password);
         author.setMail(mail);
@@ -115,13 +115,13 @@ public class UtsAuthorController {
         String mail = register.getMail();
         String password = register.getPassword();
 
-        UtsAuthorLogin utsAuthorLogin = authorService.selectLoginAuthorByMail(mail);
-        if (utsAuthorLogin == null){
+        UtsMemberLogin utsMemberLogin = authorService.selectLoginAuthorByMail(mail);
+        if (utsMemberLogin == null){
             return ResponseResult.failed("邮箱未注册");
         }
 
-        UtsAuthor author = new UtsAuthor();
-        author.setId(utsAuthorLogin.getId());
+        UtsMember author = new UtsMember();
+        author.setId(utsMemberLogin.getId());
         author.setPassword(new BCryptPasswordEncoder().encode(password));
 
         int count = authorService.updateAuthorPassword(author);

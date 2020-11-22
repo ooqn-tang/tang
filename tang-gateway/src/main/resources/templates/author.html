@@ -3,7 +3,7 @@
       xmlns:v-bind="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8" name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />
-    <title th:text="${utsAuthorLogin.username} + ' - 堂堂程序员'"></title>
+    <title th:text="${utsMemberLogin.username} + ' - 堂堂程序员'"></title>
     <link href="https://cdn.bootcss.com/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/style.css">
     <link href="https://cdn.bootcss.com/github-markdown-css/4.0.0/github-markdown.min.css" rel="stylesheet">
@@ -19,10 +19,10 @@
         <div class="col-md-4 col-md-push-8">
             <div class="panel panel-default" >
                 <div class="panel-body" >
-                    <strong th:text="${utsAuthorLogin.nickname}"></strong>
+                    <strong th:text="${utsMemberLogin.nickname}"></strong>
                     <button v-show="!isThisUser"  class="pull-right btn btn-default btn-xs" @click="followerClick" v-text="follower"></button>
                     <hr>
-                    <div>简介：<span th:text="${utsAuthorLogin.signature}"></span></div>
+                    <div>简介：<span th:text="${utsMemberLogin.signature}"></span></div>
                 </div>
             </div>
             <div class="panel panel-default">
@@ -80,7 +80,7 @@
 <script src="https://cdn.bootcss.com/twitter-bootstrap/3.3.7/js/bootstrap.js"></script>
 <script src="/js/my.js"></script>
 <script>
-    let username = '[[${utsAuthorLogin.username}]]'
+    let username = '[[${utsMemberLogin.username}]]'
     new Vue({
         el: "#app",//绑定元素
         //所有数据都放在数据属性中

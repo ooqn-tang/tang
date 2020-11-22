@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="net.ttcxy.tang.db.mapper.UtsAuthorRoleMapper">
-  <resultMap id="BaseResultMap" type="net.ttcxy.tang.entity.model.UtsAuthorRole">
+<mapper namespace="net.ttcxy.tang.db.mapper.UtsMemberRoleMapper">
+  <resultMap id="BaseResultMap" type="net.ttcxy.tang.entity.model.UtsMemberRole">
     <id column="id" jdbcType="VARCHAR" property="id" />
-    <result column="author_id" jdbcType="VARCHAR" property="authorId" />
+    <result column="member_id" jdbcType="VARCHAR" property="memberId" />
     <result column="role_id" jdbcType="VARCHAR" property="roleId" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
   </resultMap>
@@ -66,15 +66,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, author_id, role_id, create_time
+    id, member_id, role_id, create_time
   </sql>
-  <select id="selectByExample" parameterType="net.ttcxy.tang.entity.model.UtsAuthorRoleExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="net.ttcxy.tang.entity.model.UtsMemberRoleExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from uts_author_role
+    from uts_member_role
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -85,33 +85,33 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from uts_author_role
+    from uts_member_role
     where id = #{id,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-    delete from uts_author_role
+    delete from uts_member_role
     where id = #{id,jdbcType=VARCHAR}
   </delete>
-  <delete id="deleteByExample" parameterType="net.ttcxy.tang.entity.model.UtsAuthorRoleExample">
-    delete from uts_author_role
+  <delete id="deleteByExample" parameterType="net.ttcxy.tang.entity.model.UtsMemberRoleExample">
+    delete from uts_member_role
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="net.ttcxy.tang.entity.model.UtsAuthorRole">
-    insert into uts_author_role (id, author_id, role_id, 
+  <insert id="insert" parameterType="net.ttcxy.tang.entity.model.UtsMemberRole">
+    insert into uts_member_role (id, member_id, role_id, 
       create_time)
-    values (#{id,jdbcType=VARCHAR}, #{authorId,jdbcType=VARCHAR}, #{roleId,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=VARCHAR}, #{memberId,jdbcType=VARCHAR}, #{roleId,jdbcType=VARCHAR}, 
       #{createTime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="net.ttcxy.tang.entity.model.UtsAuthorRole">
-    insert into uts_author_role
+  <insert id="insertSelective" parameterType="net.ttcxy.tang.entity.model.UtsMemberRole">
+    insert into uts_member_role
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
       </if>
-      <if test="authorId != null">
-        author_id,
+      <if test="memberId != null">
+        member_id,
       </if>
       <if test="roleId != null">
         role_id,
@@ -124,8 +124,8 @@
       <if test="id != null">
         #{id,jdbcType=VARCHAR},
       </if>
-      <if test="authorId != null">
-        #{authorId,jdbcType=VARCHAR},
+      <if test="memberId != null">
+        #{memberId,jdbcType=VARCHAR},
       </if>
       <if test="roleId != null">
         #{roleId,jdbcType=VARCHAR},
@@ -135,20 +135,20 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="net.ttcxy.tang.entity.model.UtsAuthorRoleExample" resultType="java.lang.Long">
-    select count(*) from uts_author_role
+  <select id="countByExample" parameterType="net.ttcxy.tang.entity.model.UtsMemberRoleExample" resultType="java.lang.Long">
+    select count(*) from uts_member_role
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update uts_author_role
+    update uts_member_role
     <set>
       <if test="record.id != null">
         id = #{record.id,jdbcType=VARCHAR},
       </if>
-      <if test="record.authorId != null">
-        author_id = #{record.authorId,jdbcType=VARCHAR},
+      <if test="record.memberId != null">
+        member_id = #{record.memberId,jdbcType=VARCHAR},
       </if>
       <if test="record.roleId != null">
         role_id = #{record.roleId,jdbcType=VARCHAR},
@@ -162,20 +162,20 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update uts_author_role
+    update uts_member_role
     set id = #{record.id,jdbcType=VARCHAR},
-      author_id = #{record.authorId,jdbcType=VARCHAR},
+      member_id = #{record.memberId,jdbcType=VARCHAR},
       role_id = #{record.roleId,jdbcType=VARCHAR},
       create_time = #{record.createTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="net.ttcxy.tang.entity.model.UtsAuthorRole">
-    update uts_author_role
+  <update id="updateByPrimaryKeySelective" parameterType="net.ttcxy.tang.entity.model.UtsMemberRole">
+    update uts_member_role
     <set>
-      <if test="authorId != null">
-        author_id = #{authorId,jdbcType=VARCHAR},
+      <if test="memberId != null">
+        member_id = #{memberId,jdbcType=VARCHAR},
       </if>
       <if test="roleId != null">
         role_id = #{roleId,jdbcType=VARCHAR},
@@ -186,9 +186,9 @@
     </set>
     where id = #{id,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="net.ttcxy.tang.entity.model.UtsAuthorRole">
-    update uts_author_role
-    set author_id = #{authorId,jdbcType=VARCHAR},
+  <update id="updateByPrimaryKey" parameterType="net.ttcxy.tang.entity.model.UtsMemberRole">
+    update uts_member_role
+    set member_id = #{memberId,jdbcType=VARCHAR},
       role_id = #{roleId,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=VARCHAR}

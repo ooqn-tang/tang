@@ -4,7 +4,6 @@
   <resultMap id="BaseResultMap" type="net.ttcxy.tang.entity.model.UtsResource">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="parent_id" jdbcType="VARCHAR" property="parentId" />
-    <result column="node" jdbcType="VARCHAR" property="node" />
     <result column="path" jdbcType="VARCHAR" property="path" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="level" jdbcType="VARCHAR" property="level" />
@@ -70,7 +69,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, parent_id, node, path, name, level, type, create_time
+    id, parent_id, path, name, level, type, create_time
   </sql>
   <select id="selectByExample" parameterType="net.ttcxy.tang.entity.model.UtsResourceExample" resultMap="BaseResultMap">
     select
@@ -103,12 +102,12 @@
     </if>
   </delete>
   <insert id="insert" parameterType="net.ttcxy.tang.entity.model.UtsResource">
-    insert into uts_resource (id, parent_id, node, 
-      path, name, level, 
-      type, create_time)
-    values (#{id,jdbcType=INTEGER}, #{parentId,jdbcType=VARCHAR}, #{node,jdbcType=VARCHAR}, 
-      #{path,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{level,jdbcType=VARCHAR}, 
-      #{type,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP})
+    insert into uts_resource (id, parent_id, path, 
+      name, level, type, 
+      create_time)
+    values (#{id,jdbcType=INTEGER}, #{parentId,jdbcType=VARCHAR}, #{path,jdbcType=VARCHAR}, 
+      #{name,jdbcType=VARCHAR}, #{level,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="net.ttcxy.tang.entity.model.UtsResource">
     insert into uts_resource
@@ -118,9 +117,6 @@
       </if>
       <if test="parentId != null">
         parent_id,
-      </if>
-      <if test="node != null">
-        node,
       </if>
       <if test="path != null">
         path,
@@ -144,9 +140,6 @@
       </if>
       <if test="parentId != null">
         #{parentId,jdbcType=VARCHAR},
-      </if>
-      <if test="node != null">
-        #{node,jdbcType=VARCHAR},
       </if>
       <if test="path != null">
         #{path,jdbcType=VARCHAR},
@@ -180,9 +173,6 @@
       <if test="record.parentId != null">
         parent_id = #{record.parentId,jdbcType=VARCHAR},
       </if>
-      <if test="record.node != null">
-        node = #{record.node,jdbcType=VARCHAR},
-      </if>
       <if test="record.path != null">
         path = #{record.path,jdbcType=VARCHAR},
       </if>
@@ -207,7 +197,6 @@
     update uts_resource
     set id = #{record.id,jdbcType=INTEGER},
       parent_id = #{record.parentId,jdbcType=VARCHAR},
-      node = #{record.node,jdbcType=VARCHAR},
       path = #{record.path,jdbcType=VARCHAR},
       name = #{record.name,jdbcType=VARCHAR},
       level = #{record.level,jdbcType=VARCHAR},
@@ -222,9 +211,6 @@
     <set>
       <if test="parentId != null">
         parent_id = #{parentId,jdbcType=VARCHAR},
-      </if>
-      <if test="node != null">
-        node = #{node,jdbcType=VARCHAR},
       </if>
       <if test="path != null">
         path = #{path,jdbcType=VARCHAR},
@@ -247,7 +233,6 @@
   <update id="updateByPrimaryKey" parameterType="net.ttcxy.tang.entity.model.UtsResource">
     update uts_resource
     set parent_id = #{parentId,jdbcType=VARCHAR},
-      node = #{node,jdbcType=VARCHAR},
       path = #{path,jdbcType=VARCHAR},
       name = #{name,jdbcType=VARCHAR},
       level = #{level,jdbcType=VARCHAR},

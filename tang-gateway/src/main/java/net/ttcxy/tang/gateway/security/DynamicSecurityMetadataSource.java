@@ -28,7 +28,7 @@ public class DynamicSecurityMetadataSource implements FilterInvocationSecurityMe
     @Override
     public Collection<ConfigAttribute> getAttributes(Object object) throws IllegalArgumentException {
         String requestUrl = ((FilterInvocation) object).getRequestUrl();
-        List<UtsResourceDto> resourceList = utsResourceService.resourceList();
+        List<UtsResourceDto> resourceList = utsResourceService.listAll();
         for (UtsResourceDto utsResourceDto : resourceList){
             if (antPathMatcher.match(utsResourceDto.getPath(),requestUrl)){
                 List<UtsRoleDto> roles = utsResourceDto.getRoleDtoList();

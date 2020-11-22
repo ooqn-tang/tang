@@ -1,6 +1,6 @@
 package net.ttcxy.tang.entity.dto;
 
-import net.ttcxy.tang.entity.model.UtsAuthor;
+import net.ttcxy.tang.entity.model.UtsMember;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -10,18 +10,18 @@ import java.util.Set;
 /**
  * @author huanglei
  */
-public class UtsAuthorDto implements UserDetails {
+public class UtsMemberDto implements UserDetails {
 
-    private UtsAuthor utsAuthor;
+    private UtsMember utsMember;
 
     private Set<UtsRoleDto> utsRoleDto;
 
-    public UtsAuthor getUtsAuthor() {
-        return utsAuthor;
+    public UtsMember getUtsMember() {
+        return utsMember;
     }
 
-    public void setUtsAuthor(UtsAuthor utsAuthor) {
-        this.utsAuthor = utsAuthor;
+    public void setUtsMember(UtsMember utsMember) {
+        this.utsMember = utsMember;
     }
 
     @Override
@@ -31,12 +31,12 @@ public class UtsAuthorDto implements UserDetails {
 
     @Override
     public String getPassword() {
-        return utsAuthor.getPassword();
+        return utsMember.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return utsAuthor.getUsername();
+        return utsMember.getUsername();
     }
 
     @Override
@@ -60,6 +60,6 @@ public class UtsAuthorDto implements UserDetails {
     }
 
     public void setPassword(String o) {
-        utsAuthor.setPassword(o);
+        utsMember.setPassword(o);
     }
 }

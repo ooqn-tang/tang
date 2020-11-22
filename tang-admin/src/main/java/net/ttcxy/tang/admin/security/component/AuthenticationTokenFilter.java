@@ -20,6 +20,8 @@ import java.util.Map;
 
 /**
  * JWT登录授权过滤器
+ * 逻辑：
+ * 每个请求都会进入到这，用于检测请求中的token是否有效
  * @author huanglei
  */
 @Component
@@ -47,6 +49,6 @@ public class AuthenticationTokenFilter extends OncePerRequestFilter {
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }
         }
-        chain.doFilter(request, response);
+            chain.doFilter(request, response);
     }
 }

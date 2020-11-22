@@ -10,9 +10,6 @@ public class UtsResource implements Serializable {
     @ApiModelProperty(value = "父ID")
     private String parentId;
 
-    @ApiModelProperty(value = "节点")
-    private String node;
-
     @ApiModelProperty(value = "路径")
     private String path;
 
@@ -43,14 +40,6 @@ public class UtsResource implements Serializable {
 
     public void setParentId(String parentId) {
         this.parentId = parentId;
-    }
-
-    public String getNode() {
-        return node;
-    }
-
-    public void setNode(String node) {
-        this.node = node;
     }
 
     public String getPath() {
@@ -101,7 +90,6 @@ public class UtsResource implements Serializable {
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
         sb.append(", parentId=").append(parentId);
-        sb.append(", node=").append(node);
         sb.append(", path=").append(path);
         sb.append(", name=").append(name);
         sb.append(", level=").append(level);

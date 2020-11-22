@@ -4,7 +4,7 @@ import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 import java.util.Date;
 
-public class UtsAuthor implements Serializable {
+public class UtsMember implements Serializable {
     private String id;
 
     private String username;

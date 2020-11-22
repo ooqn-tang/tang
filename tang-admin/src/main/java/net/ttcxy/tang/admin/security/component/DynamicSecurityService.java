@@ -7,6 +7,7 @@ import java.util.Map;
 
 /**
  * 动态权限相关业务类
+ * 加载所有资源需要的权限
  * @author huanglei
  */
 public interface DynamicSecurityService {

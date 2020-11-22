@@ -5,7 +5,7 @@
 <mapper namespace="net.ttcxy.tang.db.dao.DtsBlogDao">
     <select id="selectBlog" resultType="net.ttcxy.tang.entity.dto.DtsBlogDto">
       select b.id,title,create_date  createDate,username,nickname
-        FROM `dts_blog` b,`uts_author` u
+        FROM `dts_blog` b,`uts_member` u
         where u.id = b.user_id
         and  b.state_id = 1
         order by create_date desc
@@ -21,13 +21,13 @@
     </select>
     <select id="selectByIdTitle" resultType="net.ttcxy.tang.entity.dto.DtsBlogDto">
         select b.id,title,create_date createDate,username,nickname
-        FROM `dts_blog` b,`uts_author` u
+        FROM `dts_blog` b,`uts_member` u
         where u.id = b.user_id
         and  b.id = #{id}
     </select>
     <select id="search" resultType="net.ttcxy.tang.entity.dto.DtsBlogDto">
         select b.id,title,create_date createDate,username,nickname
-        FROM `dts_blog` b,`uts_author` u
+        FROM `dts_blog` b,`uts_member` u
         where u.id = b.user_id
         and  b.state_id = 1
         and b.title LIKE concat("%"#{title},"%")
@@ -36,14 +36,14 @@
 
     <select id="selectBlogById" resultType="net.ttcxy.tang.entity.dto.DtsBlogDto">
         select b.id,b.title,b.create_date createDate,b.text,u.username,nickname
-        from `dts_blog` b,`uts_author` u
+        from `dts_blog` b,`uts_member` u
         where b.user_id = u.id
         and b.id = #{id}
     </select>
 
     <select id="searchByUsername" resultType="net.ttcxy.tang.entity.dto.DtsBlogDto">
         select *, create_date  createDate
-        from `dts_blog` b, `uts_author` u
+        from `dts_blog` b, `uts_member` u
         where b.user_id = u.id
         and username = #{username}
         order by b.create_date desc
@@ -51,7 +51,7 @@
 
     <select id="selectLikeBlogs" resultType="net.ttcxy.tang.entity.dto.DtsBlogDto">
         select  b.id,b.title,b.create_date createDate,u.username
-        from `dts_like_data` l ,`uts_author` u,`dts_blog` b
+        from `dts_like_data` l ,`uts_member` u,`dts_blog` b
         where u.id = l.user_id
         and b.id = l.blog_id
         and u.username = #{username}

@@ -3,13 +3,10 @@ package net.ttcxy.tang.admin.controller;
 
 import cn.hutool.core.util.IdUtil;
 import net.ttcxy.tang.admin.security.component.AuthenticationTokenFilter;
-import net.ttcxy.tang.entity.UtsAuthorLogin;
-import net.ttcxy.tang.entity.dto.UtsAuthorDto;
 
 import net.ttcxy.tang.api.ResponseResult;
 
-import net.ttcxy.tang.entity.model.UtsAuthor;
-import net.ttcxy.tang.service.UtsAuthorService;
+import net.ttcxy.tang.entity.model.UtsMember;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -28,14 +25,14 @@ public class LoginController {
 
 
     @PostMapping("token")
-    public ResponseResult<?> token(@RequestBody UtsAuthor utsAuthor){
+    public ResponseResult<?> token(@RequestBody UtsMember utsMember){
 
-        UserDetails userDetails = userDetailsService.loadUserByUsername(utsAuthor.getUsername());
+        UserDetails userDetails = userDetailsService.loadUserByUsername(utsMember.getUsername());
         if (userDetails == null){
             return ResponseResult.failed("用户名不存在");
         }
         String pwd = userDetails.getPassword();
-        boolean matches = new BCryptPasswordEncoder().matches(utsAuthor.getPassword(), pwd);
+        boolean matches = new BCryptPasswordEncoder().matches(utsMember.getPassword(), pwd);
         if (matches){
             String uuid = IdUtil.fastSimpleUUID();
             AuthenticationTokenFilter.authorDtoMap.put(uuid,userDetails);

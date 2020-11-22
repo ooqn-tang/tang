@@ -2,12 +2,12 @@ package net.ttcxy.tang.service.impl;
 
 import cn.hutool.core.util.IdUtil;
 import com.github.pagehelper.PageHelper;
-import net.ttcxy.tang.db.dao.UtsAuthorDao;
-import net.ttcxy.tang.entity.UtsAuthorLogin;
+import net.ttcxy.tang.db.dao.UtsMemberDao;
+import net.ttcxy.tang.entity.UtsMemberLogin;
 import net.ttcxy.tang.service.UtsAuthorService;
-import net.ttcxy.tang.db.mapper.UtsAuthorMapper;
-import net.ttcxy.tang.entity.model.UtsAuthor;
-import net.ttcxy.tang.entity.model.UtsAuthorExample;
+import net.ttcxy.tang.db.mapper.UtsMemberMapper;
+import net.ttcxy.tang.entity.model.UtsMember;
+import net.ttcxy.tang.entity.model.UtsMemberExample;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -23,23 +23,23 @@ import java.util.List;
 public class UtsAuthorServiceImpl implements UtsAuthorService {
 
     @Autowired
-    private UtsAuthorDao utsAuthorDao;
+    private UtsMemberDao utsMemberDao;
 
     @Autowired
-    private UtsAuthorMapper authorMapper;
+    private UtsMemberMapper authorMapper;
 
     @Override
-    public UtsAuthorLogin selectUserByName(String username) {
-        return utsAuthorDao.selectAuthorByName(username);
+    public UtsMemberLogin selectUserByName(String username) {
+        return utsMemberDao.selectMemberByName(username);
     }
 
     @Override
-    public UtsAuthorLogin selectLoginAuthorByMail(String mail) {
-        return utsAuthorDao.selectAuthorByMail(mail);
+    public UtsMemberLogin selectLoginAuthorByMail(String mail) {
+        return utsMemberDao.selectMemberByMail(mail);
     }
 
     @Override
-    public int insertAuthor(UtsAuthor author) throws DuplicateKeyException {
+    public int insertAuthor(UtsMember author) throws DuplicateKeyException {
         author.setId(IdUtil.simpleUUID());
         String password = author.getPassword();
         String encodePassword = new BCryptPasswordEncoder().encode(password);
@@ -48,41 +48,41 @@ public class UtsAuthorServiceImpl implements UtsAuthorService {
     }
 
     @Override
-    public int updateAuthor(UtsAuthor author) {
+    public int updateAuthor(UtsMember author) {
         return authorMapper.updateByPrimaryKeySelective(author);
     }
 
 
     @Override
-    public int updateAuthorPassword(UtsAuthor author) {
+    public int updateAuthorPassword(UtsMember author) {
         return authorMapper.updateByPrimaryKeySelective(author);
     }
 
     @Override
     public Boolean selectUsernameIsTrue(String username) {
-        int count = utsAuthorDao.selectUsernameIsTrue(username);
+        int count = utsMemberDao.selectUsernameIsTrue(username);
         return count > 0;
     }
 
     @Override
     public Boolean selectNicknameIsTrue(String nickname) {
-        int count = utsAuthorDao.selectNicknameIsTrue(nickname);
+        int count = utsMemberDao.selectNicknameIsTrue(nickname);
         return count > 0;
     }
 
     @Override
     public Boolean selectMailIsTrue(String username) {
-        int count = utsAuthorDao.selectEmailIsTrue(username);
+        int count = utsMemberDao.selectEmailIsTrue(username);
         return count > 0;
     }
 
     @Override
     public int updateUserByMail(String mail,String password) {
 
-        UtsAuthor author = new UtsAuthor();
+        UtsMember author = new UtsMember();
         author.setPassword(password);
 
-        UtsAuthorExample authorExample = new UtsAuthorExample();
+        UtsMemberExample authorExample = new UtsMemberExample();
         authorExample.createCriteria().andMailEqualTo(mail).andPasswordEqualTo(password);
 
         return authorMapper.updateByExampleSelective(author, authorExample);
@@ -90,8 +90,8 @@ public class UtsAuthorServiceImpl implements UtsAuthorService {
     }
 
     @Override
-    public List<UtsAuthor> listAuthor(Integer page){
+    public List<UtsMember> listAuthor(Integer page){
         PageHelper.startPage(page, 10);
-        return authorMapper.selectByExample(new UtsAuthorExample());
+        return authorMapper.selectByExample(new UtsMemberExample());
     }
 }

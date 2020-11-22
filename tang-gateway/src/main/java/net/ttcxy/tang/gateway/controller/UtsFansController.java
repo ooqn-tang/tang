@@ -3,8 +3,8 @@ package net.ttcxy.tang.gateway.controller;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import net.ttcxy.tang.api.ResponseResult;
+import net.ttcxy.tang.entity.UtsMemberLogin;
 import net.ttcxy.tang.service.CurrentAuthorService;
-import net.ttcxy.tang.entity.UtsAuthorLogin;
 import net.ttcxy.tang.service.UtsFansService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -32,7 +32,7 @@ public class UtsFansController {
     @ApiOperation("关注的作者列表")
     public ResponseResult<?> fansList(){
         String authorId = currentAuthorService.getAuthor().getId();
-        List<UtsAuthorLogin> fansList = fansService.selectFansList(authorId);
+        List<UtsMemberLogin> fansList = fansService.selectFansList(authorId);
         return ResponseResult.success(fansList);
     }
 

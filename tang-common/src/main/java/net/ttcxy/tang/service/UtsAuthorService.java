@@ -1,7 +1,7 @@
 package net.ttcxy.tang.service;
 
-import net.ttcxy.tang.entity.UtsAuthorLogin;
-import net.ttcxy.tang.entity.model.UtsAuthor;
+import net.ttcxy.tang.entity.UtsMemberLogin;
+import net.ttcxy.tang.entity.model.UtsMember;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,7 +18,7 @@ public interface UtsAuthorService {
      * @param name 用户名
      * @return 登录用户
      */
-    UtsAuthorLogin selectUserByName(String name) ;
+    UtsMemberLogin selectUserByName(String name) ;
 
 
     /**
@@ -26,28 +26,28 @@ public interface UtsAuthorService {
      * @param mail 邮箱
      * @return 登录用户
      */
-    UtsAuthorLogin selectLoginAuthorByMail(String mail);
+    UtsMemberLogin selectLoginAuthorByMail(String mail);
 
     /**
      * 添加用户
      * @param author user
      * @return 影响的行数
      */
-    int insertAuthor(UtsAuthor author);
+    int insertAuthor(UtsMember author);
 
     /**
      * 更新用户
      * @param author user
      * @return 影响的行数
      */
-    int updateAuthor(UtsAuthor author);
+    int updateAuthor(UtsMember author);
 
     /**
      * 更新密码
      * @param author user
      * @return 影响的行数
      */
-    int updateAuthorPassword(UtsAuthor author);
+    int updateAuthorPassword(UtsMember author);
 
     /**
      * 用户是否存在
@@ -83,7 +83,7 @@ public interface UtsAuthorService {
      * @param page 页码
      * @return 列表
      */
-    List<UtsAuthor> listAuthor(Integer page);
+    List<UtsMember> listAuthor(Integer page);
 
 
 

@@ -1,12 +1,13 @@
 package net.ttcxy.tang.entity.model;
 
+import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 import java.util.Date;
 
-public class UtsAuthorRole implements Serializable {
+public class UtsMemberRole implements Serializable {
     private String id;
 
-    private String authorId;
+    private String memberId;
 
     private String roleId;
 
@@ -22,12 +23,12 @@ public class UtsAuthorRole implements Serializable {
         this.id = id;
     }
 
-    public String getAuthorId() {
-        return authorId;
+    public String getMemberId() {
+        return memberId;
     }
 
-    public void setAuthorId(String authorId) {
-        this.authorId = authorId;
+    public void setMemberId(String memberId) {
+        this.memberId = memberId;
     }
 
     public String getRoleId() {
@@ -53,7 +54,7 @@ public class UtsAuthorRole implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
-        sb.append(", authorId=").append(authorId);
+        sb.append(", memberId=").append(memberId);
         sb.append(", roleId=").append(roleId);
         sb.append(", createTime=").append(createTime);
         sb.append(", serialVersionUID=").append(serialVersionUID);

@@ -19,6 +19,14 @@ import java.util.Iterator;
 @Component
 public class DynamicAccessDecisionManager implements AccessDecisionManager {
 
+    /**
+     *
+     * @param authentication 当前用户的消息
+     * @param object
+     * @param configAttributes 当前路径需要的权限
+     * @throws AccessDeniedException 访问被拒绝的异常
+     * @throws InsufficientAuthenticationException 身份验证异常不足
+     */
     @Override
     public void decide(Authentication authentication, Object object,
                        Collection<ConfigAttribute> configAttributes) throws AccessDeniedException, InsufficientAuthenticationException {

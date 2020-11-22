@@ -32,7 +32,7 @@
 
         <javaModelGenerator targetPackage="net.ttcxy.tang.entity.model" targetProject="tang-common\src\main\java"/>
 
-        <sqlMapGenerator targetPackage="mapper" targetProject="tang-common\src\main\resources"/>
+        <sqlMapGenerator targetPackage="mapper" targetProject="tang-common\src\main\resources\db"/>
 
         <javaClientGenerator type="XMLMAPPER" targetPackage="net.ttcxy.tang.db.mapper" targetProject="tang-common\src\main\java"/>
         <!--生成全部表tableName设为%-->

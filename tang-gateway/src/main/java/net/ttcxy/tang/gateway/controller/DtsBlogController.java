@@ -7,8 +7,8 @@ import cn.hutool.core.util.StrUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import net.ttcxy.tang.api.ResponseResult;
+import net.ttcxy.tang.entity.UtsMemberLogin;
 import net.ttcxy.tang.service.CurrentAuthorService;
-import net.ttcxy.tang.entity.UtsAuthorLogin;
 import net.ttcxy.tang.entity.dto.DtsCommentDto;
 import net.ttcxy.tang.entity.param.DtsBlogCommentParam;
 import net.ttcxy.tang.entity.param.DtsBlogParam;
@@ -143,7 +143,7 @@ public class DtsBlogController {
     @ApiOperation("添加博客评论")
     public ResponseResult<?> insertComment(@RequestBody @Valid DtsBlogCommentParam dtsBlogCommentParam){
 
-        UtsAuthorLogin user = currentAuthorServiceImpl.getAuthor();
+        UtsMemberLogin user = currentAuthorServiceImpl.getAuthor();
 
         DtsBlogComment blogComment = new DtsBlogComment();
         BeanUtil.copyProperties(dtsBlogCommentParam,blogComment);
@@ -188,7 +188,7 @@ public class DtsBlogController {
     public ResponseResult<?> load(@RequestParam(name="blog",required = false) String blogId){
 
         DtsBlog blog = blogService.selectByPrimaryId(blogId);
-        UtsAuthorLogin author = currentAuthorServiceImpl.getAuthor();
+        UtsMemberLogin author = currentAuthorServiceImpl.getAuthor();
         if(blog.getUserId().equals(author.getId())){
             return ResponseResult.success(blog);
         }else{
@@ -199,7 +199,7 @@ public class DtsBlogController {
     @GetMapping("/like/{id}/insert")
     @ApiOperation("喜欢blog.如果数据库不存在，推荐，如果存在就取消。")
     public ResponseResult<?> like(@PathVariable("id") String id){
-        UtsAuthorLogin author = currentAuthorServiceImpl.getAuthor();
+        UtsMemberLogin author = currentAuthorServiceImpl.getAuthor();
         return ResponseResult.success(blogService.like(author.getId(),id));
     }
 }

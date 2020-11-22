@@ -1,6 +1,6 @@
 package net.ttcxy.tang.service;
 
-import net.ttcxy.tang.entity.UtsAuthorLogin;
+import net.ttcxy.tang.entity.UtsMemberLogin;
 
 /**
  * 获取当前用户消息
@@ -11,7 +11,7 @@ public interface CurrentAuthorService {
      * 获取当前作者
      * @return LoginUser
      */
-    UtsAuthorLogin getAuthor();
+    UtsMemberLogin getAuthor();
 
     /**
      * 获取当前作者Id
