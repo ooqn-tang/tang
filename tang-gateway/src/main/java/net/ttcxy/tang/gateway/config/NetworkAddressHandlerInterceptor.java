@@ -1,7 +1,7 @@
 package net.ttcxy.tang.gateway.config;
 
 import net.ttcxy.tang.entity.UtsMemberLogin;
-import net.ttcxy.tang.service.CurrentAuthorService;
+import net.ttcxy.tang.service.CurrentMemberService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,14 +21,14 @@ public class NetworkAddressHandlerInterceptor implements HandlerInterceptor {
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     @Autowired
-    private CurrentAuthorService currentAuthorService;
+    private CurrentMemberService currentMemberService;
 
     /**
      * 记录请求IP
      */
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
-        UtsMemberLogin author = currentAuthorService.getAuthor();
+        UtsMemberLogin author = currentMemberService.getMember();
         String userId = author == null ? "未登陆用户": author.getId();
         String address = request.getLocalAddr();
         logger.info("userId ：{}，address ：{}" , userId , address);

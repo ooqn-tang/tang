@@ -13,7 +13,7 @@ import java.util.List;
 public interface DtsBlogService {
 
 
-    PageInfo<DtsBlogDto> showDt(Integer page);
+    PageInfo<DtsBlogDto> getBlogList(Integer page);
 
 
     /**
@@ -29,7 +29,7 @@ public interface DtsBlogService {
      * @param username 用户名
      * @return BlogDto list
      */
-    PageInfo<DtsBlogDto> searchByUsername(String username, Integer page);
+    PageInfo<DtsBlogDto> selectBlogByUsername(String username, Integer page);
 
 
     /**

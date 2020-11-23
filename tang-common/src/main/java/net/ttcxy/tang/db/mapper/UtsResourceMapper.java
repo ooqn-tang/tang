@@ -10,7 +10,7 @@ public interface UtsResourceMapper {
 
     int deleteByExample(UtsResourceExample example);
 
-    int deleteByPrimaryKey(Integer id);
+    int deleteByPrimaryKey(String id);
 
     int insert(UtsResource record);
 
@@ -18,7 +18,7 @@ public interface UtsResourceMapper {
 
     List<UtsResource> selectByExample(UtsResourceExample example);
 
-    UtsResource selectByPrimaryKey(Integer id);
+    UtsResource selectByPrimaryKey(String id);
 
     int updateByExampleSelective(@Param("record") UtsResource record, @Param("example") UtsResourceExample example);
 

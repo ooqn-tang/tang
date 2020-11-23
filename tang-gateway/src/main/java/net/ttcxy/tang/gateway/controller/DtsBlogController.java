@@ -8,7 +8,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import net.ttcxy.tang.api.ResponseResult;
 import net.ttcxy.tang.entity.UtsMemberLogin;
-import net.ttcxy.tang.service.CurrentAuthorService;
+import net.ttcxy.tang.service.CurrentMemberService;
 import net.ttcxy.tang.entity.dto.DtsCommentDto;
 import net.ttcxy.tang.entity.param.DtsBlogCommentParam;
 import net.ttcxy.tang.entity.param.DtsBlogParam;
@@ -40,7 +40,7 @@ public class DtsBlogController {
     private DtsBlogService blogService;
 
     @Autowired
-    private CurrentAuthorService currentAuthorServiceImpl;
+    private CurrentMemberService currentMemberServiceImpl;
 
     @Autowired
     private DtsCommentService commentService;
@@ -50,7 +50,7 @@ public class DtsBlogController {
     public ResponseResult<?> blogList(
             @PathVariable("username") String username,
             @RequestParam(value = "page" ,defaultValue = "1")Integer page){
-        return  ResponseResult.success(blogService.searchByUsername(username,page));
+        return  ResponseResult.success(blogService.selectBlogByUsername(username,page));
     }
 
     @GetMapping("random")
@@ -82,7 +82,7 @@ public class DtsBlogController {
         Date date = DateUtil.date();
         String uuid = IdUtil.simpleUUID();
         blog.setId(uuid);
-        blog.setUserId(currentAuthorServiceImpl.getAuthorId());
+        blog.setUserId(currentMemberServiceImpl.getMemberId());
         blog.setStateId(1);
         blog.setCreateDate(date);
         blog.setUpdateDate(date);
@@ -101,8 +101,8 @@ public class DtsBlogController {
     public ResponseResult<?> delete(@PathVariable("id") String id){
 
         String userId = blogService.selectByPrimaryId(id).getUserId();
-        if (currentAuthorServiceImpl.getAuthor()!=null){
-            if(StrUtil.equals(currentAuthorServiceImpl.getAuthor().getId(),userId)){
+        if (currentMemberServiceImpl.getMember()!=null){
+            if(StrUtil.equals(currentMemberServiceImpl.getMember().getId(),userId)){
                 int count = blogService.deleteBlog(id);
                 if(count > 0){
                     return ResponseResult.success("成功删除");
@@ -143,7 +143,7 @@ public class DtsBlogController {
     @ApiOperation("添加博客评论")
     public ResponseResult<?> insertComment(@RequestBody @Valid DtsBlogCommentParam dtsBlogCommentParam){
 
-        UtsMemberLogin user = currentAuthorServiceImpl.getAuthor();
+        UtsMemberLogin user = currentMemberServiceImpl.getMember();
 
         DtsBlogComment blogComment = new DtsBlogComment();
         BeanUtil.copyProperties(dtsBlogCommentParam,blogComment);
@@ -179,7 +179,7 @@ public class DtsBlogController {
     public ResponseResult<?> selectComment(@PathVariable("blogId") String blogId){
         Map<String,Object> map = new HashMap<>();
         map.put("comments",commentService.selectComments(blogId));
-        map.put("author", currentAuthorServiceImpl.getAuthor());
+        map.put("author", currentMemberServiceImpl.getMember());
         return ResponseResult.success(map);
     }
 
@@ -188,7 +188,7 @@ public class DtsBlogController {
     public ResponseResult<?> load(@RequestParam(name="blog",required = false) String blogId){
 
         DtsBlog blog = blogService.selectByPrimaryId(blogId);
-        UtsMemberLogin author = currentAuthorServiceImpl.getAuthor();
+        UtsMemberLogin author = currentMemberServiceImpl.getMember();
         if(blog.getUserId().equals(author.getId())){
             return ResponseResult.success(blog);
         }else{
@@ -199,7 +199,7 @@ public class DtsBlogController {
     @GetMapping("/like/{id}/insert")
     @ApiOperation("喜欢blog.如果数据库不存在，推荐，如果存在就取消。")
     public ResponseResult<?> like(@PathVariable("id") String id){
-        UtsMemberLogin author = currentAuthorServiceImpl.getAuthor();
+        UtsMemberLogin author = currentMemberServiceImpl.getMember();
         return ResponseResult.success(blogService.like(author.getId(),id));
     }
 }

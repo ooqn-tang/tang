@@ -4,7 +4,6 @@ import net.ttcxy.tang.api.ResponseResult;
 import net.ttcxy.tang.entity.model.UtsMember;
 import net.ttcxy.tang.service.UtsMemberService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,7 +27,7 @@ public class UtsMemberController {
 
     @PostMapping("list")
     public ResponseResult<?> memberList(){
-        List<UtsMember> utsMembers = utsMemberService.listAuthor(100);
+        List<UtsMember> utsMembers = utsMemberService.memberList(100);
         return ResponseResult.success(utsMembers);
     }
 }

@@ -18,7 +18,7 @@ public interface UtsMemberService {
      * @param name 用户名
      * @return 登录用户
      */
-    UtsMemberLogin selectUserByName(String name) ;
+    UtsMemberLogin selectMemberByName(String name) ;
 
 
     /**
@@ -26,28 +26,21 @@ public interface UtsMemberService {
      * @param mail 邮箱
      * @return 登录用户
      */
-    UtsMemberLogin selectLoginMemberByMail(String mail);
+    UtsMemberLogin selectMemberByMail(String mail);
 
     /**
      * 添加用户
      * @param author user
      * @return 影响的行数
      */
-    int insertAuthor(UtsMember author);
+    int insertMember(UtsMember author);
 
     /**
      * 更新用户
-     * @param author user
+     * @param member user
      * @return 影响的行数
      */
-    int updateAuthor(UtsMember author);
-
-    /**
-     * 更新密码
-     * @param author user
-     * @return 影响的行数
-     */
-    int updateAuthorPassword(UtsMember author);
+    int updateMember(UtsMember member);
 
     /**
      * 用户是否存在
@@ -71,19 +64,11 @@ public interface UtsMemberService {
     Boolean selectMailIsTrue(String mail);
 
     /**
-     * 通过邮箱更新用户
-     * @param mail 邮箱
-     * @param password 密码
-     * @return 影响的行数
-     */
-    int updateUserByMail(String mail,String password);
-
-    /**
      * 用户列表
      * @param page 页码
      * @return 列表
      */
-    List<UtsMember> listAuthor(Integer page);
+    List<UtsMember> memberList(Integer page);
 
 
 

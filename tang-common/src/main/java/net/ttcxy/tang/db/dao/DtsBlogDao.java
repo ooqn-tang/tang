@@ -24,7 +24,7 @@ public interface DtsBlogDao {
      * 博客列表
      * @return 博客列表
      */
-    List<DtsBlogDto> selectBlogDt();
+    List<DtsBlogDto> getBlogList();
 
     /**
      * 模糊查询

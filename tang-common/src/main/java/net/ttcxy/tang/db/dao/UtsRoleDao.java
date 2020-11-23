@@ -9,4 +9,6 @@ import java.util.List;
  */
 public interface UtsRoleDao {
     List<UtsRoleDto> selectRoleListByMemberId(String authorId);
+
+    List<UtsRoleDto> getTreeRoles();
 }

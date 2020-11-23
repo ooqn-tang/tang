@@ -2,7 +2,7 @@ package net.ttcxy.tang.service.impl;
 
 import net.ttcxy.tang.db.dao.DtsCommentDao;
 import net.ttcxy.tang.entity.dto.DtsCommentDto;
-import net.ttcxy.tang.service.CurrentAuthorService;
+import net.ttcxy.tang.service.CurrentMemberService;
 import net.ttcxy.tang.service.DtsCommentService;
 import net.ttcxy.tang.db.mapper.DtsBlogCommentMapper;
 import net.ttcxy.tang.entity.model.DtsBlogComment;
@@ -26,7 +26,7 @@ public class DtsCommentServiceImpl implements DtsCommentService {
     private DtsBlogCommentMapper blogCommentMapper;
 
     @Autowired
-    private CurrentAuthorService currentAuthorServiceImpl;
+    private CurrentMemberService currentMemberServiceImpl;
 
     @Override
     public int insertComment(DtsBlogComment blogComment) {
@@ -35,7 +35,7 @@ public class DtsCommentServiceImpl implements DtsCommentService {
 
     @Override
     public int deleteComment(String commentId) {
-        String userId = currentAuthorServiceImpl.getAuthorId();
+        String userId = currentMemberServiceImpl.getMemberId();
         DtsBlogCommentExample blogCommentExample = new DtsBlogCommentExample();
         blogCommentExample.createCriteria()
                 .andUserIdEqualTo(userId)

@@ -11,7 +11,7 @@
       <result column="mail" jdbcType="VARCHAR" property="mail" />
   </resultMap>
 
-    <select id="selectEmailIsTrue" resultType="integer">
+    <select id="selectMailIsTrue" resultType="integer">
         select count(1)
         from `uts_member`
         where mail = #{mail}

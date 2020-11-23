@@ -6,15 +6,12 @@ import net.ttcxy.tang.admin.security.component.AuthenticationTokenFilter;
 
 import net.ttcxy.tang.api.ResponseResult;
 
-import net.ttcxy.tang.entity.UtsMemberLogin;
 import net.ttcxy.tang.entity.model.UtsMember;
-import net.ttcxy.tang.service.CurrentAuthorService;
+import net.ttcxy.tang.service.CurrentMemberService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -48,11 +45,11 @@ public class LoginController {
     }
 
     @Autowired
-    private CurrentAuthorService currentAuthorService;
+    private CurrentMemberService currentMemberService;
 
     @GetMapping("info")
     public ResponseResult<?> info(){
-        return ResponseResult.success(currentAuthorService.getAuthor());
+        return ResponseResult.success(currentMemberService.getMember());
     }
 
 

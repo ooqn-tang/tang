@@ -5,7 +5,7 @@ import net.ttcxy.tang.db.dao.UtsFansDao;
 import net.ttcxy.tang.db.dao.UtsMemberDao;
 import net.ttcxy.tang.entity.UtsMemberLogin;
 import net.ttcxy.tang.entity.dto.UtsFansDto;
-import net.ttcxy.tang.service.CurrentAuthorService;
+import net.ttcxy.tang.service.CurrentMemberService;
 import net.ttcxy.tang.service.UtsFansService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
@@ -25,7 +25,7 @@ public class UtsFansServiceImpl implements UtsFansService {
     private UtsFansDao utsFansDao;
 
     @Autowired
-    private CurrentAuthorService currentAuthorServiceImpl;
+    private CurrentMemberService currentMemberServiceImpl;
 
     @Autowired
     private UtsMemberDao utsMemberDao;
@@ -59,7 +59,7 @@ public class UtsFansServiceImpl implements UtsFansService {
     }
 
     private UtsFansDto getFans(String fansName){
-        UtsMemberLogin authorAuth = currentAuthorServiceImpl.getAuthor();
+        UtsMemberLogin authorAuth = currentMemberServiceImpl.getMember();
         if (authorAuth ==null){
             return null;
         }

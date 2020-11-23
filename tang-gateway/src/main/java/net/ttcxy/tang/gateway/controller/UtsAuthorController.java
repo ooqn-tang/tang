@@ -7,7 +7,7 @@ import cn.hutool.core.util.StrUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import net.ttcxy.tang.api.ResponseResult;
-import net.ttcxy.tang.service.CurrentAuthorService;
+import net.ttcxy.tang.service.CurrentMemberService;
 import net.ttcxy.tang.entity.UtsMemberLogin;
 import net.ttcxy.tang.entity.param.UtsAuthorParam;
 import net.ttcxy.tang.entity.param.UtsRegisterParam;
@@ -31,7 +31,7 @@ import javax.validation.constraints.NotNull;
 public class UtsAuthorController {
 
     @Autowired
-    private CurrentAuthorService currentAuthorService;
+    private CurrentMemberService currentMemberService;
 
     @Autowired
     private UtsMemberService authorService;
@@ -39,7 +39,7 @@ public class UtsAuthorController {
     @PostMapping(value = "update")
     @ApiOperation("更新作者")
     public ResponseResult<?> updateAuthor(@RequestBody @Valid UtsAuthorParam utsAuthorParam){
-        String id = currentAuthorService.getAuthor().getId();
+        String id = currentMemberService.getMember().getId();
         String nickname = utsAuthorParam.getNickname();
         int length = TextUtil.byteSize(nickname);
         if (StrUtil.isNotBlank(nickname) && (length > 16 || length < 4)){
@@ -50,9 +50,9 @@ public class UtsAuthorController {
         BeanUtil.copyProperties(utsAuthorParam, author);
 
         author.setId(id);
-        int count = authorService.updateAuthor(author);
+        int count = authorService.updateMember(author);
         if (count > 0){
-            UtsMemberLogin utsMemberLogin = currentAuthorService.getAuthor();
+            UtsMemberLogin utsMemberLogin = currentMemberService.getMember();
             utsMemberLogin.setNickname(utsAuthorParam.getNickname());
             utsMemberLogin.setSignature(utsAuthorParam.getSignature());
             return ResponseResult.success("更新成功");
@@ -68,7 +68,7 @@ public class UtsAuthorController {
      */
     @PostMapping("list")
     public ResponseResult<?> listAuthor(@RequestParam(defaultValue = "1") Integer page){
-        return ResponseResult.success(authorService.listAuthor(page));
+        return ResponseResult.success(authorService.memberList(page));
     }
 
     /**
@@ -95,7 +95,7 @@ public class UtsAuthorController {
         author.setNickname(username);
         author.setUsername(username);
 
-        int count = authorService.insertAuthor(author);
+        int count = authorService.insertMember(author);
         if (count > 0){
             return ResponseResult.success("注册成功");
         }
@@ -115,16 +115,16 @@ public class UtsAuthorController {
         String mail = register.getMail();
         String password = register.getPassword();
 
-        UtsMemberLogin utsMemberLogin = authorService.selectLoginMemberByMail(mail);
+        UtsMemberLogin utsMemberLogin = authorService.selectMemberByMail(mail);
         if (utsMemberLogin == null){
             return ResponseResult.failed("邮箱未注册");
         }
 
-        UtsMember author = new UtsMember();
-        author.setId(utsMemberLogin.getId());
-        author.setPassword(new BCryptPasswordEncoder().encode(password));
+        UtsMember member = new UtsMember();
+        member.setId(utsMemberLogin.getId());
+        member.setPassword(new BCryptPasswordEncoder().encode(password));
 
-        int count = authorService.updateAuthorPassword(author);
+        int count = authorService.updateMember(member);
         if (count > 0){
             return ResponseResult.success("密码更新成功");
         }

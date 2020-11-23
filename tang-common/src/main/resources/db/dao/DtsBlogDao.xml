@@ -10,7 +10,7 @@
         and  b.state_id = 1
         order by create_date desc
     </select>
-    <select id="selectBlogDt" resultType="net.ttcxy.tang.entity.dto.DtsBlogDto">
+    <select id="getBlogList" resultType="net.ttcxy.tang.entity.dto.DtsBlogDto">
       select id,title
         FROM `dts_blog`
         order by create_date

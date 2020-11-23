@@ -4,7 +4,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import net.ttcxy.tang.api.ResponseResult;
 import net.ttcxy.tang.entity.UtsMemberLogin;
-import net.ttcxy.tang.service.CurrentAuthorService;
+import net.ttcxy.tang.service.CurrentMemberService;
 import net.ttcxy.tang.service.UtsFansService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +20,7 @@ import java.util.List;
 public class UtsFansController {
 
     @Autowired
-    private CurrentAuthorService currentAuthorService;
+    private CurrentMemberService currentMemberService;
 
     @Autowired
     private UtsFansService fansService;
@@ -31,7 +31,7 @@ public class UtsFansController {
     @GetMapping("list")
     @ApiOperation("关注的作者列表")
     public ResponseResult<?> fansList(){
-        String authorId = currentAuthorService.getAuthor().getId();
+        String authorId = currentMemberService.getMember().getId();
         List<UtsMemberLogin> fansList = fansService.selectFansList(authorId);
         return ResponseResult.success(fansList);
     }

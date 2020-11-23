@@ -21,12 +21,11 @@ export const constantRoutes = [
   {
     path: '/',
     component: Layout,
-    redirect: '/dashboard',
     children: [{
       path: 'dashboard',
-      name: 'Dashboard',
+      name: '堂堂程序员',
       component: () => import('@/views/dashboard/index'),
-      meta: { title: '系统罗盘', icon: 'dashboard' }
+      meta: { title: '堂堂程序员', icon: 'dashboard' }
     }]
   },
 
@@ -88,7 +87,7 @@ export const constantRoutes = [
     redirect: '/nested/menu1',
     name: 'Nested',
     meta: {
-      title: 'Nested',
+      title: '系统管理',
       icon: 'nested'
     },
     children: [
@@ -147,7 +146,7 @@ export const constantRoutes = [
     children: [
       {
         path: 'https://panjiachen.github.io/vue-element-admin-site/#/',
-        meta: { title: 'External Link', icon: 'link' }
+        meta: { title: '官网', icon: 'link' }
       }
     ]
   },

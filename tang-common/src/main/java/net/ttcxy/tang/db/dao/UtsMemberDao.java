@@ -13,7 +13,7 @@ public interface UtsMemberDao {
      * @param mail 邮箱
      * @return 查询的行数
      */
-    int selectEmailIsTrue(String mail);
+    int selectMailIsTrue(String mail);
 
     /**
      * 通过username查询用户是否存在

@@ -29,12 +29,12 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        UtsMemberLogin utsMemberLogin = null;
+        UtsMemberLogin utsMemberLogin;
 
         if (Validator.isEmail(username)){
-            utsMemberLogin = utsMemberService.selectLoginMemberByMail(username);
+            utsMemberLogin = utsMemberService.selectMemberByMail(username);
         }else{
-            utsMemberLogin = utsMemberService.selectUserByName(username);
+            utsMemberLogin = utsMemberService.selectMemberByName(username);
         }
         if (utsMemberLogin == null){
             throw new UsernameNotFoundException("用户不存在");

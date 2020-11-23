@@ -29,33 +29,27 @@ public class UtsMemberServiceImpl implements UtsMemberService {
     private UtsMemberMapper authorMapper;
 
     @Override
-    public UtsMemberLogin selectUserByName(String username) {
+    public UtsMemberLogin selectMemberByName(String username) {
         return utsMemberDao.selectMemberByName(username);
     }
 
     @Override
-    public UtsMemberLogin selectLoginMemberByMail(String mail) {
+    public UtsMemberLogin selectMemberByMail(String mail) {
         return utsMemberDao.selectMemberByMail(mail);
     }
 
     @Override
-    public int insertAuthor(UtsMember author) throws DuplicateKeyException {
-        author.setId(IdUtil.simpleUUID());
-        String password = author.getPassword();
+    public int insertMember(UtsMember member) throws DuplicateKeyException {
+        member.setId(IdUtil.simpleUUID());
+        String password = member.getPassword();
         String encodePassword = new BCryptPasswordEncoder().encode(password);
-        author.setPassword(encodePassword);
-        return authorMapper.insertSelective(author);
+        member.setPassword(encodePassword);
+        return authorMapper.insertSelective(member);
     }
 
     @Override
-    public int updateAuthor(UtsMember author) {
-        return authorMapper.updateByPrimaryKeySelective(author);
-    }
-
-
-    @Override
-    public int updateAuthorPassword(UtsMember author) {
-        return authorMapper.updateByPrimaryKeySelective(author);
+    public int updateMember(UtsMember member) {
+        return authorMapper.updateByPrimaryKeySelective(member);
     }
 
     @Override
@@ -72,25 +66,12 @@ public class UtsMemberServiceImpl implements UtsMemberService {
 
     @Override
     public Boolean selectMailIsTrue(String username) {
-        int count = utsMemberDao.selectEmailIsTrue(username);
+        int count = utsMemberDao.selectMailIsTrue(username);
         return count > 0;
     }
 
     @Override
-    public int updateUserByMail(String mail,String password) {
-
-        UtsMember author = new UtsMember();
-        author.setPassword(password);
-
-        UtsMemberExample authorExample = new UtsMemberExample();
-        authorExample.createCriteria().andMailEqualTo(mail).andPasswordEqualTo(password);
-
-        return authorMapper.updateByExampleSelective(author, authorExample);
-
-    }
-
-    @Override
-    public List<UtsMember> listAuthor(Integer page){
+    public List<UtsMember> memberList(Integer page){
         PageHelper.startPage(page, 10);
         return authorMapper.selectByExample(new UtsMemberExample());
     }

@@ -2,7 +2,7 @@ package net.ttcxy.tang.gateway.controller;
 
 import net.ttcxy.tang.entity.UtsMemberLogin;
 import net.ttcxy.tang.entity.dto.DtsBlogDto;
-import net.ttcxy.tang.service.CurrentAuthorService;
+import net.ttcxy.tang.service.CurrentMemberService;
 import net.ttcxy.tang.service.DtsBlogService;
 import net.ttcxy.tang.service.UtsMemberService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class StsPageController {
 
     @Autowired
-    private CurrentAuthorService currentAuthorService;
+    private CurrentMemberService currentMemberService;
 
     @Autowired
     private DtsBlogService blogService;
@@ -43,7 +43,7 @@ public class StsPageController {
      */
     @GetMapping("map")
     public String toMap(Model model,@RequestParam(defaultValue = "1") Integer page){
-        model.addAttribute(blogService.showDt(page));
+        model.addAttribute(blogService.getBlogList(page));
         return "map";
     }
 
@@ -60,7 +60,7 @@ public class StsPageController {
      */
     @GetMapping("author/{username}")
     public ModelAndView toUserHome(@PathVariable("username")String username, ModelAndView modelAndView){
-        UtsMemberLogin utsMemberLogin = authorService.selectUserByName(username);
+        UtsMemberLogin utsMemberLogin = authorService.selectMemberByName(username);
         if (utsMemberLogin == null){
             modelAndView.setStatus(HttpStatus.NOT_FOUND);
             modelAndView.setViewName("404");
@@ -77,7 +77,7 @@ public class StsPageController {
     @GetMapping("post/{id}")
     public ModelAndView toBlog(@PathVariable("id")String blogId, ModelAndView modelAndView){
 
-        UtsMemberLogin utsMemberLogin = currentAuthorService.getAuthor();
+        UtsMemberLogin utsMemberLogin = currentMemberService.getMember();
 
         DtsBlogDto dtsBlogDto = blogService.selectBlogById(blogId);
 
@@ -108,7 +108,7 @@ public class StsPageController {
     @GetMapping("author/setting")
     public ModelAndView updateUser(ModelAndView modelAndView){
         modelAndView.setViewName("setting");
-        modelAndView.addObject(currentAuthorService.getAuthor());
+        modelAndView.addObject(currentMemberService.getMember());
         return modelAndView;
     }
 

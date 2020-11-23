@@ -7,7 +7,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import net.ttcxy.tang.db.dao.DtsBlogDao;
 import net.ttcxy.tang.entity.dto.DtsBlogDto;
-import net.ttcxy.tang.service.CurrentAuthorService;
+import net.ttcxy.tang.service.CurrentMemberService;
 import net.ttcxy.tang.service.DtsBlogService;
 import net.ttcxy.tang.db.mapper.DtsBlogMapper;
 import net.ttcxy.tang.db.mapper.DtsLikeDataMapper;
@@ -28,6 +28,7 @@ import java.util.concurrent.ExecutorService;
 @Service
 public class DtsBlogServiceImpl implements DtsBlogService {
 
+    // 随机博客列表
     private static final List<String> randomBlogs= new ArrayList<>(1000);
 
     private static final ExecutorService executorService = ThreadUtil.newExecutor(50);
@@ -36,7 +37,7 @@ public class DtsBlogServiceImpl implements DtsBlogService {
     private DtsBlogDao dtsBlogDao;
 
     @Autowired
-    private CurrentAuthorService currentAuthorServiceImpl;
+    private CurrentMemberService currentMemberServiceImpl;
 
     @Autowired
     private DtsBlogMapper blogMapper;
@@ -48,9 +49,9 @@ public class DtsBlogServiceImpl implements DtsBlogService {
     private DtsLikeDataMapper likeMapper;
 
     @Override
-    public PageInfo<DtsBlogDto> showDt(Integer page) {
+    public PageInfo<DtsBlogDto> getBlogList(Integer page) {
         PageHelper.startPage(page, 100);
-        return new PageInfo<>(dtsBlogDao.selectBlogDt());
+        return new PageInfo<>(dtsBlogDao.getBlogList());
     }
 
     @Override
@@ -60,7 +61,7 @@ public class DtsBlogServiceImpl implements DtsBlogService {
     }
 
     @Override
-    public PageInfo<DtsBlogDto> searchByUsername(String username, Integer page) {
+    public PageInfo<DtsBlogDto> selectBlogByUsername(String username, Integer page) {
         PageHelper.startPage(page,15);
         return  new PageInfo<>(dtsBlogDao.searchByUsername(username));
     }
@@ -77,11 +78,10 @@ public class DtsBlogServiceImpl implements DtsBlogService {
     @Override
     public int updateBlog(DtsBlog blog) {
         String blogId = blog.getId();
-        String userId = currentAuthorServiceImpl.getAuthorId();
+        String userId = currentMemberServiceImpl.getMemberId();
 
         DtsBlogExample blogExample = new DtsBlogExample();
         blogExample.createCriteria().andIdEqualTo(blogId).andUserIdEqualTo(userId);
-
 
         return blogMapper.updateByExampleSelective(blog, blogExample);
     }
@@ -90,7 +90,6 @@ public class DtsBlogServiceImpl implements DtsBlogService {
     public int deleteBlog(String id) {
         int count = blogMapper.deleteByPrimaryKey(id);
         if (count > 0){
-            //删除博客
             executorService.execute(()->{
                 randomBlogs.remove(id);
             });
@@ -122,7 +121,7 @@ public class DtsBlogServiceImpl implements DtsBlogService {
             StsPageView pageView = new StsPageView();
             pageView.setId(IdUtil.fastSimpleUUID());
             pageView.setBlogId(id);
-            pageView.setUserId(currentAuthorServiceImpl.getAuthorId());
+            pageView.setUserId(currentMemberServiceImpl.getMemberId());
             pageView.setCreateDatetime(new Date());
             pageViewMapper.insertSelective(pageView);
         }
