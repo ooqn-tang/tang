@@ -47,3 +47,10 @@
 .el-range-separator {
   box-sizing: content-box;
 }
+
+.el-table__body-wrapper{
+  overflow-y: scroll;
+}
+.gutter{
+  width: 8px !important;
+}
