@@ -1,6 +1,7 @@
 package net.ttcxy.tang.service;
 
 import net.ttcxy.tang.entity.UtsMemberLogin;
+import net.ttcxy.tang.entity.dto.UtsMemberDto;
 import net.ttcxy.tang.entity.model.UtsMember;
 import org.springframework.stereotype.Service;
 
@@ -69,6 +70,13 @@ public interface UtsMemberService {
      * @return 列表
      */
     List<UtsMember> memberList(Integer page);
+
+    /**
+     * 用户列表,包含角色
+     * @param page 页码
+     * @return 列表
+     */
+    List<UtsMemberDto> memberListDto(Integer page);
 
 
 
