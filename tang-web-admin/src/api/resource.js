@@ -1,8 +1,8 @@
 import request from '@/utils/request'
 
-export function memberList() {
+export function resourceList() {
   return request({
-    url: '/member/list',
+    url: '/resource/list',
     method: 'post'
   })
 }
