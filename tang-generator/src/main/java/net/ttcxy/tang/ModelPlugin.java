@@ -7,14 +7,19 @@ import org.mybatis.generator.api.dom.java.TopLevelClass;
 
 import java.util.List;
 
+/**
+ * @author huanglei
+ */
 public class ModelPlugin extends PluginAdapter {
     public ModelPlugin() {
     }
 
+    @Override
     public boolean validate(List<String> list) {
         return true;
     }
 
+    @Override
     public boolean modelBaseRecordClassGenerated(TopLevelClass topLevelClass, IntrospectedTable introspectedTable) {
         topLevelClass.addImportedType("java.io.Serializable");
         topLevelClass.addJavaDocLine("/**");

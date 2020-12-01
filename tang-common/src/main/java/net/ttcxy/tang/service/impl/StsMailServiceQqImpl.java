@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
  * @author huanglei
  */
 @Service
-public class StsMailServiceQQImpl implements StsMailService {
+public class StsMailServiceQqImpl implements StsMailService {
 
     @Value("${mail.from}")
     private String from;

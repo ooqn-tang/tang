@@ -28,8 +28,7 @@ import java.util.concurrent.ExecutorService;
 @Service
 public class DtsBlogServiceImpl implements DtsBlogService {
 
-    // 随机博客列表
-    private static final List<String> randomBlogs= new ArrayList<>(1000);
+    private static final List<String> RANDOM_BLOG = new ArrayList<>(1000);
 
     private static final ExecutorService executorService = ThreadUtil.newExecutor(50);
 
@@ -70,7 +69,7 @@ public class DtsBlogServiceImpl implements DtsBlogService {
     public int insertBlog(DtsBlog blog) {
         int count = blogMapper.insertSelective(blog);
         if (count > 0){
-            randomBlogs.add(blog.getId());
+            RANDOM_BLOG.add(blog.getId());
         }
         return count;
     }
@@ -91,7 +90,7 @@ public class DtsBlogServiceImpl implements DtsBlogService {
         int count = blogMapper.deleteByPrimaryKey(id);
         if (count > 0){
             executorService.execute(()->{
-                randomBlogs.remove(id);
+                RANDOM_BLOG.remove(id);
             });
         }
         return count;
@@ -151,7 +150,7 @@ public class DtsBlogServiceImpl implements DtsBlogService {
 
     @Override
     public List<String> getRandomBlogs() {
-        return randomBlogs;
+        return RANDOM_BLOG;
     }
 
     @Override
@@ -163,7 +162,7 @@ public class DtsBlogServiceImpl implements DtsBlogService {
 
     @Override
     public DtsBlogDto random() {
-        int randomInt = RandomUtil.randomInt(0, randomBlogs.size());
-        return dtsBlogDao.selectByIdTitle(randomBlogs.get(randomInt));
+        int randomInt = RandomUtil.randomInt(0, RANDOM_BLOG.size());
+        return dtsBlogDao.selectByIdTitle(RANDOM_BLOG.get(randomInt));
     }
 }
