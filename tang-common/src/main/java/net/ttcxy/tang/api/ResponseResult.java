@@ -63,6 +63,13 @@ public class ResponseResult<T> extends ResponseEntity<T> {
 
     /**
      * 成功返回结果
+     */
+    public static <T> ResponseResult<?> success() {
+        return success("执行成功");
+    }
+
+    /**
+     * 成功返回结果
      * @param data 获取的数据
      */
     public static <T> ResponseResult<?> success(T data) {
