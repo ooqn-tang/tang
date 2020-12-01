@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 @RestController
 @RequestMapping("login")
-public class LoginController {
+public class UtsLoginController {
 
     @Autowired
     private UserDetailsService userDetailsService;
