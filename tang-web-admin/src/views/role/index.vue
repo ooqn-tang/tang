@@ -2,8 +2,8 @@
   <div class="app-container">
     <div class="t-block">
       <el-row>
-        <el-button type="primary">添加资源</el-button>
-        <el-button type="warning" @click="roleDialog = true,roleForm = {},saveType = 'insert'">添加角色</el-button>
+        <el-button type="primary" @click="resourceDialog = true,resourceForm = {},saveType = 'insert'">添加资源</el-button>
+        <el-button type="primary" @click="roleDialog = true,roleForm = {},saveType = 'insert'">添加角色</el-button>
         <el-button type="warning">角色<i class="el-icon-back" />资源</el-button>
       </el-row>
     </div>
@@ -39,7 +39,7 @@
                 width="85"
               >
                 <template slot-scope="scope">
-                  <el-button type="text" size="mini" @click="updateRoleClick(scope.row),saveType = 'update'">修改</el-button>
+                  <el-button type="text" size="mini" @click="updateRoleClick(scope.row), saveType='update'">修改</el-button>
                   <el-button style="color:#f56c6c" type="text" size="mini" @click.native.prevent="deleteRoleClick(scope.$index,scope.row,roleList)">删除</el-button>
                 </template>
               </el-table-column>
@@ -63,7 +63,7 @@
               fixed
               prop="name"
               label="资源名"
-              width="100"
+              width="120"
             />
             <el-table-column
               prop="path"
@@ -74,14 +74,15 @@
               width="90"
             >
               <template slot-scope="scope">
-                <el-button type="text" size="mini" @click="updateResourceClick(scope.row),saveType = 'update'">修改</el-button>
-                <el-button type="text" size="mini" @click="showResourceClick(scope.row)">详细</el-button>
+                <el-button type="text" size="mini" @click="updateResourceClick(scope.row),resourceDialog=true, saveType='update'">修改</el-button>
+                <el-button style="color:#f56c6c" type="text" size="mini" @click.native.prevent="deleteResourceClick(scope.$index,scope.row,roleList)">删除</el-button>
               </template>
             </el-table-column>
           </el-table>
         </div>
       </el-col>
     </el-row>
+    <!-- 角色 -->
     <el-dialog title="角色" :visible.sync="roleDialog">
       <el-form ref="form" :model="roleForm" label-width="80px">
         <el-form-item label="角色名">
@@ -92,14 +93,22 @@
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="saveRoleClick">保 存</el-button>
+        <el-button @click="insertRoleClick">保 存</el-button>
         <el-button @click="roleDialog = false">取 消</el-button>
       </div>
     </el-dialog>
-
-    <el-dialog title="外层 Dialog" :visible.sync="resourceDialog">
-
+    <!-- 资源 -->
+    <el-dialog title="资源" :visible.sync="resourceDialog">
+      <el-form ref="form" :model="roleForm" label-width="80px">
+        <el-form-item label="资源名">
+          <el-input v-model="resourceForm.name" />
+        </el-form-item>
+        <el-form-item label="通配符">
+          <el-input v-model="resourceForm.path" />
+        </el-form-item>
+      </el-form>
       <div slot="footer" class="dialog-footer">
+        <el-button @click="insertResourceClick">保 存</el-button>
         <el-button @click="resourceDialog = false">取 消</el-button>
       </div>
     </el-dialog>
@@ -110,7 +119,7 @@
 // eslint-disable-next-line no-unused-vars
 import { roleList, insertRolePost, updateRolePost, deleteRolePost } from '@/api/role'
 // eslint-disable-next-line no-unused-vars
-import { resourceList } from '@/api/resource'
+import { resourceList, insertResourcePost, updateResourcePost, deleteResourcePost } from '@/api/resource'
 
 export default {
   filters: {
@@ -123,35 +132,7 @@ export default {
       roleForm: {},
       resourceDialog: false,
       resourceForm: {},
-      tableData: [{
-        date: '2016-05-02',
-        name: '王小虎',
-        province: '上海',
-        city: '普陀区',
-        address: '上海市普陀区金沙江路 1518 弄',
-        zip: 200333
-      }, {
-        date: '2016-05-04',
-        name: '王小虎',
-        province: '上海',
-        city: '普陀区',
-        address: '上海市普陀区金沙江路 1517 弄',
-        zip: 200333
-      }, {
-        date: '2016-05-01',
-        name: '王小虎',
-        province: '上海',
-        city: '普陀区',
-        address: '上海市普陀区金沙江路 1519 弄',
-        zip: 200333
-      }, {
-        date: '2016-05-03',
-        name: '王小虎',
-        province: '上海',
-        city: '普陀区',
-        address: '上海市普陀区金沙江路 1516 弄',
-        zip: 200333
-      }],
+      tableData: [],
       resourceList: [],
       roleList: []
     }
@@ -161,54 +142,76 @@ export default {
     this.loadResource()
   },
   methods: {
-    saveRoleClick() {
+    // 添加角色按钮
+    insertRoleClick() {
       if (this.saveType === 'insert') {
-        insertRolePost(this.roleForm).then((resource) => {
-          console.log(resource.data.data)
+        insertRolePost(this.roleForm).then((result) => {
+          console.log(result.data.data)
           this.roleForm = {}
           this.roleDialog = false
+          this.loadRole()
         })
       } else if (this.saveType === 'update') {
-        updateRolePost(this.roleForm).then((resource) => {
-          console.log(resource.data.data)
+        updateRolePost(this.roleForm).then((result) => {
+          console.log(result.data.data)
           this.roleForm = {}
           this.roleDialog = false
+          this.loadRole()
         })
       }
     },
-    updateRoleClick(row) {
-      this.roleDialog = true
-      this.roleForm = row
-      console.log(row)
-    },
-    updateRolePost() {
-      this.saveRoleClick('update')
-    },
+    // 删除角色按钮
     deleteRoleClick(index, row, rows) {
-      deleteRolePost(row.id).then((resource) => {
-        console.log(resource.data.data)
+      deleteRolePost(row.id).then((result) => {
+        console.log(result.data.data)
         rows.splice(index, 1)
       })
     },
-    showResourceClick(row) {
+    // 更新角色按钮
+    updateRoleClick(row) {
+      this.roleDialog = true
+      this.roleForm = JSON.parse(JSON.stringify(row))
       console.log(row)
     },
-    updateResourceClick(row) {
-      this.resourceDialog = true
-      console.log(row)
-    },
-    handleClick(row) {
-      console.log(row)
-    },
-    loadResource() {
-      resourceList().then((response) => {
-        console.log(response.data.data)
-        this.resourceList = response.data.data
+    // 加载角色列表
+    loadRole() {
+      roleList().then(result => {
+        this.roleList = result.data.data
       })
     },
-    loadRole() {
-      roleList().then(response => {
-        this.roleList = response.data.data
+    // 保存资源按钮
+    insertResourceClick() {
+      if (this.saveType === 'insert') {
+        insertResourcePost(this.resourceForm).then(result => {
+          console.log(result)
+          this.loadResource()
+        })
+      } else if (this.saveType === 'update') {
+        updateResourcePost(this.resourceForm).then(result => {
+          console.log(result)
+          this.loadResource()
+          this.resourceDialog = false
+        })
+      }
+    },
+    // 删除资源按钮
+    deleteResourceClick(index, row, data) {
+      deleteResourcePost(row.id).then(result => {
+        console.log(result)
+        this.loadResource()
+      })
+    },
+    // 更新资源按钮
+    updateResourceClick(row) {
+      this.resourceDialog = true
+      this.resourceForm = JSON.parse(JSON.stringify(row))
+      console.log(row)
+    },
+    // 加载资源列表
+    loadResource() {
+      resourceList().then((result) => {
+        console.log(result.data.data)
+        this.resourceList = result.data.data
       })
     }
   }
