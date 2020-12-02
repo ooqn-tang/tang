@@ -26,10 +26,14 @@ public class UtsLoginController {
     @Autowired
     private UserDetailsService userDetailsService;
 
+    @Autowired
+    private CurrentMemberService currentMemberService;
+
+    @Autowired
+    private HttpServletRequest request;
 
     @PostMapping("token")
     public ResponseResult<?> token(@RequestBody UtsMember utsMember){
-
         UserDetails userDetails = userDetailsService.loadUserByUsername(utsMember.getUsername());
         if (userDetails == null){
             return ResponseResult.failed("用户名不存在");
@@ -44,17 +48,11 @@ public class UtsLoginController {
         return ResponseResult.failed("密码不正确");
     }
 
-    @Autowired
-    private CurrentMemberService currentMemberService;
-
     @GetMapping("info")
     public ResponseResult<?> info(){
         return ResponseResult.success(currentMemberService.getMember());
     }
 
-
-    @Autowired
-    private HttpServletRequest request;
     @GetMapping("logout")
     public ResponseResult<?> logout(){
         String token = request.getHeader("token");

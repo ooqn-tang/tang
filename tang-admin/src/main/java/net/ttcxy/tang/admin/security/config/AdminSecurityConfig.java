@@ -110,8 +110,6 @@ public class AdminSecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
-
-
     @Bean
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {

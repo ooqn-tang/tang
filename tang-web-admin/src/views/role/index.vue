@@ -3,7 +3,7 @@
     <div class="t-block">
       <el-row>
         <el-button type="primary">添加资源</el-button>
-        <el-button type="warning">添加角色</el-button>
+        <el-button type="warning" @click="roleDialog = true,roleForm = {},saveType = 'insert'">添加角色</el-button>
         <el-button type="warning">角色<i class="el-icon-back" />资源</el-button>
       </el-row>
     </div>
@@ -19,7 +19,6 @@
               :data="roleList"
               border
               height="500"
-              style="width: 100%"
             >
               <el-table-column
                 type="selection"
@@ -34,18 +33,14 @@
               <el-table-column
                 prop="roleValue"
                 label="角色值"
-                width="120"
-              />
-              <el-table-column
-                prop="createTime"
-                label="描述"
               />
               <el-table-column
                 label="操作"
-                width="50"
+                width="85"
               >
                 <template slot-scope="scope">
-                  <el-button type="text" size="mini" @click="infoClick(scope.row)">详细</el-button>
+                  <el-button type="text" size="mini" @click="updateRoleClick(scope.row),saveType = 'update'">修改</el-button>
+                  <el-button style="color:#f56c6c" type="text" size="mini" @click.native.prevent="deleteRoleClick(scope.$index,scope.row,roleList)">删除</el-button>
                 </template>
               </el-table-column>
             </el-table>
@@ -58,7 +53,6 @@
           <el-table
             :data="resourceList"
             border
-            style="width: 100%"
             height="500"
           >
             <el-table-column
@@ -66,6 +60,7 @@
               width="39"
             />
             <el-table-column
+              fixed
               prop="name"
               label="资源名"
               width="100"
@@ -76,22 +71,44 @@
             />
             <el-table-column
               label="操作"
-              width="50"
+              width="90"
             >
               <template slot-scope="scope">
-                <el-button type="text" size="mini" @click="infoClick(scope.row)">详细</el-button>
+                <el-button type="text" size="mini" @click="updateResourceClick(scope.row),saveType = 'update'">修改</el-button>
+                <el-button type="text" size="mini" @click="showResourceClick(scope.row)">详细</el-button>
               </template>
             </el-table-column>
           </el-table>
         </div>
       </el-col>
     </el-row>
+    <el-dialog title="角色" :visible.sync="roleDialog">
+      <el-form ref="form" :model="roleForm" label-width="80px">
+        <el-form-item label="角色名">
+          <el-input v-model="roleForm.roleName" />
+        </el-form-item>
+        <el-form-item label="角色值">
+          <el-input v-model="roleForm.roleValue" />
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="saveRoleClick">保 存</el-button>
+        <el-button @click="roleDialog = false">取 消</el-button>
+      </div>
+    </el-dialog>
+
+    <el-dialog title="外层 Dialog" :visible.sync="resourceDialog">
+
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="resourceDialog = false">取 消</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
 <script>
 // eslint-disable-next-line no-unused-vars
-import { roleList } from '@/api/role'
+import { roleList, insertRolePost, updateRolePost, deleteRolePost } from '@/api/role'
 // eslint-disable-next-line no-unused-vars
 import { resourceList } from '@/api/resource'
 
@@ -101,6 +118,11 @@ export default {
   },
   data() {
     return {
+      saveType: 'insert',
+      roleDialog: false,
+      roleForm: {},
+      resourceDialog: false,
+      resourceForm: {},
       tableData: [{
         date: '2016-05-02',
         name: '王小虎',
@@ -139,6 +161,42 @@ export default {
     this.loadResource()
   },
   methods: {
+    saveRoleClick() {
+      if (this.saveType === 'insert') {
+        insertRolePost(this.roleForm).then((resource) => {
+          console.log(resource.data.data)
+          this.roleForm = {}
+          this.roleDialog = false
+        })
+      } else if (this.saveType === 'update') {
+        updateRolePost(this.roleForm).then((resource) => {
+          console.log(resource.data.data)
+          this.roleForm = {}
+          this.roleDialog = false
+        })
+      }
+    },
+    updateRoleClick(row) {
+      this.roleDialog = true
+      this.roleForm = row
+      console.log(row)
+    },
+    updateRolePost() {
+      this.saveRoleClick('update')
+    },
+    deleteRoleClick(index, row, rows) {
+      deleteRolePost(row.id).then((resource) => {
+        console.log(resource.data.data)
+        rows.splice(index, 1)
+      })
+    },
+    showResourceClick(row) {
+      console.log(row)
+    },
+    updateResourceClick(row) {
+      this.resourceDialog = true
+      console.log(row)
+    },
     handleClick(row) {
       console.log(row)
     },
