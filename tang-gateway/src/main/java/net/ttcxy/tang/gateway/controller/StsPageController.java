@@ -122,6 +122,7 @@ public class StsPageController {
      */
     @GetMapping("editor/{id}")
     public ModelAndView toEditor(ModelAndView modelAndView,@PathVariable("id") String id){
+        modelAndView.addObject("blogId",id);
         modelAndView.setViewName("editor");
         return modelAndView;
     }

@@ -40,6 +40,13 @@ public interface DtsBlogService {
     DtsBlogDto selectBlogById(String id);
 
     /**
+     * 通过博客ID查询数据
+     * @param id  id
+     * @return 博客
+     */
+    DtsBlog selectBlogInfosById(String id);
+
+    /**
      * 添加blog
      */
     int insertBlog(DtsBlog blog);

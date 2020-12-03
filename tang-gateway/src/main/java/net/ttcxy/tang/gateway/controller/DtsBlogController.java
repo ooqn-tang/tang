@@ -9,6 +9,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import net.ttcxy.tang.api.ResponseResult;
 import net.ttcxy.tang.entity.UtsMemberLogin;
+import net.ttcxy.tang.entity.dto.DtsBlogDto;
 import net.ttcxy.tang.entity.model.DtsBlog;
 import net.ttcxy.tang.entity.param.DtsBlogParam;
 import net.ttcxy.tang.service.CurrentMemberService;
@@ -87,11 +88,23 @@ public class DtsBlogController {
     public ResponseResult<?> update(@RequestBody DtsBlogParam dtsBlogParam){
         DtsBlog blog = new DtsBlog();
         BeanUtil.copyProperties(dtsBlogParam,blog);
-        int count = blogService.updateBlog(blog);
-        if (count > 0){
-            return ResponseResult.success(0);
+
+        String blogId = blog.getId();
+        DtsBlogDto dtsBlogDto = blogService.selectBlogById(blogId);
+
+        String userId = dtsBlogDto.getUserId();
+        if (StrUtil.equals(userId,currentMemberServiceImpl.getMemberId())){
+            DateTime date = DateUtil.date();
+            blog.setUpdateDate(date);
+            blog.setStateId(1);
+
+            int count = blogService.updateBlog(blog);
+            if (count > 0){
+                return ResponseResult.success(0);
+            }
+            return ResponseResult.failed();
         }
-        return ResponseResult.failed();
+        return ResponseResult.failed("无法修改别人的内容");
     }
 
     @GetMapping("blogs")
@@ -103,9 +116,9 @@ public class DtsBlogController {
     @GetMapping("load")
     @ApiOperation("加载博客信息，详细")
     public ResponseResult<?> load(@RequestParam(name="blog",required = false) String blogId){
-        DtsBlog blog = blogService.selectByPrimaryId(blogId);
-        UtsMemberLogin author = currentMemberServiceImpl.getMember();
-        if(blog.getUserId().equals(author.getId())){
+        DtsBlog blog = blogService.selectBlogInfosById(blogId);
+        UtsMemberLogin memberLogin = currentMemberServiceImpl.getMember();
+        if(blog.getUserId().equals(memberLogin.getId())){
             return ResponseResult.success(blog);
         }else{
             return ResponseResult.failed("无法修改别人的Blog");

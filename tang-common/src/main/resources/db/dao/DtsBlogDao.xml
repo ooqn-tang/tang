@@ -35,7 +35,7 @@
     </select>
 
     <select id="selectBlogById" resultType="net.ttcxy.tang.entity.dto.DtsBlogDto">
-        select b.id,b.title,b.create_date createDate,b.text,u.username,nickname
+        select b.id,b.title,b.create_date createDate,b.text,u.username,nickname,u.id userId
         from `dts_blog` b,`uts_member` u
         where b.user_id = u.id
         and b.id = #{id}
@@ -56,6 +56,11 @@
         and b.id = l.blog_id
         and u.username = #{username}
         order by l.create_date desc
+    </select>
+    <select id="selectBlogInfoById" resultType="net.ttcxy.tang.entity.model.DtsBlog">
+        select *
+        from `dts_blog` b
+        where b.id = #{id}
     </select>
 
 

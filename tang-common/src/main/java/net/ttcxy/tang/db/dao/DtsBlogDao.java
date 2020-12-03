@@ -1,6 +1,7 @@
 package net.ttcxy.tang.db.dao;
 
 import net.ttcxy.tang.entity.dto.DtsBlogDto;
+import net.ttcxy.tang.entity.model.DtsBlog;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -68,6 +69,5 @@ public interface DtsBlogDao {
     List<DtsBlogDto> selectLikeBlogs(@Param("username")String username);
 
 
-
-
+    DtsBlog selectBlogInfoById(String id);
 }

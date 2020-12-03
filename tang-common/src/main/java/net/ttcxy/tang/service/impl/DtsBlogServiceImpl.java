@@ -47,6 +47,9 @@ public class DtsBlogServiceImpl implements DtsBlogService {
     @Autowired
     private DtsLikeDataMapper likeMapper;
 
+    @Autowired
+    private DtsBlogMapper dtsBlogMapper;
+
     @Override
     public PageInfo<DtsBlogDto> getBlogList(Integer page) {
         PageHelper.startPage(page, 100);
@@ -76,13 +79,7 @@ public class DtsBlogServiceImpl implements DtsBlogService {
 
     @Override
     public int updateBlog(DtsBlog blog) {
-        String blogId = blog.getId();
-        String userId = currentMemberServiceImpl.getMemberId();
-
-        DtsBlogExample blogExample = new DtsBlogExample();
-        blogExample.createCriteria().andIdEqualTo(blogId).andUserIdEqualTo(userId);
-
-        return blogMapper.updateByExampleSelective(blog, blogExample);
+        return blogMapper.updateByPrimaryKeySelective(blog);
     }
 
     @Override
@@ -116,6 +113,12 @@ public class DtsBlogServiceImpl implements DtsBlogService {
     @Override
     public DtsBlogDto selectBlogById(String id) {
         return dtsBlogDao.selectBlogById(id);
+    }
+
+
+    @Override
+    public DtsBlog selectBlogInfosById(String id) {
+        return dtsBlogDao.selectBlogInfoById(id);
     }
 
     @Override

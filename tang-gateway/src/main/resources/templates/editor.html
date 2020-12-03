@@ -68,7 +68,7 @@
 <div id="hd">
     <input type="text" id="title" placeholder="标题" style="background: #f4f4f4"/>
     <input type="button" class="hdBut"  value="取消" onClick="window.close()"/>
-    <input type="button" id="send" class="hdBut"  value="发布" />
+    <input type="button" id="save" class="hdBut"  value="发布" />
 </div>
 <textarea onKeyUp="keyup()" class="tt" style="float: left;border-right: 1px solid black;background-color: #e2e3e4;" id="text" placeholder="请输入Markdown&#x000A;上传的文件如果没有在当前页面引用将会被删除"></textarea>
 <div class="tt t-div markdown-body" style="float:right;border-left: 1px solid black;background: #fff8eb;" id="content"></div>
@@ -76,7 +76,9 @@
 <script src="https://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
 <script type="text/javascript">
     let rendererMD = new marked.Renderer();
-    let blog = getUrlParam("blog");
+    let blog = '[[${blogId}]]'
+    let scrollId = null;
+
     marked.setOptions({
         renderer: rendererMD,
         gfm: true,
@@ -87,6 +89,7 @@
         smartLists: true,
         smartypants: false
     });
+
     function keyup(){
         let markdown = $("#text").val()
         let html = marked(markdown)
@@ -96,26 +99,6 @@
         let reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
         let r = window.location.search.substr(1).match(reg);  //匹配目标参数
         if (r != null) return unescape(r[2]); return null; //返回参数值
-    }
-    function insert(title,markdown,html){
-        $.ajax({
-            type:"POST",
-            url:"/blog/insert",
-            contentType: "application/json", //必须这样写
-            dataType:"text",
-            async:false,
-            data:JSON.stringify({
-                title:title,
-                markdown:markdown,
-                text:html
-            }),
-            success (result) {
-                window.close();
-            },
-            error(e){
-                console.log(e)
-            }
-        })
     }
     function update(id,title,markdown,html){
         $.ajax({
@@ -138,48 +121,29 @@
             }
         })
     }
-    function copyText(text, callback){ // text: 要复制的内容， callback: 回调
-        let tag = document.createElement('input');
-        tag.setAttribute('id', 'cp_hgz_input');
-        tag.value = text;
-        document.getElementsByTagName('body')[0].appendChild(tag);
-        document.getElementById('cp_hgz_input').select();
-        document.execCommand('copy');
-        document.getElementById('cp_hgz_input').remove();
-        if(callback) {callback(text)}
-    }
-    let scrollId = null;
-    $("#send").click(function(){
-        let blog = getUrlParam("blog");
+
+    $("#save").click(function(){
         let title = $("#title").val();
         let markdown = $("#text").val();
         let html = marked(markdown)
-
-        if (title == ""){
+        if (title === ""){
             alert("标题不能为空")
             return
         }
-        if (markdown == ""){
+        if (markdown === ""){
             alert("内容不能为空")
             return
         }
-
-        if (blog==null){
-            insert(title,markdown,html);
-        } else{
-            update(blog,title,markdown,html);
-        }
-
+        update(blog,title,markdown,html);
     })
     $("#text").scroll(function(){
         let h = $(this)[0].scrollHeight - $("#content")[0].scrollHeight;
-        if (scrollId == "text"){
+        if (scrollId === "text"){
             $("#content").scrollTop($(this).scrollTop());
         }
-
     });
     $("#content").scroll(function() {
-        if (scrollId == "content"){
+        if (scrollId === "content"){
             $("#text").scrollTop($(this).scrollTop());
         }
     });
@@ -190,18 +154,16 @@
         scrollId = "content"
     });
 
-    if (blog!=null){
-        $.ajax({
-            type:"get",
-            url:"/blog/load"+"?blog="+blog,
-            contentType: "application/json", //必须这样写
-            success:function (result) {
-                $("#text").val(result.markdown)
-                $("#title").val(result.title)
-                keyup()
-            }
-        })
-    }
+    $.ajax({
+        type:"get",
+        url:"/blog/load"+"?blog="+blog,
+        contentType: "application/json", //必须这样写
+        success:function (result) {
+            $("#text").val(result.markdown)
+            $("#title").val(result.title)
+            keyup()
+        }
+    })
 </script>
 
 </html>
