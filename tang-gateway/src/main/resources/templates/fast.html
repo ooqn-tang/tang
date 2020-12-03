@@ -96,7 +96,7 @@
                         page:_this.pageNum
                     },
                     success(result) {
-                        _this.blog = result.data
+                        _this.blog = result
                         sleep(500)
                         _this.show = true
                     },error(){
@@ -116,7 +116,7 @@
                         search:search
                     },
                     success:function (result) {
-                        _this.blog = result.data
+                        _this.blog = result
                         _this.show = true
                     },error(){
                         alert("加载失败了？")

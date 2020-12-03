@@ -85,6 +85,7 @@
         el: "#app",//绑定元素
         //所有数据都放在数据属性中
         data:{
+            author:"[[${session.SPRING_SECURITY_CONTEXT}]]" == "",
             isLoginUser:[[${session.SPRING_SECURITY_CONTEXT != null}]], // 表示登录的用户
             isThisUser:[[${session.SPRING_SECURITY_CONTEXT !=null && session.SPRING_SECURITY_CONTEXT.authentication.principal.username == username}]], // 表示访问自己的首页
             username:username,
@@ -127,6 +128,10 @@
                 }
             },
             followerClick(){
+                if (this.author){
+                    $('#loginModal').modal("show")
+                    return
+                }
                 let _this = this;
                 let type,text;
                 if (_this.follower === '已关注'){
@@ -137,7 +142,7 @@
                     text = "已关注"
                 }
                 $.ajax({
-                    type:type,
+                    type:"post",
                     url:"/fans/" + type + "/" + username,
                     contentType: "application/json", //必须这样写
                     dataType:"json",
@@ -147,8 +152,8 @@
                 })
             },
             loadFans(){
+                let _this = this;
                 if (this.isLoginUser){
-                    let _this = this;
                     $.ajax({
                         type:"GET",
                         url:"/fans/"+username,
@@ -163,12 +168,11 @@
                     })
                 }
             },
-
             more(page){
                 this.pageNum = page
                 this.page()
             },
-            author() {
+            loadAuthor() {
                 let _this = this;
                 _this.show = false
                 _this.update = true;
@@ -181,7 +185,7 @@
                       page:_this.pageNum
                     },
                     success:function (result) {
-                        _this.blog = result.data
+                        _this.blog = result
                         sleep(300)
                         _this.show = true
                     }
@@ -201,7 +205,7 @@
                         username:_this.username
                     },
                     success:function (result) {
-                        _this.blog = result.data
+                        _this.blog = result
                         sleep(300)
                         _this.show = true
                     }
@@ -218,7 +222,7 @@
                     url:"/fans/list",
                     contentType: "application/json", //必须这样写
                     success:function (result) {
-                        _this.fansList = result.data;
+                        _this.fansList = result
                         _this.showFans = true;
                     }
                 })
@@ -236,7 +240,7 @@
             }
         },mounted(){
             this.loadFans()
-            this.author()
+            this.loadAuthor()
         }
     })
 </script>

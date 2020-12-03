@@ -6,8 +6,8 @@ function deleteFans(username){
         contentType: "application/json", //必须这样写
         dataType:"json",
         success:function (data) {
-            alert(data.data)
-            return data.data
+            alert(data)
+            return data
         }
     })
 }

@@ -110,7 +110,7 @@
                     contentType: "application/json",
                     success:function (result) {
                         let lkBut = $("#lkBut")
-                        if (result.data === 1){
+                        if (result === 1){
                             lkBut.removeClass();
                             lkBut.addClass("btn btn-danger  btn-xs")
                         }else{
@@ -160,7 +160,7 @@
                     url:"/fans/"+_this.username,
                     contentType: "application/json",
                     success:function (result) {
-                        if (result.data){
+                        if (result){
                             _this.follower.text = '已关注'
                         } else{
                             _this.follower.text = '关注'
@@ -183,7 +183,7 @@
                     async:false,
                     success:function (result) {
                         _this.content = "";
-                        _this.comments.push(result.data);
+                        _this.comments.push(result);
                     },
                     error(e){
                         alert(e)
@@ -201,8 +201,8 @@
                     dataType:"json",
                     success:function (result) {
                         sleep(500)
-                        vm.comments = result.data.comments;
-                        vm.commentUsername = result.data.author.username;
+                        vm.comments = result.comments;
+                        vm.commentUsername = result.author.username;
                     }
                 })
             },

@@ -1,6 +1,7 @@
 package net.ttcxy.tang.gateway.controller;
 
 import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.date.DateTime;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.StrUtil;
@@ -8,14 +9,10 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import net.ttcxy.tang.api.ResponseResult;
 import net.ttcxy.tang.entity.UtsMemberLogin;
-import net.ttcxy.tang.service.CurrentMemberService;
-import net.ttcxy.tang.entity.dto.DtsCommentDto;
-import net.ttcxy.tang.entity.param.DtsBlogCommentParam;
-import net.ttcxy.tang.entity.param.DtsBlogParam;
-import net.ttcxy.tang.service.DtsBlogService;
-import net.ttcxy.tang.service.DtsCommentService;
 import net.ttcxy.tang.entity.model.DtsBlog;
-import net.ttcxy.tang.entity.model.DtsBlogComment;
+import net.ttcxy.tang.entity.param.DtsBlogParam;
+import net.ttcxy.tang.service.CurrentMemberService;
+import net.ttcxy.tang.service.DtsBlogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -23,8 +20,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * 博客控制器
@@ -41,9 +36,6 @@ public class DtsBlogController {
 
     @Autowired
     private CurrentMemberService currentMemberServiceImpl;
-
-    @Autowired
-    private DtsCommentService commentService;
 
     @GetMapping("home/{username}")
     @ApiOperation("用户首页")
@@ -73,64 +65,33 @@ public class DtsBlogController {
         return ResponseResult.success(blogService.selectLikeBlogs(username,page));
     }
 
-    @PostMapping("insert")
-    @ApiOperation("添加博客")
-    public ResponseResult<?> insert(@RequestBody @Valid DtsBlogParam dtsBlogParam){
-        DtsBlog blog = new DtsBlog();
-        BeanUtil.copyProperties(dtsBlogParam,blog);
-
-        Date date = DateUtil.date();
-        String uuid = IdUtil.simpleUUID();
-        blog.setId(uuid);
-        blog.setUserId(currentMemberServiceImpl.getMemberId());
-        blog.setStateId(1);
-        blog.setCreateDate(date);
-        blog.setUpdateDate(date);
-
-        int count = blogService.insertBlog(blog);
-
-        if (count > 0){
-            return ResponseResult.success("添加成功");
-        }else{
-            return  ResponseResult.failed("添加失败");
-        }
-    }
-
     @GetMapping("delete/{id}")
     @ApiOperation("删除博客")
     public ResponseResult<?> delete(@PathVariable("id") String id){
-
         String userId = blogService.selectByPrimaryId(id).getUserId();
+        int count = 0;
         if (currentMemberServiceImpl.getMember()!=null){
             if(StrUtil.equals(currentMemberServiceImpl.getMember().getId(),userId)){
-                int count = blogService.deleteBlog(id);
-                if(count > 0){
-                    return ResponseResult.success("成功删除");
-                }else{
-                    return ResponseResult.failed("删除失败");
-                }
-
-            }else{
-                return ResponseResult.failed("请正确操作");
+                count = blogService.deleteBlog(id);
             }
+        }
+        if(count > 0){
+            return ResponseResult.success();
         }else{
-            return ResponseResult.failed("请正确操作");
+            return ResponseResult.failed();
         }
     }
 
     @PostMapping("update")
     @ApiOperation("更新博客")
     public ResponseResult<?> update(@RequestBody DtsBlogParam dtsBlogParam){
-
         DtsBlog blog = new DtsBlog();
         BeanUtil.copyProperties(dtsBlogParam,blog);
-
         int count = blogService.updateBlog(blog);
         if (count > 0){
             return ResponseResult.success(0);
         }
         return ResponseResult.failed();
-
     }
 
     @GetMapping("blogs")
@@ -139,54 +100,9 @@ public class DtsBlogController {
         return ResponseResult.success(blogService.selectBlogs(page));
     }
 
-    @PostMapping("comment/insert")
-    @ApiOperation("添加博客评论")
-    public ResponseResult<?> insertComment(@RequestBody @Valid DtsBlogCommentParam dtsBlogCommentParam){
-
-        UtsMemberLogin user = currentMemberServiceImpl.getMember();
-
-        DtsBlogComment blogComment = new DtsBlogComment();
-        BeanUtil.copyProperties(dtsBlogCommentParam,blogComment);
-
-        String commentId = IdUtil.fastSimpleUUID();
-        blogComment.setId(commentId);
-        blogComment.setUserId(user.getId());
-        blogComment.setCreateDate(new Date());
-        blogComment.setStatus(1);
-
-        int count = commentService.insertComment(blogComment);
-
-        if (count > 0){
-            DtsCommentDto dtsCommentDto = commentService.selectComment(commentId);
-            return ResponseResult.success(dtsCommentDto);
-        }
-        return ResponseResult.failed("添加失败");
-
-    }
-
-    @PostMapping("comment/delete/{id}")
-    @ApiOperation("删除博客评论")
-    public ResponseResult<?> deleteComment(@PathVariable("id") String id){
-        int count = commentService.deleteComment(id);
-        if (count > 0){
-            return ResponseResult.success(count);
-        }
-        return ResponseResult.failed();
-    }
-
-    @GetMapping("comment/{blogId}")
-    @ApiOperation("查询博客评论")
-    public ResponseResult<?> selectComment(@PathVariable("blogId") String blogId){
-        Map<String,Object> map = new HashMap<>();
-        map.put("comments",commentService.selectComments(blogId));
-        map.put("author", currentMemberServiceImpl.getMember());
-        return ResponseResult.success(map);
-    }
-
     @GetMapping("load")
     @ApiOperation("加载博客信息，详细")
     public ResponseResult<?> load(@RequestParam(name="blog",required = false) String blogId){
-
         DtsBlog blog = blogService.selectByPrimaryId(blogId);
         UtsMemberLogin author = currentMemberServiceImpl.getMember();
         if(blog.getUserId().equals(author.getId())){

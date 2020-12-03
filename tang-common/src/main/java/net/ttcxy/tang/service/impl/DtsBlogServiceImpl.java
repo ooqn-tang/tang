@@ -115,16 +115,7 @@ public class DtsBlogServiceImpl implements DtsBlogService {
 
     @Override
     public DtsBlogDto selectBlogById(String id) {
-        DtsBlogDto dtsBlogDto = dtsBlogDao.selectBlogById(id);
-        if (dtsBlogDto != null){
-            StsPageView pageView = new StsPageView();
-            pageView.setId(IdUtil.fastSimpleUUID());
-            pageView.setBlogId(id);
-            pageView.setUserId(currentMemberServiceImpl.getMemberId());
-            pageView.setCreateDatetime(new Date());
-            pageViewMapper.insertSelective(pageView);
-        }
-        return dtsBlogDto;
+        return dtsBlogDao.selectBlogById(id);
     }
 
     @Override

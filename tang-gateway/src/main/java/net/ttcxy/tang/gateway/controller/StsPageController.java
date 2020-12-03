@@ -1,7 +1,12 @@
 package net.ttcxy.tang.gateway.controller;
 
+import cn.hutool.core.date.DateTime;
+import cn.hutool.core.date.DateUtil;
+import cn.hutool.core.util.IdUtil;
+import net.ttcxy.tang.api.ResponseResult;
 import net.ttcxy.tang.entity.UtsMemberLogin;
 import net.ttcxy.tang.entity.dto.DtsBlogDto;
+import net.ttcxy.tang.entity.model.DtsBlog;
 import net.ttcxy.tang.service.CurrentMemberService;
 import net.ttcxy.tang.service.DtsBlogService;
 import net.ttcxy.tang.service.UtsMemberService;
@@ -113,12 +118,40 @@ public class StsPageController {
     }
 
     /**
-     * 编辑器
+     * 更新博客编辑器
      */
-    @GetMapping("editor")
-    public ModelAndView toEditor(ModelAndView modelAndView){
+    @GetMapping("editor/{id}")
+    public ModelAndView toEditor(ModelAndView modelAndView,@PathVariable("id") String id){
         modelAndView.setViewName("editor");
         return modelAndView;
+    }
+
+    @Autowired
+    private CurrentMemberService currentMemberServiceImpl;
+
+    /**
+     * 添加博客编辑器
+     */
+    @GetMapping("editor")
+    public String toEditor(){
+        DtsBlog blog = new DtsBlog();
+
+        DateTime date = DateUtil.date();
+        String memberId = currentMemberServiceImpl.getMemberId();
+        String uuid = IdUtil.fastSimpleUUID();
+
+        blog.setId(uuid);
+        blog.setUserId(memberId);
+        blog.setUpdateDate(date);
+        blog.setCreateDate(date);
+        blog.setStateId(2);
+
+        int count = blogService.insertBlog(blog);
+        if (count > 0){
+            return "redirect:/editor/" + uuid;
+        }
+
+        return "alert('添加失败')";
     }
 
     /**

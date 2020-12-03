@@ -36,7 +36,7 @@
         .hdBut{
             border-left: 1px #b5adad solid;
             outline: none;
-            width:50px;
+            width:75px;
             float: right;height: 100%;
             background: #337ab7;;
             border-radius: 0;
@@ -69,8 +69,6 @@
     <input type="text" id="title" placeholder="标题" style="background: #f4f4f4"/>
     <input type="button" class="hdBut"  value="取消" onClick="window.close()"/>
     <input type="button" id="send" class="hdBut"  value="发布" />
-    <input type="button"id="image" class="hdBut"   value="图片" onclick="document.getElementById('file').click()" />
-    <input type="file" id="file"  name="file" style="display: none" accept=".gif,.jpg,.jpeg,.bmp,.png,.psd"/>
 </div>
 <textarea onKeyUp="keyup()" class="tt" style="float: left;border-right: 1px solid black;background-color: #e2e3e4;" id="text" placeholder="请输入Markdown&#x000A;上传的文件如果没有在当前页面引用将会被删除"></textarea>
 <div class="tt t-div markdown-body" style="float:right;border-left: 1px solid black;background: #fff8eb;" id="content"></div>
@@ -104,17 +102,18 @@
             type:"POST",
             url:"/blog/insert",
             contentType: "application/json", //必须这样写
-            dataType:"json",
+            dataType:"text",
+            async:false,
             data:JSON.stringify({
                 title:title,
                 markdown:markdown,
                 text:html
             }),
-            success:function (result) {
+            success (result) {
                 window.close();
             },
             error(e){
-                alert(e)
+                console.log(e)
             }
         })
     }
@@ -123,18 +122,19 @@
             type:"POST",
             url:"/blog/update",
             contentType: "application/json", //必须这样写
-            dataType:"json",
+            dataType:"text",
+            async:false,
             data:JSON.stringify({
                 title:title,
                 text:html,
                 markdown:markdown,
                 id:id
             }),
-            success:function (result) {
+            success (result) {
                 window.close();
             },
             error(e){
-                alert(e)
+                console.log(e)
             }
         })
     }
@@ -189,33 +189,15 @@
     $("#content").mouseover(function(){
         scrollId = "content"
     });
-    document.getElementById('file').addEventListener('change', function (event) {
-        let $file = event.currentTarget;
-        let formData = new FormData();
-        let file = $file.files;
-        formData = new FormData();
-        formData.append("file", file[0]);
-        $.ajax({
-            url: '/file/upload',
-            type: 'POST',
-            dataType: 'json',
-            data: formData,
-            contentType: false,
-            processData: false
-        }).done(data => {
-            copyText(data["data"],function(){alert("文件上传成功，通过粘贴获取url路径")})
-        }).fail(data => {
-            console.log(data);
-        });
-    });
+
     if (blog!=null){
         $.ajax({
             type:"get",
             url:"/blog/load"+"?blog="+blog,
             contentType: "application/json", //必须这样写
             success:function (result) {
-                $("#text").val(result.data.markdown)
-                $("#title").val(result.data.title)
+                $("#text").val(result.markdown)
+                $("#title").val(result.title)
                 keyup()
             }
         })
