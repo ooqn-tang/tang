@@ -145,7 +145,7 @@ export const constantRoutes = [
     component: Layout,
     children: [
       {
-        path: 'http://www.ttcxy.net',
+        path: 'https://panjiachen.github.io/vue-element-admin-site/#/',
         meta: { title: '官网', icon: 'link' }
       }
     ]

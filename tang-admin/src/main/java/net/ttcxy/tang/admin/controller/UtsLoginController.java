@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServletRequest;
  * @author huanglei
  */
 @RestController
-@RequestMapping("login")
+@RequestMapping("admin")
 public class UtsLoginController {
 
     @Autowired

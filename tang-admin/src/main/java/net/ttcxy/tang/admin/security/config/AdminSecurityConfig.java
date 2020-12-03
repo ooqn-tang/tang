@@ -123,7 +123,7 @@ public class AdminSecurityConfig extends WebSecurityConfigurerAdapter {
             List<UtsResourceDto> resourceList = utsResourceService.listAll();
             for (UtsResourceDto resource : resourceList) {
                 Set<ConfigAttribute> configAttributeSet = new HashSet<>();
-                for (UtsRoleDto utsRoleDto : resource.getUtsRoleDtoList()) {
+                for (UtsRoleDto utsRoleDto : resource.getRoleDtoList()) {
                     configAttributeSet.add(new SecurityConfig(utsRoleDto.getAuthority()));
                 }
                 map.put(resource.getPath(),configAttributeSet);
