@@ -27,7 +27,7 @@ public class UtsMemberController {
     private UtsMemberService utsMemberService;
 
     @PostMapping("list")
-    public ResponseResult<?> memberList(){
+    public ResponseResult<List<UtsMemberDto>> memberList(){
         List<UtsMemberDto> utsMembers = utsMemberService.memberListDto(100);
         return ResponseResult.success(utsMembers);
     }

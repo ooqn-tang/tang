@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 /**
  * @author huanglei
@@ -33,13 +34,13 @@ public class UtsResourceController {
 
     @PostMapping("list")
     @ApiOperation("读取资源列表")
-    public ResponseResult<?> resourceList(){
+    public ResponseResult<List<UtsResource>> resourceList(){
         return ResponseResult.success(utsResourceService.resourceList());
     }
 
     @PostMapping("insert")
     @ApiOperation("添加资源")
-    public ResponseResult<?> insertResource(UtsResourceParam resource){
+    public ResponseResult insertResource(UtsResourceParam resource){
         UtsResource utsResource = new UtsResource();
         BeanUtil.copyProperties(resource,utsResource);
         int count = utsResourceService.insertResource(utsResource);
@@ -51,7 +52,7 @@ public class UtsResourceController {
 
     @PostMapping("delete/{id}")
     @ApiOperation("删除资源")
-    public ResponseResult<?> deleteResource(@PathVariable("id") String id){
+    public ResponseResult deleteResource(@PathVariable("id") String id){
         int count = utsResourceService.deleteResource(id);
         if (count > 0){
             return ResponseResult.success();
@@ -61,7 +62,7 @@ public class UtsResourceController {
 
     @PostMapping("update")
     @ApiOperation("更新资源")
-    public ResponseResult<?> updateResource(@Validated({Update.class}) UtsResourceParam resource){
+    public ResponseResult updateResource(@Validated({Update.class}) UtsResourceParam resource){
         UtsResource utsResource = new UtsResource();
         BeanUtil.copyProperties(resource,utsResource);
 

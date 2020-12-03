@@ -64,7 +64,7 @@ public class ResponseResult<T> extends ResponseEntity<T> {
     /**
      * 成功返回结果
      */
-    public static <T> ResponseResult<?> success() {
+    public static <T> ResponseResult<String> success() {
         return success("执行成功");
     }
 
@@ -72,16 +72,14 @@ public class ResponseResult<T> extends ResponseEntity<T> {
      * 成功返回结果
      * @param data 获取的数据
      */
-    public static <T> ResponseResult<?> success(T data) {
-        Map<String,T> map = new HashMap<>();
-        map.put("data",data);
-        return new ResponseResult<>(map,HttpStatus.OK);
+    public static <T> ResponseResult<T> success(T data) {
+        return new ResponseResult<>(data,HttpStatus.OK);
     }
 
     /**
      * 失败返回结果
      */
-    public static <T> ResponseResult<?> failed() {
+    public static <T> ResponseResult<String> failed() {
         return failed("执行失败");
     }
 
@@ -90,10 +88,8 @@ public class ResponseResult<T> extends ResponseEntity<T> {
      * 500 Internal Server Error
      * @param data 错误码
      */
-    public static <T> ResponseResult<?> failed(T data) {
-        Map<String,T> map = new HashMap<>();
-        map.put("data",data);
-        return new ResponseResult<>(map,HttpStatus.INTERNAL_SERVER_ERROR);
+    public static <T> ResponseResult<T> failed(T data) {
+        return new ResponseResult<>(data,HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
 
@@ -101,30 +97,24 @@ public class ResponseResult<T> extends ResponseEntity<T> {
      * 参数验证失败返回结果
      * 404 Not Found.
      */
-    public static <T> ResponseResult<?> validateFailed(T data) {
-        Map<String,T> map = new HashMap<>();
-        map.put("data",data);
-        return new ResponseResult<>(map, HttpStatus.NOT_FOUND);
+    public static <T> ResponseResult<T> validateFailed(T data) {
+        return new ResponseResult<>(data, HttpStatus.NOT_FOUND);
     }
 
     /**
      * 未登录返回结果
      * 401 Unauthorized
      */
-    public static <T> ResponseResult<?> unauthorized(T data) {
-        Map<String,T> map = new HashMap<>();
-        map.put("data",data);
-        return new ResponseResult<>(map,HttpStatus.UNAUTHORIZED);
+    public static <T> ResponseResult<T> unauthorized(T data) {
+        return new ResponseResult<>(data,HttpStatus.UNAUTHORIZED);
     }
 
     /**
      * 未授权返回结果
      * 403 Forbidden
      */
-    public static <T> ResponseResult<?> forbidden(T data) {
-        Map<String,T> map = new HashMap<>();
-        map.put("data",data);
-        return new ResponseResult<>(map,HttpStatus.FORBIDDEN);
+    public static <T> ResponseResult<T> forbidden(T data) {
+        return new ResponseResult<>(data,HttpStatus.FORBIDDEN);
     }
 
 

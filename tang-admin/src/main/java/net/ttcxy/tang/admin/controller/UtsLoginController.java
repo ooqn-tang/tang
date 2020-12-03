@@ -6,6 +6,7 @@ import net.ttcxy.tang.admin.security.component.AuthenticationTokenFilter;
 
 import net.ttcxy.tang.api.ResponseResult;
 
+import net.ttcxy.tang.entity.UtsMemberLogin;
 import net.ttcxy.tang.entity.model.UtsMember;
 import net.ttcxy.tang.service.CurrentMemberService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +34,7 @@ public class UtsLoginController {
     private HttpServletRequest request;
 
     @PostMapping("token")
-    public ResponseResult<?> token(@RequestBody UtsMember utsMember){
+    public ResponseResult token(@RequestBody UtsMember utsMember){
         UserDetails userDetails = userDetailsService.loadUserByUsername(utsMember.getUsername());
         if (userDetails == null){
             return ResponseResult.failed("用户名不存在");
@@ -49,12 +50,12 @@ public class UtsLoginController {
     }
 
     @GetMapping("info")
-    public ResponseResult<?> info(){
+    public ResponseResult<UtsMemberLogin> info(){
         return ResponseResult.success(currentMemberService.getMember());
     }
 
     @GetMapping("logout")
-    public ResponseResult<?> logout(){
+    public ResponseResult logout(){
         String token = request.getHeader("token");
         AuthenticationTokenFilter.authorDtoMap.remove(token);
         return ResponseResult.success("推出成功");

@@ -56,7 +56,7 @@ export default {
   methods: {
     member() {
       memberList().then((response) => {
-        this.memberDataList = response.data.data
+        this.memberDataList = response.data
         this.loading = false
       })
     },
