@@ -28,7 +28,7 @@ import javax.validation.constraints.NotNull;
 @RestController
 @RequestMapping("author")
 @Api("作者创作类")
-public class UtsAuthorController {
+public class UtsMemberController {
 
     @Autowired
     private CurrentMemberService currentMemberService;
@@ -60,23 +60,14 @@ public class UtsAuthorController {
         return ResponseResult.failed();
     }
 
-
-    /**
-     * author列表
-     * @param page 页码
-     * @return List<author>
-     */
     @PostMapping("list")
+    @ApiOperation("author列表")
     public ResponseResult<?> listAuthor(@RequestParam(defaultValue = "1") Integer page){
         return ResponseResult.success(authorService.memberList(page));
     }
 
-    /**
-     * 注册请求
-     * @param register register
-     * @return 状态
-     */
     @PostMapping("register")
+    @ApiOperation("注册请求")
     public ResponseResult<?> register(@RequestBody @Valid @NotNull(message = "参数不能为空") UtsRegisterParam register){
 
         String mail = register.getMail();
@@ -104,12 +95,8 @@ public class UtsAuthorController {
 
     }
 
-    /**
-     * 密码修改
-     * @param register register
-     * @return 修改状态
-     */
     @PostMapping("password")
+    @ApiOperation("密码修改")
     public ResponseResult<?> updatePassword(@RequestBody @Valid @NotNull(message = "参数不能为空") UtsRegisterParam register){
 
         String mail = register.getMail();
@@ -132,6 +119,9 @@ public class UtsAuthorController {
         return null;
     }
 
+    /**
+     * 生成用户名
+     */
     private String getUsername(){
         while(true){
             String name = "t" + RandomUtil.randomNumbers(9);

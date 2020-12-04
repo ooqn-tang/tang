@@ -25,23 +25,17 @@ public class UtsFansController {
     @Autowired
     private UtsFansService fansService;
 
-    /**
-     * 关注用户
-     */
     @GetMapping("list")
     @ApiOperation("关注的作者列表")
-    public ResponseResult<?> fansList(){
-        String authorId = currentMemberService.getMember().getId();
-        List<UtsMemberLogin> fansList = fansService.selectFansList(authorId);
+    public ResponseResult<List<UtsMemberLogin>> fansList(){
+        String memberId = currentMemberService.getMember().getId();
+        List<UtsMemberLogin> fansList = fansService.selectFansList(memberId);
         return ResponseResult.success(fansList);
     }
 
-    /**
-     * 查询粉丝
-     */
     @GetMapping("{fansName}")
     @ApiOperation("查询粉丝名是否存在")
-    public ResponseResult<?> selectByName(@PathVariable("fansName") String fansName){
+    public ResponseResult selectByName(@PathVariable("fansName") String fansName){
         int count = fansService.selectFans(fansName);
         if (count > 0){
             return ResponseResult.success(count);
@@ -49,12 +43,9 @@ public class UtsFansController {
         return ResponseResult.failed();
     }
 
-    /**
-     * 关注粉丝
-     */
     @PostMapping("insert/{fansName}")
     @ApiOperation("添加关注")
-    public ResponseResult<?> insert(@PathVariable("fansName") String fansName){
+    public ResponseResult insert(@PathVariable("fansName") String fansName){
         int count = fansService.insertFans(fansName);
         if (count > 0){
             return ResponseResult.success(count);
@@ -62,12 +53,9 @@ public class UtsFansController {
         return ResponseResult.failed();
     }
 
-    /**
-     * 取消粉丝
-     */
     @PostMapping("delete/{fansName}")
     @ApiOperation("删除关注")
-    public ResponseResult<?> delete(@PathVariable("fansName") String fansName){
+    public ResponseResult delete(@PathVariable("fansName") String fansName){
         int count = fansService.deleteFans(fansName);
         if (count > 0){
             return ResponseResult.success(count);

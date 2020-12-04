@@ -28,7 +28,7 @@
             <div class="panel panel-default">
                 <div class="panel-body">
                     <div class="btn-group W100">
-                        <button class="btn btn-default btn-sm W20" v-bind:class="{ W50 : !isThisUser }" @click="cl(),author(),showFans = false">博客</button>
+                        <button class="btn btn-default btn-sm W20" v-bind:class="{ W50 : !isThisUser }" @click="cl(),loadAuthor(),showFans = false">博客</button>
                         <button class="btn btn-default btn-sm W20" v-bind:class="{ W50 : !isThisUser }" @click="cl(),like(),showFans = false">推荐</button>
                         <button class="btn btn-default btn-sm W20" @click="fans" v-if="isThisUser">关注</button>
                         <a class="btn btn-default btn-sm W20" href="/author/setting" v-if="isThisUser">设置</a>
@@ -109,7 +109,7 @@
                 }
             },
             updateBlog(id){
-                window.open('/editor?blog='+id)
+                window.open('/editor/'+id)
             },
             cl(){
                 this.pageNum = 1
@@ -121,6 +121,7 @@
                         type:"GET",
                         url:"/blog/delete/"+item.id,
                         contentType: "application/json",
+                        dataType: "text",
                         success:function (result) {
                             _this.blog.list.splice(index,1)
                         }
@@ -232,7 +233,7 @@
                 this.blog = {}
                 this.show = false
                 if (type === "author"){
-                    this.author()
+                    this.loadAuthor()
                 }
                 if (type === "like"){
                     this.like()

@@ -13,8 +13,11 @@ import java.util.List;
 public interface DtsBlogService {
 
 
-    PageInfo<DtsBlogDto> getBlogList(Integer page);
-
+    /**
+     * 博客列表
+     * @param page 页码
+     */
+    PageInfo<DtsBlogDto> getBlogList(Integer page,Integer pageSize);
 
     /**
      * 模糊查询blog
@@ -22,15 +25,14 @@ public interface DtsBlogService {
      * @param page 页码
      * @return  BlogDto list
      */
-    PageInfo<DtsBlogDto> search(String title, Integer page);
+    PageInfo<DtsBlogDto> search(String title, Integer page,Integer pageSize);
 
     /**
      * 通过用户名查询所有BLOG
      * @param username 用户名
      * @return BlogDto list
      */
-    PageInfo<DtsBlogDto> selectBlogByUsername(String username, Integer page);
-
+    PageInfo<DtsBlogDto> selectBlogByUsername(String username, Integer page,Integer pageSize);
 
     /**
      * 通过博客ID查询数据
@@ -60,53 +62,55 @@ public interface DtsBlogService {
 
     /**
      * 删除博客
-     * @return
+     * @return 影响的行数
      */
     int deleteBlog(String id);
 
     /**
      * 喜欢blog
-     * @param userId
-     * @param blogId
+     * @param userId 用户ID
+     * @param blogId 博客ID
      */
     int like(String userId,String blogId);
 
     /**
      * 更新博客，获取原始MD格式
-     * @param blogId
+     * @param blogId 博客列表
      * @return
      */
     DtsBlog selectByPrimaryId(String blogId);
 
     /**
      * 查询我是否喜欢了当前Blog
-     * @param userId
-     * @param dataId
+     * @param userId 用户ID
+     * @param dataId 博客ID
      * @return
      */
     long selectLike(String userId, String dataId);
 
     /**
      * 查询用户喜欢的所有BLOG
-     * @return
+     * @return 喜欢的博客列表
      */
-    PageInfo<DtsBlogDto> selectLikeBlogs(String username, Integer page);
+    PageInfo<DtsBlogDto> selectLikeBlogList(String username, Integer page,Integer pageSize);
 
 
     /**
      * 获取博客列表
-     * @param page
+     * @param page 页码
      * @return
      */
-    PageInfo<DtsBlogDto> selectBlogs(Integer page);
+    PageInfo<DtsBlogDto> selectBlogList(Integer page,Integer pageSize);
 
     /**
      * 随机获取一条博客
-     * @return
      */
     DtsBlogDto random();
 
-    List<String> getRandomBlogs();
+    /**
+     * 随机博客ID列表
+     */
+    List<String> getRandomBlogIdList();
 
 
 }

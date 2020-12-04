@@ -3,6 +3,8 @@ package net.ttcxy.tang.gateway.controller;
 import cn.hutool.core.date.DateTime;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.IdUtil;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import net.ttcxy.tang.api.ResponseResult;
 import net.ttcxy.tang.entity.UtsMemberLogin;
 import net.ttcxy.tang.entity.dto.DtsBlogDto;
@@ -24,6 +26,7 @@ import org.springframework.web.servlet.ModelAndView;
  * @author huanglei
  */
 @Controller
+@Api("项目的所有页面跳转")
 public class StsPageController {
 
     @Autowired
@@ -35,35 +38,30 @@ public class StsPageController {
     @Autowired
     private UtsMemberService authorService;
 
-    /**
-     * 首页
-     */
+    @Autowired
+    private CurrentMemberService currentMemberServiceImpl;
+
     @GetMapping
+    @ApiOperation("首页")
     public String toHome(){
         return "index";
     }
 
-    /**
-     * 地图
-     */
     @GetMapping("map")
+    @ApiOperation("地图 页面")
     public String toMap(Model model,@RequestParam(defaultValue = "1") Integer page){
-        model.addAttribute(blogService.getBlogList(page));
+        model.addAttribute(blogService.getBlogList(page,150));
         return "map";
     }
 
-    /**
-     * 搜索跳转页面
-     */
     @GetMapping("so")
+    @ApiOperation("搜索跳转页面")
     public String toSearch(){
         return "index";
     }
 
-    /**
-     * 作者页面
-     */
     @GetMapping("author/{username}")
+    @ApiOperation("作者页面")
     public ModelAndView toUserHome(@PathVariable("username")String username, ModelAndView modelAndView){
         UtsMemberLogin utsMemberLogin = authorService.selectMemberByName(username);
         if (utsMemberLogin == null){
@@ -76,10 +74,8 @@ public class StsPageController {
         return modelAndView;
     }
 
-    /**
-     * 文章页面
-     */
     @GetMapping("post/{id}")
+    @ApiOperation("文章页面")
     public ModelAndView toBlog(@PathVariable("id")String blogId, ModelAndView modelAndView){
 
         UtsMemberLogin utsMemberLogin = currentMemberService.getMember();
@@ -107,33 +103,24 @@ public class StsPageController {
         return modelAndView;
     }
 
-    /**
-     * 更改用户信息页面
-     */
     @GetMapping("author/setting")
+    @ApiOperation("更改用户信息页面")
     public ModelAndView updateUser(ModelAndView modelAndView){
         modelAndView.setViewName("setting");
         modelAndView.addObject(currentMemberService.getMember());
         return modelAndView;
     }
 
-    /**
-     * 更新博客编辑器
-     */
     @GetMapping("editor/{id}")
+    @ApiOperation("更新博客编辑器")
     public ModelAndView toEditor(ModelAndView modelAndView,@PathVariable("id") String id){
         modelAndView.addObject("blogId",id);
         modelAndView.setViewName("editor");
         return modelAndView;
     }
 
-    @Autowired
-    private CurrentMemberService currentMemberServiceImpl;
-
-    /**
-     * 添加博客编辑器
-     */
     @GetMapping("editor")
+    @ApiOperation("添加博客编辑器")
     public String toEditor(){
         DtsBlog blog = new DtsBlog();
 
@@ -155,18 +142,15 @@ public class StsPageController {
         return "alert('添加失败')";
     }
 
-    /**
-     * 编辑器
-     */
     @GetMapping("fast")
+    @ApiOperation("编辑器")
     public ModelAndView toFast(ModelAndView modelAndView){
         modelAndView.setViewName("fast");
         return modelAndView;
     }
-    /**
-     * 视频
-     */
+
     @GetMapping("navigation")
+    @ApiOperation("视频")
     public ModelAndView toNavigation(ModelAndView modelAndView){
         modelAndView.setViewName("navigation");
         return modelAndView;

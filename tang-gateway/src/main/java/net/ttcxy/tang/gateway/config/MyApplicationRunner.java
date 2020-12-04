@@ -51,7 +51,7 @@ public class MyApplicationRunner implements ApplicationRunner {
         if (!FileUtil.isDirectory(myFileDataPath)) {
             FileUtil.mkdir(myFileDataPath);
         }
-        blogService.getRandomBlogs().addAll(dtsBlogDao.selectId());
+        blogService.getRandomBlogIdList().addAll(dtsBlogDao.selectId());
     }
 
 }

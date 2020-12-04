@@ -76,7 +76,7 @@ public class MySecurityConfig  extends WebSecurityConfigurerAdapter {
                     //token有效时间
                     .tokenValiditySeconds(securityProperties.getTokenTime())
                     //登录时，如果用户没有登录，去数据库查询token，如果拥有有效token直接免登录使用
-                    .userDetailsService(userDetailsService());
+                    .userDetailsService(userDetailsService);
         }
 
         http
@@ -104,5 +104,6 @@ public class MySecurityConfig  extends WebSecurityConfigurerAdapter {
         tokenRepository.setDataSource(dataSource);
         return tokenRepository;
     }
+
 
 }
