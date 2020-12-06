@@ -2,7 +2,9 @@ package net.ttcxy.tang.gateway.security;
 
 import net.ttcxy.tang.code.properties.SecurityProperties;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.access.AccessDecisionManager;
 import org.springframework.security.access.SecurityMetadataSource;
 import org.springframework.security.access.intercept.AbstractSecurityInterceptor;
 import org.springframework.security.access.intercept.InterceptorStatusToken;
@@ -27,35 +29,38 @@ public class DynamicSecurityFilter extends AbstractSecurityInterceptor implement
     private DynamicSecurityMetadataSource dynamicSecurityMetadataSource;
 
     @Autowired
-    SecurityProperties securityProperties;
+    private SecurityProperties securityProperties;
 
     @Autowired
-    public void setMyAccessDecisionManager(DynamicAccessDecisionManager dynamicAccessDecisionManager) {
-        super.setAccessDecisionManager(dynamicAccessDecisionManager);
+    public void setDynamicAccessDecisionManager(AccessDecisionManager accessDecisionManager){
+        super.setAccessDecisionManager(accessDecisionManager);
     }
 
     @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
+    public void init(FilterConfig filterConfig) {
+
     }
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         FilterInvocation fi = new FilterInvocation(servletRequest, servletResponse, filterChain);
-        //OPTIONS请求直接放行
+        // OPTIONS请求直接放行
         if(request.getMethod().equals(HttpMethod.OPTIONS.toString())){
+            // 通过当前过滤器，执行下一个过滤器
             fi.getChain().doFilter(fi.getRequest(), fi.getResponse());
             return;
         }
-        //白名单请求直接放行
+        // 白名单请求直接放行
         PathMatcher pathMatcher = new AntPathMatcher();
         for (String path : securityProperties.getUrls()) {
             if(pathMatcher.match(path,request.getRequestURI())){
+                // 通过当前过滤器，执行下一个过滤器
                 fi.getChain().doFilter(fi.getRequest(), fi.getResponse());
                 return;
             }
         }
-        //此处会调用AccessDecisionManager中的decide方法进行鉴权操作
+        // 此处会调用AccessDecisionManager中的decide方法进行鉴权操作
         InterceptorStatusToken token = super.beforeInvocation(fi);
         try {
             fi.getChain().doFilter(fi.getRequest(), fi.getResponse());

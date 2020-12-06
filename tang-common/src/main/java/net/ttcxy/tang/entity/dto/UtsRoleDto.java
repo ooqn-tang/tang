@@ -1,6 +1,7 @@
 package net.ttcxy.tang.entity.dto;
 
 import lombok.EqualsAndHashCode;
+import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.core.GrantedAuthority;
 
 import java.util.Date;
@@ -11,7 +12,7 @@ import java.util.Objects;
  * @author huanglei
  */
 @EqualsAndHashCode
-public class UtsRoleDto implements GrantedAuthority {
+public class UtsRoleDto implements GrantedAuthority, ConfigAttribute {
 
     static final long serialVersionUID = 1L;
 
@@ -68,6 +69,11 @@ public class UtsRoleDto implements GrantedAuthority {
 
     @Override
     public String getAuthority() {
+        return "ROLE_" + value;
+    }
+
+    @Override
+    public String getAttribute() {
         return "ROLE_" + value;
     }
 

@@ -12,7 +12,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.AntPathMatcher;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author huanglei
@@ -29,17 +31,19 @@ public class DynamicSecurityMetadataSource implements FilterInvocationSecurityMe
     public Collection<ConfigAttribute> getAttributes(Object object) throws IllegalArgumentException {
         String requestUrl = ((FilterInvocation) object).getRequestUrl();
         List<UtsResourceDto> resourceList = utsResourceService.listAll();
+        Set<ConfigAttribute> resourceRole = new HashSet<>();
         for (UtsResourceDto utsResourceDto : resourceList){
             if (antPathMatcher.match(utsResourceDto.getPath(),requestUrl)){
                 List<UtsRoleDto> roles = utsResourceDto.getRoleDtoList();
-                String[] roleStr = new String[roles.size()];
-                for (int i = 0; i < roles.size(); i++) {
-                    roleStr[i] = "ROLE_" + roles.get(i).getValue();
-                }
-                return SecurityConfig.createList(roleStr);
+                resourceRole.addAll(roles);
             }
         }
-        return SecurityConfig.createList("ROLE_ANONYMOUS");
+        // 没有角色添加默认角色
+        if (resourceList.size() == 0){
+            return SecurityConfig.createList("ROLE_ANONYMOUS");
+        }else{
+            return resourceRole;
+        }
     }
 
     @Override

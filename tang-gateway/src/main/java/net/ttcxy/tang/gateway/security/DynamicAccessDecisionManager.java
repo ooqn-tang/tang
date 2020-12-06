@@ -14,19 +14,14 @@ import java.util.Iterator;
 
 /**
  * 动态权限决策管理器，用于判断用户是否有访问权限
- *
  * @author huanglei
  */
-@Component
+@Component("dynamicAccessDecisionManager")
 public class DynamicAccessDecisionManager implements AccessDecisionManager {
 
     @Override
     public void decide(Authentication authentication, Object object,
                        Collection<ConfigAttribute> configAttributes) throws AccessDeniedException, InsufficientAuthenticationException {
-        // 当接口未被配置资源时直接放行
-        if (CollUtil.isEmpty(configAttributes)) {
-            return;
-        }
         for (ConfigAttribute configAttribute : configAttributes) {
             //将访问所需资源或用户拥有资源进行比对
             String needAuthority = configAttribute.getAttribute();

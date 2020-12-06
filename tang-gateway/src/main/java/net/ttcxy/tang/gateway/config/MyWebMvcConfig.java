@@ -22,7 +22,7 @@ public class MyWebMvcConfig implements WebMvcConfigurer {
     private NetworkAddressHandlerInterceptor networkAddressHandlerInterceptor;
 
     /**
-     * 拦截器，过滤这些请求
+     * 对指定请求拦截
      */
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
