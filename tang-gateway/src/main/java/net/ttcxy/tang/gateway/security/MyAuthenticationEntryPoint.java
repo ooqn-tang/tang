@@ -36,7 +36,7 @@ public class MyAuthenticationEntryPoint implements AuthenticationEntryPoint {
                 response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
                 response.setContentType("application/json;charset=utf-8");
                 ObjectMapper objectMapper = new ObjectMapper();
-                response.getWriter().print(objectMapper.writeValueAsString("没有权限"));
+                response.getWriter().print(objectMapper.writeValueAsString("没有登录或过期"));
                 return;
             }
         }

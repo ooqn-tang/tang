@@ -70,6 +70,7 @@ public class MySecurityConfig  extends WebSecurityConfigurerAdapter {
         http.userDetailsService(userDetailsService);
         // 没有权限的处理器
         http.exceptionHandling().authenticationEntryPoint(myAuthenticationEntryPoint);
+        http.exceptionHandling().accessDeniedHandler(accessDeniedHandler());
         // 登录拦截器前面添加验证码拦截器
         http.addFilterBefore(myVerifyCodeFilter, UsernamePasswordAuthenticationFilter.class);
         // 动态权限管理器
@@ -116,7 +117,19 @@ public class MySecurityConfig  extends WebSecurityConfigurerAdapter {
     @Bean
     public AccessDeniedHandler accessDeniedHandler(){
         return (request, response, accessDeniedException) -> {
-            throw new AccessDeniedException("抱歉，您没有访问权限");
+            Enumeration<String> headerNames = request.getHeaderNames();
+            while(headerNames.hasMoreElements()){
+                String headerName = headerNames.nextElement();
+                if ("X-Requested-With".equalsIgnoreCase(headerName)){
+                    response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                    response.setContentType("application/json;charset=utf-8");
+                    ObjectMapper objectMapper = new ObjectMapper();
+                    response.getWriter().print(objectMapper.writeValueAsString("没有权限"));
+                    return;
+                }
+            }
+            response.setContentType("text/html;charset=utf-8");
+            response.sendRedirect("/403");
         };
     }
 }
