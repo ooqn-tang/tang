@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.access.AccessDecisionManager;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.SecurityMetadataSource;
 import org.springframework.security.access.intercept.AbstractSecurityInterceptor;
 import org.springframework.security.access.intercept.InterceptorStatusToken;
@@ -42,7 +43,7 @@ public class DynamicSecurityFilter extends AbstractSecurityInterceptor implement
     }
 
     @Override
-    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
+    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException, AccessDeniedException {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         FilterInvocation fi = new FilterInvocation(servletRequest, servletResponse, filterChain);
         // OPTIONS请求直接放行

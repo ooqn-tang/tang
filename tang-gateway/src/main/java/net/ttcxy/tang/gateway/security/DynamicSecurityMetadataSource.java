@@ -39,7 +39,7 @@ public class DynamicSecurityMetadataSource implements FilterInvocationSecurityMe
             }
         }
         // 没有角色添加默认角色
-        if (resourceList.size() == 0){
+        if (resourceRole.size() == 0){
             return SecurityConfig.createList("ROLE_ANONYMOUS");
         }else{
             return resourceRole;

@@ -50,6 +50,7 @@ public class UtsMemberServiceImpl implements UtsMemberService {
         String password = member.getPassword();
         String encodePassword = new BCryptPasswordEncoder().encode(password);
         member.setPassword(encodePassword);
+
         return authorMapper.insertSelective(member);
     }
 
