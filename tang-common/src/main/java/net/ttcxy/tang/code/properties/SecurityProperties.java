@@ -40,14 +40,14 @@ public class SecurityProperties {
      */
     private int tokenTime = 2592000;
 
-    private String[] urls;
+    private String[] openUrls;
 
-    public String[] getUrls() {
-        return urls;
+    public String[] getOpenUrls() {
+        return openUrls;
     }
 
-    public void setUrls(String[] urls) {
-        this.urls = urls;
+    public void setOpenUrls(String[] openUrls) {
+        this.openUrls = openUrls;
     }
 
     public boolean isSecuritySession() {

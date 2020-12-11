@@ -41,13 +41,7 @@ public class MySecurityConfig  extends WebSecurityConfigurerAdapter {
     private UserDetailsService userDetailsService;
 
     @Autowired
-    private FilterInvocationSecurityMetadataSource myFilterInvocationSecurityMetadataSource;
-
-    @Autowired
     private DataSource dataSource;
-
-    @Autowired
-    private DynamicSecurityFilter dynamicSecurityFilter;
 
     @Autowired
     private MyAuthenticationFailureHandler myAuthenticationFailureHandler;
@@ -66,40 +60,44 @@ public class MySecurityConfig  extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+
+
         // 由于本安全框架独立于应用模块，调用的模块需要注入userDetailsService Bean
         http.userDetailsService(userDetailsService);
         // 没有权限的处理器
         http.exceptionHandling().authenticationEntryPoint(myAuthenticationEntryPoint);
         // 登录拦截器前面添加验证码拦截器
         http.addFilterBefore(myVerifyCodeFilter, UsernamePasswordAuthenticationFilter.class);
-        // 动态权限管理器
-        http.addFilterBefore(dynamicSecurityFilter,FilterSecurityInterceptor.class);
 
+        // 不需要登录的请求
+        http.authorizeRequests().antMatchers(securityProperties.getOpenUrls()).permitAll();
+        // 需要登录的请求
+        http.authorizeRequests().anyRequest().authenticated();
 
         //允许配置“记住我”身份验证。
         if (securityProperties.isRememberMe()) {
             http.rememberMe()
-                    //记住我需要生成在数据库保存token，这个配置用于保存token
-                    .tokenRepository(persistentTokenRepository())
-                    //token有效时间
-                    .tokenValiditySeconds(securityProperties.getTokenTime())
-                    //登录时，如果用户没有登录，去数据库查询token，如果拥有有效token直接免登录使用
-                    .userDetailsService(userDetailsService);
+            //记住我需要生成在数据库保存token，这个配置用于保存token
+            .tokenRepository(persistentTokenRepository())
+            //token有效时间
+            .tokenValiditySeconds(securityProperties.getTokenTime())
+            //登录时，如果用户没有登录，去数据库查询token，如果拥有有效token直接免登录使用
+            .userDetailsService(userDetailsService);
         }
 
         http
-                .formLogin()
-                //配置登录页面
-                .loginPage(securityProperties.getLoginPagePath())
-                //登录POST请求
-                .loginProcessingUrl(securityProperties.getFormLoginApi())
-                //自己重写的登录成功处理器
-                .successHandler(myAuthenticationSuccessHandler)
-                //自己重写的登录失败处理器
-                .failureHandler(myAuthenticationFailureHandler)
-                .and()
-                //关闭csrf安全
-                .csrf().disable();
+        .formLogin()
+        //配置登录页面
+        .loginPage(securityProperties.getLoginPagePath())
+        //登录POST请求
+        .loginProcessingUrl(securityProperties.getFormLoginApi())
+        //自己重写的登录成功处理器
+        .successHandler(myAuthenticationSuccessHandler)
+        //自己重写的登录失败处理器
+        .failureHandler(myAuthenticationFailureHandler)
+        .and()
+        //关闭csrf安全
+        .csrf().disable();
     }
 
     @Bean

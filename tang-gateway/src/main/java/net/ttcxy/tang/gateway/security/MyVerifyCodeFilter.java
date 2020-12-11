@@ -34,8 +34,7 @@ public class MyVerifyCodeFilter extends OncePerRequestFilter {
     @Override
     protected void initFilterBean() throws ServletException {
         super.initFilterBean();
-        String[] verifyUri = securityProperties.getVerifyUri();
-        URLS.addAll(Arrays.asList(verifyUri));
+        URLS.addAll(Arrays.asList(securityProperties.getVerifyUri()));
     }
 
     @Override
