@@ -176,7 +176,7 @@ export default {
     // 加载角色列表
     loadRole() {
       roleList().then(result => {
-        this.roleList = result.data.data
+        this.roleList = result.data
       })
     },
     // 保存资源按钮
@@ -210,8 +210,8 @@ export default {
     // 加载资源列表
     loadResource() {
       resourceList().then((result) => {
-        console.log(result.data.data)
-        this.resourceList = result.data.data
+        console.log(result.data)
+        this.resourceList = result.data
       })
     }
   }
