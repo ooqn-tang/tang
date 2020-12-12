@@ -4,7 +4,7 @@ import cn.hutool.core.util.StrUtil;
 import cn.hutool.core.util.URLUtil;
 import cn.hutool.json.JSONUtil;
 import io.swagger.annotations.ApiOperation;
-import net.ttcxy.tang.entity.dto.StsWebLogDto;
+import net.ttcxy.tang.gateway.entity.dto.StsWebLogDto;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.Signature;

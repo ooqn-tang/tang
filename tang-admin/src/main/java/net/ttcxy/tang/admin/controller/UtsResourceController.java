@@ -3,13 +3,11 @@ package net.ttcxy.tang.admin.controller;
 import cn.hutool.core.bean.BeanUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import net.ttcxy.tang.admin.entity.param.UtsResourceParam;
+import net.ttcxy.tang.admin.service.UtsResourceService;
 import net.ttcxy.tang.api.ResponseResult;
-import net.ttcxy.tang.code.Insert;
 import net.ttcxy.tang.code.Update;
-import net.ttcxy.tang.entity.model.UtsResource;
-import net.ttcxy.tang.entity.param.UtsResourceParam;
-import net.ttcxy.tang.service.UtsResourceService;
-import org.hibernate.validator.internal.engine.groups.Group;
+import net.ttcxy.tang.model.UtsResource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,8 +15,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**

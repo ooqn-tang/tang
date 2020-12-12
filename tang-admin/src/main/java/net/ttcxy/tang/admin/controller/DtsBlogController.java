@@ -2,12 +2,11 @@ package net.ttcxy.tang.admin.controller;
 
 import cn.hutool.core.bean.BeanUtil;
 import com.github.pagehelper.PageInfo;
+import net.ttcxy.tang.admin.entity.dto.DtsBlogDto;
+import net.ttcxy.tang.admin.entity.param.DtsBlogParam;
+import net.ttcxy.tang.admin.service.DtoBlogService;
 import net.ttcxy.tang.api.ResponseResult;
-import net.ttcxy.tang.entity.dto.DtsBlogDto;
-import net.ttcxy.tang.entity.model.DtsBlog;
-import net.ttcxy.tang.entity.param.DtsBlogParam;
-import net.ttcxy.tang.service.DtoBlogService;
-import org.springframework.beans.factory.annotation.Autowired;
+import net.ttcxy.tang.model.DtsBlog;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

@@ -1,9 +1,8 @@
 package net.ttcxy.tang.admin.controller;
 
+import net.ttcxy.tang.admin.entity.dto.UtsMemberDto;
+import net.ttcxy.tang.admin.service.UtsMemberService;
 import net.ttcxy.tang.api.ResponseResult;
-import net.ttcxy.tang.entity.dto.UtsMemberDto;
-import net.ttcxy.tang.entity.model.UtsMember;
-import net.ttcxy.tang.service.UtsMemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

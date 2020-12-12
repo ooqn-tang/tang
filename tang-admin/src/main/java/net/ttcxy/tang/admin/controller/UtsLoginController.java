@@ -2,13 +2,11 @@ package net.ttcxy.tang.admin.controller;
 
 
 import cn.hutool.core.util.IdUtil;
+import net.ttcxy.tang.admin.entity.UtsMemberLogin;
 import net.ttcxy.tang.admin.security.component.AuthenticationTokenFilter;
-
+import net.ttcxy.tang.admin.service.CurrentMemberService;
 import net.ttcxy.tang.api.ResponseResult;
-
-import net.ttcxy.tang.entity.UtsMemberLogin;
-import net.ttcxy.tang.entity.model.UtsMember;
-import net.ttcxy.tang.service.CurrentMemberService;
+import net.ttcxy.tang.model.UtsMember;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

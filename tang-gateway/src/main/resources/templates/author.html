@@ -28,8 +28,8 @@
             <div class="panel panel-default">
                 <div class="panel-body">
                     <div class="btn-group W100">
-                        <button class="btn btn-default btn-sm W20" v-bind:class="{ W50 : !isThisUser }" @click="cl(),loadAuthor(),showFans = false">博客</button>
-                        <button class="btn btn-default btn-sm W20" v-bind:class="{ W50 : !isThisUser }" @click="cl(),like(),showFans = false">推荐</button>
+                        <button class="btn btn-default btn-sm W20" v-bind:class="{ W50 : !isThisUser }" @click="cl(),loadAuthor(),blogList=[],showFans = false">博客</button>
+                        <button class="btn btn-default btn-sm W20" v-bind:class="{ W50 : !isThisUser }" @click="cl(),like(),blogList=[],showFans = false">推荐</button>
                         <button class="btn btn-default btn-sm W20" @click="fans" v-if="isThisUser">关注</button>
                         <a class="btn btn-default btn-sm W20" href="/author/setting" v-if="isThisUser">设置</a>
                         <a class="btn btn-default btn-sm W20" @click="logout" v-if="isThisUser">注销</a>
@@ -47,29 +47,24 @@
             </div>
         </div>
         <div class="col-md-8 col-md-pull-4">
-            <ul class="list-group" v-if="show">
-                <li class="list-group-item" v-for="(item,index) in blog.list">
+            <ul class="list-group">
+                <li class="list-group-item" v-for="(item,index) in blogList">
                     <a class="blog-title" target="_blank" v-bind:href="'/post/'+item.id" v-text="item.title"></a>
                     <br>
                     <div>
                         <span v-text="item.createDate"></span>
                         <div class="btn-group pull-right">
-                            <a class="btn btn-default btn-xs" v-if="isThisUser && selectType == 'author'" @click="deleteBlog(item,index)" >删除</a><!--window.open(-->
+                            <a class="btn btn-default btn-xs" v-if="isThisUser && selectType == 'author'" @click="deleteBlog(item,index)" >删除</a>
                             <a class="btn btn-default btn-xs" v-if="isThisUser && selectType == 'author'" @click="updateBlog(item.id)">修改</a>
                         </div>
                     </div>
                 </li>
-                <li class="list-group-item load-context" v-if="blog.list.length == 0">
+                <li class="list-group-item load-context" v-if="blogList.length == 0">
                     什么也没有啊...
                 </li>
                 <li class="list-group-item">
-                    <a v-bind:class="blog.isFirstPage?'page':''" @click="more(pageNum -= 1)">上一页</a>
-                    <a v-bind:class="blog.isLastPage?'page':''" @click="more(pageNum += 1)" class="pull-right">下一页</a>
-                </li>
-            </ul>
-            <ul class="list-group" v-if="!show">
-                <li class="list-group-item load-context">
-                    加载中...
+                    <a v-bind:class="blog.isLastPage?'page':''" @click="more(pageNum+=1)">获取</a>
+                    <a v-if="!show" class="pull-right">加载中...</a>
                 </li>
             </ul>
         </div>
@@ -80,15 +75,14 @@
 <script src="https://cdn.bootcss.com/twitter-bootstrap/3.3.7/js/bootstrap.js"></script>
 <script src="/js/my.js"></script>
 <script>
-    let username = '[[${utsMemberLogin.username}]]'
-    new Vue({
+    let vm = new Vue({
         el: "#app",//绑定元素
         //所有数据都放在数据属性中
         data:{
-            author:"[[${session.SPRING_SECURITY_CONTEXT}]]" == "",
+            author: '[[${session.SPRING_SECURITY_CONTEXT}]]' == '',
             isLoginUser:[[${session.SPRING_SECURITY_CONTEXT != null}]], // 表示登录的用户
             isThisUser:[[${session.SPRING_SECURITY_CONTEXT !=null && session.SPRING_SECURITY_CONTEXT.authentication.principal.username == username}]], // 表示访问自己的首页
-            username:username,
+            username:'[[${utsMemberLogin.username}]]',
             fansList:[],
             showFans:false,
             update:true,
@@ -96,6 +90,7 @@
             pageNum:1,
             follower:"关注",
             show:false,
+            blogList: [],
             blog:{
                 list:[],
                 isFirstPage:false,
@@ -144,7 +139,7 @@
                 }
                 $.ajax({
                     type:"post",
-                    url:"/fans/" + type + "/" + username,
+                    url:"/fans/" + type + "/" + _this.username,
                     contentType: "application/json", //必须这样写
                     dataType:"json",
                     success:function (result) {
@@ -157,10 +152,10 @@
                 if (this.isLoginUser){
                     $.ajax({
                         type:"GET",
-                        url:"/fans/"+username,
+                        url:"/fans/"+ _this.username,
                         contentType: "application/json", //必须这样写
                         success:function (result) {
-                            if (_this.follower === '已关注'){
+                            if (result){
                                 _this.follower = '关注'
                             } else{
                                 _this.follower = '已关注'
@@ -187,6 +182,7 @@
                     },
                     success:function (result) {
                         _this.blog = result
+                        _this.blogList = _this.blogList.concat(result.list)
                         sleep(300)
                         _this.show = true
                     }
@@ -207,6 +203,7 @@
                     },
                     success:function (result) {
                         _this.blog = result
+                        _this.blogList = _this.blogList.concat(result.list)
                         sleep(300)
                         _this.show = true
                     }

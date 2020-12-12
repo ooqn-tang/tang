@@ -3,9 +3,9 @@ package net.ttcxy.tang.gateway.controller;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import net.ttcxy.tang.api.ResponseResult;
-import net.ttcxy.tang.entity.UtsMemberLogin;
-import net.ttcxy.tang.service.CurrentMemberService;
-import net.ttcxy.tang.service.UtsFansService;
+import net.ttcxy.tang.gateway.entity.UtsMemberLogin;
+import net.ttcxy.tang.gateway.service.CurrentMemberService;
+import net.ttcxy.tang.gateway.service.UtsFansService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,9 +38,9 @@ public class UtsFansController {
     public ResponseResult selectByName(@PathVariable("fansName") String fansName){
         int count = fansService.selectFans(fansName);
         if (count > 0){
-            return ResponseResult.success(count);
+            return ResponseResult.success(true);
         }
-        return ResponseResult.failed();
+        return ResponseResult.success(false);
     }
 
     @PostMapping("insert/{fansName}")

@@ -3,10 +3,10 @@ package net.ttcxy.tang.admin.controller;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.IdUtil;
+import net.ttcxy.tang.admin.entity.param.UtsRoleParam;
+import net.ttcxy.tang.admin.service.UtsRoleService;
 import net.ttcxy.tang.api.ResponseResult;
-import net.ttcxy.tang.entity.model.UtsRole;
-import net.ttcxy.tang.entity.param.UtsRoleParam;
-import net.ttcxy.tang.service.UtsRoleService;
+import net.ttcxy.tang.model.UtsRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

@@ -1,11 +1,11 @@
 package net.ttcxy.tang.admin.security.config;
 
+import net.ttcxy.tang.admin.entity.dto.UtsResourceDto;
+import net.ttcxy.tang.admin.entity.dto.UtsRoleDto;
 import net.ttcxy.tang.admin.security.component.*;
+import net.ttcxy.tang.admin.service.UtsMemberService;
+import net.ttcxy.tang.admin.service.UtsResourceService;
 import net.ttcxy.tang.code.properties.SecurityProperties;
-import net.ttcxy.tang.entity.dto.UtsResourceDto;
-import net.ttcxy.tang.entity.dto.UtsRoleDto;
-import net.ttcxy.tang.service.UtsMemberService;
-import net.ttcxy.tang.service.UtsResourceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -70,7 +70,7 @@ public class AdminSecurityConfig extends WebSecurityConfigurerAdapter {
         ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry registry = httpSecurity
                 .authorizeRequests();
         // 不需要保护的资源路径允许访问
-        for (String url : securityProperties.getUrls()) {
+        for (String url : securityProperties.getOpenUrls()) {
             registry.antMatchers(url).permitAll();
         }
         // 允许跨域请求的OPTIONS请求

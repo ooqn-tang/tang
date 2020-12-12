@@ -27,16 +27,16 @@
             padding-right: 10px;
             font-size:24px;
             line-height:30px;
-            width:-webkit-calc(100% - 150px);
-            width:-moz-calc(100% - 150px);
-            width:calc(100% - 150px);
+            width:-webkit-calc(100% - 90px);
+            width:-moz-calc(100% - 90px);
+            width:calc(100% - 90px);
             height: 100%;
             outline: none;
         }
         .hdBut{
             border-left: 1px #b5adad solid;
             outline: none;
-            width:75px;
+            width:90px;
             float: right;height: 100%;
             background: #337ab7;;
             border-radius: 0;
@@ -67,7 +67,6 @@
 <body>
 <div id="hd">
     <input type="text" id="title" placeholder="标题" style="background: #f4f4f4"/>
-    <input type="button" class="hdBut"  value="取消" onClick="window.close()"/>
     <input type="button" id="save" class="hdBut"  value="发布" />
 </div>
 <textarea onKeyUp="keyup()" class="tt" style="float: left;border-right: 1px solid black;background-color: #e2e3e4;" id="text" placeholder="请输入Markdown&#x000A;上传的文件如果没有在当前页面引用将会被删除"></textarea>
@@ -114,7 +113,7 @@
                 id:id
             }),
             success (result) {
-                window.close();
+                window.location.href="/post/"+id
             },
             error(e){
                 console.log(e)

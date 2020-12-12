@@ -1,5 +1,5 @@
 import net.ttcxy.tang.admin.AdminApplication;
-import net.ttcxy.tang.service.StsMailService;
+import net.ttcxy.tang.admin.service.StsMailService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +14,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 public class TestMain {
 
     @Autowired
-    StsMailService stsMailService;
+    private StsMailService stsMailService;
 
     @Test
     public void test1(){

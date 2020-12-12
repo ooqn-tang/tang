@@ -19,13 +19,9 @@
         <div class="col-md-9 column">
             <div class="row">
                 <div class="col-md-12 column">
-                    <ul class="list-group" v-if="!show">
-                        <li class="list-group-item load-context">
-                            加载中...
-                        </li>
-                    </ul>
-                    <ul class="list-group" v-if="show" v-clock>
-                        <li class="list-group-item" v-for="(item,index) in blog.list">
+
+                    <ul class="list-group" v-clock>
+                        <li class="list-group-item" v-for="(item,index) in blogList">
                             <a class="blog-title" target="_blank" v-bind:href="'/post/'+item.id" v-text="item.title"></a>
                             <div>
                                 <span v-text="item.createDate" style="color: #00285a"></span>
@@ -33,8 +29,8 @@
                             </div>
                         </li>
                         <li class="list-group-item">
-                            <a v-bind:class="blog.isFirstPage?'page':''" v-on:click="page(pageNum-=1)">上一页</a>
-                            <a v-bind:class="blog.isLastPage?'page':''" class="pull-right" v-on:click="page(pageNum+=1)" >下一页</a>
+                            <a v-bind:class="blog.isLastPage?'page':''" v-on:click="page(pageNum+=1)">获取</a>
+                            <a v-if="!show"  class="pull-right">加载中...</a>
                         </li>
                     </ul>
             </div>
@@ -50,20 +46,27 @@
 <script src="/js/my.js"></script>
 <script src="https://cdn.bootcss.com/twitter-bootstrap/3.3.7/js/bootstrap.js"></script>
 <script>
-    let index = new Vue({
+    let vm = new Vue({
         el: "#home",//绑定元素
-        data:{
-            pageNum:1,
-            show:false,
-            blog:{
-                list:[],
-                isFirstPage:false,
-                isLastPage:true,
+        data(){
+            return {
+                pageNum:1,
+                show:false,
+                blogList:[],
+                blog:{
+                    list:[],
+                    isFirstPage:false,
+                    isLastPage:true,
+                }
             }
         }, methods: {
             page(){
-                let search = getQueryVariable("s");
-                this.show = false
+                let search;
+                try{
+                    search = getQueryVariable("s");
+                }catch(err){
+                    console.log(err)
+                }
                 if (search !== null){
                     this.search(search)
                 }else{
@@ -72,15 +75,17 @@
             },
             blogs(){
                 let _this = this
+                _this.show = false
                 $.ajax({
                     type:"GET",
                     url:"/blog/blogs",
-                    contentType: "application/json", //必须这样写
+                    contentType: "application/json",
                     data:{
                         page:_this.pageNum
                     },
                     success(result) {
-                        _this.blog = result
+                        _this.blog =result
+                        _this.blogList = _this.blogList.concat(result.list)
                         sleep(500)
                         _this.show = true
                     },error(){
@@ -93,13 +98,15 @@
                 $.ajax({
                     type:"GET",
                     url:"/blog/so",
-                    contentType: "application/json", //必须这样写
+                    contentType: "application/json",
                     data:{
                         page:_this.pageNum,
                         search:search
                     },
                     success:function (result) {
                         _this.blog = result
+                        _this.blogList = _this.blogList.concat(result.list)
+                        sleep(500)
                         _this.show = true
                     },error(){
                         alert("加载失败了？")
@@ -107,10 +114,6 @@
                 })
             }
         },mounted(){
-            let page = getQueryVariable("page");
-            if (page != null){
-                this.pageNum = page
-            }
             this.page()
         }
     })

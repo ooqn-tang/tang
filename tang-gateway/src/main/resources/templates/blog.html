@@ -109,7 +109,7 @@
         },
         methods: {
             updateBlog(){
-                window.open('/editor/'+this.blogId)
+                window.location.href='/editor/'+this.blogId
             },
             likeClick(){
                 if (this.author){
@@ -133,34 +133,42 @@
                 })
             },
             followerClick(){
+                let _this = this
                 if (this.author){
                     $('#loginModal').modal("show")
                     return
                 }
-                let _this = this
-                let type,text
-                if (_this.follower.text === '已关注'){
-                    type = "DELETE"
-                    text = "关注"
-                }else{
-                    type = "POST"
-                    text = "已关注"
-                }
                 if (_this.username == null){
                     return
                 }
-                $.ajax({
-                    type:type,
-                    url:"/fans/"+_this.username,
-                    contentType: "application/json",
-                    dataType:"json",
-                    success(result) {
-                        _this.follower.text = text
-                    },
-                    error(e){
-                        alert(e)
-                    }
-                })
+                if (_this.follower.text === '已关注'){
+                    $.ajax({
+                        type:"post",
+                        url:"/fans/delete/"+_this.username,
+                        contentType: "application/json",
+                        dataType:"json",
+                        success() {
+                            _this.follower.text  = "关注"
+                        },
+                        error(e){
+                            alert(e)
+                        }
+                    })
+
+                }else{
+                    $.ajax({
+                        type:"post",
+                        url:"/fans/insert/"+_this.username,
+                        contentType: "application/json",
+                        dataType:"json",
+                        success() {
+                            _this.follower.text  = "已关注"
+                        },
+                        error(e){
+                            alert(e)
+                        }
+                    })
+                }
             },
             loadFollower(){
                 if (this.author){
