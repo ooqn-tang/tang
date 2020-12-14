@@ -2,25 +2,27 @@ package net.ttcxy.tang.model;
 
 import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
-import java.util.Date;
 
 public class UtsMember implements Serializable {
     private String id;
 
+    @ApiModelProperty(value = "用户名")
     private String username;
 
+    @ApiModelProperty(value = "昵称")
     private String nickname;
 
+    @ApiModelProperty(value = "用户密码")
     private String password;
 
+    @ApiModelProperty(value = "邮箱号")
     private String mail;
 
+    @ApiModelProperty(value = "1001:发布，1002：草稿，1003:审核,1004:删除")
+    private Integer state;
+
+    @ApiModelProperty(value = "简介")
     private String signature;
-
-    private Date createTime;
-
-    @ApiModelProperty(value = "1：激活 ，2：封禁，3：删除")
-    private String state;
 
     private static final long serialVersionUID = 1L;
 
@@ -64,28 +66,20 @@ public class UtsMember implements Serializable {
         this.mail = mail;
     }
 
+    public Integer getState() {
+        return state;
+    }
+
+    public void setState(Integer state) {
+        this.state = state;
+    }
+
     public String getSignature() {
         return signature;
     }
 
     public void setSignature(String signature) {
         this.signature = signature;
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public String getState() {
-        return state;
-    }
-
-    public void setState(String state) {
-        this.state = state;
     }
 
     @Override
@@ -99,9 +93,8 @@ public class UtsMember implements Serializable {
         sb.append(", nickname=").append(nickname);
         sb.append(", password=").append(password);
         sb.append(", mail=").append(mail);
-        sb.append(", signature=").append(signature);
-        sb.append(", createTime=").append(createTime);
         sb.append(", state=").append(state);
+        sb.append(", signature=").append(signature);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

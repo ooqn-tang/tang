@@ -38,7 +38,7 @@
             </div>
             <div v-show="showFans" v-if="isThisUser">
                 <div class="list-group" >
-                    <a class="list-group-item active">关注</a>
+                    <a class="list-group-item active">关注<span class="pull-right">🌐</span></a>
                     <a class="list-group-item" v-for="(item,i) in fansList" v-bind:href="item.username" v-text="item.nickname"></a>
                 </div>
             </div>
@@ -118,7 +118,7 @@
                         contentType: "application/json",
                         dataType: "text",
                         success:function (result) {
-                            _this.blog.list.splice(index,1)
+                            _this.blogList.splice(index,1)
                         }
                     })
                 }

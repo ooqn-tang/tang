@@ -93,7 +93,7 @@ public class DtsBlogController {
         if (StrUtil.equals(userId,currentMemberServiceImpl.getMemberId())){
             DateTime date = DateUtil.date();
             blog.setUpdateDate(date);
-            blog.setStateId(1);
+            blog.setStateCode(1001);
 
             int count = blogService.updateBlog(blog);
             if (count > 0){

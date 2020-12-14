@@ -54,6 +54,9 @@ public interface DtsBlogDao {
      */
     DtsBlogDto selectBlogById(String id);
 
+
+    List<DtsBlogDto> searchByUsernameAuthor(@Param("username") String username);
+
     /**
      * 通过用户名查询博客
      * @param username username

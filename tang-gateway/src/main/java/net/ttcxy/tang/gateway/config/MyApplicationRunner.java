@@ -21,9 +21,6 @@ import java.util.Objects;
 @Component
 public class MyApplicationRunner implements ApplicationRunner {
 
-    @Value("${my-file-data-path}")
-    private String myFileDataPath;
-
     @Autowired
     private StsAdvertiseService stsAdvertiseService;
 
@@ -48,9 +45,6 @@ public class MyApplicationRunner implements ApplicationRunner {
         Objects.requireNonNull(webApplicationContext.getServletContext())
                 .setAttribute("advertises", stsAdvertiseService.selectAllAdvertise());
 
-        if (!FileUtil.isDirectory(myFileDataPath)) {
-            FileUtil.mkdir(myFileDataPath);
-        }
         blogService.getRandomBlogIdList().addAll(dtsBlogDao.selectId());
     }
 

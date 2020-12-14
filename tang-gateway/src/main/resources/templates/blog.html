@@ -52,34 +52,26 @@
                                   class="pull-right"
                                   @click="deleteComment(item.id,index)"
                                   v-if="item.username == commentUsername">删除</span>
-                            <div v-text="item.content"></div><hr>
+                            <div><span v-text="item.content" style="white-space: pre-line;max-height: 200px"></span><span style="color: #337ab7;" @click="ate(item)"> @</span></div><hr class="hr">
                         </div>
                         <div v-if="comments.length == 0">
                             没有评论...
-                        </div>
-                    </div>
-                    <div class="panel-footer">
-                        <div class="input-group">
-                            <input type="text" class="form-control " v-model="content">
-                            <span class="input-group-btn">
-                            <button type="button" class="btn btn-default" @click="send">评论</button>
-                        </span>
                         </div>
                     </div>
                 </div>
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-12 column">
+                <div class="col-md-12 column t700" style="margin-bottom: 50px;">
                     <div class="panel panel-default">
-                    <div class="panel-body">
-                        <a class="blog-title" th:href="'/post/'+${random.id}" th:text="${random.title}"></a>
-                        <div>
-                            <span th:text="${#dates.format(random.createDate, 'yyyy.MM.dd')}"></span>
-                            <a class="pull-right" th:href="@{/author/{id}(id=${random.username})}" th:text="${random.nickname}"></a>
+                        <div class="panel-body">
+                            <a class="blog-title" th:href="'/post/'+${random.id}" th:text="${random.title}"></a>
+                            <div>
+                                <span th:text="${#dates.format(random.createDate, 'yyyy.MM.dd')}"></span>
+                                <a class="pull-right" th:href="@{/author/{id}(id=${random.username})}" th:text="${random.nickname}"></a>
+                            </div>
                         </div>
                     </div>
-                </div>
                 </div>
             </div>
         </div>
@@ -87,6 +79,22 @@
             <div th:replace="comm::advertise"></div>
         </div>
     </div>
+    <nav class="navbar navbar-default navbar-fixed-bottom" role="navigation">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                    <div class="input-group" style="margin-top: 8px">
+
+                        <textarea style="resize:none" rows="1" class="form-control " v-model="content" ref="inputContent"></textarea>
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" @click="send">评论</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </nav>
 </div>
 </body>
 <script src="https://cdn.bootcss.com/jquery/2.1.2/jquery.min.js"></script>
@@ -108,6 +116,10 @@
             commentUsername:"",
         },
         methods: {
+            ate(item){
+                this.content += "@" + item.nickname + " "
+                this.$refs.inputContent.focus()
+            },
             updateBlog(){
                 window.location.href='/editor/'+this.blogId
             },

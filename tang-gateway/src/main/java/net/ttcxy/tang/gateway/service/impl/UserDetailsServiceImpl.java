@@ -5,7 +5,7 @@ import cn.hutool.core.lang.Validator;
 import net.ttcxy.tang.gateway.entity.UtsMemberLogin;
 import net.ttcxy.tang.gateway.entity.dto.UtsRoleDto;
 import net.ttcxy.tang.gateway.dao.UtsRoleDao;
-import net.ttcxy.tang.gateway.service.UtsMemberService;
+import net.ttcxy.tang.gateway.service.UtsAuthorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -21,7 +21,7 @@ import java.util.List;
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
-    private UtsMemberService utsMemberService;
+    private UtsAuthorService utsAuthorService;
 
     @Autowired
     private UtsRoleDao utsRoleDao;
@@ -32,9 +32,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         UtsMemberLogin utsMemberLogin;
 
         if (Validator.isEmail(username)){
-            utsMemberLogin = utsMemberService.selectMemberByMail(username);
+            utsMemberLogin = utsAuthorService.selectMemberByMail(username);
         }else{
-            utsMemberLogin = utsMemberService.selectMemberByName(username);
+            utsMemberLogin = utsAuthorService.selectMemberByName(username);
         }
         if (utsMemberLogin == null){
             throw new UsernameNotFoundException("用户不存在");

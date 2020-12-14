@@ -9,9 +9,9 @@ import net.ttcxy.tang.admin.entity.UtsMemberLogin;
 import net.ttcxy.tang.admin.entity.dto.UtsMemberDto;
 import net.ttcxy.tang.admin.entity.dto.UtsRoleDto;
 import net.ttcxy.tang.admin.service.UtsMemberService;
-import net.ttcxy.tang.mapper.UtsMemberMapper;
-import net.ttcxy.tang.model.UtsMember;
-import net.ttcxy.tang.model.UtsMemberExample;
+import net.ttcxy.tang.mapper.UtsAuthorMapper;
+import net.ttcxy.tang.model.UtsAuthor;
+import net.ttcxy.tang.model.UtsAuthorExample;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -32,7 +32,7 @@ public class UtsMemberServiceImpl implements UtsMemberService {
     private UtsMemberDao utsMemberDao;
 
     @Autowired
-    private UtsMemberMapper authorMapper;
+    private UtsAuthorMapper authorMapper;
 
     @Autowired
     private UtsRoleDao utsRoleDao;
@@ -48,7 +48,7 @@ public class UtsMemberServiceImpl implements UtsMemberService {
     }
 
     @Override
-    public int insertMember(UtsMember member) throws DuplicateKeyException {
+    public int insertMember(UtsAuthor member) throws DuplicateKeyException {
         member.setId(IdUtil.simpleUUID());
         String password = member.getPassword();
         String encodePassword = new BCryptPasswordEncoder().encode(password);
@@ -58,7 +58,7 @@ public class UtsMemberServiceImpl implements UtsMemberService {
     }
 
     @Override
-    public int updateMember(UtsMember member) {
+    public int updateMember(UtsAuthor member) {
         return authorMapper.updateByPrimaryKeySelective(member);
     }
 
@@ -81,9 +81,9 @@ public class UtsMemberServiceImpl implements UtsMemberService {
     }
 
     @Override
-    public List<UtsMember> memberList(Integer page){
+    public List<UtsAuthor> memberList(Integer page){
         PageHelper.startPage(page, 10);
-        return authorMapper.selectByExample(new UtsMemberExample());
+        return authorMapper.selectByExample(new UtsAuthorExample());
     }
 
 
@@ -91,13 +91,13 @@ public class UtsMemberServiceImpl implements UtsMemberService {
     @Override
     public List<UtsMemberDto> memberListDto(Integer page){
         PageHelper.startPage(page, 10);
-        List<UtsMember> utsMember = authorMapper.selectByExample(new UtsMemberExample());
+        List<UtsAuthor> utsAuthor = authorMapper.selectByExample(new UtsAuthorExample());
 
         List<UtsMemberDto> utsMemberDtoList = new ArrayList<>();
 
-        for (UtsMember member : utsMember) {
+        for (UtsAuthor member : utsAuthor) {
             UtsMemberDto utsMemberDto = new UtsMemberDto();
-            utsMemberDto.setUtsMember(member);
+            utsMemberDto.setUtsAuthor(member);
             List<UtsRoleDto> utsRoleDtoList = utsRoleDao.selectRoleListByMemberId(member.getId());
             utsMemberDto.setUtsRoleDto(new HashSet<>(utsRoleDtoList));
             utsMemberDtoList.add(utsMemberDto);
@@ -108,10 +108,10 @@ public class UtsMemberServiceImpl implements UtsMemberService {
 
     public static void main(String[] args) {
         UtsMemberDto utsMemberDto = new UtsMemberDto();
-        UtsMember utsMember = new UtsMember();
-        utsMember.setId("asdfads");
-        utsMember.setNickname("kasfjkajdfk");
-        BeanUtil.copyProperties(utsMember, utsMemberDto);
+        UtsAuthor utsAuthor = new UtsAuthor();
+        utsAuthor.setId("asdfads");
+        utsAuthor.setNickname("kasfjkajdfk");
+        BeanUtil.copyProperties(utsAuthor, utsMemberDto);
         System.out.println(utsMemberDto);
     }
 }

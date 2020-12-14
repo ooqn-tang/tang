@@ -435,63 +435,63 @@ public class DtsBlogExample {
             return (Criteria) this;
         }
 
-        public Criteria andStateIdIsNull() {
-            addCriterion("state_id is null");
+        public Criteria andStateCodeIsNull() {
+            addCriterion("state_code is null");
             return (Criteria) this;
         }
 
-        public Criteria andStateIdIsNotNull() {
-            addCriterion("state_id is not null");
+        public Criteria andStateCodeIsNotNull() {
+            addCriterion("state_code is not null");
             return (Criteria) this;
         }
 
-        public Criteria andStateIdEqualTo(Integer value) {
-            addCriterion("state_id =", value, "stateId");
+        public Criteria andStateCodeEqualTo(Integer value) {
+            addCriterion("state_code =", value, "stateCode");
             return (Criteria) this;
         }
 
-        public Criteria andStateIdNotEqualTo(Integer value) {
-            addCriterion("state_id <>", value, "stateId");
+        public Criteria andStateCodeNotEqualTo(Integer value) {
+            addCriterion("state_code <>", value, "stateCode");
             return (Criteria) this;
         }
 
-        public Criteria andStateIdGreaterThan(Integer value) {
-            addCriterion("state_id >", value, "stateId");
+        public Criteria andStateCodeGreaterThan(Integer value) {
+            addCriterion("state_code >", value, "stateCode");
             return (Criteria) this;
         }
 
-        public Criteria andStateIdGreaterThanOrEqualTo(Integer value) {
-            addCriterion("state_id >=", value, "stateId");
+        public Criteria andStateCodeGreaterThanOrEqualTo(Integer value) {
+            addCriterion("state_code >=", value, "stateCode");
             return (Criteria) this;
         }
 
-        public Criteria andStateIdLessThan(Integer value) {
-            addCriterion("state_id <", value, "stateId");
+        public Criteria andStateCodeLessThan(Integer value) {
+            addCriterion("state_code <", value, "stateCode");
             return (Criteria) this;
         }
 
-        public Criteria andStateIdLessThanOrEqualTo(Integer value) {
-            addCriterion("state_id <=", value, "stateId");
+        public Criteria andStateCodeLessThanOrEqualTo(Integer value) {
+            addCriterion("state_code <=", value, "stateCode");
             return (Criteria) this;
         }
 
-        public Criteria andStateIdIn(List<Integer> values) {
-            addCriterion("state_id in", values, "stateId");
+        public Criteria andStateCodeIn(List<Integer> values) {
+            addCriterion("state_code in", values, "stateCode");
             return (Criteria) this;
         }
 
-        public Criteria andStateIdNotIn(List<Integer> values) {
-            addCriterion("state_id not in", values, "stateId");
+        public Criteria andStateCodeNotIn(List<Integer> values) {
+            addCriterion("state_code not in", values, "stateCode");
             return (Criteria) this;
         }
 
-        public Criteria andStateIdBetween(Integer value1, Integer value2) {
-            addCriterion("state_id between", value1, value2, "stateId");
+        public Criteria andStateCodeBetween(Integer value1, Integer value2) {
+            addCriterion("state_code between", value1, value2, "stateCode");
             return (Criteria) this;
         }
 
-        public Criteria andStateIdNotBetween(Integer value1, Integer value2) {
-            addCriterion("state_id not between", value1, value2, "stateId");
+        public Criteria andStateCodeNotBetween(Integer value1, Integer value2) {
+            addCriterion("state_code not between", value1, value2, "stateCode");
             return (Criteria) this;
         }
     }

@@ -16,12 +16,12 @@
     <div class="t-block">
       <el-table v-loading="loading" :data="memberDataList" border style="width: 100%;" height="500">
         <el-table-column type="selection" width="39" />
-        <el-table-column fixed prop="utsMember.username" label="用户名" width="100" />
-        <el-table-column prop="utsMember.nickname" label="昵称" width="150" />
-        <el-table-column prop="utsMember.mail" label="邮箱" width="200" />
-        <el-table-column prop="utsMember.createTime" label="注册时间" width="95" />
-        <el-table-column prop="utsMember.state" label="状态" width="50" />
-        <el-table-column prop="utsMember.state" label="角色">
+        <el-table-column fixed prop="utsAuthor.username" label="用户名" width="100" />
+        <el-table-column prop="utsAuthor.nickname" label="昵称" width="150" />
+        <el-table-column prop="utsAuthor.mail" label="邮箱" width="200" />
+        <el-table-column prop="utsAuthor.createTime" label="注册时间" width="95" />
+        <el-table-column prop="utsAuthor.state" label="状态" width="50" />
+        <el-table-column prop="utsAuthor.state" label="角色">
           <template slot-scope="scope">
             <el-tag v-for="item in scope.row.utsRoleDto" :key="item.id" style="margin-right: 10px;">{{ item.name }}</el-tag>
           </template>

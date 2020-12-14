@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
  * @author huanglei
  */
 @Service
-public class CurrentMemberServiceImpl implements CurrentMemberService {
+public class CurrentAuthorServiceImpl implements CurrentMemberService {
 
     @Override
     public UtsMemberLogin getMember(){

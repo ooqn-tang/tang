@@ -5,21 +5,27 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class DtsBlog implements Serializable {
-    @ApiModelProperty(value = "id")
     private String id;
 
+    @ApiModelProperty(value = "博客标题")
     private String title;
 
+    @ApiModelProperty(value = "作者ID")
     private String userId;
 
+    @ApiModelProperty(value = "创建时间")
     private Date createDate;
 
+    @ApiModelProperty(value = "更新时间")
     private Date updateDate;
 
-    private Integer stateId;
+    @ApiModelProperty(value = "状态ID,发布状态，草稿状态，退回状态，删除状态")
+    private Integer stateCode;
 
+    @ApiModelProperty(value = "博文文本")
     private String text;
 
+    @ApiModelProperty(value = "markdown")
     private String markdown;
 
     private static final long serialVersionUID = 1L;
@@ -64,12 +70,12 @@ public class DtsBlog implements Serializable {
         this.updateDate = updateDate;
     }
 
-    public Integer getStateId() {
-        return stateId;
+    public Integer getStateCode() {
+        return stateCode;
     }
 
-    public void setStateId(Integer stateId) {
-        this.stateId = stateId;
+    public void setStateCode(Integer stateCode) {
+        this.stateCode = stateCode;
     }
 
     public String getText() {
@@ -99,7 +105,7 @@ public class DtsBlog implements Serializable {
         sb.append(", userId=").append(userId);
         sb.append(", createDate=").append(createDate);
         sb.append(", updateDate=").append(updateDate);
-        sb.append(", stateId=").append(stateId);
+        sb.append(", stateCode=").append(stateCode);
         sb.append(", text=").append(text);
         sb.append(", markdown=").append(markdown);
         sb.append(", serialVersionUID=").append(serialVersionUID);

@@ -8,11 +8,11 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import net.ttcxy.tang.api.ResponseResult;
 import net.ttcxy.tang.gateway.entity.UtsMemberLogin;
-import net.ttcxy.tang.model.UtsMember;
+import net.ttcxy.tang.model.UtsAuthor;
 import net.ttcxy.tang.gateway.entity.param.UtsAuthorParam;
 import net.ttcxy.tang.gateway.entity.param.UtsRegisterParam;
 import net.ttcxy.tang.gateway.service.CurrentMemberService;
-import net.ttcxy.tang.gateway.service.UtsMemberService;
+import net.ttcxy.tang.gateway.service.UtsAuthorService;
 import net.ttcxy.tang.util.TextUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -34,7 +34,7 @@ public class UtsMemberController {
     private CurrentMemberService currentMemberService;
 
     @Autowired
-    private UtsMemberService authorService;
+    private UtsAuthorService authorService;
 
     @PostMapping(value = "update")
     @ApiOperation("更新作者")
@@ -46,7 +46,7 @@ public class UtsMemberController {
             return ResponseResult.failed("昵称长度：汉字 2 ~ 8,字母 4 ~ 16");
         }
 
-        UtsMember author = new UtsMember();
+        UtsAuthor author = new UtsAuthor();
         BeanUtil.copyProperties(utsAuthorParam, author);
 
         author.setId(id);
@@ -79,7 +79,7 @@ public class UtsMemberController {
         }
 
         String username = getUsername();
-        UtsMember author = new UtsMember();
+        UtsAuthor author = new UtsAuthor();
         author.setId(IdUtil.fastSimpleUUID());
         author.setPassword(password);
         author.setMail(mail);
@@ -107,7 +107,7 @@ public class UtsMemberController {
             return ResponseResult.failed("邮箱未注册");
         }
 
-        UtsMember member = new UtsMember();
+        UtsAuthor member = new UtsAuthor();
         member.setId(utsMemberLogin.getId());
         member.setPassword(new BCryptPasswordEncoder().encode(password));
 

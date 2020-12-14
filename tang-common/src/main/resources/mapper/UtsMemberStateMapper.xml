@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="net.ttcxy.tang.mapper.PersistentLoginsMapper">
-  <resultMap id="BaseResultMap" type="net.ttcxy.tang.model.PersistentLogins">
-    <id column="series" jdbcType="VARCHAR" property="series" />
-    <result column="username" jdbcType="VARCHAR" property="username" />
-    <result column="token" jdbcType="VARCHAR" property="token" />
-    <result column="last_used" jdbcType="TIMESTAMP" property="lastUsed" />
+<mapper namespace="net.ttcxy.tang.mapper.UtsMemberStateMapper">
+  <resultMap id="BaseResultMap" type="net.ttcxy.tang.model.UtsMemberState">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -66,15 +65,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    series, username, token, last_used
+    id, name, create_date
   </sql>
-  <select id="selectByExample" parameterType="net.ttcxy.tang.model.PersistentLoginsExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="net.ttcxy.tang.model.UtsMemberStateExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from persistent_logins
+    from uts_member_state
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -82,79 +81,70 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from persistent_logins
-    where series = #{series,jdbcType=VARCHAR}
+    from uts_member_state
+    where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-    delete from persistent_logins
-    where series = #{series,jdbcType=VARCHAR}
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from uts_member_state
+    where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="net.ttcxy.tang.model.PersistentLoginsExample">
-    delete from persistent_logins
+  <delete id="deleteByExample" parameterType="net.ttcxy.tang.model.UtsMemberStateExample">
+    delete from uts_member_state
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="net.ttcxy.tang.model.PersistentLogins">
-    insert into persistent_logins (series, username, token, 
-      last_used)
-    values (#{series,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, #{token,jdbcType=VARCHAR}, 
-      #{lastUsed,jdbcType=TIMESTAMP})
+  <insert id="insert" parameterType="net.ttcxy.tang.model.UtsMemberState">
+    insert into uts_member_state (id, name, create_date
+      )
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}
+      )
   </insert>
-  <insert id="insertSelective" parameterType="net.ttcxy.tang.model.PersistentLogins">
-    insert into persistent_logins
+  <insert id="insertSelective" parameterType="net.ttcxy.tang.model.UtsMemberState">
+    insert into uts_member_state
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="series != null">
-        series,
+      <if test="id != null">
+        id,
       </if>
-      <if test="username != null">
-        username,
+      <if test="name != null">
+        name,
       </if>
-      <if test="token != null">
-        token,
-      </if>
-      <if test="lastUsed != null">
-        last_used,
+      <if test="createDate != null">
+        create_date,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="series != null">
-        #{series,jdbcType=VARCHAR},
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
       </if>
-      <if test="username != null">
-        #{username,jdbcType=VARCHAR},
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
       </if>
-      <if test="token != null">
-        #{token,jdbcType=VARCHAR},
-      </if>
-      <if test="lastUsed != null">
-        #{lastUsed,jdbcType=TIMESTAMP},
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="net.ttcxy.tang.model.PersistentLoginsExample" resultType="java.lang.Long">
-    select count(*) from persistent_logins
+  <select id="countByExample" parameterType="net.ttcxy.tang.model.UtsMemberStateExample" resultType="java.lang.Long">
+    select count(*) from uts_member_state
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update persistent_logins
+    update uts_member_state
     <set>
-      <if test="record.series != null">
-        series = #{record.series,jdbcType=VARCHAR},
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
       </if>
-      <if test="record.username != null">
-        username = #{record.username,jdbcType=VARCHAR},
+      <if test="record.name != null">
+        name = #{record.name,jdbcType=VARCHAR},
       </if>
-      <if test="record.token != null">
-        token = #{record.token,jdbcType=VARCHAR},
-      </if>
-      <if test="record.lastUsed != null">
-        last_used = #{record.lastUsed,jdbcType=TIMESTAMP},
+      <if test="record.createDate != null">
+        create_date = #{record.createDate,jdbcType=TIMESTAMP},
       </if>
     </set>
     <if test="_parameter != null">
@@ -162,35 +152,30 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update persistent_logins
-    set series = #{record.series,jdbcType=VARCHAR},
-      username = #{record.username,jdbcType=VARCHAR},
-      token = #{record.token,jdbcType=VARCHAR},
-      last_used = #{record.lastUsed,jdbcType=TIMESTAMP}
+    update uts_member_state
+    set id = #{record.id,jdbcType=INTEGER},
+      name = #{record.name,jdbcType=VARCHAR},
+      create_date = #{record.createDate,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="net.ttcxy.tang.model.PersistentLogins">
-    update persistent_logins
+  <update id="updateByPrimaryKeySelective" parameterType="net.ttcxy.tang.model.UtsMemberState">
+    update uts_member_state
     <set>
-      <if test="username != null">
-        username = #{username,jdbcType=VARCHAR},
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
       </if>
-      <if test="token != null">
-        token = #{token,jdbcType=VARCHAR},
-      </if>
-      <if test="lastUsed != null">
-        last_used = #{lastUsed,jdbcType=TIMESTAMP},
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
       </if>
     </set>
-    where series = #{series,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="net.ttcxy.tang.model.PersistentLogins">
-    update persistent_logins
-    set username = #{username,jdbcType=VARCHAR},
-      token = #{token,jdbcType=VARCHAR},
-      last_used = #{lastUsed,jdbcType=TIMESTAMP}
-    where series = #{series,jdbcType=VARCHAR}
+  <update id="updateByPrimaryKey" parameterType="net.ttcxy.tang.model.UtsMemberState">
+    update uts_member_state
+    set name = #{name,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

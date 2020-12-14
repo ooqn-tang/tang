@@ -2,9 +2,12 @@ package net.ttcxy.tang.gateway.service.impl;
 
 import cn.hutool.core.thread.ThreadUtil;
 import cn.hutool.core.util.RandomUtil;
+import cn.hutool.core.util.StrUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import net.ttcxy.tang.gateway.entity.UtsMemberLogin;
 import net.ttcxy.tang.gateway.entity.dto.DtsBlogDto;
+import net.ttcxy.tang.gateway.service.CurrentMemberService;
 import net.ttcxy.tang.model.DtsBlog;
 import net.ttcxy.tang.model.DtsLikeData;
 import net.ttcxy.tang.model.DtsLikeDataExample;
@@ -40,6 +43,9 @@ public class DtsBlogServiceImpl implements DtsBlogService {
     @Autowired
     private DtsLikeDataMapper likeMapper;
 
+    @Autowired
+    private CurrentMemberService currentMemberServiceImpl;
+
     @Override
     public PageInfo<DtsBlogDto> getBlogList(Integer page,Integer pageSize) {
         PageHelper.startPage(page, pageSize);
@@ -55,7 +61,14 @@ public class DtsBlogServiceImpl implements DtsBlogService {
     @Override
     public PageInfo<DtsBlogDto> selectBlogByUsername(String username, Integer page,Integer pageSize) {
         PageHelper.startPage(page,pageSize);
-        return  new PageInfo<>(dtsBlogDao.searchByUsername(username));
+
+        UtsMemberLogin member = currentMemberServiceImpl.getMember();
+
+        if (member != null && StrUtil.equals(username,member.getUsername())){
+            return new PageInfo<>(dtsBlogDao.searchByUsernameAuthor(username));
+        }
+
+        return new PageInfo<>(dtsBlogDao.searchByUsername(username));
     }
 
     @Override

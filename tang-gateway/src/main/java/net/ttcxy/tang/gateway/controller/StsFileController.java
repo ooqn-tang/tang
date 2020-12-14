@@ -22,38 +22,13 @@ import java.io.IOException;
 public class StsFileController {
 
 
-    /**
-     * 文件存储 位置
-     */
-    @Value("${my-file-data-path}")
-    private String myFileDataPath;
-
-    @Value("${my-file-static-path}")
-    private String myFileStaticPath;
 
     @ApiOperation("文件上传")
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
     @ResponseBody
     public ResponseResult<?> upload(@RequestParam("file") MultipartFile file) throws IOException {
 
-        String[] split = file.getOriginalFilename().split("\\.");
-        if (split.length == 0){
-            return ResponseResult.failed();
-        }
-
-        if (ImgUtil.isNotImage(file.getInputStream())){
-            return ResponseResult.failed("请上传正确文件");
-        }
-
-        String urlFileName = IdUtil.fastSimpleUUID() + "." + split[split.length - 1];
-        String path = myFileDataPath + File.separator + urlFileName;
-
-        try {
-            FileUtil.writeBytes(file.getBytes(),path);
-        } catch (IOException e) {
-            return ResponseResult.failed(e.getMessage());
-        }
-        return ResponseResult.success( "/" + myFileStaticPath + "/" + urlFileName);
+        return null;
     }
 
     @ApiOperation("文件删除")

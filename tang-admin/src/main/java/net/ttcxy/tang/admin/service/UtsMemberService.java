@@ -2,7 +2,7 @@ package net.ttcxy.tang.admin.service;
 
 import net.ttcxy.tang.admin.entity.UtsMemberLogin;
 import net.ttcxy.tang.admin.entity.dto.UtsMemberDto;
-import net.ttcxy.tang.model.UtsMember;
+import net.ttcxy.tang.model.UtsAuthor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -34,14 +34,14 @@ public interface UtsMemberService {
      * @param author user
      * @return 影响的行数
      */
-    int insertMember(UtsMember author);
+    int insertMember(UtsAuthor author);
 
     /**
      * 更新用户
      * @param member user
      * @return 影响的行数
      */
-    int updateMember(UtsMember member);
+    int updateMember(UtsAuthor member);
 
     /**
      * 用户是否存在
@@ -69,7 +69,7 @@ public interface UtsMemberService {
      * @param page 页码
      * @return 列表
      */
-    List<UtsMember> memberList(Integer page);
+    List<UtsAuthor> memberList(Integer page);
 
     /**
      * 用户列表,包含角色

@@ -2,7 +2,7 @@ package net.ttcxy.tang.admin.entity.dto;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import net.ttcxy.tang.model.UtsMember;
+import net.ttcxy.tang.model.UtsAuthor;
 
 import java.util.Set;
 
@@ -13,7 +13,7 @@ import java.util.Set;
 @EqualsAndHashCode
 public class UtsMemberDto {
 
-    private UtsMember utsMember;
+    private UtsAuthor utsAuthor;
 
     private Set<UtsRoleDto> utsRoleDto;
 

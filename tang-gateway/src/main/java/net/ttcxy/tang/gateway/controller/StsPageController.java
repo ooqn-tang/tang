@@ -10,7 +10,7 @@ import net.ttcxy.tang.gateway.entity.dto.DtsBlogDto;
 import net.ttcxy.tang.model.DtsBlog;
 import net.ttcxy.tang.gateway.service.CurrentMemberService;
 import net.ttcxy.tang.gateway.service.DtsBlogService;
-import net.ttcxy.tang.gateway.service.UtsMemberService;
+import net.ttcxy.tang.gateway.service.UtsAuthorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -35,7 +35,7 @@ public class StsPageController {
     private DtsBlogService blogService;
 
     @Autowired
-    private UtsMemberService authorService;
+    private UtsAuthorService authorService;
 
     @Autowired
     private CurrentMemberService currentMemberServiceImpl;
@@ -131,7 +131,7 @@ public class StsPageController {
         blog.setUserId(memberId);
         blog.setUpdateDate(date);
         blog.setCreateDate(date);
-        blog.setStateId(2);
+        blog.setStateCode(1002);
 
         int count = blogService.insertBlog(blog);
         if (count > 0){

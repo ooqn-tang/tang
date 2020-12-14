@@ -1,23 +1,26 @@
 [v-cloak] {
     display: none !important;
 }
-
 body{
     overflow-y:scroll;
 }
-
 @media screen and (max-width:1000px) and (min-width:770px){
+    .t700{
+        margin-bottom: 0px !important;
+    }
     .visible-my{
         display: none;
     }
 }
 @media screen and (max-width: 770px){
+    .t700{
+        margin-bottom: 0px !important;
+    }
     #loginModal {
         margin:10px;
         padding-right: 0 !important;
     }
 }
-
 #loginModal {
     margin:5px auto;
     width: 100%;
@@ -30,7 +33,6 @@ body{
 .W100{width: 100%}
 .W20{width: 20%}
 .W50{width: 50%}
-
 /*A标签*/
 a:hover,a:hover,a{
     text-decoration:none !important;
