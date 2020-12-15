@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="net.ttcxy.tang.gateway.dao.UtsMemberDao">
+<mapper namespace="net.ttcxy.tang.gateway.dao.UtsAuthorDao">
 
-  <resultMap id="MemberMap" type="net.ttcxy.tang.gateway.entity.UtsMemberLogin">
+  <resultMap id="AuthorMap" type="net.ttcxy.tang.gateway.entity.UtsAuthorLogin">
       <id column="id" jdbcType="VARCHAR" property="id" />
       <result column="username" jdbcType="VARCHAR" property="username" />
       <result column="nickname" jdbcType="VARCHAR" property="nickname" />
@@ -13,39 +13,32 @@
 
     <select id="selectMailIsTrue" resultType="integer">
         select count(1)
-        from `uts_member`
+        from `uts_author`
         where mail = #{mail}
     </select>
 
     <select id="selectUsernameIsTrue" resultType="integer">
         select count(1)
-        from `uts_member`
+        from `uts_author`
         where username = #{username}
     </select>
 
     <select id="selectNicknameIsTrue" resultType="integer">
         select count(1)
-        from `uts_member`
+        from `uts_author`
         where nickname = #{nickname}
     </select>
 
-    <select id="selectMemberByMail" resultMap="MemberMap">
+    <select id="selectAuthorByMail" resultMap="AuthorMap">
         select id,username,nickname,password,signature,mail
-        from `uts_member`
+        from `uts_author`
         where mail = #{mail}
     </select>
 
 
-
-    <select id="selectMemberByName" resultMap="MemberMap">
+    <select id="selectAuthorByName" resultMap="AuthorMap">
         select id,username,nickname,password,signature,mail
-        from `uts_member`
+        from `uts_author`
         where username = #{username}
-    </select>
-
-    <select id="selectLoginMemberByMail" resultMap="MemberMap">
-        select id,username,nickname,password,signature,mail
-        from `uts_member`
-        where mail = #{mail}
     </select>
 </mapper>

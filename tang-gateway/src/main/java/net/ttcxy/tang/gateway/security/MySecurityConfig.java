@@ -69,7 +69,6 @@ public class MySecurityConfig  extends WebSecurityConfigurerAdapter {
         http.exceptionHandling().accessDeniedHandler(accessDeniedHandler());
         // 登录拦截器前面添加验证码拦截器
         http.addFilterBefore(myVerifyCodeFilter, UsernamePasswordAuthenticationFilter.class);
-
         // 不需要登录的请求
         http.authorizeRequests().antMatchers(securityProperties.getOpenUrls()).permitAll();
         // 需要登录的请求

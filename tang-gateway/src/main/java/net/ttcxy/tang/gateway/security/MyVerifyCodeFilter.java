@@ -17,13 +17,14 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * 自定义的验证码处理器，URLS集合里的请求表示需要在请求参数中包含验证码
+ *
+ * 登录给你添加验证码
  * @author huanglei
  */
 @Component
 public class MyVerifyCodeFilter extends OncePerRequestFilter {
 
-    private static final Set<String> URLS = new HashSet<>();
+    private static final Set<String> urls = new HashSet<>();
 
     @Autowired
     private SecurityProperties securityProperties;
@@ -34,7 +35,7 @@ public class MyVerifyCodeFilter extends OncePerRequestFilter {
     @Override
     protected void initFilterBean() throws ServletException {
         super.initFilterBean();
-        URLS.addAll(Arrays.asList(securityProperties.getVerifyUri()));
+        urls.addAll(Arrays.asList(securityProperties.getVerifyUri()));
     }
 
     @Override
@@ -44,7 +45,7 @@ public class MyVerifyCodeFilter extends OncePerRequestFilter {
         String verify = ServletRequestUtils.getStringParameter(request, "verify");
         String verifyCode = (String) request.getSession().getAttribute(MySecurityData.VERIFY_CODE);
 
-        for (String url : URLS) {
+        for (String url : urls) {
             if (url.equals(remoteHost)){
                 if (verifyCode != null && StrUtil.equals(verifyCode,verify)){
                     request.getSession().removeAttribute(MySecurityData.VERIFY_CODE);

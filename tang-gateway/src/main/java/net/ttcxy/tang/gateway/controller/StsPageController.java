@@ -5,10 +5,10 @@ import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.IdUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import net.ttcxy.tang.gateway.entity.UtsMemberLogin;
+import net.ttcxy.tang.gateway.entity.UtsAuthorLogin;
 import net.ttcxy.tang.gateway.entity.dto.DtsBlogDto;
 import net.ttcxy.tang.model.DtsBlog;
-import net.ttcxy.tang.gateway.service.CurrentMemberService;
+import net.ttcxy.tang.gateway.service.CurrentAuthorService;
 import net.ttcxy.tang.gateway.service.DtsBlogService;
 import net.ttcxy.tang.gateway.service.UtsAuthorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +29,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class StsPageController {
 
     @Autowired
-    private CurrentMemberService currentMemberService;
+    private CurrentAuthorService currentAuthorService;
 
     @Autowired
     private DtsBlogService blogService;
@@ -38,7 +38,7 @@ public class StsPageController {
     private UtsAuthorService authorService;
 
     @Autowired
-    private CurrentMemberService currentMemberServiceImpl;
+    private CurrentAuthorService currentAuthorServiceImpl;
 
     @GetMapping
     @ApiOperation("首页")
@@ -62,14 +62,14 @@ public class StsPageController {
     @GetMapping("author/{username}")
     @ApiOperation("作者页面")
     public ModelAndView toUserHome(@PathVariable("username")String username, ModelAndView modelAndView){
-        UtsMemberLogin utsMemberLogin = authorService.selectMemberByName(username);
-        if (utsMemberLogin == null){
+        UtsAuthorLogin utsAuthorLogin = authorService.selectAuthorByName(username);
+        if (utsAuthorLogin == null){
             modelAndView.setStatus(HttpStatus.NOT_FOUND);
             modelAndView.setViewName("404");
             return modelAndView;
         }
         modelAndView.setViewName("author");
-        modelAndView.addObject(utsMemberLogin);
+        modelAndView.addObject(utsAuthorLogin);
         return modelAndView;
     }
 
@@ -77,7 +77,7 @@ public class StsPageController {
     @ApiOperation("文章页面")
     public ModelAndView toBlog(@PathVariable("id")String blogId, ModelAndView modelAndView){
 
-        UtsMemberLogin utsMemberLogin = currentMemberService.getMember();
+        UtsAuthorLogin utsAuthorLogin = currentAuthorService.getAuthor();
 
         DtsBlogDto dtsBlogDto = blogService.selectBlogById(blogId);
 
@@ -87,8 +87,8 @@ public class StsPageController {
             return modelAndView;
         }
 
-        if (utsMemberLogin !=null){
-            String userId = utsMemberLogin.getId();
+        if (utsAuthorLogin !=null){
+            String userId = utsAuthorLogin.getId();
             // 是否喜欢了当前博客
             modelAndView.addObject("like",blogService.selectLike(userId,blogId));
         }
@@ -106,7 +106,7 @@ public class StsPageController {
     @ApiOperation("更改用户信息页面")
     public ModelAndView updateUser(ModelAndView modelAndView){
         modelAndView.setViewName("setting");
-        modelAndView.addObject(currentMemberService.getMember());
+        modelAndView.addObject(currentAuthorService.getAuthor());
         return modelAndView;
     }
 
@@ -124,7 +124,7 @@ public class StsPageController {
         DtsBlog blog = new DtsBlog();
 
         DateTime date = DateUtil.date();
-        String memberId = currentMemberServiceImpl.getMemberId();
+        String memberId = currentAuthorServiceImpl.getMemberId();
         String uuid = IdUtil.fastSimpleUUID();
 
         blog.setId(uuid);

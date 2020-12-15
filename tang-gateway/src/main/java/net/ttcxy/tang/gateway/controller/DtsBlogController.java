@@ -7,11 +7,11 @@ import cn.hutool.core.util.StrUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import net.ttcxy.tang.api.ResponseResult;
-import net.ttcxy.tang.gateway.entity.UtsMemberLogin;
+import net.ttcxy.tang.gateway.entity.UtsAuthorLogin;
 import net.ttcxy.tang.gateway.entity.dto.DtsBlogDto;
 import net.ttcxy.tang.model.DtsBlog;
 import net.ttcxy.tang.gateway.entity.param.DtsBlogParam;
-import net.ttcxy.tang.gateway.service.CurrentMemberService;
+import net.ttcxy.tang.gateway.service.CurrentAuthorService;
 import net.ttcxy.tang.gateway.service.DtsBlogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -33,7 +33,7 @@ public class DtsBlogController {
     private DtsBlogService blogService;
 
     @Autowired
-    private CurrentMemberService currentMemberServiceImpl;
+    private CurrentAuthorService currentAuthorServiceImpl;
 
     @GetMapping("home/{username}")
     @ApiOperation("用户首页")
@@ -68,8 +68,8 @@ public class DtsBlogController {
     public ResponseResult<?> delete(@PathVariable("id") String id){
         String userId = blogService.selectByPrimaryId(id).getUserId();
         int count = 0;
-        if (currentMemberServiceImpl.getMember()!=null){
-            if(StrUtil.equals(currentMemberServiceImpl.getMember().getId(),userId)){
+        if (currentAuthorServiceImpl.getAuthor()!=null){
+            if(StrUtil.equals(currentAuthorServiceImpl.getAuthor().getId(),userId)){
                 count = blogService.deleteBlog(id);
             }
         }
@@ -90,7 +90,7 @@ public class DtsBlogController {
         DtsBlogDto dtsBlogDto = blogService.selectBlogById(blogId);
 
         String userId = dtsBlogDto.getUserId();
-        if (StrUtil.equals(userId,currentMemberServiceImpl.getMemberId())){
+        if (StrUtil.equals(userId, currentAuthorServiceImpl.getMemberId())){
             DateTime date = DateUtil.date();
             blog.setUpdateDate(date);
             blog.setStateCode(1001);
@@ -114,7 +114,7 @@ public class DtsBlogController {
     @ApiOperation("加载博客信息，详细")
     public ResponseResult<?> load(@RequestParam(name="blog",required = false) String blogId){
         DtsBlog blog = blogService.selectBlogInfosById(blogId);
-        UtsMemberLogin memberLogin = currentMemberServiceImpl.getMember();
+        UtsAuthorLogin memberLogin = currentAuthorServiceImpl.getAuthor();
         if(blog.getUserId().equals(memberLogin.getId())){
             return ResponseResult.success(blog);
         }else{
@@ -125,7 +125,7 @@ public class DtsBlogController {
     @GetMapping("/like/{id}/insert")
     @ApiOperation("喜欢blog.如果数据库不存在，推荐，如果存在就取消。")
     public ResponseResult<?> like(@PathVariable("id") String id){
-        UtsMemberLogin author = currentMemberServiceImpl.getMember();
+        UtsAuthorLogin author = currentAuthorServiceImpl.getAuthor();
         return ResponseResult.success(blogService.like(author.getId(),id));
     }
 }

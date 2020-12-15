@@ -1,6 +1,6 @@
 package net.ttcxy.tang.gateway.service;
 
-import net.ttcxy.tang.gateway.entity.UtsMemberLogin;
+import net.ttcxy.tang.gateway.entity.UtsAuthorLogin;
 
 import java.util.List;
 
@@ -31,6 +31,6 @@ public interface UtsFansService {
      * @param userId user id
      * @return 登录用户
      */
-    List<UtsMemberLogin> selectFansList(String userId);
+    List<UtsAuthorLogin> selectFansList(String userId);
 
 }

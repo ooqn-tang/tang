@@ -11,7 +11,7 @@ import java.util.List;
  * 用户返回值
  * @author huanglei
  */
-public class UtsMemberLogin implements UserDetails {
+public class UtsAuthorLogin implements UserDetails {
 
     /**
      * 用户id
@@ -43,14 +43,10 @@ public class UtsMemberLogin implements UserDetails {
      */
     private String mail;
 
-    /**
-     * 用户组
-     */
-    private List<UtsRoleDto> utsRoleDtoList;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return utsRoleDtoList;
+        return null;
     }
 
     @Override
@@ -124,7 +120,4 @@ public class UtsMemberLogin implements UserDetails {
         this.mail = mail;
     }
 
-    public void setRoleDtoList(List<UtsRoleDto> utsRoleDtoList) {
-        this.utsRoleDtoList = utsRoleDtoList;
-    }
 }

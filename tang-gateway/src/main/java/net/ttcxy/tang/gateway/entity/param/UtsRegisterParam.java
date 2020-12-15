@@ -14,6 +14,7 @@ public class UtsRegisterParam {
     private String mail;
 
     @NotNull(message = "密码不能为空")
+    @Size(message = "密码长度8~20",max = 20,min = 8)
     private String password;
 
     @NotNull(message = "验证码不为空")
