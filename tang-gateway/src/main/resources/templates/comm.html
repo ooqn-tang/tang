@@ -180,7 +180,7 @@
                                 alert(result)
                             },
                             error(e){
-                                alert(e)
+                                alert(JSON.stringify(e.responseText))
                                 _this.rImg()
                             }
                         });

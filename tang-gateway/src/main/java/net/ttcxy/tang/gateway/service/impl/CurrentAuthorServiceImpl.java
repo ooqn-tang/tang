@@ -1,8 +1,8 @@
 package net.ttcxy.tang.gateway.service.impl;
 
 import cn.hutool.core.util.ObjectUtil;
-import net.ttcxy.tang.gateway.entity.UtsMemberLogin;
-import net.ttcxy.tang.gateway.service.CurrentMemberService;
+import net.ttcxy.tang.gateway.entity.UtsAuthorLogin;
+import net.ttcxy.tang.gateway.service.CurrentAuthorService;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -12,13 +12,13 @@ import org.springframework.stereotype.Service;
  * @author huanglei
  */
 @Service
-public class CurrentAuthorServiceImpl implements CurrentMemberService {
+public class CurrentAuthorServiceImpl implements CurrentAuthorService {
 
     @Override
-    public UtsMemberLogin getMember(){
+    public UtsAuthorLogin getAuthor(){
         try{
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-            return (UtsMemberLogin)authentication.getPrincipal();
+            return (UtsAuthorLogin)authentication.getPrincipal();
         }catch(Exception ex){
             return null;
         }
@@ -26,7 +26,7 @@ public class CurrentAuthorServiceImpl implements CurrentMemberService {
 
     @Override
     public String getMemberId(){
-        UtsMemberLogin author = getMember();
+        UtsAuthorLogin author = getAuthor();
         if (ObjectUtil.isNotNull(author)){
             return author.getId();
         }

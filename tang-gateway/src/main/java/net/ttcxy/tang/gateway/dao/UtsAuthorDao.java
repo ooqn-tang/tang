@@ -1,12 +1,12 @@
 package net.ttcxy.tang.gateway.dao;
 
-import net.ttcxy.tang.gateway.entity.UtsMemberLogin;
+import net.ttcxy.tang.gateway.entity.UtsAuthorLogin;
 
 /**
  * 用户
  * @author huanglei
  */
-public interface UtsMemberDao {
+public interface UtsAuthorDao {
 
     /**
      * 通过邮箱查询用户是否存在
@@ -27,7 +27,7 @@ public interface UtsMemberDao {
      * @param username 用户名
      * @return 登录用户消息
      */
-    UtsMemberLogin selectMemberByName(String username);
+    UtsAuthorLogin selectAuthorByName(String username);
 
     /**
      * 昵称是否存在
@@ -41,6 +41,6 @@ public interface UtsMemberDao {
      * @param mail 邮箱
      * @return 登录用户
      */
-    UtsMemberLogin selectMemberByMail(String mail);
+    UtsAuthorLogin selectAuthorByMail(String mail);
 
 }

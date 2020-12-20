@@ -3,7 +3,7 @@
       xmlns:v-bind="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8" name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />
-    <title th:text="${utsMemberLogin.username} + ' - 堂堂程序员'"></title>
+    <title th:text="${utsAuthorLogin.username} + ' - 堂堂程序员'"></title>
     <link href="https://cdn.bootcss.com/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/style.css">
     <link href="https://cdn.bootcss.com/github-markdown-css/4.0.0/github-markdown.min.css" rel="stylesheet">
@@ -19,10 +19,10 @@
         <div class="col-md-4 col-md-push-8">
             <div class="panel panel-default" >
                 <div class="panel-body" >
-                    <strong th:text="${utsMemberLogin.nickname}"></strong>
+                    <strong th:text="${utsAuthorLogin.nickname}"></strong>
                     <button v-show="!isThisUser"  class="pull-right btn btn-default btn-xs" @click="followerClick" v-text="follower"></button>
                     <hr>
-                    <div>简介：<span th:text="${utsMemberLogin.signature}"></span></div>
+                    <div>简介：<span th:text="${utsAuthorLogin.signature}"></span></div>
                 </div>
             </div>
             <div class="panel panel-default">
@@ -82,7 +82,7 @@
             author: '[[${session.SPRING_SECURITY_CONTEXT}]]' == '',
             isLoginUser:[[${session.SPRING_SECURITY_CONTEXT != null}]], // 表示登录的用户
             isThisUser:[[${session.SPRING_SECURITY_CONTEXT !=null && session.SPRING_SECURITY_CONTEXT.authentication.principal.username == username}]], // 表示访问自己的首页
-            username:'[[${utsMemberLogin.username}]]',
+            username:'[[${utsAuthorLogin.username}]]',
             fansList:[],
             showFans:false,
             update:true,

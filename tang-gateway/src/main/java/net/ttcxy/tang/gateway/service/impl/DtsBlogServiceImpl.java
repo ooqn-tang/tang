@@ -5,9 +5,9 @@ import cn.hutool.core.util.RandomUtil;
 import cn.hutool.core.util.StrUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import net.ttcxy.tang.gateway.entity.UtsMemberLogin;
+import net.ttcxy.tang.gateway.entity.UtsAuthorLogin;
 import net.ttcxy.tang.gateway.entity.dto.DtsBlogDto;
-import net.ttcxy.tang.gateway.service.CurrentMemberService;
+import net.ttcxy.tang.gateway.service.CurrentAuthorService;
 import net.ttcxy.tang.model.DtsBlog;
 import net.ttcxy.tang.model.DtsLikeData;
 import net.ttcxy.tang.model.DtsLikeDataExample;
@@ -44,7 +44,7 @@ public class DtsBlogServiceImpl implements DtsBlogService {
     private DtsLikeDataMapper likeMapper;
 
     @Autowired
-    private CurrentMemberService currentMemberServiceImpl;
+    private CurrentAuthorService currentAuthorServiceImpl;
 
     @Override
     public PageInfo<DtsBlogDto> getBlogList(Integer page,Integer pageSize) {
@@ -62,7 +62,7 @@ public class DtsBlogServiceImpl implements DtsBlogService {
     public PageInfo<DtsBlogDto> selectBlogByUsername(String username, Integer page,Integer pageSize) {
         PageHelper.startPage(page,pageSize);
 
-        UtsMemberLogin member = currentMemberServiceImpl.getMember();
+        UtsAuthorLogin member = currentAuthorServiceImpl.getAuthor();
 
         if (member != null && StrUtil.equals(username,member.getUsername())){
             return new PageInfo<>(dtsBlogDao.searchByUsernameAuthor(username));

@@ -1,17 +1,17 @@
 package net.ttcxy.tang.gateway.service;
 
-import net.ttcxy.tang.gateway.entity.UtsMemberLogin;
+import net.ttcxy.tang.gateway.entity.UtsAuthorLogin;
 
 /**
  * 获取当前用户消息
  * @author huanglei
  */
-public interface CurrentMemberService {
+public interface CurrentAuthorService {
     /**
      * 获取当前作者
      * @return LoginUser
      */
-    UtsMemberLogin getMember();
+    UtsAuthorLogin getAuthor();
 
     /**
      * 获取当前作者Id

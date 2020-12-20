@@ -4,11 +4,11 @@ import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.IdUtil;
 import io.swagger.annotations.ApiOperation;
 import net.ttcxy.tang.api.ResponseResult;
-import net.ttcxy.tang.gateway.entity.UtsMemberLogin;
+import net.ttcxy.tang.gateway.entity.UtsAuthorLogin;
 import net.ttcxy.tang.gateway.entity.dto.DtsCommentDto;
 import net.ttcxy.tang.model.DtsBlogComment;
 import net.ttcxy.tang.gateway.entity.param.DtsBlogCommentParam;
-import net.ttcxy.tang.gateway.service.CurrentMemberService;
+import net.ttcxy.tang.gateway.service.CurrentAuthorService;
 import net.ttcxy.tang.gateway.service.DtsCommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -26,7 +26,7 @@ import java.util.Map;
 public class DtsBlogCommentController {
 
     @Autowired
-    private CurrentMemberService currentMemberServiceImpl;
+    private CurrentAuthorService currentAuthorServiceImpl;
 
     @Autowired
     private DtsCommentService dtsCommentService;
@@ -35,7 +35,7 @@ public class DtsBlogCommentController {
     @ApiOperation("添加博客评论")
     public ResponseResult<?> insertComment(@RequestBody @Valid DtsBlogCommentParam dtsBlogCommentParam){
 
-        UtsMemberLogin user = currentMemberServiceImpl.getMember();
+        UtsAuthorLogin user = currentAuthorServiceImpl.getAuthor();
 
         DtsBlogComment blogComment = new DtsBlogComment();
         BeanUtil.copyProperties(dtsBlogCommentParam,blogComment);
@@ -71,7 +71,7 @@ public class DtsBlogCommentController {
     public ResponseResult<?> selectComment(@PathVariable("blogId") String blogId){
         Map<String,Object> map = new HashMap<>();
         map.put("comments",dtsCommentService.selectComments(blogId));
-        map.put("author", currentMemberServiceImpl.getMember());
+        map.put("author", currentAuthorServiceImpl.getAuthor());
         return ResponseResult.success(map);
     }
 }

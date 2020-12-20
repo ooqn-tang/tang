@@ -27,9 +27,8 @@ public class StsMailServiceQqImpl implements StsMailService {
         account.setFrom(from);
         account.setUser(user);
         account.setPass(password);
-
         MailUtil.send(account, mail, title, body, false);
-        return false;
+        return true;
     }
 
     public String getFrom() {

@@ -73,7 +73,7 @@ public class UtsAuthorLoginController {
                 UtsRegisterParam utsRegisterParam = new UtsRegisterParam();
                 utsRegisterParam.setMail(mail);
                 utsRegisterParam.setVerify(code);
-                httpSession.setAttribute(MySecurityData.VERIFY_CODE,code);
+                httpSession.setAttribute(MySecurityData.MAIL_VERIFY_CODE,code);
                 httpSession.setAttribute(MySecurityData.REG_VERIFY_DATA, utsRegisterParam);
             }
 
