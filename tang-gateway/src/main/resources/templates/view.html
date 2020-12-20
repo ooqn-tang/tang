@@ -1,0 +1,144 @@
+<html>
+    <head>
+        <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+        <link href="https://cdn.bootcss.com/github-markdown-css/4.0.0/github-markdown.min.css" rel="stylesheet">
+        <style>
+            *{
+                padding: 0;
+                margin: 0;
+                border: 0;
+                box-sizing: border-box;
+                border-radius: 0px;
+                resize: none;
+                outline: none;
+                cursor: pointer;
+                overflow-y: auto;
+            }
+
+            html,body{
+                width: 100%;
+                height: 100%;
+                padding: 0;
+                margin: 0;
+            }
+            .head{
+                height: 40px;
+                
+            }
+            .body{
+                height:-webkit-calc(100% - 80px);
+                height:-moz-calc(100% - 80px);
+                height:calc(100% - 80px);
+                border-bottom: 1px solid black;
+                border-top: 1px solid black;
+            }
+            .foot{
+                height: 40px;
+                background: #f4f4f4;
+            }
+            .but{
+                border-left: 1px #b5adad solid;
+                outline: none;
+                width: 90px;
+                float: right;
+                height: 100%;
+                background: #337ab7;
+                border-radius: 0;
+                color: #fff;
+            }
+            #title{
+                padding-left: 10px;
+                padding-right: 10px;
+                font-size: 24px;
+                line-height: 30px;
+                width: -webkit-calc(100% - 90px);
+                width: -moz-calc(100% - 90px);
+                width: calc(100% - 90px);
+                height: 100%;
+                outline: none;
+            }
+            @media screen and (max-width: 700px) {
+            #text {
+                width: 100% !important;
+                border-right: 0px !important;
+            }
+            #content{
+                display: none;
+            }
+        }
+        </style>
+
+    </head>
+    <body>
+        <div class="head">
+            <input type="text" id="title" placeholder="标题" style="background: #f4f4f4">
+            <input type="button" id="save" class="but" value="发布">
+        </div>
+        <div class="body" style="overflow: auto;">
+            <textarea onkeyup="keyup()" 
+            style="width: 50%;height: 100%; float:left;border-right: 1px solid black;background-color: #e2e3e4;padding: 10px;font-size: 18px;" 
+            id="text" 
+            placeholder="可以输入Markdown文本为内容添加样式"></textarea>
+            <div id="content" class="markdown-body" style="width: 50%;height: 100%;float: left;background: #fff8eb;padding: 10px;font-size: 18px;"></div>
+        </div>
+        <div class="foot" style="line-height: 40px; padding:0 10px;color: rgb(45, 89, 184);font-weight:bold">
+            <span>图片</span>
+            <span id="wbk">文本块</span>
+            <span>下载PDF</span>
+            <span style="float: right;">帮助</span>
+        </div>
+    </body>
+    <script src="https://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+    <script>
+        let rendererMD = new marked.Renderer();
+        let blog = '574cbbed6dbf487eb258bc1b535d9d85'
+        let scrollId = null;
+
+        marked.setOptions({
+            renderer: rendererMD,
+            gfm: true,
+            tables: true,
+            breaks: true,
+            pedantic: false,
+            sanitize: true,
+            smartLists: true,
+            smartypants: false
+        });
+        function keyup(){
+            let markdown = $("#text").val()
+            let html = marked(markdown)
+            $("#content").html(html)
+        }
+
+        $("#text").scroll(function(){
+            let h = $(this)[0].scrollHeight - $("#content")[0].scrollHeight;
+            if (scrollId === "text"){
+                $("#content").scrollTop($(this).scrollTop());
+            }
+        });
+        $("#content").scroll(function() {
+            if (scrollId === "content"){
+                $("#text").scrollTop($(this).scrollTop());
+            }
+        });
+        $("#text").mouseover(function(){
+            scrollId = "text"
+        });
+        $("#content").mouseover(function(){
+            scrollId = "content"
+        });
+
+        $("#wbk").click(function(){
+            let c = "\n```\n\n```\n"
+            var txtArea = $("#text")[0];
+            var content = txtArea.value;
+            var start = txtArea.selectionStart; //初始位置
+            txtArea.value = content.substring(0, txtArea.selectionStart) + c + content.substring(txtArea.selectionEnd, content.length);
+            var position = start + (c.length - 5);
+            $("#text").focus();
+            txtArea.setSelectionRange(position, position);
+        })
+
+       
+    </script>
+</html>
