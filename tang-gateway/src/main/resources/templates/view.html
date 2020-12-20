@@ -1,8 +1,10 @@
 <html>
-    <head>
-        <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-        <link href="https://cdn.bootcss.com/github-markdown-css/4.0.0/github-markdown.min.css" rel="stylesheet">
-        <style>
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <link href="https://cdn.bootcss.com/github-markdown-css/4.0.0/github-markdown.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcss.com/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
             *{
                 padding: 0;
                 margin: 0;
@@ -12,7 +14,6 @@
                 resize: none;
                 outline: none;
                 cursor: pointer;
-                overflow-y: auto;
             }
 
             html,body{
@@ -23,7 +24,7 @@
             }
             .head{
                 height: 40px;
-                
+
             }
             .body{
                 height:-webkit-calc(100% - 80px);
@@ -68,28 +69,28 @@
         }
         </style>
 
-    </head>
-    <body>
-        <div class="head">
-            <input type="text" id="title" placeholder="标题" style="background: #f4f4f4">
-            <input type="button" id="save" class="but" value="发布">
-        </div>
-        <div class="body" style="overflow: auto;">
-            <textarea onkeyup="keyup()" 
-            style="width: 50%;height: 100%; float:left;border-right: 1px solid black;background-color: #e2e3e4;padding: 10px;font-size: 18px;" 
-            id="text" 
-            placeholder="可以输入Markdown文本为内容添加样式"></textarea>
-            <div id="content" class="markdown-body" style="width: 50%;height: 100%;float: left;background: #fff8eb;padding: 10px;font-size: 18px;"></div>
-        </div>
-        <div class="foot" style="line-height: 40px; padding:0 10px;color: rgb(45, 89, 184);font-weight:bold">
-            <span>图片</span>
-            <span id="wbk">文本块</span>
-            <span>下载PDF</span>
-            <span style="float: right;">帮助</span>
-        </div>
-    </body>
-    <script src="https://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
-    <script>
+</head>
+<body>
+<div class="head">
+    <input type="text" id="title" placeholder="标题" style="background: #f4f4f4">
+    <input type="button" id="save" class="but" value="发布">
+</div>
+<div class="body" style="overflow: auto;">
+            <textarea onkeyup="keyup()"
+                      style="width: 50%;height: 100%; float:left;border-right: 1px solid black;background-color: #e2e3e4;padding: 10px;font-size: 18px;overflow-y: auto;"
+                      id="text"
+                      placeholder="可以输入Markdown文本为内容添加样式"></textarea>
+    <div id="content" class="markdown-body" style="width: 50%;height: 100%;float: left;background: #fff8eb;padding: 10px;font-size: 18px;overflow-y: auto;"></div>
+</div>
+<div class="foot" style="line-height: 40px; padding:0 10px;color: rgb(45, 89, 184);font-weight:bold">
+    <span>图片</span>
+    <span id="wbk">文本块</span>
+    <span>下载PDF</span>
+    <span style="float: right;">帮助</span>
+</div>
+</body>
+<script src="https://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+<script>
         let rendererMD = new marked.Renderer();
         let blog = '574cbbed6dbf487eb258bc1b535d9d85'
         let scrollId = null;
