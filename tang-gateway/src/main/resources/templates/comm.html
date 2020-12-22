@@ -216,17 +216,7 @@
 
 <div th:fragment="advertise">
     <div class="list-group" >
-        <a class="list-group-item active">排行<span class="pull-right">🌐</span></a>
-        <a target="_blank" class="list-group-item">Outages</a>
-        <a target="_blank" class="list-group-item">考拉君</a>
-        <a target="_blank" class="list-group-item">巴啦啦</a>
-    </div>
-    <div class="list-group" >
-        <a class="list-group-item active">推荐<span class="pull-right">🌐</span></a>
-        <a target="_blank" class="list-group-item" th:each="advertise : ${application.advertises}" th:text="${advertise.title}" th:href="${advertise.url}"></a>
-    </div>
-    <div class="list-group" >
-        <a class="list-group-item active">广播<span class="pull-right">🌐</span></a>
+        <a class="list-group-item active">广播<span class="pull-right">🎇</span></a>
         <a target="_blank" class="list-group-item" th:each="advertise : ${application.advertises}" th:text="${advertise.title}" th:href="${advertise.url}"></a>
     </div>
     <div class="panel panel-default" style="margin-bottom: 60px">

@@ -4,6 +4,9 @@
 body{
     overflow-y:scroll;
 }
+.markdown-body img{
+    max-width: 100%;
+}
 @media screen and (max-width:1000px) and (min-width:770px){
     .t700{
         margin-bottom: 0px !important;
