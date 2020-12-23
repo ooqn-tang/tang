@@ -17,7 +17,7 @@ import org.springframework.context.annotation.Bean;
 @SpringBootApplication(scanBasePackages = {"net.ttcxy"})
 public class TangApplication {
 
-    //@Bean
+    @Bean
     public ServletWebServerFactory servletContainer() {
 
         TomcatServletWebServerFactory tomcat = new TomcatServletWebServerFactory() {

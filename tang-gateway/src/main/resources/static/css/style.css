@@ -1,6 +1,9 @@
 [v-cloak] {
     display: none !important;
 }
+*{
+    outline: none !important;
+}
 body{
     overflow-y:scroll;
 }
@@ -57,12 +60,4 @@ a:hover,a:hover,a{
 hr{
     margin-top: 8px !important;
     margin-bottom: 8px !important;
-}
-
-.tag {
-
-    scrollbar-arrow-color: #FFFFFF; /*顶部/底部图标颜色*/
-    scrollbar-face-color: #FFFFFF; /*滚动条颜色*/
-    scrollbar-shadow-color: #FFFFFF;/*滚动条阴影颜色*/
-
 }
