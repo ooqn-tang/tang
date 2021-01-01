@@ -41,7 +41,7 @@
                 <div class="col-md-12 column">
                     <div class="panel panel-default">
                     <div class="panel-heading">
-                        <strong>评论</strong>
+                        <strong>留言</strong>
                     </div>
                     <div class="panel-body"  id="commentBody" style="word-wrap:break-word">
                         <div v-for="(item,index) in comments" v-if="comments.length > 0 ">
@@ -54,7 +54,7 @@
                             <div><span v-text="item.content" style="white-space: pre-line;max-height: 200px"></span><span style="color: #337ab7;" @click="ate(item)"> @</span></div><hr class="hr">
                         </div>
                         <div v-if="comments.length == 0">
-                            没有评论...
+                            没有留言...
                         </div>
                     </div>
                 </div>
@@ -86,7 +86,7 @@
 
                         <textarea style="resize:none" rows="1" class="form-control " v-model="content" ref="inputContent"></textarea>
                         <span class="input-group-btn">
-                            <button type="button" class="btn btn-default" @click="send">评论</button>
+                            <button type="button" class="btn btn-default" @click="send">留言</button>
                         </span>
                     </div>
                 </div>
@@ -108,7 +108,7 @@
             username:'[[${dtsBlogDto.username}]]',
             author:"[[${session.SPRING_SECURITY_CONTEXT}]]" == "",
             follower:{
-                text:"关注",
+                text:"订阅",
             },
             comments: [],
             content:"",
@@ -153,14 +153,14 @@
                 if (_this.username == null){
                     return
                 }
-                if (_this.follower.text === '已关注'){
+                if (_this.follower.text === '已订阅'){
                     $.ajax({
                         type:"post",
                         url:"/fans/delete/"+_this.username,
                         contentType: "application/json",
                         dataType:"json",
                         success() {
-                            _this.follower.text  = "关注"
+                            _this.follower.text  = "订阅"
                         },
                         error(e){
                             alert(e)
@@ -174,7 +174,7 @@
                         contentType: "application/json",
                         dataType:"json",
                         success() {
-                            _this.follower.text  = "已关注"
+                            _this.follower.text  = "已订阅"
                         },
                         error(e){
                             alert(e)
@@ -193,9 +193,9 @@
                     contentType: "application/json",
                     success:function (result) {
                         if (result){
-                            _this.follower.text = '已关注'
+                            _this.follower.text = '已订阅'
                         } else{
-                            _this.follower.text = '关注'
+                            _this.follower.text = '订阅'
                         }
                     }
                 })
@@ -216,9 +216,6 @@
                     success:function (result) {
                         _this.content = "";
                         _this.comments.push(result);
-                    },
-                    error(e){
-                        alert(e)
                     }
                 })
             },

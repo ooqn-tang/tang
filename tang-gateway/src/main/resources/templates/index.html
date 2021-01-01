@@ -18,7 +18,12 @@
         <div class="col-md-9 column">
             <div class="row">
                 <div class="col-md-12 column">
-
+                    <div style="overflow: hidden;height: 23px; margin-bottom: 5px;">
+                        <div style="overflow-x:scroll; height: 40px;white-space:nowrap">
+                            <a type="button" class="btn btn-default btn-xs" @click="show=false,pageNum=1,blogList=[],blogs()">最新</a>
+                            <input type="button" style="margin-right: 5px;" class="btn btn-default btn-xs" v-for="(item,index) in tagList" v-model="item" @click="st(item)"/>
+                        </div>
+                    </div>
                     <ul class="list-group" v-clock>
                         <li class="list-group-item" v-for="(item,index) in blogList">
                             <a class="blog-title" target="_blank" v-bind:href="'/post/'+item.id" v-text="item.title"></a>
@@ -53,6 +58,7 @@
                 pageNum:1,
                 show:false,
                 blogList:[],
+                tagList:["java","python","C++","C#","Vue","JS","Pandas","爬虫","日志","java","python","C++","C#","Vue","JS","Pandas","爬虫","日志"],
                 blog:{
                     list:[],
                     isFirstPage:false,
@@ -60,8 +66,14 @@
                 }
             }
         }, methods: {
+            st(tag){
+                this.show = false
+                this.blogList = []
+                this.search(tag)
+            },
             page(){
                 let search;
+                this.show = false
                 try{
                     search = getQueryVariable("s");
                 }catch(err){
@@ -75,7 +87,7 @@
             },
             blogs(){
                 let _this = this
-                _this.show = false
+
                 $.ajax({
                     type:"GET",
                     url:"/blog/blogs",

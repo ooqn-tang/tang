@@ -63,14 +63,14 @@ $(function(){
         $("#follower").removeClass("hidden")
         $("#follower").removeClass("btn-success")
         $("#follower").addClass("btn-default")
-        $("#follower").html("已关注")
+        $("#follower").html("已订阅")
     }
 
     function updateToNotGz(){
         $("#follower").removeClass("hidden")
         $("#follower").removeClass("btn-default")
         $("#follower").addClass("btn-success")
-        $("#follower").html("关注")
+        $("#follower").html("订阅")
     }
 
 });

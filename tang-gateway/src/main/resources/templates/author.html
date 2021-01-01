@@ -27,7 +27,7 @@
                     <div class="btn-group W100">
                         <button class="btn btn-default btn-sm W20" v-bind:class="{ W50 : !isThisUser }" @click="cl(),loadAuthor(),blogList=[],showFans = false">博客</button>
                         <button class="btn btn-default btn-sm W20" v-bind:class="{ W50 : !isThisUser }" @click="cl(),like(),blogList=[],showFans = false">推荐</button>
-                        <button class="btn btn-default btn-sm W20" @click="fans" v-if="isThisUser">关注</button>
+                        <button class="btn btn-default btn-sm W20" @click="fans" v-if="isThisUser">订阅</button>
                         <a class="btn btn-default btn-sm W20" href="/author/setting" v-if="isThisUser">设置</a>
                         <a class="btn btn-default btn-sm W20" @click="logout" v-if="isThisUser">注销</a>
                     </div>
@@ -35,7 +35,7 @@
             </div>
             <div v-show="showFans" v-if="isThisUser">
                 <div class="list-group" >
-                    <a class="list-group-item active">关注<span class="pull-right">🎇</span></a>
+                    <a class="list-group-item active">订阅<span class="pull-right">🎇</span></a>
                     <a class="list-group-item" v-for="(item,i) in fansList" v-bind:href="item.username" v-text="item.nickname"></a>
                 </div>
             </div>
@@ -86,7 +86,7 @@
             update:true,
             selectType:"author.html",
             pageNum:1,
-            follower:"关注",
+            follower:"订阅",
             show:false,
             blogList: [],
             blog:{
@@ -128,12 +128,12 @@
                 }
                 let _this = this;
                 let type,text;
-                if (_this.follower === '已关注'){
+                if (_this.follower === '已订阅'){
                     type = "delete";
-                    text = "关注"
+                    text = "订阅"
                 } else{
                     type = "insert";
-                    text = "已关注"
+                    text = "已订阅"
                 }
                 $.ajax({
                     type:"post",
@@ -154,9 +154,9 @@
                         contentType: "application/json", //必须这样写
                         success:function (result) {
                             if (result){
-                                _this.follower = '关注'
+                                _this.follower = '订阅'
                             } else{
-                                _this.follower = '已关注'
+                                _this.follower = '已订阅'
                             }
                         }
                     })
