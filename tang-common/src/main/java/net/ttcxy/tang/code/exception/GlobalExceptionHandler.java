@@ -23,10 +23,8 @@ public class GlobalExceptionHandler {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
-
-
     /**
-     * Exception 参数校验统一异常处理
+     * AccessDeniedException 参数校验统一异常处理
      */
     @ResponseBody
     @ExceptionHandler(value = AccessDeniedException.class)
