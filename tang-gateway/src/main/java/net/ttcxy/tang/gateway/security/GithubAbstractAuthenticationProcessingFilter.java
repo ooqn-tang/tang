@@ -29,12 +29,12 @@ public class GithubAbstractAuthenticationProcessingFilter extends AbstractAuthen
     /**
      * 获取 Token 的 API
      */
-    private final static String accessTokenUri = "https://graph.qq.com/oauth2.0/token";
+    private final static String accessTokenUri = "https://github.com/login/oauth/access_token";
 
     /**
      * 获取 Token 的 API
      */
-    private final static String userInfoUri = "https://graph.qq.com/oauth2.0/token";
+    private final static String userInfoUri = "https://api.github.com/user";
 
 
     protected GithubAbstractAuthenticationProcessingFilter(String defaultFilterProcessesUrl) {
@@ -48,11 +48,11 @@ public class GithubAbstractAuthenticationProcessingFilter extends AbstractAuthen
         param.put("client_id","Iv1.a91b223d98f8cf96");
         param.put("client_secret","928cd60408c092e9c920b5980892e3adc886ae98");
         param.put("code",code);
-        String post = HttpUtil.post("https://github.com/login/oauth/access_token", param);
+        String post = HttpUtil.post(accessTokenUri, param);
         post = ("{'" + post +"'}").replaceAll("=","':'").replaceAll("&","','");
         System.out.println(post);
         String token = JSONUtil.parseObj(post).getStr("access_token");
-        HttpRequest httpRequest = new HttpRequest("https://api.github.com/user");
+        HttpRequest httpRequest = new HttpRequest(userInfoUri);
         httpRequest.header("Authorization","token " + token);
         HttpResponse execute = httpRequest.execute();
         System.out.println(execute.body());
