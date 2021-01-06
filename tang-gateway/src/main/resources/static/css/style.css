@@ -1,6 +1,9 @@
 [v-cloak] {
     display: none !important;
 }
+.T10{
+    margin-bottom: 10px
+}
 *{
     outline: none !important;
 }

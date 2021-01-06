@@ -9,67 +9,59 @@
     <link href="https://cdn.bootcss.com/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.bootcss.com/github-markdown-css/4.0.0/github-markdown.min.css" rel="stylesheet">
     <script src="https://cdn.bootcss.com/vue/2.6.10/vue.min.js"></script>
+    <meta name="description" th:attr="content=${dtsBlogDto.synopsis}"/>
 </head>
 <body>
 <div th:replace="comm::navigation"></div>
 <div class="container-fluid" id="app" v-cloak>
     <div class="row">
         <div class="col-md-9 column">
-            <div class="row">
-                <div class="col-md-12 column">
-                    <div class="panel panel-default" >
-                    <div class="panel-body" id="blog-body" style="overflow-y:hidden;">
-                        <div>
-                            <strong><a th:href="@{/author/{id}(id=${dtsBlogDto.username})}" th:text="${dtsBlogDto.nickname}"></a></strong>
-                            <span style="color:#b4b4b4" th:text="${#dates.format(dtsBlogDto.createDate,'yyyy.MM.dd')}"></span>
-                            <div class="btn-group pull-right">
-                                <button class="btn btn-default btn-xs"  @click="followerClick" v-text="follower.text"></button>
-                            </div>
+            <div class="panel panel-default" >
+                <div class="panel-body" id="blog-body" style="overflow-y:hidden;">
+                    <div>
+                        <strong>
+                            <a th:href="@{/author/{id}(id=${dtsBlogDto.username})}" th:text="${dtsBlogDto.nickname}"></a>
+                        </strong>
+                        <span style="color:#b4b4b4" th:text="${#dates.format(dtsBlogDto.createDate,'yyyy.MM.dd')}"></span>
+                        <div class="btn-group pull-right">
+                            <button class="btn btn-default btn-xs"  @click="followerClick" v-text="follower.text"></button>
                         </div>
-                        <h3><strong th:text="${dtsBlogDto.title}"></strong></h3>
-                        <hr>
-                        <div class="markdown-body" th:utext="${dtsBlogDto.text}"></div>
                     </div>
-                    <div class="panel-footer">
-                        <button th:classappend="${like == 1} ? 'btn btn-danger  btn-xs' : 'btn btn-default btn-xs'" @click="likeClick" id="lkBut">推荐</button>
-                        <a @click="updateBlog" class="btn btn-default btn-xs"  th:if="${session.SPRING_SECURITY_CONTEXT != null && session.SPRING_SECURITY_CONTEXT.authentication.principal.username == dtsBlogDto.username}" >编辑</a>
-                    </div>
+                    <h3><strong th:text="${dtsBlogDto.title}"></strong></h3>
+                    <hr>
+                    <div class="markdown-body" th:utext="${dtsBlogDto.text}"></div>
                 </div>
+                <div class="panel-footer">
+                    <button th:classappend="${like == 1} ? 'btn btn-danger  btn-xs' : 'btn btn-default btn-xs'" @click="likeClick" id="lkBut">推荐</button>
+                    <a @click="updateBlog" class="btn btn-default btn-xs"  th:if="${session.SPRING_SECURITY_CONTEXT != null && session.SPRING_SECURITY_CONTEXT.authentication.principal.username == dtsBlogDto.username}" >编辑</a>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-12 column">
-                    <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <strong>留言</strong>
-                    </div>
-                    <div class="panel-body"  id="commentBody" style="word-wrap:break-word">
-                        <div v-for="(item,index) in comments" v-if="comments.length > 0 ">
-                            <a v-bind:href="'/author/'+ item.username" v-text="item.nickname"></a>
-                            <span style="color:gainsboro" class="pull-right" v-text="item.createDate"></span>
-                            <span style="color:#dca492;margin-right: 10px;"
-                                  class="pull-right"
-                                  @click="deleteComment(item.id,index)"
-                                  v-if="item.username == commentUsername">删除</span>
-                            <div><span v-text="item.content" style="white-space: pre-line;max-height: 200px"></span><span style="color: #337ab7;" @click="ate(item)"> @</span></div><hr class="hr">
-                        </div>
-                        <div v-if="comments.length == 0">
-                            没有留言...
-                        </div>
-                    </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <strong>留言</strong>
                 </div>
+                <div class="panel-body"  id="commentBody" style="word-wrap:break-word">
+                    <div v-for="(item,index) in comments" v-if="comments.length > 0 ">
+                        <a v-bind:href="'/author/'+ item.username" v-text="item.nickname"></a>
+                        <span style="color:gainsboro" class="pull-right" v-text="item.createDate"></span>
+                        <span style="color:#dca492;margin-right: 10px;"
+                              class="pull-right"
+                              @click="deleteComment(item.id,index)"
+                              v-if="item.username == commentUsername">删除</span>
+                        <div><span v-text="item.content" style="white-space: pre-line;max-height: 200px"></span></div><hr class="hr">
+                    </div>
+                    <div v-if="comments.length == 0">
+                        没有留言...
+                    </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-12 column t700" style="margin-bottom: 50px;">
-                    <div class="panel panel-default">
-                        <div class="panel-body">
-                            <a class="blog-title" th:href="'/post/'+${random.id}" th:text="${random.title}"></a>
-                            <div>
-                                <span th:text="${#dates.format(random.createDate, 'yyyy.MM.dd')}"></span>
-                                <a class="pull-right" th:href="@{/author/{id}(id=${random.username})}" th:text="${random.nickname}"></a>
-                            </div>
-                        </div>
+
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <a class="blog-title" th:href="'/post/'+${random.id}" th:text="${random.title}"></a>
+                    <div>
+                        <span th:text="${#dates.format(random.createDate, 'yyyy.MM.dd')}"></span>
+                        <a class="pull-right" th:href="@{/author/{id}(id=${random.username})}" th:text="${random.nickname}"></a>
                     </div>
                 </div>
             </div>
@@ -83,7 +75,6 @@
             <div class="row">
                 <div class="col-md-9">
                     <div class="input-group" style="margin-top: 8px">
-
                         <textarea style="resize:none" rows="1" class="form-control " v-model="content" ref="inputContent"></textarea>
                         <span class="input-group-btn">
                             <button type="button" class="btn btn-default" @click="send">留言</button>
@@ -91,7 +82,6 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </nav>
 </div>
@@ -116,10 +106,6 @@
             commentUsername:"",
         },
         methods: {
-            ate(item){
-                this.content += "@" + item.nickname + " "
-                this.$refs.inputContent.focus()
-            },
             updateBlog(){
                 window.location.href='/editor/'+this.blogId
             },

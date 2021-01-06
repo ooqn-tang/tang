@@ -8,6 +8,7 @@
     <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
     <result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
     <result column="state_code" jdbcType="INTEGER" property="stateCode" />
+    <result column="synopsis" jdbcType="VARCHAR" property="synopsis" />
   </resultMap>
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="net.ttcxy.tang.model.DtsBlog">
     <result column="text" jdbcType="LONGVARCHAR" property="text" />
@@ -72,7 +73,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, title, user_id, create_date, update_date, state_code
+    id, title, user_id, create_date, update_date, state_code, synopsis
   </sql>
   <sql id="Blob_Column_List">
     text, markdown
@@ -128,10 +129,12 @@
   <insert id="insert" parameterType="net.ttcxy.tang.model.DtsBlog">
     insert into dts_blog (id, title, user_id, 
       create_date, update_date, state_code, 
-      text, markdown)
+      synopsis, text, markdown
+      )
     values (#{id,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, 
       #{createDate,jdbcType=TIMESTAMP}, #{updateDate,jdbcType=TIMESTAMP}, #{stateCode,jdbcType=INTEGER}, 
-      #{text,jdbcType=LONGVARCHAR}, #{markdown,jdbcType=LONGVARCHAR})
+      #{synopsis,jdbcType=VARCHAR}, #{text,jdbcType=LONGVARCHAR}, #{markdown,jdbcType=LONGVARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="net.ttcxy.tang.model.DtsBlog">
     insert into dts_blog
@@ -153,6 +156,9 @@
       </if>
       <if test="stateCode != null">
         state_code,
+      </if>
+      <if test="synopsis != null">
+        synopsis,
       </if>
       <if test="text != null">
         text,
@@ -179,6 +185,9 @@
       </if>
       <if test="stateCode != null">
         #{stateCode,jdbcType=INTEGER},
+      </if>
+      <if test="synopsis != null">
+        #{synopsis,jdbcType=VARCHAR},
       </if>
       <if test="text != null">
         #{text,jdbcType=LONGVARCHAR},
@@ -215,6 +224,9 @@
       <if test="record.stateCode != null">
         state_code = #{record.stateCode,jdbcType=INTEGER},
       </if>
+      <if test="record.synopsis != null">
+        synopsis = #{record.synopsis,jdbcType=VARCHAR},
+      </if>
       <if test="record.text != null">
         text = #{record.text,jdbcType=LONGVARCHAR},
       </if>
@@ -234,6 +246,7 @@
       create_date = #{record.createDate,jdbcType=TIMESTAMP},
       update_date = #{record.updateDate,jdbcType=TIMESTAMP},
       state_code = #{record.stateCode,jdbcType=INTEGER},
+      synopsis = #{record.synopsis,jdbcType=VARCHAR},
       text = #{record.text,jdbcType=LONGVARCHAR},
       markdown = #{record.markdown,jdbcType=LONGVARCHAR}
     <if test="_parameter != null">
@@ -247,7 +260,8 @@
       user_id = #{record.userId,jdbcType=VARCHAR},
       create_date = #{record.createDate,jdbcType=TIMESTAMP},
       update_date = #{record.updateDate,jdbcType=TIMESTAMP},
-      state_code = #{record.stateCode,jdbcType=INTEGER}
+      state_code = #{record.stateCode,jdbcType=INTEGER},
+      synopsis = #{record.synopsis,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -270,6 +284,9 @@
       <if test="stateCode != null">
         state_code = #{stateCode,jdbcType=INTEGER},
       </if>
+      <if test="synopsis != null">
+        synopsis = #{synopsis,jdbcType=VARCHAR},
+      </if>
       <if test="text != null">
         text = #{text,jdbcType=LONGVARCHAR},
       </if>
@@ -286,6 +303,7 @@
       create_date = #{createDate,jdbcType=TIMESTAMP},
       update_date = #{updateDate,jdbcType=TIMESTAMP},
       state_code = #{stateCode,jdbcType=INTEGER},
+      synopsis = #{synopsis,jdbcType=VARCHAR},
       text = #{text,jdbcType=LONGVARCHAR},
       markdown = #{markdown,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=VARCHAR}
@@ -296,7 +314,8 @@
       user_id = #{userId,jdbcType=VARCHAR},
       create_date = #{createDate,jdbcType=TIMESTAMP},
       update_date = #{updateDate,jdbcType=TIMESTAMP},
-      state_code = #{stateCode,jdbcType=INTEGER}
+      state_code = #{stateCode,jdbcType=INTEGER},
+      synopsis = #{synopsis,jdbcType=VARCHAR}
     where id = #{id,jdbcType=VARCHAR}
   </update>
 </mapper>

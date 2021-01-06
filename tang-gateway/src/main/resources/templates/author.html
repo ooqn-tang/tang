@@ -14,10 +14,10 @@
 <div class="container-fluid" id="app" v-cloak>
     <div class="row clearfix">
         <div class="col-md-4 col-md-push-8">
-            <div class="panel panel-default" >
-                <div class="panel-body" >
+            <div class="panel panel-default">
+                <div class="panel-body">
                     <strong th:text="${utsAuthorLogin.nickname}"></strong>
-                    <button v-show="!isThisUser"  class="pull-right btn btn-default btn-xs" @click="followerClick" v-text="follower"></button>
+                    <button v-show="!isThisUser" class="pull-right btn btn-default btn-xs" @click="followerClick" v-text="follower"></button>
                     <hr>
                     <div>简介：<span th:text="${utsAuthorLogin.signature}"></span></div>
                 </div>

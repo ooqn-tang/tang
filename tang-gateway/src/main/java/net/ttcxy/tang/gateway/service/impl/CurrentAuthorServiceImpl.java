@@ -18,6 +18,7 @@ public class CurrentAuthorServiceImpl implements CurrentAuthorService {
     public UtsAuthorLogin getAuthor(){
         try{
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            authentication.getDetails();
             return (UtsAuthorLogin)authentication.getPrincipal();
         }catch(Exception ex){
             return null;
@@ -25,7 +26,7 @@ public class CurrentAuthorServiceImpl implements CurrentAuthorService {
     }
 
     @Override
-    public String getMemberId(){
+    public String getAuthorId(){
         UtsAuthorLogin author = getAuthor();
         if (ObjectUtil.isNotNull(author)){
             return author.getId();

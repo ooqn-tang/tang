@@ -7,6 +7,7 @@ import cn.hutool.core.util.StrUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import net.ttcxy.tang.api.ResponseResult;
+import net.ttcxy.tang.gateway.entity.DataState;
 import net.ttcxy.tang.gateway.entity.UtsAuthorLogin;
 import net.ttcxy.tang.gateway.entity.dto.DtsBlogDto;
 import net.ttcxy.tang.model.DtsBlog;
@@ -90,10 +91,10 @@ public class DtsBlogController {
         DtsBlogDto dtsBlogDto = blogService.selectBlogById(blogId);
 
         String userId = dtsBlogDto.getUserId();
-        if (StrUtil.equals(userId, currentAuthorServiceImpl.getMemberId())){
+        if (StrUtil.equals(userId, currentAuthorServiceImpl.getAuthorId())){
             DateTime date = DateUtil.date();
             blog.setUpdateDate(date);
-            blog.setStateCode(1001);
+            blog.setStateCode(DataState.BLOG_RELEASE);
 
             int count = blogService.updateBlog(blog);
             if (count > 0){

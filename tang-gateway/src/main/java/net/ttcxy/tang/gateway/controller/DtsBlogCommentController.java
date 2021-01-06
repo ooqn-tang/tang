@@ -2,6 +2,7 @@ package net.ttcxy.tang.gateway.controller;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.IdUtil;
+import cn.hutool.core.util.StrUtil;
 import io.swagger.annotations.ApiOperation;
 import net.ttcxy.tang.api.ResponseResult;
 import net.ttcxy.tang.gateway.entity.UtsAuthorLogin;
@@ -73,5 +74,9 @@ public class DtsBlogCommentController {
         map.put("comments",dtsCommentService.selectComments(blogId));
         map.put("author", currentAuthorServiceImpl.getAuthor());
         return ResponseResult.success(map);
+    }
+
+    public static void main(String[] args) {
+        System.out.println("sd".substring(250));
     }
 }

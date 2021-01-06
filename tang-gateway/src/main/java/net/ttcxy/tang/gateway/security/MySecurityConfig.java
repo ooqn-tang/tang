@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -58,15 +59,26 @@ public class MySecurityConfig  extends WebSecurityConfigurerAdapter {
     @Autowired
     private MyVerifyCodeFilter myVerifyCodeFilter;
 
+    @Bean
+    @Override
+    protected AuthenticationManager authenticationManager() throws Exception {
+        return super.authenticationManager();
+    }
+
+    @Bean
+    public GithubAbstractAuthenticationProcessingFilter githubAbstractAuthenticationProcessingFilter(){
+        return new GithubAbstractAuthenticationProcessingFilter();
+    }
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-
 
         // 由于本安全框架独立于应用模块，调用的模块需要注入userDetailsService Bean
         http.userDetailsService(userDetailsService);
         // 没有权限的处理器
         http.exceptionHandling().authenticationEntryPoint(myAuthenticationEntryPoint);
         http.exceptionHandling().accessDeniedHandler(accessDeniedHandler());
+        http.addFilterBefore(githubAbstractAuthenticationProcessingFilter(),UsernamePasswordAuthenticationFilter.class);
         // 登录拦截器前面添加验证码拦截器
         http.addFilterBefore(myVerifyCodeFilter, UsernamePasswordAuthenticationFilter.class);
         // 不需要登录的请求
@@ -111,6 +123,8 @@ public class MySecurityConfig  extends WebSecurityConfigurerAdapter {
         return tokenRepository;
     }
 
+
+
     @Bean
     public AccessDeniedHandler accessDeniedHandler(){
         return (request, response, accessDeniedException) -> {
@@ -129,4 +143,5 @@ public class MySecurityConfig  extends WebSecurityConfigurerAdapter {
             response.sendRedirect("/403");
         };
     }
+
 }

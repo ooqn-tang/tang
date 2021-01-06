@@ -1,6 +1,8 @@
 package net.ttcxy.tang.gateway.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.util.IdUtil;
+import cn.hutool.core.util.RandomUtil;
 import com.github.pagehelper.PageHelper;
 import net.ttcxy.tang.gateway.entity.UtsAuthorLogin;
 import net.ttcxy.tang.gateway.entity.dto.UtsAuthorDto;
@@ -12,6 +14,7 @@ import net.ttcxy.tang.gateway.service.UtsAuthorService;
 import net.ttcxy.tang.mapper.UtsAuthorMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -43,6 +46,10 @@ public class UtsAuthorServiceImpl implements UtsAuthorService {
 
     @Override
     public int insertAuthor(UtsAuthor author) throws DuplicateKeyException {
+        author.setId(IdUtil.fastSimpleUUID());
+        String username = getUsername();
+        author.setNickname(username);
+        author.setUsername(username);
         return authorMapper.insertSelective(author);
     }
 
@@ -91,6 +98,20 @@ public class UtsAuthorServiceImpl implements UtsAuthorService {
         }
 
         return utsAuthorDtoList;
+    }
+
+    /**
+     * 生成用户名
+     */
+    private String getUsername(){
+        while(true){
+            String name = RandomUtil.randomNumbers(8);
+            Boolean isUsername = selectUsernameIsTrue(name);
+            Boolean isNickname = selectNicknameIsTrue(name);
+            if (!isUsername && !isNickname){
+                return name;
+            }
+        }
     }
 
     public static void main(String[] args) {

@@ -494,6 +494,76 @@ public class DtsBlogExample {
             addCriterion("state_code not between", value1, value2, "stateCode");
             return (Criteria) this;
         }
+
+        public Criteria andSynopsisIsNull() {
+            addCriterion("synopsis is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSynopsisIsNotNull() {
+            addCriterion("synopsis is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSynopsisEqualTo(String value) {
+            addCriterion("synopsis =", value, "synopsis");
+            return (Criteria) this;
+        }
+
+        public Criteria andSynopsisNotEqualTo(String value) {
+            addCriterion("synopsis <>", value, "synopsis");
+            return (Criteria) this;
+        }
+
+        public Criteria andSynopsisGreaterThan(String value) {
+            addCriterion("synopsis >", value, "synopsis");
+            return (Criteria) this;
+        }
+
+        public Criteria andSynopsisGreaterThanOrEqualTo(String value) {
+            addCriterion("synopsis >=", value, "synopsis");
+            return (Criteria) this;
+        }
+
+        public Criteria andSynopsisLessThan(String value) {
+            addCriterion("synopsis <", value, "synopsis");
+            return (Criteria) this;
+        }
+
+        public Criteria andSynopsisLessThanOrEqualTo(String value) {
+            addCriterion("synopsis <=", value, "synopsis");
+            return (Criteria) this;
+        }
+
+        public Criteria andSynopsisLike(String value) {
+            addCriterion("synopsis like", value, "synopsis");
+            return (Criteria) this;
+        }
+
+        public Criteria andSynopsisNotLike(String value) {
+            addCriterion("synopsis not like", value, "synopsis");
+            return (Criteria) this;
+        }
+
+        public Criteria andSynopsisIn(List<String> values) {
+            addCriterion("synopsis in", values, "synopsis");
+            return (Criteria) this;
+        }
+
+        public Criteria andSynopsisNotIn(List<String> values) {
+            addCriterion("synopsis not in", values, "synopsis");
+            return (Criteria) this;
+        }
+
+        public Criteria andSynopsisBetween(String value1, String value2) {
+            addCriterion("synopsis between", value1, value2, "synopsis");
+            return (Criteria) this;
+        }
+
+        public Criteria andSynopsisNotBetween(String value1, String value2) {
+            addCriterion("synopsis not between", value1, value2, "synopsis");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

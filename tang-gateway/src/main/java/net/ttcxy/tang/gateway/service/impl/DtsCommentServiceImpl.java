@@ -35,7 +35,7 @@ public class DtsCommentServiceImpl implements DtsCommentService {
 
     @Override
     public int deleteComment(String commentId) {
-        String userId = currentAuthorServiceImpl.getMemberId();
+        String userId = currentAuthorServiceImpl.getAuthorId();
         DtsBlogCommentExample blogCommentExample = new DtsBlogCommentExample();
         blogCommentExample.createCriteria()
                 .andUserIdEqualTo(userId)

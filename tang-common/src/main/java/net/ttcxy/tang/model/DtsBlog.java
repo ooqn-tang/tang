@@ -22,6 +22,9 @@ public class DtsBlog implements Serializable {
     @ApiModelProperty(value = "状态ID,发布状态，草稿状态，退回状态，删除状态")
     private Integer stateCode;
 
+    @ApiModelProperty(value = "描述")
+    private String synopsis;
+
     @ApiModelProperty(value = "博文文本")
     private String text;
 
@@ -78,6 +81,14 @@ public class DtsBlog implements Serializable {
         this.stateCode = stateCode;
     }
 
+    public String getSynopsis() {
+        return synopsis;
+    }
+
+    public void setSynopsis(String synopsis) {
+        this.synopsis = synopsis;
+    }
+
     public String getText() {
         return text;
     }
@@ -106,6 +117,7 @@ public class DtsBlog implements Serializable {
         sb.append(", createDate=").append(createDate);
         sb.append(", updateDate=").append(updateDate);
         sb.append(", stateCode=").append(stateCode);
+        sb.append(", synopsis=").append(synopsis);
         sb.append(", text=").append(text);
         sb.append(", markdown=").append(markdown);
         sb.append(", serialVersionUID=").append(serialVersionUID);

@@ -73,4 +73,6 @@ public interface DtsBlogDao {
 
 
     DtsBlog selectBlogInfoById(String id);
+
+    DtsBlog selectBlogMsIsNull();
 }

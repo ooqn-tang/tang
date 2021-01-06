@@ -35,7 +35,7 @@
     </select>
 
     <select id="selectBlogById" resultType="net.ttcxy.tang.gateway.entity.dto.DtsBlogDto">
-        select b.id,b.title,b.create_date createDate,b.text,u.username,nickname,u.id userId
+        select b.id,b.title,b.create_date createDate,b.text,u.username,nickname,u.id userId,b.synopsis
         from `dts_blog` b,`uts_author` u
         where b.user_id = u.id
         and b.id = #{id}
@@ -72,6 +72,9 @@
         where b.id = #{id}
     </select>
 
-
-
+    <select id="selectBlogMsIsNull" resultType="net.ttcxy.tang.model.DtsBlog">
+        select *
+        from `dts_blog` b
+        where synopsis = "" limit 1
+    </select>
 </mapper>

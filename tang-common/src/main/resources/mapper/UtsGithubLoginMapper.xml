@@ -2,9 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="net.ttcxy.tang.mapper.UtsGithubLoginMapper">
   <resultMap id="BaseResultMap" type="net.ttcxy.tang.model.UtsGithubLogin">
-    <id column="uuid" jdbcType="VARCHAR" property="uuid" />
+    <id column="github_id" jdbcType="VARCHAR" property="githubId" />
     <result column="author_id" jdbcType="VARCHAR" property="authorId" />
-    <result column="github_id" jdbcType="VARCHAR" property="githubId" />
     <result column="github_url" jdbcType="VARCHAR" property="githubUrl" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -66,7 +65,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    uuid, author_id, github_id, github_url
+    github_id, author_id, github_url
   </sql>
   <select id="selectByExample" parameterType="net.ttcxy.tang.model.UtsGithubLoginExample" resultMap="BaseResultMap">
     select
@@ -86,11 +85,11 @@
     select 
     <include refid="Base_Column_List" />
     from uts_github_login
-    where uuid = #{uuid,jdbcType=VARCHAR}
+    where github_id = #{githubId,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from uts_github_login
-    where uuid = #{uuid,jdbcType=VARCHAR}
+    where github_id = #{githubId,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="net.ttcxy.tang.model.UtsGithubLoginExample">
     delete from uts_github_login
@@ -99,36 +98,30 @@
     </if>
   </delete>
   <insert id="insert" parameterType="net.ttcxy.tang.model.UtsGithubLogin">
-    insert into uts_github_login (uuid, author_id, github_id, 
-      github_url)
-    values (#{uuid,jdbcType=VARCHAR}, #{authorId,jdbcType=VARCHAR}, #{githubId,jdbcType=VARCHAR}, 
-      #{githubUrl,jdbcType=VARCHAR})
+    insert into uts_github_login (github_id, author_id, github_url
+      )
+    values (#{githubId,jdbcType=VARCHAR}, #{authorId,jdbcType=VARCHAR}, #{githubUrl,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="net.ttcxy.tang.model.UtsGithubLogin">
     insert into uts_github_login
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="uuid != null">
-        uuid,
+      <if test="githubId != null">
+        github_id,
       </if>
       <if test="authorId != null">
         author_id,
-      </if>
-      <if test="githubId != null">
-        github_id,
       </if>
       <if test="githubUrl != null">
         github_url,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="uuid != null">
-        #{uuid,jdbcType=VARCHAR},
+      <if test="githubId != null">
+        #{githubId,jdbcType=VARCHAR},
       </if>
       <if test="authorId != null">
         #{authorId,jdbcType=VARCHAR},
-      </if>
-      <if test="githubId != null">
-        #{githubId,jdbcType=VARCHAR},
       </if>
       <if test="githubUrl != null">
         #{githubUrl,jdbcType=VARCHAR},
@@ -144,14 +137,11 @@
   <update id="updateByExampleSelective" parameterType="map">
     update uts_github_login
     <set>
-      <if test="record.uuid != null">
-        uuid = #{record.uuid,jdbcType=VARCHAR},
+      <if test="record.githubId != null">
+        github_id = #{record.githubId,jdbcType=VARCHAR},
       </if>
       <if test="record.authorId != null">
         author_id = #{record.authorId,jdbcType=VARCHAR},
-      </if>
-      <if test="record.githubId != null">
-        github_id = #{record.githubId,jdbcType=VARCHAR},
       </if>
       <if test="record.githubUrl != null">
         github_url = #{record.githubUrl,jdbcType=VARCHAR},
@@ -163,9 +153,8 @@
   </update>
   <update id="updateByExample" parameterType="map">
     update uts_github_login
-    set uuid = #{record.uuid,jdbcType=VARCHAR},
+    set github_id = #{record.githubId,jdbcType=VARCHAR},
       author_id = #{record.authorId,jdbcType=VARCHAR},
-      github_id = #{record.githubId,jdbcType=VARCHAR},
       github_url = #{record.githubUrl,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -177,20 +166,16 @@
       <if test="authorId != null">
         author_id = #{authorId,jdbcType=VARCHAR},
       </if>
-      <if test="githubId != null">
-        github_id = #{githubId,jdbcType=VARCHAR},
-      </if>
       <if test="githubUrl != null">
         github_url = #{githubUrl,jdbcType=VARCHAR},
       </if>
     </set>
-    where uuid = #{uuid,jdbcType=VARCHAR}
+    where github_id = #{githubId,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="net.ttcxy.tang.model.UtsGithubLogin">
     update uts_github_login
     set author_id = #{authorId,jdbcType=VARCHAR},
-      github_id = #{githubId,jdbcType=VARCHAR},
       github_url = #{githubUrl,jdbcType=VARCHAR}
-    where uuid = #{uuid,jdbcType=VARCHAR}
+    where github_id = #{githubId,jdbcType=VARCHAR}
   </update>
 </mapper>

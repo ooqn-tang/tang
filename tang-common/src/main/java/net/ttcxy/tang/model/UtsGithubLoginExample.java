@@ -104,73 +104,73 @@ public class UtsGithubLoginExample {
             criteria.add(new Criterion(condition, value1, value2));
         }
 
-        public Criteria andUuidIsNull() {
-            addCriterion("uuid is null");
+        public Criteria andGithubIdIsNull() {
+            addCriterion("github_id is null");
             return (Criteria) this;
         }
 
-        public Criteria andUuidIsNotNull() {
-            addCriterion("uuid is not null");
+        public Criteria andGithubIdIsNotNull() {
+            addCriterion("github_id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andUuidEqualTo(String value) {
-            addCriterion("uuid =", value, "uuid");
+        public Criteria andGithubIdEqualTo(String value) {
+            addCriterion("github_id =", value, "githubId");
             return (Criteria) this;
         }
 
-        public Criteria andUuidNotEqualTo(String value) {
-            addCriterion("uuid <>", value, "uuid");
+        public Criteria andGithubIdNotEqualTo(String value) {
+            addCriterion("github_id <>", value, "githubId");
             return (Criteria) this;
         }
 
-        public Criteria andUuidGreaterThan(String value) {
-            addCriterion("uuid >", value, "uuid");
+        public Criteria andGithubIdGreaterThan(String value) {
+            addCriterion("github_id >", value, "githubId");
             return (Criteria) this;
         }
 
-        public Criteria andUuidGreaterThanOrEqualTo(String value) {
-            addCriterion("uuid >=", value, "uuid");
+        public Criteria andGithubIdGreaterThanOrEqualTo(String value) {
+            addCriterion("github_id >=", value, "githubId");
             return (Criteria) this;
         }
 
-        public Criteria andUuidLessThan(String value) {
-            addCriterion("uuid <", value, "uuid");
+        public Criteria andGithubIdLessThan(String value) {
+            addCriterion("github_id <", value, "githubId");
             return (Criteria) this;
         }
 
-        public Criteria andUuidLessThanOrEqualTo(String value) {
-            addCriterion("uuid <=", value, "uuid");
+        public Criteria andGithubIdLessThanOrEqualTo(String value) {
+            addCriterion("github_id <=", value, "githubId");
             return (Criteria) this;
         }
 
-        public Criteria andUuidLike(String value) {
-            addCriterion("uuid like", value, "uuid");
+        public Criteria andGithubIdLike(String value) {
+            addCriterion("github_id like", value, "githubId");
             return (Criteria) this;
         }
 
-        public Criteria andUuidNotLike(String value) {
-            addCriterion("uuid not like", value, "uuid");
+        public Criteria andGithubIdNotLike(String value) {
+            addCriterion("github_id not like", value, "githubId");
             return (Criteria) this;
         }
 
-        public Criteria andUuidIn(List<String> values) {
-            addCriterion("uuid in", values, "uuid");
+        public Criteria andGithubIdIn(List<String> values) {
+            addCriterion("github_id in", values, "githubId");
             return (Criteria) this;
         }
 
-        public Criteria andUuidNotIn(List<String> values) {
-            addCriterion("uuid not in", values, "uuid");
+        public Criteria andGithubIdNotIn(List<String> values) {
+            addCriterion("github_id not in", values, "githubId");
             return (Criteria) this;
         }
 
-        public Criteria andUuidBetween(String value1, String value2) {
-            addCriterion("uuid between", value1, value2, "uuid");
+        public Criteria andGithubIdBetween(String value1, String value2) {
+            addCriterion("github_id between", value1, value2, "githubId");
             return (Criteria) this;
         }
 
-        public Criteria andUuidNotBetween(String value1, String value2) {
-            addCriterion("uuid not between", value1, value2, "uuid");
+        public Criteria andGithubIdNotBetween(String value1, String value2) {
+            addCriterion("github_id not between", value1, value2, "githubId");
             return (Criteria) this;
         }
 
@@ -241,76 +241,6 @@ public class UtsGithubLoginExample {
 
         public Criteria andAuthorIdNotBetween(String value1, String value2) {
             addCriterion("author_id not between", value1, value2, "authorId");
-            return (Criteria) this;
-        }
-
-        public Criteria andGithubIdIsNull() {
-            addCriterion("github_id is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andGithubIdIsNotNull() {
-            addCriterion("github_id is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andGithubIdEqualTo(String value) {
-            addCriterion("github_id =", value, "githubId");
-            return (Criteria) this;
-        }
-
-        public Criteria andGithubIdNotEqualTo(String value) {
-            addCriterion("github_id <>", value, "githubId");
-            return (Criteria) this;
-        }
-
-        public Criteria andGithubIdGreaterThan(String value) {
-            addCriterion("github_id >", value, "githubId");
-            return (Criteria) this;
-        }
-
-        public Criteria andGithubIdGreaterThanOrEqualTo(String value) {
-            addCriterion("github_id >=", value, "githubId");
-            return (Criteria) this;
-        }
-
-        public Criteria andGithubIdLessThan(String value) {
-            addCriterion("github_id <", value, "githubId");
-            return (Criteria) this;
-        }
-
-        public Criteria andGithubIdLessThanOrEqualTo(String value) {
-            addCriterion("github_id <=", value, "githubId");
-            return (Criteria) this;
-        }
-
-        public Criteria andGithubIdLike(String value) {
-            addCriterion("github_id like", value, "githubId");
-            return (Criteria) this;
-        }
-
-        public Criteria andGithubIdNotLike(String value) {
-            addCriterion("github_id not like", value, "githubId");
-            return (Criteria) this;
-        }
-
-        public Criteria andGithubIdIn(List<String> values) {
-            addCriterion("github_id in", values, "githubId");
-            return (Criteria) this;
-        }
-
-        public Criteria andGithubIdNotIn(List<String> values) {
-            addCriterion("github_id not in", values, "githubId");
-            return (Criteria) this;
-        }
-
-        public Criteria andGithubIdBetween(String value1, String value2) {
-            addCriterion("github_id between", value1, value2, "githubId");
-            return (Criteria) this;
-        }
-
-        public Criteria andGithubIdNotBetween(String value1, String value2) {
-            addCriterion("github_id not between", value1, value2, "githubId");
             return (Criteria) this;
         }
 

@@ -5,7 +5,7 @@
     <title>堂堂程序员</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0"/>
-    <meta data-n-head="true" data-hid="description" name="description" content="堂堂程序员网站是目前为止，可能是最好用的程序员网站，并且可能是最简洁的网站之一，采用极简设计美学用最简单的样式功能实现你需要的大多数功能">
+    <meta data-n-head="true" data-hid="description" name="description" content="专注阅读体验的博客系统，及简设计风格解放你本就不多的注意力。">
     <link href="/favicon.ico" rel="icon"/>
     <link href="/css/style.css" rel="stylesheet"/>
     <link href="https://cdn.bootcss.com/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
@@ -16,29 +16,29 @@
 <div class="container-fluid" id="home" v-clock>
     <div class="row">
         <div class="col-md-9 column">
-            <div class="row">
-                <div class="col-md-12 column">
-                    <div style="overflow: hidden;height: 23px; margin-bottom: 5px;">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div style="overflow: hidden;height: 22px;">
                         <div style="overflow-x:scroll; height: 40px;white-space:nowrap">
                             <a type="button" class="btn btn-default btn-xs" @click="show=false,pageNum=1,blogList=[],blogs()">最新</a>
                             <input type="button" style="margin-right: 5px;" class="btn btn-default btn-xs" v-for="(item,index) in tagList" v-model="item" @click="st(item)"/>
                         </div>
                     </div>
-                    <ul class="list-group" v-clock>
-                        <li class="list-group-item" v-for="(item,index) in blogList">
-                            <a class="blog-title" target="_blank" v-bind:href="'/post/'+item.id" v-text="item.title"></a>
-                            <div>
-                                <span v-text="item.createDate" style="color: #00285a"></span>
-                                <a class="pull-right" v-bind:href="'/author/'+item.username" v-text="item.nickname"></a>
-                            </div>
-                        </li>
-                        <li class="list-group-item">
-                            <a v-bind:class="blog.isLastPage?'page':''" v-on:click="page(pageNum+=1)">获取</a>
-                            <a v-if="!show"  class="pull-right">加载中...</a>
-                        </li>
-                    </ul>
+                </div>
             </div>
-            </div>
+            <ul class="list-group" v-clock>
+                <li class="list-group-item" v-for="(item,index) in blogList">
+                    <a class="blog-title" target="_blank" v-bind:href="'/post/'+item.id" v-text="item.title"></a>
+                    <div>
+                        <span v-text="item.createDate" style="color: #00285a"></span>
+                        <a class="pull-right" v-bind:href="'/author/'+item.username" v-text="item.nickname"></a>
+                    </div>
+                </li>
+                <li class="list-group-item">
+                    <a v-bind:class="blog.isLastPage?'page':''" v-on:click="page(pageNum+=1)">获取</a>
+                    <a v-if="!show"  class="pull-right">加载中...</a>
+                </li>
+            </ul>
         </div>
         <div class="col-md-3 column">
             <div th:include="comm::advertise"></div>
@@ -58,7 +58,7 @@
                 pageNum:1,
                 show:false,
                 blogList:[],
-                tagList:["java","python","C++","C#","Vue","JS","Pandas","爬虫","日志","java","python","C++","C#","Vue","JS","Pandas","爬虫","日志"],
+                tagList:["java","python","C++","C#","Vue","JS","Pandas","爬虫","日志","openpyxl","springboot","db2","redis","mangodb","springsecurity","程序员","游戏","相亲"],
                 blog:{
                     list:[],
                     isFirstPage:false,

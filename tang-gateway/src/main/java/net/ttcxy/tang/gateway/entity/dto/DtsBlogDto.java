@@ -51,6 +51,8 @@ public class DtsBlogDto {
      */
     private String markdown;
 
+    private String synopsis;
+
     private String type;
 
     /**
@@ -178,4 +180,11 @@ public class DtsBlogDto {
         this.praiseCount = praiseCount;
     }
 
+    public String getSynopsis() {
+        return synopsis;
+    }
+
+    public void setSynopsis(String synopsis) {
+        this.synopsis = synopsis;
+    }
 }

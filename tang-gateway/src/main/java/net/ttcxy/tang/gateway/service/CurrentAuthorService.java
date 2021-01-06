@@ -17,5 +17,5 @@ public interface CurrentAuthorService {
      * 获取当前作者Id
      * @return user id
      */
-    String getMemberId();
+    String getAuthorId();
 }

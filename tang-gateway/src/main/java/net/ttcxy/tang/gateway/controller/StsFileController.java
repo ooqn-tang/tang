@@ -38,9 +38,6 @@ public class StsFileController {
     @ResponseBody
     public ResponseResult<?> upToken() {
 
-        //String accessKey = "M6qf3dVX9P5RY1fQWnFItPjw7q8ExvUhFmGRgyHq";
-        //String secretKey = "EoiEXLXG_GwLox4TA0W28bVCj3tXkZwT7Le_LK1z";
-        //String bucket = "sdalsdsdf";
         Auth auth = Auth.create(accessKey, secretKey);
         String uuid = IdUtil.fastSimpleUUID();
         String upToken = auth.uploadToken(bucket,uuid);
@@ -58,8 +55,6 @@ public class StsFileController {
         String bucket = "sdalsdsdf";
         Auth auth = Auth.create(accessKey, secretKey);
         String upToken = auth.uploadToken(bucket,"");
-
-
         System.out.println(upToken);
     }
 }

@@ -124,7 +124,7 @@ public class StsPageController {
         DtsBlog blog = new DtsBlog();
 
         DateTime date = DateUtil.date();
-        String memberId = currentAuthorServiceImpl.getMemberId();
+        String memberId = currentAuthorServiceImpl.getAuthorId();
         String uuid = IdUtil.fastSimpleUUID();
 
         blog.setId(uuid);

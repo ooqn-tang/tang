@@ -4,6 +4,7 @@ import cn.hutool.captcha.CaptchaUtil;
 import cn.hutool.captcha.CircleCaptcha;
 import cn.hutool.captcha.generator.RandomGenerator;
 import cn.hutool.core.lang.Validator;
+import cn.hutool.core.util.RandomUtil;
 import net.ttcxy.tang.api.ResponseResult;
 import net.ttcxy.tang.gateway.entity.MySecurityData;
 import net.ttcxy.tang.gateway.entity.param.UtsRegisterParam;
@@ -20,6 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.Random;
 
 /**
  * 创作者登录相关
@@ -53,9 +55,7 @@ public class UtsAuthorLoginController {
                 outputStream.flush();
             }
         }
-
         httpSession.setAttribute(MySecurityData.VERIFY_CODE,code);
-
     }
 
     @PostMapping("verifyMail/{mail}")
@@ -65,10 +65,8 @@ public class UtsAuthorLoginController {
             if (!Validator.isEmail(mail)) {
                 return ResponseResult.failed("邮箱不正确");
             }
-
-            String code = new RandomGenerator(4).generate();
+            String code = RandomUtil.randomNumbers(4);
             boolean yes = stsMailService.sendMail(mail, "验证码:" + code, "系统消息无需回复");
-
             if (yes){
                 UtsRegisterParam utsRegisterParam = new UtsRegisterParam();
                 utsRegisterParam.setMail(mail);
@@ -76,14 +74,10 @@ public class UtsAuthorLoginController {
                 httpSession.setAttribute(MySecurityData.MAIL_VERIFY_CODE,code);
                 httpSession.setAttribute(MySecurityData.REG_VERIFY_DATA, utsRegisterParam);
             }
-
-            return ResponseResult.success("发送成功");
+            return ResponseResult.success();
         }catch (Exception e){
             e.printStackTrace();
-            return ResponseResult.failed("发送失败");
+            return ResponseResult.failed();
         }
-
     }
-
-
 }

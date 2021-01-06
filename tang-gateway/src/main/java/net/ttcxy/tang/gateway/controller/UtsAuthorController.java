@@ -33,6 +33,9 @@ import javax.validation.constraints.NotNull;
 public class UtsAuthorController {
 
     @Autowired
+    private HttpSession httpSession;
+
+    @Autowired
     private CurrentAuthorService currentAuthorService;
 
     @Autowired
@@ -82,17 +85,14 @@ public class UtsAuthorController {
         }
 
         String password = register.getPassword();
-        String username = getUsername();
+
         UtsAuthor author = new UtsAuthor();
-        author.setId(IdUtil.fastSimpleUUID());
         author.setPassword(new BCryptPasswordEncoder().encode(password));
         author.setMail(mail);
-        author.setNickname(username);
-        author.setUsername(username);
 
         int count = authorService.insertAuthor(author);
         if (count > 0){
-             return ResponseResult.success("注册成功");
+             return ResponseResult.success();
         }
         return ResponseResult.failed();
     }
@@ -100,16 +100,17 @@ public class UtsAuthorController {
     @PostMapping("password")
     @ApiOperation("密码修改")
     public ResponseResult<?> updatePassword(@RequestBody @Valid @NotNull(message = "参数不能为空") UtsRegisterParam register){
-        if (!verify(register.getVerify())){
-            return ResponseResult.validateFailed("验证码不正确");
-        }
 
         String mail = register.getMail();
         String password = register.getPassword();
-
         UtsAuthorLogin utsAuthorLogin = authorService.selectAuthorByMail(mail);
+
         if (utsAuthorLogin == null){
             return ResponseResult.failed("邮箱未注册");
+        }
+
+        if (!verify(register.getVerify())){
+            return ResponseResult.validateFailed("验证码不正确");
         }
 
         UtsAuthor author = new UtsAuthor();
@@ -118,28 +119,13 @@ public class UtsAuthorController {
 
         int count = authorService.updateAuthor(author);
         if (count > 0){
-            return ResponseResult.success("密码更新成功");
+            return ResponseResult.success();
         }
 
         return ResponseResult.failed();
     }
 
-    /**
-     * 生成用户名
-     */
-    private String getUsername(){
-        while(true){
-            String name = "t" + RandomUtil.randomNumbers(9);
-            Boolean isUsername = authorService.selectUsernameIsTrue(name);
-            Boolean isNickname = authorService.selectNicknameIsTrue(name);
-            if (!isUsername && !isNickname){
-                return name;
-            }
-        }
-    }
 
-    @Autowired
-    private HttpSession httpSession;
 
     private Boolean verify(String code){
         String attribute = (String) httpSession.getAttribute(MySecurityData.MAIL_VERIFY_CODE);

@@ -4,22 +4,20 @@ import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 
 public class UtsGithubLogin implements Serializable {
-    private String uuid;
+    private String githubId;
 
     private String authorId;
-
-    private String githubId;
 
     private String githubUrl;
 
     private static final long serialVersionUID = 1L;
 
-    public String getUuid() {
-        return uuid;
+    public String getGithubId() {
+        return githubId;
     }
 
-    public void setUuid(String uuid) {
-        this.uuid = uuid;
+    public void setGithubId(String githubId) {
+        this.githubId = githubId;
     }
 
     public String getAuthorId() {
@@ -28,14 +26,6 @@ public class UtsGithubLogin implements Serializable {
 
     public void setAuthorId(String authorId) {
         this.authorId = authorId;
-    }
-
-    public String getGithubId() {
-        return githubId;
-    }
-
-    public void setGithubId(String githubId) {
-        this.githubId = githubId;
     }
 
     public String getGithubUrl() {
@@ -52,9 +42,8 @@ public class UtsGithubLogin implements Serializable {
         sb.append(getClass().getSimpleName());
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
-        sb.append(", uuid=").append(uuid);
-        sb.append(", authorId=").append(authorId);
         sb.append(", githubId=").append(githubId);
+        sb.append(", authorId=").append(authorId);
         sb.append(", githubUrl=").append(githubUrl);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");

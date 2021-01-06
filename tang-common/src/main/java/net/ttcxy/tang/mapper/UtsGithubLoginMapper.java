@@ -10,7 +10,7 @@ public interface UtsGithubLoginMapper {
 
     int deleteByExample(UtsGithubLoginExample example);
 
-    int deleteByPrimaryKey(String uuid);
+    int deleteByPrimaryKey(String githubId);
 
     int insert(UtsGithubLogin record);
 
@@ -18,7 +18,7 @@ public interface UtsGithubLoginMapper {
 
     List<UtsGithubLogin> selectByExample(UtsGithubLoginExample example);
 
-    UtsGithubLogin selectByPrimaryKey(String uuid);
+    UtsGithubLogin selectByPrimaryKey(String githubId);
 
     int updateByExampleSelective(@Param("record") UtsGithubLogin record, @Param("example") UtsGithubLoginExample example);
 

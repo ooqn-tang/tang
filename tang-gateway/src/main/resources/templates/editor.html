@@ -201,7 +201,7 @@
                 }
             })
         }
-        function update(id,title,markdown,html){
+        function update(id,title,synopsis,markdown,html){
             $.ajax({
                 type:"POST",
                 url:"/blog/update",
@@ -211,6 +211,7 @@
                 data:JSON.stringify({
                     title:title,
                     text:html,
+                    synopsis:synopsis,
                     markdown:markdown,
                     id:id
                 }),
@@ -226,6 +227,7 @@
             let title = $("#title").val();
             let markdown = $("#text").val();
             let html = marked(markdown);
+            let synopsis = $("#content").text().substr(0,250)
             if (title === ""){
                 alert("标题不能为空");
                 return
@@ -234,7 +236,7 @@
                 alert("内容不能为空");
                 return
             }
-            update(blog,title,markdown,html);
+            update(blog,title,synopsis,markdown,html);
         });
         $.ajax({
             type:"get",
