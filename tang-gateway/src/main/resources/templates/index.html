@@ -21,7 +21,7 @@
                     <div style="overflow: hidden;height: 22px;">
                         <div style="overflow-x:scroll; height: 40px;white-space:nowrap">
                             <a type="button" class="btn btn-default btn-xs" @click="show=false,pageNum=1,blogList=[],blogs()">最新</a>
-                            <input type="button" style="margin-right: 5px;" class="btn btn-default btn-xs" v-for="(item,index) in tagList" v-model="item" @click="st(item)"/>
+                            <input type="button" style="margin-right: 5px;" class="btn btn-default btn-xs" v-for="(item,index) in tagList" v-model="item" value=">加载中..." @click="st(item)"/>
                         </div>
                     </div>
                 </div>
