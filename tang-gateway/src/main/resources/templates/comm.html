@@ -35,7 +35,8 @@
                                 searchClick(){
                                     let search = getQueryVariable("s");
                                     if(search !== null){
-                                        index.search(this.searchValue)
+                                        vm.search(this.searchValue)
+                                        vm.search(this.searchValue)
                                     }else{
                                         window.location.href = "/so?s=" + this.searchValue
                                     }
@@ -220,10 +221,10 @@
         <a class="list-group-item active">广播<span class="pull-right">🎇</span></a>
         <a target="_blank" class="list-group-item" th:each="advertise : ${application.advertises}" th:text="${advertise.title}" th:href="${advertise.url}"></a>
     </div>
-    <div class="panel panel-default" style="margin-bottom: 60px">
+    <div class="panel panel-default">
         <div class="panel-body">
-            <p><a href="http://www.ttcxy.net/post/0b0d396713a54e2fbf714478d740e53e" target="_blank">关于</a></p>
-            <p><a href="http://www.ttcxy.net/post/98b255d539f743e193e398bfa9b97cfd" target="_blank">友情链接</a></p>
+            <p><a href="https://ttcxy.net/post/0b0d396713a54e2fbf714478d740e53e" target="_blank">关于</a></p>
+            <p><a href="https://ttcxy.net/post/98b255d539f743e193e398bfa9b97cfd" target="_blank">友情链接</a></p>
             <p><a href="http://beian.miit.gov.cn" target="_blank">湘ICP备20009234号</a></p>
             <a class="hidden" href="/map">地图</a>
         </div>

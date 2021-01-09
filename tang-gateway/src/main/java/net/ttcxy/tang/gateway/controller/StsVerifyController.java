@@ -5,6 +5,7 @@ import cn.hutool.captcha.CircleCaptcha;
 import cn.hutool.captcha.generator.RandomGenerator;
 import cn.hutool.core.lang.Validator;
 import cn.hutool.core.util.RandomUtil;
+import io.swagger.annotations.ApiOperation;
 import net.ttcxy.tang.api.ResponseResult;
 import net.ttcxy.tang.gateway.entity.MySecurityData;
 import net.ttcxy.tang.gateway.entity.param.UtsRegisterParam;
@@ -24,11 +25,11 @@ import java.io.IOException;
 import java.util.Random;
 
 /**
- * 创作者登录相关
+ * 验证码
  * @author huanglei
  */
 @Controller
-public class UtsAuthorLoginController {
+public class StsVerifyController {
 
     @Autowired
     private HttpSession httpSession;
@@ -36,6 +37,7 @@ public class UtsAuthorLoginController {
     @Autowired
     private StsMailService stsMailService;
 
+    @ApiOperation("图片验证码")
     @GetMapping("verify")
     public void getVerifyCode(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setHeader("Pragma", "no-cache");
@@ -58,6 +60,7 @@ public class UtsAuthorLoginController {
         httpSession.setAttribute(MySecurityData.VERIFY_CODE,code);
     }
 
+    @ApiOperation("邮箱验证码")
     @PostMapping("verifyMail/{mail}")
     @ResponseBody
     public ResponseResult<?> sendMailVerify(@PathVariable("mail") String mail){

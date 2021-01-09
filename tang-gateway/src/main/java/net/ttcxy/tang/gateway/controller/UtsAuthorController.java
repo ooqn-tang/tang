@@ -46,15 +46,18 @@ public class UtsAuthorController {
     public ResponseResult<?> updateAuthor(@RequestBody @Valid UtsAuthorParam utsAuthorParam){
         String id = currentAuthorService.getAuthor().getId();
         String nickname = utsAuthorParam.getNickname();
+        // 获取昵称字节长度
         int length = TextUtil.byteSize(nickname);
         if (StrUtil.isNotBlank(nickname) && (length > 16 || length < 4)){
             return ResponseResult.failed("昵称长度：汉字 2 ~ 8,字母 4 ~ 16");
         }
 
         UtsAuthor author = new UtsAuthor();
+
         BeanUtil.copyProperties(utsAuthorParam, author);
 
         author.setId(id);
+
         int count = authorService.updateAuthor(author);
         if (count > 0){
             UtsAuthorLogin utsAuthorLogin = currentAuthorService.getAuthor();
@@ -63,12 +66,6 @@ public class UtsAuthorController {
             return ResponseResult.success("更新成功");
         }
         return ResponseResult.failed();
-    }
-
-    @PostMapping("list")
-    @ApiOperation("author列表")
-    public ResponseResult<?> listAuthor(@RequestParam(defaultValue = "1") Integer page){
-        return ResponseResult.success(authorService.authorList(page));
     }
 
     @PostMapping("register")
@@ -125,8 +122,9 @@ public class UtsAuthorController {
         return ResponseResult.failed();
     }
 
-
-
+    /**
+     * 验证验传入的验证码
+     */
     private Boolean verify(String code){
         String attribute = (String) httpSession.getAttribute(MySecurityData.MAIL_VERIFY_CODE);
         httpSession.removeAttribute(MySecurityData.MAIL_VERIFY_CODE);

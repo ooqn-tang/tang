@@ -4,6 +4,7 @@ import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.date.DateTime;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.core.util.URLUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import net.ttcxy.tang.api.ResponseResult;
@@ -54,6 +55,7 @@ public class DtsBlogController {
     @ApiOperation("搜索")
     public ResponseResult<?> search(@RequestParam(name = "page", defaultValue = "1")Integer page,
                                                       @RequestParam(name = "search", defaultValue = "")String search ){
+        search = URLUtil.decode(search);
         return ResponseResult.success(blogService.search(search,page,15));
     }
 

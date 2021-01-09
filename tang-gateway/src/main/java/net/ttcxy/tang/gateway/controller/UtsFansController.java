@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
+ * 粉丝
  * @author huanglei
  */
 @RestController

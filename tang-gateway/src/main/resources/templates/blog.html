@@ -14,7 +14,7 @@
 <body>
 <div th:replace="comm::navigation"></div>
 <div class="container-fluid" id="app" v-cloak>
-    <div class="row">
+    <div class="row" style="margin-bottom: 50px;">
         <div class="col-md-9 column">
             <div class="panel panel-default" >
                 <div class="panel-body" id="blog-body" style="overflow-y:hidden;">
@@ -42,13 +42,13 @@
                 </div>
                 <div class="panel-body"  id="commentBody" style="word-wrap:break-word">
                     <div v-for="(item,index) in comments" v-if="comments.length > 0 ">
-                        <a v-bind:href="'/author/'+ item.username" v-text="item.nickname"></a>
+                        <strong><a v-bind:href="'/author/'+ item.username" v-text="item.nickname"></a></strong>
                         <span style="color:gainsboro" class="pull-right" v-text="item.createDate"></span>
                         <span style="color:#dca492;margin-right: 10px;"
                               class="pull-right"
                               @click="deleteComment(item.id,index)"
                               v-if="item.username == commentUsername">删除</span>
-                        <div><span v-text="item.content" style="white-space: pre-line;max-height: 200px"></span></div><hr class="hr">
+                        <div style="border: 1px solid #ddd;border-radius: 10px;padding: 5px;background: #fbfbfb;margin-bottom: 5px"><span v-text="item.content" style="white-space: pre-line;max-height: 200px"></span></div>
                     </div>
                     <div v-if="comments.length == 0">
                         没有留言...
@@ -206,9 +206,6 @@
                 })
             },
             loadComment(){
-                if (this.author){
-                    return
-                }
                 $.ajax({
                     type:"GET",
                     url:"/comment/"+this.blogId,

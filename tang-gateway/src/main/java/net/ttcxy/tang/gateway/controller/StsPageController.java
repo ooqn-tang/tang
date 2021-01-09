@@ -148,18 +148,4 @@ public class StsPageController {
         return modelAndView;
     }
 
-    @GetMapping("navigation")
-    @ApiOperation("视频")
-    public ModelAndView toNavigation(ModelAndView modelAndView){
-        modelAndView.setViewName("navigation");
-        return modelAndView;
-    }
-
-    @GetMapping("403")
-    @ApiOperation("403")
-    public ModelAndView to403(ModelAndView modelAndView){
-        modelAndView.setViewName("403");
-        return modelAndView;
-    }
-
 }

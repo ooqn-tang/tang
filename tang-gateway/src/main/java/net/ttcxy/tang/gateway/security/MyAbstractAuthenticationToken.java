@@ -10,10 +10,10 @@ public class MyAbstractAuthenticationToken extends AbstractAuthenticationToken {
     private Object details;
 
 
-    public MyAbstractAuthenticationToken(Object principal,Object details) {
+    public MyAbstractAuthenticationToken(Object principal) {
         super(null);
         this.principal = principal;
-        this.details = details;
+        this.details = null;
         super.setAuthenticated(true);
     }
 

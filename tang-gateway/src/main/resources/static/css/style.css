@@ -6,6 +6,12 @@
 }
 *{
     outline: none !important;
+
+}
+#markdown-body{
+    word-break:break-all;
+    white-space:pre-wrap;
+    word-wrap:break-word;
 }
 body{
     overflow-y:scroll;
