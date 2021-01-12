@@ -97,6 +97,7 @@ public class MySecurityConfig  extends WebSecurityConfigurerAdapter {
             .userDetailsService(userDetailsService);
         }
 
+
         http
         .formLogin()
         //配置登录页面

@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="net.ttcxy.tang.gateway.dao.DtsBlogDao">
     <select id="selectBlog" resultType="net.ttcxy.tang.gateway.entity.dto.DtsBlogDto">
-      select b.id,title,create_date  createDate,username,nickname
+      select b.id,title,create_date  createDate,username,nickname,synopsis
         FROM `dts_blog` b,`uts_author` u
         where u.id = b.user_id
         and  b.state_code = 1001
@@ -20,13 +20,13 @@
         where state_code = 1001
     </select>
     <select id="selectByIdTitle" resultType="net.ttcxy.tang.gateway.entity.dto.DtsBlogDto">
-        select b.id,title,create_date createDate,username,nickname
+        select b.id,title,create_date createDate,username,nickname,synopsis
         FROM `dts_blog` b,`uts_author` u
         where u.id = b.user_id
         and  b.id = #{id}
     </select>
     <select id="search" resultType="net.ttcxy.tang.gateway.entity.dto.DtsBlogDto">
-        select b.id,title,create_date createDate,username,nickname
+        select b.id,title,create_date createDate,username,nickname,synopsis
         FROM `dts_blog` b,`uts_author` u
         where u.id = b.user_id
         and  b.state_code = 1001
@@ -59,7 +59,7 @@
     </select>
 
     <select id="selectLikeBlogs" resultType="net.ttcxy.tang.gateway.entity.dto.DtsBlogDto">
-        select  b.id,b.title,b.create_date createDate,u.username
+        select  b.id,b.title,b.create_date createDate,u.username,synopsis
         from `dts_like_data` l ,`uts_author` u,`dts_blog` b
         where u.id = l.user_id
         and b.id = l.blog_id

@@ -13,7 +13,7 @@
 </head>
 <body>
 <div th:include="comm::navigation"></div>
-<div class="container-fluid" id="home" v-clock>
+<div class="container" id="home" v-clock>
     <div class="row">
         <div class="col-md-9 column">
             <div class="panel panel-default">
@@ -26,9 +26,10 @@
                     </div>
                 </div>
             </div>
-            <ul class="list-group" v-clock>
+            <ul class="list-group" id="blog-list" v-clock>
                 <li class="list-group-item" v-for="(item,index) in blogList">
-                    <a class="blog-title" target="_blank" v-bind:href="'/post/'+item.id" v-text="item.title"></a>
+                    <a class="blog-title" target="_blank" v-bind:href="'/post/'+item.id"><p v-text="item.title"></p></a>
+                    <div class="blog-synopsis" style="" v-text="item.synopsis"></div>
                     <div>
                         <span v-text="item.createDate" style="color: #00285a"></span>
                         <a class="pull-right" v-bind:href="'/author/'+item.username" v-text="item.nickname"></a>

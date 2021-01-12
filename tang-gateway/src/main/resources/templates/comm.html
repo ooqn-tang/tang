@@ -4,7 +4,7 @@
 <!--导航菜单-->
 <div th:fragment="navigation">
     <nav role="navigation" class="navbar navbar-default navbar-static-top" style="margin-bottom: 10px;">
-        <div class="container-fluid">
+        <div class="container">
             <div class="navbar-header">
                 <button type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" class="navbar-toggle">
                     <span class="sr-only">Toggle navigation</span>
@@ -35,6 +35,8 @@
                                 searchClick(){
                                     let search = getQueryVariable("s");
                                     if(search !== null){
+                                        vm.blogList = []
+                                        vm.show = false
                                         vm.search(this.searchValue)
                                         vm.search(this.searchValue)
                                     }else{
@@ -90,11 +92,10 @@
                             <button class="btn btn-default" type="button" @click="sendVerify">获取验证码</button>
                         </span>
                     </div>
-                    <input type="checkbox" name="remember-me" checked="checked" class="hidden"/>
                 </div>
                 <div class="modal-footer">
                     <div class="btn-group W100" style="margin-bottom: 10px" v-if="title == '登录'">
-                        <button type="button" class="btn btn-default W50" onclick="window.location='https://github.com/login/oauth/authorize?client_id=Iv1.a91b223d98f8cf96&redirect_uri=http://'+ window.location.host + '/github.login'">GitHub登录</button>
+                        <button type="button" class="btn btn-default W50" onclick="window.location='https://github.com/login/oauth/authorize?client_id=Iv1.a91b223d98f8cf96&redirect_uri=https://'+ window.location.host + '/github.login'">GitHub登录</button>
                         <button type="button" class="btn btn-primary W50" @click="login()">登录</button>
                     </div>
                     <div class="btn-group W100" style="margin-bottom: 10px" v-if="title == '注册'">
@@ -143,6 +144,9 @@
                         contentType: "application/x-www-form-urlencoded",
                         data:_this.author,
                         dataType:"JSON",
+                        xhrFields: {
+                            withCredentials: true
+                        },
                         error:function (err){
                             if(err.responseText == "登录成功"){
                                 location.reload();

@@ -6,7 +6,14 @@
 }
 *{
     outline: none !important;
-
+}
+#blog-list p{
+    margin: 0 !important;
+}
+.navbar-brand{
+}
+#blog-list .blog-synopsis{
+    color: #3a5867;max-height: 40px;overflow:hidden;
 }
 #markdown-body{
     word-break:break-all;
