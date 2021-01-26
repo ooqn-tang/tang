@@ -32,6 +32,7 @@ public class NetworkAddressHandlerInterceptor implements HandlerInterceptor {
         String userId = author == null ? "未登陆用户": author.getId();
         String address = request.getLocalAddr();
         logger.info("userId ：{}，address ：{}" , userId , address);
+
         return true;
     }
 

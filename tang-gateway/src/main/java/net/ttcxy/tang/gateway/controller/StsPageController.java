@@ -45,6 +45,11 @@ public class StsPageController {
     public String toHome(){
         return "index";
     }
+    @GetMapping("blog-list")
+    @ApiOperation("首页")
+    public String toBlogList(){
+        return "blog-list";
+    }
 
     @GetMapping("map")
     @ApiOperation("地图 页面")

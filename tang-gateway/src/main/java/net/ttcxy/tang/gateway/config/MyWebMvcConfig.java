@@ -26,8 +26,18 @@ public class MyWebMvcConfig implements WebMvcConfigurer {
      */
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(networkAddressHandlerInterceptor).addPathPatterns("/**").excludePathPatterns("/**/*.*");
+        registry.addInterceptor(networkAddressHandlerInterceptor)
+                .addPathPatterns("/**").excludePathPatterns("/**/*.*");
     }
+
+
+
+
+
+
+
+
+
 
     @Bean
     public Validator validator() {
