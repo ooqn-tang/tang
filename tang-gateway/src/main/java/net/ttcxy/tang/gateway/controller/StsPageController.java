@@ -45,10 +45,10 @@ public class StsPageController {
     public String toHome(){
         return "index";
     }
-    @GetMapping("blog-list")
-    @ApiOperation("首页")
+    @GetMapping("login.html")
+    @ApiOperation("登录")
     public String toBlogList(){
-        return "blog-list";
+        return "login";
     }
 
     @GetMapping("map")

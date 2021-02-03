@@ -29,7 +29,6 @@ function insertFans(username){
 
 
 $(function(){
-
     //搜索
     $("#searchBtn").click(function () {
         let sv = $("#searchVal").val();
@@ -153,7 +152,7 @@ $.ajaxSetup({
     },
     complete(xhr) {
         if(xhr.status === 401){
-            $('#loginModal').modal("show")
+            alert("请登录")
             throw "请登录";
         }
     }
@@ -169,3 +168,25 @@ function toData(data){
 }
 
 
+let search_vm = new Vue({
+    el: "#search",
+    data: {
+        searchValue:""
+    },
+    methods: {
+        searchClick(){
+            let search = getQueryVariable("s");
+            if (search == null){
+                window.location.href = "/"
+            }
+            if (window.location.pathname !== "/so"){
+                window.location.href = "/so?s=" + this.search
+            }else{
+                vm.blogList = []
+                vm.show = false
+                vm.search(this.searchValue)
+                vm.search(this.searchValue)
+            }
+        }
+    }
+})

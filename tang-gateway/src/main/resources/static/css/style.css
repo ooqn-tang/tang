@@ -7,6 +7,10 @@
 *{
     outline: none !important;
 }
+
+.markdown-body pre{
+    border-left: 3px solid #00b2ff;
+}
 #blog-list p{
     margin: 0 !important;
 }

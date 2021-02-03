@@ -29,7 +29,7 @@
             <ul class="list-group" id="blog-list" v-clock>
                 <li class="list-group-item" v-for="(item,index) in blogList">
                     <a class="blog-title" target="_blank" v-bind:href="'/post/'+item.id"><p v-text="item.title"></p></a>
-                    <div class="blog-synopsis" style="" v-text="item.synopsis"></div>
+                    <!--<div class="blog-synopsis" style="" v-text="item.synopsis"></div>-->
                     <div>
                         <span v-text="item.createDate" style="color: #00285a"></span>
                         <a class="pull-right" v-bind:href="'/author/'+item.username" v-text="item.nickname"></a>
@@ -46,7 +46,6 @@
         </div>
     </div>
 </div>
-<div th:include="comm::login"></div>
 </body>
 <script src="https://cdn.bootcss.com/jquery/2.1.2/jquery.min.js"></script>
 <script src="/js/my.js"></script>
@@ -77,6 +76,8 @@
                 this.show = false
                 try{
                     search = getQueryVariable("s");
+                    let s = decodeURI(search)
+                    search_vm.searchValue = (s === "null"?"":s)
                 }catch(err){
                     console.log(err)
                 }
@@ -88,7 +89,6 @@
             },
             blogs(){
                 let _this = this
-
                 $.ajax({
                     type:"GET",
                     url:"/blog/blogs",

@@ -85,7 +85,6 @@
         </div>
     </nav>
 </div>
-<div th:include="comm::login"></div>
 </body>
 <script src="https://cdn.bootcss.com/jquery/2.1.2/jquery.min.js"></script>
 <script src="https://cdn.bootcss.com/twitter-bootstrap/3.3.7/js/bootstrap.js"></script>
@@ -208,7 +207,7 @@
             loadComment(){
                 $.ajax({
                     type:"GET",
-                    url:"/comment/"+this.blogId,
+                    url:"/comment/load/"+this.blogId,
                     contentType: "application/json",
                     dataType:"json",
                     success:function (result) {

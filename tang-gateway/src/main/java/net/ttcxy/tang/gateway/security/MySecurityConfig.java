@@ -65,11 +65,6 @@ public class MySecurityConfig  extends WebSecurityConfigurerAdapter {
         return super.authenticationManager();
     }
 
-    @Bean
-    public GithubAbstractAuthenticationProcessingFilter githubAbstractAuthenticationProcessingFilter(){
-        return new GithubAbstractAuthenticationProcessingFilter();
-    }
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
@@ -78,7 +73,6 @@ public class MySecurityConfig  extends WebSecurityConfigurerAdapter {
         // 没有权限的处理器
         http.exceptionHandling().authenticationEntryPoint(myAuthenticationEntryPoint);
         http.exceptionHandling().accessDeniedHandler(accessDeniedHandler());
-        http.addFilterBefore(githubAbstractAuthenticationProcessingFilter(),UsernamePasswordAuthenticationFilter.class);
         // 登录拦截器前面添加验证码拦截器
         http.addFilterBefore(myVerifyCodeFilter, UsernamePasswordAuthenticationFilter.class);
         // 不需要登录的请求

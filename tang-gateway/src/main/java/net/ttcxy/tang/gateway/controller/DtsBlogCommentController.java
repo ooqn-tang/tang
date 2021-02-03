@@ -67,7 +67,7 @@ public class DtsBlogCommentController {
         return ResponseResult.failed();
     }
 
-    @GetMapping("{blogId}")
+    @GetMapping("load/{blogId}")
     @ApiOperation("查询博客评论")
     public ResponseResult<?> selectComment(@PathVariable("blogId") String blogId){
         Map<String,Object> map = new HashMap<>();
