@@ -63,4 +63,8 @@ public class UtsFansController {
         }
         return ResponseResult.failed();
     }
+
+    public static void main(String[] args) {
+
+    }
 }
