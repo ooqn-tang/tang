@@ -65,6 +65,7 @@ public class MySecurityConfig  extends WebSecurityConfigurerAdapter {
         return super.authenticationManager();
     }
 
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
