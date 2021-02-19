@@ -6,7 +6,6 @@
     <link href="/favicon.ico" rel="shortcut icon" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <link href="https://cdn.bootcss.com/twitter-bootstrap/3.4.0/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.bootcss.com/vue/2.6.10/vue.min.js"></script>
     <style>
         html,body {
             width: 100%;
@@ -19,28 +18,73 @@
     </style>
 </head>
 <body>
+    <!-- 模态框（Modal） -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">
+                        添加账户
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <form role="form">
+                        <div class="form-group">
+                            <label>网站名：</label>
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="webName" placeholder="网站名">
+                            </div>
+                            <label>账户名：</label>
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="addrName" placeholder="账户名">
+                            </div>
+                            <label>链接：</label>
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="webPath" placeholder="链接">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                    </button>
+                    <button type="button" class="btn btn-primary" onclick="addAddr()">
+                        提交更改
+                    </button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+
     <div id="info" class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title text-center">修改用户信息</h4>
             </div>
             <div class="modal-body">
-                <label>用户名：</label>
+                <label>账号：</label>
                 <div class="form-group">
-                    <input type="text" class="form-control" v-model="author.username" readonly>
+                    <input type="text" class="form-control"readonly>
                 </div>
                 <label>昵称：</label>
                 <div class="form-group">
-                    <input type="text" class="form-control" placeholder="昵称" v-model="author.nickname" autocomplete="off">
+                    <input type="text" class="form-control" placeholder="昵称" autocomplete="off">
                 </div>
                 <label>个人简介：</label>
                 <div class="form-group">
-                    <input type="text" class="form-control" placeholder="个人简介" v-model="author.signature" autocomplete="off">
+                    <input type="text" class="form-control" placeholder="个人简介" autocomplete="off">
+                </div>
+                <p><label>其他账户：</label><button class="btn btn-default btn-xs" style="float: right;" data-toggle="modal" data-target="#myModal">添加</button></p>
+                <div id="my_home">
+
                 </div>
             </div>
             <div class="modal-footer">
                 <div class="form-group">
-                    <button class="btn btn-primary form-control" @click="updateAuthor()">确认修改</button>
+                    <button class="btn btn-primary form-control">确认修改</button>
                 </div>
                 <div class="btn-group" style="width: 100%;">
                     <a style="width: 100%;" onClick="history.go(-1);" class="btn btn-default">返回页面</a>
@@ -51,38 +95,43 @@
 </body>
 <script src="https://cdn.bootcss.com/jquery/2.1.2/jquery.min.js"></script>
 <script src="https://cdn.bootcss.com/twitter-bootstrap/3.3.7/js/bootstrap.js"></script>
-<script src="/js/my.js"></script>
 <script>
-    new Vue({
-        el: "#info",
-        data:{
-            author:{
-                nickname:"[[${utsAuthorLogin.nickname}]]",
-                signature:"[[${utsAuthorLogin.signature}]]",
-                username:'[[${utsAuthorLogin.username}]]'
-            }
-        }, methods: {
-            updateAuthor(){
-                let _this = this
-                $.ajax({
-                    type : "POST",
-                    contentType: "application/json",
-                    url : "/author/update",
-                    data : JSON.stringify({
-                        nickname:_this.author.nickname,
-                        signature:_this.author.signature
-                    }),
-                    success(result) {
-                        history.go(-1);
-                    },
-                    error(e){
-                        alert(e.responseText);
-                    }
-                })
-            }
-        },mounted(){
+    let nickname = "[[${utsAuthorLogin.nickname}]]";
+    let signature = "[[${utsAuthorLogin.signature}]]";
+    let username = '[[${utsAuthorLogin.username}]]';
 
+    String.prototype.signMix= function() {
+        if(arguments.length === 0) return this;
+        let param = arguments[0], str= this;
+        if(typeof(param) === 'object') {
+            for(let key in param)
+                str = str.replace(new RegExp("\\{" + key + "\\}", "g"), param[key]);
+            return str;
+        } else {
+            for(let i = 0; i < arguments.length; i++)
+                str = str.replace(new RegExp("\\{" + i + "\\}", "g"), arguments[i]);
+            return str;
         }
-    })
+    }
+
+    function addAddr(){
+        let webName = $("#webName").val()
+        let addrName = $("#addrName").val()
+        let webPath = $("#webPath").val()
+
+        let addrHtml = `
+            <p style="background-color: #e8e8e8;border-radius: 5px;padding: 5px">
+            <a href="{webPath}" style="width: 80%;">
+                {webName}
+            </a>
+                <span style="float: right">{addrName}
+                    <button class="btn btn-default btn-xs">修改</button>
+                    <button class="btn btn-default btn-xs">删除</button>
+                </span>
+            </p>
+        `.signMix({"webName":webName,"addrName":addrName,"webPath":webPath})
+
+        $("#my_home").append(addrHtml)
+    }
 </script>
 </html>

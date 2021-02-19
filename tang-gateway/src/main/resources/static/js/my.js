@@ -190,3 +190,18 @@ let search_vm = new Vue({
         }
     }
 })
+
+
+String.prototype.signMix= function() {
+    if(arguments.length === 0) return this;
+    let param = arguments[0], str= this;
+    if(typeof(param) === 'object') {
+        for(let key in param)
+            str = str.replace(new RegExp("\\{" + key + "\\}", "g"), param[key]);
+        return str;
+    } else {
+        for(let i = 0; i < arguments.length; i++)
+            str = str.replace(new RegExp("\\{" + i + "\\}", "g"), arguments[i]);
+        return str;
+    }
+}

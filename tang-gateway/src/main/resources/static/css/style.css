@@ -59,6 +59,7 @@ body{
 .W100{width: 100%}
 .W20{width: 20%}
 .W50{width: 50%}
+.W25{width: 25%;}
 /*A标签*/
 a:hover,a:hover,a{
     text-decoration:none !important;

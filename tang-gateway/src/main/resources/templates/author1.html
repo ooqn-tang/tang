@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.w3.org/1999/xhtml"
+      xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />
+    <title th:text="${utsAuthorLogin.username} + ' - 堂堂程序员'"></title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link href="https://cdn.bootcss.com/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.bootcss.com/vue/2.6.10/vue.min.js"></script>
+</head>
+<body>
+<div th:include="comm::navigation"></div>
+<div class="container" id="app" v-cloak>
+    <div class="row clearfix">
+        <div class="col-md-4 col-md-push-8">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <strong th:text="${utsAuthorLogin.nickname}"></strong>
+                    <button v-show="!isThisUser" class="pull-right btn btn-default btn-xs" @click="followerClick" v-text="follower"></button>
+                    <hr>
+                    <div>简介：<span th:text="${utsAuthorLogin.signature}"></span></div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="btn-group W100">
+                        <button class="btn btn-default btn-sm W20" v-bind:class="{ W50 : !isThisUser }" @click="cl(),loadAuthor(),blogList=[],showFans = false">博客</button>
+                        <button class="btn btn-default btn-sm W20" v-bind:class="{ W50 : !isThisUser }" @click="cl(),like(),blogList=[],showFans = false">推荐</button>
+                        <button class="btn btn-default btn-sm W20" @click="fans" v-if="isThisUser">订阅</button>
+                        <a class="btn btn-default btn-sm W20" href="/author/setting" v-if="isThisUser">设置</a>
+                        <a class="btn btn-default btn-sm W20" @click="logout" v-if="isThisUser">注销</a>
+                    </div>
+                </div>
+            </div>
+            <div v-show="showFans" v-if="isThisUser">
+                <div class="list-group" >
+                    <a class="list-group-item active">订阅<span class="pull-right">🎇</span></a>
+                    <a class="list-group-item" v-for="(item,i) in fansList" v-bind:href="item.username" v-text="item.nickname"></a>
+                </div>
+            </div>
+            <div>
+                <div class="list-group" >
+                    <a class="list-group-item active">标签<span class="pull-right">🦴</span></a>
+                    <a class="list-group-item">Java<span class="pull-right">（1）</span></a>
+                    <a class="list-group-item">Python<span class="pull-right">（1）</span></a>
+                    <a class="list-group-item">C++<span class="pull-right">（1）</span></a>
+                    <a class="list-group-item">SpringBoot<span class="pull-right">（1）</span></a>
+                    <a class="list-group-item">SpringSecurity<span class="pull-right">（1）</span></a>
+                    <a class="list-group-item">SpringObject<span class="pull-right">（1）</span></a>
+                    <a class="list-group-item">管理<span class="pull-right">💨</span></a>
+                </div>
+            </div>
+            <div class="visible-md-block visible-lg-block">
+                <div th:replace="comm::advertise" ></div>
+            </div>
+        </div>
+        <div class="col-md-8 col-md-pull-4">
+            <ul class="list-group" id="blog-list">
+                <li class="list-group-item" v-for="(item,index) in blogList">
+                    <a class="blog-title" target="_blank" v-bind:href="'/post/'+item.id"><p v-text="item.title"></p></a>
+                    <div class="blog-synopsis" v-text="item.synopsis"></div>
+                    <div>
+                        <span v-text="item.createDate"></span>
+                        <div class="btn-group pull-right">
+                            <a class="btn btn-default btn-xs" v-if="isThisUser && selectType == 'author'" @click="deleteBlog(item,index)" >删除</a>
+                            <a class="btn btn-default btn-xs" v-if="isThisUser && selectType == 'author'" @click="updateBlog(item.id)">修改</a>
+                        </div>
+                    </div>
+                </li>
+                <li class="list-group-item load-context" v-if="blogList.length == 0">
+                    什么也没有啊...
+                </li>
+                <li class="list-group-item">
+                    <a v-bind:class="blog.isLastPage?'page':''" @click="more(pageNum+=1)">获取</a>
+                    <a v-if="!show" class="pull-right">加载中...</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+</body>
+<script src="https://cdn.bootcss.com/jquery/2.1.2/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/twitter-bootstrap/3.3.7/js/bootstrap.js"></script>
+<script src="/js/my.js"></script>
+<script>
+    let vm = new Vue({
+        el: "#app",//绑定元素
+        //所有数据都放在数据属性中
+        data:{
+            author: '[[${session.SPRING_SECURITY_CONTEXT}]]' == '',
+            isLoginUser:[[${session.SPRING_SECURITY_CONTEXT != null}]], // 表示登录的用户
+            isThisUser:[[${session.SPRING_SECURITY_CONTEXT !=null && session.SPRING_SECURITY_CONTEXT.authentication.principal.username == username}]], // 表示访问自己的首页
+            username:'[[${utsAuthorLogin.username}]]',
+            fansList:[],
+            showFans:false,
+            update:true,
+            selectType:"author.html",
+            pageNum:1,
+            follower:"订阅",
+            show:false,
+            blogList: [],
+            blog:{
+                list:[],
+                isFirstPage:false,
+                isLastPage:true,
+            }
+        }, methods: {
+            logout(){
+                if(confirm("确认退出账号吗？")){
+                    $.ajax({ url: "/logout", type: 'get', async: false})
+                    history.go(0)
+                }
+            },
+            updateBlog(id){
+                window.open('/editor/'+id)
+            },
+            cl(){
+                this.pageNum = 1
+            },
+            deleteBlog(item,index){
+                let _this = this;
+                if(confirm("确认删除吗？")){
+                    $.ajax({
+                        type:"GET",
+                        url:"/blog/delete/"+item.id,
+                        contentType: "application/json",
+                        dataType: "text",
+                        success:function (result) {
+                            _this.blogList.splice(index,1)
+                        }
+                    })
+                }
+            },
+            followerClick(){
+                if (this.author){
+                    $('#loginModal').modal("show")
+                    return
+                }
+                let _this = this;
+                let type,text;
+                if (_this.follower === '已订阅'){
+                    type = "delete";
+                    text = "订阅"
+                } else{
+                    type = "insert";
+                    text = "已订阅"
+                }
+                $.ajax({
+                    type:"post",
+                    url:"/fans/" + type + "/" + _this.username,
+                    contentType: "application/json", //必须这样写
+                    dataType:"json",
+                    success:function (result) {
+                        _this.follower = text;
+                    }
+                })
+            },
+            loadFans(){
+                let _this = this;
+                if (this.isLoginUser){
+                    $.ajax({
+                        type:"GET",
+                        url:"/fans/"+ _this.username,
+                        contentType: "application/json", //必须这样写
+                        success:function (result) {
+                            if (result){
+                                _this.follower = '订阅'
+                            } else{
+                                _this.follower = '已订阅'
+                            }
+                        }
+                    })
+                }
+            },
+            more(page){
+                this.pageNum = page
+                this.page()
+            },
+            loadAuthor() {
+                let _this = this;
+                _this.show = false
+                _this.update = true;
+                _this.selectType = "author"
+                $.ajax({
+                    type:"GET",
+                    url:"/blog/home/"+_this.username,
+                    contentType: "application/json", //必须这样写
+                    data:{
+                      page:_this.pageNum
+                    },
+                    success:function (result) {
+                        _this.blog = result
+                        _this.blogList = _this.blogList.concat(result.list)
+                        sleep(300)
+                        _this.show = true
+                    }
+                })
+            },
+            like(){
+                let _this = this;
+                _this.show = false
+                this.update = false;
+                this.selectType = "like"
+                $.ajax({
+                    type:"GET",
+                    url:"/blog/like",
+                    contentType: "application/json", //必须这样写
+                    data:{
+                        page:_this.pageNum,
+                        username:_this.username
+                    },
+                    success:function (result) {
+                        _this.blog = result
+                        _this.blogList = _this.blogList.concat(result.list)
+                        sleep(300)
+                        _this.show = true
+                    }
+                })
+            },
+            fans(){
+                if (this.showFans){
+                    this.showFans = false;
+                    return
+                }
+                let _this = this;
+                $.ajax({
+                    type:"GET",
+                    url:"/fans/list",
+                    contentType: "application/json", //必须这样写
+                    success:function (result) {
+                        _this.fansList = result
+                        _this.showFans = true;
+                    }
+                })
+            },
+            page(){
+                let type = this.selectType
+                this.blog = {}
+                this.show = false
+                if (type === "author"){
+                    this.loadAuthor()
+                }
+                if (type === "like"){
+                    this.like()
+                }
+            }
+        },mounted(){
+            this.loadFans()
+            this.loadAuthor()
+        }
+    })
+</script>
+</html>
