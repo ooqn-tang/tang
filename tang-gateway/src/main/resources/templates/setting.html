@@ -27,21 +27,17 @@
                         &times;
                     </button>
                     <h4 class="modal-title" id="myModalLabel">
-                        添加账户
+                        我的推荐
                     </h4>
                 </div>
                 <div class="modal-body">
                     <form role="form">
                         <div class="form-group">
-                            <label>网站名：</label>
+                            <label>链接名称：</label>
                             <div class="form-group">
                                 <input type="text" class="form-control" id="webName" placeholder="网站名">
                             </div>
-                            <label>账户名：</label>
-                            <div class="form-group">
-                                <input type="text" class="form-control" id="addrName" placeholder="账户名">
-                            </div>
-                            <label>链接：</label>
+                            <label>链接地址：</label>
                             <div class="form-group">
                                 <input type="text" class="form-control" id="webPath" placeholder="链接">
                             </div>
@@ -67,15 +63,15 @@
             <div class="modal-body">
                 <label>账号：</label>
                 <div class="form-group">
-                    <input type="text" class="form-control"readonly>
+                    <input type="text" class="form-control" th:value="${utsAuthorLogin.username}" readonly>
                 </div>
                 <label>昵称：</label>
                 <div class="form-group">
-                    <input type="text" class="form-control" placeholder="昵称" autocomplete="off">
+                    <input type="text" class="form-control" th:value="${utsAuthorLogin.nickname}" placeholder="昵称" autocomplete="off">
                 </div>
                 <label>个人简介：</label>
                 <div class="form-group">
-                    <input type="text" class="form-control" placeholder="个人简介" autocomplete="off">
+                    <input type="text" class="form-control" th:value="${utsAuthorLogin.signature}" placeholder="个人简介" autocomplete="off">
                 </div>
                 <p><label>其他账户：</label><button class="btn btn-default btn-xs" style="float: right;" data-toggle="modal" data-target="#myModal">添加</button></p>
                 <div id="my_home">
@@ -96,8 +92,6 @@
 <script src="https://cdn.bootcss.com/jquery/2.1.2/jquery.min.js"></script>
 <script src="https://cdn.bootcss.com/twitter-bootstrap/3.3.7/js/bootstrap.js"></script>
 <script>
-    let nickname = "[[${utsAuthorLogin.nickname}]]";
-    let signature = "[[${utsAuthorLogin.signature}]]";
     let username = '[[${utsAuthorLogin.username}]]';
 
     String.prototype.signMix= function() {
@@ -112,12 +106,12 @@
                 str = str.replace(new RegExp("\\{" + i + "\\}", "g"), arguments[i]);
             return str;
         }
-    }
+    };
 
     function addAddr(){
-        let webName = $("#webName").val()
-        let addrName = $("#addrName").val()
-        let webPath = $("#webPath").val()
+        let webName = $("#webName").val();
+        let addrName = $("#addrName").val();
+        let webPath = $("#webPath").val();
 
         let addrHtml = `
             <p style="background-color: #e8e8e8;border-radius: 5px;padding: 5px">

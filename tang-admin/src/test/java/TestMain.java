@@ -1,12 +1,5 @@
-import net.ttcxy.tang.admin.AdminApplication;
 import net.ttcxy.tang.admin.service.StsMailService;
-import net.ttcxy.tang.mapper.DtsBlogMapper;
-import net.ttcxy.tang.model.DtsBlogExample;
-import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
 /**
  * @author huanglei

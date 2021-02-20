@@ -5,6 +5,7 @@
     margin-bottom: 10px
 }
 *{
+    word-wrap:break-word;
     outline: none !important;
 }
 

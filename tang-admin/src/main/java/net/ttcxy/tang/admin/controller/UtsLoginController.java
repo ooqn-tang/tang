@@ -6,7 +6,6 @@ import net.ttcxy.tang.admin.entity.UtsMemberLogin;
 import net.ttcxy.tang.admin.security.component.AuthenticationTokenFilter;
 import net.ttcxy.tang.admin.service.CurrentMemberService;
 import net.ttcxy.tang.api.ResponseResult;
-import net.ttcxy.tang.model.UtsAuthor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

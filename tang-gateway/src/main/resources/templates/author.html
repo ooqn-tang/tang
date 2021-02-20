@@ -22,7 +22,7 @@
                     </div>
                 </div>
                 <ul class="list-group">
-                    <li class="list-group-item active">我的账户<span class="pull-right">🎇</span></li>
+                    <li class="list-group-item active">我的推荐<span class="pull-right">🎇</span></li>
                     <li class="list-group-item">
                         <div id="my_home">
                             <a href="https://www.cnblogs.com/aikewang/p/5833625.html"><p style="background-color: #e8e8e8;border-radius: 5px;padding: 5px">微博<span style="float: right">链接跳转</span></p></a>
@@ -70,7 +70,6 @@
         </div>
     </div>
 </body>
-
 <script src="https://cdn.bootcss.com/twitter-bootstrap/3.3.7/js/bootstrap.js"></script>
 <script src="/js/my.js"></script>
 <script>
@@ -80,18 +79,31 @@
         <span>{vbo_text}</span>
         <a href="{vbo_url}"><p style="background-color: #e8e8e8;padding: 5px ;border-radius: 5px;">{path_name}</p></a>
     </li>
-    `
+    `;
+
+    let vbo_template2 = `
+    <li class="list-group-item">
+        <p><a href="#" style="font-weight: 600">bobcbui</a><span style="float: right;">2020.01.03</span></p>
+        <span>{vbo_text}</span>
+    </li>
+    `;
     $.ajax({
         type:"GET",
         url:"/vbo/select",
         contentType: "application/json",
         data:{
-            "authorId":"c894e7a08bf041e985876d31b3977141"
+            "author":"bobcbui"
         },
         success(result) {
             for (let i in result){
-                wb = vbo_template1.signMix({"vbo_text":result[i]["vboText"],"vbo_url":result[i]["vboUrl"],"path_name":result[i]["vboUrlName"]})
-                $("#blog-list").append(wb)
+                if (result[i]["vboUrl"] == "") {
+                    wb = vbo_template2.signMix({"vbo_text":result[i]["vboText"],"vbo_url":result[i]["vboUrl"],"path_name":result[i]["vboUrlName"]})
+                    $("#blog-list").append(wb)
+                }else{
+
+                    wb = vbo_template1.signMix({"vbo_text":result[i]["vboText"],"vbo_url":result[i]["vboUrl"],"path_name":result[i]["vboUrlName"]})
+                    $("#blog-list").append(wb)
+                }
             }
         }
     })

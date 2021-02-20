@@ -1,7 +1,6 @@
 package net.ttcxy.tang.admin.service;
 
 import net.ttcxy.tang.admin.entity.dto.UtsRoleDto;
-import net.ttcxy.tang.model.UtsRole;
 
 import java.util.List;
 

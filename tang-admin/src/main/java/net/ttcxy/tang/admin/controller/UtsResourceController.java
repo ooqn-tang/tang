@@ -7,7 +7,6 @@ import net.ttcxy.tang.admin.entity.param.UtsResourceParam;
 import net.ttcxy.tang.admin.service.UtsResourceService;
 import net.ttcxy.tang.api.ResponseResult;
 import net.ttcxy.tang.code.Update;
-import net.ttcxy.tang.model.UtsResource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;

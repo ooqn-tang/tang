@@ -6,7 +6,6 @@ import cn.hutool.core.util.IdUtil;
 import net.ttcxy.tang.admin.entity.param.UtsRoleParam;
 import net.ttcxy.tang.admin.service.UtsRoleService;
 import net.ttcxy.tang.api.ResponseResult;
-import net.ttcxy.tang.model.UtsRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

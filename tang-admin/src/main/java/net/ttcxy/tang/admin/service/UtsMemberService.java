@@ -2,7 +2,6 @@ package net.ttcxy.tang.admin.service;
 
 import net.ttcxy.tang.admin.entity.UtsMemberLogin;
 import net.ttcxy.tang.admin.entity.dto.UtsMemberDto;
-import net.ttcxy.tang.model.UtsAuthor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

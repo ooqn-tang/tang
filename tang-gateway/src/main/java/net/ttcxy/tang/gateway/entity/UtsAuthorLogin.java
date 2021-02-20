@@ -1,11 +1,9 @@
 package net.ttcxy.tang.gateway.entity;
 
-import net.ttcxy.tang.gateway.entity.dto.UtsRoleDto;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
-import java.util.List;
 
 /**
  * 用户返回值

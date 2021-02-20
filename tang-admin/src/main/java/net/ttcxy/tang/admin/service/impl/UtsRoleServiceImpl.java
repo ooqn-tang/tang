@@ -3,8 +3,6 @@ package net.ttcxy.tang.admin.service.impl;
 import net.ttcxy.tang.admin.dao.UtsRoleDao;
 import net.ttcxy.tang.admin.entity.dto.UtsRoleDto;
 import net.ttcxy.tang.admin.service.UtsRoleService;
-import net.ttcxy.tang.mapper.UtsRoleMapper;
-import net.ttcxy.tang.model.UtsRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

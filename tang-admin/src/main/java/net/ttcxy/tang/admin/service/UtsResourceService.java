@@ -1,7 +1,6 @@
 package net.ttcxy.tang.admin.service;
 
 import net.ttcxy.tang.admin.entity.dto.UtsResourceDto;
-import net.ttcxy.tang.model.UtsResource;
 
 import java.util.List;
 

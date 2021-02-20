@@ -1,12 +1,6 @@
 package net.ttcxy.tang.admin.service.impl;
 
-import net.ttcxy.tang.admin.dao.DtsCommentDao;
-import net.ttcxy.tang.admin.entity.dto.DtsCommentDto;
 import net.ttcxy.tang.admin.service.CurrentMemberService;
-import net.ttcxy.tang.admin.service.DtsCommentService;
-import net.ttcxy.tang.mapper.DtsBlogCommentMapper;
-import net.ttcxy.tang.model.DtsBlogComment;
-import net.ttcxy.tang.model.DtsBlogCommentExample;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

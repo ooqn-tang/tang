@@ -3,6 +3,7 @@ package net.ttcxy.tang.gateway.service.impl;
 import cn.hutool.core.date.DateTime;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.IdUtil;
+import cn.hutool.core.util.StrUtil;
 import net.ttcxy.tang.gateway.service.CurrentAuthorService;
 import net.ttcxy.tang.gateway.service.DtsVboService;
 import net.ttcxy.tang.mapper.DtsVboMapper;
@@ -24,8 +25,9 @@ public class DtsVboServiceImpl implements DtsVboService {
 
     @Override
     public int insert(DtsVbo dtsVbo) {
-        String authorId = currentAuthorService.getAuthorId();
-        dtsVbo.setUtsAuthorUuid(authorId);
+        String authorUsername = currentAuthorService.getAuthor().getUsername();
+
+        dtsVbo.setUtsAuthorUsername(authorUsername);
         dtsVbo.setUuid(IdUtil.fastSimpleUUID());
         DateTime date = DateUtil.date();
         dtsVbo.setCreateDate(date);
@@ -34,9 +36,11 @@ public class DtsVboServiceImpl implements DtsVboService {
     }
 
 
-    public List<DtsVbo> selectVbo(String authorUuid){
+    public List<DtsVbo> selectVbo(String authorUsername){
         DtsVboExample dtsVboExample = new DtsVboExample();
-        dtsVboExample.createCriteria().andUtsAuthorUuidEqualTo(authorUuid);
+        if (StrUtil.isNotBlank(authorUsername)){
+            dtsVboExample.createCriteria().andUtsAuthorUsernameEqualTo(authorUsername);
+        }
         return dtsVboMapper.selectByExample(dtsVboExample);
     }
 }

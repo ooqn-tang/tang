@@ -11,7 +11,6 @@ function deleteFans(username){
         }
     })
 }
-
 function insertFans(username){
     $.ajax({
         type:"POST",
@@ -25,55 +24,34 @@ function insertFans(username){
         }
     })
 }
-
-
-
-$(function(){
-    //搜索
-    $("#searchBtn").click(function () {
-        let sv = $("#searchVal").val();
-        if (sv!=""){
-            window.location.href="/so?s="+sv;
-        }
-
-    });
-
-
-
-    function f() {
-        if ($("#username").val()==undefined)
-            return
-
-        $.ajax({
-            type:"GET",
-            url:"/fans/"+$("#username").val(),
-            contentType: "application/json", //必须这样写
-            success:function (data) {
-                if (data.data){
-                    updateToGz();
-                } else{
-                    $("#follower").removeClass("hidden")
-                }
+function f() {
+    if ($("#username").val()==undefined)
+        return
+    $.ajax({
+        type:"GET",
+        url:"/fans/"+$("#username").val(),
+        contentType: "application/json", //必须这样写
+        success:function (data) {
+            if (data.data){
+                updateToGz();
+            } else{
+                $("#follower").removeClass("hidden")
             }
-        })
-    }
-
-    function updateToGz(){
-        $("#follower").removeClass("hidden")
-        $("#follower").removeClass("btn-success")
-        $("#follower").addClass("btn-default")
-        $("#follower").html("已订阅")
-    }
-
-    function updateToNotGz(){
-        $("#follower").removeClass("hidden")
-        $("#follower").removeClass("btn-default")
-        $("#follower").addClass("btn-success")
-        $("#follower").html("订阅")
-    }
-
-});
-
+        }
+    })
+}
+function updateToGz(){
+    $("#follower").removeClass("hidden")
+    $("#follower").removeClass("btn-success")
+    $("#follower").addClass("btn-default")
+    $("#follower").html("已订阅")
+}
+function updateToNotGz(){
+    $("#follower").removeClass("hidden")
+    $("#follower").removeClass("btn-default")
+    $("#follower").addClass("btn-success")
+    $("#follower").html("订阅")
+}
 function getQueryVariable(variable){
     let query = window.location.search.substring(1);
     let vars = query.split("&");
@@ -83,7 +61,6 @@ function getQueryVariable(variable){
     }
     return null;
 }
-
 function UrlUpdateParams(url, name, value) {
     let r = url;
     if (r != null && r != 'undefined' && r != "") {
@@ -103,21 +80,6 @@ function UrlUpdateParams(url, name, value) {
     }
     return r;
 }
-
-String.prototype.signMix= function() {
-    if(arguments.length === 0) return this;
-    let param = arguments[0], str= this;
-    if(typeof(param) === 'object') {
-        for(let key in param)
-            str = str.replace(new RegExp("\\{" + key + "\\}", "g"), param[key]);
-        return str;
-    } else {
-        for(let i = 0; i < arguments.length; i++)
-            str = str.replace(new RegExp("\\{" + i + "\\}", "g"), arguments[i]);
-        return str;
-    }
-}
-
 function sleep(numberMillis) {
     var now = new Date();
     var exitTime = now.getTime() + numberMillis;
@@ -127,7 +89,13 @@ function sleep(numberMillis) {
             return;
     }
 }
-
+function toData(data){
+    let ret = ''
+    for(let it in data) {
+        ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
+    }
+    return ret
+}
 function changeURLArg(url,arg,arg_val){
     let pattern=arg+'=([^&]*)';
     let replaceText=arg+'='+arg_val;
@@ -144,54 +112,6 @@ function changeURLArg(url,arg,arg_val){
     }
 }
 
-$.ajaxSetup({
-    dataType: "json",
-    cache: false,
-    xhrFields: {
-        withCredentials: true
-    },
-    complete(xhr) {
-        if(xhr.status === 401){
-            alert("请登录")
-            throw "请登录";
-        }
-    }
-});
-
-
-function toData(data){
-    let ret = ''
-    for(let it in data) {
-        ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
-    }
-    return ret
-}
-
-
-let search_vm = new Vue({
-    el: "#search",
-    data: {
-        searchValue:""
-    },
-    methods: {
-        searchClick(){
-            let search = getQueryVariable("s");
-            if (search == null){
-                window.location.href = "/"
-            }
-            if (window.location.pathname !== "/so"){
-                window.location.href = "/so?s=" + this.search
-            }else{
-                vm.blogList = []
-                vm.show = false
-                vm.search(this.searchValue)
-                vm.search(this.searchValue)
-            }
-        }
-    }
-})
-
-
 String.prototype.signMix= function() {
     if(arguments.length === 0) return this;
     let param = arguments[0], str= this;
@@ -205,3 +125,18 @@ String.prototype.signMix= function() {
         return str;
     }
 }
+
+
+$.ajaxSetup({
+    dataType: "json",
+    cache: false,
+    xhrFields: {
+        withCredentials: true
+    },
+    complete(xhr) {
+        if(xhr.status === 401){
+            alert("请登录")
+            throw "请登录";
+        }
+    }
+});

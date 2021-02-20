@@ -3,8 +3,6 @@ package net.ttcxy.tang.admin.service.impl;
 import net.ttcxy.tang.admin.dao.UtsResourceDao;
 import net.ttcxy.tang.admin.entity.dto.UtsResourceDto;
 import net.ttcxy.tang.admin.service.UtsResourceService;
-import net.ttcxy.tang.mapper.UtsResourceMapper;
-import net.ttcxy.tang.model.UtsResource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

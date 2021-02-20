@@ -1,8 +1,6 @@
 package net.ttcxy.tang.admin.service;
 
 
-import net.ttcxy.tang.model.DtsAdvertise;
-
 import java.util.List;
 
 /**
