@@ -51,14 +51,6 @@
                             <label>文本：</label>
                             <textarea class="form-control" id="vbo_text" rows="3"></textarea>
                         </div>
-                        <div class="form-group">
-                            <label>资源链接：</label>
-                            <input type="text" class="form-control" id="vbo_url" placeholder="资源链接">
-                        </div>
-                        <div class="form-group">
-                            <label>资源名称：</label>
-                            <input type="text" class="form-control" id="vbo_url_name" placeholder="资源名称">
-                        </div>
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -70,16 +62,12 @@
         <script>
             $("#fabu").click(function(){
                 let vbo_text = $("#vbo_text").val()
-                let vbo_url = $("#vbo_url").val()
-                let vbo_url_name = $("#vbo_url_name").val()
                 $.ajax({
                     type:"POST",
                     url:"/vbo/insert",
                     contentType: "application/json",
                     data:JSON.stringify({
-                        "vboText":vbo_text,
-                        "vboUrl":vbo_url,
-                        "vboUrlName":vbo_url_name
+                        "vboText":vbo_text
                     }),
                     success(result) {
                         alert(JSON.stringify(result))

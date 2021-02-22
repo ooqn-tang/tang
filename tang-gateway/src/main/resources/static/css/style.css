@@ -83,3 +83,6 @@ hr{
     margin-top: 8px !important;
     margin-bottom: 8px !important;
 }
+.container{
+    max-width: 800px;
+}

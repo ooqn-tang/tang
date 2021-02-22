@@ -15,11 +15,11 @@
 <div th:include="comm::navigation"></div>
 <div class="container" id="home" v-clock>
     <div class="row">
-        <div class="col-md-9 column">
+        <div class="col-md-8 column">
             <ul class="list-group" id="blog-list">
             </ul>
         </div>
-        <div class="col-md-3 column">
+        <div class="col-md-4 column">
             <div th:include="comm::advertise"></div>
         </div>
     </div>
@@ -28,34 +28,41 @@
 <script src="/js/my.js"></script>
 <script src="https://cdn.bootcss.com/twitter-bootstrap/3.3.7/js/bootstrap.js"></script>
 <script>
-    let vbo_template1 = `
+    Array.prototype.unc = function(){
+        var arr= new Array();     //定义一个临时数组
+        for(var i = 0; i < this.length; i++){    //循环遍历当前数组
+            //判断当前数组下标为i的元素是否已经保存到临时数组
+            //如果已保存，则跳过，否则将此元素保存到临时数组中
+            if(arr.indexOf(this[i]) == -1){
+                arr.push(this[i]);
+            }
+        }
+        return arr;
+    }
+    let vbo_template = `
     <li class="list-group-item">
-        <p><a href="#" style="font-weight: 600">bobcbui</a><span style="float: right;font-size: 12px">关注</span></p>
+        <p><a href="#" style="font-weight: 600;color: #555555;">bobcbui</a><span style="float: right;font-size: 12px">2020.01.03</span></p>
         <span>{vbo_text}</span>
-        <a href="{vbo_url}"><p style="background-color: #e8e8e8;padding: 5px ;border-radius: 5px;">{path_name}</p></a>
         <p style="margin-top: 5px !important;">
-            <span>2020.01.03</span>
-            <span style="float: right;">
-                <button class="btn btn-default btn-xs" >收藏</button>
+            <span class="pull-right">
+                <button class="btn btn-default btn-xs">收藏</button>
                 <button class="btn btn-default btn-xs">评论</button>
+                <button class="btn btn-default btn-xs">关注</button>
             </span>
         </p>
     </li>
     `
 
-    let vbo_template2 = `
-    <li class="list-group-item">
-        <p><a href="#" style="font-weight: 600">bobcbui</a><span style="float: right;font-size: 12px">关注</span></p>
-        <span>{vbo_text}</span>
-        <p style="margin-top: 5px !important;">
-            <span>2020.01.03</span>
-            <span style="float: right;">
-                <button class="btn btn-default btn-xs" >收藏</button>
-                <button class="btn btn-default btn-xs">评论</button>
-            </span>
-        </p>
-    </li>
-    `
+    let toLink = function (text) {
+        text = text.replace(URL, function (url) {
+            var urlText = url;
+            if (!url.match('^https?:\/\/')) {
+                url = 'http://' + url;
+            }
+            return '' + urlText + '';
+        });
+        return text;
+    };
     $.ajax({
         type:"GET",
         url:"/vbo/select",
@@ -65,17 +72,20 @@
         },
         success(result) {
             for (let i in result){
-                if (result[i]["vboUrl"] == "") {
-                    wb = vbo_template2.signMix({"vbo_text":result[i]["vboText"],"vbo_url":result[i]["vboUrl"],"path_name":result[i]["vboUrlName"]})
-                    $("#blog-list").append(wb)
-                }else{
-
-                    wb = vbo_template1.signMix({"vbo_text":result[i]["vboText"],"vbo_url":result[i]["vboUrl"],"path_name":result[i]["vboUrlName"]})
-                    $("#blog-list").append(wb)
+                wb = vbo_template.signMix({"vbo_text":result[i]["vboText"],"vbo_url":result[i]["vboUrl"],"path_name":result[i]["vboUrlName"]})
+                let reg= /(https?|http|ftp|file):\/\/[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]/g;
+                s = wb.match(reg).unc();
+                alert(s)
+                for (let i in s){
+                    wb = wb.replaceAll(s[i],"<a href='"+s[i]+"'>网页链接</a>")
                 }
+                $("#blog-list").append(wb)
+
 
             }
         }
     })
+
+
 </script>
 </html>

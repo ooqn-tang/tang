@@ -41,6 +41,7 @@ public class DtsVboServiceImpl implements DtsVboService {
         if (StrUtil.isNotBlank(authorUsername)){
             dtsVboExample.createCriteria().andUtsAuthorUsernameEqualTo(authorUsername);
         }
+        dtsVboExample.setOrderByClause("create_date desc");
         return dtsVboMapper.selectByExample(dtsVboExample);
     }
 }

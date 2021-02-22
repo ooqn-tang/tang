@@ -25,10 +25,10 @@
                     <li class="list-group-item active">我的推荐<span class="pull-right">🎇</span></li>
                     <li class="list-group-item">
                         <div id="my_home">
-                            <a href="https://www.cnblogs.com/aikewang/p/5833625.html"><p style="background-color: #e8e8e8;border-radius: 5px;padding: 5px">微博<span style="float: right">链接跳转</span></p></a>
-                            <a href="https://www.cnblogs.com/aikewang/p/5833625.html"><p style="background-color: #e8e8e8;border-radius: 5px;padding: 5px">哔哩哔哩<span style="float: right">链接跳转</span></p></a>
-                            <a href="https://www.cnblogs.com/aikewang/p/5833625.html"><p style="background-color: #e8e8e8;border-radius: 5px;padding: 5px">公众号<span style="float: right">链接跳转</span></p></a>
-                            <a href="https://www.cnblogs.com/aikewang/p/5833625.html"><p style="background-color: #e8e8e8;border-radius: 5px;padding: 5px">抖音<span style="float: right">链接跳转</span></p></a>
+                            <a href="https://www.cnblogs.com/aikewang/p/5833625.html"><p style="background-color: #e8e8e8;border-radius: 5px;padding: 5px">微博</p></a>
+                            <a href="https://www.cnblogs.com/aikewang/p/5833625.html"><p style="background-color: #e8e8e8;border-radius: 5px;padding: 5px">哔哩哔哩</p></a>
+                            <a href="https://www.cnblogs.com/aikewang/p/5833625.html"><p style="background-color: #e8e8e8;border-radius: 5px;padding: 5px">公众号</p></a>
+                            <a href="https://www.cnblogs.com/aikewang/p/5833625.html"><p style="background-color: #e8e8e8;border-radius: 5px;padding: 5px">抖音</p></a>
                         </div>
                     </li>
                 </ul>
@@ -73,20 +73,32 @@
 <script src="https://cdn.bootcss.com/twitter-bootstrap/3.3.7/js/bootstrap.js"></script>
 <script src="/js/my.js"></script>
 <script>
-    let vbo_template1 = `
+    let vbo_template = `
     <li class="list-group-item">
-        <p><a href="#" style="font-weight: 600">bobcbui</a><span style="float: right;">2020.01.03</span></p>
+        <p><a href="#" style="font-weight: 600;color: #555555;">bobcbui</a></p>
         <span>{vbo_text}</span>
-        <a href="{vbo_url}"><p style="background-color: #e8e8e8;padding: 5px ;border-radius: 5px;">{path_name}</p></a>
+        <p>
+            <span style="color: #979797;">2020.01.03</span>
+            <span style="float: right;">
+                <button class="btn btn-default btn-xs">删除</button>
+                <button class="btn btn-default btn-xs">修改</button>
+                <button class="btn btn-default btn-xs">置顶</button>
+            </span>
+        </p>
     </li>
     `;
-
-    let vbo_template2 = `
-    <li class="list-group-item">
-        <p><a href="#" style="font-weight: 600">bobcbui</a><span style="float: right;">2020.01.03</span></p>
-        <span>{vbo_text}</span>
-    </li>
-    `;
+    var URL = /(https?:\/\/|ftps?:\/\/)?((\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})(:[0-9]+)?|(localhost)(:[0-9]+)?|([\w]+\.)(\S+)(\w{2,4})(:[0-9]+)?)(\/?([\w#!:.?+=&%@!\-\/]+))?/ig;
+    let toLink = function (text) {
+        text = text.replace(URL, function (url) {
+            alert(url)
+            let urlText = url;
+            if (!url.match('^https?:\/\/')) {
+                url = 'http://' + url;
+            }
+            return '<a href="' + urlText + '">网页链接</a>';
+        });
+        return text;
+    };
     $.ajax({
         type:"GET",
         url:"/vbo/select",
@@ -96,14 +108,11 @@
         },
         success(result) {
             for (let i in result){
-                if (result[i]["vboUrl"] == "") {
-                    wb = vbo_template2.signMix({"vbo_text":result[i]["vboText"],"vbo_url":result[i]["vboUrl"],"path_name":result[i]["vboUrlName"]})
-                    $("#blog-list").append(wb)
-                }else{
+                let vbo = result[i]["vboText"]
+                vbo = toLink(vbo)
+                wb = vbo_template.signMix({"vbo_text":vbo,"vbo_url":result[i]["vboUrl"],"path_name":result[i]["vboUrlName"]})
 
-                    wb = vbo_template1.signMix({"vbo_text":result[i]["vboText"],"vbo_url":result[i]["vboUrl"],"path_name":result[i]["vboUrlName"]})
-                    $("#blog-list").append(wb)
-                }
+                $("#blog-list").append(wb)
             }
         }
     })
