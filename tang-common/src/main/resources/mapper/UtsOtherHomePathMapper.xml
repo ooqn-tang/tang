@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.ttcxy.tang.mapper.UtsOtherHomePathMapper">
+  <resultMap id="BaseResultMap" type="net.ttcxy.tang.model.UtsOtherHomePath">
+    <id column="uuid" jdbcType="VARCHAR" property="uuid" />
+    <result column="uts_author_uuid" jdbcType="VARCHAR" property="utsAuthorUuid" />
+    <result column="web_name" jdbcType="VARCHAR" property="webName" />
+    <result column="web_path" jdbcType="VARCHAR" property="webPath" />
+    <result column="addr_name" jdbcType="VARCHAR" property="addrName" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    uuid, uts_author_uuid, web_name, web_path, addr_name, create_date, update_date
+  </sql>
+  <select id="selectByExample" parameterType="net.ttcxy.tang.model.UtsOtherHomePathExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from uts_other_home_path
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from uts_other_home_path
+    where uuid = #{uuid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from uts_other_home_path
+    where uuid = #{uuid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="net.ttcxy.tang.model.UtsOtherHomePathExample">
+    delete from uts_other_home_path
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="net.ttcxy.tang.model.UtsOtherHomePath">
+    insert into uts_other_home_path (uuid, uts_author_uuid, web_name, 
+      web_path, addr_name, create_date, 
+      update_date)
+    values (#{uuid,jdbcType=VARCHAR}, #{utsAuthorUuid,jdbcType=VARCHAR}, #{webName,jdbcType=VARCHAR}, 
+      #{webPath,jdbcType=VARCHAR}, #{addrName,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, 
+      #{updateDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="net.ttcxy.tang.model.UtsOtherHomePath">
+    insert into uts_other_home_path
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="uuid != null">
+        uuid,
+      </if>
+      <if test="utsAuthorUuid != null">
+        uts_author_uuid,
+      </if>
+      <if test="webName != null">
+        web_name,
+      </if>
+      <if test="webPath != null">
+        web_path,
+      </if>
+      <if test="addrName != null">
+        addr_name,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="updateDate != null">
+        update_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="uuid != null">
+        #{uuid,jdbcType=VARCHAR},
+      </if>
+      <if test="utsAuthorUuid != null">
+        #{utsAuthorUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="webName != null">
+        #{webName,jdbcType=VARCHAR},
+      </if>
+      <if test="webPath != null">
+        #{webPath,jdbcType=VARCHAR},
+      </if>
+      <if test="addrName != null">
+        #{addrName,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null">
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="net.ttcxy.tang.model.UtsOtherHomePathExample" resultType="java.lang.Long">
+    select count(*) from uts_other_home_path
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update uts_other_home_path
+    <set>
+      <if test="record.uuid != null">
+        uuid = #{record.uuid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.utsAuthorUuid != null">
+        uts_author_uuid = #{record.utsAuthorUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.webName != null">
+        web_name = #{record.webName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.webPath != null">
+        web_path = #{record.webPath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.addrName != null">
+        addr_name = #{record.addrName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createDate != null">
+        create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateDate != null">
+        update_date = #{record.updateDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update uts_other_home_path
+    set uuid = #{record.uuid,jdbcType=VARCHAR},
+      uts_author_uuid = #{record.utsAuthorUuid,jdbcType=VARCHAR},
+      web_name = #{record.webName,jdbcType=VARCHAR},
+      web_path = #{record.webPath,jdbcType=VARCHAR},
+      addr_name = #{record.addrName,jdbcType=VARCHAR},
+      create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      update_date = #{record.updateDate,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="net.ttcxy.tang.model.UtsOtherHomePath">
+    update uts_other_home_path
+    <set>
+      <if test="utsAuthorUuid != null">
+        uts_author_uuid = #{utsAuthorUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="webName != null">
+        web_name = #{webName,jdbcType=VARCHAR},
+      </if>
+      <if test="webPath != null">
+        web_path = #{webPath,jdbcType=VARCHAR},
+      </if>
+      <if test="addrName != null">
+        addr_name = #{addrName,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null">
+        update_date = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where uuid = #{uuid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="net.ttcxy.tang.model.UtsOtherHomePath">
+    update uts_other_home_path
+    set uts_author_uuid = #{utsAuthorUuid,jdbcType=VARCHAR},
+      web_name = #{webName,jdbcType=VARCHAR},
+      web_path = #{webPath,jdbcType=VARCHAR},
+      addr_name = #{addrName,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      update_date = #{updateDate,jdbcType=TIMESTAMP}
+    where uuid = #{uuid,jdbcType=VARCHAR}
+  </update>
+</mapper>
