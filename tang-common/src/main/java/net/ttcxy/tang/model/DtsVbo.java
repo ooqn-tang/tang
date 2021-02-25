@@ -9,11 +9,11 @@ public class DtsVbo implements Serializable {
 
     private String utsAuthorUsername;
 
-    private String vboText;
-
     private Date createDate;
 
     private Date updateDate;
+
+    private String vboText;
 
     private static final long serialVersionUID = 1L;
 
@@ -33,14 +33,6 @@ public class DtsVbo implements Serializable {
         this.utsAuthorUsername = utsAuthorUsername;
     }
 
-    public String getVboText() {
-        return vboText;
-    }
-
-    public void setVboText(String vboText) {
-        this.vboText = vboText;
-    }
-
     public Date getCreateDate() {
         return createDate;
     }
@@ -57,6 +49,14 @@ public class DtsVbo implements Serializable {
         this.updateDate = updateDate;
     }
 
+    public String getVboText() {
+        return vboText;
+    }
+
+    public void setVboText(String vboText) {
+        this.vboText = vboText;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -65,9 +65,9 @@ public class DtsVbo implements Serializable {
         sb.append("Hash = ").append(hashCode());
         sb.append(", uuid=").append(uuid);
         sb.append(", utsAuthorUsername=").append(utsAuthorUsername);
-        sb.append(", vboText=").append(vboText);
         sb.append(", createDate=").append(createDate);
         sb.append(", updateDate=").append(updateDate);
+        sb.append(", vboText=").append(vboText);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

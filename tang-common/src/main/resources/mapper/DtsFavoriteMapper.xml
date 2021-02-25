@@ -2,8 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="net.ttcxy.tang.mapper.DtsFavoriteMapper">
   <resultMap id="BaseResultMap" type="net.ttcxy.tang.model.DtsFavorite">
-    <result column="user_id" jdbcType="VARCHAR" property="userId" />
-    <result column="blog_id" jdbcType="VARCHAR" property="blogId" />
+    <result column="author_id" jdbcType="VARCHAR" property="authorId" />
+    <result column="vbo_id" jdbcType="VARCHAR" property="vboId" />
     <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -65,7 +65,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    user_id, blog_id, create_date
+    author_id, vbo_id, create_date
   </sql>
   <select id="selectByExample" parameterType="net.ttcxy.tang.model.DtsFavoriteExample" resultMap="BaseResultMap">
     select
@@ -88,30 +88,30 @@
     </if>
   </delete>
   <insert id="insert" parameterType="net.ttcxy.tang.model.DtsFavorite">
-    insert into dts_favorite (user_id, blog_id, create_date
+    insert into dts_favorite (author_id, vbo_id, create_date
       )
-    values (#{userId,jdbcType=VARCHAR}, #{blogId,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}
+    values (#{authorId,jdbcType=VARCHAR}, #{vboId,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}
       )
   </insert>
   <insert id="insertSelective" parameterType="net.ttcxy.tang.model.DtsFavorite">
     insert into dts_favorite
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="userId != null">
-        user_id,
+      <if test="authorId != null">
+        author_id,
       </if>
-      <if test="blogId != null">
-        blog_id,
+      <if test="vboId != null">
+        vbo_id,
       </if>
       <if test="createDate != null">
         create_date,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="userId != null">
-        #{userId,jdbcType=VARCHAR},
+      <if test="authorId != null">
+        #{authorId,jdbcType=VARCHAR},
       </if>
-      <if test="blogId != null">
-        #{blogId,jdbcType=VARCHAR},
+      <if test="vboId != null">
+        #{vboId,jdbcType=VARCHAR},
       </if>
       <if test="createDate != null">
         #{createDate,jdbcType=TIMESTAMP},
@@ -127,11 +127,11 @@
   <update id="updateByExampleSelective" parameterType="map">
     update dts_favorite
     <set>
-      <if test="record.userId != null">
-        user_id = #{record.userId,jdbcType=VARCHAR},
+      <if test="record.authorId != null">
+        author_id = #{record.authorId,jdbcType=VARCHAR},
       </if>
-      <if test="record.blogId != null">
-        blog_id = #{record.blogId,jdbcType=VARCHAR},
+      <if test="record.vboId != null">
+        vbo_id = #{record.vboId,jdbcType=VARCHAR},
       </if>
       <if test="record.createDate != null">
         create_date = #{record.createDate,jdbcType=TIMESTAMP},
@@ -143,8 +143,8 @@
   </update>
   <update id="updateByExample" parameterType="map">
     update dts_favorite
-    set user_id = #{record.userId,jdbcType=VARCHAR},
-      blog_id = #{record.blogId,jdbcType=VARCHAR},
+    set author_id = #{record.authorId,jdbcType=VARCHAR},
+      vbo_id = #{record.vboId,jdbcType=VARCHAR},
       create_date = #{record.createDate,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />

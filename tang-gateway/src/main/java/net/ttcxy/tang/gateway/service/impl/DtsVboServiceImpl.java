@@ -6,7 +6,9 @@ import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.StrUtil;
 import net.ttcxy.tang.gateway.service.CurrentAuthorService;
 import net.ttcxy.tang.gateway.service.DtsVboService;
+import net.ttcxy.tang.mapper.DtsFavoriteMapper;
 import net.ttcxy.tang.mapper.DtsVboMapper;
+import net.ttcxy.tang.model.DtsFavorite;
 import net.ttcxy.tang.model.DtsVbo;
 import net.ttcxy.tang.model.DtsVboExample;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,9 @@ public class DtsVboServiceImpl implements DtsVboService {
 
     @Autowired
     private CurrentAuthorService currentAuthorService;
+
+    @Autowired
+    private DtsFavoriteMapper dtsFavoriteMapper;
 
     @Override
     public int insert(DtsVbo dtsVbo) {
@@ -42,6 +47,22 @@ public class DtsVboServiceImpl implements DtsVboService {
             dtsVboExample.createCriteria().andUtsAuthorUsernameEqualTo(authorUsername);
         }
         dtsVboExample.setOrderByClause("create_date desc");
-        return dtsVboMapper.selectByExample(dtsVboExample);
+        return dtsVboMapper.selectByExampleWithBLOBs(dtsVboExample);
+    }
+
+    @Override
+    public int delete(String uuid) {
+        return dtsVboMapper.deleteByPrimaryKey(uuid);
+    }
+
+
+    @Override
+    public int favorite(String uuid) {
+        String authorId = currentAuthorService.getAuthorId();
+        DtsFavorite dtsFavorite = new DtsFavorite();
+        dtsFavorite.setVboId(uuid);
+        dtsFavorite.setAuthorId(authorId);
+        dtsFavorite.setCreateDate(DateUtil.date());
+        return dtsFavoriteMapper.insert(dtsFavorite);
     }
 }

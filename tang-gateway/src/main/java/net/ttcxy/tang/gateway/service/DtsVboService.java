@@ -8,4 +8,8 @@ public interface DtsVboService {
     int insert(DtsVbo dtsVbo);
 
     List<DtsVbo> selectVbo(String authorUuid);
+
+    int delete(String uuid);
+
+    int favorite(String uuid);
 }

@@ -30,15 +30,12 @@
 <script>
     let vbo_template = `
     <li class="list-group-item">
-        <p><a href="#" style="font-weight: 600;color: #555555;">bobcbui</a><span style="float: right;font-size: 12px">2020.01.03</span></p>
-        <span>{vbo_text}</span>
-        <p style="margin-top: 5px !important;text-align: right">
-            <span>
-                <button class="btn btn-default btn-xs">关注</button>
-                <button class="btn btn-default btn-xs">收藏</button>
-                <button class="btn btn-default btn-xs">评论</button>
-            </span>
+        <p>
+            <a href="#" style="color: #de941c;font-weight: 600;font-size: 16px;">bobcbui</a>
+            <span class="pull-right" style="font-size: 14px">2020.01.03</span>
+            <span class="pull-right" style="user-select: none;color: #ff626b;margin-right: 5px;" onclick="favorite('{uuid}')">收藏</span>
         </p>
+        <span>{vbo_text}</span>
     </li>
     `
     let URL = /(https?:\/\/|ftps?:\/\/)?((\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})(:[0-9]+)?|(localhost)(:[0-9]+)?|([\w]+\.)(\S+)(\w{2,4})(:[0-9]+)?)(\/?([\w#!:.?+=&%@!\-\/]+))?/ig;
@@ -48,7 +45,7 @@
             if (!url.match('^https?:\/\/')) {
                 url = 'http://' + url;
             }
-            return '<a href="' + urlText + '">网页链接</a>';
+            return '<a href="' + urlText + '" target="_blank"><span class="glyphicon glyphicon-link" style="font-size: 12px"></span>网页链接</a>';
         });
         return text;
     };
@@ -63,10 +60,31 @@
             for (let i in result){
                 let vbo = result[i]["vboText"]
                 vbo = toLink(vbo).replaceAll("\r","<br>").replaceAll("\n","<br>")
-                let wb = vbo_template.signMix({"vbo_text":vbo,"vbo_url":result[i]["vboUrl"],"path_name":result[i]["vboUrlName"]})
+                let wb = vbo_template.signMix({
+                    "vbo_text":vbo,
+                    "vbo_url":result[i]["vboUrl"],
+                    "path_name":result[i]["vboUrlName"],
+                    "uuid":result[i]["uuid"]
+                })
                 $("#blog-list").append(wb)
             }
         }
     })
+
+    function favorite(vboId){
+        $.ajax({
+            type:"POST",
+            url:"/vbo/favorite",
+            contentType:"application/json",
+            data:JSON.stringify({
+                "uuid":vboId
+            }),
+            success(result){
+                if (result == "1"){
+                    alert("收藏成功")
+                }
+            }
+        })
+    }
 </script>
 </html>

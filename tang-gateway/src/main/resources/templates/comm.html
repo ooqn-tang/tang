@@ -54,7 +54,7 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal" id="cl">关闭</button>
                     <button type="button" class="btn btn-primary" id="fabu">发布</button>
                 </div>
             </div>
@@ -70,7 +70,9 @@
                         "vboText":vbo_text
                     }),
                     success(result) {
-                        alert(JSON.stringify(result))
+                        if ("1" == result){
+                            $("#cl").click()
+                        }
                     }
                 })
             })

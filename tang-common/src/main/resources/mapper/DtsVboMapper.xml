@@ -4,9 +4,11 @@
   <resultMap id="BaseResultMap" type="net.ttcxy.tang.model.DtsVbo">
     <id column="uuid" jdbcType="VARCHAR" property="uuid" />
     <result column="uts_author_username" jdbcType="VARCHAR" property="utsAuthorUsername" />
-    <result column="vbo_text" jdbcType="VARCHAR" property="vboText" />
     <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
     <result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="net.ttcxy.tang.model.DtsVbo">
+    <result column="vbo_text" jdbcType="LONGVARCHAR" property="vboText" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -67,8 +69,27 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    uuid, uts_author_username, vbo_text, create_date, update_date
+    uuid, uts_author_username, create_date, update_date
   </sql>
+  <sql id="Blob_Column_List">
+    vbo_text
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="net.ttcxy.tang.model.DtsVboExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from dts_vbo
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
   <select id="selectByExample" parameterType="net.ttcxy.tang.model.DtsVboExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
@@ -83,9 +104,11 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
     select 
     <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
     from dts_vbo
     where uuid = #{uuid,jdbcType=VARCHAR}
   </select>
@@ -100,10 +123,10 @@
     </if>
   </delete>
   <insert id="insert" parameterType="net.ttcxy.tang.model.DtsVbo">
-    insert into dts_vbo (uuid, uts_author_username, vbo_text, 
-      create_date, update_date)
-    values (#{uuid,jdbcType=VARCHAR}, #{utsAuthorUsername,jdbcType=VARCHAR}, #{vboText,jdbcType=VARCHAR}, 
-      #{createDate,jdbcType=TIMESTAMP}, #{updateDate,jdbcType=TIMESTAMP})
+    insert into dts_vbo (uuid, uts_author_username, create_date, 
+      update_date, vbo_text)
+    values (#{uuid,jdbcType=VARCHAR}, #{utsAuthorUsername,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, 
+      #{updateDate,jdbcType=TIMESTAMP}, #{vboText,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="net.ttcxy.tang.model.DtsVbo">
     insert into dts_vbo
@@ -114,14 +137,14 @@
       <if test="utsAuthorUsername != null">
         uts_author_username,
       </if>
-      <if test="vboText != null">
-        vbo_text,
-      </if>
       <if test="createDate != null">
         create_date,
       </if>
       <if test="updateDate != null">
         update_date,
+      </if>
+      <if test="vboText != null">
+        vbo_text,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -131,14 +154,14 @@
       <if test="utsAuthorUsername != null">
         #{utsAuthorUsername,jdbcType=VARCHAR},
       </if>
-      <if test="vboText != null">
-        #{vboText,jdbcType=VARCHAR},
-      </if>
       <if test="createDate != null">
         #{createDate,jdbcType=TIMESTAMP},
       </if>
       <if test="updateDate != null">
         #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="vboText != null">
+        #{vboText,jdbcType=LONGVARCHAR},
       </if>
     </trim>
   </insert>
@@ -157,16 +180,27 @@
       <if test="record.utsAuthorUsername != null">
         uts_author_username = #{record.utsAuthorUsername,jdbcType=VARCHAR},
       </if>
-      <if test="record.vboText != null">
-        vbo_text = #{record.vboText,jdbcType=VARCHAR},
-      </if>
       <if test="record.createDate != null">
         create_date = #{record.createDate,jdbcType=TIMESTAMP},
       </if>
       <if test="record.updateDate != null">
         update_date = #{record.updateDate,jdbcType=TIMESTAMP},
       </if>
+      <if test="record.vboText != null">
+        vbo_text = #{record.vboText,jdbcType=LONGVARCHAR},
+      </if>
     </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update dts_vbo
+    set uuid = #{record.uuid,jdbcType=VARCHAR},
+      uts_author_username = #{record.utsAuthorUsername,jdbcType=VARCHAR},
+      create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      update_date = #{record.updateDate,jdbcType=TIMESTAMP},
+      vbo_text = #{record.vboText,jdbcType=LONGVARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -175,7 +209,6 @@
     update dts_vbo
     set uuid = #{record.uuid,jdbcType=VARCHAR},
       uts_author_username = #{record.utsAuthorUsername,jdbcType=VARCHAR},
-      vbo_text = #{record.vboText,jdbcType=VARCHAR},
       create_date = #{record.createDate,jdbcType=TIMESTAMP},
       update_date = #{record.updateDate,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
@@ -188,22 +221,29 @@
       <if test="utsAuthorUsername != null">
         uts_author_username = #{utsAuthorUsername,jdbcType=VARCHAR},
       </if>
-      <if test="vboText != null">
-        vbo_text = #{vboText,jdbcType=VARCHAR},
-      </if>
       <if test="createDate != null">
         create_date = #{createDate,jdbcType=TIMESTAMP},
       </if>
       <if test="updateDate != null">
         update_date = #{updateDate,jdbcType=TIMESTAMP},
       </if>
+      <if test="vboText != null">
+        vbo_text = #{vboText,jdbcType=LONGVARCHAR},
+      </if>
     </set>
+    where uuid = #{uuid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="net.ttcxy.tang.model.DtsVbo">
+    update dts_vbo
+    set uts_author_username = #{utsAuthorUsername,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      update_date = #{updateDate,jdbcType=TIMESTAMP},
+      vbo_text = #{vboText,jdbcType=LONGVARCHAR}
     where uuid = #{uuid,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="net.ttcxy.tang.model.DtsVbo">
     update dts_vbo
     set uts_author_username = #{utsAuthorUsername,jdbcType=VARCHAR},
-      vbo_text = #{vboText,jdbcType=VARCHAR},
       create_date = #{createDate,jdbcType=TIMESTAMP},
       update_date = #{updateDate,jdbcType=TIMESTAMP}
     where uuid = #{uuid,jdbcType=VARCHAR}

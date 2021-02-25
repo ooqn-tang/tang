@@ -28,4 +28,16 @@ public class DtsVboController {
             @RequestParam(value = "page" ,defaultValue = "1")Integer page){
         return ResponseResult.success(dtsVboService.selectVbo(author));
     }
+
+    @PostMapping("delete")
+    public ResponseResult<?> delete(@RequestBody DtsVbo dtsVbo){
+        String uuid = dtsVbo.getUuid();
+        return ResponseResult.success(dtsVboService.delete(uuid));
+    }
+
+    @PostMapping("favorite")
+    public ResponseResult<?> favorite(@RequestBody DtsVbo dtsVbo) {
+        String uuid = dtsVbo.getUuid();
+        return ResponseResult.success(dtsVboService.favorite(uuid));
+    }
 }

@@ -16,15 +16,21 @@ public interface DtsVboMapper {
 
     int insertSelective(DtsVbo record);
 
+    List<DtsVbo> selectByExampleWithBLOBs(DtsVboExample example);
+
     List<DtsVbo> selectByExample(DtsVboExample example);
 
     DtsVbo selectByPrimaryKey(String uuid);
 
     int updateByExampleSelective(@Param("record") DtsVbo record, @Param("example") DtsVboExample example);
 
+    int updateByExampleWithBLOBs(@Param("record") DtsVbo record, @Param("example") DtsVboExample example);
+
     int updateByExample(@Param("record") DtsVbo record, @Param("example") DtsVboExample example);
 
     int updateByPrimaryKeySelective(DtsVbo record);
+
+    int updateByPrimaryKeyWithBLOBs(DtsVbo record);
 
     int updateByPrimaryKey(DtsVbo record);
 }
