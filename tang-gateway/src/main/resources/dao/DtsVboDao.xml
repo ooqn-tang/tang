@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.ttcxy.tang.gateway.dao.DtsVboDao">
+
+    <resultMap id="DtsVboDto" type="net.ttcxy.tang.gateway.entity.dto.DtsVboDto">
+        <id column="id" jdbcType="VARCHAR" property="dtsVbo.id" />
+        <result column="vbo_text" jdbcType="VARCHAR" property="dtsVbo.vboText"/>
+        <result column="create_date" jdbcType="TIMESTAMP" property="dtsVbo.createDate"/>
+        <result column="updateDate" jdbcType="TIMESTAMP" property="dtsVbo.updateDate"/>
+        <result column="username" jdbcType="VARCHAR" property="utsAuthor.username"/>
+        <result column="nickname" jdbcType="VARCHAR" property="utsAuthor.nickname"/>
+    </resultMap>
+
+    <select id="select" resultMap="DtsVboDto">
+        SELECT dv.id,vbo_text,dv.create_date,dv.update_date,ua.username,ua.nickname
+        FROM `dts_vbo` dv , `uts_author` ua
+        where dv.uts_author_id = ua.id
+        <if test="username != null and username != ''">
+            and ua.username = #{username}
+        </if>
+        order by create_date desc
+    </select>
+</mapper>

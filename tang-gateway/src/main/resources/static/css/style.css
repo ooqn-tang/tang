@@ -5,8 +5,12 @@
     margin-bottom: 10px
 }
 *{
+    list-style-type:none;
     word-wrap:break-word;
     outline: none !important;
+}
+ul{
+    padding: 0px
 }
 
 .markdown-body pre{

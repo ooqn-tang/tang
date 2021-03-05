@@ -5,9 +5,9 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class UtsOtherHomePath implements Serializable {
-    private String uuid;
+    private String id;
 
-    private String utsAuthorUuid;
+    private String utsAuthorId;
 
     @ApiModelProperty(value = "网站名")
     private String webName;
@@ -24,20 +24,20 @@ public class UtsOtherHomePath implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    public String getUuid() {
-        return uuid;
+    public String getId() {
+        return id;
     }
 
-    public void setUuid(String uuid) {
-        this.uuid = uuid;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public String getUtsAuthorUuid() {
-        return utsAuthorUuid;
+    public String getUtsAuthorId() {
+        return utsAuthorId;
     }
 
-    public void setUtsAuthorUuid(String utsAuthorUuid) {
-        this.utsAuthorUuid = utsAuthorUuid;
+    public void setUtsAuthorId(String utsAuthorId) {
+        this.utsAuthorId = utsAuthorId;
     }
 
     public String getWebName() {
@@ -86,8 +86,8 @@ public class UtsOtherHomePath implements Serializable {
         sb.append(getClass().getSimpleName());
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
-        sb.append(", uuid=").append(uuid);
-        sb.append(", utsAuthorUuid=").append(utsAuthorUuid);
+        sb.append(", id=").append(id);
+        sb.append(", utsAuthorId=").append(utsAuthorId);
         sb.append(", webName=").append(webName);
         sb.append(", webPath=").append(webPath);
         sb.append(", addrName=").append(addrName);

@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="net.ttcxy.tang.mapper.UtsOtherHomePathMapper">
-  <resultMap id="BaseResultMap" type="net.ttcxy.tang.model.UtsOtherHomePath">
+<mapper namespace="net.ttcxy.tang.mapper.DtsVboCommentMapper">
+  <resultMap id="BaseResultMap" type="net.ttcxy.tang.model.DtsVboComment">
     <id column="id" jdbcType="VARCHAR" property="id" />
-    <result column="uts_author_id" jdbcType="VARCHAR" property="utsAuthorId" />
-    <result column="web_name" jdbcType="VARCHAR" property="webName" />
-    <result column="web_path" jdbcType="VARCHAR" property="webPath" />
-    <result column="addr_name" jdbcType="VARCHAR" property="addrName" />
+    <result column="vbo_id" jdbcType="VARCHAR" property="vboId" />
+    <result column="text" jdbcType="VARCHAR" property="text" />
+    <result column="level" jdbcType="INTEGER" property="level" />
     <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
     <result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
   </resultMap>
@@ -69,15 +68,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, uts_author_id, web_name, web_path, addr_name, create_date, update_date
+    id, vbo_id, text, level, create_date, update_date
   </sql>
-  <select id="selectByExample" parameterType="net.ttcxy.tang.model.UtsOtherHomePathExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="net.ttcxy.tang.model.DtsVboCommentExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from uts_other_home_path
+    from dts_vbo_comment
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -88,44 +87,41 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from uts_other_home_path
+    from dts_vbo_comment
     where id = #{id,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-    delete from uts_other_home_path
+    delete from dts_vbo_comment
     where id = #{id,jdbcType=VARCHAR}
   </delete>
-  <delete id="deleteByExample" parameterType="net.ttcxy.tang.model.UtsOtherHomePathExample">
-    delete from uts_other_home_path
+  <delete id="deleteByExample" parameterType="net.ttcxy.tang.model.DtsVboCommentExample">
+    delete from dts_vbo_comment
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="net.ttcxy.tang.model.UtsOtherHomePath">
-    insert into uts_other_home_path (id, uts_author_id, web_name, 
-      web_path, addr_name, create_date, 
-      update_date)
-    values (#{id,jdbcType=VARCHAR}, #{utsAuthorId,jdbcType=VARCHAR}, #{webName,jdbcType=VARCHAR}, 
-      #{webPath,jdbcType=VARCHAR}, #{addrName,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, 
-      #{updateDate,jdbcType=TIMESTAMP})
+  <insert id="insert" parameterType="net.ttcxy.tang.model.DtsVboComment">
+    insert into dts_vbo_comment (id, vbo_id, text, 
+      level, create_date, update_date
+      )
+    values (#{id,jdbcType=VARCHAR}, #{vboId,jdbcType=VARCHAR}, #{text,jdbcType=VARCHAR}, 
+      #{level,jdbcType=INTEGER}, #{createDate,jdbcType=TIMESTAMP}, #{updateDate,jdbcType=TIMESTAMP}
+      )
   </insert>
-  <insert id="insertSelective" parameterType="net.ttcxy.tang.model.UtsOtherHomePath">
-    insert into uts_other_home_path
+  <insert id="insertSelective" parameterType="net.ttcxy.tang.model.DtsVboComment">
+    insert into dts_vbo_comment
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
       </if>
-      <if test="utsAuthorId != null">
-        uts_author_id,
+      <if test="vboId != null">
+        vbo_id,
       </if>
-      <if test="webName != null">
-        web_name,
+      <if test="text != null">
+        text,
       </if>
-      <if test="webPath != null">
-        web_path,
-      </if>
-      <if test="addrName != null">
-        addr_name,
+      <if test="level != null">
+        level,
       </if>
       <if test="createDate != null">
         create_date,
@@ -138,17 +134,14 @@
       <if test="id != null">
         #{id,jdbcType=VARCHAR},
       </if>
-      <if test="utsAuthorId != null">
-        #{utsAuthorId,jdbcType=VARCHAR},
+      <if test="vboId != null">
+        #{vboId,jdbcType=VARCHAR},
       </if>
-      <if test="webName != null">
-        #{webName,jdbcType=VARCHAR},
+      <if test="text != null">
+        #{text,jdbcType=VARCHAR},
       </if>
-      <if test="webPath != null">
-        #{webPath,jdbcType=VARCHAR},
-      </if>
-      <if test="addrName != null">
-        #{addrName,jdbcType=VARCHAR},
+      <if test="level != null">
+        #{level,jdbcType=INTEGER},
       </if>
       <if test="createDate != null">
         #{createDate,jdbcType=TIMESTAMP},
@@ -158,29 +151,26 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="net.ttcxy.tang.model.UtsOtherHomePathExample" resultType="java.lang.Long">
-    select count(*) from uts_other_home_path
+  <select id="countByExample" parameterType="net.ttcxy.tang.model.DtsVboCommentExample" resultType="java.lang.Long">
+    select count(*) from dts_vbo_comment
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update uts_other_home_path
+    update dts_vbo_comment
     <set>
       <if test="record.id != null">
         id = #{record.id,jdbcType=VARCHAR},
       </if>
-      <if test="record.utsAuthorId != null">
-        uts_author_id = #{record.utsAuthorId,jdbcType=VARCHAR},
+      <if test="record.vboId != null">
+        vbo_id = #{record.vboId,jdbcType=VARCHAR},
       </if>
-      <if test="record.webName != null">
-        web_name = #{record.webName,jdbcType=VARCHAR},
+      <if test="record.text != null">
+        text = #{record.text,jdbcType=VARCHAR},
       </if>
-      <if test="record.webPath != null">
-        web_path = #{record.webPath,jdbcType=VARCHAR},
-      </if>
-      <if test="record.addrName != null">
-        addr_name = #{record.addrName,jdbcType=VARCHAR},
+      <if test="record.level != null">
+        level = #{record.level,jdbcType=INTEGER},
       </if>
       <if test="record.createDate != null">
         create_date = #{record.createDate,jdbcType=TIMESTAMP},
@@ -194,32 +184,28 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update uts_other_home_path
+    update dts_vbo_comment
     set id = #{record.id,jdbcType=VARCHAR},
-      uts_author_id = #{record.utsAuthorId,jdbcType=VARCHAR},
-      web_name = #{record.webName,jdbcType=VARCHAR},
-      web_path = #{record.webPath,jdbcType=VARCHAR},
-      addr_name = #{record.addrName,jdbcType=VARCHAR},
+      vbo_id = #{record.vboId,jdbcType=VARCHAR},
+      text = #{record.text,jdbcType=VARCHAR},
+      level = #{record.level,jdbcType=INTEGER},
       create_date = #{record.createDate,jdbcType=TIMESTAMP},
       update_date = #{record.updateDate,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="net.ttcxy.tang.model.UtsOtherHomePath">
-    update uts_other_home_path
+  <update id="updateByPrimaryKeySelective" parameterType="net.ttcxy.tang.model.DtsVboComment">
+    update dts_vbo_comment
     <set>
-      <if test="utsAuthorId != null">
-        uts_author_id = #{utsAuthorId,jdbcType=VARCHAR},
+      <if test="vboId != null">
+        vbo_id = #{vboId,jdbcType=VARCHAR},
       </if>
-      <if test="webName != null">
-        web_name = #{webName,jdbcType=VARCHAR},
+      <if test="text != null">
+        text = #{text,jdbcType=VARCHAR},
       </if>
-      <if test="webPath != null">
-        web_path = #{webPath,jdbcType=VARCHAR},
-      </if>
-      <if test="addrName != null">
-        addr_name = #{addrName,jdbcType=VARCHAR},
+      <if test="level != null">
+        level = #{level,jdbcType=INTEGER},
       </if>
       <if test="createDate != null">
         create_date = #{createDate,jdbcType=TIMESTAMP},
@@ -230,12 +216,11 @@
     </set>
     where id = #{id,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="net.ttcxy.tang.model.UtsOtherHomePath">
-    update uts_other_home_path
-    set uts_author_id = #{utsAuthorId,jdbcType=VARCHAR},
-      web_name = #{webName,jdbcType=VARCHAR},
-      web_path = #{webPath,jdbcType=VARCHAR},
-      addr_name = #{addrName,jdbcType=VARCHAR},
+  <update id="updateByPrimaryKey" parameterType="net.ttcxy.tang.model.DtsVboComment">
+    update dts_vbo_comment
+    set vbo_id = #{vboId,jdbcType=VARCHAR},
+      text = #{text,jdbcType=VARCHAR},
+      level = #{level,jdbcType=INTEGER},
       create_date = #{createDate,jdbcType=TIMESTAMP},
       update_date = #{updateDate,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=VARCHAR}

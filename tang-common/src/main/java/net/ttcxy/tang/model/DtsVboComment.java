@@ -4,16 +4,18 @@ import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 import java.util.Date;
 
-public class DtsVbo implements Serializable {
+public class DtsVboComment implements Serializable {
     private String id;
 
-    private String utsAuthorId;
+    private String vboId;
+
+    private String text;
+
+    private Integer level;
 
     private Date createDate;
 
     private Date updateDate;
-
-    private String vboText;
 
     private static final long serialVersionUID = 1L;
 
@@ -25,12 +27,28 @@ public class DtsVbo implements Serializable {
         this.id = id;
     }
 
-    public String getUtsAuthorId() {
-        return utsAuthorId;
+    public String getVboId() {
+        return vboId;
     }
 
-    public void setUtsAuthorId(String utsAuthorId) {
-        this.utsAuthorId = utsAuthorId;
+    public void setVboId(String vboId) {
+        this.vboId = vboId;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    public Integer getLevel() {
+        return level;
+    }
+
+    public void setLevel(Integer level) {
+        this.level = level;
     }
 
     public Date getCreateDate() {
@@ -49,14 +67,6 @@ public class DtsVbo implements Serializable {
         this.updateDate = updateDate;
     }
 
-    public String getVboText() {
-        return vboText;
-    }
-
-    public void setVboText(String vboText) {
-        this.vboText = vboText;
-    }
-
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -64,10 +74,11 @@ public class DtsVbo implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
-        sb.append(", utsAuthorId=").append(utsAuthorId);
+        sb.append(", vboId=").append(vboId);
+        sb.append(", text=").append(text);
+        sb.append(", level=").append(level);
         sb.append(", createDate=").append(createDate);
         sb.append(", updateDate=").append(updateDate);
-        sb.append(", vboText=").append(vboText);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

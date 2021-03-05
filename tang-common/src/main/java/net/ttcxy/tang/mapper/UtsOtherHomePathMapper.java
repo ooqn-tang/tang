@@ -10,7 +10,7 @@ public interface UtsOtherHomePathMapper {
 
     int deleteByExample(UtsOtherHomePathExample example);
 
-    int deleteByPrimaryKey(String uuid);
+    int deleteByPrimaryKey(String id);
 
     int insert(UtsOtherHomePath record);
 
@@ -18,7 +18,7 @@ public interface UtsOtherHomePathMapper {
 
     List<UtsOtherHomePath> selectByExample(UtsOtherHomePathExample example);
 
-    UtsOtherHomePath selectByPrimaryKey(String uuid);
+    UtsOtherHomePath selectByPrimaryKey(String id);
 
     int updateByExampleSelective(@Param("record") UtsOtherHomePath record, @Param("example") UtsOtherHomePathExample example);
 

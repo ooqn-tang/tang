@@ -14,10 +14,9 @@
             <div class="col-md-4 col-md-push-8">
                 <div class="panel panel-default">
                     <div class="panel-body">
-                        <strong>bobcbui</strong>
+                        <strong th:text="${utsAuthorLogin.nickname}"></strong>
                         <hr>
-                        <div id="jj">
-                            专注养猪的博主
+                        <div style="min-height: 30px;" th:text="${utsAuthorLogin.signature}">
                         </div>
                     </div>
                 </div>
@@ -65,14 +64,20 @@
 <script>
 
     let vbo_template = `
-    <li class="list-group-item" id="{uuid}">
+    <li class="list-group-item" id="{id}">
         <p>
-            <a href="#" style="color: #de941c;font-weight: 600;font-size: 16px;">bobcbui</a>
-            <span class="pull-right" style="font-size: 14px">{updateDate}</span>
-            <span class="pull-right" style="font-size: 14px;padding-right: 6px;color: #0074ff;">置顶</span>
-            <span class="pull-right" style="font-size: 14px;padding-right: 6px;color: #ff0814;" onclick="deleteVbo('{uuid}')">删除</span>
+            <a href="/author/{username}" style="color: #007fde;font-weight: 600;font-size: 16px;">{nickname}</a>
+
+            <span class="pull-right" style="font-size: 14px">2020.01.03</span>
         </p>
         <span>{vbo_text}</span>
+        <hr>
+        <p>
+            <span style="user-select: none;color: #346fff;margin-right: 5px;" onclick="favorite('{id}')">评论</span>
+            <span class="pull-right" style="user-select: none;color: #ff8908;margin-right: 5px;" onclick="favorite('{id}')">推荐</span>
+            <span class="pull-right" style="font-size: 14px;padding-right: 6px;color: #ff0814;" onclick="deleteVbo('{id}')">删除</span>
+            <span class="pull-right" style="font-size: 14px;padding-right: 6px;color: #0074ff;">置顶</span>
+        </p>
     </li>
     `
 
@@ -92,35 +97,35 @@
         url:"/vbo/select",
         contentType: "application/json",
         data:{
-            "author":"bobcbui"
+            "author":"[[${username}]]"
         },
         success(result) {
             for (let i in result){
-                let vbo = result[i]["vboText"]
+                let vbo = result[i]["dtsVbo"]["vboText"]
                 vbo = toLink(vbo).replaceAll(/\r+/g,"<br>").replaceAll(/\n+/g,"<br>")
                 let wb = vbo_template.signMix({
                     "vbo_text":vbo,
-                    "vbo_url":result[i]["vboUrl"],
-                    "path_name":result[i]["vboUrlName"],
-                    "updateDate":result[i]["updateDate"],
-                    "uuid":result[i]["uuid"]
+                    "updateDate":result[i]["dtsVbo"]["createDate"],
+                    "id":result[i]["dtsVbo"]["id"],
+                    "nickname":result[i]["utsAuthor"]["nickname"],
+                    "username":result[i]["utsAuthor"]["username"]
                 })
                 $("#blog-list").append(wb)
             }
         }
     })
 
-    function deleteVbo(uuid){
+    function deleteVbo(id){
         if(confirm("确认要删除？")){
             $.ajax({
                 type:"POST",
                 url:"/vbo/delete",
                 contentType: "application/json",
                 data:JSON.stringify({
-                    "uuid":uuid
+                    "id":id
                 }),
                 success(result) {
-                    $("#" + uuid).remove()
+                    $("#" + id).remove()
                 }
             })
         }

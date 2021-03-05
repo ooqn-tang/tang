@@ -2,8 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="net.ttcxy.tang.mapper.DtsVboMapper">
   <resultMap id="BaseResultMap" type="net.ttcxy.tang.model.DtsVbo">
-    <id column="uuid" jdbcType="VARCHAR" property="uuid" />
-    <result column="uts_author_username" jdbcType="VARCHAR" property="utsAuthorUsername" />
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="uts_author_id" jdbcType="VARCHAR" property="utsAuthorId" />
     <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
     <result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
   </resultMap>
@@ -69,7 +69,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    uuid, uts_author_username, create_date, update_date
+    id, uts_author_id, create_date, update_date
   </sql>
   <sql id="Blob_Column_List">
     vbo_text
@@ -110,11 +110,11 @@
     ,
     <include refid="Blob_Column_List" />
     from dts_vbo
-    where uuid = #{uuid,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from dts_vbo
-    where uuid = #{uuid,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="net.ttcxy.tang.model.DtsVboExample">
     delete from dts_vbo
@@ -123,19 +123,19 @@
     </if>
   </delete>
   <insert id="insert" parameterType="net.ttcxy.tang.model.DtsVbo">
-    insert into dts_vbo (uuid, uts_author_username, create_date, 
+    insert into dts_vbo (id, uts_author_id, create_date, 
       update_date, vbo_text)
-    values (#{uuid,jdbcType=VARCHAR}, #{utsAuthorUsername,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, 
+    values (#{id,jdbcType=VARCHAR}, #{utsAuthorId,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, 
       #{updateDate,jdbcType=TIMESTAMP}, #{vboText,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="net.ttcxy.tang.model.DtsVbo">
     insert into dts_vbo
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="uuid != null">
-        uuid,
+      <if test="id != null">
+        id,
       </if>
-      <if test="utsAuthorUsername != null">
-        uts_author_username,
+      <if test="utsAuthorId != null">
+        uts_author_id,
       </if>
       <if test="createDate != null">
         create_date,
@@ -148,11 +148,11 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="uuid != null">
-        #{uuid,jdbcType=VARCHAR},
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
       </if>
-      <if test="utsAuthorUsername != null">
-        #{utsAuthorUsername,jdbcType=VARCHAR},
+      <if test="utsAuthorId != null">
+        #{utsAuthorId,jdbcType=VARCHAR},
       </if>
       <if test="createDate != null">
         #{createDate,jdbcType=TIMESTAMP},
@@ -174,11 +174,11 @@
   <update id="updateByExampleSelective" parameterType="map">
     update dts_vbo
     <set>
-      <if test="record.uuid != null">
-        uuid = #{record.uuid,jdbcType=VARCHAR},
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=VARCHAR},
       </if>
-      <if test="record.utsAuthorUsername != null">
-        uts_author_username = #{record.utsAuthorUsername,jdbcType=VARCHAR},
+      <if test="record.utsAuthorId != null">
+        uts_author_id = #{record.utsAuthorId,jdbcType=VARCHAR},
       </if>
       <if test="record.createDate != null">
         create_date = #{record.createDate,jdbcType=TIMESTAMP},
@@ -196,8 +196,8 @@
   </update>
   <update id="updateByExampleWithBLOBs" parameterType="map">
     update dts_vbo
-    set uuid = #{record.uuid,jdbcType=VARCHAR},
-      uts_author_username = #{record.utsAuthorUsername,jdbcType=VARCHAR},
+    set id = #{record.id,jdbcType=VARCHAR},
+      uts_author_id = #{record.utsAuthorId,jdbcType=VARCHAR},
       create_date = #{record.createDate,jdbcType=TIMESTAMP},
       update_date = #{record.updateDate,jdbcType=TIMESTAMP},
       vbo_text = #{record.vboText,jdbcType=LONGVARCHAR}
@@ -207,8 +207,8 @@
   </update>
   <update id="updateByExample" parameterType="map">
     update dts_vbo
-    set uuid = #{record.uuid,jdbcType=VARCHAR},
-      uts_author_username = #{record.utsAuthorUsername,jdbcType=VARCHAR},
+    set id = #{record.id,jdbcType=VARCHAR},
+      uts_author_id = #{record.utsAuthorId,jdbcType=VARCHAR},
       create_date = #{record.createDate,jdbcType=TIMESTAMP},
       update_date = #{record.updateDate,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
@@ -218,8 +218,8 @@
   <update id="updateByPrimaryKeySelective" parameterType="net.ttcxy.tang.model.DtsVbo">
     update dts_vbo
     <set>
-      <if test="utsAuthorUsername != null">
-        uts_author_username = #{utsAuthorUsername,jdbcType=VARCHAR},
+      <if test="utsAuthorId != null">
+        uts_author_id = #{utsAuthorId,jdbcType=VARCHAR},
       </if>
       <if test="createDate != null">
         create_date = #{createDate,jdbcType=TIMESTAMP},
@@ -231,21 +231,21 @@
         vbo_text = #{vboText,jdbcType=LONGVARCHAR},
       </if>
     </set>
-    where uuid = #{uuid,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKeyWithBLOBs" parameterType="net.ttcxy.tang.model.DtsVbo">
     update dts_vbo
-    set uts_author_username = #{utsAuthorUsername,jdbcType=VARCHAR},
+    set uts_author_id = #{utsAuthorId,jdbcType=VARCHAR},
       create_date = #{createDate,jdbcType=TIMESTAMP},
       update_date = #{updateDate,jdbcType=TIMESTAMP},
       vbo_text = #{vboText,jdbcType=LONGVARCHAR}
-    where uuid = #{uuid,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="net.ttcxy.tang.model.DtsVbo">
     update dts_vbo
-    set uts_author_username = #{utsAuthorUsername,jdbcType=VARCHAR},
+    set uts_author_id = #{utsAuthorId,jdbcType=VARCHAR},
       create_date = #{createDate,jdbcType=TIMESTAMP},
       update_date = #{updateDate,jdbcType=TIMESTAMP}
-    where uuid = #{uuid,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
   </update>
 </mapper>

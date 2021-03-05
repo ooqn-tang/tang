@@ -10,7 +10,7 @@ public interface DtsVboMapper {
 
     int deleteByExample(DtsVboExample example);
 
-    int deleteByPrimaryKey(String uuid);
+    int deleteByPrimaryKey(String id);
 
     int insert(DtsVbo record);
 
@@ -20,7 +20,7 @@ public interface DtsVboMapper {
 
     List<DtsVbo> selectByExample(DtsVboExample example);
 
-    DtsVbo selectByPrimaryKey(String uuid);
+    DtsVbo selectByPrimaryKey(String id);
 
     int updateByExampleSelective(@Param("record") DtsVbo record, @Param("example") DtsVboExample example);
 

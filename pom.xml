@@ -6,7 +6,6 @@
     <modules>
         <module>tang-gateway</module>
         <module>tang-generator</module>
-        <module>tang-admin</module>
         <module>tang-common</module>
     </modules>
     <parent>

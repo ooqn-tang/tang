@@ -55,6 +55,7 @@ public class StsPageController {
             return modelAndView;
         }
         modelAndView.setViewName("author");
+        System.out.println(utsAuthorLogin);
         modelAndView.addObject(utsAuthorLogin);
         return modelAndView;
     }

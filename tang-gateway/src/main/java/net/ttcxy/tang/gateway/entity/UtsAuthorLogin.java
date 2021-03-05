@@ -118,4 +118,15 @@ public class UtsAuthorLogin implements UserDetails {
         this.mail = mail;
     }
 
+    @Override
+    public String toString() {
+        return "UtsAuthorLogin{" +
+                "id='" + id + '\'' +
+                ", username='" + username + '\'' +
+                ", nickname='" + nickname + '\'' +
+                ", password='" + password + '\'' +
+                ", signature='" + signature + '\'' +
+                ", mail='" + mail + '\'' +
+                '}';
+    }
 }

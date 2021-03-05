@@ -1,11 +1,17 @@
 package net.ttcxy.tang.gateway.controller;
 
+import cn.hutool.core.bean.BeanUtil;
 import io.swagger.annotations.Api;
 import net.ttcxy.tang.api.ResponseResult;
+import net.ttcxy.tang.gateway.entity.param.DtsVboCommentParam;
+import net.ttcxy.tang.gateway.service.DtsVboCommentService;
 import net.ttcxy.tang.gateway.service.DtsVboService;
 import net.ttcxy.tang.model.DtsVbo;
+import net.ttcxy.tang.model.DtsVboComment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("vbo")
@@ -31,13 +37,25 @@ public class DtsVboController {
 
     @PostMapping("delete")
     public ResponseResult<?> delete(@RequestBody DtsVbo dtsVbo){
-        String uuid = dtsVbo.getUuid();
-        return ResponseResult.success(dtsVboService.delete(uuid));
+        String id = dtsVbo.getId();
+        return ResponseResult.success(dtsVboService.delete(id));
     }
 
     @PostMapping("favorite")
     public ResponseResult<?> favorite(@RequestBody DtsVbo dtsVbo) {
-        String uuid = dtsVbo.getUuid();
-        return ResponseResult.success(dtsVboService.favorite(uuid));
+        String id = dtsVbo.getId();
+        return ResponseResult.success(dtsVboService.favorite(id));
+    }
+
+    @Autowired
+    private DtsVboCommentService dtsVboCommentService;
+
+    @PostMapping("comment")
+    public ResponseResult<?> comment(@Valid DtsVboCommentParam dtsVboCommentParam){
+        DtsVboComment dtsVboComment = new DtsVboComment();
+        BeanUtil.copyProperties(dtsVboCommentParam,dtsVboComment);
+
+        int i = dtsVboCommentService.addComment(dtsVboComment);
+        return ResponseResult.success(i);
     }
 }

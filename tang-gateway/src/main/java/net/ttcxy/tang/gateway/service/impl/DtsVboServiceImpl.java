@@ -4,6 +4,8 @@ import cn.hutool.core.date.DateTime;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.StrUtil;
+import net.ttcxy.tang.gateway.dao.DtsVboDao;
+import net.ttcxy.tang.gateway.entity.dto.DtsVboDto;
 import net.ttcxy.tang.gateway.service.CurrentAuthorService;
 import net.ttcxy.tang.gateway.service.DtsVboService;
 import net.ttcxy.tang.mapper.DtsFavoriteMapper;
@@ -28,12 +30,14 @@ public class DtsVboServiceImpl implements DtsVboService {
     @Autowired
     private DtsFavoriteMapper dtsFavoriteMapper;
 
+    @Autowired
+    private DtsVboDao dtsVboDao;
+
     @Override
     public int insert(DtsVbo dtsVbo) {
-        String authorUsername = currentAuthorService.getAuthor().getUsername();
-
-        dtsVbo.setUtsAuthorUsername(authorUsername);
-        dtsVbo.setUuid(IdUtil.fastSimpleUUID());
+        String id = currentAuthorService.getAuthor().getId();
+        dtsVbo.setId(IdUtil.fastSimpleUUID());
+        dtsVbo.setUtsAuthorId(id);
         DateTime date = DateUtil.date();
         dtsVbo.setCreateDate(date);
         dtsVbo.setUpdateDate(date);
@@ -41,13 +45,8 @@ public class DtsVboServiceImpl implements DtsVboService {
     }
 
 
-    public List<DtsVbo> selectVbo(String authorUsername){
-        DtsVboExample dtsVboExample = new DtsVboExample();
-        if (StrUtil.isNotBlank(authorUsername)){
-            dtsVboExample.createCriteria().andUtsAuthorUsernameEqualTo(authorUsername);
-        }
-        dtsVboExample.setOrderByClause("create_date desc");
-        return dtsVboMapper.selectByExampleWithBLOBs(dtsVboExample);
+    public List<DtsVboDto> selectVbo(String authorUsername){
+        return dtsVboDao.select(authorUsername);
     }
 
     @Override
@@ -57,10 +56,10 @@ public class DtsVboServiceImpl implements DtsVboService {
 
 
     @Override
-    public int favorite(String uuid) {
+    public int favorite(String id) {
         String authorId = currentAuthorService.getAuthorId();
         DtsFavorite dtsFavorite = new DtsFavorite();
-        dtsFavorite.setVboId(uuid);
+        dtsFavorite.setVboId(id);
         dtsFavorite.setAuthorId(authorId);
         dtsFavorite.setCreateDate(DateUtil.date());
         return dtsFavoriteMapper.insert(dtsFavorite);

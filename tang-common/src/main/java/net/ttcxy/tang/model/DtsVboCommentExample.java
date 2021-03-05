@@ -4,14 +4,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class DtsVboExample {
+public class DtsVboCommentExample {
     protected String orderByClause;
 
     protected boolean distinct;
 
     protected List<Criteria> oredCriteria;
 
-    public DtsVboExample() {
+    public DtsVboCommentExample() {
         oredCriteria = new ArrayList<Criteria>();
     }
 
@@ -175,73 +175,203 @@ public class DtsVboExample {
             return (Criteria) this;
         }
 
-        public Criteria andUtsAuthorIdIsNull() {
-            addCriterion("uts_author_id is null");
+        public Criteria andVboIdIsNull() {
+            addCriterion("vbo_id is null");
             return (Criteria) this;
         }
 
-        public Criteria andUtsAuthorIdIsNotNull() {
-            addCriterion("uts_author_id is not null");
+        public Criteria andVboIdIsNotNull() {
+            addCriterion("vbo_id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andUtsAuthorIdEqualTo(String value) {
-            addCriterion("uts_author_id =", value, "utsAuthorId");
+        public Criteria andVboIdEqualTo(String value) {
+            addCriterion("vbo_id =", value, "vboId");
             return (Criteria) this;
         }
 
-        public Criteria andUtsAuthorIdNotEqualTo(String value) {
-            addCriterion("uts_author_id <>", value, "utsAuthorId");
+        public Criteria andVboIdNotEqualTo(String value) {
+            addCriterion("vbo_id <>", value, "vboId");
             return (Criteria) this;
         }
 
-        public Criteria andUtsAuthorIdGreaterThan(String value) {
-            addCriterion("uts_author_id >", value, "utsAuthorId");
+        public Criteria andVboIdGreaterThan(String value) {
+            addCriterion("vbo_id >", value, "vboId");
             return (Criteria) this;
         }
 
-        public Criteria andUtsAuthorIdGreaterThanOrEqualTo(String value) {
-            addCriterion("uts_author_id >=", value, "utsAuthorId");
+        public Criteria andVboIdGreaterThanOrEqualTo(String value) {
+            addCriterion("vbo_id >=", value, "vboId");
             return (Criteria) this;
         }
 
-        public Criteria andUtsAuthorIdLessThan(String value) {
-            addCriterion("uts_author_id <", value, "utsAuthorId");
+        public Criteria andVboIdLessThan(String value) {
+            addCriterion("vbo_id <", value, "vboId");
             return (Criteria) this;
         }
 
-        public Criteria andUtsAuthorIdLessThanOrEqualTo(String value) {
-            addCriterion("uts_author_id <=", value, "utsAuthorId");
+        public Criteria andVboIdLessThanOrEqualTo(String value) {
+            addCriterion("vbo_id <=", value, "vboId");
             return (Criteria) this;
         }
 
-        public Criteria andUtsAuthorIdLike(String value) {
-            addCriterion("uts_author_id like", value, "utsAuthorId");
+        public Criteria andVboIdLike(String value) {
+            addCriterion("vbo_id like", value, "vboId");
             return (Criteria) this;
         }
 
-        public Criteria andUtsAuthorIdNotLike(String value) {
-            addCriterion("uts_author_id not like", value, "utsAuthorId");
+        public Criteria andVboIdNotLike(String value) {
+            addCriterion("vbo_id not like", value, "vboId");
             return (Criteria) this;
         }
 
-        public Criteria andUtsAuthorIdIn(List<String> values) {
-            addCriterion("uts_author_id in", values, "utsAuthorId");
+        public Criteria andVboIdIn(List<String> values) {
+            addCriterion("vbo_id in", values, "vboId");
             return (Criteria) this;
         }
 
-        public Criteria andUtsAuthorIdNotIn(List<String> values) {
-            addCriterion("uts_author_id not in", values, "utsAuthorId");
+        public Criteria andVboIdNotIn(List<String> values) {
+            addCriterion("vbo_id not in", values, "vboId");
             return (Criteria) this;
         }
 
-        public Criteria andUtsAuthorIdBetween(String value1, String value2) {
-            addCriterion("uts_author_id between", value1, value2, "utsAuthorId");
+        public Criteria andVboIdBetween(String value1, String value2) {
+            addCriterion("vbo_id between", value1, value2, "vboId");
             return (Criteria) this;
         }
 
-        public Criteria andUtsAuthorIdNotBetween(String value1, String value2) {
-            addCriterion("uts_author_id not between", value1, value2, "utsAuthorId");
+        public Criteria andVboIdNotBetween(String value1, String value2) {
+            addCriterion("vbo_id not between", value1, value2, "vboId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTextIsNull() {
+            addCriterion("text is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTextIsNotNull() {
+            addCriterion("text is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTextEqualTo(String value) {
+            addCriterion("text =", value, "text");
+            return (Criteria) this;
+        }
+
+        public Criteria andTextNotEqualTo(String value) {
+            addCriterion("text <>", value, "text");
+            return (Criteria) this;
+        }
+
+        public Criteria andTextGreaterThan(String value) {
+            addCriterion("text >", value, "text");
+            return (Criteria) this;
+        }
+
+        public Criteria andTextGreaterThanOrEqualTo(String value) {
+            addCriterion("text >=", value, "text");
+            return (Criteria) this;
+        }
+
+        public Criteria andTextLessThan(String value) {
+            addCriterion("text <", value, "text");
+            return (Criteria) this;
+        }
+
+        public Criteria andTextLessThanOrEqualTo(String value) {
+            addCriterion("text <=", value, "text");
+            return (Criteria) this;
+        }
+
+        public Criteria andTextLike(String value) {
+            addCriterion("text like", value, "text");
+            return (Criteria) this;
+        }
+
+        public Criteria andTextNotLike(String value) {
+            addCriterion("text not like", value, "text");
+            return (Criteria) this;
+        }
+
+        public Criteria andTextIn(List<String> values) {
+            addCriterion("text in", values, "text");
+            return (Criteria) this;
+        }
+
+        public Criteria andTextNotIn(List<String> values) {
+            addCriterion("text not in", values, "text");
+            return (Criteria) this;
+        }
+
+        public Criteria andTextBetween(String value1, String value2) {
+            addCriterion("text between", value1, value2, "text");
+            return (Criteria) this;
+        }
+
+        public Criteria andTextNotBetween(String value1, String value2) {
+            addCriterion("text not between", value1, value2, "text");
+            return (Criteria) this;
+        }
+
+        public Criteria andLevelIsNull() {
+            addCriterion("level is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andLevelIsNotNull() {
+            addCriterion("level is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andLevelEqualTo(Integer value) {
+            addCriterion("level =", value, "level");
+            return (Criteria) this;
+        }
+
+        public Criteria andLevelNotEqualTo(Integer value) {
+            addCriterion("level <>", value, "level");
+            return (Criteria) this;
+        }
+
+        public Criteria andLevelGreaterThan(Integer value) {
+            addCriterion("level >", value, "level");
+            return (Criteria) this;
+        }
+
+        public Criteria andLevelGreaterThanOrEqualTo(Integer value) {
+            addCriterion("level >=", value, "level");
+            return (Criteria) this;
+        }
+
+        public Criteria andLevelLessThan(Integer value) {
+            addCriterion("level <", value, "level");
+            return (Criteria) this;
+        }
+
+        public Criteria andLevelLessThanOrEqualTo(Integer value) {
+            addCriterion("level <=", value, "level");
+            return (Criteria) this;
+        }
+
+        public Criteria andLevelIn(List<Integer> values) {
+            addCriterion("level in", values, "level");
+            return (Criteria) this;
+        }
+
+        public Criteria andLevelNotIn(List<Integer> values) {
+            addCriterion("level not in", values, "level");
+            return (Criteria) this;
+        }
+
+        public Criteria andLevelBetween(Integer value1, Integer value2) {
+            addCriterion("level between", value1, value2, "level");
+            return (Criteria) this;
+        }
+
+        public Criteria andLevelNotBetween(Integer value1, Integer value2) {
+            addCriterion("level not between", value1, value2, "level");
             return (Criteria) this;
         }
 
