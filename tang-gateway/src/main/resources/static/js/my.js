@@ -140,3 +140,15 @@ $.ajaxSetup({
         }
     }
 });
+
+let URL = /(https?:\/\/|ftps?:\/\/)?((\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})(:[0-9]+)?|(localhost)(:[0-9]+)?|([\w]+\.)(\S+)(\w{2,4})(:[0-9]+)?)(\/?([\w#!:.?+=&%@!\-\/]+))?/ig;
+let toLink = function (text) {
+    text = text.replace(URL, function (url) {
+        let urlText = url;
+        if (!url.match('^https?:\/\/')) {
+            url = 'http://' + url;
+        }
+        return '<a href="' + urlText + '" target="_blank"><span class="glyphicon glyphicon-link" style="font-size: 12px"></span>网页链接</a>';
+    });
+    return text;
+};

@@ -10,7 +10,11 @@
     outline: none !important;
 }
 ul{
-    padding: 0px
+    padding: 0
+}
+#blog-list .list-group-item{
+    margin-bottom: 10px;
+    border-radius: 5px;
 }
 
 .markdown-body pre{
