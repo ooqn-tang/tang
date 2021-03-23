@@ -13,8 +13,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 /**
  * @author huanglei
  */
-//@RunWith(SpringRunner.class)
-//@SpringBootTest(classes = TangApplication.class)
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = TangApplication.class)
 public class TestMain {
 
     @Autowired
@@ -23,11 +23,11 @@ public class TestMain {
     @Autowired
     DtsBlogMapper dtsBlogMapper;
 
-    //@Test
+    @Test
     public void upateMs(){
         while(true){
             DtsBlog dtsBlog = dtsBlogDao.selectBlogMsIsNull();
-
+            System.out.println(dtsBlog);
 
             String text = dtsBlog.getText();
             if (text == null) {
