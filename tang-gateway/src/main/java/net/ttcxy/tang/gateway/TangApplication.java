@@ -21,8 +21,6 @@ public class TangApplication {
     @Bean
     @ConditionalOnProperty(value = "not-https", havingValue = "true")
     public ServletWebServerFactory servletContainer() {
-        System.out.println("HTTPS==========================================================================================");
-
         TomcatServletWebServerFactory tomcat = new TomcatServletWebServerFactory() {
             @Override
             protected void postProcessContext(Context context) {

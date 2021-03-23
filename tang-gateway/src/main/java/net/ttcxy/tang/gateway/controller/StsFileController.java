@@ -49,12 +49,4 @@ public class StsFileController {
         return ResponseResult.success(map);
     }
 
-    public static void main(String[] args) {
-        String accessKey = "M6qf3dVX9P5RY1fQWnFItPjw7q8ExvUhFmGRgyHq";
-        String secretKey = "EoiEXLXG_GwLox4TA0W28bVCj3tXkZwT7Le_LK1z";
-        String bucket = "sdalsdsdf";
-        Auth auth = Auth.create(accessKey, secretKey);
-        String upToken = auth.uploadToken(bucket,"");
-        System.out.println(upToken);
-    }
 }
