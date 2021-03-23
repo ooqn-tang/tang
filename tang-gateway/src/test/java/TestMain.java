@@ -46,6 +46,7 @@ public class TestMain {
             }
             dtsBlog.setSynopsis(ms);
             dtsBlogMapper.updateByPrimaryKeySelective(dtsBlog);
+
         }
         }
 
