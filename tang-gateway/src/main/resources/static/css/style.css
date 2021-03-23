@@ -5,20 +5,7 @@
     margin-bottom: 10px
 }
 *{
-    list-style-type:none;
-    word-wrap:break-word;
     outline: none !important;
-}
-ul{
-    padding: 0
-}
-#blog-list .list-group-item{
-    margin-bottom: 10px;
-    border-radius: 5px;
-}
-
-.markdown-body pre{
-    border-left: 3px solid #00b2ff;
 }
 #blog-list p{
     margin: 0 !important;
@@ -68,7 +55,6 @@ body{
 .W100{width: 100%}
 .W20{width: 20%}
 .W50{width: 50%}
-.W25{width: 25%;}
 /*A标签*/
 a:hover,a:hover,a{
     text-decoration:none !important;
@@ -90,7 +76,4 @@ a:hover,a:hover,a{
 hr{
     margin-top: 8px !important;
     margin-bottom: 8px !important;
-}
-.container{
-    max-width: 800px;
 }

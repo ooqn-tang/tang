@@ -1,17 +1,19 @@
 package net.ttcxy.tang.gateway.controller;
 
 import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.util.IdUtil;
+import cn.hutool.core.util.RandomUtil;
 import cn.hutool.core.util.StrUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import net.ttcxy.tang.api.ResponseResult;
 import net.ttcxy.tang.gateway.entity.MySecurityData;
 import net.ttcxy.tang.gateway.entity.UtsAuthorLogin;
+import net.ttcxy.tang.model.UtsAuthor;
 import net.ttcxy.tang.gateway.entity.param.UtsAuthorParam;
 import net.ttcxy.tang.gateway.entity.param.UtsRegisterParam;
 import net.ttcxy.tang.gateway.service.CurrentAuthorService;
 import net.ttcxy.tang.gateway.service.UtsAuthorService;
-import net.ttcxy.tang.model.UtsAuthor;
 import net.ttcxy.tang.util.TextUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;

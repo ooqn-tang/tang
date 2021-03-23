@@ -1,9 +1,11 @@
 package net.ttcxy.tang.gateway.entity;
 
+import net.ttcxy.tang.gateway.entity.dto.UtsRoleDto;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.List;
 
 /**
  * 用户返回值
@@ -118,15 +120,4 @@ public class UtsAuthorLogin implements UserDetails {
         this.mail = mail;
     }
 
-    @Override
-    public String toString() {
-        return "UtsAuthorLogin{" +
-                "id='" + id + '\'' +
-                ", username='" + username + '\'' +
-                ", nickname='" + nickname + '\'' +
-                ", password='" + password + '\'' +
-                ", signature='" + signature + '\'' +
-                ", mail='" + mail + '\'' +
-                '}';
-    }
 }

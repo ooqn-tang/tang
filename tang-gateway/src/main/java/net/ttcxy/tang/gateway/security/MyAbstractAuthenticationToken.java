@@ -9,8 +9,7 @@ public class MyAbstractAuthenticationToken extends AbstractAuthenticationToken {
 
     private Object details;
 
-
-    public MyAbstractAuthenticationToken(Object principal) {
+    MyAbstractAuthenticationToken(Object principal) {
         super(null);
         this.principal = principal;
         this.details = null;

@@ -105,143 +105,143 @@ public class DtsFavoriteExample {
             criteria.add(new Criterion(condition, value1, value2));
         }
 
-        public Criteria andAuthorIdIsNull() {
-            addCriterion("author_id is null");
+        public Criteria andUserIdIsNull() {
+            addCriterion("user_id is null");
             return (Criteria) this;
         }
 
-        public Criteria andAuthorIdIsNotNull() {
-            addCriterion("author_id is not null");
+        public Criteria andUserIdIsNotNull() {
+            addCriterion("user_id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andAuthorIdEqualTo(String value) {
-            addCriterion("author_id =", value, "authorId");
+        public Criteria andUserIdEqualTo(String value) {
+            addCriterion("user_id =", value, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andAuthorIdNotEqualTo(String value) {
-            addCriterion("author_id <>", value, "authorId");
+        public Criteria andUserIdNotEqualTo(String value) {
+            addCriterion("user_id <>", value, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andAuthorIdGreaterThan(String value) {
-            addCriterion("author_id >", value, "authorId");
+        public Criteria andUserIdGreaterThan(String value) {
+            addCriterion("user_id >", value, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andAuthorIdGreaterThanOrEqualTo(String value) {
-            addCriterion("author_id >=", value, "authorId");
+        public Criteria andUserIdGreaterThanOrEqualTo(String value) {
+            addCriterion("user_id >=", value, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andAuthorIdLessThan(String value) {
-            addCriterion("author_id <", value, "authorId");
+        public Criteria andUserIdLessThan(String value) {
+            addCriterion("user_id <", value, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andAuthorIdLessThanOrEqualTo(String value) {
-            addCriterion("author_id <=", value, "authorId");
+        public Criteria andUserIdLessThanOrEqualTo(String value) {
+            addCriterion("user_id <=", value, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andAuthorIdLike(String value) {
-            addCriterion("author_id like", value, "authorId");
+        public Criteria andUserIdLike(String value) {
+            addCriterion("user_id like", value, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andAuthorIdNotLike(String value) {
-            addCriterion("author_id not like", value, "authorId");
+        public Criteria andUserIdNotLike(String value) {
+            addCriterion("user_id not like", value, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andAuthorIdIn(List<String> values) {
-            addCriterion("author_id in", values, "authorId");
+        public Criteria andUserIdIn(List<String> values) {
+            addCriterion("user_id in", values, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andAuthorIdNotIn(List<String> values) {
-            addCriterion("author_id not in", values, "authorId");
+        public Criteria andUserIdNotIn(List<String> values) {
+            addCriterion("user_id not in", values, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andAuthorIdBetween(String value1, String value2) {
-            addCriterion("author_id between", value1, value2, "authorId");
+        public Criteria andUserIdBetween(String value1, String value2) {
+            addCriterion("user_id between", value1, value2, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andAuthorIdNotBetween(String value1, String value2) {
-            addCriterion("author_id not between", value1, value2, "authorId");
+        public Criteria andUserIdNotBetween(String value1, String value2) {
+            addCriterion("user_id not between", value1, value2, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andVboIdIsNull() {
-            addCriterion("vbo_id is null");
+        public Criteria andBlogIdIsNull() {
+            addCriterion("blog_id is null");
             return (Criteria) this;
         }
 
-        public Criteria andVboIdIsNotNull() {
-            addCriterion("vbo_id is not null");
+        public Criteria andBlogIdIsNotNull() {
+            addCriterion("blog_id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andVboIdEqualTo(String value) {
-            addCriterion("vbo_id =", value, "vboId");
+        public Criteria andBlogIdEqualTo(String value) {
+            addCriterion("blog_id =", value, "blogId");
             return (Criteria) this;
         }
 
-        public Criteria andVboIdNotEqualTo(String value) {
-            addCriterion("vbo_id <>", value, "vboId");
+        public Criteria andBlogIdNotEqualTo(String value) {
+            addCriterion("blog_id <>", value, "blogId");
             return (Criteria) this;
         }
 
-        public Criteria andVboIdGreaterThan(String value) {
-            addCriterion("vbo_id >", value, "vboId");
+        public Criteria andBlogIdGreaterThan(String value) {
+            addCriterion("blog_id >", value, "blogId");
             return (Criteria) this;
         }
 
-        public Criteria andVboIdGreaterThanOrEqualTo(String value) {
-            addCriterion("vbo_id >=", value, "vboId");
+        public Criteria andBlogIdGreaterThanOrEqualTo(String value) {
+            addCriterion("blog_id >=", value, "blogId");
             return (Criteria) this;
         }
 
-        public Criteria andVboIdLessThan(String value) {
-            addCriterion("vbo_id <", value, "vboId");
+        public Criteria andBlogIdLessThan(String value) {
+            addCriterion("blog_id <", value, "blogId");
             return (Criteria) this;
         }
 
-        public Criteria andVboIdLessThanOrEqualTo(String value) {
-            addCriterion("vbo_id <=", value, "vboId");
+        public Criteria andBlogIdLessThanOrEqualTo(String value) {
+            addCriterion("blog_id <=", value, "blogId");
             return (Criteria) this;
         }
 
-        public Criteria andVboIdLike(String value) {
-            addCriterion("vbo_id like", value, "vboId");
+        public Criteria andBlogIdLike(String value) {
+            addCriterion("blog_id like", value, "blogId");
             return (Criteria) this;
         }
 
-        public Criteria andVboIdNotLike(String value) {
-            addCriterion("vbo_id not like", value, "vboId");
+        public Criteria andBlogIdNotLike(String value) {
+            addCriterion("blog_id not like", value, "blogId");
             return (Criteria) this;
         }
 
-        public Criteria andVboIdIn(List<String> values) {
-            addCriterion("vbo_id in", values, "vboId");
+        public Criteria andBlogIdIn(List<String> values) {
+            addCriterion("blog_id in", values, "blogId");
             return (Criteria) this;
         }
 
-        public Criteria andVboIdNotIn(List<String> values) {
-            addCriterion("vbo_id not in", values, "vboId");
+        public Criteria andBlogIdNotIn(List<String> values) {
+            addCriterion("blog_id not in", values, "blogId");
             return (Criteria) this;
         }
 
-        public Criteria andVboIdBetween(String value1, String value2) {
-            addCriterion("vbo_id between", value1, value2, "vboId");
+        public Criteria andBlogIdBetween(String value1, String value2) {
+            addCriterion("blog_id between", value1, value2, "blogId");
             return (Criteria) this;
         }
 
-        public Criteria andVboIdNotBetween(String value1, String value2) {
-            addCriterion("vbo_id not between", value1, value2, "vboId");
+        public Criteria andBlogIdNotBetween(String value1, String value2) {
+            addCriterion("blog_id not between", value1, value2, "blogId");
             return (Criteria) this;
         }
 

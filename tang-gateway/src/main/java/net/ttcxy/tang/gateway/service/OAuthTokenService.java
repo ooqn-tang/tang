@@ -15,5 +15,5 @@ public interface OAuthTokenService {
     /**
      * 通过GithubId 创建用户
      */
-    UtsAuthor createAuthorAndGithubLogin(String githubId, String host);
+    UtsAuthor createAuthorAndGithubLogin(String githubId,String host);
 }

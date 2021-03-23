@@ -15,4 +15,6 @@ public class UtsAuthorDto {
 
     private UtsAuthor utsAuthor;
 
+    private Set<UtsRoleDto> utsRoleDto;
+
 }

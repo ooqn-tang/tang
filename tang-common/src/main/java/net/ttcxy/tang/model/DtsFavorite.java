@@ -5,28 +5,28 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class DtsFavorite implements Serializable {
-    private String authorId;
+    private String userId;
 
-    private String vboId;
+    private String blogId;
 
     private Date createDate;
 
     private static final long serialVersionUID = 1L;
 
-    public String getAuthorId() {
-        return authorId;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setAuthorId(String authorId) {
-        this.authorId = authorId;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
-    public String getVboId() {
-        return vboId;
+    public String getBlogId() {
+        return blogId;
     }
 
-    public void setVboId(String vboId) {
-        this.vboId = vboId;
+    public void setBlogId(String blogId) {
+        this.blogId = blogId;
     }
 
     public Date getCreateDate() {
@@ -43,8 +43,8 @@ public class DtsFavorite implements Serializable {
         sb.append(getClass().getSimpleName());
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
-        sb.append(", authorId=").append(authorId);
-        sb.append(", vboId=").append(vboId);
+        sb.append(", userId=").append(userId);
+        sb.append(", blogId=").append(blogId);
         sb.append(", createDate=").append(createDate);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");

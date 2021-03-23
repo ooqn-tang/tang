@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.ttcxy.tang.admin.dao.UtsMemberDao">
+
+  <resultMap id="MemberMap" type="net.ttcxy.tang.admin.entity.UtsMemberLogin">
+      <id column="id" jdbcType="VARCHAR" property="id" />
+      <result column="username" jdbcType="VARCHAR" property="username" />
+      <result column="nickname" jdbcType="VARCHAR" property="nickname" />
+      <result column="password" jdbcType="VARCHAR" property="password" />
+      <result column="signature" jdbcType="VARCHAR" property="signature" />
+      <result column="mail" jdbcType="VARCHAR" property="mail" />
+  </resultMap>
+
+    <select id="selectMailIsTrue" resultType="integer">
+        select count(1)
+        from `uts_member`
+        where mail = #{mail}
+    </select>
+
+    <select id="selectUsernameIsTrue" resultType="integer">
+        select count(1)
+        from `uts_member`
+        where username = #{username}
+    </select>
+
+    <select id="selectNicknameIsTrue" resultType="integer">
+        select count(1)
+        from `uts_member`
+        where nickname = #{nickname}
+    </select>
+
+    <select id="selectMemberByMail" resultMap="MemberMap">
+        select id,username,nickname,password,signature,mail
+        from `uts_member`
+        where mail = #{mail}
+    </select>
+
+
+
+    <select id="selectMemberByName" resultMap="MemberMap">
+        select id,username,nickname,password,signature,mail
+        from `uts_member`
+        where username = #{username}
+    </select>
+
+    <select id="selectLoginMemberByMail" resultMap="MemberMap">
+        select id,username,nickname,password,signature,mail
+        from `uts_member`
+        where mail = #{mail}
+    </select>
+</mapper>

@@ -1,0 +1,253 @@
+<html>
+    <head>
+        <title>编辑器</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1.0,user-scalable=no,minimum-scale=1.0,maximum-scale=1.0"/>
+        <link href="https://cdn.bootcss.com/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://cdn.bootcss.com/github-markdown-css/4.0.0/github-markdown.min.css" rel="stylesheet">
+        <script src="https://cdn.bootcdn.net/ajax/libs/marked/1.2.7/marked.min.js"></script>
+        <style>
+            *{
+                padding: 0;
+                margin: 0;
+                border: 0;
+                box-sizing: border-box;
+                border-radius: 0;
+                resize: none;
+                outline: none;
+                cursor: pointer;
+            }
+            img{
+                max-width: 100%;
+            }
+            html,body{
+                width: 100%;
+                height: 100%;
+                padding: 0;
+                margin: 0;
+            }
+            .head{
+                height: 40px;
+            }
+            .body{
+                height:-webkit-calc(100% - 80px);
+                height:-moz-calc(100% - 80px);
+                height:calc(100% - 80px);
+                border-bottom: 1px solid black;
+                border-top: 1px solid black;
+                overflow: auto;
+            }
+            .foot{
+                height: 40px;
+                background: #f4f4f4;
+                line-height: 40px;
+                padding:0 10px;
+                color: rgb(45, 89, 184);
+                font-weight:bold
+            }
+            #save{
+                border-left: 1px #b5adad solid;
+                outline: none;
+                width: 90px;
+                float: right;
+                height: 100%;
+                background: #337ab7;
+                border-radius: 0;
+                color: #fff;
+            }
+            #title{
+                background: #f4f4f4;
+                padding-left: 10px;
+                padding-right: 10px;
+                font-size: 24px;
+                line-height: 30px;
+                width: -webkit-calc(100% - 90px);
+                width: -moz-calc(100% - 90px);
+                width: calc(100% - 90px);
+                height: 100%;
+                outline: none;
+            }
+            #content{
+                width: 50%;
+                height: 100%;
+                float: left;
+                background: #fff8eb;
+                padding: 10px;
+                font-size: 18px;
+                overflow-y: auto;
+            }
+            #text{
+                width: 50%;
+                height: 100%;
+                float:left;
+                border-right: 1px solid black;
+                background-color: #e2e3e4;
+                padding: 10px;
+                font-size: 18px;
+                overflow-y: auto;
+            }
+            @media screen and (max-width: 700px) {
+                #text {
+                    width: 100% !important;
+                    border-right: 0 !important;
+                }
+                #content{
+                    display: none;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="head">
+            <input type="text" id="title" placeholder="标题">
+            <input type="button" id="save" value="发布">
+        </div>
+        <div class="body" style="">
+            <textarea id="text" onkeyup="keyup()" placeholder="可以输入Markdown文本为内容添加样式"></textarea>
+            <div id="content" class="markdown-body"></div>
+        </div>
+        <div class="foot" style="">
+            <input id="file" type="file" style="display: none;" onchange="upload()">
+            <span id="imgBut">图片</span>
+            <span id="wbk">文本块</span>
+            <span style="float: right;">帮助</span>
+        </div>
+    </body>
+    <script src="https://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery.hotkeys/0.1.0/jquery.hotkeys.min.js"></script>
+    <script src="/js/qiniu.min.js"></script>
+    <script>
+        let rendererMD = new marked.Renderer();
+        let blog = '[[${blogId}]]';
+        let scrollId = null;
+        $("#imgBut").click(function () {
+            $("#file").click()
+        })
+        marked.setOptions({
+            renderer: rendererMD,
+            gfm: true,
+            tables: true,
+            breaks: true,
+            pedantic: false,
+            smartLists: true,
+            smartypants: false
+        });
+        function keyup(){
+            let markdown = $("#text").val();
+            let html = marked(markdown);
+            $("#content").html(html)
+        }
+        $("#text").scroll(function(){
+            let h = $(this)[0].scrollHeight - $("#content")[0].scrollHeight;
+            if (scrollId === "text"){
+                $("#content").scrollTop($(this).scrollTop());
+            }
+        });
+        $("#content").scroll(function() {
+            if (scrollId === "content"){
+                $("#text").scrollTop($(this).scrollTop());
+            }
+        });
+        $("#text").mouseover(function(){
+            scrollId = "text"
+        });
+        $("#content").mouseover(function(){
+            scrollId = "content"
+        });
+        $("#wbk").click(function(){
+            let c = "``````";
+            setText(c,c.length - 3)
+        });
+        function setText(text,py){
+            var txtArea = $("#text")[0];
+            var content = txtArea.value;
+            var start = txtArea.selectionStart;
+            txtArea.value = content.substring(0, txtArea.selectionStart) + text + content.substring(txtArea.selectionEnd, content.length);
+            var position = start + (py);
+            $("#text").focus();
+            txtArea.setSelectionRange(position, position);
+        }
+        function upload(){
+            $.ajax({
+                type:"get",
+                url:"/file/up-token",
+                contentType: "application/json", //必须这样写
+                success:function (result) {
+                    var fileObj = document.getElementById("file").files[0];
+                    var putExtra = {
+                        fname: fileObj.filename,
+                        params: {},
+                        mimeType: []
+                    };
+                    var config = {
+                        useCdnDomain: true,
+                        region: qiniu.region.z0
+                    };
+                    var observer = {
+                        next(res){
+                            console.log(res)
+                        },
+                        error(err){
+                            console.log(err)
+                        },
+                        complete(res){
+                            let c = "![描述]("+result["dz"] + res["key"]+")";
+                            setText( c , c.length);
+                            keyup()
+                        }
+                    };
+                    var observable = qiniu.upload(fileObj, result["key"], result["upToken"], putExtra, config);
+                    var subscription = observable.subscribe(observer)
+                }
+            })
+        }
+        function update(id,title,synopsis,markdown,html){
+            $.ajax({
+                type:"POST",
+                url:"/blog/update",
+                contentType: "application/json", //必须这样写
+                dataType:"text",
+                async:false,
+                data:JSON.stringify({
+                    title:title,
+                    text:html,
+                    synopsis:synopsis,
+                    markdown:markdown,
+                    id:id
+                }),
+                success (result) {
+                    window.location.href="/post/"+id
+                },
+                error(e){
+                    console.log(e)
+                }
+            })
+        }
+        $("#save").click(function(){
+            let title = $("#title").val();
+            let markdown = $("#text").val();
+            let html = marked(markdown);
+            let synopsis = $("#content").text().substr(0,250)
+            if (title === ""){
+                alert("标题不能为空");
+                return
+            }
+            if (markdown === ""){
+                alert("内容不能为空");
+                return
+            }
+            update(blog,title,synopsis,markdown,html);
+        });
+
+        $.ajax({
+            type:"get",
+            url:"/blog/load"+"?blog="+blog,
+            contentType: "application/json", //必须这样写
+            success:function (result) {
+                $("#text").val(result.markdown);
+                $("#title").val(result.title);
+                keyup()
+            }
+        })
+    </script>
+</html>

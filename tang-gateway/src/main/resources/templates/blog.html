@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="zh-CN"  xmlns:th="http://www.w3.org/1999/xhtml" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<head>
+    <title th:text="${dtsBlogDto.title}  + ' - 堂堂程序员'"></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />
+    <link href="/favicon.ico" rel="icon"/>
+    <link href="/css/style.css" rel="stylesheet"/>
+    <link href="https://cdn.bootcss.com/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcss.com/github-markdown-css/4.0.0/github-markdown.min.css" rel="stylesheet">
+    <script src="https://cdn.bootcss.com/vue/2.6.10/vue.min.js"></script>
+    <meta name="description" th:attr="content=${dtsBlogDto.synopsis}"/>
+</head>
+<body>
+<div th:replace="comm::navigation"></div>
+<div class="container" id="app" v-cloak>
+    <div class="row" style="margin-bottom: 50px;">
+        <div class="col-md-9 column">
+            <div class="panel panel-default" >
+                <div class="panel-body" id="blog-body" style="overflow-y:hidden;">
+                    <div>
+                        <strong>
+                            <a th:href="@{/author/{id}(id=${dtsBlogDto.username})}" th:text="${dtsBlogDto.nickname}"></a>
+                        </strong>
+                        <span style="color:#b4b4b4" th:text="${#dates.format(dtsBlogDto.createDate,'yyyy.MM.dd')}"></span>
+                        <div class="btn-group pull-right">
+                            <button class="btn btn-default btn-xs"  @click="followerClick" v-text="follower.text"></button>
+                        </div>
+                    </div>
+                    <h3><strong th:text="${dtsBlogDto.title}"></strong></h3>
+                    <hr>
+                    <div class="markdown-body" th:utext="${dtsBlogDto.text}"></div>
+                </div>
+                <div class="panel-footer">
+                    <button th:classappend="${like == 1} ? 'btn btn-danger  btn-xs' : 'btn btn-default btn-xs'" @click="likeClick" id="lkBut">推荐</button>
+                    <a @click="updateBlog" class="btn btn-default btn-xs"  th:if="${session.SPRING_SECURITY_CONTEXT != null && session.SPRING_SECURITY_CONTEXT.authentication.principal.username == dtsBlogDto.username}" >编辑</a>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <strong>留言</strong>
+                </div>
+                <div class="panel-body"  id="commentBody" style="word-wrap:break-word">
+                    <div v-for="(item,index) in comments" v-if="comments.length > 0 ">
+                        <strong><a v-bind:href="'/author/'+ item.username" v-text="item.nickname"></a></strong>
+                        <span style="color:gainsboro" class="pull-right" v-text="item.createDate"></span>
+                        <span style="color:#dca492;margin-right: 10px;"
+                              class="pull-right"
+                              @click="deleteComment(item.id,index)"
+                              v-if="item.username == commentUsername">删除</span>
+                        <div style="border: 1px solid #ddd;border-radius: 10px;padding: 5px;background: #fbfbfb;margin-bottom: 5px"><span v-text="item.content" style="white-space: pre-line;max-height: 200px"></span></div>
+                    </div>
+                    <div v-if="comments.length == 0">
+                        没有留言...
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <a class="blog-title" th:href="'/post/'+${random.id}" th:text="${random.title}"></a>
+                    <div>
+                        <span th:text="${#dates.format(random.createDate, 'yyyy.MM.dd')}"></span>
+                        <a class="pull-right" th:href="@{/author/{id}(id=${random.username})}" th:text="${random.nickname}"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 column advertise">
+            <div th:replace="comm::advertise"></div>
+        </div>
+    </div>
+    <nav class="navbar navbar-default navbar-fixed-bottom" role="navigation">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                    <div class="input-group" style="margin-top: 8px">
+                        <textarea style="resize:none" rows="1" class="form-control " v-model="content" ref="inputContent"></textarea>
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" @click="send">留言</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+</div>
+<div th:include="comm::login"></div>
+</body>
+<script src="https://cdn.bootcss.com/jquery/2.1.2/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/twitter-bootstrap/3.3.7/js/bootstrap.js"></script>
+<script src="/js/my.js"></script>
+<script>
+    let vm = new Vue({
+        el: "#app",
+        data: {
+            blogId:'[[${dtsBlogDto.id}]]',
+            username:'[[${dtsBlogDto.username}]]',
+            author:"[[${session.SPRING_SECURITY_CONTEXT}]]" == "",
+            follower:{
+                text:"订阅",
+            },
+            comments: [],
+            content:"",
+            pl:1,
+            commentUsername:"",
+        },
+        methods: {
+            updateBlog(){
+                window.location.href='/editor/'+this.blogId
+            },
+            likeClick(){
+                if (this.author){
+                    $('#loginModal').modal("show")
+                    return
+                }
+                $.ajax({
+                    type:"GET",
+                    url:"/blog/like/"+this.blogId+"/insert",
+                    contentType: "application/json",
+                    success:function (result) {
+                        let lkBut = $("#lkBut")
+                        if (result === 1){
+                            lkBut.removeClass();
+                            lkBut.addClass("btn btn-danger  btn-xs")
+                        }else{
+                            lkBut.removeClass();
+                            lkBut.addClass("btn btn-default btn-xs")
+                        }
+                    }
+                })
+            },
+            followerClick(){
+                let _this = this
+                if (this.author){
+                    $('#loginModal').modal("show")
+                    return
+                }
+                if (_this.username == null){
+                    return
+                }
+                if (_this.follower.text === '已订阅'){
+                    $.ajax({
+                        type:"post",
+                        url:"/fans/delete/"+_this.username,
+                        contentType: "application/json",
+                        dataType:"json",
+                        success() {
+                            _this.follower.text  = "订阅"
+                        },
+                        error(e){
+                            alert(e)
+                        }
+                    })
+
+                }else{
+                    $.ajax({
+                        type:"post",
+                        url:"/fans/insert/"+_this.username,
+                        contentType: "application/json",
+                        dataType:"json",
+                        success() {
+                            _this.follower.text  = "已订阅"
+                        },
+                        error(e){
+                            alert(e)
+                        }
+                    })
+                }
+            },
+            loadFollower(){
+                if (this.author){
+                    return
+                }
+                let _this = this;
+                $.ajax({
+                    type:"GET",
+                    url:"/fans/"+_this.username,
+                    contentType: "application/json",
+                    success:function (result) {
+                        if (result){
+                            _this.follower.text = '已订阅'
+                        } else{
+                            _this.follower.text = '订阅'
+                        }
+                    }
+                })
+            },
+            send(){
+                let _this = this;
+                let dataObject = {
+                    blogId:this.blogId,
+                    content:this.content
+                };
+                $.ajax({
+                    type:"POST",
+                    url:"/comment/insert",
+                    contentType: "application/json", //必须这样写
+                    dataType:"json",
+                    data:JSON.stringify(dataObject),
+                    async:false,
+                    success:function (result) {
+                        _this.content = "";
+                        _this.comments.push(result);
+                    }
+                })
+            },
+            loadComment(){
+                $.ajax({
+                    type:"GET",
+                    url:"/comment/"+this.blogId,
+                    contentType: "application/json",
+                    dataType:"json",
+                    success:function (result) {
+                        sleep(500)
+                        vm.comments = result.comments;
+                        vm.commentUsername = result.author.username;
+                    }
+                })
+            },
+            commentClick(){
+                if (this.pl % 2 !== 0){
+                    $("#blog-body").css("height","90px").css("overflow-x","auto");
+                    $("#commentBody").css("height",(window.innerHeight-254)+"px");
+                    $(".advertise").addClass("hidden-xs hidden-sm");
+                } else{
+                    $("#blog-body").css("height","").css("overflow-x","");
+                    $("#commentBody").css("height","");
+                    $(".advertise").removeClass("hidden-xs hidden-sm");
+                }
+                this.pl++;
+            },
+            deleteComment(id,index){
+                let _this = this;
+                $.ajax({
+                    type:"POST",
+                    url:"/comment/delete/"+id,
+                    contentType: "application/json", //必须这样写
+                    dataType:"json",
+                    success:function (data) {
+                        _this.comments.splice(index, 1);
+                    }
+                })
+            }
+        },created(){
+            this.loadFollower();
+            this.loadComment();
+        }
+    })
+</script>
+</html>

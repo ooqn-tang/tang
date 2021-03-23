@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html lang="zh-CN" xmlns:th="http://www.w3.org/1999/xhtml"
->
+<html lang="zh-CN" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:v-bind="http://www.w3.org/1999/xhtml"
+      xmlns:v-on="http://www.w3.org/1999/xhtml">
 <head>
     <title>堂堂程序员</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -9,57 +9,127 @@
     <link href="/favicon.ico" rel="icon"/>
     <link href="/css/style.css" rel="stylesheet"/>
     <link href="https://cdn.bootcss.com/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
-    <script src="https://cdn.bootcss.com/jquery/2.1.2/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/vue/2.6.10/vue.min.js"></script>
 </head>
 <body>
 <div th:include="comm::navigation"></div>
 <div class="container" id="home" v-clock>
     <div class="row">
-        <div class="col-md-8 column">
-            <ul class="list-group" id="blog-list">
+        <div class="col-md-9 column">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div style="overflow: hidden;height: 22px;">
+                        <div style="overflow-x:scroll; height: 40px;white-space:nowrap">
+                            <a type="button" class="btn btn-default btn-xs" @click="show=false,pageNum=1,blogList=[],blogs()">最新</a>
+                            <input type="button" style="margin-right: 5px;" class="btn btn-default btn-xs" v-for="(item,index) in tagList" v-model="item" value=">加载中..." @click="st(item)"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <ul class="list-group" id="blog-list" v-clock>
+                <li class="list-group-item" v-for="(item,index) in blogList">
+                    <a class="blog-title" target="_blank" v-bind:href="'/post/'+item.id"><p v-text="item.title"></p></a>
+                    <div class="blog-synopsis" style="" v-text="item.synopsis"></div>
+                    <div>
+                        <span v-text="item.createDate" style="color: #00285a"></span>
+                        <a class="pull-right" v-bind:href="'/author/'+item.username" v-text="item.nickname"></a>
+                    </div>
+                </li>
+                <li class="list-group-item">
+                    <a v-bind:class="blog.isLastPage?'page':''" v-on:click="page(pageNum+=1)">获取</a>
+                    <a v-if="!show"  class="pull-right">加载中...</a>
+                </li>
             </ul>
         </div>
-        <div class="col-md-4 column">
+        <div class="col-md-3 column">
             <div th:include="comm::advertise"></div>
         </div>
     </div>
 </div>
-
+<div th:include="comm::login"></div>
 </body>
+<script src="https://cdn.bootcss.com/jquery/2.1.2/jquery.min.js"></script>
 <script src="/js/my.js"></script>
 <script src="https://cdn.bootcss.com/twitter-bootstrap/3.3.7/js/bootstrap.js"></script>
-<script src="/js/comm.js"></script>
 <script>
-    let vbo_template = `
-    <li class="list-group-item" id="{id}">
-        <p>
-            <a href="/author/{username}" style="color: #007fde;font-weight: 600;font-size: 16px;">{nickname}</a>
-            <span class="pull-right" style="font-size: 14px;color: #ff8908;">2020.01.03</span>
-        </p>
-        <div style="border: 1px solid #1e8cf8;padding: 3px;border-radius: 5px;background-color: #f5f5f5">{vbo_text}</div>
-    </li>
-    `
-    $.ajax({
-        type:"GET",
-        url:"/vbo/select",
-        contentType: "application/json",
-        data:{
-            "author":""
-        },
-        success(result) {
-            for (let i in result){
-                let vbo = result[i]["dtsVbo"]["vboText"]
-                vbo = toLink(vbo).replaceAll(/\r+/g,"<br>").replaceAll(/\n+/g,"<br>")
-                let wb = vbo_template.signMix({
-                    "vbo_text":vbo,
-                    "updateDate":result[i]["dtsVbo"]["createDate"],
-                    "id":result[i]["dtsVbo"]["id"],
-                    "nickname":result[i]["utsAuthor"]["nickname"],
-                    "username":result[i]["utsAuthor"]["username"]
-                })
-                $("#blog-list").append(wb)
+    let vm = new Vue({
+        el: "#home",//绑定元素
+        data(){
+            return {
+                pageNum:1,
+                show:false,
+                blogList:[],
+                tagList:["java","python","C++","C#","Vue","JS","Pandas","爬虫","日志","openpyxl","springboot","db2","redis","mangodb","springsecurity","程序员","游戏","相亲"],
+                blog:{
+                    list:[],
+                    isFirstPage:false,
+                    isLastPage:true,
+                }
             }
+        }, methods: {
+            st(tag){
+                this.show = false
+                this.blogList = []
+                this.search(tag)
+            },
+            page(){
+                let search;
+                this.show = false
+                try{
+                    search = getQueryVariable("s");
+                }catch(err){
+                    console.log(err)
+                }
+                if (search !== null){
+                    this.search(search)
+                }else{
+                    this.blogs()
+                }
+            },
+            blogs(){
+                let _this = this
+
+                $.ajax({
+                    type:"GET",
+                    url:"/blog/blogs",
+                    contentType: "application/json",
+                    data:{
+                        page:_this.pageNum
+                    },
+                    success(result) {
+                        _this.blog =result
+                        _this.blogList = _this.blogList.concat(result.list)
+                        sleep(500)
+                        _this.show = true
+                    },error(){
+                        alert("加载失败了？")
+                    }
+                })
+            },
+            search(search){
+                let _this = this
+                $.ajax({
+                    type:"GET",
+                    url:"/blog/so",
+                    contentType: "application/json",
+                    data:{
+                        page:_this.pageNum,
+                        search:search
+                    },
+                    success:function (result) {
+                        _this.blog = result
+                        _this.blogList = _this.blogList.concat(result.list)
+                        sleep(500)
+                        _this.show = true
+                    },error(){
+                        alert("加载失败了？")
+                    }
+                })
+            }
+        },mounted(){
+            this.page()
         }
     })
 </script>
+
 </html>
