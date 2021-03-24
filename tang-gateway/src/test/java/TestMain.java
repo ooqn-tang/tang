@@ -26,29 +26,30 @@ public class TestMain {
     @Test
     public void upateMs(){
         while(true){
-            DtsBlog dtsBlog = dtsBlogDao.selectBlogMsIsNull();
-            System.out.println(dtsBlog);
+            try{
+                DtsBlog dtsBlog = dtsBlogDao.selectBlogMsIsNull();
+                System.out.println(dtsBlog);
 
-            String text = dtsBlog.getText();
-            if (text == null) {
-                dtsBlog.setSynopsis(" ");;
+                String text = dtsBlog.getText();
+                if (text == null) {
+                    dtsBlog.setSynopsis(" ");;
 
+                    dtsBlogMapper.updateByPrimaryKeySelective(dtsBlog);
+                    continue;
+                };
+                text = Jsoup.parse(text).text();
+                String ms = StrUtil.sub(text,0,250).replaceAll("\n","");
+
+                if (ms.equals("")){
+                    dtsBlog.setSynopsis(" ");;
+                    dtsBlogMapper.updateByPrimaryKeySelective(dtsBlog);
+                    continue;
+                }
+                dtsBlog.setSynopsis(ms);
                 dtsBlogMapper.updateByPrimaryKeySelective(dtsBlog);
-                continue;
-            };
-            text = Jsoup.parse(text).text();
-            String ms = StrUtil.sub(text,0,250).replaceAll("\n","");
+            }catch (Exception e){
 
-            if (ms.equals("")){
-                dtsBlog.setSynopsis(" ");;
-                dtsBlogMapper.updateByPrimaryKeySelective(dtsBlog);
-                continue;
             }
-            dtsBlog.setSynopsis(ms);
-            dtsBlogMapper.updateByPrimaryKeySelective(dtsBlog);
-
         }
-        }
-
-
+    }
 }
