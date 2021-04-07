@@ -24,6 +24,10 @@ import java.util.Map;
 @Api("FileController")
 public class StsFileController {
 
+
+    @Value("${my-file-data}")
+    private String myFileData;
+
     @Value("${qiniu.accessKey}")
     private String accessKey;
 
