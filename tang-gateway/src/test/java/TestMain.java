@@ -13,7 +13,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 /**
  * @author huanglei
  */
-
 public class TestMain {
 
     @Autowired
