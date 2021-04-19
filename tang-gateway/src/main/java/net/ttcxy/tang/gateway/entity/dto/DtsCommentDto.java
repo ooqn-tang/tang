@@ -22,7 +22,7 @@ public class DtsCommentDto {
     private Integer status;
 
     @ApiModelProperty(value = "评论人")
-    private String userId;
+    private String authorId;
 
     @ApiModelProperty(value = "评论内容")
     private String content;
@@ -87,12 +87,12 @@ public class DtsCommentDto {
         this.status = status;
     }
 
-    public String getUserId() {
-        return userId;
+    public String getAuthorId() {
+        return authorId;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setAuthorId(String authorId) {
+        this.authorId = authorId;
     }
 
     public String getContent() {

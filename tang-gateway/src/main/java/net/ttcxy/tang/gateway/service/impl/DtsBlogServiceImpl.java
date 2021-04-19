@@ -98,9 +98,9 @@ public class DtsBlogServiceImpl implements DtsBlogService {
     }
 
     @Override
-    public int like(String userId, String blogId) {
+    public int like(String authorId, String blogId) {
         DtsLikeDataExample likeDataExample = new DtsLikeDataExample();
-        likeDataExample.createCriteria().andBlogIdEqualTo(blogId).andUserIdEqualTo(userId);
+        likeDataExample.createCriteria().andBlogIdEqualTo(blogId).andAuthorIdEqualTo(authorId);
         long l = likeMapper.countByExample(likeDataExample);
         if (l > 0){
             likeMapper.deleteByExample(likeDataExample);
@@ -108,7 +108,7 @@ public class DtsBlogServiceImpl implements DtsBlogService {
         }else{
             DtsLikeData likeData = new DtsLikeData();
             likeData.setBlogId(blogId);
-            likeData.setUserId(userId);
+            likeData.setAuthorId(authorId);
             likeData.setCreateDate(new Date());
             return likeMapper.insertSelective(likeData);
         }
@@ -132,9 +132,9 @@ public class DtsBlogServiceImpl implements DtsBlogService {
     }
 
     @Override
-    public long selectLike(String userId, String blogId) {
+    public long selectLike(String authorId, String blogId) {
         DtsLikeDataExample likeExample = new DtsLikeDataExample();
-        likeExample.createCriteria().andBlogIdEqualTo(blogId).andUserIdEqualTo(userId);
+        likeExample.createCriteria().andBlogIdEqualTo(blogId).andAuthorIdEqualTo(authorId);
         return likeMapper.countByExample(likeExample);
     }
 

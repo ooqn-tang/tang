@@ -11,7 +11,7 @@ public class DtsBlog implements Serializable {
     private String title;
 
     @ApiModelProperty(value = "作者ID")
-    private String userId;
+    private String authorId;
 
     @ApiModelProperty(value = "创建时间")
     private Date createDate;
@@ -48,12 +48,12 @@ public class DtsBlog implements Serializable {
         this.title = title;
     }
 
-    public String getUserId() {
-        return userId;
+    public String getAuthorId() {
+        return authorId;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setAuthorId(String authorId) {
+        this.authorId = authorId;
     }
 
     public Date getCreateDate() {
@@ -112,7 +112,7 @@ public class DtsBlog implements Serializable {
         sb.append("Hash = ").append(hashCode());
         sb.append(", blogId=").append(blogId);
         sb.append(", title=").append(title);
-        sb.append(", userId=").append(userId);
+        sb.append(", authorId=").append(authorId);
         sb.append(", createDate=").append(createDate);
         sb.append(", updateDate=").append(updateDate);
         sb.append(", stateCode=").append(stateCode);

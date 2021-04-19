@@ -7,7 +7,7 @@ import java.util.Date;
 public class DtsFavorite implements Serializable {
     private String favoriteId;
 
-    private String userId;
+    private String authorId;
 
     private String blogId;
 
@@ -23,12 +23,12 @@ public class DtsFavorite implements Serializable {
         this.favoriteId = favoriteId;
     }
 
-    public String getUserId() {
-        return userId;
+    public String getAuthorId() {
+        return authorId;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setAuthorId(String authorId) {
+        this.authorId = authorId;
     }
 
     public String getBlogId() {
@@ -54,7 +54,7 @@ public class DtsFavorite implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", favoriteId=").append(favoriteId);
-        sb.append(", userId=").append(userId);
+        sb.append(", authorId=").append(authorId);
         sb.append(", blogId=").append(blogId);
         sb.append(", createDate=").append(createDate);
         sb.append(", serialVersionUID=").append(serialVersionUID);

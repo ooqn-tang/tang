@@ -3,10 +3,20 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="net.ttcxy.tang.gateway.dao.DtsBlogDao">
-    <select id="selectBlog" resultType="net.ttcxy.tang.gateway.entity.dto.DtsBlogDto">
-        select b.blog_id,title,create_date  createDate,username,nickname,synopsis
+    <resultMap id="BlogResult" type="net.ttcxy.tang.gateway.entity.dto.DtsBlogDto">
+        <id column="blog_id" property="blog.blogId"/>
+        <result column="author_id" property="blog.authorId"/>
+        <result column="title" property="blog.title"/>
+        <result column="create_date" property="blog.createDate"/>
+        <result column="update_date" property="blog.updateDate"/>
+        <result column="username" property="author.username"/>
+        <result column="nickname" property="author.nickname"/>
+        <result column="synopsis" property="author.signature"/>
+    </resultMap>
+    <select id="selectBlog" resultMap="BlogResult">
+        select b.blog_id,u.author_id,title,create_date,update_date,username,nickname,synopsis
         FROM `dts_blog` b,`uts_author` u
-        where u.author_id = b.user_id
+        where u.author_id = b.author_id
         and  b.state_code = 1001
         order by create_date desc
     </select>
@@ -22,13 +32,13 @@
     <select id="selectByIdTitle" resultType="net.ttcxy.tang.gateway.entity.dto.DtsBlogDto">
         select b.id,title,create_date createDate,username,nickname,synopsis
         FROM `dts_blog` b,`uts_author` u
-        where u.id = b.user_id
+        where u.id = b.author_id
         and  b.id = #{id}
     </select>
     <select id="search" resultType="net.ttcxy.tang.gateway.entity.dto.DtsBlogDto">
         select b.id,title,create_date createDate,username,nickname,synopsis
         FROM `dts_blog` b,`uts_author` u
-        where u.id = b.user_id
+        where u.id = b.author_id
         and  b.state_code = 1001
         and b.title LIKE concat("%"#{title},"%")
         order by create_date desc
@@ -37,14 +47,14 @@
     <select id="selectBlogById" resultType="net.ttcxy.tang.gateway.entity.dto.DtsBlogDto">
         select b.id,b.title,b.create_date createDate,b.text,u.username,nickname,u.id userId,b.synopsis
         from `dts_blog` b,`uts_author` u
-        where b.user_id = u.id
+        where b.author_id = u.id
         and b.id = #{id}
     </select>
 
     <select id="searchByUsernameAuthor" resultType="net.ttcxy.tang.gateway.entity.dto.DtsBlogDto">
         select *, create_date  createDate
         from `dts_blog` b, `uts_author` u
-        where b.user_id = u.id
+        where b.author_id = u.author_id
         and username = #{username}
         order by b.create_date desc
     </select>
@@ -52,7 +62,7 @@
     <select id="searchByUsername" resultType="net.ttcxy.tang.gateway.entity.dto.DtsBlogDto">
         select *, create_date  createDate
         from `dts_blog` b, `uts_author` u
-        where b.user_id = u.id
+        where b.author_id = u.author_id
         and username = #{username}
         and state_code = 1001
         order by b.create_date desc
@@ -61,7 +71,7 @@
     <select id="selectLikeBlogs" resultType="net.ttcxy.tang.gateway.entity.dto.DtsBlogDto">
         select  b.id,b.title,b.create_date createDate,u.username,synopsis
         from `dts_like_data` l ,`uts_author` u,`dts_blog` b
-        where u.id = l.user_id
+        where u.author_id = l.author_id
         and b.id = l.blog_id
         and u.username = #{username}
         order by l.create_date desc

@@ -18,7 +18,7 @@ DROP TABLE IF EXISTS `dts_blog`;
 CREATE TABLE `dts_blog`  (
   `blog_id` varchar(32) NOT NULL PRIMARY KEY,
   `title` varchar(35) NULL DEFAULT NULL COMMENT '博客标题',
-  `user_id` varchar(32) NULL DEFAULT NULL COMMENT '作者ID',
+  `author_id` varchar(32) NULL DEFAULT NULL COMMENT '作者ID',
   `create_date` timestamp(0) DEFAULT NULL COMMENT '创建时间',
   `update_date` timestamp(0) DEFAULT NULL COMMENT '更新时间',
   `state_code` int(0) NULL DEFAULT 1002 COMMENT '状态ID,发布状态，草稿状态，退回状态，删除状态',
@@ -35,7 +35,7 @@ CREATE TABLE `dts_blog_comment`  (
   `blog_comment_id` varchar(32) NOT NULL PRIMARY KEY,
   `blog_id` varchar(32) NULL DEFAULT NULL,
   `status` int(0) NULL DEFAULT NULL,
-  `user_id` varchar(32) NULL DEFAULT NULL,
+  `author_id` varchar(32) NULL DEFAULT NULL,
   `content` varchar(2000) NULL DEFAULT NULL,
   `create_date` timestamp(0) DEFAULT NULL
 ) ;
@@ -46,10 +46,10 @@ CREATE TABLE `dts_blog_comment`  (
 DROP TABLE IF EXISTS `dts_favorite`;
 CREATE TABLE `dts_favorite` (
   `favorite_id` varchar(32) NOT NULL PRIMARY KEY,
-  `user_id` varchar(32) NULL DEFAULT NULL,
+  `author_id` varchar(32) NULL DEFAULT NULL,
   `blog_id` varchar(32) NULL DEFAULT NULL,
   `create_date` timestamp(0) DEFAULT NULL,
-  UNIQUE INDEX `dts_favorite_unique_some_name`(`user_id`, `blog_id`) USING BTREE
+  UNIQUE INDEX `dts_favorite_unique_some_name`(`author_id`, `blog_id`) USING BTREE
 );
 
 -- ----------------------------
@@ -58,7 +58,7 @@ CREATE TABLE `dts_favorite` (
 DROP TABLE IF EXISTS `dts_like_data`;
 CREATE TABLE `dts_like_data`  (
   `like_data_id` varchar(32) NOT NULL PRIMARY KEY,
-  `user_id` varchar(32) NULL DEFAULT NULL,
+  `author_id` varchar(32) NULL DEFAULT NULL,
   `blog_id` varchar(32) NULL DEFAULT NULL,
   `create_date` timestamp(0) DEFAULT NULL
 ) ;
@@ -119,10 +119,10 @@ CREATE TABLE `uts_author`  (
 DROP TABLE IF EXISTS `uts_fans`;
 CREATE TABLE `uts_fans`  (
   `fans_id` varchar(32) NOT NULL PRIMARY KEY,
-  `user_id` varchar(32) NOT NULL,
+  `author_id` varchar(32) NOT NULL,
   `follower` varchar(255) NOT NULL,
   `create_date` timestamp(0) DEFAULT NULL,
-  UNIQUE INDEX `uts_fans_unique_user_id`(`user_id`, `follower`) USING BTREE
+  UNIQUE INDEX `uts_fans_unique_author_id`(`author_id`, `follower`) USING BTREE
 ) ;
 
 -- ----------------------------

@@ -7,7 +7,7 @@ import java.util.Date;
 public class UtsFans implements Serializable {
     private String fansId;
 
-    private String userId;
+    private String authorId;
 
     private String follower;
 
@@ -23,12 +23,12 @@ public class UtsFans implements Serializable {
         this.fansId = fansId;
     }
 
-    public String getUserId() {
-        return userId;
+    public String getAuthorId() {
+        return authorId;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setAuthorId(String authorId) {
+        this.authorId = authorId;
     }
 
     public String getFollower() {
@@ -54,7 +54,7 @@ public class UtsFans implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", fansId=").append(fansId);
-        sb.append(", userId=").append(userId);
+        sb.append(", authorId=").append(authorId);
         sb.append(", follower=").append(follower);
         sb.append(", createDate=").append(createDate);
         sb.append(", serialVersionUID=").append(serialVersionUID);

@@ -3,7 +3,7 @@
 <mapper namespace="net.ttcxy.tang.gateway.dao.mapper.DtsLikeDataMapper">
   <resultMap id="BaseResultMap" type="net.ttcxy.tang.gateway.entity.model.DtsLikeData">
     <id column="LIKE_DATA_ID" jdbcType="VARCHAR" property="likeDataId" />
-    <result column="USER_ID" jdbcType="VARCHAR" property="userId" />
+    <result column="AUTHOR_ID" jdbcType="VARCHAR" property="authorId" />
     <result column="BLOG_ID" jdbcType="VARCHAR" property="blogId" />
     <result column="CREATE_DATE" jdbcType="TIMESTAMP" property="createDate" />
   </resultMap>
@@ -66,7 +66,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    LIKE_DATA_ID, USER_ID, BLOG_ID, CREATE_DATE
+    LIKE_DATA_ID, AUTHOR_ID, BLOG_ID, CREATE_DATE
   </sql>
   <select id="selectByExample" parameterType="net.ttcxy.tang.gateway.entity.model.DtsLikeDataExample" resultMap="BaseResultMap">
     select
@@ -99,9 +99,9 @@
     </if>
   </delete>
   <insert id="insert" parameterType="net.ttcxy.tang.gateway.entity.model.DtsLikeData">
-    insert into DTS_LIKE_DATA (LIKE_DATA_ID, USER_ID, BLOG_ID, 
+    insert into DTS_LIKE_DATA (LIKE_DATA_ID, AUTHOR_ID, BLOG_ID, 
       CREATE_DATE)
-    values (#{likeDataId,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{blogId,jdbcType=VARCHAR}, 
+    values (#{likeDataId,jdbcType=VARCHAR}, #{authorId,jdbcType=VARCHAR}, #{blogId,jdbcType=VARCHAR}, 
       #{createDate,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="net.ttcxy.tang.gateway.entity.model.DtsLikeData">
@@ -110,8 +110,8 @@
       <if test="likeDataId != null">
         LIKE_DATA_ID,
       </if>
-      <if test="userId != null">
-        USER_ID,
+      <if test="authorId != null">
+        AUTHOR_ID,
       </if>
       <if test="blogId != null">
         BLOG_ID,
@@ -124,8 +124,8 @@
       <if test="likeDataId != null">
         #{likeDataId,jdbcType=VARCHAR},
       </if>
-      <if test="userId != null">
-        #{userId,jdbcType=VARCHAR},
+      <if test="authorId != null">
+        #{authorId,jdbcType=VARCHAR},
       </if>
       <if test="blogId != null">
         #{blogId,jdbcType=VARCHAR},
@@ -147,8 +147,8 @@
       <if test="record.likeDataId != null">
         LIKE_DATA_ID = #{record.likeDataId,jdbcType=VARCHAR},
       </if>
-      <if test="record.userId != null">
-        USER_ID = #{record.userId,jdbcType=VARCHAR},
+      <if test="record.authorId != null">
+        AUTHOR_ID = #{record.authorId,jdbcType=VARCHAR},
       </if>
       <if test="record.blogId != null">
         BLOG_ID = #{record.blogId,jdbcType=VARCHAR},
@@ -164,7 +164,7 @@
   <update id="updateByExample" parameterType="map">
     update DTS_LIKE_DATA
     set LIKE_DATA_ID = #{record.likeDataId,jdbcType=VARCHAR},
-      USER_ID = #{record.userId,jdbcType=VARCHAR},
+      AUTHOR_ID = #{record.authorId,jdbcType=VARCHAR},
       BLOG_ID = #{record.blogId,jdbcType=VARCHAR},
       CREATE_DATE = #{record.createDate,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
@@ -174,8 +174,8 @@
   <update id="updateByPrimaryKeySelective" parameterType="net.ttcxy.tang.gateway.entity.model.DtsLikeData">
     update DTS_LIKE_DATA
     <set>
-      <if test="userId != null">
-        USER_ID = #{userId,jdbcType=VARCHAR},
+      <if test="authorId != null">
+        AUTHOR_ID = #{authorId,jdbcType=VARCHAR},
       </if>
       <if test="blogId != null">
         BLOG_ID = #{blogId,jdbcType=VARCHAR},
@@ -188,7 +188,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="net.ttcxy.tang.gateway.entity.model.DtsLikeData">
     update DTS_LIKE_DATA
-    set USER_ID = #{userId,jdbcType=VARCHAR},
+    set AUTHOR_ID = #{authorId,jdbcType=VARCHAR},
       BLOG_ID = #{blogId,jdbcType=VARCHAR},
       CREATE_DATE = #{createDate,jdbcType=TIMESTAMP}
     where LIKE_DATA_ID = #{likeDataId,jdbcType=VARCHAR}

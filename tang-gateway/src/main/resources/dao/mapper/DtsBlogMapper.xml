@@ -4,7 +4,7 @@
   <resultMap id="BaseResultMap" type="net.ttcxy.tang.gateway.entity.model.DtsBlog">
     <id column="BLOG_ID" jdbcType="VARCHAR" property="blogId" />
     <result column="TITLE" jdbcType="VARCHAR" property="title" />
-    <result column="USER_ID" jdbcType="VARCHAR" property="userId" />
+    <result column="AUTHOR_ID" jdbcType="VARCHAR" property="authorId" />
     <result column="CREATE_DATE" jdbcType="TIMESTAMP" property="createDate" />
     <result column="UPDATE_DATE" jdbcType="TIMESTAMP" property="updateDate" />
     <result column="STATE_CODE" jdbcType="INTEGER" property="stateCode" />
@@ -73,7 +73,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    BLOG_ID, TITLE, USER_ID, CREATE_DATE, UPDATE_DATE, STATE_CODE, SYNOPSIS
+    BLOG_ID, TITLE, AUTHOR_ID, CREATE_DATE, UPDATE_DATE, STATE_CODE, SYNOPSIS
   </sql>
   <sql id="Blob_Column_List">
     TEXT, MARKDOWN
@@ -127,10 +127,10 @@
     </if>
   </delete>
   <insert id="insert" parameterType="net.ttcxy.tang.gateway.entity.model.DtsBlog">
-    insert into DTS_BLOG (BLOG_ID, TITLE, USER_ID, 
+    insert into DTS_BLOG (BLOG_ID, TITLE, AUTHOR_ID, 
       CREATE_DATE, UPDATE_DATE, STATE_CODE, 
       SYNOPSIS, TEXT, MARKDOWN)
-    values (#{blogId,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, 
+    values (#{blogId,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{authorId,jdbcType=VARCHAR}, 
       #{createDate,jdbcType=TIMESTAMP}, #{updateDate,jdbcType=TIMESTAMP}, #{stateCode,jdbcType=INTEGER}, 
       #{synopsis,jdbcType=VARCHAR}, #{text,jdbcType=CLOB}, #{markdown,jdbcType=CLOB})
   </insert>
@@ -143,8 +143,8 @@
       <if test="title != null">
         TITLE,
       </if>
-      <if test="userId != null">
-        USER_ID,
+      <if test="authorId != null">
+        AUTHOR_ID,
       </if>
       <if test="createDate != null">
         CREATE_DATE,
@@ -172,8 +172,8 @@
       <if test="title != null">
         #{title,jdbcType=VARCHAR},
       </if>
-      <if test="userId != null">
-        #{userId,jdbcType=VARCHAR},
+      <if test="authorId != null">
+        #{authorId,jdbcType=VARCHAR},
       </if>
       <if test="createDate != null">
         #{createDate,jdbcType=TIMESTAMP},
@@ -210,8 +210,8 @@
       <if test="record.title != null">
         TITLE = #{record.title,jdbcType=VARCHAR},
       </if>
-      <if test="record.userId != null">
-        USER_ID = #{record.userId,jdbcType=VARCHAR},
+      <if test="record.authorId != null">
+        AUTHOR_ID = #{record.authorId,jdbcType=VARCHAR},
       </if>
       <if test="record.createDate != null">
         CREATE_DATE = #{record.createDate,jdbcType=TIMESTAMP},
@@ -240,7 +240,7 @@
     update DTS_BLOG
     set BLOG_ID = #{record.blogId,jdbcType=VARCHAR},
       TITLE = #{record.title,jdbcType=VARCHAR},
-      USER_ID = #{record.userId,jdbcType=VARCHAR},
+      AUTHOR_ID = #{record.authorId,jdbcType=VARCHAR},
       CREATE_DATE = #{record.createDate,jdbcType=TIMESTAMP},
       UPDATE_DATE = #{record.updateDate,jdbcType=TIMESTAMP},
       STATE_CODE = #{record.stateCode,jdbcType=INTEGER},
@@ -255,7 +255,7 @@
     update DTS_BLOG
     set BLOG_ID = #{record.blogId,jdbcType=VARCHAR},
       TITLE = #{record.title,jdbcType=VARCHAR},
-      USER_ID = #{record.userId,jdbcType=VARCHAR},
+      AUTHOR_ID = #{record.authorId,jdbcType=VARCHAR},
       CREATE_DATE = #{record.createDate,jdbcType=TIMESTAMP},
       UPDATE_DATE = #{record.updateDate,jdbcType=TIMESTAMP},
       STATE_CODE = #{record.stateCode,jdbcType=INTEGER},
@@ -270,8 +270,8 @@
       <if test="title != null">
         TITLE = #{title,jdbcType=VARCHAR},
       </if>
-      <if test="userId != null">
-        USER_ID = #{userId,jdbcType=VARCHAR},
+      <if test="authorId != null">
+        AUTHOR_ID = #{authorId,jdbcType=VARCHAR},
       </if>
       <if test="createDate != null">
         CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
@@ -297,7 +297,7 @@
   <update id="updateByPrimaryKeyWithBLOBs" parameterType="net.ttcxy.tang.gateway.entity.model.DtsBlog">
     update DTS_BLOG
     set TITLE = #{title,jdbcType=VARCHAR},
-      USER_ID = #{userId,jdbcType=VARCHAR},
+      AUTHOR_ID = #{authorId,jdbcType=VARCHAR},
       CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
       UPDATE_DATE = #{updateDate,jdbcType=TIMESTAMP},
       STATE_CODE = #{stateCode,jdbcType=INTEGER},
@@ -309,7 +309,7 @@
   <update id="updateByPrimaryKey" parameterType="net.ttcxy.tang.gateway.entity.model.DtsBlog">
     update DTS_BLOG
     set TITLE = #{title,jdbcType=VARCHAR},
-      USER_ID = #{userId,jdbcType=VARCHAR},
+      AUTHOR_ID = #{authorId,jdbcType=VARCHAR},
       CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
       UPDATE_DATE = #{updateDate,jdbcType=TIMESTAMP},
       STATE_CODE = #{stateCode,jdbcType=INTEGER},

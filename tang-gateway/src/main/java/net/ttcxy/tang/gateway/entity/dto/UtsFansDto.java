@@ -9,7 +9,7 @@ public class UtsFansDto {
 
     private String id;
 
-    private String userId;
+    private String authorId;
 
     private String follower;
 
@@ -27,12 +27,12 @@ public class UtsFansDto {
         this.id = id;
     }
 
-    public String getUserId() {
-        return userId;
+    public String getAuthorId() {
+        return authorId;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setAuthorId(String authorId) {
+        this.authorId = authorId;
     }
 
     public String getFollower() {

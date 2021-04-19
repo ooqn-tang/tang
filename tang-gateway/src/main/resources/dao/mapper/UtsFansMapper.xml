@@ -3,7 +3,7 @@
 <mapper namespace="net.ttcxy.tang.gateway.dao.mapper.UtsFansMapper">
   <resultMap id="BaseResultMap" type="net.ttcxy.tang.gateway.entity.model.UtsFans">
     <id column="FANS_ID" jdbcType="VARCHAR" property="fansId" />
-    <result column="USER_ID" jdbcType="VARCHAR" property="userId" />
+    <result column="AUTHOR_ID" jdbcType="VARCHAR" property="authorId" />
     <result column="FOLLOWER" jdbcType="VARCHAR" property="follower" />
     <result column="CREATE_DATE" jdbcType="TIMESTAMP" property="createDate" />
   </resultMap>
@@ -66,7 +66,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    FANS_ID, USER_ID, FOLLOWER, CREATE_DATE
+    FANS_ID, AUTHOR_ID, FOLLOWER, CREATE_DATE
   </sql>
   <select id="selectByExample" parameterType="net.ttcxy.tang.gateway.entity.model.UtsFansExample" resultMap="BaseResultMap">
     select
@@ -99,9 +99,9 @@
     </if>
   </delete>
   <insert id="insert" parameterType="net.ttcxy.tang.gateway.entity.model.UtsFans">
-    insert into UTS_FANS (FANS_ID, USER_ID, FOLLOWER, 
+    insert into UTS_FANS (FANS_ID, AUTHOR_ID, FOLLOWER, 
       CREATE_DATE)
-    values (#{fansId,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{follower,jdbcType=VARCHAR}, 
+    values (#{fansId,jdbcType=VARCHAR}, #{authorId,jdbcType=VARCHAR}, #{follower,jdbcType=VARCHAR}, 
       #{createDate,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="net.ttcxy.tang.gateway.entity.model.UtsFans">
@@ -110,8 +110,8 @@
       <if test="fansId != null">
         FANS_ID,
       </if>
-      <if test="userId != null">
-        USER_ID,
+      <if test="authorId != null">
+        AUTHOR_ID,
       </if>
       <if test="follower != null">
         FOLLOWER,
@@ -124,8 +124,8 @@
       <if test="fansId != null">
         #{fansId,jdbcType=VARCHAR},
       </if>
-      <if test="userId != null">
-        #{userId,jdbcType=VARCHAR},
+      <if test="authorId != null">
+        #{authorId,jdbcType=VARCHAR},
       </if>
       <if test="follower != null">
         #{follower,jdbcType=VARCHAR},
@@ -147,8 +147,8 @@
       <if test="record.fansId != null">
         FANS_ID = #{record.fansId,jdbcType=VARCHAR},
       </if>
-      <if test="record.userId != null">
-        USER_ID = #{record.userId,jdbcType=VARCHAR},
+      <if test="record.authorId != null">
+        AUTHOR_ID = #{record.authorId,jdbcType=VARCHAR},
       </if>
       <if test="record.follower != null">
         FOLLOWER = #{record.follower,jdbcType=VARCHAR},
@@ -164,7 +164,7 @@
   <update id="updateByExample" parameterType="map">
     update UTS_FANS
     set FANS_ID = #{record.fansId,jdbcType=VARCHAR},
-      USER_ID = #{record.userId,jdbcType=VARCHAR},
+      AUTHOR_ID = #{record.authorId,jdbcType=VARCHAR},
       FOLLOWER = #{record.follower,jdbcType=VARCHAR},
       CREATE_DATE = #{record.createDate,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
@@ -174,8 +174,8 @@
   <update id="updateByPrimaryKeySelective" parameterType="net.ttcxy.tang.gateway.entity.model.UtsFans">
     update UTS_FANS
     <set>
-      <if test="userId != null">
-        USER_ID = #{userId,jdbcType=VARCHAR},
+      <if test="authorId != null">
+        AUTHOR_ID = #{authorId,jdbcType=VARCHAR},
       </if>
       <if test="follower != null">
         FOLLOWER = #{follower,jdbcType=VARCHAR},
@@ -188,7 +188,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="net.ttcxy.tang.gateway.entity.model.UtsFans">
     update UTS_FANS
-    set USER_ID = #{userId,jdbcType=VARCHAR},
+    set AUTHOR_ID = #{authorId,jdbcType=VARCHAR},
       FOLLOWER = #{follower,jdbcType=VARCHAR},
       CREATE_DATE = #{createDate,jdbcType=TIMESTAMP}
     where FANS_ID = #{fansId,jdbcType=VARCHAR}

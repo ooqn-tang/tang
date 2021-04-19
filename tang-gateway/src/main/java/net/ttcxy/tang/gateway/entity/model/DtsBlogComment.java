@@ -11,7 +11,7 @@ public class DtsBlogComment implements Serializable {
 
     private Integer status;
 
-    private String userId;
+    private String authorId;
 
     private String content;
 
@@ -43,12 +43,12 @@ public class DtsBlogComment implements Serializable {
         this.status = status;
     }
 
-    public String getUserId() {
-        return userId;
+    public String getAuthorId() {
+        return authorId;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setAuthorId(String authorId) {
+        this.authorId = authorId;
     }
 
     public String getContent() {
@@ -76,7 +76,7 @@ public class DtsBlogComment implements Serializable {
         sb.append(", blogCommentId=").append(blogCommentId);
         sb.append(", blogId=").append(blogId);
         sb.append(", status=").append(status);
-        sb.append(", userId=").append(userId);
+        sb.append(", authorId=").append(authorId);
         sb.append(", content=").append(content);
         sb.append(", createDate=").append(createDate);
         sb.append(", serialVersionUID=").append(serialVersionUID);

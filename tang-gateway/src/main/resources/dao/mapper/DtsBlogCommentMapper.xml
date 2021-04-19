@@ -5,7 +5,7 @@
     <id column="BLOG_COMMENT_ID" jdbcType="VARCHAR" property="blogCommentId" />
     <result column="BLOG_ID" jdbcType="VARCHAR" property="blogId" />
     <result column="STATUS" jdbcType="INTEGER" property="status" />
-    <result column="USER_ID" jdbcType="VARCHAR" property="userId" />
+    <result column="AUTHOR_ID" jdbcType="VARCHAR" property="authorId" />
     <result column="CONTENT" jdbcType="VARCHAR" property="content" />
     <result column="CREATE_DATE" jdbcType="TIMESTAMP" property="createDate" />
   </resultMap>
@@ -68,7 +68,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    BLOG_COMMENT_ID, BLOG_ID, STATUS, USER_ID, CONTENT, CREATE_DATE
+    BLOG_COMMENT_ID, BLOG_ID, STATUS, AUTHOR_ID, CONTENT, CREATE_DATE
   </sql>
   <select id="selectByExample" parameterType="net.ttcxy.tang.gateway.entity.model.DtsBlogCommentExample" resultMap="BaseResultMap">
     select
@@ -102,10 +102,10 @@
   </delete>
   <insert id="insert" parameterType="net.ttcxy.tang.gateway.entity.model.DtsBlogComment">
     insert into DTS_BLOG_COMMENT (BLOG_COMMENT_ID, BLOG_ID, STATUS, 
-      USER_ID, CONTENT, CREATE_DATE
+      AUTHOR_ID, CONTENT, CREATE_DATE
       )
     values (#{blogCommentId,jdbcType=VARCHAR}, #{blogId,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
-      #{userId,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}
+      #{authorId,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}
       )
   </insert>
   <insert id="insertSelective" parameterType="net.ttcxy.tang.gateway.entity.model.DtsBlogComment">
@@ -120,8 +120,8 @@
       <if test="status != null">
         STATUS,
       </if>
-      <if test="userId != null">
-        USER_ID,
+      <if test="authorId != null">
+        AUTHOR_ID,
       </if>
       <if test="content != null">
         CONTENT,
@@ -140,8 +140,8 @@
       <if test="status != null">
         #{status,jdbcType=INTEGER},
       </if>
-      <if test="userId != null">
-        #{userId,jdbcType=VARCHAR},
+      <if test="authorId != null">
+        #{authorId,jdbcType=VARCHAR},
       </if>
       <if test="content != null">
         #{content,jdbcType=VARCHAR},
@@ -169,8 +169,8 @@
       <if test="record.status != null">
         STATUS = #{record.status,jdbcType=INTEGER},
       </if>
-      <if test="record.userId != null">
-        USER_ID = #{record.userId,jdbcType=VARCHAR},
+      <if test="record.authorId != null">
+        AUTHOR_ID = #{record.authorId,jdbcType=VARCHAR},
       </if>
       <if test="record.content != null">
         CONTENT = #{record.content,jdbcType=VARCHAR},
@@ -188,7 +188,7 @@
     set BLOG_COMMENT_ID = #{record.blogCommentId,jdbcType=VARCHAR},
       BLOG_ID = #{record.blogId,jdbcType=VARCHAR},
       STATUS = #{record.status,jdbcType=INTEGER},
-      USER_ID = #{record.userId,jdbcType=VARCHAR},
+      AUTHOR_ID = #{record.authorId,jdbcType=VARCHAR},
       CONTENT = #{record.content,jdbcType=VARCHAR},
       CREATE_DATE = #{record.createDate,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
@@ -204,8 +204,8 @@
       <if test="status != null">
         STATUS = #{status,jdbcType=INTEGER},
       </if>
-      <if test="userId != null">
-        USER_ID = #{userId,jdbcType=VARCHAR},
+      <if test="authorId != null">
+        AUTHOR_ID = #{authorId,jdbcType=VARCHAR},
       </if>
       <if test="content != null">
         CONTENT = #{content,jdbcType=VARCHAR},
@@ -220,7 +220,7 @@
     update DTS_BLOG_COMMENT
     set BLOG_ID = #{blogId,jdbcType=VARCHAR},
       STATUS = #{status,jdbcType=INTEGER},
-      USER_ID = #{userId,jdbcType=VARCHAR},
+      AUTHOR_ID = #{authorId,jdbcType=VARCHAR},
       CONTENT = #{content,jdbcType=VARCHAR},
       CREATE_DATE = #{createDate,jdbcType=TIMESTAMP}
     where BLOG_COMMENT_ID = #{blogCommentId,jdbcType=VARCHAR}

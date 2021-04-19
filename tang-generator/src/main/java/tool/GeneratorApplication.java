@@ -16,9 +16,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 @SpringBootApplication
-public class TangApplication {
+public class GeneratorApplication {
     public static void main(String[] args) {
-        SpringApplication.run(TangApplication.class, args);
+        SpringApplication.run(GeneratorApplication.class, args);
     }
 
     @Autowired
@@ -34,7 +34,7 @@ public class TangApplication {
             //当生成的代码重复时，覆盖原代码
             boolean overwrite = true;
             //读取我们的 MBG 配置文件
-            InputStream is = TangApplication.class.getResourceAsStream("/generatorConfig.xml");
+            InputStream is = GeneratorApplication.class.getResourceAsStream("/generatorConfig.xml");
             ConfigurationParser cp = new ConfigurationParser(warnings);
             Configuration config = cp.parseConfiguration(is);
             is.close();

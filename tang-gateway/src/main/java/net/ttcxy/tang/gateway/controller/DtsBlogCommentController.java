@@ -42,7 +42,7 @@ public class DtsBlogCommentController {
 
         String commentId = IdUtil.fastSimpleUUID();
         blogComment.setBlogCommentId(commentId);
-        blogComment.setUserId(loginDto.getId());
+        blogComment.setAuthorId(loginDto.getId());
         blogComment.setCreateDate(new Date());
         blogComment.setStatus(1);
 

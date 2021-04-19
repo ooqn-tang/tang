@@ -3,7 +3,7 @@
 <mapper namespace="net.ttcxy.tang.gateway.dao.mapper.DtsFavoriteMapper">
   <resultMap id="BaseResultMap" type="net.ttcxy.tang.gateway.entity.model.DtsFavorite">
     <id column="FAVORITE_ID" jdbcType="VARCHAR" property="favoriteId" />
-    <result column="USER_ID" jdbcType="VARCHAR" property="userId" />
+    <result column="AUTHOR_ID" jdbcType="VARCHAR" property="authorId" />
     <result column="BLOG_ID" jdbcType="VARCHAR" property="blogId" />
     <result column="CREATE_DATE" jdbcType="TIMESTAMP" property="createDate" />
   </resultMap>
@@ -66,7 +66,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    FAVORITE_ID, USER_ID, BLOG_ID, CREATE_DATE
+    FAVORITE_ID, AUTHOR_ID, BLOG_ID, CREATE_DATE
   </sql>
   <select id="selectByExample" parameterType="net.ttcxy.tang.gateway.entity.model.DtsFavoriteExample" resultMap="BaseResultMap">
     select
@@ -99,9 +99,9 @@
     </if>
   </delete>
   <insert id="insert" parameterType="net.ttcxy.tang.gateway.entity.model.DtsFavorite">
-    insert into DTS_FAVORITE (FAVORITE_ID, USER_ID, BLOG_ID, 
+    insert into DTS_FAVORITE (FAVORITE_ID, AUTHOR_ID, BLOG_ID, 
       CREATE_DATE)
-    values (#{favoriteId,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{blogId,jdbcType=VARCHAR}, 
+    values (#{favoriteId,jdbcType=VARCHAR}, #{authorId,jdbcType=VARCHAR}, #{blogId,jdbcType=VARCHAR}, 
       #{createDate,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="net.ttcxy.tang.gateway.entity.model.DtsFavorite">
@@ -110,8 +110,8 @@
       <if test="favoriteId != null">
         FAVORITE_ID,
       </if>
-      <if test="userId != null">
-        USER_ID,
+      <if test="authorId != null">
+        AUTHOR_ID,
       </if>
       <if test="blogId != null">
         BLOG_ID,
@@ -124,8 +124,8 @@
       <if test="favoriteId != null">
         #{favoriteId,jdbcType=VARCHAR},
       </if>
-      <if test="userId != null">
-        #{userId,jdbcType=VARCHAR},
+      <if test="authorId != null">
+        #{authorId,jdbcType=VARCHAR},
       </if>
       <if test="blogId != null">
         #{blogId,jdbcType=VARCHAR},
@@ -147,8 +147,8 @@
       <if test="record.favoriteId != null">
         FAVORITE_ID = #{record.favoriteId,jdbcType=VARCHAR},
       </if>
-      <if test="record.userId != null">
-        USER_ID = #{record.userId,jdbcType=VARCHAR},
+      <if test="record.authorId != null">
+        AUTHOR_ID = #{record.authorId,jdbcType=VARCHAR},
       </if>
       <if test="record.blogId != null">
         BLOG_ID = #{record.blogId,jdbcType=VARCHAR},
@@ -164,7 +164,7 @@
   <update id="updateByExample" parameterType="map">
     update DTS_FAVORITE
     set FAVORITE_ID = #{record.favoriteId,jdbcType=VARCHAR},
-      USER_ID = #{record.userId,jdbcType=VARCHAR},
+      AUTHOR_ID = #{record.authorId,jdbcType=VARCHAR},
       BLOG_ID = #{record.blogId,jdbcType=VARCHAR},
       CREATE_DATE = #{record.createDate,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
@@ -174,8 +174,8 @@
   <update id="updateByPrimaryKeySelective" parameterType="net.ttcxy.tang.gateway.entity.model.DtsFavorite">
     update DTS_FAVORITE
     <set>
-      <if test="userId != null">
-        USER_ID = #{userId,jdbcType=VARCHAR},
+      <if test="authorId != null">
+        AUTHOR_ID = #{authorId,jdbcType=VARCHAR},
       </if>
       <if test="blogId != null">
         BLOG_ID = #{blogId,jdbcType=VARCHAR},
@@ -188,7 +188,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="net.ttcxy.tang.gateway.entity.model.DtsFavorite">
     update DTS_FAVORITE
-    set USER_ID = #{userId,jdbcType=VARCHAR},
+    set AUTHOR_ID = #{authorId,jdbcType=VARCHAR},
       BLOG_ID = #{blogId,jdbcType=VARCHAR},
       CREATE_DATE = #{createDate,jdbcType=TIMESTAMP}
     where FAVORITE_ID = #{favoriteId,jdbcType=VARCHAR}

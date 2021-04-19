@@ -59,7 +59,7 @@ public class DtsBlogController {
     @GetMapping("delete/{id}")
     @ApiOperation("删除博客")
     public ResponseResult<?> delete(@PathVariable("id") String id){
-        String userId = blogService.selectByPrimaryId(id).getUserId();
+        String userId = blogService.selectByPrimaryId(id).getAuthorId();
         int count = 0;
         if (currentAuthorServiceImpl.getAuthor()!=null){
             if(StrUtil.equals(currentAuthorServiceImpl.getAuthor().getId(),userId)){
@@ -75,15 +75,15 @@ public class DtsBlogController {
 
     @PostMapping("update")
     @ApiOperation("更新博客")
-    public ResponseResult<?> update(@RequestBody DtsBlogParam dtsBlogParam){
+    public ResponseResult<?> update(@RequestBody DtsBlogParam blogParam){
         DtsBlog blog = new DtsBlog();
-        BeanUtil.copyProperties(dtsBlogParam,blog);
+        BeanUtil.copyProperties(blogParam,blog);
 
         String blogId = blog.getBlogId();
         DtsBlogDto dtsBlogDto = blogService.selectBlogById(blogId);
 
-        String userId = dtsBlogDto.getUserId();
-        if (StrUtil.equals(userId, currentAuthorServiceImpl.getAuthorId())){
+        String authorId = dtsBlogDto.getAuthor().getAuthorId();
+        if (StrUtil.equals(authorId, currentAuthorServiceImpl.getAuthorId())){
             DateTime date = DateUtil.date();
             blog.setUpdateDate(date);
             int count = blogService.updateBlog(blog);
@@ -95,7 +95,18 @@ public class DtsBlogController {
         return ResponseResult.failed("无法修改别人的内容");
     }
 
-    @GetMapping("blogs")
+    /**
+     * 添加博客
+     * @param blogDto 添加博客
+     * @return 0 / 1
+     */
+    @PostMapping("insert")
+    @ApiOperation("添加博客")
+    public ResponseResult<?> insert(@RequestBody DtsBlogDto blogDto){
+        return ResponseResult.success(blogService.insertBlog(blogDto.getBlog()));
+    }
+
+    @GetMapping("list")
     @ApiOperation("查询博客")
     public ResponseResult<?> selectBlogList(@RequestParam(value = "page" ,defaultValue = "1")Integer page){
         return ResponseResult.success(blogService.selectBlogList(page,15));
@@ -106,7 +117,7 @@ public class DtsBlogController {
     public ResponseResult<?> load(@RequestParam(name="blog",required = false) String blogId){
         DtsBlog blog = blogService.selectBlogInfoById(blogId);
         UtsLoginDto loginDto = currentAuthorServiceImpl.getAuthor();
-        if(blog.getUserId().equals(loginDto.getId())){
+        if(blog.getAuthorId().equals(loginDto.getId())){
             return ResponseResult.success(blog);
         }else{
             return ResponseResult.failed("无法修改别人的Blog");

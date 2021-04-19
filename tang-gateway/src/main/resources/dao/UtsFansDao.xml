@@ -4,7 +4,7 @@
   <resultMap id="FansMap" type="net.ttcxy.tang.gateway.entity.dto.UtsFansDto">
       <id column="id" jdbcType="VARCHAR" property="id" />
       <result column="follower" jdbcType="VARCHAR" property="follower" />
-      <result column="user_id" jdbcType="VARCHAR" property="userId" />
+      <result column="author_id" jdbcType="VARCHAR" property="userId" />
       <result column="username" jdbcType="VARCHAR" property="username" />
       <result column="nickname" jdbcType="VARCHAR" property="nickname" />
       <result column="create_date" jdbcType="VARCHAR" property="createDate" />

@@ -66,7 +66,7 @@ public class UtsFansServiceImpl implements UtsFansService {
         UtsLoginDto author = utsAuthorDao.selectAuthorByName(fansName);
         UtsFansDto utsFansDto = new UtsFansDto();
         utsFansDto.setId(IdUtil.fastSimpleUUID());
-        utsFansDto.setUserId(authorAuth.getId());
+        utsFansDto.setAuthorId(authorAuth.getId());
         utsFansDto.setFollower(author.getId());
         utsFansDto.setCreateDate(new Date());
 

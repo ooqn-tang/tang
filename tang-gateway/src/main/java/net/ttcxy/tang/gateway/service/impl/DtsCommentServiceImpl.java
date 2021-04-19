@@ -38,7 +38,7 @@ public class DtsCommentServiceImpl implements DtsCommentService {
         String userId = currentAuthorServiceImpl.getAuthorId();
         DtsBlogCommentExample blogCommentExample = new DtsBlogCommentExample();
         blogCommentExample.createCriteria()
-                .andUserIdEqualTo(userId)
+                .andAuthorIdEqualTo(userId)
                 .andBlogCommentIdEqualTo(commentId);
         return blogCommentMapper.deleteByExample(blogCommentExample);
     }
