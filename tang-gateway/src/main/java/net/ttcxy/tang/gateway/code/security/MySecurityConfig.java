@@ -1,4 +1,4 @@
-package net.ttcxy.tang.gateway.security;
+package net.ttcxy.tang.gateway.code.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import net.ttcxy.tang.gateway.code.properties.SecurityProperties;
@@ -15,13 +15,11 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.access.AccessDeniedHandler;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
-import java.util.Enumeration;
 
 
 /**

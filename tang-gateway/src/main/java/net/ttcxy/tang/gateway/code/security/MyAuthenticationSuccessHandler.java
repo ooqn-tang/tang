@@ -1,4 +1,4 @@
-package net.ttcxy.tang.gateway.security;
+package net.ttcxy.tang.gateway.code.security;
 
 import cn.hutool.json.JSONUtil;
 import net.ttcxy.tang.gateway.api.ResponseResult;

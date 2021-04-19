@@ -1,11 +1,9 @@
-package net.ttcxy.tang.gateway.config;
+package net.ttcxy.tang.gateway.code.config;
 
-import cn.hutool.core.io.FileUtil;
 import net.ttcxy.tang.gateway.dao.DtsBlogDao;
 import net.ttcxy.tang.gateway.service.DtsBlogService;
 import net.ttcxy.tang.gateway.service.StsAdvertiseService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;

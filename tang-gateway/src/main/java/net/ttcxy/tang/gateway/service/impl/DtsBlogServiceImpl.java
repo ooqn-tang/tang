@@ -7,6 +7,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import net.ttcxy.tang.gateway.entity.UtsAuthorLogin;
 import net.ttcxy.tang.gateway.entity.dto.DtsBlogDto;
+import net.ttcxy.tang.gateway.model.DtsBlogExample;
 import net.ttcxy.tang.gateway.service.CurrentAuthorService;
 import net.ttcxy.tang.gateway.model.DtsBlog;
 import net.ttcxy.tang.gateway.model.DtsLikeData;
@@ -38,7 +39,7 @@ public class DtsBlogServiceImpl implements DtsBlogService {
     private DtsBlogDao dtsBlogDao;
 
     @Autowired
-    private DtsBlogMapper blogMapper;
+    private DtsBlogMapper dtsBlogMapper;
 
     @Autowired
     private DtsLikeDataMapper likeMapper;
@@ -73,7 +74,7 @@ public class DtsBlogServiceImpl implements DtsBlogService {
 
     @Override
     public int insertBlog(DtsBlog blog) {
-        int count = blogMapper.insertSelective(blog);
+        int count = dtsBlogMapper.insertSelective(blog);
         if (count > 0){
             RANDOM_BLOG.add(blog.getId());
         }
@@ -82,12 +83,12 @@ public class DtsBlogServiceImpl implements DtsBlogService {
 
     @Override
     public int updateBlog(DtsBlog blog) {
-        return blogMapper.updateByPrimaryKeySelective(blog);
+        return dtsBlogMapper.updateByPrimaryKeySelective(blog);
     }
 
     @Override
     public int deleteBlog(String id) {
-        int count = blogMapper.deleteByPrimaryKey(id);
+        int count = dtsBlogMapper.deleteByPrimaryKey(id);
         if (count > 0){
             executorService.execute(()->{
                 RANDOM_BLOG.remove(id);
@@ -119,14 +120,15 @@ public class DtsBlogServiceImpl implements DtsBlogService {
     }
 
 
+
     @Override
-    public DtsBlog selectBlogInfosById(String id) {
-        return dtsBlogDao.selectBlogInfoById(id);
+    public DtsBlog selectBlogInfoById(String id) {
+        return dtsBlogMapper.selectByPrimaryKey(id);
     }
 
     @Override
     public DtsBlog selectByPrimaryId(String id) {
-        return blogMapper.selectByPrimaryKey(id);
+        return dtsBlogMapper.selectByPrimaryKey(id);
     }
 
     @Override
@@ -138,7 +140,6 @@ public class DtsBlogServiceImpl implements DtsBlogService {
 
     @Override
     public PageInfo<DtsBlogDto> selectLikeBlogList(String username, Integer page,Integer pageSize) {
-        PageHelper.startPage(page,pageSize);
         return new PageInfo<>(dtsBlogDao.selectLikeBlogs(username));
     }
 

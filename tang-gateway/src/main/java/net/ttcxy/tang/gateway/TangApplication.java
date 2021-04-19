@@ -1,6 +1,6 @@
 package net.ttcxy.tang.gateway;
 
-import net.ttcxy.tang.gateway.config.MyApplicationContextInitializer;
+import net.ttcxy.tang.gateway.code.config.MyApplicationContextInitializer;
 import org.apache.catalina.Context;
 import org.apache.catalina.connector.Connector;
 import org.apache.tomcat.util.descriptor.web.SecurityCollection;

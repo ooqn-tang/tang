@@ -1,4 +1,4 @@
-package net.ttcxy.tang.gateway.security;
+package net.ttcxy.tang.gateway.code.security;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;

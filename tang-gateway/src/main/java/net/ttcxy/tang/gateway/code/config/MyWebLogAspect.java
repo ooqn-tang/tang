@@ -1,4 +1,4 @@
-package net.ttcxy.tang.gateway.config;
+package net.ttcxy.tang.gateway.code.config;
 
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.core.util.URLUtil;

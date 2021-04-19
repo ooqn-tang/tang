@@ -1,4 +1,4 @@
-package net.ttcxy.tang.gateway.security;
+package net.ttcxy.tang.gateway.code.security;
 
 import cn.hutool.core.util.StrUtil;
 import net.ttcxy.tang.gateway.entity.MySecurityData;

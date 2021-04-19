@@ -1,4 +1,4 @@
-package net.ttcxy.tang.gateway.config;
+package net.ttcxy.tang.gateway.code.config;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

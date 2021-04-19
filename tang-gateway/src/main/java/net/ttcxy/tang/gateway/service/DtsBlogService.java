@@ -46,7 +46,7 @@ public interface DtsBlogService {
      * @param id  id
      * @return 博客
      */
-    DtsBlog selectBlogInfosById(String id);
+    DtsBlog selectBlogInfoById(String id);
 
     /**
      * 添加blog

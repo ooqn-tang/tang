@@ -72,7 +72,4 @@ public interface DtsBlogDao {
     List<DtsBlogDto> selectLikeBlogs(@Param("username") String username);
 
 
-    DtsBlog selectBlogInfoById(String id);
-
-    DtsBlog selectBlogMsIsNull();
 }

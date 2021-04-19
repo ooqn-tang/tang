@@ -116,7 +116,7 @@ public class DtsBlogController {
     @GetMapping("load")
     @ApiOperation("加载博客信息，详细")
     public ResponseResult<?> load(@RequestParam(name="blog",required = false) String blogId){
-        DtsBlog blog = blogService.selectBlogInfosById(blogId);
+        DtsBlog blog = blogService.selectBlogInfoById(blogId);
         UtsAuthorLogin memberLogin = currentAuthorServiceImpl.getAuthor();
         if(blog.getUserId().equals(memberLogin.getId())){
             return ResponseResult.success(blog);

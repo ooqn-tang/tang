@@ -1,4 +1,4 @@
-package net.ttcxy.tang.gateway.config;
+package net.ttcxy.tang.gateway.code.config;
 
 import org.hibernate.validator.HibernateValidator;
 import org.springframework.beans.factory.annotation.Autowired;

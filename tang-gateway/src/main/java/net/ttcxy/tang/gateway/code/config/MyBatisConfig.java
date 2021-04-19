@@ -1,4 +1,4 @@
-package net.ttcxy.tang.gateway.config;
+package net.ttcxy.tang.gateway.code.config;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.stereotype.Component;

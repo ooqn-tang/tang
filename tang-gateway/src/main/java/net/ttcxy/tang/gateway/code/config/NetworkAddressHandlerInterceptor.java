@@ -1,4 +1,4 @@
-package net.ttcxy.tang.gateway.config;
+package net.ttcxy.tang.gateway.code.config;
 
 import net.ttcxy.tang.gateway.entity.UtsAuthorLogin;
 import net.ttcxy.tang.gateway.service.CurrentAuthorService;
