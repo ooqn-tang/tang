@@ -1,8 +1,8 @@
 package net.ttcxy.tang.gateway.service;
 
-import net.ttcxy.tang.gateway.entity.UtsAuthorLogin;
 import net.ttcxy.tang.gateway.entity.dto.UtsAuthorDto;
-import net.ttcxy.tang.gateway.model.UtsAuthor;
+import net.ttcxy.tang.gateway.entity.dto.UtsLoginDto;
+import net.ttcxy.tang.gateway.entity.model.UtsAuthor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,7 +19,7 @@ public interface UtsAuthorService {
      * @param name 用户名
      * @return 登录用户
      */
-    UtsAuthorLogin selectAuthorByName(String name) ;
+    UtsLoginDto selectAuthorByName(String name) ;
 
 
     /**
@@ -27,7 +27,7 @@ public interface UtsAuthorService {
      * @param mail 邮箱
      * @return 登录用户
      */
-    UtsAuthorLogin selectAuthorByMail(String mail);
+    UtsLoginDto selectAuthorByMail(String mail);
 
     /**
      * 添加用户

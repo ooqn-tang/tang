@@ -2,8 +2,8 @@ package net.ttcxy.tang.gateway.entity.param;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import net.ttcxy.tang.gateway.code.Insert;
-import net.ttcxy.tang.gateway.code.Update;
+import net.ttcxy.tang.gateway.core.Insert;
+import net.ttcxy.tang.gateway.core.Update;
 
 import javax.validation.GroupSequence;
 import javax.validation.constraints.NotNull;

@@ -1,7 +1,7 @@
 package net.ttcxy.tang.gateway.dao;
 
-import net.ttcxy.tang.gateway.entity.UtsAuthorLogin;
 import net.ttcxy.tang.gateway.entity.dto.UtsFansDto;
+import net.ttcxy.tang.gateway.entity.dto.UtsLoginDto;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -39,5 +39,5 @@ public interface UtsFansDao {
      * @param userId id
      * @return 粉丝列表
      */
-    List<UtsAuthorLogin> selectFansList(@Param("userId") String userId);
+    List<UtsLoginDto> selectFansList(@Param("userId") String userId);
 }

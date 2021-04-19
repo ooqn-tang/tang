@@ -1,12 +1,12 @@
 package net.ttcxy.tang.gateway.service.impl;
 
-import net.ttcxy.tang.gateway.entity.dto.DtsCommentDto;
-import net.ttcxy.tang.gateway.model.DtsBlogComment;
-import net.ttcxy.tang.gateway.model.DtsBlogCommentExample;
 import net.ttcxy.tang.gateway.dao.DtsCommentDao;
+import net.ttcxy.tang.gateway.entity.dto.DtsCommentDto;
+import net.ttcxy.tang.gateway.dao.mapper.DtsBlogCommentMapper;
+import net.ttcxy.tang.gateway.entity.model.DtsBlogComment;
+import net.ttcxy.tang.gateway.entity.model.DtsBlogCommentExample;
 import net.ttcxy.tang.gateway.service.CurrentAuthorService;
 import net.ttcxy.tang.gateway.service.DtsCommentService;
-import net.ttcxy.tang.gateway.mapper.DtsBlogCommentMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -39,7 +39,7 @@ public class DtsCommentServiceImpl implements DtsCommentService {
         DtsBlogCommentExample blogCommentExample = new DtsBlogCommentExample();
         blogCommentExample.createCriteria()
                 .andUserIdEqualTo(userId)
-                .andIdEqualTo(commentId);
+                .andBlogCommentIdEqualTo(commentId);
         return blogCommentMapper.deleteByExample(blogCommentExample);
     }
 

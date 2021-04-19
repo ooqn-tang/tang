@@ -4,13 +4,14 @@ import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.RandomUtil;
 import com.github.pagehelper.PageHelper;
-import net.ttcxy.tang.gateway.entity.UtsAuthorLogin;
-import net.ttcxy.tang.gateway.entity.dto.UtsAuthorDto;
-import net.ttcxy.tang.gateway.model.UtsAuthor;
-import net.ttcxy.tang.gateway.model.UtsAuthorExample;
 import net.ttcxy.tang.gateway.dao.UtsAuthorDao;
+import net.ttcxy.tang.gateway.dao.mapper.UtsAuthorMapper;
+import net.ttcxy.tang.gateway.entity.dto.UtsAuthorDto;
+import net.ttcxy.tang.gateway.entity.dto.UtsLoginDto;
+import net.ttcxy.tang.gateway.entity.model.UtsAuthor;
+import net.ttcxy.tang.gateway.entity.model.UtsAuthorExample;
+import net.ttcxy.tang.gateway.entity.model.UtsFansExample;
 import net.ttcxy.tang.gateway.service.UtsAuthorService;
-import net.ttcxy.tang.gateway.mapper.UtsAuthorMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
@@ -28,31 +29,31 @@ public class UtsAuthorServiceImpl implements UtsAuthorService {
     @Autowired
     private UtsAuthorDao utsAuthorDao;
 
-    @Autowired
-    private UtsAuthorMapper authorMapper;
+    private UtsAuthorMapper utsAuthorMapper;
+
 
     @Override
-    public UtsAuthorLogin selectAuthorByName(String username) {
+    public UtsLoginDto selectAuthorByName(String username) {
         return utsAuthorDao.selectAuthorByName(username);
     }
 
     @Override
-    public UtsAuthorLogin selectAuthorByMail(String mail) {
+    public UtsLoginDto selectAuthorByMail(String mail) {
         return utsAuthorDao.selectAuthorByMail(mail);
     }
 
     @Override
     public int insertAuthor(UtsAuthor author) throws DuplicateKeyException {
-        author.setId(IdUtil.fastSimpleUUID());
+        author.setAuthorId(IdUtil.fastSimpleUUID());
         String username = getUsername();
         author.setNickname(username);
         author.setUsername(username);
-        return authorMapper.insertSelective(author);
+        return utsAuthorMapper.insertSelective(author);
     }
 
     @Override
     public int updateAuthor(UtsAuthor author) {
-        return authorMapper.updateByPrimaryKeySelective(author);
+        return utsAuthorMapper.updateByPrimaryKeySelective(author);
     }
 
     @Override
@@ -76,7 +77,7 @@ public class UtsAuthorServiceImpl implements UtsAuthorService {
     @Override
     public List<UtsAuthor> authorList(Integer page){
         PageHelper.startPage(page, 10);
-        return authorMapper.selectByExample(new UtsAuthorExample());
+        return utsAuthorMapper.selectByExample(new UtsAuthorExample());
     }
 
 
@@ -84,7 +85,7 @@ public class UtsAuthorServiceImpl implements UtsAuthorService {
     @Override
     public List<UtsAuthorDto> authorListDto(Integer page){
         PageHelper.startPage(page, 10);
-        List<UtsAuthor> utsAuthor = authorMapper.selectByExample(new UtsAuthorExample());
+        List<UtsAuthor> utsAuthor = utsAuthorMapper.selectByExample(new UtsAuthorExample());
 
         List<UtsAuthorDto> utsAuthorDtoList = new ArrayList<>();
 
@@ -114,7 +115,7 @@ public class UtsAuthorServiceImpl implements UtsAuthorService {
     public static void main(String[] args) {
         UtsAuthorDto utsAuthorDto = new UtsAuthorDto();
         UtsAuthor utsAuthor = new UtsAuthor();
-        utsAuthor.setId("asdfads");
+        utsAuthor.setAuthorId("asdfads");
         utsAuthor.setNickname("kasfjkajdfk");
         BeanUtil.copyProperties(utsAuthor, utsAuthorDto);
         System.out.println(utsAuthorDto);

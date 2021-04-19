@@ -1,6 +1,5 @@
 package net.ttcxy.tang.gateway.entity.param;
 
-import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;

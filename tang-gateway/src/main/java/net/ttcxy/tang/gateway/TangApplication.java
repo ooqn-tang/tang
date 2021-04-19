@@ -1,6 +1,6 @@
 package net.ttcxy.tang.gateway;
 
-import net.ttcxy.tang.gateway.code.config.MyApplicationContextInitializer;
+import net.ttcxy.tang.gateway.core.component.MyApplicationContextInitializer;
 import org.apache.catalina.Context;
 import org.apache.catalina.connector.Connector;
 import org.apache.tomcat.util.descriptor.web.SecurityCollection;
@@ -11,10 +11,8 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
 import org.springframework.boot.web.servlet.server.ServletWebServerFactory;
 import org.springframework.context.annotation.Bean;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
-/**
- * @author huanglei
- */
 @SpringBootApplication(scanBasePackages = {"net.ttcxy"})
 public class TangApplication {
 

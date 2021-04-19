@@ -5,17 +5,17 @@ import cn.hutool.core.util.RandomUtil;
 import cn.hutool.core.util.StrUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import net.ttcxy.tang.gateway.entity.UtsAuthorLogin;
-import net.ttcxy.tang.gateway.entity.dto.DtsBlogDto;
-import net.ttcxy.tang.gateway.model.DtsBlogExample;
-import net.ttcxy.tang.gateway.service.CurrentAuthorService;
-import net.ttcxy.tang.gateway.model.DtsBlog;
-import net.ttcxy.tang.gateway.model.DtsLikeData;
-import net.ttcxy.tang.gateway.model.DtsLikeDataExample;
 import net.ttcxy.tang.gateway.dao.DtsBlogDao;
+import net.ttcxy.tang.gateway.dao.mapper.DtsBlogMapper;
+import net.ttcxy.tang.gateway.dao.mapper.DtsLikeDataMapper;
+import net.ttcxy.tang.gateway.entity.dto.DtsBlogDto;
+import net.ttcxy.tang.gateway.entity.dto.UtsLoginDto;
+import net.ttcxy.tang.gateway.entity.model.DtsBlog;
+import net.ttcxy.tang.gateway.entity.model.DtsBlogExample;
+import net.ttcxy.tang.gateway.entity.model.DtsLikeData;
+import net.ttcxy.tang.gateway.entity.model.DtsLikeDataExample;
+import net.ttcxy.tang.gateway.service.CurrentAuthorService;
 import net.ttcxy.tang.gateway.service.DtsBlogService;
-import net.ttcxy.tang.gateway.mapper.DtsBlogMapper;
-import net.ttcxy.tang.gateway.mapper.DtsLikeDataMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -63,9 +63,9 @@ public class DtsBlogServiceImpl implements DtsBlogService {
     public PageInfo<DtsBlogDto> selectBlogByUsername(String username, Integer page,Integer pageSize) {
         PageHelper.startPage(page,pageSize);
 
-        UtsAuthorLogin member = currentAuthorServiceImpl.getAuthor();
+        UtsLoginDto login = currentAuthorServiceImpl.getAuthor();
 
-        if (member != null && StrUtil.equals(username,member.getUsername())){
+        if (login != null && StrUtil.equals(username,login.getUsername())){
             return new PageInfo<>(dtsBlogDao.searchByUsernameAuthor(username));
         }
 
@@ -76,7 +76,7 @@ public class DtsBlogServiceImpl implements DtsBlogService {
     public int insertBlog(DtsBlog blog) {
         int count = dtsBlogMapper.insertSelective(blog);
         if (count > 0){
-            RANDOM_BLOG.add(blog.getId());
+            RANDOM_BLOG.add(blog.getBlogId());
         }
         return count;
     }
@@ -144,11 +144,6 @@ public class DtsBlogServiceImpl implements DtsBlogService {
     }
 
     @Override
-    public List<String> getRandomBlogIdList() {
-        return RANDOM_BLOG;
-    }
-
-    @Override
     public DtsBlogDto random() {
         int randomInt = RandomUtil.randomInt(0, RANDOM_BLOG.size());
         return dtsBlogDao.selectByIdTitle(RANDOM_BLOG.get(randomInt));
@@ -158,6 +153,9 @@ public class DtsBlogServiceImpl implements DtsBlogService {
     public PageInfo<DtsBlogDto> selectBlogList(Integer page,Integer pageSize) {
         PageHelper.startPage(page,pageSize);
         List<DtsBlogDto> dtoList = dtsBlogDao.selectBlog();
+
+
+
         return new PageInfo<>(dtoList);
     }
 }

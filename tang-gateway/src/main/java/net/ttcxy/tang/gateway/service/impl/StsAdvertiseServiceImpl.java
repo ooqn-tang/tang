@@ -1,10 +1,10 @@
 package net.ttcxy.tang.gateway.service.impl;
 
 import cn.hutool.core.util.IdUtil;
-import net.ttcxy.tang.gateway.model.DtsAdvertise;
-import net.ttcxy.tang.gateway.model.DtsAdvertiseExample;
+import net.ttcxy.tang.gateway.dao.mapper.DtsAdvertiseMapper;
+import net.ttcxy.tang.gateway.entity.model.DtsAdvertise;
+import net.ttcxy.tang.gateway.entity.model.DtsAdvertiseExample;
 import net.ttcxy.tang.gateway.service.StsAdvertiseService;
-import net.ttcxy.tang.gateway.mapper.DtsAdvertiseMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -36,7 +36,7 @@ public class StsAdvertiseServiceImpl implements StsAdvertiseService {
     @Override
     public int insertAdvertise(DtsAdvertise advertise) {
         String uuid = IdUtil.fastSimpleUUID();
-        advertise.setId(uuid);
+        advertise.setAdvertiseId(uuid);
         return advertiseMapper.insertSelective(advertise);
     }
 

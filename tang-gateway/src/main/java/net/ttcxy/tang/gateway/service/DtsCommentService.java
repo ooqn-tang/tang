@@ -1,7 +1,7 @@
 package net.ttcxy.tang.gateway.service;
 
 import net.ttcxy.tang.gateway.entity.dto.DtsCommentDto;
-import net.ttcxy.tang.gateway.model.DtsBlogComment;
+import net.ttcxy.tang.gateway.entity.model.DtsBlogComment;
 
 import java.util.List;
 

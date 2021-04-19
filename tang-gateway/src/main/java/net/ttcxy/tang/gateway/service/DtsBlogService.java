@@ -2,9 +2,7 @@ package net.ttcxy.tang.gateway.service;
 
 import com.github.pagehelper.PageInfo;
 import net.ttcxy.tang.gateway.entity.dto.DtsBlogDto;
-import net.ttcxy.tang.gateway.model.DtsBlog;
-
-import java.util.List;
+import net.ttcxy.tang.gateway.entity.model.DtsBlog;
 
 /**
  * 博客操作
@@ -106,11 +104,4 @@ public interface DtsBlogService {
      * 随机获取一条博客
      */
     DtsBlogDto random();
-
-    /**
-     * 随机博客ID列表
-     */
-    List<String> getRandomBlogIdList();
-
-
 }

@@ -4,14 +4,12 @@ import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.date.DateTime;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.StrUtil;
-import cn.hutool.core.util.URLUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import net.ttcxy.tang.gateway.api.ResponseResult;
-import net.ttcxy.tang.gateway.entity.DataState;
-import net.ttcxy.tang.gateway.entity.UtsAuthorLogin;
+import net.ttcxy.tang.gateway.core.api.ResponseResult;
 import net.ttcxy.tang.gateway.entity.dto.DtsBlogDto;
-import net.ttcxy.tang.gateway.model.DtsBlog;
+import net.ttcxy.tang.gateway.entity.dto.UtsLoginDto;
+import net.ttcxy.tang.gateway.entity.model.DtsBlog;
 import net.ttcxy.tang.gateway.entity.param.DtsBlogParam;
 import net.ttcxy.tang.gateway.service.CurrentAuthorService;
 import net.ttcxy.tang.gateway.service.DtsBlogService;
@@ -39,9 +37,8 @@ public class DtsBlogController {
 
     @GetMapping("home/{username}")
     @ApiOperation("用户首页")
-    public ResponseResult<?> blogList(
-            @PathVariable("username") String username,
-            @RequestParam(value = "page" ,defaultValue = "1")Integer page){
+    public ResponseResult<?> blogList(@PathVariable("username") String username,
+                                      @RequestParam(value = "page" ,defaultValue = "1")Integer page){
         return  ResponseResult.success(blogService.selectBlogByUsername(username,page,15));
     }
 
@@ -51,18 +48,11 @@ public class DtsBlogController {
         return ResponseResult.success(blogService.random());
     }
 
-    @GetMapping("so")
-    @ApiOperation("搜索")
-    public ResponseResult<?> search(@RequestParam(name = "page", defaultValue = "1")Integer page,
-                                                      @RequestParam(name = "search", defaultValue = "")String search ){
-        search = URLUtil.decode(search);
-        return ResponseResult.success(blogService.search(search,page,15));
-    }
 
     @GetMapping("like")
     @ApiOperation("获取自己喜欢的文章")
     public ResponseResult<?> selectByUserLike(@RequestParam(value = "page",defaultValue = "1") Integer page,
-                                                              @RequestParam(value = "username") @NotBlank(message = "用户名不能为空") String username){
+                                              @RequestParam(value = "username") @NotBlank(message = "用户名不能为空") String username){
         return ResponseResult.success(blogService.selectLikeBlogList(username,page,15));
     }
 
@@ -89,15 +79,13 @@ public class DtsBlogController {
         DtsBlog blog = new DtsBlog();
         BeanUtil.copyProperties(dtsBlogParam,blog);
 
-        String blogId = blog.getId();
+        String blogId = blog.getBlogId();
         DtsBlogDto dtsBlogDto = blogService.selectBlogById(blogId);
 
         String userId = dtsBlogDto.getUserId();
         if (StrUtil.equals(userId, currentAuthorServiceImpl.getAuthorId())){
             DateTime date = DateUtil.date();
             blog.setUpdateDate(date);
-            blog.setStateCode(DataState.BLOG_RELEASE);
-
             int count = blogService.updateBlog(blog);
             if (count > 0){
                 return ResponseResult.success(0);
@@ -117,8 +105,8 @@ public class DtsBlogController {
     @ApiOperation("加载博客信息，详细")
     public ResponseResult<?> load(@RequestParam(name="blog",required = false) String blogId){
         DtsBlog blog = blogService.selectBlogInfoById(blogId);
-        UtsAuthorLogin memberLogin = currentAuthorServiceImpl.getAuthor();
-        if(blog.getUserId().equals(memberLogin.getId())){
+        UtsLoginDto loginDto = currentAuthorServiceImpl.getAuthor();
+        if(blog.getUserId().equals(loginDto.getId())){
             return ResponseResult.success(blog);
         }else{
             return ResponseResult.failed("无法修改别人的Blog");
@@ -128,7 +116,7 @@ public class DtsBlogController {
     @GetMapping("/like/{id}/insert")
     @ApiOperation("喜欢blog.如果数据库不存在，推荐，如果存在就取消。")
     public ResponseResult<?> like(@PathVariable("id") String id){
-        UtsAuthorLogin author = currentAuthorServiceImpl.getAuthor();
-        return ResponseResult.success(blogService.like(author.getId(),id));
+        UtsLoginDto loginDto = currentAuthorServiceImpl.getAuthor();
+        return ResponseResult.success(blogService.like(loginDto.getId(),id));
     }
 }

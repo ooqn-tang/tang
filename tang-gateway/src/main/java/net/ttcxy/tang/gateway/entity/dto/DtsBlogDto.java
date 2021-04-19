@@ -1,6 +1,7 @@
 package net.ttcxy.tang.gateway.entity.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import net.ttcxy.tang.gateway.entity.model.DtsBlog;
 
 import java.util.Date;
 
@@ -10,10 +11,11 @@ import java.util.Date;
  */
 public class DtsBlogDto {
 
+
     /**
      * 博客id
      */
-    private String id;
+    private String blogId;
 
     /**
      * 标题
@@ -76,12 +78,12 @@ public class DtsBlogDto {
      */
     private Integer praiseCount;
 
-    public String getId() {
-        return id;
+    public String getDtsBlogId() {
+        return dtsBlogId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setDtsBlogId(String dtsBlogId) {
+        this.dtsBlogId = dtsBlogId;
     }
 
     public String getTitle() {
@@ -140,6 +142,14 @@ public class DtsBlogDto {
         this.markdown = markdown;
     }
 
+    public String getSynopsis() {
+        return synopsis;
+    }
+
+    public void setSynopsis(String synopsis) {
+        this.synopsis = synopsis;
+    }
+
     public String getType() {
         return type;
     }
@@ -178,13 +188,5 @@ public class DtsBlogDto {
 
     public void setPraiseCount(Integer praiseCount) {
         this.praiseCount = praiseCount;
-    }
-
-    public String getSynopsis() {
-        return synopsis;
-    }
-
-    public void setSynopsis(String synopsis) {
-        this.synopsis = synopsis;
     }
 }

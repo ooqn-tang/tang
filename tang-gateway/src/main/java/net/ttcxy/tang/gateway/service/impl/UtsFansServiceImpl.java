@@ -1,10 +1,10 @@
 package net.ttcxy.tang.gateway.service.impl;
 
 import cn.hutool.core.util.IdUtil;
-import net.ttcxy.tang.gateway.entity.UtsAuthorLogin;
-import net.ttcxy.tang.gateway.entity.dto.UtsFansDto;
-import net.ttcxy.tang.gateway.dao.UtsFansDao;
 import net.ttcxy.tang.gateway.dao.UtsAuthorDao;
+import net.ttcxy.tang.gateway.dao.UtsFansDao;
+import net.ttcxy.tang.gateway.entity.dto.UtsFansDto;
+import net.ttcxy.tang.gateway.entity.dto.UtsLoginDto;
 import net.ttcxy.tang.gateway.service.CurrentAuthorService;
 import net.ttcxy.tang.gateway.service.UtsFansService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,16 +54,16 @@ public class UtsFansServiceImpl implements UtsFansService {
     }
 
     @Override
-    public List<UtsAuthorLogin> selectFansList(String userId) {
+    public List<UtsLoginDto> selectFansList(String userId) {
         return utsFansDao.selectFansList(userId);
     }
 
     private UtsFansDto getFans(String fansName){
-        UtsAuthorLogin authorAuth = currentAuthorServiceImpl.getAuthor();
+        UtsLoginDto authorAuth = currentAuthorServiceImpl.getAuthor();
         if (authorAuth ==null){
             return null;
         }
-        UtsAuthorLogin author = utsAuthorDao.selectAuthorByName(fansName);
+        UtsLoginDto author = utsAuthorDao.selectAuthorByName(fansName);
         UtsFansDto utsFansDto = new UtsFansDto();
         utsFansDto.setId(IdUtil.fastSimpleUUID());
         utsFansDto.setUserId(authorAuth.getId());

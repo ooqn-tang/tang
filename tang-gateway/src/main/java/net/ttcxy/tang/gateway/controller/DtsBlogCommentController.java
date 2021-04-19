@@ -3,10 +3,10 @@ package net.ttcxy.tang.gateway.controller;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.IdUtil;
 import io.swagger.annotations.ApiOperation;
-import net.ttcxy.tang.gateway.api.ResponseResult;
-import net.ttcxy.tang.gateway.entity.UtsAuthorLogin;
+import net.ttcxy.tang.gateway.core.api.ResponseResult;
 import net.ttcxy.tang.gateway.entity.dto.DtsCommentDto;
-import net.ttcxy.tang.gateway.model.DtsBlogComment;
+import net.ttcxy.tang.gateway.entity.dto.UtsLoginDto;
+import net.ttcxy.tang.gateway.entity.model.DtsBlogComment;
 import net.ttcxy.tang.gateway.entity.param.DtsBlogCommentParam;
 import net.ttcxy.tang.gateway.service.CurrentAuthorService;
 import net.ttcxy.tang.gateway.service.DtsCommentService;
@@ -35,14 +35,14 @@ public class DtsBlogCommentController {
     @ApiOperation("添加博客评论")
     public ResponseResult<?> insertComment(@RequestBody @Valid DtsBlogCommentParam dtsBlogCommentParam){
 
-        UtsAuthorLogin user = currentAuthorServiceImpl.getAuthor();
+        UtsLoginDto loginDto = currentAuthorServiceImpl.getAuthor();
 
         DtsBlogComment blogComment = new DtsBlogComment();
         BeanUtil.copyProperties(dtsBlogCommentParam,blogComment);
 
         String commentId = IdUtil.fastSimpleUUID();
-        blogComment.setId(commentId);
-        blogComment.setUserId(user.getId());
+        blogComment.setBlogCommentId(commentId);
+        blogComment.setUserId(loginDto.getId());
         blogComment.setCreateDate(new Date());
         blogComment.setStatus(1);
 

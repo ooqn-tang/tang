@@ -6,7 +6,6 @@
     <modules>
         <module>tang-gateway</module>
         <module>tang-generator</module>
-        <module>tang-common</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -105,10 +104,10 @@
             <version>[7.4.0, 7.4.99]</version>
         </dependency>
 
-        <!-- 数据库 -->
+        <!-- 内嵌数据库 -->
         <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
         </dependency>
 
         <!-- mybatis -->
@@ -125,18 +124,10 @@
             <artifactId>spring-boot-starter-jdbc</artifactId>
         </dependency>
 
-        <!-- swagger2 -->
         <dependency>
             <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger2</artifactId>
-            <version>2.7.0</version>
-        </dependency>
-
-        <!-- swagger-ui -->
-        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger-ui</artifactId>
-            <version>2.7.0</version>
+            <artifactId>springfox-boot-starter</artifactId>
+            <version>3.0.0</version>
         </dependency>
 
         <!-- web -->
