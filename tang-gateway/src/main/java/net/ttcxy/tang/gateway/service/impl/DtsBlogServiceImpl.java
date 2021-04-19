@@ -8,13 +8,13 @@ import com.github.pagehelper.PageInfo;
 import net.ttcxy.tang.gateway.entity.UtsAuthorLogin;
 import net.ttcxy.tang.gateway.entity.dto.DtsBlogDto;
 import net.ttcxy.tang.gateway.service.CurrentAuthorService;
-import net.ttcxy.tang.model.DtsBlog;
-import net.ttcxy.tang.model.DtsLikeData;
-import net.ttcxy.tang.model.DtsLikeDataExample;
+import net.ttcxy.tang.gateway.model.DtsBlog;
+import net.ttcxy.tang.gateway.model.DtsLikeData;
+import net.ttcxy.tang.gateway.model.DtsLikeDataExample;
 import net.ttcxy.tang.gateway.dao.DtsBlogDao;
 import net.ttcxy.tang.gateway.service.DtsBlogService;
-import net.ttcxy.tang.mapper.DtsBlogMapper;
-import net.ttcxy.tang.mapper.DtsLikeDataMapper;
+import net.ttcxy.tang.gateway.mapper.DtsBlogMapper;
+import net.ttcxy.tang.gateway.mapper.DtsLikeDataMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

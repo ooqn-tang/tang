@@ -1,7 +1,7 @@
 package net.ttcxy.tang.gateway.dao;
 
 import net.ttcxy.tang.gateway.entity.dto.DtsBlogDto;
-import net.ttcxy.tang.model.DtsBlog;
+import net.ttcxy.tang.gateway.model.DtsBlog;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

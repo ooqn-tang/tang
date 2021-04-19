@@ -18,12 +18,6 @@
             <artifactId>jsoup</artifactId>
             <version>1.13.1</version>
         </dependency>
-
-        <dependency>
-            <groupId>net.ttcxy</groupId>
-            <artifactId>tang-common</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-test</artifactId>
@@ -35,6 +29,11 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>net.ttcxy</groupId>
+            <artifactId>tang</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
         </dependency>
     </dependencies>
 </project>

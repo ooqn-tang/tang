@@ -2,7 +2,7 @@ package net.ttcxy.tang.gateway.service;
 
 import net.ttcxy.tang.gateway.entity.UtsAuthorLogin;
 import net.ttcxy.tang.gateway.entity.dto.UtsAuthorDto;
-import net.ttcxy.tang.model.UtsAuthor;
+import net.ttcxy.tang.gateway.model.UtsAuthor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

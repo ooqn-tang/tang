@@ -2,7 +2,7 @@ package net.ttcxy.tang.gateway.security;
 
 import cn.hutool.core.util.StrUtil;
 import net.ttcxy.tang.gateway.entity.MySecurityData;
-import net.ttcxy.tang.code.properties.SecurityProperties;
+import net.ttcxy.tang.gateway.code.properties.SecurityProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.ServletRequestUtils;

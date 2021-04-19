@@ -2,7 +2,7 @@ package net.ttcxy.tang.gateway.security;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import net.ttcxy.tang.code.properties.SecurityProperties;
+import net.ttcxy.tang.gateway.code.properties.SecurityProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
@@ -20,27 +20,11 @@ import java.util.Enumeration;
  */
 @Component
 public class MyAuthenticationEntryPoint implements AuthenticationEntryPoint {
-
-    private final static String REQUEST_WITH = "X-Requested-With";
-
-    @Autowired
-    private SecurityProperties securityProperties;
-
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException e) throws IOException {
-
-        Enumeration<String> headerNames = request.getHeaderNames();
-        while(headerNames.hasMoreElements()){
-            String headerName = headerNames.nextElement();
-            if (REQUEST_WITH.equalsIgnoreCase(headerName)){
-                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-                response.setContentType("application/json;charset=utf-8");
-                ObjectMapper objectMapper = new ObjectMapper();
-                response.getWriter().print(objectMapper.writeValueAsString("没有登录或过期"));
-                return;
-            }
-        }
-        response.setContentType("text/html;charset=utf-8");
-        response.sendRedirect(securityProperties.getLoginPagePath());
+        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+        response.setContentType("application/json;charset=utf-8");
+        ObjectMapper objectMapper = new ObjectMapper();
+        response.getWriter().print(objectMapper.writeValueAsString("没有登录或过期"));
     }
 }

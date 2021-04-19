@@ -1,11 +1,11 @@
 package net.ttcxy.tang.gateway.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import net.ttcxy.tang.code.properties.SecurityProperties;
+import net.ttcxy.tang.gateway.code.properties.SecurityProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.access.AccessDeniedException;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -15,17 +15,12 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.access.AccessDeniedHandler;
-import org.springframework.security.web.access.intercept.FilterInvocationSecurityMetadataSource;
-import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
-import java.io.IOException;
 import java.util.Enumeration;
 
 
@@ -56,8 +51,8 @@ public class MySecurityConfig  extends WebSecurityConfigurerAdapter {
     @Autowired
     private MyAuthenticationEntryPoint myAuthenticationEntryPoint;
 
-    @Autowired
-    private MyVerifyCodeFilter myVerifyCodeFilter;
+    //@Autowired
+    //private MyVerifyCodeFilter myVerifyCodeFilter;
 
     @Bean
     @Override
@@ -75,11 +70,13 @@ public class MySecurityConfig  extends WebSecurityConfigurerAdapter {
         http.exceptionHandling().authenticationEntryPoint(myAuthenticationEntryPoint);
         http.exceptionHandling().accessDeniedHandler(accessDeniedHandler());
         // 登录拦截器前面添加验证码拦截器
-        http.addFilterBefore(myVerifyCodeFilter, UsernamePasswordAuthenticationFilter.class);
+        //http.addFilterBefore(myVerifyCodeFilter, UsernamePasswordAuthenticationFilter.class);
         // 不需要登录的请求
         http.authorizeRequests().antMatchers(securityProperties.getOpenUrls()).permitAll();
+        http.authorizeRequests().antMatchers(HttpMethod.OPTIONS).permitAll();
         // 需要登录的请求
         http.authorizeRequests().anyRequest().authenticated();
+
 
         //允许配置“记住我”身份验证。
         if (securityProperties.isRememberMe()) {
@@ -102,7 +99,9 @@ public class MySecurityConfig  extends WebSecurityConfigurerAdapter {
         .successHandler(myAuthenticationSuccessHandler)
         //自己重写的登录失败处理器
         .failureHandler(myAuthenticationFailureHandler)
+
         .and()
+        .cors().and()
         //关闭csrf安全
         .csrf().disable();
     }
@@ -121,19 +120,10 @@ public class MySecurityConfig  extends WebSecurityConfigurerAdapter {
     @Bean
     public AccessDeniedHandler accessDeniedHandler(){
         return (request, response, accessDeniedException) -> {
-            Enumeration<String> headerNames = request.getHeaderNames();
-            while(headerNames.hasMoreElements()){
-                String headerName = headerNames.nextElement();
-                if ("X-Requested-With".equalsIgnoreCase(headerName)){
-                    response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-                    response.setContentType("application/json;charset=utf-8");
-                    ObjectMapper objectMapper = new ObjectMapper();
-                    response.getWriter().print(objectMapper.writeValueAsString("没有权限"));
-                    return;
-                }
-            }
-            response.setContentType("text/html;charset=utf-8");
-            response.sendRedirect("/403");
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            response.setContentType("application/json;charset=utf-8");
+            ObjectMapper objectMapper = new ObjectMapper();
+            response.getWriter().print(objectMapper.writeValueAsString("没有权限"));
         };
     }
 

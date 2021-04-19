@@ -2,12 +2,11 @@ package net.ttcxy.tang.gateway.controller;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.IdUtil;
-import cn.hutool.core.util.StrUtil;
 import io.swagger.annotations.ApiOperation;
-import net.ttcxy.tang.api.ResponseResult;
+import net.ttcxy.tang.gateway.api.ResponseResult;
 import net.ttcxy.tang.gateway.entity.UtsAuthorLogin;
 import net.ttcxy.tang.gateway.entity.dto.DtsCommentDto;
-import net.ttcxy.tang.model.DtsBlogComment;
+import net.ttcxy.tang.gateway.model.DtsBlogComment;
 import net.ttcxy.tang.gateway.entity.param.DtsBlogCommentParam;
 import net.ttcxy.tang.gateway.service.CurrentAuthorService;
 import net.ttcxy.tang.gateway.service.DtsCommentService;

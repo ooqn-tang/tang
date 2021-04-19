@@ -2,7 +2,7 @@ package net.ttcxy.tang.gateway.controller;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import net.ttcxy.tang.api.ResponseResult;
+import net.ttcxy.tang.gateway.api.ResponseResult;
 import net.ttcxy.tang.gateway.entity.UtsAuthorLogin;
 import net.ttcxy.tang.gateway.service.CurrentAuthorService;
 import net.ttcxy.tang.gateway.service.UtsFansService;

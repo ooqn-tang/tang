@@ -1,18 +1,13 @@
 package net.ttcxy.tang.gateway.controller;
 
-import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.IdUtil;
 import com.qiniu.util.Auth;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import net.ttcxy.tang.api.ResponseResult;
-import net.ttcxy.tang.util.ImgUtil;
+import net.ttcxy.tang.gateway.api.ResponseResult;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 

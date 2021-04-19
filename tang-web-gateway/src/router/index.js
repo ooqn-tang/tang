@@ -5,7 +5,6 @@ import {
 } from "vue-router";
 
 const routes = [
-    
     {
         path: '/',
         name: 'home',
@@ -26,8 +25,13 @@ const routes = [
                 path: 'post/:blogId',
                 name: 'post',
                 component: () => import('../views/blog/post.vue')
-            }
+            },
         ]
+    },
+    {
+        path: '/editor',
+        name: 'editor',
+        component: () => import('../views/blog/editor.vue')
     },
     {
         path: '/login',
@@ -40,7 +44,7 @@ createWebHistory   History 模式
 createWebHashHistory    hash 模式
  */
 const router = createRouter({
-    history: createWebHistory(),
+    history: createWebHashHistory(),
     routes
 });
 

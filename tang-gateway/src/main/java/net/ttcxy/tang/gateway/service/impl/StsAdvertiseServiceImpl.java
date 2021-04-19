@@ -1,10 +1,10 @@
 package net.ttcxy.tang.gateway.service.impl;
 
 import cn.hutool.core.util.IdUtil;
-import net.ttcxy.tang.model.DtsAdvertise;
-import net.ttcxy.tang.model.DtsAdvertiseExample;
+import net.ttcxy.tang.gateway.model.DtsAdvertise;
+import net.ttcxy.tang.gateway.model.DtsAdvertiseExample;
 import net.ttcxy.tang.gateway.service.StsAdvertiseService;
-import net.ttcxy.tang.mapper.DtsAdvertiseMapper;
+import net.ttcxy.tang.gateway.mapper.DtsAdvertiseMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

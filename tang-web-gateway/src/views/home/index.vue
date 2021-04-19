@@ -12,7 +12,7 @@
             </div>
             <div id="bs-example-navbar-collapse-1" class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
-                    <li><a href="/">博客</a></li>
+                    <li><router-link to="/">博客</router-link></li>
                 </ul>
                 <form class="navbar-form navbar-left">
                     <div id="search" class="input-group"><input autocapitalize="none" autocomplete="off" autocorrect="off" type="text" value="" placeholder="输入关键字" name="s" class="form-control"> <span class="input-group-btn"><button type="button" class="btn btn-default">搜索</button></span></div>

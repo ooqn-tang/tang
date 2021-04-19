@@ -1,8 +1,8 @@
 package net.ttcxy.tang.gateway.service;
 
-import net.ttcxy.tang.code.exception.ErrorCodeException;
+import net.ttcxy.tang.gateway.code.exception.ErrorCodeException;
 import net.ttcxy.tang.gateway.entity.UtsAuthorLogin;
-import net.ttcxy.tang.model.UtsAuthor;
+import net.ttcxy.tang.gateway.model.UtsAuthor;
 
 public interface OAuthTokenService {
 

@@ -6,19 +6,16 @@ import cn.hutool.core.util.RandomUtil;
 import com.github.pagehelper.PageHelper;
 import net.ttcxy.tang.gateway.entity.UtsAuthorLogin;
 import net.ttcxy.tang.gateway.entity.dto.UtsAuthorDto;
-import net.ttcxy.tang.gateway.entity.dto.UtsRoleDto;
-import net.ttcxy.tang.model.UtsAuthor;
-import net.ttcxy.tang.model.UtsAuthorExample;
+import net.ttcxy.tang.gateway.model.UtsAuthor;
+import net.ttcxy.tang.gateway.model.UtsAuthorExample;
 import net.ttcxy.tang.gateway.dao.UtsAuthorDao;
 import net.ttcxy.tang.gateway.service.UtsAuthorService;
-import net.ttcxy.tang.mapper.UtsAuthorMapper;
+import net.ttcxy.tang.gateway.mapper.UtsAuthorMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 
 /**

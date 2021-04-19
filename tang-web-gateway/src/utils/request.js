@@ -1,14 +1,13 @@
 import axios from 'axios'
 
 const service = axios.create({
-    baseURL: '/api',
+    baseURL: 'http://localhost:80/',
     timeout: 30000
 });
 
 //请求前拦截
 service.interceptors.request.use(
     config => {
-        config.headers["token"] = 666;
         return config;
     },
     error => {

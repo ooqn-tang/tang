@@ -5,7 +5,7 @@ export default createStore({
     * 存储
     */
     state: {
-        name: '三花',
+        name: '',
         isLogin: true
     },
 

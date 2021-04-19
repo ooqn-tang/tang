@@ -1,7 +1,7 @@
 package net.ttcxy.tang.gateway.service;
 
 
-import net.ttcxy.tang.model.DtsAdvertise;
+import net.ttcxy.tang.gateway.model.DtsAdvertise;
 
 import java.util.List;
 

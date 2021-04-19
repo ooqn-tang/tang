@@ -2,7 +2,7 @@ package net.ttcxy.tang.gateway.service;
 
 import com.github.pagehelper.PageInfo;
 import net.ttcxy.tang.gateway.entity.dto.DtsBlogDto;
-import net.ttcxy.tang.model.DtsBlog;
+import net.ttcxy.tang.gateway.model.DtsBlog;
 
 import java.util.List;
 

@@ -66,13 +66,13 @@
         and u.username = #{username}
         order by l.create_date desc
     </select>
-    <select id="selectBlogInfoById" resultType="net.ttcxy.tang.model.DtsBlog">
+    <select id="selectBlogInfoById" resultType="net.ttcxy.tang.gateway.model.DtsBlog">
         select *
         from `dts_blog` b
         where b.id = #{id}
     </select>
 
-    <select id="selectBlogMsIsNull" resultType="net.ttcxy.tang.model.DtsBlog">
+    <select id="selectBlogMsIsNull" resultType="net.ttcxy.tang.gateway.model.DtsBlog">
         select *
         from `dts_blog` b
         where synopsis = "" limit 1

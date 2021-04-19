@@ -2,11 +2,10 @@ package net.ttcxy.tang.gateway.controller;
 
 import cn.hutool.captcha.CaptchaUtil;
 import cn.hutool.captcha.CircleCaptcha;
-import cn.hutool.captcha.generator.RandomGenerator;
 import cn.hutool.core.lang.Validator;
 import cn.hutool.core.util.RandomUtil;
 import io.swagger.annotations.ApiOperation;
-import net.ttcxy.tang.api.ResponseResult;
+import net.ttcxy.tang.gateway.api.ResponseResult;
 import net.ttcxy.tang.gateway.entity.MySecurityData;
 import net.ttcxy.tang.gateway.entity.param.UtsRegisterParam;
 import net.ttcxy.tang.gateway.service.StsMailService;
@@ -22,7 +21,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.Random;
 
 /**
  * 验证码

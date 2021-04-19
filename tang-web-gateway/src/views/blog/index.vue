@@ -51,8 +51,6 @@
 </template>
 
 <script>
-import HelloWorld from '../../components/HelloWorld.vue'
-
 export default {
   name: "blog",
   data() {
@@ -62,7 +60,7 @@ export default {
     }
   },
   components: {
-    HelloWorld
+    
   },
   methods: {
     edit(e) {

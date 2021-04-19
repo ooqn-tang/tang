@@ -2,7 +2,7 @@ package net.ttcxy.tang.gateway.entity.dto;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import net.ttcxy.tang.model.UtsAuthor;
+import net.ttcxy.tang.gateway.model.UtsAuthor;
 
 import java.util.Set;
 
