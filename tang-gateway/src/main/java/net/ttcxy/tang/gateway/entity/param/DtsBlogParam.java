@@ -1,36 +1,48 @@
 package net.ttcxy.tang.gateway.entity.param;
 
 import lombok.Data;
-
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
-import java.util.Date;
+import lombok.EqualsAndHashCode;
+import net.ttcxy.tang.gateway.core.verify.VerifyEntity;
+import net.ttcxy.tang.gateway.entity.model.DtsBlog;
+import net.ttcxy.tang.gateway.entity.model.UtsAuthor;
 
 /**
  * @author huanglei
  */
+@EqualsAndHashCode(callSuper = true)
 @Data
-public class DtsBlogParam {
+public class DtsBlogParam extends VerifyEntity {
 
-    private String id;
+    private DtsBlog blog;
 
-    @NotBlank(message = "请输入标题")
-    private String title;
+    private UtsAuthor author;
 
-    private String userId;
+    @Override
+    public void createVerify() throws Exception {
+        verify(blog.getMarkdown(),"\\d{1,10}","请输入 markdown");
+    }
 
-    private Date createDate;
+    @Override
+    public void updateVerify() throws Exception {
+        super.updateVerify();
+    }
 
-    private Date updateDate;
 
-    private Integer stateId;
 
-    @Size(max = 251,message = "描述长度不能大于251")
-    private String synopsis;
+    public DtsBlog getBlog() {
+        return blog;
+    }
 
-    @NotBlank(message = "请正确输入内容")
-    private String text;
+    public void setBlog(DtsBlog blog) {
+        this.blog = blog;
+    }
 
-    @NotBlank(message = "请输入内容")
-    private String markdown;
+    public UtsAuthor getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(UtsAuthor author) {
+        this.author = author;
+    }
+
 }

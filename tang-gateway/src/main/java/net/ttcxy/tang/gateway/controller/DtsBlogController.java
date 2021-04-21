@@ -7,6 +7,7 @@ import cn.hutool.core.util.StrUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import net.ttcxy.tang.gateway.core.api.ResponseResult;
+import net.ttcxy.tang.gateway.core.verify.Update;
 import net.ttcxy.tang.gateway.entity.dto.DtsBlogDto;
 import net.ttcxy.tang.gateway.entity.dto.UtsLoginDto;
 import net.ttcxy.tang.gateway.entity.model.DtsBlog;
@@ -75,7 +76,7 @@ public class DtsBlogController {
 
     @PostMapping("update")
     @ApiOperation("更新博客")
-    public ResponseResult<?> update(@RequestBody DtsBlogParam blogParam){
+    public ResponseResult<?> update(@RequestBody @Update DtsBlogParam blogParam){
         DtsBlog blog = new DtsBlog();
         BeanUtil.copyProperties(blogParam,blog);
 

@@ -1,9 +1,13 @@
 package net.ttcxy.tang.gateway.core.component;
 
+import cn.hutool.core.annotation.AnnotationUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.core.util.URLUtil;
 import cn.hutool.json.JSONUtil;
 import io.swagger.annotations.ApiOperation;
+import net.ttcxy.tang.gateway.core.verify.Update;
+import net.ttcxy.tang.gateway.core.verify.Verify;
+import net.ttcxy.tang.gateway.core.verify.VerifyEntity;
 import net.ttcxy.tang.gateway.entity.dto.StsWebLogDto;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -12,6 +16,7 @@ import org.aspectj.lang.annotation.*;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.aop.aspectj.MethodInvocationProceedingJoinPoint;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
@@ -19,14 +24,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+import springfox.documentation.spring.web.plugins.SpringIntegrationPluginNotPresentInClassPathCondition;
 
 import javax.servlet.http.HttpServletRequest;
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 统一日志处理切面
@@ -35,7 +39,7 @@ import java.util.Map;
 @Aspect
 @Component
 @Order(1)
-public class MyWebLogAspect {
+public class ControllerAspect {
 
     private Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -53,40 +57,18 @@ public class MyWebLogAspect {
 
     @Around("webLog()")
     public Object doAround(ProceedingJoinPoint joinPoint) throws Throwable {
-
-        long startTime = System.currentTimeMillis();
-        //获取当前请求对象
-        ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
-        HttpServletRequest request = attributes.getRequest();
-        //记录请求信息(通过Logstash传入Elasticsearch)
-        StsWebLogDto stsWebLogDto = new StsWebLogDto();
-        Object result = joinPoint.proceed();
-        Signature signature = joinPoint.getSignature();
-        MethodSignature methodSignature = (MethodSignature) signature;
-        Method method = methodSignature.getMethod();
-        if (method.isAnnotationPresent(ApiOperation.class)) {
-            ApiOperation log = method.getAnnotation(ApiOperation.class);
-            stsWebLogDto.setDescription(log.value());
+        for (Object arg : joinPoint.getArgs()) {
+            for (Method method : arg.getClass().getMethods()) {
+                Parameter[] parameters = method.getParameters();
+                for (Parameter parameter : parameters) {
+                    Update annotation = parameter.getAnnotation(Update.class);
+                    if (annotation != null){
+                        System.out.println(arg);
+                    }
+                }
+            }
         }
-        long endTime = System.currentTimeMillis();
-        String urlStr = request.getRequestURL().toString();
-        stsWebLogDto.setBasePath(StrUtil.removeSuffix(urlStr, URLUtil.url(urlStr).getPath()));
-        stsWebLogDto.setIp(request.getRemoteUser());
-        stsWebLogDto.setMethod(request.getMethod());
-        stsWebLogDto.setParameter(getParameter(method, joinPoint.getArgs()));
-        stsWebLogDto.setResult(result);
-        stsWebLogDto.setSpendTime((int) (endTime - startTime));
-        stsWebLogDto.setStartTime(startTime);
-        stsWebLogDto.setUri(request.getRequestURI());
-        stsWebLogDto.setUrl(request.getRequestURL().toString());
-        Map<String,Object> logMap = new HashMap<>();
-        logMap.put("url", stsWebLogDto.getUrl());
-        logMap.put("method", stsWebLogDto.getMethod());
-        logMap.put("parameter", stsWebLogDto.getParameter());
-        logMap.put("spendTime", stsWebLogDto.getSpendTime());
-        logMap.put("description", stsWebLogDto.getDescription());
-        logger.info("{}", JSONUtil.parse(stsWebLogDto));
-        return result;
+        return joinPoint.proceed();
     }
 
     /**
