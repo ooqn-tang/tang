@@ -1,5 +1,6 @@
 package net.ttcxy.tang.gateway;
 
+import net.ttcxy.tang.gateway.core.api.ResultCode;
 import net.ttcxy.tang.gateway.core.component.MyApplicationContextInitializer;
 import org.apache.catalina.Context;
 import org.apache.catalina.connector.Connector;

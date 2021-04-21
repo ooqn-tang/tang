@@ -2,7 +2,6 @@ package net.ttcxy.tang.gateway.entity.param;
 
 import lombok.Data;
 
-import javax.validation.constraints.NotBlank;
 import java.util.Date;
 
 /**
@@ -19,7 +18,6 @@ public class DtsBlogCommentParam {
 
     private String userId;
 
-    @NotBlank(message = "评论不能为空")
     private String content;
 
     private Date createDate;

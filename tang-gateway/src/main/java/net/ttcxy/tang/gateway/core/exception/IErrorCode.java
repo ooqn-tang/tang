@@ -1,4 +1,4 @@
-package net.ttcxy.tang.gateway.core.api;
+package net.ttcxy.tang.gateway.core.exception;
 
 /**
  * 封装API的错误码
@@ -16,4 +16,5 @@ public interface IErrorCode {
      * @return 错误消息
      */
     String getMessage();
+
 }

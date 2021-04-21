@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author huanglei
  */
 @Component
-public class NetworkAddressHandlerInterceptor implements HandlerInterceptor {
+public class MyNetWorldLogHandlerInterceptor implements HandlerInterceptor {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 

@@ -20,8 +20,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 
 /**
  * 用户相关操作
@@ -43,7 +41,7 @@ public class UtsAuthorController {
 
     @PostMapping(value = "update")
     @ApiOperation("更新作者")
-    public ResponseResult<?> updateAuthor(@RequestBody @Valid UtsAuthorParam utsAuthorParam){
+    public ResponseResult<?> updateAuthor(@RequestBody UtsAuthorParam utsAuthorParam){
         String id = currentAuthorService.getAuthor().getId();
         String nickname = utsAuthorParam.getNickname();
         // 获取昵称字节长度
@@ -70,7 +68,7 @@ public class UtsAuthorController {
 
     @PostMapping("register")
     @ApiOperation("注册请求")
-    public ResponseResult<?> register(@RequestBody @Valid @NotNull(message = "参数不能为空") UtsRegisterParam register){
+    public ResponseResult<?> register(@RequestBody UtsRegisterParam register){
 
         String mail = register.getMail();
         Boolean aBoolean = authorService.selectMailIsTrue(mail);
@@ -93,7 +91,7 @@ public class UtsAuthorController {
 
     @PostMapping("password")
     @ApiOperation("密码修改")
-    public ResponseResult<?> updatePassword(@RequestBody @Valid @NotNull(message = "参数不能为空") UtsRegisterParam register){
+    public ResponseResult<?> updatePassword(@RequestBody UtsRegisterParam register){
 
         String mail = register.getMail();
         String password = register.getPassword();

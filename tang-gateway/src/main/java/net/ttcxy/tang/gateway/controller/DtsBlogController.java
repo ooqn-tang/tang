@@ -18,8 +18,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.constraints.NotBlank;
-
 /**
  * 博客控制器
  * @author huanglei
@@ -53,7 +51,7 @@ public class DtsBlogController {
     @GetMapping("like")
     @ApiOperation("获取自己喜欢的文章")
     public ResponseResult<?> selectByUserLike(@RequestParam(value = "page",defaultValue = "1") Integer page,
-                                              @RequestParam(value = "username") @NotBlank(message = "用户名不能为空") String username){
+                                              @RequestParam(value = "username") String username){
         return ResponseResult.success(blogService.selectLikeBlogList(username,page,15));
     }
 
@@ -76,23 +74,24 @@ public class DtsBlogController {
 
     @PostMapping("update")
     @ApiOperation("更新博客")
-    public ResponseResult<?> update(@RequestBody @Update DtsBlogParam blogParam){
-        DtsBlog blog = new DtsBlog();
-        BeanUtil.copyProperties(blogParam,blog);
-
-        String blogId = blog.getBlogId();
-        DtsBlogDto dtsBlogDto = blogService.selectBlogById(blogId);
-
-        String authorId = dtsBlogDto.getAuthor().getAuthorId();
-        if (StrUtil.equals(authorId, currentAuthorServiceImpl.getAuthorId())){
-            DateTime date = DateUtil.date();
-            blog.setUpdateDate(date);
-            int count = blogService.updateBlog(blog);
-            if (count > 0){
-                return ResponseResult.success(0);
-            }
-            return ResponseResult.failed();
-        }
+    @Update
+    public ResponseResult<?> update(@RequestBody DtsBlogParam blogParam){
+//        DtsBlog blog = new DtsBlog();
+//        BeanUtil.copyProperties(blogParam,blog);
+//
+//        String blogId = blog.getBlogId();
+//        DtsBlogDto dtsBlogDto = blogService.selectBlogById(blogId);
+//
+//        String authorId = dtsBlogDto.getAuthor().getAuthorId();
+//        if (StrUtil.equals(authorId, currentAuthorServiceImpl.getAuthorId())){
+//            DateTime date = DateUtil.date();
+//            blog.setUpdateDate(date);
+//            int count = blogService.updateBlog(blog);
+//            if (count > 0){
+//                return ResponseResult.success(0);
+//            }
+//            return ResponseResult.failed();
+//        }
         return ResponseResult.failed("无法修改别人的内容");
     }
 

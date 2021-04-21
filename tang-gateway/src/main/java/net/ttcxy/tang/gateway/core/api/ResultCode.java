@@ -4,7 +4,7 @@ package net.ttcxy.tang.gateway.core.api;
  * 枚举了一些常用API操作码
  * @author huanglei
  */
-public enum ResultCode implements IErrorCode {
+public enum ResultCode {
     /**
      *
      */
@@ -26,24 +26,28 @@ public enum ResultCode implements IErrorCode {
      */
     FORBIDDEN(403, "没有相关权限");
 
-    /**
-     *
-     */
     private long code;
+
     private String message;
 
-    private ResultCode(long code, String message) {
+    ResultCode(long code, String message) {
         this.code = code;
         this.message = message;
     }
 
-    @Override
     public long getCode() {
         return code;
     }
 
-    @Override
+    public void setCode(long code) {
+        this.code = code;
+    }
+
     public String getMessage() {
         return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 }

@@ -13,7 +13,6 @@ import net.ttcxy.tang.gateway.service.DtsCommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -33,7 +32,7 @@ public class DtsBlogCommentController {
 
     @PostMapping("insert")
     @ApiOperation("添加博客评论")
-    public ResponseResult<?> insertComment(@RequestBody @Valid DtsBlogCommentParam dtsBlogCommentParam){
+    public ResponseResult<?> insertComment(@RequestBody DtsBlogCommentParam dtsBlogCommentParam){
 
         UtsLoginDto loginDto = currentAuthorServiceImpl.getAuthor();
 

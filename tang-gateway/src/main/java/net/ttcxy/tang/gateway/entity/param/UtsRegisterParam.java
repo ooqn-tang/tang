@@ -1,24 +1,15 @@
 package net.ttcxy.tang.gateway.entity.param;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
 /**
  * 注册参数
  * @author huanglei
  */
 public class UtsRegisterParam {
 
-    @Email(message = "邮箱格式不正确")
     private String mail;
 
-    @NotNull(message = "密码不能为空")
-    @Size(message = "密码长度8~20",max = 20,min = 8)
     private String password;
 
-    @NotNull(message = "验证码不为空")
-    @Size(message = "验证码长度不正确",max = 4,min = 4)
     private String verify;
 
     public String getMail() {
