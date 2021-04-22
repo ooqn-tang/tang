@@ -12,19 +12,11 @@ import java.util.Set;
  */
 public interface DtsBlogDao {
 
-
-    /**
-     * 筛选Blog
-     * @return 博客列表
-     */
-    List<DtsBlogDto> selectBlog();
-
-
     /**
      * 博客列表
      * @return 博客列表
      */
-    List<DtsBlogDto> getBlogList();
+    List<DtsBlogDto> selectBlogList();
 
     /**
      * 模糊查询
@@ -52,16 +44,12 @@ public interface DtsBlogDao {
      * @return 博客
      */
     DtsBlogDto selectBlogById(String id);
-
-
-    List<DtsBlogDto> searchByUsernameAuthor(@Param("username") String username);
-
     /**
      * 通过用户名查询博客
      * @param username username
      * @return 博客列表
      */
-    List<DtsBlogDto> searchByUsername(@Param("username") String username);
+    List<DtsBlogDto> selectByUsername(@Param("username") String username);
 
     /**
      * 通过用户ID 查询喜欢泪飙

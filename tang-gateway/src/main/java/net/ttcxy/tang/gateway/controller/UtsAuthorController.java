@@ -42,7 +42,7 @@ public class UtsAuthorController {
     @PostMapping(value = "update")
     @ApiOperation("更新作者")
     public ResponseResult<?> updateAuthor(@RequestBody UtsAuthorParam utsAuthorParam){
-        String id = currentAuthorService.getAuthor().getId();
+        String authorId = currentAuthorService.getAuthor().getAuthorId();
         String nickname = utsAuthorParam.getNickname();
         // 获取昵称字节长度
         int length = TextUtil.byteSize(nickname);
@@ -54,13 +54,13 @@ public class UtsAuthorController {
 
         BeanUtil.copyProperties(utsAuthorParam, author);
 
-        author.setAuthorId(id);
+        author.setAuthorId(authorId);
 
         int count = authorService.updateAuthor(author);
         if (count > 0){
-            UtsLoginDto loginDto = currentAuthorService.getAuthor();
-            loginDto.setNickname(utsAuthorParam.getNickname());
-            loginDto.setSignature(utsAuthorParam.getSignature());
+            UtsAuthor currentAuthor = currentAuthorService.getAuthor();
+            currentAuthor.setNickname(utsAuthorParam.getNickname());
+            currentAuthor.setSignature(utsAuthorParam.getSignature());
             return ResponseResult.success("更新成功");
         }
         return ResponseResult.failed();
@@ -95,14 +95,14 @@ public class UtsAuthorController {
 
         String mail = register.getMail();
         String password = register.getPassword();
-        UtsLoginDto loginDto = authorService.selectAuthorByMail(mail);
 
-        if (loginDto == null){
+        if (authorService.selectAuthorByMail(mail) == null){
             return ResponseResult.failed("邮箱未注册");
         }
 
+        String authorId = currentAuthorService.getAuthorId();
         UtsAuthor author = new UtsAuthor();
-        author.setAuthorId(loginDto.getId());
+        author.setAuthorId(authorId);
         author.setPassword(new BCryptPasswordEncoder().encode(password));
 
         int count = authorService.updateAuthor(author);

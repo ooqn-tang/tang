@@ -3,6 +3,7 @@ package net.ttcxy.tang.gateway.service.impl;
 
 import cn.hutool.core.lang.Validator;
 import net.ttcxy.tang.gateway.entity.dto.UtsLoginDto;
+import net.ttcxy.tang.gateway.entity.model.UtsAuthor;
 import net.ttcxy.tang.gateway.service.UtsAuthorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -21,16 +22,15 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UtsLoginDto utsLoginDto;
         if (Validator.isEmail(username)){
-            utsLoginDto = utsAuthorService.selectAuthorByMail(username);
-        }else{
-            utsLoginDto = utsAuthorService.selectAuthorByName(username);
+            UtsAuthor author = utsAuthorService.selectAuthorByMail(username);
+            if (author != null){
+                UtsLoginDto utsLoginDto = new UtsLoginDto();
+                utsLoginDto.setAuthor(author);
+                return utsLoginDto;
+            }
         }
-        if (utsLoginDto == null){
-            throw new UsernameNotFoundException("用户不存在");
-        }
-        return utsLoginDto;
+        throw new UsernameNotFoundException("输入的邮箱号不正确");
     }
 
 

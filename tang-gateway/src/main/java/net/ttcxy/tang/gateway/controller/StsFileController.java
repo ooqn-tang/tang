@@ -1,7 +1,5 @@
 package net.ttcxy.tang.gateway.controller;
 
-import cn.hutool.core.util.IdUtil;
-import com.qiniu.util.Auth;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import net.ttcxy.tang.gateway.core.api.ResponseResult;
@@ -10,9 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @author huanglei

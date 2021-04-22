@@ -1,7 +1,7 @@
 package net.ttcxy.tang.gateway.dao;
 
 
-import net.ttcxy.tang.gateway.entity.dto.UtsLoginDto;
+import net.ttcxy.tang.gateway.entity.model.UtsAuthor;
 
 /**
  * 用户
@@ -25,10 +25,10 @@ public interface UtsAuthorDao {
 
     /**
      * 查询用户详细信息
-     * @param username 用户名
+     * @param authorName 用户名
      * @return 登录用户消息
      */
-    UtsLoginDto selectAuthorByName(String username);
+    UtsAuthor selectAuthorByName(String authorName);
 
     /**
      * 昵称是否存在
@@ -42,6 +42,6 @@ public interface UtsAuthorDao {
      * @param mail 邮箱
      * @return 登录用户
      */
-    UtsLoginDto selectAuthorByMail(String mail);
+    UtsAuthor selectAuthorByMail(String mail);
 
 }

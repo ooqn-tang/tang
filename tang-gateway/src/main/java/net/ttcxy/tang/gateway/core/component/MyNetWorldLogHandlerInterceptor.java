@@ -1,6 +1,7 @@
 package net.ttcxy.tang.gateway.core.component;
 
 import net.ttcxy.tang.gateway.entity.dto.UtsLoginDto;
+import net.ttcxy.tang.gateway.entity.model.UtsAuthor;
 import net.ttcxy.tang.gateway.service.CurrentAuthorService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,8 +29,8 @@ public class MyNetWorldLogHandlerInterceptor implements HandlerInterceptor {
      */
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
-        UtsLoginDto author = currentAuthorService.getAuthor();
-        String userId = author == null ? "未登陆用户": author.getId();
+        UtsAuthor author = currentAuthorService.getAuthor();
+        String userId = author == null ? "未登陆用户": author.getAuthorId();
         String address = request.getLocalAddr();
         logger.info("userId ：{}，address ：{}" , userId , address);
 

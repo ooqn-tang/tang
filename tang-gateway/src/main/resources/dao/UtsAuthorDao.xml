@@ -2,8 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="net.ttcxy.tang.gateway.dao.UtsAuthorDao">
 
-  <resultMap id="AuthorMap" type="net.ttcxy.tang.gateway.entity.dto.UtsLoginDto">
-      <id column="id" jdbcType="VARCHAR" property="id" />
+  <resultMap id="AuthorMap" type="net.ttcxy.tang.gateway.entity.model.UtsAuthor">
+      <id column="id" jdbcType="VARCHAR" property="authorId" />
       <result column="username" jdbcType="VARCHAR" property="username" />
       <result column="nickname" jdbcType="VARCHAR" property="nickname" />
       <result column="password" jdbcType="VARCHAR" property="password" />
@@ -20,7 +20,7 @@
     <select id="selectUsernameIsTrue" resultType="integer">
         select count(1)
         from `uts_author`
-        where username = #{username}
+        where username = #{authorName}
     </select>
 
     <select id="selectNicknameIsTrue" resultType="integer">
@@ -30,15 +30,15 @@
     </select>
 
     <select id="selectAuthorByMail" resultMap="AuthorMap">
-        select id,username,nickname,password,signature,mail
+        select author_id,username,nickname,password,signature,mail
         from `uts_author`
         where mail = #{mail}
     </select>
 
 
     <select id="selectAuthorByName" resultMap="AuthorMap">
-        select id,username,nickname,password,signature,mail
+        select author_id,username,nickname,password,signature,mail
         from `uts_author`
-        where username = #{username}
+        where username = #{authorName}
     </select>
 </mapper>

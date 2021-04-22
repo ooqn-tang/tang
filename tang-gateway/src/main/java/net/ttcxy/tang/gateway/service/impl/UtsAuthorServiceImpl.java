@@ -10,7 +10,6 @@ import net.ttcxy.tang.gateway.entity.dto.UtsAuthorDto;
 import net.ttcxy.tang.gateway.entity.dto.UtsLoginDto;
 import net.ttcxy.tang.gateway.entity.model.UtsAuthor;
 import net.ttcxy.tang.gateway.entity.model.UtsAuthorExample;
-import net.ttcxy.tang.gateway.entity.model.UtsFansExample;
 import net.ttcxy.tang.gateway.service.UtsAuthorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
@@ -29,17 +28,24 @@ public class UtsAuthorServiceImpl implements UtsAuthorService {
     @Autowired
     private UtsAuthorDao utsAuthorDao;
 
+    @Autowired
     private UtsAuthorMapper utsAuthorMapper;
 
 
     @Override
-    public UtsLoginDto selectAuthorByName(String username) {
+    public UtsAuthor selectAuthorByName(String username) {
         return utsAuthorDao.selectAuthorByName(username);
     }
 
     @Override
-    public UtsLoginDto selectAuthorByMail(String mail) {
-        return utsAuthorDao.selectAuthorByMail(mail);
+    public UtsAuthor selectAuthorByMail(String mail) {
+        UtsAuthorExample authorExample = new UtsAuthorExample();
+        authorExample.createCriteria().andMailEqualTo(mail);
+        List<UtsAuthor> utsAuthors = utsAuthorMapper.selectByExample(authorExample);
+        if (utsAuthors.size() > 0){
+            return utsAuthors.get(0);
+        }
+        return null;
     }
 
     @Override

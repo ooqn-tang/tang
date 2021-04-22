@@ -1,7 +1,6 @@
-package net.ttcxy.tang.gateway.core.verify;
+package net.ttcxy.tang.gateway.core.exception;
 
 import cn.hutool.json.JSONObject;
-import net.ttcxy.tang.gateway.core.exception.IErrorCode;
 
 public class VerifyException extends RuntimeException implements IErrorCode{
 

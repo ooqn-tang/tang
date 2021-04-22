@@ -2,12 +2,10 @@ package net.ttcxy.tang.gateway.core.exception;
 
 import net.ttcxy.tang.gateway.core.api.ApiException;
 import net.ttcxy.tang.gateway.core.api.ResponseResult;
-import net.ttcxy.tang.gateway.core.verify.VerifyException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.AccessDeniedException;
-import org.springframework.web.HttpRequestHandler;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -35,13 +33,6 @@ public class GlobalExceptionHandler {
     public ResponseResult<?> errorHandler(AccessDeniedException ex) {
         logger.error(ex.getMessage(),ex);
         return ResponseResult.failed("AccessDeniedException");
-    }
-
-    @ResponseBody
-    @ExceptionHandler(VerifyException.class)
-    public ResponseResult<?> errorHandler(VerifyException ex) {
-        logger.error(ex.getMessage());
-        return ResponseResult.validateFailed(ex.getData());
     }
 
     /**
@@ -82,6 +73,6 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     public ResponseResult<?> errorHandler(Exception ex) {
         logger.error(ex.getMessage(),ex);
-        return ResponseResult.failed("系统异常：" + ex.getMessage());
+        return ResponseResult.failed("系统异常：" + ex.getClass());
     }
 }

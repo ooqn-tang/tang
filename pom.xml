@@ -51,11 +51,6 @@
             <artifactId>pagehelper-spring-boot-starter</artifactId>
             <version>1.2.13</version>
         </dependency>
-        <dependency>
-            <groupId>org.aspectj</groupId>
-            <artifactId>aspectjrt</artifactId>
-            <version>1.9.4</version>
-        </dependency>
 
         <dependency>
             <groupId>org.springframework.data</groupId>
@@ -76,12 +71,6 @@
         </dependency>
 
         <dependency>
-            <groupId>javax.mail</groupId>
-            <artifactId>mail</artifactId>
-            <version>1.4.7</version>
-        </dependency>
-
-        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
@@ -96,13 +85,6 @@
             <artifactId>spring-boot-configuration-processor</artifactId>
             <optional>true</optional>
         </dependency>
-
-        <dependency>
-            <groupId>com.qiniu</groupId>
-            <artifactId>qiniu-java-sdk</artifactId>
-            <version>[7.4.0, 7.4.99]</version>
-        </dependency>
-
         <!-- 内嵌数据库 -->
         <dependency>
             <groupId>com.h2database</groupId>

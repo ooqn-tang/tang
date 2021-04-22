@@ -60,7 +60,8 @@ CREATE TABLE `dts_like_data`  (
   `like_data_id` varchar(32) NOT NULL PRIMARY KEY,
   `author_id` varchar(32) NULL DEFAULT NULL,
   `blog_id` varchar(32) NULL DEFAULT NULL,
-  `create_date` timestamp(0) DEFAULT NULL
+  `create_date` timestamp(0) DEFAULT NULL,
+  UNIQUE INDEX `dts_like_data_unique`(`author_id`, `blog_id`) USING BTREE
 ) ;
 
 -- ----------------------------
@@ -122,7 +123,7 @@ CREATE TABLE `uts_fans`  (
   `author_id` varchar(32) NOT NULL,
   `follower` varchar(255) NOT NULL,
   `create_date` timestamp(0) DEFAULT NULL,
-  UNIQUE INDEX `uts_fans_unique_author_id`(`author_id`, `follower`) USING BTREE
+  UNIQUE INDEX `uts_fans_unique`(`author_id`, `follower`) USING BTREE
 ) ;
 
 -- ----------------------------

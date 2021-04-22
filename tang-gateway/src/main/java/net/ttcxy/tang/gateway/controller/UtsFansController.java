@@ -29,8 +29,8 @@ public class UtsFansController {
     @GetMapping("list")
     @ApiOperation("关注的作者列表")
     public ResponseResult<List<UtsLoginDto>> fansList(){
-        String memberId = currentAuthorService.getAuthor().getId();
-        List<UtsLoginDto> fansList = fansService.selectFansList(memberId);
+        String authorId = currentAuthorService.getAuthor().getAuthorId();
+        List<UtsLoginDto> fansList = fansService.selectFansList(authorId);
         return ResponseResult.success(fansList);
     }
 

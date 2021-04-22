@@ -22,7 +22,7 @@ public class SecurityProperties {
     /**
      * 登陆页面
      */
-    private String loginPagePath = "/";
+    private String loginPagePath = "/login.html";
 
     /**
      * 登陆请求

@@ -3,6 +3,7 @@ package net.ttcxy.tang.gateway.service;
 import com.github.pagehelper.PageInfo;
 import net.ttcxy.tang.gateway.entity.dto.DtsBlogDto;
 import net.ttcxy.tang.gateway.entity.model.DtsBlog;
+import net.ttcxy.tang.gateway.entity.param.DtsBlogParam;
 
 /**
  * 博客操作
@@ -15,7 +16,7 @@ public interface DtsBlogService {
      * 博客列表
      * @param page 页码
      */
-    PageInfo<DtsBlogDto> getBlogList(Integer page, Integer pageSize);
+    PageInfo<DtsBlogDto> selectBlogList(Integer page, Integer pageSize);
 
     /**
      * 模糊查询blog
@@ -30,7 +31,7 @@ public interface DtsBlogService {
      * @param username 用户名
      * @return BlogDto list
      */
-    PageInfo<DtsBlogDto> selectBlogByUsername(String username, Integer page, Integer pageSize);
+    PageInfo<DtsBlogDto> selectBlogByAuthorName(String username, Integer page, Integer pageSize);
 
     /**
      * 通过博客ID查询数据
@@ -72,11 +73,11 @@ public interface DtsBlogService {
     int like(String userId, String blogId);
 
     /**
-     * 更新博客，获取原始MD格式
-     * @param blogId 博客列表
-     * @return
+     * 喜欢blog
+     * @param userId 用户ID
+     * @param blogId 博客ID
      */
-    DtsBlog selectByPrimaryId(String blogId);
+    int unlike(String userId, String blogId);
 
     /**
      * 查询我是否喜欢了当前Blog
@@ -87,21 +88,18 @@ public interface DtsBlogService {
     long selectLike(String userId, String dataId);
 
     /**
+     * 更新博客，获取原始MD格式
+     * @param blogId 博客列表
+     * @return
+     */
+    DtsBlog selectByPrimaryId(String blogId);
+
+
+
+    /**
      * 查询用户喜欢的所有BLOG
      * @return 喜欢的博客列表
      */
     PageInfo<DtsBlogDto> selectLikeBlogList(String username, Integer page, Integer pageSize);
 
-
-    /**
-     * 获取博客列表
-     * @param page 页码
-     * @return
-     */
-    PageInfo<DtsBlogDto> selectBlogList(Integer page, Integer pageSize);
-
-    /**
-     * 随机获取一条博客
-     */
-    DtsBlogDto random();
 }

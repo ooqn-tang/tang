@@ -5,6 +5,7 @@ import net.ttcxy.tang.gateway.dao.UtsAuthorDao;
 import net.ttcxy.tang.gateway.dao.UtsFansDao;
 import net.ttcxy.tang.gateway.entity.dto.UtsFansDto;
 import net.ttcxy.tang.gateway.entity.dto.UtsLoginDto;
+import net.ttcxy.tang.gateway.entity.model.UtsAuthor;
 import net.ttcxy.tang.gateway.service.CurrentAuthorService;
 import net.ttcxy.tang.gateway.service.UtsFansService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,15 +60,15 @@ public class UtsFansServiceImpl implements UtsFansService {
     }
 
     private UtsFansDto getFans(String fansName){
-        UtsLoginDto authorAuth = currentAuthorServiceImpl.getAuthor();
-        if (authorAuth ==null){
+        UtsAuthor currentAuthor = currentAuthorServiceImpl.getAuthor();
+        if (currentAuthor ==null){
             return null;
         }
-        UtsLoginDto author = utsAuthorDao.selectAuthorByName(fansName);
+        UtsAuthor author = utsAuthorDao.selectAuthorByName(fansName);
         UtsFansDto utsFansDto = new UtsFansDto();
         utsFansDto.setId(IdUtil.fastSimpleUUID());
-        utsFansDto.setAuthorId(authorAuth.getId());
-        utsFansDto.setFollower(author.getId());
+        utsFansDto.setAuthorId(currentAuthor.getAuthorId());
+        utsFansDto.setFollower(author.getAuthorId());
         utsFansDto.setCreateDate(new Date());
 
         return utsFansDto;

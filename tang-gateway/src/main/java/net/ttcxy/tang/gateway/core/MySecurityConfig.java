@@ -98,8 +98,7 @@ public class MySecurityConfig  extends WebSecurityConfigurerAdapter {
         //自己重写的登录失败处理器
         .failureHandler(myAuthenticationFailureHandler)
 
-        .and()
-        .cors().and()
+        .and().cors().and()
         //关闭csrf安全
         .csrf().disable();
     }
@@ -126,4 +125,7 @@ public class MySecurityConfig  extends WebSecurityConfigurerAdapter {
         };
     }
 
+    public static void main(String[] args) {
+        System.out.println(new BCryptPasswordEncoder().encode("leilei"));
+    }
 }

@@ -7,6 +7,7 @@ import net.ttcxy.tang.gateway.core.api.ResponseResult;
 import net.ttcxy.tang.gateway.entity.dto.DtsCommentDto;
 import net.ttcxy.tang.gateway.entity.dto.UtsLoginDto;
 import net.ttcxy.tang.gateway.entity.model.DtsBlogComment;
+import net.ttcxy.tang.gateway.entity.model.UtsAuthor;
 import net.ttcxy.tang.gateway.entity.param.DtsBlogCommentParam;
 import net.ttcxy.tang.gateway.service.CurrentAuthorService;
 import net.ttcxy.tang.gateway.service.DtsCommentService;
@@ -34,14 +35,14 @@ public class DtsBlogCommentController {
     @ApiOperation("添加博客评论")
     public ResponseResult<?> insertComment(@RequestBody DtsBlogCommentParam dtsBlogCommentParam){
 
-        UtsLoginDto loginDto = currentAuthorServiceImpl.getAuthor();
+        UtsAuthor author = currentAuthorServiceImpl.getAuthor();
 
         DtsBlogComment blogComment = new DtsBlogComment();
         BeanUtil.copyProperties(dtsBlogCommentParam,blogComment);
 
         String commentId = IdUtil.fastSimpleUUID();
         blogComment.setBlogCommentId(commentId);
-        blogComment.setAuthorId(loginDto.getId());
+        blogComment.setAuthorId(author.getAuthorId());
         blogComment.setCreateDate(new Date());
         blogComment.setStatus(1);
 

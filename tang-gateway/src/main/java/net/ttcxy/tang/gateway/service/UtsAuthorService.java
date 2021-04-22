@@ -19,7 +19,7 @@ public interface UtsAuthorService {
      * @param name 用户名
      * @return 登录用户
      */
-    UtsLoginDto selectAuthorByName(String name) ;
+    UtsAuthor selectAuthorByName(String name) ;
 
 
     /**
@@ -27,7 +27,7 @@ public interface UtsAuthorService {
      * @param mail 邮箱
      * @return 登录用户
      */
-    UtsLoginDto selectAuthorByMail(String mail);
+    UtsAuthor selectAuthorByMail(String mail);
 
     /**
      * 添加用户
