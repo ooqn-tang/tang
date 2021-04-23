@@ -8,20 +8,31 @@ import net.ttcxy.tang.gateway.core.exception.IErrorCode;
  */
 public class ApiException extends RuntimeException implements IErrorCode {
 
-    private long errorCode;
+    private int errorCode;
 
-    public ApiException(long errorCode, String message) {
+    public ApiException(int errorCode, String message) {
         super(message);
         this.errorCode = errorCode;
     }
 
+    public ApiException(ResponseCode responseCode) {
+        super(responseCode.getMessage());
+        this.errorCode = responseCode.getCode();
+    }
+
+    public ApiException() {
+        super(ResponseCode.FAILED.getMessage());
+        this.errorCode = ResponseCode.FAILED.getCode();
+    }
+
     @Override
-    public long getCode() {
+    public int getCode() {
         return errorCode;
     }
 
     public ApiException(String message) {
         super(message);
+        this.errorCode = ResponseCode.FAILED.getCode();
     }
 
     public ApiException(Throwable cause) {

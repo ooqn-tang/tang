@@ -4,8 +4,9 @@ import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.StrUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import net.ttcxy.tang.gateway.core.api.ApiException;
 import net.ttcxy.tang.gateway.core.api.ResponseResult;
-import net.ttcxy.tang.gateway.entity.dto.UtsLoginDto;
+import net.ttcxy.tang.gateway.core.api.ResponseCode;
 import net.ttcxy.tang.gateway.entity.model.UtsAuthor;
 import net.ttcxy.tang.gateway.entity.param.UtsAuthorParam;
 import net.ttcxy.tang.gateway.entity.param.UtsRegisterParam;
@@ -47,7 +48,7 @@ public class UtsAuthorController {
         // 获取昵称字节长度
         int length = TextUtil.byteSize(nickname);
         if (StrUtil.isNotBlank(nickname) && (length > 16 || length < 4)){
-            return ResponseResult.failed("昵称长度：汉字 2 ~ 8,字母 4 ~ 16");
+            throw new ApiException(ResponseCode.FAILED.getCode(),"昵称长度：汉字 2 ~ 8,字母 4 ~ 16");
         }
 
         UtsAuthor author = new UtsAuthor();
@@ -63,7 +64,7 @@ public class UtsAuthorController {
             currentAuthor.setSignature(utsAuthorParam.getSignature());
             return ResponseResult.success("更新成功");
         }
-        return ResponseResult.failed();
+        throw new ApiException();
     }
 
     @PostMapping("register")
@@ -73,7 +74,7 @@ public class UtsAuthorController {
         String mail = register.getMail();
         Boolean aBoolean = authorService.selectMailIsTrue(mail);
         if (aBoolean){
-            return ResponseResult.failed("邮箱以存在");
+            throw new ApiException("邮箱以存在");
         }
 
         String password = register.getPassword();
@@ -86,7 +87,7 @@ public class UtsAuthorController {
         if (count > 0){
              return ResponseResult.success();
         }
-        return ResponseResult.failed();
+        throw new ApiException(ResponseCode.FAILED);
     }
 
     @PostMapping("password")
@@ -97,7 +98,7 @@ public class UtsAuthorController {
         String password = register.getPassword();
 
         if (authorService.selectAuthorByMail(mail) == null){
-            return ResponseResult.failed("邮箱未注册");
+            throw new ApiException("邮箱未注册");
         }
 
         String authorId = currentAuthorService.getAuthorId();
@@ -110,7 +111,7 @@ public class UtsAuthorController {
             return ResponseResult.success();
         }
 
-        return ResponseResult.failed();
+        throw new ApiException();
     }
 
     public static void main(String[] args) {

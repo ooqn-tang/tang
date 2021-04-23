@@ -1,6 +1,10 @@
 package net.ttcxy.tang.gateway.entity.param;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import net.ttcxy.tang.gateway.core.verify.VerifyAbstract;
+import net.ttcxy.tang.gateway.entity.model.DtsBlog;
+import net.ttcxy.tang.gateway.entity.model.DtsBlogComment;
 
 import java.util.Date;
 
@@ -8,18 +12,10 @@ import java.util.Date;
  * 博客参数
  * @author huanglei
  */
+@EqualsAndHashCode(callSuper = true)
 @Data
-public class DtsBlogCommentParam {
-    private String id;
+public class DtsBlogCommentParam extends VerifyAbstract {
 
-    private String blogId;
-
-    private Integer status;
-
-    private String userId;
-
-    private String content;
-
-    private Date createDate;
+    DtsBlogComment blogComment;
 
 }

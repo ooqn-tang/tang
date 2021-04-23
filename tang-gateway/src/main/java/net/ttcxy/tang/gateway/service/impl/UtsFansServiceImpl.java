@@ -1,8 +1,10 @@
 package net.ttcxy.tang.gateway.service.impl;
 
 import cn.hutool.core.util.IdUtil;
+import com.github.pagehelper.PageInfo;
 import net.ttcxy.tang.gateway.dao.UtsAuthorDao;
 import net.ttcxy.tang.gateway.dao.UtsFansDao;
+import net.ttcxy.tang.gateway.entity.dto.UtsAuthorDto;
 import net.ttcxy.tang.gateway.entity.dto.UtsFansDto;
 import net.ttcxy.tang.gateway.entity.dto.UtsLoginDto;
 import net.ttcxy.tang.gateway.entity.model.UtsAuthor;
@@ -32,46 +34,17 @@ public class UtsFansServiceImpl implements UtsFansService {
     private UtsAuthorDao utsAuthorDao;
 
     @Override
-    public int selectFans(String fansName){
-        UtsFansDto utsFansDto = getFans(fansName);
-        return utsFansDao.selectFans(utsFansDto);
+    public PageInfo<UtsAuthorDto> selectFansList(String authorId){
+        return null;
     }
 
     @Override
     public int insertFans(String fansName) {
-        try{
-            UtsFansDto utsFansDto = getFans(fansName);
-            return utsFansDao.insertFans(utsFansDto);
-        }catch (DuplicateKeyException e){
-            deleteFans(fansName);
-            return 0;
-        }
+        return 0;
     }
 
     @Override
     public int deleteFans(String fansName){
-        UtsFansDto utsFansDto = getFans(fansName);
-        return utsFansDao.deleteFans(utsFansDto);
+        return 0;
     }
-
-    @Override
-    public List<UtsLoginDto> selectFansList(String userId) {
-        return utsFansDao.selectFansList(userId);
-    }
-
-    private UtsFansDto getFans(String fansName){
-        UtsAuthor currentAuthor = currentAuthorServiceImpl.getAuthor();
-        if (currentAuthor ==null){
-            return null;
-        }
-        UtsAuthor author = utsAuthorDao.selectAuthorByName(fansName);
-        UtsFansDto utsFansDto = new UtsFansDto();
-        utsFansDto.setId(IdUtil.fastSimpleUUID());
-        utsFansDto.setAuthorId(currentAuthor.getAuthorId());
-        utsFansDto.setFollower(author.getAuthorId());
-        utsFansDto.setCreateDate(new Date());
-
-        return utsFansDto;
-    }
-
 }

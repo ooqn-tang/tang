@@ -9,7 +9,7 @@ public interface IErrorCode {
      * 错误码
      * @return 错误码数值
      */
-     long getCode();
+    int getCode();
 
     /**
      * 消息

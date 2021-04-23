@@ -1,6 +1,7 @@
 package net.ttcxy.tang.gateway.entity.param;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import net.ttcxy.tang.gateway.core.exception.VerifyException;
 import net.ttcxy.tang.gateway.core.verify.VerifyAbstract;
 import net.ttcxy.tang.gateway.entity.model.DtsBlog;
@@ -12,6 +13,7 @@ import javax.validation.constraints.NotNull;
 /**
  * @author huanglei
  */
+@EqualsAndHashCode(callSuper = true)
 @Data
 public class DtsBlogParam extends VerifyAbstract {
 

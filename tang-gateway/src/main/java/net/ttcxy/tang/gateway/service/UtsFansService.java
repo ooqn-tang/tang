@@ -1,5 +1,7 @@
 package net.ttcxy.tang.gateway.service;
 
+import com.github.pagehelper.PageInfo;
+import net.ttcxy.tang.gateway.entity.dto.UtsAuthorDto;
 import net.ttcxy.tang.gateway.entity.dto.UtsLoginDto;
 
 import java.util.List;
@@ -10,10 +12,10 @@ import java.util.List;
 public interface UtsFansService {
 
     /**
-     * @param fansName 粉丝名
+     * @param authorId 粉丝名
      * @return 影响的行数
      */
-    int selectFans(String fansName);
+    PageInfo<UtsAuthorDto> selectFansList(String authorId);
 
     /**
      * @param fansName 粉丝名
@@ -26,11 +28,5 @@ public interface UtsFansService {
      * @return 影响的行数
      */
     int deleteFans(String fansName);
-
-    /**
-     * @param userId user id
-     * @return 登录用户
-     */
-    List<UtsLoginDto> selectFansList(String userId);
 
 }

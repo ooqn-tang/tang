@@ -1,5 +1,6 @@
 package net.ttcxy.tang.gateway.service;
 
+import com.github.pagehelper.PageInfo;
 import net.ttcxy.tang.gateway.entity.dto.DtsCommentDto;
 import net.ttcxy.tang.gateway.entity.model.DtsBlogComment;
 
@@ -29,10 +30,6 @@ public interface DtsCommentService {
      * @param blogId
      * @return
      */
-    List<DtsCommentDto> selectComments(String blogId);
+    PageInfo<DtsCommentDto> selectComments(String blogId,Integer page,Integer pageSize);
 
-    /**
-     * 评论ID
-     */
-    DtsCommentDto selectComment(String commentId);
 }

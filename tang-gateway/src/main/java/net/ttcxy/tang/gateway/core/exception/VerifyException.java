@@ -20,8 +20,8 @@ public class VerifyException extends RuntimeException implements IErrorCode{
     }
 
     @Override
-    public long getCode() {
-        return 410L;
+    public int getCode() {
+        return 410;
     }
 
     @Override

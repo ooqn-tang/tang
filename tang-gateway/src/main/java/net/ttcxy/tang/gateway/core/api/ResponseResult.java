@@ -1,119 +1,81 @@
 package net.ttcxy.tang.gateway.core.api;
 
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.util.MultiValueMap;
+import net.ttcxy.tang.gateway.core.exception.IErrorCode;
 
 /**
  * 通用返回对象
  * @author huanglei
  */
-public class ResponseResult<T> extends ResponseEntity<T> {
+public class ResponseResult<T> {
 
-    private ResponseResult(HttpStatus status) {
-        super(status);
-    }
-
-    private ResponseResult(T body, HttpStatus status) {
-        super(body, status);
-    }
-
-    private ResponseResult(MultiValueMap<String, String> headers, HttpStatus status) {
-        super(headers, status);
-    }
-
-    private ResponseResult(T body, MultiValueMap<String, String> headers, HttpStatus status) {
-        super(body, headers, status);
-    }
-
-    @Override
-    public HttpHeaders getHeaders() {
-        return super.getHeaders();
-    }
-
-    @Override
-    public T getBody() {
-        return super.getBody();
-    }
-
-    @Override
-    public boolean hasBody() {
-        return super.hasBody();
-    }
-
-    @Override
-    public boolean equals(Object other) {
-        return super.equals(other);
-    }
-
-    @Override
-    public int hashCode() {
-        return super.hashCode();
-    }
-
-    @Override
-    public String toString() {
-        return super.toString();
-    }
 
     /**
-     * 成功返回结果
+     * 提示信息
      */
-    public static <T> ResponseResult<String> success() {
-        return success("执行成功");
+    private String message;
+
+    /**
+     * 数据封装
+     */
+    private T data;
+
+    protected ResponseResult(String message, T data) {
+        this.message = message;
+        this.data = data;
     }
 
     /**
      * 成功返回结果
+     *
      * @param data 获取的数据
      */
     public static <T> ResponseResult<T> success(T data) {
-        return new ResponseResult<>(data,HttpStatus.OK);
+        return new ResponseResult<T>(ResponseCode.SUCCESS.getMessage(), data);
+    }
+
+    /**
+     * 成功返回结果
+     *
+     * @param data 获取的数据
+     * @param  message 提示信息
+     */
+    public static <T> ResponseResult<T> success(T data, String message) {
+        return new ResponseResult<T>(message, data);
     }
 
     /**
      * 失败返回结果
+     * @param errorCode 错误码
      */
-    public static <T> ResponseResult<String> failed() {
-        return failed("执行失败");
+    public static <T> ResponseResult<T> failed(IErrorCode errorCode) {
+        return new ResponseResult<T>(errorCode.getMessage(), null);
     }
 
-    /**
-     * 失败返回结果
-     * 500 Internal Server Error
-     * @param data 错误码
-     */
-    public static <T> ResponseResult<T> failed(T data) {
-        return new ResponseResult<>(data,HttpStatus.INTERNAL_SERVER_ERROR);
+    public static <T> ResponseResult<T> failed(String message,T data) {
+        return new ResponseResult<T>(message, data);
     }
 
-
-    /**
-     * 参数验证失败返回结果
-     * 404 Not Found.
-     */
-    public static <T> ResponseResult<T> validateFailed(T data) {
-        return new ResponseResult<>(data, HttpStatus.NOT_FOUND);
+    public static <T> ResponseResult<T> failed(ResponseCode responseCode,T data) {
+        return new ResponseResult<T>(responseCode.getMessage(), data);
     }
 
-    /**
-     * 未登录返回结果
-     * 401 Unauthorized
-     */
-    public static <T> ResponseResult<T> unauthorized(T data) {
-        return new ResponseResult<>(data,HttpStatus.UNAUTHORIZED);
+    public static ResponseResult<?> success() {
+        return new ResponseResult<>(ResponseCode.SUCCESS.getMessage(),null);
     }
 
-    /**
-     * 未授权返回结果
-     * 403 Forbidden
-     */
-    public static <T> ResponseResult<T> forbidden(T data) {
-        return new ResponseResult<>(data,HttpStatus.FORBIDDEN);
+    public String getMessage() {
+        return message;
     }
 
+    public void setMessage(String message) {
+        this.message = message;
+    }
 
-    public static void main(String[] args) {
+    public T getData() {
+        return data;
+    }
+
+    public void setData(T data) {
+        this.data = data;
     }
 }

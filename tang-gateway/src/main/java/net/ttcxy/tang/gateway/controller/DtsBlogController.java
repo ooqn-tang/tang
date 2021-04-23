@@ -6,7 +6,9 @@ import cn.hutool.core.util.StrUtil;
 import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import net.ttcxy.tang.gateway.core.api.ApiException;
 import net.ttcxy.tang.gateway.core.api.ResponseResult;
+import net.ttcxy.tang.gateway.core.api.ResponseCode;
 import net.ttcxy.tang.gateway.entity.dto.DtsBlogDto;
 import net.ttcxy.tang.gateway.entity.model.DtsBlog;
 import net.ttcxy.tang.gateway.entity.model.UtsAuthor;
@@ -42,26 +44,26 @@ public class DtsBlogController {
 
 
 
-    @GetMapping("delete/{id}")
+    @DeleteMapping("{blogId}")
     @ApiOperation("删除博客")
-    public ResponseResult<?> delete(@PathVariable("id") String id){
-        DtsBlog blog = blogService.selectByPrimaryId(id);
+    public ResponseResult<?> delete(@PathVariable("blogId") String blogId){
+        DtsBlog blog = blogService.selectByPrimaryId(blogId);
         if (blog == null){
-            return ResponseResult.failed("删除失败");
+            throw new ApiException(ResponseCode.FAILED);
         }
         String blogAuthorId = blog.getAuthorId();
         String currentAuthorId = currentAuthor.getAuthor().getAuthorId();
         int count = 0;
         if (currentAuthor.getAuthor()!=null){
             if(StrUtil.equals(currentAuthorId,blogAuthorId)){
-                count = blogService.deleteBlog(id);
+                count = blogService.deleteBlog(blogId);
             }
         }
         if(count > 0){
             return ResponseResult.success();
-        }else{
-            return ResponseResult.failed();
         }
+        throw new ApiException(ResponseCode.FAILED);
+
     }
 
     @PostMapping("update")
@@ -81,15 +83,15 @@ public class DtsBlogController {
             blog.setUpdateDate(date);
             int count = blogService.updateBlog(blog);
             if (count > 0){
-                return ResponseResult.success(0);
+                return ResponseResult.success();
             }
         }
-        return ResponseResult.failed("无法修改别人的内容");
+        throw new ApiException(ResponseCode.FORBIDDEN);
     }
 
     @PostMapping("insert")
     @ApiOperation("添加博客")
-    public ResponseResult<?> insert(@RequestBody DtsBlogParam blogParam){
+    public ResponseResult<?> insert(@RequestBody @Validated DtsBlogParam blogParam){
         return ResponseResult.success(blogService.insertBlog(blogParam.getBlog()));
     }
 
@@ -98,7 +100,7 @@ public class DtsBlogController {
     public ResponseResult<?> load(@RequestParam(name="blogId",required = false) String blogId){
         DtsBlogDto blogDto = blogService.selectBlogById(blogId);
         if (blogDto == null){
-            return ResponseResult.failed("信息不存在");
+            throw new ApiException(ResponseCode.FAILED);
         }
         return ResponseResult.success(blogDto);
     }
