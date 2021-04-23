@@ -1,7 +1,10 @@
 package net.ttcxy.tang.gateway.dao;
 
 
+import net.ttcxy.tang.gateway.entity.dto.UtsAuthorDto;
 import net.ttcxy.tang.gateway.entity.model.UtsAuthor;
+
+import java.util.List;
 
 /**
  * 用户
@@ -44,4 +47,9 @@ public interface UtsAuthorDao {
      */
     UtsAuthor selectAuthorByMail(String mail);
 
+    /**
+     * 查询所有作者
+     * @return 作者列表
+     */
+    List<UtsAuthor> selectAuthor();
 }

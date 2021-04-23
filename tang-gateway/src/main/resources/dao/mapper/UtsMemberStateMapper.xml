@@ -67,20 +67,6 @@
   <sql id="Base_Column_List">
     MEMBER_STATE_ID, NAME, CREATE_DATE
   </sql>
-  <select id="selectByExample" parameterType="net.ttcxy.tang.gateway.entity.model.UtsMemberStateExample" resultMap="BaseResultMap">
-    select
-    <if test="distinct">
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    from UTS_MEMBER_STATE
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null">
-      order by ${orderByClause}
-    </if>
-  </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />

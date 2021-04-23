@@ -1,6 +1,5 @@
 package net.ttcxy.tang.gateway.dao.mapper;
 
-import java.util.List;
 import net.ttcxy.tang.gateway.entity.model.UtsMemberState;
 import net.ttcxy.tang.gateway.entity.model.UtsMemberStateExample;
 import org.apache.ibatis.annotations.Param;
@@ -15,8 +14,6 @@ public interface UtsMemberStateMapper {
     int insert(UtsMemberState record);
 
     int insertSelective(UtsMemberState record);
-
-    List<UtsMemberState> selectByExample(UtsMemberStateExample example);
 
     UtsMemberState selectByPrimaryKey(Integer memberStateId);
 

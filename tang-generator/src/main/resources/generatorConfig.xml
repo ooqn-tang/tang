@@ -33,10 +33,12 @@
 
         <sqlMapGenerator targetPackage="mapper" targetProject="tang-gateway\src\main\resources\dao"/>
 
-        <javaClientGenerator type="XMLMAPPER" targetPackage="net.ttcxy.tang.gateway.dao.mapper" targetProject="tang-gateway\src\main\java"/>
+        <javaClientGenerator type="XMLMAPPER"
+                             targetPackage="net.ttcxy.tang.gateway.dao.mapper"
+                             targetProject="tang-gateway\src\main\java"/>
         <!--生成全部表tableName设为%-->
-        <table tableName="dts_%"></table>
-        <table tableName="uts_%"></table>
-        <table tableName="sts_%"></table>
+        <table tableName="dts_%" enableSelectByExample="false"/>
+        <table tableName="uts_%" enableSelectByExample="false"/>
+        <table tableName="sts_%" enableSelectByExample="false"/>
     </context>
 </generatorConfiguration>

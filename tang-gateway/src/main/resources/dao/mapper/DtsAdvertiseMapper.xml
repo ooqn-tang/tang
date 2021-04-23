@@ -70,20 +70,6 @@
   <sql id="Base_Column_List">
     ADVERTISE_ID, TITLE, URL, CREATE_DATE, DELIVERY_TIME, DESCRIPTION
   </sql>
-  <select id="selectByExample" parameterType="net.ttcxy.tang.gateway.entity.model.DtsAdvertiseExample" resultMap="BaseResultMap">
-    select
-    <if test="distinct">
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    from DTS_ADVERTISE
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null">
-      order by ${orderByClause}
-    </if>
-  </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />

@@ -1,6 +1,5 @@
 package net.ttcxy.tang.gateway.dao.mapper;
 
-import java.util.List;
 import net.ttcxy.tang.gateway.entity.model.UtsResourceRole;
 import net.ttcxy.tang.gateway.entity.model.UtsResourceRoleExample;
 import org.apache.ibatis.annotations.Param;
@@ -15,8 +14,6 @@ public interface UtsResourceRoleMapper {
     int insert(UtsResourceRole record);
 
     int insertSelective(UtsResourceRole record);
-
-    List<UtsResourceRole> selectByExample(UtsResourceRoleExample example);
 
     UtsResourceRole selectByPrimaryKey(String resourceRoleId);
 

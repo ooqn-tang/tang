@@ -1,5 +1,6 @@
 package net.ttcxy.tang.gateway.service;
 
+import com.github.pagehelper.PageInfo;
 import net.ttcxy.tang.gateway.entity.dto.UtsAuthorDto;
 import net.ttcxy.tang.gateway.entity.dto.UtsLoginDto;
 import net.ttcxy.tang.gateway.entity.model.UtsAuthor;
@@ -67,17 +68,9 @@ public interface UtsAuthorService {
     /**
      * 用户列表
      * @param page 页码
+     * @param size 大小
      * @return 列表
      */
-    List<UtsAuthor> authorList(Integer page);
-
-    /**
-     * 用户列表,包含角色
-     * @param page 页码
-     * @return 列表
-     */
-    List<UtsAuthorDto> authorListDto(Integer page);
-
-
+    PageInfo<UtsAuthor> authorList(Integer page, Integer size);
 
 }

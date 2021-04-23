@@ -2,11 +2,13 @@ package net.ttcxy.tang.gateway.controller;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.StrUtil;
+import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import net.ttcxy.tang.gateway.core.api.ApiException;
 import net.ttcxy.tang.gateway.core.api.ResponseResult;
 import net.ttcxy.tang.gateway.core.api.ResponseCode;
+import net.ttcxy.tang.gateway.entity.dto.UtsAuthorDto;
 import net.ttcxy.tang.gateway.entity.model.UtsAuthor;
 import net.ttcxy.tang.gateway.entity.param.UtsAuthorParam;
 import net.ttcxy.tang.gateway.entity.param.UtsRegisterParam;
@@ -15,10 +17,7 @@ import net.ttcxy.tang.gateway.service.UtsAuthorService;
 import net.ttcxy.tang.gateway.util.TextUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 
@@ -40,34 +39,27 @@ public class UtsAuthorController {
     @Autowired
     private UtsAuthorService authorService;
 
-    @PostMapping(value = "update")
+    @PutMapping
     @ApiOperation("更新作者")
-    public ResponseResult<?> updateAuthor(@RequestBody UtsAuthorParam utsAuthorParam){
+    public ResponseResult<?> updateAuthor(@RequestBody UtsAuthorParam authorParam){
+
+        UtsAuthor author = BeanUtil.toBean(authorParam, UtsAuthor.class);
+
         String authorId = currentAuthorService.getAuthor().getAuthorId();
-        String nickname = utsAuthorParam.getNickname();
-        // 获取昵称字节长度
-        int length = TextUtil.byteSize(nickname);
-        if (StrUtil.isNotBlank(nickname) && (length > 16 || length < 4)){
-            throw new ApiException(ResponseCode.FAILED.getCode(),"昵称长度：汉字 2 ~ 8,字母 4 ~ 16");
-        }
-
-        UtsAuthor author = new UtsAuthor();
-
-        BeanUtil.copyProperties(utsAuthorParam, author);
 
         author.setAuthorId(authorId);
 
         int count = authorService.updateAuthor(author);
         if (count > 0){
             UtsAuthor currentAuthor = currentAuthorService.getAuthor();
-            currentAuthor.setNickname(utsAuthorParam.getNickname());
-            currentAuthor.setSignature(utsAuthorParam.getSignature());
+            currentAuthor.setNickname(authorParam.getNickname());
+            currentAuthor.setSignature(authorParam.getSignature());
             return ResponseResult.success("更新成功");
         }
         throw new ApiException();
     }
 
-    @PostMapping("register")
+    @PostMapping
     @ApiOperation("注册请求")
     public ResponseResult<?> register(@RequestBody UtsRegisterParam register){
 
@@ -112,6 +104,12 @@ public class UtsAuthorController {
         }
 
         throw new ApiException();
+    }
+
+    @GetMapping("list")
+    @ApiOperation("作者列表")
+    public ResponseResult<PageInfo<UtsAuthor>> authorList(@RequestParam(value = "page",defaultValue = "1") Integer page){
+        return ResponseResult.success(authorService.authorList(page,page));
     }
 
     public static void main(String[] args) {

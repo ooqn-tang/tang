@@ -62,23 +62,6 @@
       </foreach>
     </where>
   </sql>
-  <sql id="Base_Column_List">
-    LOGIN_LOG_ID
-  </sql>
-  <select id="selectByExample" parameterType="net.ttcxy.tang.gateway.entity.model.UtsLoginLogExample" resultMap="BaseResultMap">
-    select
-    <if test="distinct">
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    from UTS_LOGIN_LOG
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null">
-      order by ${orderByClause}
-    </if>
-  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from UTS_LOGIN_LOG
     where LOGIN_LOG_ID = #{loginLogId,jdbcType=INTEGER}

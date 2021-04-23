@@ -4,6 +4,7 @@ import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.RandomUtil;
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import net.ttcxy.tang.gateway.dao.UtsAuthorDao;
 import net.ttcxy.tang.gateway.dao.mapper.UtsAuthorMapper;
 import net.ttcxy.tang.gateway.entity.dto.UtsAuthorDto;
@@ -41,11 +42,7 @@ public class UtsAuthorServiceImpl implements UtsAuthorService {
     public UtsAuthor selectAuthorByMail(String mail) {
         UtsAuthorExample authorExample = new UtsAuthorExample();
         authorExample.createCriteria().andMailEqualTo(mail);
-        List<UtsAuthor> utsAuthors = utsAuthorMapper.selectByExample(authorExample);
-        if (utsAuthors.size() > 0){
-            return utsAuthors.get(0);
-        }
-        return null;
+        return utsAuthorDao.selectAuthorByMail(mail);
     }
 
     @Override
@@ -81,27 +78,9 @@ public class UtsAuthorServiceImpl implements UtsAuthorService {
     }
 
     @Override
-    public List<UtsAuthor> authorList(Integer page){
-        PageHelper.startPage(page, 10);
-        return utsAuthorMapper.selectByExample(new UtsAuthorExample());
-    }
-
-
-
-    @Override
-    public List<UtsAuthorDto> authorListDto(Integer page){
-        PageHelper.startPage(page, 10);
-        List<UtsAuthor> utsAuthor = utsAuthorMapper.selectByExample(new UtsAuthorExample());
-
-        List<UtsAuthorDto> utsAuthorDtoList = new ArrayList<>();
-
-        for (UtsAuthor author : utsAuthor) {
-            UtsAuthorDto utsAuthorDto = new UtsAuthorDto();
-            utsAuthorDto.setUtsAuthor(author);
-            utsAuthorDtoList.add(utsAuthorDto);
-        }
-
-        return utsAuthorDtoList;
+    public PageInfo<UtsAuthor> authorList(Integer page, Integer size){
+        PageHelper.startPage(page, size);
+        return new PageInfo<>(utsAuthorDao.selectAuthor());
     }
 
     /**
@@ -117,6 +96,8 @@ public class UtsAuthorServiceImpl implements UtsAuthorService {
             }
         }
     }
+
+
 
     public static void main(String[] args) {
         UtsAuthorDto utsAuthorDto = new UtsAuthorDto();

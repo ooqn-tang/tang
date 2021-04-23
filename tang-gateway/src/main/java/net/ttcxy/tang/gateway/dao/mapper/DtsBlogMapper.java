@@ -1,6 +1,5 @@
 package net.ttcxy.tang.gateway.dao.mapper;
 
-import java.util.List;
 import net.ttcxy.tang.gateway.entity.model.DtsBlog;
 import net.ttcxy.tang.gateway.entity.model.DtsBlogExample;
 import org.apache.ibatis.annotations.Param;
@@ -15,10 +14,6 @@ public interface DtsBlogMapper {
     int insert(DtsBlog record);
 
     int insertSelective(DtsBlog record);
-
-    List<DtsBlog> selectByExampleWithBLOBs(DtsBlogExample example);
-
-    List<DtsBlog> selectByExample(DtsBlogExample example);
 
     DtsBlog selectByPrimaryKey(String blogId);
 

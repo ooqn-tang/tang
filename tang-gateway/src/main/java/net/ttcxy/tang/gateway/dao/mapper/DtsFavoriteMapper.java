@@ -1,6 +1,5 @@
 package net.ttcxy.tang.gateway.dao.mapper;
 
-import java.util.List;
 import net.ttcxy.tang.gateway.entity.model.DtsFavorite;
 import net.ttcxy.tang.gateway.entity.model.DtsFavoriteExample;
 import org.apache.ibatis.annotations.Param;
@@ -15,8 +14,6 @@ public interface DtsFavoriteMapper {
     int insert(DtsFavorite record);
 
     int insertSelective(DtsFavorite record);
-
-    List<DtsFavorite> selectByExample(DtsFavoriteExample example);
 
     DtsFavorite selectByPrimaryKey(String favoriteId);
 

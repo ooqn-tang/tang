@@ -1,6 +1,5 @@
 package net.ttcxy.tang.gateway.dao.mapper;
 
-import java.util.List;
 import net.ttcxy.tang.gateway.entity.model.UtsAuthor;
 import net.ttcxy.tang.gateway.entity.model.UtsAuthorExample;
 import org.apache.ibatis.annotations.Param;
@@ -15,8 +14,6 @@ public interface UtsAuthorMapper {
     int insert(UtsAuthor record);
 
     int insertSelective(UtsAuthor record);
-
-    List<UtsAuthor> selectByExample(UtsAuthorExample example);
 
     UtsAuthor selectByPrimaryKey(String authorId);
 

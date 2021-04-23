@@ -35,6 +35,11 @@
         where mail = #{mail}
     </select>
 
+    <select id="selectAuthor" resultMap="AuthorMap">
+        select author_id,username,nickname,password,signature,mail
+        from `uts_author`
+    </select>
+
 
     <select id="selectAuthorByName" resultMap="AuthorMap">
         select author_id,username,nickname,password,signature,mail

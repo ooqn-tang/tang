@@ -1,6 +1,5 @@
 package net.ttcxy.tang.gateway.dao.mapper;
 
-import java.util.List;
 import net.ttcxy.tang.gateway.entity.model.StsState;
 import net.ttcxy.tang.gateway.entity.model.StsStateExample;
 import org.apache.ibatis.annotations.Param;
@@ -15,8 +14,6 @@ public interface StsStateMapper {
     int insert(StsState record);
 
     int insertSelective(StsState record);
-
-    List<StsState> selectByExample(StsStateExample example);
 
     StsState selectByPrimaryKey(Integer stateId);
 

@@ -12,10 +12,13 @@ import java.util.Date;
  * 博客参数
  * @author huanglei
  */
-@EqualsAndHashCode(callSuper = true)
 @Data
-public class DtsBlogCommentParam extends VerifyAbstract {
+public class DtsBlogCommentParam {
 
-    DtsBlogComment blogComment;
+    private String blogCommentId;
+
+    private String blogId;
+
+    private String content;
 
 }

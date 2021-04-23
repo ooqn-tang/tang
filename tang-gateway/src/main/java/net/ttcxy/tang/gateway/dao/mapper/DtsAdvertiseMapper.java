@@ -1,6 +1,5 @@
 package net.ttcxy.tang.gateway.dao.mapper;
 
-import java.util.List;
 import net.ttcxy.tang.gateway.entity.model.DtsAdvertise;
 import net.ttcxy.tang.gateway.entity.model.DtsAdvertiseExample;
 import org.apache.ibatis.annotations.Param;
@@ -15,8 +14,6 @@ public interface DtsAdvertiseMapper {
     int insert(DtsAdvertise record);
 
     int insertSelective(DtsAdvertise record);
-
-    List<DtsAdvertise> selectByExample(DtsAdvertiseExample example);
 
     DtsAdvertise selectByPrimaryKey(String advertiseId);
 

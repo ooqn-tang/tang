@@ -8,7 +8,7 @@ import lombok.Data;
 @Data
 public class UtsAuthorParam {
 
-    private String id;
+    private String authorId;
 
     private String username;
 

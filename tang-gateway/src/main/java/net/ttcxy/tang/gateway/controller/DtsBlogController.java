@@ -1,5 +1,6 @@
 package net.ttcxy.tang.gateway.controller;
 
+import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.date.DateTime;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.StrUtil;
@@ -41,9 +42,6 @@ public class DtsBlogController {
         return ResponseResult.success(blogList);
     }
 
-
-
-
     @DeleteMapping("{blogId}")
     @ApiOperation("删除博客")
     public ResponseResult<?> delete(@PathVariable("blogId") String blogId){
@@ -66,19 +64,19 @@ public class DtsBlogController {
 
     }
 
-    @PostMapping("update")
+    @PutMapping
     @ApiOperation("更新博客")
     public ResponseResult<?> update(@RequestBody @Validated DtsBlogParam blogParam){
-        blogParam.updateVerify();
-
-        DtsBlog blog = blogParam.getBlog();
-
+        DtsBlog blog = BeanUtil.toBean(blogParam, DtsBlog.class);
         // 当前博客信息
-        DtsBlogDto dtsBlogDto = blogService.selectBlogById(blog.getBlogId());
-        String thisBlogAuthorId = dtsBlogDto.getAuthor().getAuthorId();
+        DtsBlogDto blogDto = blogService.selectBlogById(blog.getBlogId());
+        if (blogDto == null){
+            throw new ApiException(ResponseCode.FAILED);
+        }
+        String thisBlogUsername = blogDto.getAuthor().getUsername();
 
-        String authorId = currentAuthor.getAuthorId();
-        if (StrUtil.equals(authorId,thisBlogAuthorId)){
+        String username = currentAuthor.getAuthor().getUsername();
+        if (StrUtil.equals(username,thisBlogUsername)){
             DateTime date = DateUtil.date();
             blog.setUpdateDate(date);
             int count = blogService.updateBlog(blog);
@@ -89,10 +87,11 @@ public class DtsBlogController {
         throw new ApiException(ResponseCode.FORBIDDEN);
     }
 
-    @PostMapping("insert")
+    @PostMapping
     @ApiOperation("添加博客")
     public ResponseResult<?> insert(@RequestBody @Validated DtsBlogParam blogParam){
-        return ResponseResult.success(blogService.insertBlog(blogParam.getBlog()));
+        DtsBlog blog = BeanUtil.toBean(blogParam, DtsBlog.class);
+        return ResponseResult.success(blogService.insertBlog(blog));
     }
 
     @GetMapping("load")
@@ -105,6 +104,7 @@ public class DtsBlogController {
         return ResponseResult.success(blogDto);
     }
 
+    /* 博客点击喜欢功能 */
     @GetMapping("/like")
     @ApiOperation("喜欢")
     public ResponseResult<?> getLike(@RequestParam("blogId") String blogId){

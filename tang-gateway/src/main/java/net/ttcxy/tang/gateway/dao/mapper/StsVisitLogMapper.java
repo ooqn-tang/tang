@@ -1,6 +1,5 @@
 package net.ttcxy.tang.gateway.dao.mapper;
 
-import java.util.List;
 import net.ttcxy.tang.gateway.entity.model.StsVisitLog;
 import net.ttcxy.tang.gateway.entity.model.StsVisitLogExample;
 import org.apache.ibatis.annotations.Param;
@@ -15,8 +14,6 @@ public interface StsVisitLogMapper {
     int insert(StsVisitLog record);
 
     int insertSelective(StsVisitLog record);
-
-    List<StsVisitLog> selectByExample(StsVisitLogExample example);
 
     StsVisitLog selectByPrimaryKey(Integer visitLogId);
 

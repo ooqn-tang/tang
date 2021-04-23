@@ -1,5 +1,6 @@
 package net.ttcxy.tang.gateway.controller;
 
+import cn.hutool.core.bean.BeanUtil;
 import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.ApiOperation;
 import net.ttcxy.tang.gateway.core.api.ApiException;
@@ -29,7 +30,7 @@ public class DtsBlogCommentController {
     @PostMapping("insert")
     @ApiOperation("添加博客评论")
     public ResponseResult<?> insertComment(@RequestBody DtsBlogCommentParam commentParam){
-        DtsBlogComment blogComment = commentParam.getBlogComment();
+        DtsBlogComment blogComment = BeanUtil.toBean(commentParam, DtsBlogComment.class);
         int count = dtsCommentService.insertComment(blogComment);
         if (count  > 0){
             return ResponseResult.success();
@@ -40,7 +41,8 @@ public class DtsBlogCommentController {
     @DeleteMapping("delete")
     @ApiOperation("删除博客评论")
     public ResponseResult<?> deleteComment(@RequestBody DtsBlogCommentParam commentParam){
-        String commentId = commentParam.getBlogComment().getBlogCommentId();
+        DtsBlogComment blogComment = BeanUtil.toBean(commentParam, DtsBlogComment.class);
+        String commentId = blogComment.getBlogCommentId();
         int count = dtsCommentService.deleteComment(commentId);
         if (count > 0){
             return ResponseResult.success();

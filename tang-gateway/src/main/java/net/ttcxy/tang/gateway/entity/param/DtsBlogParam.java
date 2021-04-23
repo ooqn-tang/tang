@@ -1,35 +1,34 @@
 package net.ttcxy.tang.gateway.entity.param;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-import net.ttcxy.tang.gateway.core.exception.VerifyException;
-import net.ttcxy.tang.gateway.core.verify.VerifyAbstract;
-import net.ttcxy.tang.gateway.entity.model.DtsBlog;
-import net.ttcxy.tang.gateway.entity.model.UtsAuthor;
 import org.hibernate.validator.constraints.Length;
 
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotBlank;
 
 /**
  * @author huanglei
  */
-@EqualsAndHashCode(callSuper = true)
 @Data
-public class DtsBlogParam extends VerifyAbstract {
+public class DtsBlogParam {
 
-    @NotNull
-    private DtsBlog blog;
+    private String blogId;
 
-    @NotNull
-    private UtsAuthor author;
+    @ApiModelProperty(value = "博客标题")
+    @NotBlank
+    @Length(min = 1, max = 30, message = "长度在1 ~ 30之间")
+    private String title;
 
-    @Override
-    public void createVerify() throws VerifyException {
+    @ApiModelProperty(value = "描述")
+    @NotBlank
+    @Length(min = 1, max = 150, message = "长度在1 ~ 150之间")
+    private String synopsis;
 
-    }
+    @ApiModelProperty(value = "博文文本")
+    @NotBlank
+    private String text;
 
-    @Override
-    public void updateVerify() throws VerifyException {
-
-    }
+    @ApiModelProperty(value = "markdown")
+    @NotBlank
+    private String markdown;
 }
