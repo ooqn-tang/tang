@@ -73,7 +73,7 @@ public class DtsBlogController {
         if (blogDto == null){
             throw new ApiException(ResponseCode.FAILED);
         }
-        String thisBlogUsername = blogDto.getAuthor().getUsername();
+        String thisBlogUsername = blogDto.getUsername();
 
         String username = currentAuthor.getAuthor().getUsername();
         if (StrUtil.equals(username,thisBlogUsername)){

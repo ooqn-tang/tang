@@ -39,5 +39,5 @@ public interface UtsFansDao {
      * @param userId id
      * @return 粉丝列表
      */
-    List<UtsLoginDto> selectFansList(@Param("userId") String userId);
+    List<UtsFansDto> selectFansList(@Param("authorId") String userId);
 }

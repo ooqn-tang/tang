@@ -45,7 +45,7 @@ public interface UtsAuthorDao {
      * @param mail 邮箱
      * @return 登录用户
      */
-    UtsAuthor selectAuthorByMail(String mail);
+    UtsAuthor selectAuthorByMailAll(String mail);
 
     /**
      * 查询所有作者

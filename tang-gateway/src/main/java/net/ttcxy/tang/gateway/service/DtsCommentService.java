@@ -1,10 +1,8 @@
 package net.ttcxy.tang.gateway.service;
 
 import com.github.pagehelper.PageInfo;
-import net.ttcxy.tang.gateway.entity.dto.DtsCommentDto;
+import net.ttcxy.tang.gateway.entity.dto.DtsBlogCommentDto;
 import net.ttcxy.tang.gateway.entity.model.DtsBlogComment;
-
-import java.util.List;
 
 /**
  * @author huanglei
@@ -30,6 +28,13 @@ public interface DtsCommentService {
      * @param blogId
      * @return
      */
-    PageInfo<DtsCommentDto> selectComments(String blogId,Integer page,Integer pageSize);
+    PageInfo<DtsBlogCommentDto> selectComments(String blogId, Integer page, Integer pageSize);
+
+    /**
+     * 通过评论ID 获取评论
+     * @param commentId 评论id
+     * @return 评论信息
+     */
+    DtsBlogComment selectCommentById(String commentId);
 
 }

@@ -120,10 +120,10 @@ CREATE TABLE `uts_author`  (
 DROP TABLE IF EXISTS `uts_fans`;
 CREATE TABLE `uts_fans`  (
   `fans_id` varchar(32) NOT NULL PRIMARY KEY,
+  `be_author_id` varchar(32) NOT NULL,
   `author_id` varchar(32) NOT NULL,
-  `follower` varchar(255) NOT NULL,
   `create_date` timestamp(0) DEFAULT NULL,
-  UNIQUE INDEX `uts_fans_unique`(`author_id`, `follower`) USING BTREE
+  UNIQUE INDEX `uts_fans_unique`(`be_author_id`, `author_id`) USING BTREE
 ) ;
 
 -- ----------------------------

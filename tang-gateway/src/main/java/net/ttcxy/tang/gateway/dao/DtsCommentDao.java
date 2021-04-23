@@ -1,6 +1,6 @@
 package net.ttcxy.tang.gateway.dao;
 
-import net.ttcxy.tang.gateway.entity.dto.DtsCommentDto;
+import net.ttcxy.tang.gateway.entity.dto.DtsBlogCommentDto;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -13,10 +13,10 @@ public interface DtsCommentDao {
 
     /**
      * 添加评论
-     * @param dtsCommentDto 评论
+     * @param dtsBlogCommentDto 评论
      * @return 影响的行数
      */
-    int insertComment(DtsCommentDto dtsCommentDto);
+    int insertComment(DtsBlogCommentDto dtsBlogCommentDto);
 
     /**
      * 删除评论 commentId
@@ -30,12 +30,12 @@ public interface DtsCommentDao {
      * @param blogId blogId
      * @return 评论列表
      */
-    List<DtsCommentDto> selectComments(String blogId);
+    List<DtsBlogCommentDto> selectComments(String blogId);
 
     /**
      * 通过评论ID查询评论
      * @param commentId 评论ID
      * @return 评论详细详细
      */
-    DtsCommentDto selectComment(String commentId);
+    DtsBlogCommentDto selectComment(String commentId);
 }

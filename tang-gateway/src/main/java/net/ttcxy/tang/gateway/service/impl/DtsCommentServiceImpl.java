@@ -4,7 +4,7 @@ import cn.hutool.core.util.IdUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import net.ttcxy.tang.gateway.dao.DtsCommentDao;
-import net.ttcxy.tang.gateway.entity.dto.DtsCommentDto;
+import net.ttcxy.tang.gateway.entity.dto.DtsBlogCommentDto;
 import net.ttcxy.tang.gateway.dao.mapper.DtsBlogCommentMapper;
 import net.ttcxy.tang.gateway.entity.model.DtsBlogComment;
 import net.ttcxy.tang.gateway.entity.model.DtsBlogCommentExample;
@@ -34,12 +34,8 @@ public class DtsCommentServiceImpl implements DtsCommentService {
 
     @Override
     public int insertComment(DtsBlogComment blogComment) {
-
-        String authorId = currentAuthorService.getAuthorId();
         String commentId = IdUtil.fastSimpleUUID();
-
         blogComment.setBlogCommentId(commentId);
-        blogComment.setAuthorId(authorId);
         blogComment.setCreateDate(new Date());
         blogComment.setStatus(1);
         return blogCommentMapper.insertSelective(blogComment);
@@ -47,18 +43,21 @@ public class DtsCommentServiceImpl implements DtsCommentService {
 
     @Override
     public int deleteComment(String commentId) {
-        String userId = currentAuthorService.getAuthorId();
         DtsBlogCommentExample blogCommentExample = new DtsBlogCommentExample();
         blogCommentExample.createCriteria()
-                .andAuthorIdEqualTo(userId)
                 .andBlogCommentIdEqualTo(commentId);
         return blogCommentMapper.deleteByExample(blogCommentExample);
     }
 
     @Override
-    public PageInfo<DtsCommentDto> selectComments(String blogId,Integer page,Integer pageSize) {
+    public PageInfo<DtsBlogCommentDto> selectComments(String blogId, Integer page, Integer pageSize) {
         PageHelper.startPage(page,pageSize);
-        List<DtsCommentDto> commentDtoList = commentDao.selectComments(blogId);
+        List<DtsBlogCommentDto> commentDtoList = commentDao.selectComments(blogId);
         return new PageInfo<>(commentDtoList);
+    }
+
+    @Override
+    public DtsBlogComment selectCommentById(String commentId) {
+        return blogCommentMapper.selectByPrimaryKey(commentId);
     }
 }

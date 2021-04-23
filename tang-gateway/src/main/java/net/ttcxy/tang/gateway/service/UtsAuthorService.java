@@ -42,7 +42,7 @@ public interface UtsAuthorService {
      * @param member user
      * @return 影响的行数
      */
-    int updateAuthor(UtsAuthor member);
+    int updateAuthorByName(UtsAuthor member);
 
     /**
      * 用户是否存在

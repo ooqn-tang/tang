@@ -10,11 +10,9 @@ import java.util.Date;
  * 评论
  * @author huanglei
  */
-public class DtsCommentDto {
+public class DtsBlogCommentDto {
 
     private static final long serialVersionUID = 1L;
-
-    private String id;
 
     private String blogId;
 
@@ -24,15 +22,16 @@ public class DtsCommentDto {
     @ApiModelProperty(value = "评论人")
     private String authorId;
 
-    @ApiModelProperty(value = "评论内容")
+    @ApiModelProperty(value = "内容")
     private String content;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @JsonFormat(pattern="yyyy.MM.dd",timezone = "GMT+8")
+    @ApiModelProperty(value = "评论时间")
     private Date createDate;
 
+    @ApiModelProperty(value = "用户名")
     private String username;
 
+    @ApiModelProperty(value = "昵称")
     private String nickname;
 
     public Date getCreateDate() {
@@ -57,18 +56,6 @@ public class DtsCommentDto {
 
     public void setNickname(String nickname) {
         this.nickname = nickname;
-    }
-
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public String getBlogId() {

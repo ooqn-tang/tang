@@ -7,11 +7,11 @@ import java.util.Date;
  */
 public class UtsFansDto {
 
-    private String id;
+    private String fansId;
 
     private String authorId;
 
-    private String follower;
+    private String beAuthorId;
 
     private String nickname;
 
@@ -19,12 +19,12 @@ public class UtsFansDto {
 
     private Date createDate;
 
-    public String getId() {
-        return id;
+    public String getFansId() {
+        return fansId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setFansId(String fansId) {
+        this.fansId = fansId;
     }
 
     public String getAuthorId() {
@@ -35,12 +35,12 @@ public class UtsFansDto {
         this.authorId = authorId;
     }
 
-    public String getFollower() {
-        return follower;
+    public String getBeAuthorId() {
+        return beAuthorId;
     }
 
-    public void setFollower(String follower) {
-        this.follower = follower;
+    public void setBeAuthorId(String beAuthorId) {
+        this.beAuthorId = beAuthorId;
     }
 
     public String getNickname() {

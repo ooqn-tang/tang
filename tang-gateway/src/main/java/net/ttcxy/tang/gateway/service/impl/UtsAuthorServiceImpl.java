@@ -8,16 +8,12 @@ import com.github.pagehelper.PageInfo;
 import net.ttcxy.tang.gateway.dao.UtsAuthorDao;
 import net.ttcxy.tang.gateway.dao.mapper.UtsAuthorMapper;
 import net.ttcxy.tang.gateway.entity.dto.UtsAuthorDto;
-import net.ttcxy.tang.gateway.entity.dto.UtsLoginDto;
 import net.ttcxy.tang.gateway.entity.model.UtsAuthor;
 import net.ttcxy.tang.gateway.entity.model.UtsAuthorExample;
 import net.ttcxy.tang.gateway.service.UtsAuthorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * 创作者服务
@@ -40,9 +36,7 @@ public class UtsAuthorServiceImpl implements UtsAuthorService {
 
     @Override
     public UtsAuthor selectAuthorByMail(String mail) {
-        UtsAuthorExample authorExample = new UtsAuthorExample();
-        authorExample.createCriteria().andMailEqualTo(mail);
-        return utsAuthorDao.selectAuthorByMail(mail);
+        return utsAuthorDao.selectAuthorByMailAll(mail);
     }
 
     @Override
@@ -55,8 +49,10 @@ public class UtsAuthorServiceImpl implements UtsAuthorService {
     }
 
     @Override
-    public int updateAuthor(UtsAuthor author) {
-        return utsAuthorMapper.updateByPrimaryKeySelective(author);
+    public int updateAuthorByName(UtsAuthor author) {
+        UtsAuthorExample authorExample = new UtsAuthorExample();
+        authorExample.createCriteria().andMailEqualTo(author.getMail());
+        return utsAuthorMapper.updateByExampleSelective(author, authorExample);
     }
 
     @Override

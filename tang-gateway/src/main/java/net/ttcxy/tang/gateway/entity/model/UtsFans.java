@@ -7,9 +7,9 @@ import java.util.Date;
 public class UtsFans implements Serializable {
     private String fansId;
 
-    private String authorId;
+    private String beAuthorId;
 
-    private String follower;
+    private String authorId;
 
     private Date createDate;
 
@@ -23,20 +23,20 @@ public class UtsFans implements Serializable {
         this.fansId = fansId;
     }
 
+    public String getBeAuthorId() {
+        return beAuthorId;
+    }
+
+    public void setBeAuthorId(String beAuthorId) {
+        this.beAuthorId = beAuthorId;
+    }
+
     public String getAuthorId() {
         return authorId;
     }
 
     public void setAuthorId(String authorId) {
         this.authorId = authorId;
-    }
-
-    public String getFollower() {
-        return follower;
-    }
-
-    public void setFollower(String follower) {
-        this.follower = follower;
     }
 
     public Date getCreateDate() {
@@ -54,8 +54,8 @@ public class UtsFans implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", fansId=").append(fansId);
+        sb.append(", beAuthorId=").append(beAuthorId);
         sb.append(", authorId=").append(authorId);
-        sb.append(", follower=").append(follower);
         sb.append(", createDate=").append(createDate);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");

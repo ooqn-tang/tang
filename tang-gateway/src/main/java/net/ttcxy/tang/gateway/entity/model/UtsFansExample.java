@@ -175,6 +175,76 @@ public class UtsFansExample {
             return (Criteria) this;
         }
 
+        public Criteria andBeAuthorIdIsNull() {
+            addCriterion("BE_AUTHOR_ID is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andBeAuthorIdIsNotNull() {
+            addCriterion("BE_AUTHOR_ID is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andBeAuthorIdEqualTo(String value) {
+            addCriterion("BE_AUTHOR_ID =", value, "beAuthorId");
+            return (Criteria) this;
+        }
+
+        public Criteria andBeAuthorIdNotEqualTo(String value) {
+            addCriterion("BE_AUTHOR_ID <>", value, "beAuthorId");
+            return (Criteria) this;
+        }
+
+        public Criteria andBeAuthorIdGreaterThan(String value) {
+            addCriterion("BE_AUTHOR_ID >", value, "beAuthorId");
+            return (Criteria) this;
+        }
+
+        public Criteria andBeAuthorIdGreaterThanOrEqualTo(String value) {
+            addCriterion("BE_AUTHOR_ID >=", value, "beAuthorId");
+            return (Criteria) this;
+        }
+
+        public Criteria andBeAuthorIdLessThan(String value) {
+            addCriterion("BE_AUTHOR_ID <", value, "beAuthorId");
+            return (Criteria) this;
+        }
+
+        public Criteria andBeAuthorIdLessThanOrEqualTo(String value) {
+            addCriterion("BE_AUTHOR_ID <=", value, "beAuthorId");
+            return (Criteria) this;
+        }
+
+        public Criteria andBeAuthorIdLike(String value) {
+            addCriterion("BE_AUTHOR_ID like", value, "beAuthorId");
+            return (Criteria) this;
+        }
+
+        public Criteria andBeAuthorIdNotLike(String value) {
+            addCriterion("BE_AUTHOR_ID not like", value, "beAuthorId");
+            return (Criteria) this;
+        }
+
+        public Criteria andBeAuthorIdIn(List<String> values) {
+            addCriterion("BE_AUTHOR_ID in", values, "beAuthorId");
+            return (Criteria) this;
+        }
+
+        public Criteria andBeAuthorIdNotIn(List<String> values) {
+            addCriterion("BE_AUTHOR_ID not in", values, "beAuthorId");
+            return (Criteria) this;
+        }
+
+        public Criteria andBeAuthorIdBetween(String value1, String value2) {
+            addCriterion("BE_AUTHOR_ID between", value1, value2, "beAuthorId");
+            return (Criteria) this;
+        }
+
+        public Criteria andBeAuthorIdNotBetween(String value1, String value2) {
+            addCriterion("BE_AUTHOR_ID not between", value1, value2, "beAuthorId");
+            return (Criteria) this;
+        }
+
         public Criteria andAuthorIdIsNull() {
             addCriterion("AUTHOR_ID is null");
             return (Criteria) this;
@@ -242,76 +312,6 @@ public class UtsFansExample {
 
         public Criteria andAuthorIdNotBetween(String value1, String value2) {
             addCriterion("AUTHOR_ID not between", value1, value2, "authorId");
-            return (Criteria) this;
-        }
-
-        public Criteria andFollowerIsNull() {
-            addCriterion("FOLLOWER is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andFollowerIsNotNull() {
-            addCriterion("FOLLOWER is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andFollowerEqualTo(String value) {
-            addCriterion("FOLLOWER =", value, "follower");
-            return (Criteria) this;
-        }
-
-        public Criteria andFollowerNotEqualTo(String value) {
-            addCriterion("FOLLOWER <>", value, "follower");
-            return (Criteria) this;
-        }
-
-        public Criteria andFollowerGreaterThan(String value) {
-            addCriterion("FOLLOWER >", value, "follower");
-            return (Criteria) this;
-        }
-
-        public Criteria andFollowerGreaterThanOrEqualTo(String value) {
-            addCriterion("FOLLOWER >=", value, "follower");
-            return (Criteria) this;
-        }
-
-        public Criteria andFollowerLessThan(String value) {
-            addCriterion("FOLLOWER <", value, "follower");
-            return (Criteria) this;
-        }
-
-        public Criteria andFollowerLessThanOrEqualTo(String value) {
-            addCriterion("FOLLOWER <=", value, "follower");
-            return (Criteria) this;
-        }
-
-        public Criteria andFollowerLike(String value) {
-            addCriterion("FOLLOWER like", value, "follower");
-            return (Criteria) this;
-        }
-
-        public Criteria andFollowerNotLike(String value) {
-            addCriterion("FOLLOWER not like", value, "follower");
-            return (Criteria) this;
-        }
-
-        public Criteria andFollowerIn(List<String> values) {
-            addCriterion("FOLLOWER in", values, "follower");
-            return (Criteria) this;
-        }
-
-        public Criteria andFollowerNotIn(List<String> values) {
-            addCriterion("FOLLOWER not in", values, "follower");
-            return (Criteria) this;
-        }
-
-        public Criteria andFollowerBetween(String value1, String value2) {
-            addCriterion("FOLLOWER between", value1, value2, "follower");
-            return (Criteria) this;
-        }
-
-        public Criteria andFollowerNotBetween(String value1, String value2) {
-            addCriterion("FOLLOWER not between", value1, value2, "follower");
             return (Criteria) this;
         }
 

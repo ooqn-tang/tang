@@ -4,17 +4,16 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="net.ttcxy.tang.gateway.dao.DtsBlogDao">
     <resultMap id="BlogResult" type="net.ttcxy.tang.gateway.entity.dto.DtsBlogDto">
-        <id column="blog_id" property="blog.blogId"/>
-        <result column="author_id" property="blog.authorId"/>
-        <result column="title" property="blog.title"/>
-        <result column="create_date" property="blog.createDate"/>
-        <result column="update_date" property="blog.updateDate"/>
-        <result column="synopsis" property="blog.synopsis"/>
-        <result column="username" property="author.username"/>
-        <result column="nickname" property="author.nickname"/>
+        <id column="blog_id" property="blogId"/>
+        <result column="title" property="title"/>
+        <result column="create_date" property="createDate"/>
+        <result column="update_date" property="updateDate"/>
+        <result column="synopsis" property="synopsis"/>
+        <result column="username" property="username"/>
+        <result column="nickname" property="nickname"/>
     </resultMap>
     <select id="selectBlogList" resultMap="BlogResult">
-        select b.blog_id,b.title,b.create_date,b.update_date,b.synopsis,a.author_id,a.username,a.nickname
+        select b.blog_id,b.title,b.create_date,b.update_date,b.synopsis,a.username,a.nickname
         FROM `dts_blog` b,`uts_author` a
         where a.author_id = b.author_id
         and  b.state_code = 1001
@@ -40,7 +39,7 @@
     </select>
 
     <select id="selectBlogById" resultMap="BlogResult">
-        select b.blog_id,b.title,b.create_date,b.synopsis,b.text,a.username,a.nickname,a.author_id
+        select b.blog_id,b.title,b.create_date,b.synopsis,b.text,a.username,a.nickname
         from `dts_blog` b,`uts_author` a
         where b.author_id = a.author_id
         and b.blog_id = #{id}

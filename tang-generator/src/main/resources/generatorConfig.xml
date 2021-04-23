@@ -29,13 +29,19 @@
             <property name="nullCatalogMeansCurrent" value="true" />
         </jdbcConnection>
 
-        <javaModelGenerator targetPackage="net.ttcxy.tang.gateway.entity.model" targetProject="tang-gateway\src\main\java"/>
+        <javaModelGenerator
+                targetPackage="net.ttcxy.tang.gateway.entity.model"
+                targetProject="tang-gateway\src\main\java"/>
 
-        <sqlMapGenerator targetPackage="mapper" targetProject="tang-gateway\src\main\resources\dao"/>
+        <sqlMapGenerator
+                targetPackage="mapper"
+                targetProject="tang-gateway\src\main\resources\dao"/>
 
-        <javaClientGenerator type="XMLMAPPER"
-                             targetPackage="net.ttcxy.tang.gateway.dao.mapper"
-                             targetProject="tang-gateway\src\main\java"/>
+        <javaClientGenerator
+                type="XMLMAPPER"
+                targetPackage="net.ttcxy.tang.gateway.dao.mapper"
+                targetProject="tang-gateway\src\main\java"/>
+
         <!--生成全部表tableName设为%-->
         <table tableName="dts_%" enableSelectByExample="false"/>
         <table tableName="uts_%" enableSelectByExample="false"/>

@@ -2,9 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="net.ttcxy.tang.gateway.dao.UtsFansDao">
   <resultMap id="FansMap" type="net.ttcxy.tang.gateway.entity.dto.UtsFansDto">
-      <id column="id" jdbcType="VARCHAR" property="id" />
-      <result column="follower" jdbcType="VARCHAR" property="follower" />
-      <result column="author_id" jdbcType="VARCHAR" property="userId" />
+      <id column="fans_id" jdbcType="VARCHAR" property="fansId" />
+      <result column="be_author_id" jdbcType="VARCHAR" property="beAuthorId" />
+      <result column="author_id" jdbcType="VARCHAR" property="authorId" />
       <result column="username" jdbcType="VARCHAR" property="username" />
       <result column="nickname" jdbcType="VARCHAR" property="nickname" />
       <result column="create_date" jdbcType="VARCHAR" property="createDate" />
@@ -18,10 +18,10 @@
     </select>
 
     <select id="selectFansList" resultMap="FansMap">
-        select user_id,username,nickname
-        from `uts_fans` f,`uts_author` u
-        where u.id = f.follower
-        and f.user_id = #{userId}
+        select f.fans_id,a.username,a.nickname
+        from `uts_fans` f,`uts_author` a
+        where a.author_id = f.author_id
+        and f.author_id = #{authorId}
         order by f.create_date Desc
     </select>
 

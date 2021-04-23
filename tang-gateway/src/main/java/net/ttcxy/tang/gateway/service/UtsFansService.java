@@ -2,7 +2,9 @@ package net.ttcxy.tang.gateway.service;
 
 import com.github.pagehelper.PageInfo;
 import net.ttcxy.tang.gateway.entity.dto.UtsAuthorDto;
+import net.ttcxy.tang.gateway.entity.dto.UtsFansDto;
 import net.ttcxy.tang.gateway.entity.dto.UtsLoginDto;
+import net.ttcxy.tang.gateway.entity.model.UtsFans;
 
 import java.util.List;
 
@@ -15,18 +17,19 @@ public interface UtsFansService {
      * @param authorId 粉丝名
      * @return 影响的行数
      */
-    PageInfo<UtsAuthorDto> selectFansList(String authorId);
+    PageInfo<UtsFansDto> selectFansList(String authorId);
 
     /**
-     * @param fansName 粉丝名
+     * @param fans 粉丝名
      * @return 影响的行数
      */
-    int insertFans(String fansName);
+    int insertFans(UtsFans fans);
 
     /**
-     * @param fansName 粉丝名
+     * @param fansId 粉丝名
+     * @param authorId
      * @return 影响的行数
      */
-    int deleteFans(String fansName);
+    int deleteFans(String fansId,String authorId);
 
 }

@@ -1,9 +1,9 @@
 package net.ttcxy.tang.gateway.service.impl;
 
 import cn.hutool.core.util.IdUtil;
+import net.ttcxy.tang.gateway.dao.DtsAdvertiseDao;
 import net.ttcxy.tang.gateway.dao.mapper.DtsAdvertiseMapper;
 import net.ttcxy.tang.gateway.entity.model.DtsAdvertise;
-import net.ttcxy.tang.gateway.entity.model.DtsAdvertiseExample;
 import net.ttcxy.tang.gateway.service.StsAdvertiseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,12 +20,13 @@ public class StsAdvertiseServiceImpl implements StsAdvertiseService {
     @Autowired
     private DtsAdvertiseMapper advertiseMapper;
 
+    @Autowired
+    private DtsAdvertiseDao advertiseDao;
+
 
     @Override
     public List<DtsAdvertise> selectAllAdvertise() {
-        DtsAdvertiseExample advertiseExample = new DtsAdvertiseExample();
-        advertiseExample.createCriteria();
-        return advertiseMapper.selectByExample(advertiseExample);
+        return advertiseDao.selectAdvertiseAll();
     }
 
     @Override
