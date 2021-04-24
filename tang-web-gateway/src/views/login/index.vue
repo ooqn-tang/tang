@@ -5,7 +5,7 @@
         <h4 class="modal-title text-center">登录</h4>
       </div>
       <div id="model-body" class="modal-body">
-        <label>邮箱 / 用户名：</label>
+        <label>邮箱：</label>
         <div class="form-group">
           <input type="text" v-model="loginData.username" placeholder="用户名" autocomplete="off" class="form-control"/>
         </div>
@@ -43,10 +43,10 @@ export default {
     login(){
       login(this.loginData).then((response) => {
         if(response.code === 200){
-          this.$store.state.isLogin = true
+          this.$store.state.username = response.data.username
+          localStorage.setItem("username",response.data.username)
           this.$router.go(-1)
         }
-        
       })
     }
   },

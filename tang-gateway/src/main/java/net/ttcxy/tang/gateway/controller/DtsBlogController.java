@@ -42,6 +42,15 @@ public class DtsBlogController {
         return ResponseResult.success(blogList);
     }
 
+    @GetMapping("list/username")
+    @ApiOperation("获取首页数据")
+    public ResponseResult<?> selectBlogListByUsername(
+            @RequestParam(value = "page" ,defaultValue = "1")Integer page,
+            @RequestParam(value = "username")String username){
+        PageInfo<DtsBlogDto> blogList = blogService.selectBlogListByUsername(username, page, 20);
+        return ResponseResult.success(blogList);
+    }
+
     @DeleteMapping("{blogId}")
     @ApiOperation("删除博客")
     public ResponseResult<?> delete(@PathVariable("blogId") String blogId){

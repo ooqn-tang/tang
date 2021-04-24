@@ -1,4 +1,7 @@
 import axios from 'axios'
+// 引入store
+import store from '../store'
+
 
 axios.defaults.withCredentials=true;
 
@@ -29,6 +32,10 @@ service.interceptors.response.use(
         }
     },
     error => {
+        if(error.response.status === 401){
+            localStorage.setItem("username","")
+            store.state.username = ""
+        }
         return Promise.reject(error);
     }
 );

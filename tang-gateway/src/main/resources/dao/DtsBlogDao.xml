@@ -62,4 +62,12 @@
         and a.username = #{username}
         order by ld.create_date desc
     </select>
+    <select id="selectBlogListByUsername" resultMap="BlogResult">
+        select b.blog_id,b.title,b.create_date,b.update_date,b.synopsis,a.username,a.nickname
+        FROM `dts_blog` b,`uts_author` a
+        where a.author_id = b.author_id
+        and  b.state_code = 1001
+        and a.username = #{username}
+        order by b.create_date desc
+    </select>
 </mapper>

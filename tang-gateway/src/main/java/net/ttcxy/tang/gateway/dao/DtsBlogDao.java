@@ -59,4 +59,10 @@ public interface DtsBlogDao {
     List<DtsBlogDto> selectLikeBlogs(@Param("username") String username);
 
 
+    /**
+     * 通过用户名查询博客
+     * @param username username
+     * @return 博客列表
+     */
+    List<DtsBlogDto> selectBlogListByUsername(String username);
 }

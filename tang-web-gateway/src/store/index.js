@@ -1,23 +1,19 @@
-import {createStore} from 'vuex'
+import { createStore } from 'vuex'
 
 export default createStore({
     /*
     * 存储
     */
     state: {
-        name: '不得了的人物',
-        isLogin: true
+        username: ""
     },
 
     /*
     * 获取
     */
     getters: {
-        name(state) {
-            return state.name
-        },
-        isLogin(state) {
-            return state.isLogin
+        username(state) {
+            return state.username
         }
     },
 
@@ -27,8 +23,8 @@ export default createStore({
     * 3、不要使用异步操作，异步操作会导致变量不能追踪
     */
     mutations: {
-        setName(state, name) {
-            state.name = name
+        setUsername(state, username) {
+            state.username = username
         }
     },
 
@@ -38,11 +34,9 @@ export default createStore({
     * 3、可以包含任意的异步操作
     */
     actions: {
-        setName(state, name) {
-            // state.name = name
-            setTimeout(() => {
-                state.commit('setName', name)
-            }, 500)
-        }
+        //setName(state, author) {
+        //    alert(author)
+        //    // state.name = name
+        //}
     }
 })

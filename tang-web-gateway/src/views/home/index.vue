@@ -18,8 +18,9 @@
                     <div id="search" class="input-group"><input autocapitalize="none" autocomplete="off" autocorrect="off" type="text" value="" placeholder="输入关键字" name="s" class="form-control"> <span class="input-group-btn"><button type="button" class="btn btn-default">搜索</button></span></div>
                 </form>
                 <ul class="nav navbar-nav navbar-right">
-                    <li v-if="!isLogin"><router-link to="/login">登录</router-link></li>
-                    <li v-if="isLogin"><router-link :to="{name:'author',params:{'username':name}}">我的</router-link></li>
+                    <li v-if="username == ''"><router-link to="/login">登录</router-link></li>
+                    <li v-if="username != ''"><router-link :to="{name:'editor'}">投稿</router-link></li>
+                    <li v-if="username != ''"><router-link :to="{name:'author',params:{'username':username}}">我的</router-link></li>
                 </ul>
             </div>
         </div>
@@ -34,8 +35,7 @@ export default {
   name: "home",
   data() {
     return {
-      name:this.$store.getters.name,
-      isLogin:this.$store.getters.isLogin
+      username: this.$store.getters.username
     };
   },
   computed: {
@@ -62,4 +62,9 @@ export default {
 p{
   margin: 0px;
 }
+
+body{
+    overflow-y: scroll;
+}
+
 </style>

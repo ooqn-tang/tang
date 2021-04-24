@@ -3,7 +3,9 @@
     <div class="col-md-9 column">
       <ul id="blog-list" class="list-group">
         <li class="list-group-item" v-for="(item,index) in blogData" :key="index">
-          <router-link :to="{name: 'post', params: { id: item.blogId }}" class="blog-title"><p v-text="item.title"></p></router-link>
+          <router-link :to="{name: 'post', params: { id: item.blogId }}" class="blog-title">
+            <strong><p v-text="item.title"></p></strong>
+            </router-link>
           <div class="blog-synopsis">{{item.synopsis}}</div>
           <div>
             <span class="date-color">{{item.createDate}}</span>

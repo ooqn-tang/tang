@@ -102,4 +102,12 @@ public interface DtsBlogService {
      */
     PageInfo<DtsBlogDto> selectLikeBlogList(String username, Integer page, Integer pageSize);
 
+    /**
+     * 通过用户名查询博客列表
+     * @param username username
+     * @param page page
+     * @param pageSize 页大小
+     * @return 博客列表
+     */
+    PageInfo<DtsBlogDto> selectBlogListByUsername(String username, Integer page, int pageSize);
 }
