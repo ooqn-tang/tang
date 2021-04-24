@@ -12,17 +12,17 @@ const routes = [
         component: () => import('../views/home/index.vue'),
         children: [
             {
-                path: 'blog',
+                path: '/blog',
                 name: 'blog',
                 component: () => import('../views/blog/index.vue')
             },
             {
-                path: 'author/:username',
+                path: '/author/:username',
                 name: 'author',
                 component: () => import('../views/author/index.vue')
             },
             {
-                path: 'post/:blogId',
+                path: '/post/:id',
                 name: 'post',
                 component: () => import('../views/blog/post.vue')
             },
@@ -44,7 +44,7 @@ createWebHistory   History 模式
 createWebHashHistory    hash 模式
  */
 const router = createRouter({
-    history: createWebHashHistory(),
+    history: createWebHistory(),
     routes
 });
 

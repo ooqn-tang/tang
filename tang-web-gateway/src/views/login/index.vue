@@ -13,12 +13,6 @@
         <div class="form-group">
           <input type="password" v-model="loginData.password" placeholder="密码" autocomplete="off" class="form-control"/>
         </div>
-        <!-- <label>验证码</label>
-        <div class="input-group">
-          <input type="text" class="form-control" />
-          <span class="input-group-addon" style="padding: 0px">
-            <img alt="验证码" src="/verify.png" height="32"/></span>
-        </div> -->
       </div>
       <div class="modal-footer">
         <div class="btn-group W100 mb10px">
@@ -50,13 +44,13 @@ export default {
       login(this.loginData).then((response) => {
         if(response.code === 200){
           this.$store.state.isLogin = true
+          this.$router.go(-1)
         }
         
       })
     }
   },
   mounted(){
-    alert(JSON.stringify(this.$store.state))
   }
 };
 </script>

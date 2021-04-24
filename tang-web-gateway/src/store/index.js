@@ -5,7 +5,7 @@ export default createStore({
     * 存储
     */
     state: {
-        name: '',
+        name: '不得了的人物',
         isLogin: true
     },
 
@@ -15,6 +15,9 @@ export default createStore({
     getters: {
         name(state) {
             return state.name
+        },
+        isLogin(state) {
+            return state.isLogin
         }
     },
 

@@ -5,8 +5,8 @@
         <div id="blog-body" class="panel-body" style="overflow-y: hidden">
           <div>
             <strong>
-              <router-link :to="/author/ + blog.username">{{blog.nickname}}</router-link>
-            </strong>
+              <router-link to="">{{blog.nickname}}</router-link>
+            </strong> . 
             <span style="color: rgb(180, 180, 180)">{{blog.createDate}}</span>
             <div class="btn-group pull-right">
               <button class="btn btn-default btn-xs">订阅</button>
@@ -122,23 +122,38 @@
 </template>
 
 <script>
+import { postBlog } from '/@/api//blog'
+
 export default {
   name: "post",
   data() {
     return {
+      param:{
+        blogId:this.$route.params.id
+      },
       blog:{
-        title:"asdfadsfadsfadf看对方角度看",
+        title:"文章不存在",
         username:"admin",
         nickname:"管理员",
         createDate:"2020.03.27",
-        text:"a啊🎈🎆🎇🧨✨🎉🎊🎃🧧🎑🎐🎏🎎🎍🎋🎄🎀🎁🎗🎞🎟🎫🎠🎡🛒🧶🧵🎨🖼🎭🎪🎢👓🕶🦺🥽🥼🧥👔👕👘👚🩲💍💎⚽⚾🥎🏐🤿🎽🛶🛷🛶🥅🥍🎯🥏🏸🥇🥈🥉🏅🎖🏆♥🎰🕹🎮🎴🃏🀄♟♠♣♥🎼🔔📣📢🔊🔉🎴🔈🎵🎶🎛🎹📻🎷🎺🎸📯🎧🛠⚒🧬🩺📿⚖🔭🔬💊🗡⚔📔📕📖📗📘📑📄📜📒📓📚📰🔖🗞🏷💴💵💶✉💳🗞💷📁📂🗂🗒💼📉📇📋📌📌📍🗄"
+        text:"文章不存在"
       }
     };
   },
   components: {
   },
   methods: {
+    loadBlogInfo(){
+      
+      postBlog(this.param).then((response) => {
+        this.blog = response.data
+      })
+    }
+    
   },
+  mounted(){
+    this.loadBlogInfo()
+  }
 };
 </script>
 

@@ -8,7 +8,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a href="/" class="navbar-brand">一个网站</a>
+                <a href="/" class="navbar-brand">堂堂程序员</a>
             </div>
             <div id="bs-example-navbar-collapse-1" class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
@@ -18,7 +18,8 @@
                     <div id="search" class="input-group"><input autocapitalize="none" autocomplete="off" autocorrect="off" type="text" value="" placeholder="输入关键字" name="s" class="form-control"> <span class="input-group-btn"><button type="button" class="btn btn-default">搜索</button></span></div>
                 </form>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><router-link to="/login">登陆</router-link></li>
+                    <li v-if="!isLogin"><router-link to="/login">登录</router-link></li>
+                    <li v-if="isLogin"><router-link :to="{name:'author',params:{'username':name}}">我的</router-link></li>
                 </ul>
             </div>
         </div>
@@ -33,12 +34,13 @@ export default {
   name: "home",
   data() {
     return {
-      
+      name:this.$store.getters.name,
+      isLogin:this.$store.getters.isLogin
     };
   },
   computed: {
     name() {
-      return this.$store.getters.name;
+      return 
     },
   },
   created() {
@@ -46,7 +48,6 @@ export default {
   methods: {
   },
   mounted(){
-    
   }
 };
 </script>
