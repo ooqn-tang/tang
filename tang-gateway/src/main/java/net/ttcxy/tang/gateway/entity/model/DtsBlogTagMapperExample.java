@@ -4,14 +4,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class StsVisitLogExample {
+public class DtsBlogTagMapperExample {
     protected String orderByClause;
 
     protected boolean distinct;
 
     protected List<Criteria> oredCriteria;
 
-    public StsVisitLogExample() {
+    public DtsBlogTagMapperExample() {
         oredCriteria = new ArrayList<Criteria>();
     }
 
@@ -105,263 +105,213 @@ public class StsVisitLogExample {
             criteria.add(new Criterion(condition, value1, value2));
         }
 
-        public Criteria andVisitLogIdIsNull() {
-            addCriterion("VISIT_LOG_ID is null");
+        public Criteria andBlogTagMapperIdIsNull() {
+            addCriterion("BLOG_TAG_MAPPER_ID is null");
             return (Criteria) this;
         }
 
-        public Criteria andVisitLogIdIsNotNull() {
-            addCriterion("VISIT_LOG_ID is not null");
+        public Criteria andBlogTagMapperIdIsNotNull() {
+            addCriterion("BLOG_TAG_MAPPER_ID is not null");
             return (Criteria) this;
         }
 
-        public Criteria andVisitLogIdEqualTo(Integer value) {
-            addCriterion("VISIT_LOG_ID =", value, "visitLogId");
+        public Criteria andBlogTagMapperIdEqualTo(String value) {
+            addCriterion("BLOG_TAG_MAPPER_ID =", value, "blogTagMapperId");
             return (Criteria) this;
         }
 
-        public Criteria andVisitLogIdNotEqualTo(Integer value) {
-            addCriterion("VISIT_LOG_ID <>", value, "visitLogId");
+        public Criteria andBlogTagMapperIdNotEqualTo(String value) {
+            addCriterion("BLOG_TAG_MAPPER_ID <>", value, "blogTagMapperId");
             return (Criteria) this;
         }
 
-        public Criteria andVisitLogIdGreaterThan(Integer value) {
-            addCriterion("VISIT_LOG_ID >", value, "visitLogId");
+        public Criteria andBlogTagMapperIdGreaterThan(String value) {
+            addCriterion("BLOG_TAG_MAPPER_ID >", value, "blogTagMapperId");
             return (Criteria) this;
         }
 
-        public Criteria andVisitLogIdGreaterThanOrEqualTo(Integer value) {
-            addCriterion("VISIT_LOG_ID >=", value, "visitLogId");
+        public Criteria andBlogTagMapperIdGreaterThanOrEqualTo(String value) {
+            addCriterion("BLOG_TAG_MAPPER_ID >=", value, "blogTagMapperId");
             return (Criteria) this;
         }
 
-        public Criteria andVisitLogIdLessThan(Integer value) {
-            addCriterion("VISIT_LOG_ID <", value, "visitLogId");
+        public Criteria andBlogTagMapperIdLessThan(String value) {
+            addCriterion("BLOG_TAG_MAPPER_ID <", value, "blogTagMapperId");
             return (Criteria) this;
         }
 
-        public Criteria andVisitLogIdLessThanOrEqualTo(Integer value) {
-            addCriterion("VISIT_LOG_ID <=", value, "visitLogId");
+        public Criteria andBlogTagMapperIdLessThanOrEqualTo(String value) {
+            addCriterion("BLOG_TAG_MAPPER_ID <=", value, "blogTagMapperId");
             return (Criteria) this;
         }
 
-        public Criteria andVisitLogIdIn(List<Integer> values) {
-            addCriterion("VISIT_LOG_ID in", values, "visitLogId");
+        public Criteria andBlogTagMapperIdLike(String value) {
+            addCriterion("BLOG_TAG_MAPPER_ID like", value, "blogTagMapperId");
             return (Criteria) this;
         }
 
-        public Criteria andVisitLogIdNotIn(List<Integer> values) {
-            addCriterion("VISIT_LOG_ID not in", values, "visitLogId");
+        public Criteria andBlogTagMapperIdNotLike(String value) {
+            addCriterion("BLOG_TAG_MAPPER_ID not like", value, "blogTagMapperId");
             return (Criteria) this;
         }
 
-        public Criteria andVisitLogIdBetween(Integer value1, Integer value2) {
-            addCriterion("VISIT_LOG_ID between", value1, value2, "visitLogId");
+        public Criteria andBlogTagMapperIdIn(List<String> values) {
+            addCriterion("BLOG_TAG_MAPPER_ID in", values, "blogTagMapperId");
             return (Criteria) this;
         }
 
-        public Criteria andVisitLogIdNotBetween(Integer value1, Integer value2) {
-            addCriterion("VISIT_LOG_ID not between", value1, value2, "visitLogId");
+        public Criteria andBlogTagMapperIdNotIn(List<String> values) {
+            addCriterion("BLOG_TAG_MAPPER_ID not in", values, "blogTagMapperId");
             return (Criteria) this;
         }
 
-        public Criteria andPathIsNull() {
-            addCriterion("PATH is null");
+        public Criteria andBlogTagMapperIdBetween(String value1, String value2) {
+            addCriterion("BLOG_TAG_MAPPER_ID between", value1, value2, "blogTagMapperId");
             return (Criteria) this;
         }
 
-        public Criteria andPathIsNotNull() {
-            addCriterion("PATH is not null");
+        public Criteria andBlogTagMapperIdNotBetween(String value1, String value2) {
+            addCriterion("BLOG_TAG_MAPPER_ID not between", value1, value2, "blogTagMapperId");
             return (Criteria) this;
         }
 
-        public Criteria andPathEqualTo(String value) {
-            addCriterion("PATH =", value, "path");
+        public Criteria andBlogIdIsNull() {
+            addCriterion("BLOG_ID is null");
             return (Criteria) this;
         }
 
-        public Criteria andPathNotEqualTo(String value) {
-            addCriterion("PATH <>", value, "path");
+        public Criteria andBlogIdIsNotNull() {
+            addCriterion("BLOG_ID is not null");
             return (Criteria) this;
         }
 
-        public Criteria andPathGreaterThan(String value) {
-            addCriterion("PATH >", value, "path");
+        public Criteria andBlogIdEqualTo(String value) {
+            addCriterion("BLOG_ID =", value, "blogId");
             return (Criteria) this;
         }
 
-        public Criteria andPathGreaterThanOrEqualTo(String value) {
-            addCriterion("PATH >=", value, "path");
+        public Criteria andBlogIdNotEqualTo(String value) {
+            addCriterion("BLOG_ID <>", value, "blogId");
             return (Criteria) this;
         }
 
-        public Criteria andPathLessThan(String value) {
-            addCriterion("PATH <", value, "path");
+        public Criteria andBlogIdGreaterThan(String value) {
+            addCriterion("BLOG_ID >", value, "blogId");
             return (Criteria) this;
         }
 
-        public Criteria andPathLessThanOrEqualTo(String value) {
-            addCriterion("PATH <=", value, "path");
+        public Criteria andBlogIdGreaterThanOrEqualTo(String value) {
+            addCriterion("BLOG_ID >=", value, "blogId");
             return (Criteria) this;
         }
 
-        public Criteria andPathLike(String value) {
-            addCriterion("PATH like", value, "path");
+        public Criteria andBlogIdLessThan(String value) {
+            addCriterion("BLOG_ID <", value, "blogId");
             return (Criteria) this;
         }
 
-        public Criteria andPathNotLike(String value) {
-            addCriterion("PATH not like", value, "path");
+        public Criteria andBlogIdLessThanOrEqualTo(String value) {
+            addCriterion("BLOG_ID <=", value, "blogId");
             return (Criteria) this;
         }
 
-        public Criteria andPathIn(List<String> values) {
-            addCriterion("PATH in", values, "path");
+        public Criteria andBlogIdLike(String value) {
+            addCriterion("BLOG_ID like", value, "blogId");
             return (Criteria) this;
         }
 
-        public Criteria andPathNotIn(List<String> values) {
-            addCriterion("PATH not in", values, "path");
+        public Criteria andBlogIdNotLike(String value) {
+            addCriterion("BLOG_ID not like", value, "blogId");
             return (Criteria) this;
         }
 
-        public Criteria andPathBetween(String value1, String value2) {
-            addCriterion("PATH between", value1, value2, "path");
+        public Criteria andBlogIdIn(List<String> values) {
+            addCriterion("BLOG_ID in", values, "blogId");
             return (Criteria) this;
         }
 
-        public Criteria andPathNotBetween(String value1, String value2) {
-            addCriterion("PATH not between", value1, value2, "path");
+        public Criteria andBlogIdNotIn(List<String> values) {
+            addCriterion("BLOG_ID not in", values, "blogId");
             return (Criteria) this;
         }
 
-        public Criteria andIpAddrIsNull() {
-            addCriterion("IP_ADDR is null");
+        public Criteria andBlogIdBetween(String value1, String value2) {
+            addCriterion("BLOG_ID between", value1, value2, "blogId");
             return (Criteria) this;
         }
 
-        public Criteria andIpAddrIsNotNull() {
-            addCriterion("IP_ADDR is not null");
+        public Criteria andBlogIdNotBetween(String value1, String value2) {
+            addCriterion("BLOG_ID not between", value1, value2, "blogId");
             return (Criteria) this;
         }
 
-        public Criteria andIpAddrEqualTo(String value) {
-            addCriterion("IP_ADDR =", value, "ipAddr");
+        public Criteria andBlogTagIdIsNull() {
+            addCriterion("BLOG_TAG_ID is null");
             return (Criteria) this;
         }
 
-        public Criteria andIpAddrNotEqualTo(String value) {
-            addCriterion("IP_ADDR <>", value, "ipAddr");
+        public Criteria andBlogTagIdIsNotNull() {
+            addCriterion("BLOG_TAG_ID is not null");
             return (Criteria) this;
         }
 
-        public Criteria andIpAddrGreaterThan(String value) {
-            addCriterion("IP_ADDR >", value, "ipAddr");
+        public Criteria andBlogTagIdEqualTo(String value) {
+            addCriterion("BLOG_TAG_ID =", value, "blogTagId");
             return (Criteria) this;
         }
 
-        public Criteria andIpAddrGreaterThanOrEqualTo(String value) {
-            addCriterion("IP_ADDR >=", value, "ipAddr");
+        public Criteria andBlogTagIdNotEqualTo(String value) {
+            addCriterion("BLOG_TAG_ID <>", value, "blogTagId");
             return (Criteria) this;
         }
 
-        public Criteria andIpAddrLessThan(String value) {
-            addCriterion("IP_ADDR <", value, "ipAddr");
+        public Criteria andBlogTagIdGreaterThan(String value) {
+            addCriterion("BLOG_TAG_ID >", value, "blogTagId");
             return (Criteria) this;
         }
 
-        public Criteria andIpAddrLessThanOrEqualTo(String value) {
-            addCriterion("IP_ADDR <=", value, "ipAddr");
+        public Criteria andBlogTagIdGreaterThanOrEqualTo(String value) {
+            addCriterion("BLOG_TAG_ID >=", value, "blogTagId");
             return (Criteria) this;
         }
 
-        public Criteria andIpAddrLike(String value) {
-            addCriterion("IP_ADDR like", value, "ipAddr");
+        public Criteria andBlogTagIdLessThan(String value) {
+            addCriterion("BLOG_TAG_ID <", value, "blogTagId");
             return (Criteria) this;
         }
 
-        public Criteria andIpAddrNotLike(String value) {
-            addCriterion("IP_ADDR not like", value, "ipAddr");
+        public Criteria andBlogTagIdLessThanOrEqualTo(String value) {
+            addCriterion("BLOG_TAG_ID <=", value, "blogTagId");
             return (Criteria) this;
         }
 
-        public Criteria andIpAddrIn(List<String> values) {
-            addCriterion("IP_ADDR in", values, "ipAddr");
+        public Criteria andBlogTagIdLike(String value) {
+            addCriterion("BLOG_TAG_ID like", value, "blogTagId");
             return (Criteria) this;
         }
 
-        public Criteria andIpAddrNotIn(List<String> values) {
-            addCriterion("IP_ADDR not in", values, "ipAddr");
+        public Criteria andBlogTagIdNotLike(String value) {
+            addCriterion("BLOG_TAG_ID not like", value, "blogTagId");
             return (Criteria) this;
         }
 
-        public Criteria andIpAddrBetween(String value1, String value2) {
-            addCriterion("IP_ADDR between", value1, value2, "ipAddr");
+        public Criteria andBlogTagIdIn(List<String> values) {
+            addCriterion("BLOG_TAG_ID in", values, "blogTagId");
             return (Criteria) this;
         }
 
-        public Criteria andIpAddrNotBetween(String value1, String value2) {
-            addCriterion("IP_ADDR not between", value1, value2, "ipAddr");
+        public Criteria andBlogTagIdNotIn(List<String> values) {
+            addCriterion("BLOG_TAG_ID not in", values, "blogTagId");
             return (Criteria) this;
         }
 
-        public Criteria andMemberIdIsNull() {
-            addCriterion("MEMBER_ID is null");
+        public Criteria andBlogTagIdBetween(String value1, String value2) {
+            addCriterion("BLOG_TAG_ID between", value1, value2, "blogTagId");
             return (Criteria) this;
         }
 
-        public Criteria andMemberIdIsNotNull() {
-            addCriterion("MEMBER_ID is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andMemberIdEqualTo(Integer value) {
-            addCriterion("MEMBER_ID =", value, "memberId");
-            return (Criteria) this;
-        }
-
-        public Criteria andMemberIdNotEqualTo(Integer value) {
-            addCriterion("MEMBER_ID <>", value, "memberId");
-            return (Criteria) this;
-        }
-
-        public Criteria andMemberIdGreaterThan(Integer value) {
-            addCriterion("MEMBER_ID >", value, "memberId");
-            return (Criteria) this;
-        }
-
-        public Criteria andMemberIdGreaterThanOrEqualTo(Integer value) {
-            addCriterion("MEMBER_ID >=", value, "memberId");
-            return (Criteria) this;
-        }
-
-        public Criteria andMemberIdLessThan(Integer value) {
-            addCriterion("MEMBER_ID <", value, "memberId");
-            return (Criteria) this;
-        }
-
-        public Criteria andMemberIdLessThanOrEqualTo(Integer value) {
-            addCriterion("MEMBER_ID <=", value, "memberId");
-            return (Criteria) this;
-        }
-
-        public Criteria andMemberIdIn(List<Integer> values) {
-            addCriterion("MEMBER_ID in", values, "memberId");
-            return (Criteria) this;
-        }
-
-        public Criteria andMemberIdNotIn(List<Integer> values) {
-            addCriterion("MEMBER_ID not in", values, "memberId");
-            return (Criteria) this;
-        }
-
-        public Criteria andMemberIdBetween(Integer value1, Integer value2) {
-            addCriterion("MEMBER_ID between", value1, value2, "memberId");
-            return (Criteria) this;
-        }
-
-        public Criteria andMemberIdNotBetween(Integer value1, Integer value2) {
-            addCriterion("MEMBER_ID not between", value1, value2, "memberId");
+        public Criteria andBlogTagIdNotBetween(String value1, String value2) {
+            addCriterion("BLOG_TAG_ID not between", value1, value2, "blogTagId");
             return (Criteria) this;
         }
 

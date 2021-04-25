@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="net.ttcxy.tang.gateway.dao.mapper.StsStateMapper">
-  <resultMap id="BaseResultMap" type="net.ttcxy.tang.gateway.entity.model.StsState">
-    <id column="STATE_ID" jdbcType="INTEGER" property="stateId" />
-    <result column="CODE" jdbcType="VARCHAR" property="code" />
-    <result column="VALUE" jdbcType="VARCHAR" property="value" />
-    <result column="COMMENT" jdbcType="VARCHAR" property="comment" />
+<mapper namespace="net.ttcxy.tang.gateway.dao.mapper.DtsBlogTagMapper">
+  <resultMap id="BaseResultMap" type="net.ttcxy.tang.gateway.entity.model.DtsBlogTag">
+    <id column="BLOG_TAG_ID" jdbcType="VARCHAR" property="blogTagId" />
+    <result column="TAG_NAME" jdbcType="VARCHAR" property="tagName" />
+    <result column="CREATE_DATE" jdbcType="TIMESTAMP" property="createDate" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -66,81 +65,72 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    STATE_ID, CODE, VALUE, COMMENT
+    BLOG_TAG_ID, TAG_NAME, CREATE_DATE
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from STS_STATE
-    where STATE_ID = #{stateId,jdbcType=INTEGER}
+    from DTS_BLOG_TAG
+    where BLOG_TAG_ID = #{blogTagId,jdbcType=VARCHAR}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from STS_STATE
-    where STATE_ID = #{stateId,jdbcType=INTEGER}
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from DTS_BLOG_TAG
+    where BLOG_TAG_ID = #{blogTagId,jdbcType=VARCHAR}
   </delete>
-  <delete id="deleteByExample" parameterType="net.ttcxy.tang.gateway.entity.model.StsStateExample">
-    delete from STS_STATE
+  <delete id="deleteByExample" parameterType="net.ttcxy.tang.gateway.entity.model.DtsBlogTagExample">
+    delete from DTS_BLOG_TAG
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="net.ttcxy.tang.gateway.entity.model.StsState">
-    insert into STS_STATE (STATE_ID, CODE, VALUE, 
-      COMMENT)
-    values (#{stateId,jdbcType=INTEGER}, #{code,jdbcType=VARCHAR}, #{value,jdbcType=VARCHAR}, 
-      #{comment,jdbcType=VARCHAR})
+  <insert id="insert" parameterType="net.ttcxy.tang.gateway.entity.model.DtsBlogTag">
+    insert into DTS_BLOG_TAG (BLOG_TAG_ID, TAG_NAME, CREATE_DATE
+      )
+    values (#{blogTagId,jdbcType=VARCHAR}, #{tagName,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}
+      )
   </insert>
-  <insert id="insertSelective" parameterType="net.ttcxy.tang.gateway.entity.model.StsState">
-    insert into STS_STATE
+  <insert id="insertSelective" parameterType="net.ttcxy.tang.gateway.entity.model.DtsBlogTag">
+    insert into DTS_BLOG_TAG
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="stateId != null">
-        STATE_ID,
+      <if test="blogTagId != null">
+        BLOG_TAG_ID,
       </if>
-      <if test="code != null">
-        CODE,
+      <if test="tagName != null">
+        TAG_NAME,
       </if>
-      <if test="value != null">
-        VALUE,
-      </if>
-      <if test="comment != null">
-        COMMENT,
+      <if test="createDate != null">
+        CREATE_DATE,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="stateId != null">
-        #{stateId,jdbcType=INTEGER},
+      <if test="blogTagId != null">
+        #{blogTagId,jdbcType=VARCHAR},
       </if>
-      <if test="code != null">
-        #{code,jdbcType=VARCHAR},
+      <if test="tagName != null">
+        #{tagName,jdbcType=VARCHAR},
       </if>
-      <if test="value != null">
-        #{value,jdbcType=VARCHAR},
-      </if>
-      <if test="comment != null">
-        #{comment,jdbcType=VARCHAR},
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="net.ttcxy.tang.gateway.entity.model.StsStateExample" resultType="java.lang.Long">
-    select count(*) from STS_STATE
+  <select id="countByExample" parameterType="net.ttcxy.tang.gateway.entity.model.DtsBlogTagExample" resultType="java.lang.Long">
+    select count(*) from DTS_BLOG_TAG
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update STS_STATE
+    update DTS_BLOG_TAG
     <set>
-      <if test="record.stateId != null">
-        STATE_ID = #{record.stateId,jdbcType=INTEGER},
+      <if test="record.blogTagId != null">
+        BLOG_TAG_ID = #{record.blogTagId,jdbcType=VARCHAR},
       </if>
-      <if test="record.code != null">
-        CODE = #{record.code,jdbcType=VARCHAR},
+      <if test="record.tagName != null">
+        TAG_NAME = #{record.tagName,jdbcType=VARCHAR},
       </if>
-      <if test="record.value != null">
-        VALUE = #{record.value,jdbcType=VARCHAR},
-      </if>
-      <if test="record.comment != null">
-        COMMENT = #{record.comment,jdbcType=VARCHAR},
+      <if test="record.createDate != null">
+        CREATE_DATE = #{record.createDate,jdbcType=TIMESTAMP},
       </if>
     </set>
     <if test="_parameter != null">
@@ -148,35 +138,30 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update STS_STATE
-    set STATE_ID = #{record.stateId,jdbcType=INTEGER},
-      CODE = #{record.code,jdbcType=VARCHAR},
-      VALUE = #{record.value,jdbcType=VARCHAR},
-      COMMENT = #{record.comment,jdbcType=VARCHAR}
+    update DTS_BLOG_TAG
+    set BLOG_TAG_ID = #{record.blogTagId,jdbcType=VARCHAR},
+      TAG_NAME = #{record.tagName,jdbcType=VARCHAR},
+      CREATE_DATE = #{record.createDate,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="net.ttcxy.tang.gateway.entity.model.StsState">
-    update STS_STATE
+  <update id="updateByPrimaryKeySelective" parameterType="net.ttcxy.tang.gateway.entity.model.DtsBlogTag">
+    update DTS_BLOG_TAG
     <set>
-      <if test="code != null">
-        CODE = #{code,jdbcType=VARCHAR},
+      <if test="tagName != null">
+        TAG_NAME = #{tagName,jdbcType=VARCHAR},
       </if>
-      <if test="value != null">
-        VALUE = #{value,jdbcType=VARCHAR},
-      </if>
-      <if test="comment != null">
-        COMMENT = #{comment,jdbcType=VARCHAR},
+      <if test="createDate != null">
+        CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
       </if>
     </set>
-    where STATE_ID = #{stateId,jdbcType=INTEGER}
+    where BLOG_TAG_ID = #{blogTagId,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="net.ttcxy.tang.gateway.entity.model.StsState">
-    update STS_STATE
-    set CODE = #{code,jdbcType=VARCHAR},
-      VALUE = #{value,jdbcType=VARCHAR},
-      COMMENT = #{comment,jdbcType=VARCHAR}
-    where STATE_ID = #{stateId,jdbcType=INTEGER}
+  <update id="updateByPrimaryKey" parameterType="net.ttcxy.tang.gateway.entity.model.DtsBlogTag">
+    update DTS_BLOG_TAG
+    set TAG_NAME = #{tagName,jdbcType=VARCHAR},
+      CREATE_DATE = #{createDate,jdbcType=TIMESTAMP}
+    where BLOG_TAG_ID = #{blogTagId,jdbcType=VARCHAR}
   </update>
 </mapper>

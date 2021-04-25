@@ -1,12 +1,11 @@
 package net.ttcxy.tang.gateway.entity.dto;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import net.ttcxy.tang.gateway.entity.model.DtsBlog;
-import net.ttcxy.tang.gateway.entity.model.UtsAuthor;
+import net.ttcxy.tang.gateway.entity.model.DtsBlogTag;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * Blog模型类
@@ -37,5 +36,8 @@ public class DtsBlogDto {
 
     @ApiModelProperty(value = "博文文本")
     private String text;
+
+    @ApiModelProperty(value = "标签列表")
+    private List<DtsBlogTag> tagList;
 
 }

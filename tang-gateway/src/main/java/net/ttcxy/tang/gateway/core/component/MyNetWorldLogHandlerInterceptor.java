@@ -1,6 +1,5 @@
 package net.ttcxy.tang.gateway.core.component;
 
-import net.ttcxy.tang.gateway.entity.dto.UtsLoginDto;
 import net.ttcxy.tang.gateway.entity.model.UtsAuthor;
 import net.ttcxy.tang.gateway.service.CurrentAuthorService;
 import org.slf4j.Logger;

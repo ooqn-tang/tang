@@ -1,7 +1,6 @@
 package net.ttcxy.tang.gateway.dao;
 
 
-import net.ttcxy.tang.gateway.entity.dto.UtsAuthorDto;
 import net.ttcxy.tang.gateway.entity.model.UtsAuthor;
 
 import java.util.List;

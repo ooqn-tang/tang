@@ -4,14 +4,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class DtsLikeDataExample {
+public class UtsAuthorRoleExample {
     protected String orderByClause;
 
     protected boolean distinct;
 
     protected List<Criteria> oredCriteria;
 
-    public DtsLikeDataExample() {
+    public UtsAuthorRoleExample() {
         oredCriteria = new ArrayList<Criteria>();
     }
 
@@ -105,73 +105,73 @@ public class DtsLikeDataExample {
             criteria.add(new Criterion(condition, value1, value2));
         }
 
-        public Criteria andLikeDataIdIsNull() {
-            addCriterion("LIKE_DATA_ID is null");
+        public Criteria andAuthorRoleIdIsNull() {
+            addCriterion("AUTHOR_ROLE_ID is null");
             return (Criteria) this;
         }
 
-        public Criteria andLikeDataIdIsNotNull() {
-            addCriterion("LIKE_DATA_ID is not null");
+        public Criteria andAuthorRoleIdIsNotNull() {
+            addCriterion("AUTHOR_ROLE_ID is not null");
             return (Criteria) this;
         }
 
-        public Criteria andLikeDataIdEqualTo(String value) {
-            addCriterion("LIKE_DATA_ID =", value, "likeDataId");
+        public Criteria andAuthorRoleIdEqualTo(String value) {
+            addCriterion("AUTHOR_ROLE_ID =", value, "authorRoleId");
             return (Criteria) this;
         }
 
-        public Criteria andLikeDataIdNotEqualTo(String value) {
-            addCriterion("LIKE_DATA_ID <>", value, "likeDataId");
+        public Criteria andAuthorRoleIdNotEqualTo(String value) {
+            addCriterion("AUTHOR_ROLE_ID <>", value, "authorRoleId");
             return (Criteria) this;
         }
 
-        public Criteria andLikeDataIdGreaterThan(String value) {
-            addCriterion("LIKE_DATA_ID >", value, "likeDataId");
+        public Criteria andAuthorRoleIdGreaterThan(String value) {
+            addCriterion("AUTHOR_ROLE_ID >", value, "authorRoleId");
             return (Criteria) this;
         }
 
-        public Criteria andLikeDataIdGreaterThanOrEqualTo(String value) {
-            addCriterion("LIKE_DATA_ID >=", value, "likeDataId");
+        public Criteria andAuthorRoleIdGreaterThanOrEqualTo(String value) {
+            addCriterion("AUTHOR_ROLE_ID >=", value, "authorRoleId");
             return (Criteria) this;
         }
 
-        public Criteria andLikeDataIdLessThan(String value) {
-            addCriterion("LIKE_DATA_ID <", value, "likeDataId");
+        public Criteria andAuthorRoleIdLessThan(String value) {
+            addCriterion("AUTHOR_ROLE_ID <", value, "authorRoleId");
             return (Criteria) this;
         }
 
-        public Criteria andLikeDataIdLessThanOrEqualTo(String value) {
-            addCriterion("LIKE_DATA_ID <=", value, "likeDataId");
+        public Criteria andAuthorRoleIdLessThanOrEqualTo(String value) {
+            addCriterion("AUTHOR_ROLE_ID <=", value, "authorRoleId");
             return (Criteria) this;
         }
 
-        public Criteria andLikeDataIdLike(String value) {
-            addCriterion("LIKE_DATA_ID like", value, "likeDataId");
+        public Criteria andAuthorRoleIdLike(String value) {
+            addCriterion("AUTHOR_ROLE_ID like", value, "authorRoleId");
             return (Criteria) this;
         }
 
-        public Criteria andLikeDataIdNotLike(String value) {
-            addCriterion("LIKE_DATA_ID not like", value, "likeDataId");
+        public Criteria andAuthorRoleIdNotLike(String value) {
+            addCriterion("AUTHOR_ROLE_ID not like", value, "authorRoleId");
             return (Criteria) this;
         }
 
-        public Criteria andLikeDataIdIn(List<String> values) {
-            addCriterion("LIKE_DATA_ID in", values, "likeDataId");
+        public Criteria andAuthorRoleIdIn(List<String> values) {
+            addCriterion("AUTHOR_ROLE_ID in", values, "authorRoleId");
             return (Criteria) this;
         }
 
-        public Criteria andLikeDataIdNotIn(List<String> values) {
-            addCriterion("LIKE_DATA_ID not in", values, "likeDataId");
+        public Criteria andAuthorRoleIdNotIn(List<String> values) {
+            addCriterion("AUTHOR_ROLE_ID not in", values, "authorRoleId");
             return (Criteria) this;
         }
 
-        public Criteria andLikeDataIdBetween(String value1, String value2) {
-            addCriterion("LIKE_DATA_ID between", value1, value2, "likeDataId");
+        public Criteria andAuthorRoleIdBetween(String value1, String value2) {
+            addCriterion("AUTHOR_ROLE_ID between", value1, value2, "authorRoleId");
             return (Criteria) this;
         }
 
-        public Criteria andLikeDataIdNotBetween(String value1, String value2) {
-            addCriterion("LIKE_DATA_ID not between", value1, value2, "likeDataId");
+        public Criteria andAuthorRoleIdNotBetween(String value1, String value2) {
+            addCriterion("AUTHOR_ROLE_ID not between", value1, value2, "authorRoleId");
             return (Criteria) this;
         }
 
@@ -245,133 +245,133 @@ public class DtsLikeDataExample {
             return (Criteria) this;
         }
 
-        public Criteria andBlogIdIsNull() {
-            addCriterion("BLOG_ID is null");
+        public Criteria andRoleIdIsNull() {
+            addCriterion("ROLE_ID is null");
             return (Criteria) this;
         }
 
-        public Criteria andBlogIdIsNotNull() {
-            addCriterion("BLOG_ID is not null");
+        public Criteria andRoleIdIsNotNull() {
+            addCriterion("ROLE_ID is not null");
             return (Criteria) this;
         }
 
-        public Criteria andBlogIdEqualTo(String value) {
-            addCriterion("BLOG_ID =", value, "blogId");
+        public Criteria andRoleIdEqualTo(String value) {
+            addCriterion("ROLE_ID =", value, "roleId");
             return (Criteria) this;
         }
 
-        public Criteria andBlogIdNotEqualTo(String value) {
-            addCriterion("BLOG_ID <>", value, "blogId");
+        public Criteria andRoleIdNotEqualTo(String value) {
+            addCriterion("ROLE_ID <>", value, "roleId");
             return (Criteria) this;
         }
 
-        public Criteria andBlogIdGreaterThan(String value) {
-            addCriterion("BLOG_ID >", value, "blogId");
+        public Criteria andRoleIdGreaterThan(String value) {
+            addCriterion("ROLE_ID >", value, "roleId");
             return (Criteria) this;
         }
 
-        public Criteria andBlogIdGreaterThanOrEqualTo(String value) {
-            addCriterion("BLOG_ID >=", value, "blogId");
+        public Criteria andRoleIdGreaterThanOrEqualTo(String value) {
+            addCriterion("ROLE_ID >=", value, "roleId");
             return (Criteria) this;
         }
 
-        public Criteria andBlogIdLessThan(String value) {
-            addCriterion("BLOG_ID <", value, "blogId");
+        public Criteria andRoleIdLessThan(String value) {
+            addCriterion("ROLE_ID <", value, "roleId");
             return (Criteria) this;
         }
 
-        public Criteria andBlogIdLessThanOrEqualTo(String value) {
-            addCriterion("BLOG_ID <=", value, "blogId");
+        public Criteria andRoleIdLessThanOrEqualTo(String value) {
+            addCriterion("ROLE_ID <=", value, "roleId");
             return (Criteria) this;
         }
 
-        public Criteria andBlogIdLike(String value) {
-            addCriterion("BLOG_ID like", value, "blogId");
+        public Criteria andRoleIdLike(String value) {
+            addCriterion("ROLE_ID like", value, "roleId");
             return (Criteria) this;
         }
 
-        public Criteria andBlogIdNotLike(String value) {
-            addCriterion("BLOG_ID not like", value, "blogId");
+        public Criteria andRoleIdNotLike(String value) {
+            addCriterion("ROLE_ID not like", value, "roleId");
             return (Criteria) this;
         }
 
-        public Criteria andBlogIdIn(List<String> values) {
-            addCriterion("BLOG_ID in", values, "blogId");
+        public Criteria andRoleIdIn(List<String> values) {
+            addCriterion("ROLE_ID in", values, "roleId");
             return (Criteria) this;
         }
 
-        public Criteria andBlogIdNotIn(List<String> values) {
-            addCriterion("BLOG_ID not in", values, "blogId");
+        public Criteria andRoleIdNotIn(List<String> values) {
+            addCriterion("ROLE_ID not in", values, "roleId");
             return (Criteria) this;
         }
 
-        public Criteria andBlogIdBetween(String value1, String value2) {
-            addCriterion("BLOG_ID between", value1, value2, "blogId");
+        public Criteria andRoleIdBetween(String value1, String value2) {
+            addCriterion("ROLE_ID between", value1, value2, "roleId");
             return (Criteria) this;
         }
 
-        public Criteria andBlogIdNotBetween(String value1, String value2) {
-            addCriterion("BLOG_ID not between", value1, value2, "blogId");
+        public Criteria andRoleIdNotBetween(String value1, String value2) {
+            addCriterion("ROLE_ID not between", value1, value2, "roleId");
             return (Criteria) this;
         }
 
-        public Criteria andCreateDateIsNull() {
-            addCriterion("CREATE_DATE is null");
+        public Criteria andCreateTimeIsNull() {
+            addCriterion("CREATE_TIME is null");
             return (Criteria) this;
         }
 
-        public Criteria andCreateDateIsNotNull() {
-            addCriterion("CREATE_DATE is not null");
+        public Criteria andCreateTimeIsNotNull() {
+            addCriterion("CREATE_TIME is not null");
             return (Criteria) this;
         }
 
-        public Criteria andCreateDateEqualTo(Date value) {
-            addCriterion("CREATE_DATE =", value, "createDate");
+        public Criteria andCreateTimeEqualTo(Date value) {
+            addCriterion("CREATE_TIME =", value, "createTime");
             return (Criteria) this;
         }
 
-        public Criteria andCreateDateNotEqualTo(Date value) {
-            addCriterion("CREATE_DATE <>", value, "createDate");
+        public Criteria andCreateTimeNotEqualTo(Date value) {
+            addCriterion("CREATE_TIME <>", value, "createTime");
             return (Criteria) this;
         }
 
-        public Criteria andCreateDateGreaterThan(Date value) {
-            addCriterion("CREATE_DATE >", value, "createDate");
+        public Criteria andCreateTimeGreaterThan(Date value) {
+            addCriterion("CREATE_TIME >", value, "createTime");
             return (Criteria) this;
         }
 
-        public Criteria andCreateDateGreaterThanOrEqualTo(Date value) {
-            addCriterion("CREATE_DATE >=", value, "createDate");
+        public Criteria andCreateTimeGreaterThanOrEqualTo(Date value) {
+            addCriterion("CREATE_TIME >=", value, "createTime");
             return (Criteria) this;
         }
 
-        public Criteria andCreateDateLessThan(Date value) {
-            addCriterion("CREATE_DATE <", value, "createDate");
+        public Criteria andCreateTimeLessThan(Date value) {
+            addCriterion("CREATE_TIME <", value, "createTime");
             return (Criteria) this;
         }
 
-        public Criteria andCreateDateLessThanOrEqualTo(Date value) {
-            addCriterion("CREATE_DATE <=", value, "createDate");
+        public Criteria andCreateTimeLessThanOrEqualTo(Date value) {
+            addCriterion("CREATE_TIME <=", value, "createTime");
             return (Criteria) this;
         }
 
-        public Criteria andCreateDateIn(List<Date> values) {
-            addCriterion("CREATE_DATE in", values, "createDate");
+        public Criteria andCreateTimeIn(List<Date> values) {
+            addCriterion("CREATE_TIME in", values, "createTime");
             return (Criteria) this;
         }
 
-        public Criteria andCreateDateNotIn(List<Date> values) {
-            addCriterion("CREATE_DATE not in", values, "createDate");
+        public Criteria andCreateTimeNotIn(List<Date> values) {
+            addCriterion("CREATE_TIME not in", values, "createTime");
             return (Criteria) this;
         }
 
-        public Criteria andCreateDateBetween(Date value1, Date value2) {
-            addCriterion("CREATE_DATE between", value1, value2, "createDate");
+        public Criteria andCreateTimeBetween(Date value1, Date value2) {
+            addCriterion("CREATE_TIME between", value1, value2, "createTime");
             return (Criteria) this;
         }
 
-        public Criteria andCreateDateNotBetween(Date value1, Date value2) {
-            addCriterion("CREATE_DATE not between", value1, value2, "createDate");
+        public Criteria andCreateTimeNotBetween(Date value1, Date value2) {
+            addCriterion("CREATE_TIME not between", value1, value2, "createTime");
             return (Criteria) this;
         }
     }

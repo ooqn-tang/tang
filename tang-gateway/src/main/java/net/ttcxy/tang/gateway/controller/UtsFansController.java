@@ -6,8 +6,6 @@ import io.swagger.annotations.ApiOperation;
 import net.ttcxy.tang.gateway.core.api.ApiException;
 import net.ttcxy.tang.gateway.core.api.ResponseResult;
 import net.ttcxy.tang.gateway.core.api.ResponseCode;
-import net.ttcxy.tang.gateway.core.exception.IErrorCode;
-import net.ttcxy.tang.gateway.entity.dto.UtsAuthorDto;
 import net.ttcxy.tang.gateway.entity.dto.UtsFansDto;
 import net.ttcxy.tang.gateway.entity.model.UtsAuthor;
 import net.ttcxy.tang.gateway.entity.model.UtsFans;

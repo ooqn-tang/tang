@@ -4,14 +4,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class DtsFavoriteExample {
+public class DtsBlogTagRelationExample {
     protected String orderByClause;
 
     protected boolean distinct;
 
     protected List<Criteria> oredCriteria;
 
-    public DtsFavoriteExample() {
+    public DtsBlogTagRelationExample() {
         oredCriteria = new ArrayList<Criteria>();
     }
 
@@ -105,143 +105,73 @@ public class DtsFavoriteExample {
             criteria.add(new Criterion(condition, value1, value2));
         }
 
-        public Criteria andFavoriteIdIsNull() {
-            addCriterion("FAVORITE_ID is null");
+        public Criteria andBlogTagRelationIdIsNull() {
+            addCriterion("BLOG_TAG_RELATION_ID is null");
             return (Criteria) this;
         }
 
-        public Criteria andFavoriteIdIsNotNull() {
-            addCriterion("FAVORITE_ID is not null");
+        public Criteria andBlogTagRelationIdIsNotNull() {
+            addCriterion("BLOG_TAG_RELATION_ID is not null");
             return (Criteria) this;
         }
 
-        public Criteria andFavoriteIdEqualTo(String value) {
-            addCriterion("FAVORITE_ID =", value, "favoriteId");
+        public Criteria andBlogTagRelationIdEqualTo(String value) {
+            addCriterion("BLOG_TAG_RELATION_ID =", value, "blogTagRelationId");
             return (Criteria) this;
         }
 
-        public Criteria andFavoriteIdNotEqualTo(String value) {
-            addCriterion("FAVORITE_ID <>", value, "favoriteId");
+        public Criteria andBlogTagRelationIdNotEqualTo(String value) {
+            addCriterion("BLOG_TAG_RELATION_ID <>", value, "blogTagRelationId");
             return (Criteria) this;
         }
 
-        public Criteria andFavoriteIdGreaterThan(String value) {
-            addCriterion("FAVORITE_ID >", value, "favoriteId");
+        public Criteria andBlogTagRelationIdGreaterThan(String value) {
+            addCriterion("BLOG_TAG_RELATION_ID >", value, "blogTagRelationId");
             return (Criteria) this;
         }
 
-        public Criteria andFavoriteIdGreaterThanOrEqualTo(String value) {
-            addCriterion("FAVORITE_ID >=", value, "favoriteId");
+        public Criteria andBlogTagRelationIdGreaterThanOrEqualTo(String value) {
+            addCriterion("BLOG_TAG_RELATION_ID >=", value, "blogTagRelationId");
             return (Criteria) this;
         }
 
-        public Criteria andFavoriteIdLessThan(String value) {
-            addCriterion("FAVORITE_ID <", value, "favoriteId");
+        public Criteria andBlogTagRelationIdLessThan(String value) {
+            addCriterion("BLOG_TAG_RELATION_ID <", value, "blogTagRelationId");
             return (Criteria) this;
         }
 
-        public Criteria andFavoriteIdLessThanOrEqualTo(String value) {
-            addCriterion("FAVORITE_ID <=", value, "favoriteId");
+        public Criteria andBlogTagRelationIdLessThanOrEqualTo(String value) {
+            addCriterion("BLOG_TAG_RELATION_ID <=", value, "blogTagRelationId");
             return (Criteria) this;
         }
 
-        public Criteria andFavoriteIdLike(String value) {
-            addCriterion("FAVORITE_ID like", value, "favoriteId");
+        public Criteria andBlogTagRelationIdLike(String value) {
+            addCriterion("BLOG_TAG_RELATION_ID like", value, "blogTagRelationId");
             return (Criteria) this;
         }
 
-        public Criteria andFavoriteIdNotLike(String value) {
-            addCriterion("FAVORITE_ID not like", value, "favoriteId");
+        public Criteria andBlogTagRelationIdNotLike(String value) {
+            addCriterion("BLOG_TAG_RELATION_ID not like", value, "blogTagRelationId");
             return (Criteria) this;
         }
 
-        public Criteria andFavoriteIdIn(List<String> values) {
-            addCriterion("FAVORITE_ID in", values, "favoriteId");
+        public Criteria andBlogTagRelationIdIn(List<String> values) {
+            addCriterion("BLOG_TAG_RELATION_ID in", values, "blogTagRelationId");
             return (Criteria) this;
         }
 
-        public Criteria andFavoriteIdNotIn(List<String> values) {
-            addCriterion("FAVORITE_ID not in", values, "favoriteId");
+        public Criteria andBlogTagRelationIdNotIn(List<String> values) {
+            addCriterion("BLOG_TAG_RELATION_ID not in", values, "blogTagRelationId");
             return (Criteria) this;
         }
 
-        public Criteria andFavoriteIdBetween(String value1, String value2) {
-            addCriterion("FAVORITE_ID between", value1, value2, "favoriteId");
+        public Criteria andBlogTagRelationIdBetween(String value1, String value2) {
+            addCriterion("BLOG_TAG_RELATION_ID between", value1, value2, "blogTagRelationId");
             return (Criteria) this;
         }
 
-        public Criteria andFavoriteIdNotBetween(String value1, String value2) {
-            addCriterion("FAVORITE_ID not between", value1, value2, "favoriteId");
-            return (Criteria) this;
-        }
-
-        public Criteria andAuthorIdIsNull() {
-            addCriterion("AUTHOR_ID is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andAuthorIdIsNotNull() {
-            addCriterion("AUTHOR_ID is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andAuthorIdEqualTo(String value) {
-            addCriterion("AUTHOR_ID =", value, "authorId");
-            return (Criteria) this;
-        }
-
-        public Criteria andAuthorIdNotEqualTo(String value) {
-            addCriterion("AUTHOR_ID <>", value, "authorId");
-            return (Criteria) this;
-        }
-
-        public Criteria andAuthorIdGreaterThan(String value) {
-            addCriterion("AUTHOR_ID >", value, "authorId");
-            return (Criteria) this;
-        }
-
-        public Criteria andAuthorIdGreaterThanOrEqualTo(String value) {
-            addCriterion("AUTHOR_ID >=", value, "authorId");
-            return (Criteria) this;
-        }
-
-        public Criteria andAuthorIdLessThan(String value) {
-            addCriterion("AUTHOR_ID <", value, "authorId");
-            return (Criteria) this;
-        }
-
-        public Criteria andAuthorIdLessThanOrEqualTo(String value) {
-            addCriterion("AUTHOR_ID <=", value, "authorId");
-            return (Criteria) this;
-        }
-
-        public Criteria andAuthorIdLike(String value) {
-            addCriterion("AUTHOR_ID like", value, "authorId");
-            return (Criteria) this;
-        }
-
-        public Criteria andAuthorIdNotLike(String value) {
-            addCriterion("AUTHOR_ID not like", value, "authorId");
-            return (Criteria) this;
-        }
-
-        public Criteria andAuthorIdIn(List<String> values) {
-            addCriterion("AUTHOR_ID in", values, "authorId");
-            return (Criteria) this;
-        }
-
-        public Criteria andAuthorIdNotIn(List<String> values) {
-            addCriterion("AUTHOR_ID not in", values, "authorId");
-            return (Criteria) this;
-        }
-
-        public Criteria andAuthorIdBetween(String value1, String value2) {
-            addCriterion("AUTHOR_ID between", value1, value2, "authorId");
-            return (Criteria) this;
-        }
-
-        public Criteria andAuthorIdNotBetween(String value1, String value2) {
-            addCriterion("AUTHOR_ID not between", value1, value2, "authorId");
+        public Criteria andBlogTagRelationIdNotBetween(String value1, String value2) {
+            addCriterion("BLOG_TAG_RELATION_ID not between", value1, value2, "blogTagRelationId");
             return (Criteria) this;
         }
 
@@ -312,6 +242,76 @@ public class DtsFavoriteExample {
 
         public Criteria andBlogIdNotBetween(String value1, String value2) {
             addCriterion("BLOG_ID not between", value1, value2, "blogId");
+            return (Criteria) this;
+        }
+
+        public Criteria andBlogTagIdIsNull() {
+            addCriterion("BLOG_TAG_ID is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andBlogTagIdIsNotNull() {
+            addCriterion("BLOG_TAG_ID is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andBlogTagIdEqualTo(String value) {
+            addCriterion("BLOG_TAG_ID =", value, "blogTagId");
+            return (Criteria) this;
+        }
+
+        public Criteria andBlogTagIdNotEqualTo(String value) {
+            addCriterion("BLOG_TAG_ID <>", value, "blogTagId");
+            return (Criteria) this;
+        }
+
+        public Criteria andBlogTagIdGreaterThan(String value) {
+            addCriterion("BLOG_TAG_ID >", value, "blogTagId");
+            return (Criteria) this;
+        }
+
+        public Criteria andBlogTagIdGreaterThanOrEqualTo(String value) {
+            addCriterion("BLOG_TAG_ID >=", value, "blogTagId");
+            return (Criteria) this;
+        }
+
+        public Criteria andBlogTagIdLessThan(String value) {
+            addCriterion("BLOG_TAG_ID <", value, "blogTagId");
+            return (Criteria) this;
+        }
+
+        public Criteria andBlogTagIdLessThanOrEqualTo(String value) {
+            addCriterion("BLOG_TAG_ID <=", value, "blogTagId");
+            return (Criteria) this;
+        }
+
+        public Criteria andBlogTagIdLike(String value) {
+            addCriterion("BLOG_TAG_ID like", value, "blogTagId");
+            return (Criteria) this;
+        }
+
+        public Criteria andBlogTagIdNotLike(String value) {
+            addCriterion("BLOG_TAG_ID not like", value, "blogTagId");
+            return (Criteria) this;
+        }
+
+        public Criteria andBlogTagIdIn(List<String> values) {
+            addCriterion("BLOG_TAG_ID in", values, "blogTagId");
+            return (Criteria) this;
+        }
+
+        public Criteria andBlogTagIdNotIn(List<String> values) {
+            addCriterion("BLOG_TAG_ID not in", values, "blogTagId");
+            return (Criteria) this;
+        }
+
+        public Criteria andBlogTagIdBetween(String value1, String value2) {
+            addCriterion("BLOG_TAG_ID between", value1, value2, "blogTagId");
+            return (Criteria) this;
+        }
+
+        public Criteria andBlogTagIdNotBetween(String value1, String value2) {
+            addCriterion("BLOG_TAG_ID not between", value1, value2, "blogTagId");
             return (Criteria) this;
         }
 

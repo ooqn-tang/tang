@@ -4,23 +4,23 @@ import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 import java.util.Date;
 
-public class DtsFavorite implements Serializable {
-    private String favoriteId;
+public class UtsAuthorRole implements Serializable {
+    private String authorRoleId;
 
     private String authorId;
 
-    private String blogId;
+    private String roleId;
 
-    private Date createDate;
+    private Date createTime;
 
     private static final long serialVersionUID = 1L;
 
-    public String getFavoriteId() {
-        return favoriteId;
+    public String getAuthorRoleId() {
+        return authorRoleId;
     }
 
-    public void setFavoriteId(String favoriteId) {
-        this.favoriteId = favoriteId;
+    public void setAuthorRoleId(String authorRoleId) {
+        this.authorRoleId = authorRoleId;
     }
 
     public String getAuthorId() {
@@ -31,20 +31,20 @@ public class DtsFavorite implements Serializable {
         this.authorId = authorId;
     }
 
-    public String getBlogId() {
-        return blogId;
+    public String getRoleId() {
+        return roleId;
     }
 
-    public void setBlogId(String blogId) {
-        this.blogId = blogId;
+    public void setRoleId(String roleId) {
+        this.roleId = roleId;
     }
 
-    public Date getCreateDate() {
-        return createDate;
+    public Date getCreateTime() {
+        return createTime;
     }
 
-    public void setCreateDate(Date createDate) {
-        this.createDate = createDate;
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 
     @Override
@@ -53,10 +53,10 @@ public class DtsFavorite implements Serializable {
         sb.append(getClass().getSimpleName());
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
-        sb.append(", favoriteId=").append(favoriteId);
+        sb.append(", authorRoleId=").append(authorRoleId);
         sb.append(", authorId=").append(authorId);
-        sb.append(", blogId=").append(blogId);
-        sb.append(", createDate=").append(createDate);
+        sb.append(", roleId=").append(roleId);
+        sb.append(", createTime=").append(createTime);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

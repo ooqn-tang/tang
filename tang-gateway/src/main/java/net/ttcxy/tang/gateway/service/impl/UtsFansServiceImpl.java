@@ -6,7 +6,6 @@ import com.github.pagehelper.PageInfo;
 import net.ttcxy.tang.gateway.dao.UtsAuthorDao;
 import net.ttcxy.tang.gateway.dao.UtsFansDao;
 import net.ttcxy.tang.gateway.dao.mapper.UtsFansMapper;
-import net.ttcxy.tang.gateway.entity.dto.UtsAuthorDto;
 import net.ttcxy.tang.gateway.entity.dto.UtsFansDto;
 import net.ttcxy.tang.gateway.entity.model.UtsFans;
 import net.ttcxy.tang.gateway.entity.model.UtsFansExample;

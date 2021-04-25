@@ -1,16 +1,17 @@
 package net.ttcxy.tang.gateway.entity.model;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
-public class DtsUserExample {
+public class DtsBlogTagExample {
     protected String orderByClause;
 
     protected boolean distinct;
 
     protected List<Criteria> oredCriteria;
 
-    public DtsUserExample() {
+    public DtsBlogTagExample() {
         oredCriteria = new ArrayList<Criteria>();
     }
 
@@ -104,203 +105,203 @@ public class DtsUserExample {
             criteria.add(new Criterion(condition, value1, value2));
         }
 
-        public Criteria andUserIdIsNull() {
-            addCriterion("USER_ID is null");
+        public Criteria andBlogTagIdIsNull() {
+            addCriterion("BLOG_TAG_ID is null");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdIsNotNull() {
-            addCriterion("USER_ID is not null");
+        public Criteria andBlogTagIdIsNotNull() {
+            addCriterion("BLOG_TAG_ID is not null");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdEqualTo(Integer value) {
-            addCriterion("USER_ID =", value, "userId");
+        public Criteria andBlogTagIdEqualTo(String value) {
+            addCriterion("BLOG_TAG_ID =", value, "blogTagId");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdNotEqualTo(Integer value) {
-            addCriterion("USER_ID <>", value, "userId");
+        public Criteria andBlogTagIdNotEqualTo(String value) {
+            addCriterion("BLOG_TAG_ID <>", value, "blogTagId");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdGreaterThan(Integer value) {
-            addCriterion("USER_ID >", value, "userId");
+        public Criteria andBlogTagIdGreaterThan(String value) {
+            addCriterion("BLOG_TAG_ID >", value, "blogTagId");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdGreaterThanOrEqualTo(Integer value) {
-            addCriterion("USER_ID >=", value, "userId");
+        public Criteria andBlogTagIdGreaterThanOrEqualTo(String value) {
+            addCriterion("BLOG_TAG_ID >=", value, "blogTagId");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdLessThan(Integer value) {
-            addCriterion("USER_ID <", value, "userId");
+        public Criteria andBlogTagIdLessThan(String value) {
+            addCriterion("BLOG_TAG_ID <", value, "blogTagId");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdLessThanOrEqualTo(Integer value) {
-            addCriterion("USER_ID <=", value, "userId");
+        public Criteria andBlogTagIdLessThanOrEqualTo(String value) {
+            addCriterion("BLOG_TAG_ID <=", value, "blogTagId");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdIn(List<Integer> values) {
-            addCriterion("USER_ID in", values, "userId");
+        public Criteria andBlogTagIdLike(String value) {
+            addCriterion("BLOG_TAG_ID like", value, "blogTagId");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdNotIn(List<Integer> values) {
-            addCriterion("USER_ID not in", values, "userId");
+        public Criteria andBlogTagIdNotLike(String value) {
+            addCriterion("BLOG_TAG_ID not like", value, "blogTagId");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdBetween(Integer value1, Integer value2) {
-            addCriterion("USER_ID between", value1, value2, "userId");
+        public Criteria andBlogTagIdIn(List<String> values) {
+            addCriterion("BLOG_TAG_ID in", values, "blogTagId");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdNotBetween(Integer value1, Integer value2) {
-            addCriterion("USER_ID not between", value1, value2, "userId");
+        public Criteria andBlogTagIdNotIn(List<String> values) {
+            addCriterion("BLOG_TAG_ID not in", values, "blogTagId");
             return (Criteria) this;
         }
 
-        public Criteria andUsernameIsNull() {
-            addCriterion("USERNAME is null");
+        public Criteria andBlogTagIdBetween(String value1, String value2) {
+            addCriterion("BLOG_TAG_ID between", value1, value2, "blogTagId");
             return (Criteria) this;
         }
 
-        public Criteria andUsernameIsNotNull() {
-            addCriterion("USERNAME is not null");
+        public Criteria andBlogTagIdNotBetween(String value1, String value2) {
+            addCriterion("BLOG_TAG_ID not between", value1, value2, "blogTagId");
             return (Criteria) this;
         }
 
-        public Criteria andUsernameEqualTo(String value) {
-            addCriterion("USERNAME =", value, "username");
+        public Criteria andTagNameIsNull() {
+            addCriterion("TAG_NAME is null");
             return (Criteria) this;
         }
 
-        public Criteria andUsernameNotEqualTo(String value) {
-            addCriterion("USERNAME <>", value, "username");
+        public Criteria andTagNameIsNotNull() {
+            addCriterion("TAG_NAME is not null");
             return (Criteria) this;
         }
 
-        public Criteria andUsernameGreaterThan(String value) {
-            addCriterion("USERNAME >", value, "username");
+        public Criteria andTagNameEqualTo(String value) {
+            addCriterion("TAG_NAME =", value, "tagName");
             return (Criteria) this;
         }
 
-        public Criteria andUsernameGreaterThanOrEqualTo(String value) {
-            addCriterion("USERNAME >=", value, "username");
+        public Criteria andTagNameNotEqualTo(String value) {
+            addCriterion("TAG_NAME <>", value, "tagName");
             return (Criteria) this;
         }
 
-        public Criteria andUsernameLessThan(String value) {
-            addCriterion("USERNAME <", value, "username");
+        public Criteria andTagNameGreaterThan(String value) {
+            addCriterion("TAG_NAME >", value, "tagName");
             return (Criteria) this;
         }
 
-        public Criteria andUsernameLessThanOrEqualTo(String value) {
-            addCriterion("USERNAME <=", value, "username");
+        public Criteria andTagNameGreaterThanOrEqualTo(String value) {
+            addCriterion("TAG_NAME >=", value, "tagName");
             return (Criteria) this;
         }
 
-        public Criteria andUsernameLike(String value) {
-            addCriterion("USERNAME like", value, "username");
+        public Criteria andTagNameLessThan(String value) {
+            addCriterion("TAG_NAME <", value, "tagName");
             return (Criteria) this;
         }
 
-        public Criteria andUsernameNotLike(String value) {
-            addCriterion("USERNAME not like", value, "username");
+        public Criteria andTagNameLessThanOrEqualTo(String value) {
+            addCriterion("TAG_NAME <=", value, "tagName");
             return (Criteria) this;
         }
 
-        public Criteria andUsernameIn(List<String> values) {
-            addCriterion("USERNAME in", values, "username");
+        public Criteria andTagNameLike(String value) {
+            addCriterion("TAG_NAME like", value, "tagName");
             return (Criteria) this;
         }
 
-        public Criteria andUsernameNotIn(List<String> values) {
-            addCriterion("USERNAME not in", values, "username");
+        public Criteria andTagNameNotLike(String value) {
+            addCriterion("TAG_NAME not like", value, "tagName");
             return (Criteria) this;
         }
 
-        public Criteria andUsernameBetween(String value1, String value2) {
-            addCriterion("USERNAME between", value1, value2, "username");
+        public Criteria andTagNameIn(List<String> values) {
+            addCriterion("TAG_NAME in", values, "tagName");
             return (Criteria) this;
         }
 
-        public Criteria andUsernameNotBetween(String value1, String value2) {
-            addCriterion("USERNAME not between", value1, value2, "username");
+        public Criteria andTagNameNotIn(List<String> values) {
+            addCriterion("TAG_NAME not in", values, "tagName");
             return (Criteria) this;
         }
 
-        public Criteria andPasswordIsNull() {
-            addCriterion("PASSWORD is null");
+        public Criteria andTagNameBetween(String value1, String value2) {
+            addCriterion("TAG_NAME between", value1, value2, "tagName");
             return (Criteria) this;
         }
 
-        public Criteria andPasswordIsNotNull() {
-            addCriterion("PASSWORD is not null");
+        public Criteria andTagNameNotBetween(String value1, String value2) {
+            addCriterion("TAG_NAME not between", value1, value2, "tagName");
             return (Criteria) this;
         }
 
-        public Criteria andPasswordEqualTo(String value) {
-            addCriterion("PASSWORD =", value, "password");
+        public Criteria andCreateDateIsNull() {
+            addCriterion("CREATE_DATE is null");
             return (Criteria) this;
         }
 
-        public Criteria andPasswordNotEqualTo(String value) {
-            addCriterion("PASSWORD <>", value, "password");
+        public Criteria andCreateDateIsNotNull() {
+            addCriterion("CREATE_DATE is not null");
             return (Criteria) this;
         }
 
-        public Criteria andPasswordGreaterThan(String value) {
-            addCriterion("PASSWORD >", value, "password");
+        public Criteria andCreateDateEqualTo(Date value) {
+            addCriterion("CREATE_DATE =", value, "createDate");
             return (Criteria) this;
         }
 
-        public Criteria andPasswordGreaterThanOrEqualTo(String value) {
-            addCriterion("PASSWORD >=", value, "password");
+        public Criteria andCreateDateNotEqualTo(Date value) {
+            addCriterion("CREATE_DATE <>", value, "createDate");
             return (Criteria) this;
         }
 
-        public Criteria andPasswordLessThan(String value) {
-            addCriterion("PASSWORD <", value, "password");
+        public Criteria andCreateDateGreaterThan(Date value) {
+            addCriterion("CREATE_DATE >", value, "createDate");
             return (Criteria) this;
         }
 
-        public Criteria andPasswordLessThanOrEqualTo(String value) {
-            addCriterion("PASSWORD <=", value, "password");
+        public Criteria andCreateDateGreaterThanOrEqualTo(Date value) {
+            addCriterion("CREATE_DATE >=", value, "createDate");
             return (Criteria) this;
         }
 
-        public Criteria andPasswordLike(String value) {
-            addCriterion("PASSWORD like", value, "password");
+        public Criteria andCreateDateLessThan(Date value) {
+            addCriterion("CREATE_DATE <", value, "createDate");
             return (Criteria) this;
         }
 
-        public Criteria andPasswordNotLike(String value) {
-            addCriterion("PASSWORD not like", value, "password");
+        public Criteria andCreateDateLessThanOrEqualTo(Date value) {
+            addCriterion("CREATE_DATE <=", value, "createDate");
             return (Criteria) this;
         }
 
-        public Criteria andPasswordIn(List<String> values) {
-            addCriterion("PASSWORD in", values, "password");
+        public Criteria andCreateDateIn(List<Date> values) {
+            addCriterion("CREATE_DATE in", values, "createDate");
             return (Criteria) this;
         }
 
-        public Criteria andPasswordNotIn(List<String> values) {
-            addCriterion("PASSWORD not in", values, "password");
+        public Criteria andCreateDateNotIn(List<Date> values) {
+            addCriterion("CREATE_DATE not in", values, "createDate");
             return (Criteria) this;
         }
 
-        public Criteria andPasswordBetween(String value1, String value2) {
-            addCriterion("PASSWORD between", value1, value2, "password");
+        public Criteria andCreateDateBetween(Date value1, Date value2) {
+            addCriterion("CREATE_DATE between", value1, value2, "createDate");
             return (Criteria) this;
         }
 
-        public Criteria andPasswordNotBetween(String value1, String value2) {
-            addCriterion("PASSWORD not between", value1, value2, "password");
+        public Criteria andCreateDateNotBetween(Date value1, Date value2) {
+            addCriterion("CREATE_DATE not between", value1, value2, "createDate");
             return (Criteria) this;
         }
     }

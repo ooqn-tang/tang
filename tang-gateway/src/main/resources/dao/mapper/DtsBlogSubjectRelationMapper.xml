@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="net.ttcxy.tang.gateway.dao.mapper.UtsMemberStateMapper">
-  <resultMap id="BaseResultMap" type="net.ttcxy.tang.gateway.entity.model.UtsMemberState">
-    <id column="MEMBER_STATE_ID" jdbcType="INTEGER" property="memberStateId" />
-    <result column="NAME" jdbcType="VARCHAR" property="name" />
+<mapper namespace="net.ttcxy.tang.gateway.dao.mapper.DtsBlogSubjectRelationMapper">
+  <resultMap id="BaseResultMap" type="net.ttcxy.tang.gateway.entity.model.DtsBlogSubjectRelation">
+    <id column="BLOG_SUBJECT_RELATION_ID" jdbcType="VARCHAR" property="blogSubjectRelationId" />
+    <result column="BLOG_SUBJECT_ID" jdbcType="VARCHAR" property="blogSubjectId" />
+    <result column="BLOG_ID" jdbcType="VARCHAR" property="blogId" />
     <result column="CREATE_DATE" jdbcType="TIMESTAMP" property="createDate" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -65,69 +66,78 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    MEMBER_STATE_ID, NAME, CREATE_DATE
+    BLOG_SUBJECT_RELATION_ID, BLOG_SUBJECT_ID, BLOG_ID, CREATE_DATE
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from UTS_MEMBER_STATE
-    where MEMBER_STATE_ID = #{memberStateId,jdbcType=INTEGER}
+    from DTS_BLOG_SUBJECT_RELATION
+    where BLOG_SUBJECT_RELATION_ID = #{blogSubjectRelationId,jdbcType=VARCHAR}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from UTS_MEMBER_STATE
-    where MEMBER_STATE_ID = #{memberStateId,jdbcType=INTEGER}
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from DTS_BLOG_SUBJECT_RELATION
+    where BLOG_SUBJECT_RELATION_ID = #{blogSubjectRelationId,jdbcType=VARCHAR}
   </delete>
-  <delete id="deleteByExample" parameterType="net.ttcxy.tang.gateway.entity.model.UtsMemberStateExample">
-    delete from UTS_MEMBER_STATE
+  <delete id="deleteByExample" parameterType="net.ttcxy.tang.gateway.entity.model.DtsBlogSubjectRelationExample">
+    delete from DTS_BLOG_SUBJECT_RELATION
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="net.ttcxy.tang.gateway.entity.model.UtsMemberState">
-    insert into UTS_MEMBER_STATE (MEMBER_STATE_ID, NAME, CREATE_DATE
-      )
-    values (#{memberStateId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}
-      )
+  <insert id="insert" parameterType="net.ttcxy.tang.gateway.entity.model.DtsBlogSubjectRelation">
+    insert into DTS_BLOG_SUBJECT_RELATION (BLOG_SUBJECT_RELATION_ID, BLOG_SUBJECT_ID, 
+      BLOG_ID, CREATE_DATE)
+    values (#{blogSubjectRelationId,jdbcType=VARCHAR}, #{blogSubjectId,jdbcType=VARCHAR}, 
+      #{blogId,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="net.ttcxy.tang.gateway.entity.model.UtsMemberState">
-    insert into UTS_MEMBER_STATE
+  <insert id="insertSelective" parameterType="net.ttcxy.tang.gateway.entity.model.DtsBlogSubjectRelation">
+    insert into DTS_BLOG_SUBJECT_RELATION
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="memberStateId != null">
-        MEMBER_STATE_ID,
+      <if test="blogSubjectRelationId != null">
+        BLOG_SUBJECT_RELATION_ID,
       </if>
-      <if test="name != null">
-        NAME,
+      <if test="blogSubjectId != null">
+        BLOG_SUBJECT_ID,
+      </if>
+      <if test="blogId != null">
+        BLOG_ID,
       </if>
       <if test="createDate != null">
         CREATE_DATE,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="memberStateId != null">
-        #{memberStateId,jdbcType=INTEGER},
+      <if test="blogSubjectRelationId != null">
+        #{blogSubjectRelationId,jdbcType=VARCHAR},
       </if>
-      <if test="name != null">
-        #{name,jdbcType=VARCHAR},
+      <if test="blogSubjectId != null">
+        #{blogSubjectId,jdbcType=VARCHAR},
+      </if>
+      <if test="blogId != null">
+        #{blogId,jdbcType=VARCHAR},
       </if>
       <if test="createDate != null">
         #{createDate,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="net.ttcxy.tang.gateway.entity.model.UtsMemberStateExample" resultType="java.lang.Long">
-    select count(*) from UTS_MEMBER_STATE
+  <select id="countByExample" parameterType="net.ttcxy.tang.gateway.entity.model.DtsBlogSubjectRelationExample" resultType="java.lang.Long">
+    select count(*) from DTS_BLOG_SUBJECT_RELATION
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update UTS_MEMBER_STATE
+    update DTS_BLOG_SUBJECT_RELATION
     <set>
-      <if test="record.memberStateId != null">
-        MEMBER_STATE_ID = #{record.memberStateId,jdbcType=INTEGER},
+      <if test="record.blogSubjectRelationId != null">
+        BLOG_SUBJECT_RELATION_ID = #{record.blogSubjectRelationId,jdbcType=VARCHAR},
       </if>
-      <if test="record.name != null">
-        NAME = #{record.name,jdbcType=VARCHAR},
+      <if test="record.blogSubjectId != null">
+        BLOG_SUBJECT_ID = #{record.blogSubjectId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.blogId != null">
+        BLOG_ID = #{record.blogId,jdbcType=VARCHAR},
       </if>
       <if test="record.createDate != null">
         CREATE_DATE = #{record.createDate,jdbcType=TIMESTAMP},
@@ -138,30 +148,35 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update UTS_MEMBER_STATE
-    set MEMBER_STATE_ID = #{record.memberStateId,jdbcType=INTEGER},
-      NAME = #{record.name,jdbcType=VARCHAR},
+    update DTS_BLOG_SUBJECT_RELATION
+    set BLOG_SUBJECT_RELATION_ID = #{record.blogSubjectRelationId,jdbcType=VARCHAR},
+      BLOG_SUBJECT_ID = #{record.blogSubjectId,jdbcType=VARCHAR},
+      BLOG_ID = #{record.blogId,jdbcType=VARCHAR},
       CREATE_DATE = #{record.createDate,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="net.ttcxy.tang.gateway.entity.model.UtsMemberState">
-    update UTS_MEMBER_STATE
+  <update id="updateByPrimaryKeySelective" parameterType="net.ttcxy.tang.gateway.entity.model.DtsBlogSubjectRelation">
+    update DTS_BLOG_SUBJECT_RELATION
     <set>
-      <if test="name != null">
-        NAME = #{name,jdbcType=VARCHAR},
+      <if test="blogSubjectId != null">
+        BLOG_SUBJECT_ID = #{blogSubjectId,jdbcType=VARCHAR},
+      </if>
+      <if test="blogId != null">
+        BLOG_ID = #{blogId,jdbcType=VARCHAR},
       </if>
       <if test="createDate != null">
         CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
       </if>
     </set>
-    where MEMBER_STATE_ID = #{memberStateId,jdbcType=INTEGER}
+    where BLOG_SUBJECT_RELATION_ID = #{blogSubjectRelationId,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="net.ttcxy.tang.gateway.entity.model.UtsMemberState">
-    update UTS_MEMBER_STATE
-    set NAME = #{name,jdbcType=VARCHAR},
+  <update id="updateByPrimaryKey" parameterType="net.ttcxy.tang.gateway.entity.model.DtsBlogSubjectRelation">
+    update DTS_BLOG_SUBJECT_RELATION
+    set BLOG_SUBJECT_ID = #{blogSubjectId,jdbcType=VARCHAR},
+      BLOG_ID = #{blogId,jdbcType=VARCHAR},
       CREATE_DATE = #{createDate,jdbcType=TIMESTAMP}
-    where MEMBER_STATE_ID = #{memberStateId,jdbcType=INTEGER}
+    where BLOG_SUBJECT_RELATION_ID = #{blogSubjectRelationId,jdbcType=VARCHAR}
   </update>
 </mapper>

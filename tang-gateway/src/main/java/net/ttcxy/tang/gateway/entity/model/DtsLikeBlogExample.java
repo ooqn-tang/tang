@@ -4,14 +4,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class UtsMemberStateExample {
+public class DtsLikeBlogExample {
     protected String orderByClause;
 
     protected boolean distinct;
 
     protected List<Criteria> oredCriteria;
 
-    public UtsMemberStateExample() {
+    public DtsLikeBlogExample() {
         oredCriteria = new ArrayList<Criteria>();
     }
 
@@ -105,133 +105,213 @@ public class UtsMemberStateExample {
             criteria.add(new Criterion(condition, value1, value2));
         }
 
-        public Criteria andMemberStateIdIsNull() {
-            addCriterion("MEMBER_STATE_ID is null");
+        public Criteria andLikeBlogIdIsNull() {
+            addCriterion("LIKE_BLOG_ID is null");
             return (Criteria) this;
         }
 
-        public Criteria andMemberStateIdIsNotNull() {
-            addCriterion("MEMBER_STATE_ID is not null");
+        public Criteria andLikeBlogIdIsNotNull() {
+            addCriterion("LIKE_BLOG_ID is not null");
             return (Criteria) this;
         }
 
-        public Criteria andMemberStateIdEqualTo(Integer value) {
-            addCriterion("MEMBER_STATE_ID =", value, "memberStateId");
+        public Criteria andLikeBlogIdEqualTo(String value) {
+            addCriterion("LIKE_BLOG_ID =", value, "likeBlogId");
             return (Criteria) this;
         }
 
-        public Criteria andMemberStateIdNotEqualTo(Integer value) {
-            addCriterion("MEMBER_STATE_ID <>", value, "memberStateId");
+        public Criteria andLikeBlogIdNotEqualTo(String value) {
+            addCriterion("LIKE_BLOG_ID <>", value, "likeBlogId");
             return (Criteria) this;
         }
 
-        public Criteria andMemberStateIdGreaterThan(Integer value) {
-            addCriterion("MEMBER_STATE_ID >", value, "memberStateId");
+        public Criteria andLikeBlogIdGreaterThan(String value) {
+            addCriterion("LIKE_BLOG_ID >", value, "likeBlogId");
             return (Criteria) this;
         }
 
-        public Criteria andMemberStateIdGreaterThanOrEqualTo(Integer value) {
-            addCriterion("MEMBER_STATE_ID >=", value, "memberStateId");
+        public Criteria andLikeBlogIdGreaterThanOrEqualTo(String value) {
+            addCriterion("LIKE_BLOG_ID >=", value, "likeBlogId");
             return (Criteria) this;
         }
 
-        public Criteria andMemberStateIdLessThan(Integer value) {
-            addCriterion("MEMBER_STATE_ID <", value, "memberStateId");
+        public Criteria andLikeBlogIdLessThan(String value) {
+            addCriterion("LIKE_BLOG_ID <", value, "likeBlogId");
             return (Criteria) this;
         }
 
-        public Criteria andMemberStateIdLessThanOrEqualTo(Integer value) {
-            addCriterion("MEMBER_STATE_ID <=", value, "memberStateId");
+        public Criteria andLikeBlogIdLessThanOrEqualTo(String value) {
+            addCriterion("LIKE_BLOG_ID <=", value, "likeBlogId");
             return (Criteria) this;
         }
 
-        public Criteria andMemberStateIdIn(List<Integer> values) {
-            addCriterion("MEMBER_STATE_ID in", values, "memberStateId");
+        public Criteria andLikeBlogIdLike(String value) {
+            addCriterion("LIKE_BLOG_ID like", value, "likeBlogId");
             return (Criteria) this;
         }
 
-        public Criteria andMemberStateIdNotIn(List<Integer> values) {
-            addCriterion("MEMBER_STATE_ID not in", values, "memberStateId");
+        public Criteria andLikeBlogIdNotLike(String value) {
+            addCriterion("LIKE_BLOG_ID not like", value, "likeBlogId");
             return (Criteria) this;
         }
 
-        public Criteria andMemberStateIdBetween(Integer value1, Integer value2) {
-            addCriterion("MEMBER_STATE_ID between", value1, value2, "memberStateId");
+        public Criteria andLikeBlogIdIn(List<String> values) {
+            addCriterion("LIKE_BLOG_ID in", values, "likeBlogId");
             return (Criteria) this;
         }
 
-        public Criteria andMemberStateIdNotBetween(Integer value1, Integer value2) {
-            addCriterion("MEMBER_STATE_ID not between", value1, value2, "memberStateId");
+        public Criteria andLikeBlogIdNotIn(List<String> values) {
+            addCriterion("LIKE_BLOG_ID not in", values, "likeBlogId");
             return (Criteria) this;
         }
 
-        public Criteria andNameIsNull() {
-            addCriterion("NAME is null");
+        public Criteria andLikeBlogIdBetween(String value1, String value2) {
+            addCriterion("LIKE_BLOG_ID between", value1, value2, "likeBlogId");
             return (Criteria) this;
         }
 
-        public Criteria andNameIsNotNull() {
-            addCriterion("NAME is not null");
+        public Criteria andLikeBlogIdNotBetween(String value1, String value2) {
+            addCriterion("LIKE_BLOG_ID not between", value1, value2, "likeBlogId");
             return (Criteria) this;
         }
 
-        public Criteria andNameEqualTo(String value) {
-            addCriterion("NAME =", value, "name");
+        public Criteria andAuthorIdIsNull() {
+            addCriterion("AUTHOR_ID is null");
             return (Criteria) this;
         }
 
-        public Criteria andNameNotEqualTo(String value) {
-            addCriterion("NAME <>", value, "name");
+        public Criteria andAuthorIdIsNotNull() {
+            addCriterion("AUTHOR_ID is not null");
             return (Criteria) this;
         }
 
-        public Criteria andNameGreaterThan(String value) {
-            addCriterion("NAME >", value, "name");
+        public Criteria andAuthorIdEqualTo(String value) {
+            addCriterion("AUTHOR_ID =", value, "authorId");
             return (Criteria) this;
         }
 
-        public Criteria andNameGreaterThanOrEqualTo(String value) {
-            addCriterion("NAME >=", value, "name");
+        public Criteria andAuthorIdNotEqualTo(String value) {
+            addCriterion("AUTHOR_ID <>", value, "authorId");
             return (Criteria) this;
         }
 
-        public Criteria andNameLessThan(String value) {
-            addCriterion("NAME <", value, "name");
+        public Criteria andAuthorIdGreaterThan(String value) {
+            addCriterion("AUTHOR_ID >", value, "authorId");
             return (Criteria) this;
         }
 
-        public Criteria andNameLessThanOrEqualTo(String value) {
-            addCriterion("NAME <=", value, "name");
+        public Criteria andAuthorIdGreaterThanOrEqualTo(String value) {
+            addCriterion("AUTHOR_ID >=", value, "authorId");
             return (Criteria) this;
         }
 
-        public Criteria andNameLike(String value) {
-            addCriterion("NAME like", value, "name");
+        public Criteria andAuthorIdLessThan(String value) {
+            addCriterion("AUTHOR_ID <", value, "authorId");
             return (Criteria) this;
         }
 
-        public Criteria andNameNotLike(String value) {
-            addCriterion("NAME not like", value, "name");
+        public Criteria andAuthorIdLessThanOrEqualTo(String value) {
+            addCriterion("AUTHOR_ID <=", value, "authorId");
             return (Criteria) this;
         }
 
-        public Criteria andNameIn(List<String> values) {
-            addCriterion("NAME in", values, "name");
+        public Criteria andAuthorIdLike(String value) {
+            addCriterion("AUTHOR_ID like", value, "authorId");
             return (Criteria) this;
         }
 
-        public Criteria andNameNotIn(List<String> values) {
-            addCriterion("NAME not in", values, "name");
+        public Criteria andAuthorIdNotLike(String value) {
+            addCriterion("AUTHOR_ID not like", value, "authorId");
             return (Criteria) this;
         }
 
-        public Criteria andNameBetween(String value1, String value2) {
-            addCriterion("NAME between", value1, value2, "name");
+        public Criteria andAuthorIdIn(List<String> values) {
+            addCriterion("AUTHOR_ID in", values, "authorId");
             return (Criteria) this;
         }
 
-        public Criteria andNameNotBetween(String value1, String value2) {
-            addCriterion("NAME not between", value1, value2, "name");
+        public Criteria andAuthorIdNotIn(List<String> values) {
+            addCriterion("AUTHOR_ID not in", values, "authorId");
+            return (Criteria) this;
+        }
+
+        public Criteria andAuthorIdBetween(String value1, String value2) {
+            addCriterion("AUTHOR_ID between", value1, value2, "authorId");
+            return (Criteria) this;
+        }
+
+        public Criteria andAuthorIdNotBetween(String value1, String value2) {
+            addCriterion("AUTHOR_ID not between", value1, value2, "authorId");
+            return (Criteria) this;
+        }
+
+        public Criteria andBlogIdIsNull() {
+            addCriterion("BLOG_ID is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andBlogIdIsNotNull() {
+            addCriterion("BLOG_ID is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andBlogIdEqualTo(String value) {
+            addCriterion("BLOG_ID =", value, "blogId");
+            return (Criteria) this;
+        }
+
+        public Criteria andBlogIdNotEqualTo(String value) {
+            addCriterion("BLOG_ID <>", value, "blogId");
+            return (Criteria) this;
+        }
+
+        public Criteria andBlogIdGreaterThan(String value) {
+            addCriterion("BLOG_ID >", value, "blogId");
+            return (Criteria) this;
+        }
+
+        public Criteria andBlogIdGreaterThanOrEqualTo(String value) {
+            addCriterion("BLOG_ID >=", value, "blogId");
+            return (Criteria) this;
+        }
+
+        public Criteria andBlogIdLessThan(String value) {
+            addCriterion("BLOG_ID <", value, "blogId");
+            return (Criteria) this;
+        }
+
+        public Criteria andBlogIdLessThanOrEqualTo(String value) {
+            addCriterion("BLOG_ID <=", value, "blogId");
+            return (Criteria) this;
+        }
+
+        public Criteria andBlogIdLike(String value) {
+            addCriterion("BLOG_ID like", value, "blogId");
+            return (Criteria) this;
+        }
+
+        public Criteria andBlogIdNotLike(String value) {
+            addCriterion("BLOG_ID not like", value, "blogId");
+            return (Criteria) this;
+        }
+
+        public Criteria andBlogIdIn(List<String> values) {
+            addCriterion("BLOG_ID in", values, "blogId");
+            return (Criteria) this;
+        }
+
+        public Criteria andBlogIdNotIn(List<String> values) {
+            addCriterion("BLOG_ID not in", values, "blogId");
+            return (Criteria) this;
+        }
+
+        public Criteria andBlogIdBetween(String value1, String value2) {
+            addCriterion("BLOG_ID between", value1, value2, "blogId");
+            return (Criteria) this;
+        }
+
+        public Criteria andBlogIdNotBetween(String value1, String value2) {
+            addCriterion("BLOG_ID not between", value1, value2, "blogId");
             return (Criteria) this;
         }
 

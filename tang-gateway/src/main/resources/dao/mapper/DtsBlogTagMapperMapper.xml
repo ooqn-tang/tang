@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="net.ttcxy.tang.gateway.dao.mapper.UtsMemberRoleMapper">
-  <resultMap id="BaseResultMap" type="net.ttcxy.tang.gateway.entity.model.UtsMemberRole">
-    <id column="MEMBER_ROLE_ID" jdbcType="VARCHAR" property="memberRoleId" />
-    <result column="MEMBER_ID" jdbcType="VARCHAR" property="memberId" />
-    <result column="ROLE_ID" jdbcType="VARCHAR" property="roleId" />
-    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+<mapper namespace="net.ttcxy.tang.gateway.dao.mapper.DtsBlogTagMapperMapper">
+  <resultMap id="BaseResultMap" type="net.ttcxy.tang.gateway.entity.model.DtsBlogTagMapper">
+    <id column="BLOG_TAG_MAPPER_ID" jdbcType="VARCHAR" property="blogTagMapperId" />
+    <result column="BLOG_ID" jdbcType="VARCHAR" property="blogId" />
+    <result column="BLOG_TAG_ID" jdbcType="VARCHAR" property="blogTagId" />
+    <result column="CREATE_DATE" jdbcType="TIMESTAMP" property="createDate" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -66,81 +66,81 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    MEMBER_ROLE_ID, MEMBER_ID, ROLE_ID, CREATE_TIME
+    BLOG_TAG_MAPPER_ID, BLOG_ID, BLOG_TAG_ID, CREATE_DATE
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from UTS_MEMBER_ROLE
-    where MEMBER_ROLE_ID = #{memberRoleId,jdbcType=VARCHAR}
+    from DTS_BLOG_TAG_MAPPER
+    where BLOG_TAG_MAPPER_ID = #{blogTagMapperId,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-    delete from UTS_MEMBER_ROLE
-    where MEMBER_ROLE_ID = #{memberRoleId,jdbcType=VARCHAR}
+    delete from DTS_BLOG_TAG_MAPPER
+    where BLOG_TAG_MAPPER_ID = #{blogTagMapperId,jdbcType=VARCHAR}
   </delete>
-  <delete id="deleteByExample" parameterType="net.ttcxy.tang.gateway.entity.model.UtsMemberRoleExample">
-    delete from UTS_MEMBER_ROLE
+  <delete id="deleteByExample" parameterType="net.ttcxy.tang.gateway.entity.model.DtsBlogTagMapperExample">
+    delete from DTS_BLOG_TAG_MAPPER
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="net.ttcxy.tang.gateway.entity.model.UtsMemberRole">
-    insert into UTS_MEMBER_ROLE (MEMBER_ROLE_ID, MEMBER_ID, ROLE_ID, 
-      CREATE_TIME)
-    values (#{memberRoleId,jdbcType=VARCHAR}, #{memberId,jdbcType=VARCHAR}, #{roleId,jdbcType=VARCHAR}, 
-      #{createTime,jdbcType=TIMESTAMP})
+  <insert id="insert" parameterType="net.ttcxy.tang.gateway.entity.model.DtsBlogTagMapper">
+    insert into DTS_BLOG_TAG_MAPPER (BLOG_TAG_MAPPER_ID, BLOG_ID, BLOG_TAG_ID, 
+      CREATE_DATE)
+    values (#{blogTagMapperId,jdbcType=VARCHAR}, #{blogId,jdbcType=VARCHAR}, #{blogTagId,jdbcType=VARCHAR}, 
+      #{createDate,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="net.ttcxy.tang.gateway.entity.model.UtsMemberRole">
-    insert into UTS_MEMBER_ROLE
+  <insert id="insertSelective" parameterType="net.ttcxy.tang.gateway.entity.model.DtsBlogTagMapper">
+    insert into DTS_BLOG_TAG_MAPPER
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="memberRoleId != null">
-        MEMBER_ROLE_ID,
+      <if test="blogTagMapperId != null">
+        BLOG_TAG_MAPPER_ID,
       </if>
-      <if test="memberId != null">
-        MEMBER_ID,
+      <if test="blogId != null">
+        BLOG_ID,
       </if>
-      <if test="roleId != null">
-        ROLE_ID,
+      <if test="blogTagId != null">
+        BLOG_TAG_ID,
       </if>
-      <if test="createTime != null">
-        CREATE_TIME,
+      <if test="createDate != null">
+        CREATE_DATE,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="memberRoleId != null">
-        #{memberRoleId,jdbcType=VARCHAR},
+      <if test="blogTagMapperId != null">
+        #{blogTagMapperId,jdbcType=VARCHAR},
       </if>
-      <if test="memberId != null">
-        #{memberId,jdbcType=VARCHAR},
+      <if test="blogId != null">
+        #{blogId,jdbcType=VARCHAR},
       </if>
-      <if test="roleId != null">
-        #{roleId,jdbcType=VARCHAR},
+      <if test="blogTagId != null">
+        #{blogTagId,jdbcType=VARCHAR},
       </if>
-      <if test="createTime != null">
-        #{createTime,jdbcType=TIMESTAMP},
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="net.ttcxy.tang.gateway.entity.model.UtsMemberRoleExample" resultType="java.lang.Long">
-    select count(*) from UTS_MEMBER_ROLE
+  <select id="countByExample" parameterType="net.ttcxy.tang.gateway.entity.model.DtsBlogTagMapperExample" resultType="java.lang.Long">
+    select count(*) from DTS_BLOG_TAG_MAPPER
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update UTS_MEMBER_ROLE
+    update DTS_BLOG_TAG_MAPPER
     <set>
-      <if test="record.memberRoleId != null">
-        MEMBER_ROLE_ID = #{record.memberRoleId,jdbcType=VARCHAR},
+      <if test="record.blogTagMapperId != null">
+        BLOG_TAG_MAPPER_ID = #{record.blogTagMapperId,jdbcType=VARCHAR},
       </if>
-      <if test="record.memberId != null">
-        MEMBER_ID = #{record.memberId,jdbcType=VARCHAR},
+      <if test="record.blogId != null">
+        BLOG_ID = #{record.blogId,jdbcType=VARCHAR},
       </if>
-      <if test="record.roleId != null">
-        ROLE_ID = #{record.roleId,jdbcType=VARCHAR},
+      <if test="record.blogTagId != null">
+        BLOG_TAG_ID = #{record.blogTagId,jdbcType=VARCHAR},
       </if>
-      <if test="record.createTime != null">
-        CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      <if test="record.createDate != null">
+        CREATE_DATE = #{record.createDate,jdbcType=TIMESTAMP},
       </if>
     </set>
     <if test="_parameter != null">
@@ -148,35 +148,35 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update UTS_MEMBER_ROLE
-    set MEMBER_ROLE_ID = #{record.memberRoleId,jdbcType=VARCHAR},
-      MEMBER_ID = #{record.memberId,jdbcType=VARCHAR},
-      ROLE_ID = #{record.roleId,jdbcType=VARCHAR},
-      CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP}
+    update DTS_BLOG_TAG_MAPPER
+    set BLOG_TAG_MAPPER_ID = #{record.blogTagMapperId,jdbcType=VARCHAR},
+      BLOG_ID = #{record.blogId,jdbcType=VARCHAR},
+      BLOG_TAG_ID = #{record.blogTagId,jdbcType=VARCHAR},
+      CREATE_DATE = #{record.createDate,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="net.ttcxy.tang.gateway.entity.model.UtsMemberRole">
-    update UTS_MEMBER_ROLE
+  <update id="updateByPrimaryKeySelective" parameterType="net.ttcxy.tang.gateway.entity.model.DtsBlogTagMapper">
+    update DTS_BLOG_TAG_MAPPER
     <set>
-      <if test="memberId != null">
-        MEMBER_ID = #{memberId,jdbcType=VARCHAR},
+      <if test="blogId != null">
+        BLOG_ID = #{blogId,jdbcType=VARCHAR},
       </if>
-      <if test="roleId != null">
-        ROLE_ID = #{roleId,jdbcType=VARCHAR},
+      <if test="blogTagId != null">
+        BLOG_TAG_ID = #{blogTagId,jdbcType=VARCHAR},
       </if>
-      <if test="createTime != null">
-        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      <if test="createDate != null">
+        CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
       </if>
     </set>
-    where MEMBER_ROLE_ID = #{memberRoleId,jdbcType=VARCHAR}
+    where BLOG_TAG_MAPPER_ID = #{blogTagMapperId,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="net.ttcxy.tang.gateway.entity.model.UtsMemberRole">
-    update UTS_MEMBER_ROLE
-    set MEMBER_ID = #{memberId,jdbcType=VARCHAR},
-      ROLE_ID = #{roleId,jdbcType=VARCHAR},
-      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP}
-    where MEMBER_ROLE_ID = #{memberRoleId,jdbcType=VARCHAR}
+  <update id="updateByPrimaryKey" parameterType="net.ttcxy.tang.gateway.entity.model.DtsBlogTagMapper">
+    update DTS_BLOG_TAG_MAPPER
+    set BLOG_ID = #{blogId,jdbcType=VARCHAR},
+      BLOG_TAG_ID = #{blogTagId,jdbcType=VARCHAR},
+      CREATE_DATE = #{createDate,jdbcType=TIMESTAMP}
+    where BLOG_TAG_MAPPER_ID = #{blogTagMapperId,jdbcType=VARCHAR}
   </update>
 </mapper>

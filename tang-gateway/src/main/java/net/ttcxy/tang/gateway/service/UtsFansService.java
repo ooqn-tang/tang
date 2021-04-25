@@ -1,12 +1,8 @@
 package net.ttcxy.tang.gateway.service;
 
 import com.github.pagehelper.PageInfo;
-import net.ttcxy.tang.gateway.entity.dto.UtsAuthorDto;
 import net.ttcxy.tang.gateway.entity.dto.UtsFansDto;
-import net.ttcxy.tang.gateway.entity.dto.UtsLoginDto;
 import net.ttcxy.tang.gateway.entity.model.UtsFans;
-
-import java.util.List;
 
 /**
  * @author huanglei

@@ -4,29 +4,31 @@ import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 import java.util.Date;
 
-public class UtsMemberState implements Serializable {
-    private Integer memberStateId;
+public class DtsBlogTag implements Serializable {
+    private String blogTagId;
 
-    private String name;
+    @ApiModelProperty(value = "标签名")
+    private String tagName;
 
+    @ApiModelProperty(value = "创建时间")
     private Date createDate;
 
     private static final long serialVersionUID = 1L;
 
-    public Integer getMemberStateId() {
-        return memberStateId;
+    public String getBlogTagId() {
+        return blogTagId;
     }
 
-    public void setMemberStateId(Integer memberStateId) {
-        this.memberStateId = memberStateId;
+    public void setBlogTagId(String blogTagId) {
+        this.blogTagId = blogTagId;
     }
 
-    public String getName() {
-        return name;
+    public String getTagName() {
+        return tagName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTagName(String tagName) {
+        this.tagName = tagName;
     }
 
     public Date getCreateDate() {
@@ -43,8 +45,8 @@ public class UtsMemberState implements Serializable {
         sb.append(getClass().getSimpleName());
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
-        sb.append(", memberStateId=").append(memberStateId);
-        sb.append(", name=").append(name);
+        sb.append(", blogTagId=").append(blogTagId);
+        sb.append(", tagName=").append(tagName);
         sb.append(", createDate=").append(createDate);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
