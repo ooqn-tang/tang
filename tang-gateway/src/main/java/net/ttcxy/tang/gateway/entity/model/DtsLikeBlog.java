@@ -4,8 +4,8 @@ import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 import java.util.Date;
 
-public class DtsLikeData implements Serializable {
-    private String likeDataId;
+public class DtsLikeBlog implements Serializable {
+    private String likeBlogId;
 
     private String authorId;
 
@@ -15,12 +15,12 @@ public class DtsLikeData implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    public String getLikeDataId() {
-        return likeDataId;
+    public String getLikeBlogId() {
+        return likeBlogId;
     }
 
-    public void setLikeDataId(String likeDataId) {
-        this.likeDataId = likeDataId;
+    public void setLikeBlogId(String likeBlogId) {
+        this.likeBlogId = likeBlogId;
     }
 
     public String getAuthorId() {
@@ -53,7 +53,7 @@ public class DtsLikeData implements Serializable {
         sb.append(getClass().getSimpleName());
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
-        sb.append(", likeDataId=").append(likeDataId);
+        sb.append(", likeBlogId=").append(likeBlogId);
         sb.append(", authorId=").append(authorId);
         sb.append(", blogId=").append(blogId);
         sb.append(", createDate=").append(createDate);
