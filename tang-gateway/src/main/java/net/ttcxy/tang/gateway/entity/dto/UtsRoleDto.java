@@ -1,5 +1,6 @@
 package net.ttcxy.tang.gateway.entity.dto;
 
+import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.core.GrantedAuthority;
@@ -11,7 +12,7 @@ import java.util.Objects;
  * 角色
  * @author huanglei
  */
-@EqualsAndHashCode
+@Data
 public class UtsRoleDto implements GrantedAuthority, ConfigAttribute {
 
     static final long serialVersionUID = 1L;
@@ -75,21 +76,6 @@ public class UtsRoleDto implements GrantedAuthority, ConfigAttribute {
     @Override
     public String getAttribute() {
         return "ROLE_" + value;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (!(o instanceof UtsRoleDto)) {
-            return false;
-        }
-        UtsRoleDto that = (UtsRoleDto) o;
-        return Objects.equals(getId(), that.getId()) &&
-                Objects.equals(getName(), that.getName()) &&
-                Objects.equals(getValue(), that.getValue()) &&
-                Objects.equals(getCreateTime(), that.getCreateTime());
     }
 
     @Override
