@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.ttcxy.tang.gateway.dao.mapper.DtsBlogSubjectMapper">
+  <resultMap id="BaseResultMap" type="net.ttcxy.tang.gateway.entity.model.DtsBlogSubject">
+    <id column="BLOG_SUBJECT_ID" jdbcType="VARCHAR" property="blogSubjectId" />
+    <result column="SUBJECT_NAME" jdbcType="VARCHAR" property="subjectName" />
+    <result column="CREATE_DATE" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="UPDATE_DATE" jdbcType="TIMESTAMP" property="updateDate" />
+    <result column="SYNOPSIS" jdbcType="VARCHAR" property="synopsis" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    BLOG_SUBJECT_ID, SUBJECT_NAME, CREATE_DATE, UPDATE_DATE, SYNOPSIS
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from DTS_BLOG_SUBJECT
+    where BLOG_SUBJECT_ID = #{blogSubjectId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from DTS_BLOG_SUBJECT
+    where BLOG_SUBJECT_ID = #{blogSubjectId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="net.ttcxy.tang.gateway.entity.model.DtsBlogSubjectExample">
+    delete from DTS_BLOG_SUBJECT
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="net.ttcxy.tang.gateway.entity.model.DtsBlogSubject">
+    insert into DTS_BLOG_SUBJECT (BLOG_SUBJECT_ID, SUBJECT_NAME, CREATE_DATE, 
+      UPDATE_DATE, SYNOPSIS)
+    values (#{blogSubjectId,jdbcType=VARCHAR}, #{subjectName,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, 
+      #{updateDate,jdbcType=TIMESTAMP}, #{synopsis,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="net.ttcxy.tang.gateway.entity.model.DtsBlogSubject">
+    insert into DTS_BLOG_SUBJECT
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="blogSubjectId != null">
+        BLOG_SUBJECT_ID,
+      </if>
+      <if test="subjectName != null">
+        SUBJECT_NAME,
+      </if>
+      <if test="createDate != null">
+        CREATE_DATE,
+      </if>
+      <if test="updateDate != null">
+        UPDATE_DATE,
+      </if>
+      <if test="synopsis != null">
+        SYNOPSIS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="blogSubjectId != null">
+        #{blogSubjectId,jdbcType=VARCHAR},
+      </if>
+      <if test="subjectName != null">
+        #{subjectName,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null">
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="synopsis != null">
+        #{synopsis,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="net.ttcxy.tang.gateway.entity.model.DtsBlogSubjectExample" resultType="java.lang.Long">
+    select count(*) from DTS_BLOG_SUBJECT
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update DTS_BLOG_SUBJECT
+    <set>
+      <if test="record.blogSubjectId != null">
+        BLOG_SUBJECT_ID = #{record.blogSubjectId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.subjectName != null">
+        SUBJECT_NAME = #{record.subjectName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createDate != null">
+        CREATE_DATE = #{record.createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateDate != null">
+        UPDATE_DATE = #{record.updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.synopsis != null">
+        SYNOPSIS = #{record.synopsis,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update DTS_BLOG_SUBJECT
+    set BLOG_SUBJECT_ID = #{record.blogSubjectId,jdbcType=VARCHAR},
+      SUBJECT_NAME = #{record.subjectName,jdbcType=VARCHAR},
+      CREATE_DATE = #{record.createDate,jdbcType=TIMESTAMP},
+      UPDATE_DATE = #{record.updateDate,jdbcType=TIMESTAMP},
+      SYNOPSIS = #{record.synopsis,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="net.ttcxy.tang.gateway.entity.model.DtsBlogSubject">
+    update DTS_BLOG_SUBJECT
+    <set>
+      <if test="subjectName != null">
+        SUBJECT_NAME = #{subjectName,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null">
+        UPDATE_DATE = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="synopsis != null">
+        SYNOPSIS = #{synopsis,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where BLOG_SUBJECT_ID = #{blogSubjectId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="net.ttcxy.tang.gateway.entity.model.DtsBlogSubject">
+    update DTS_BLOG_SUBJECT
+    set SUBJECT_NAME = #{subjectName,jdbcType=VARCHAR},
+      CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      UPDATE_DATE = #{updateDate,jdbcType=TIMESTAMP},
+      SYNOPSIS = #{synopsis,jdbcType=VARCHAR}
+    where BLOG_SUBJECT_ID = #{blogSubjectId,jdbcType=VARCHAR}
+  </update>
+</mapper>

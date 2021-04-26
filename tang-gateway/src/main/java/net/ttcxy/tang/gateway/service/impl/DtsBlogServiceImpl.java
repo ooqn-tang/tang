@@ -9,21 +9,17 @@ import com.github.pagehelper.PageInfo;
 import net.ttcxy.tang.gateway.core.api.ApiException;
 import net.ttcxy.tang.gateway.dao.DtsBlogDao;
 import net.ttcxy.tang.gateway.dao.mapper.DtsBlogMapper;
-import net.ttcxy.tang.gateway.dao.mapper.DtsLikeDataMapper;
+import net.ttcxy.tang.gateway.dao.mapper.DtsLikeBlogMapper;
 import net.ttcxy.tang.gateway.entity.dto.DtsBlogDto;
 import net.ttcxy.tang.gateway.entity.model.DtsBlog;
-import net.ttcxy.tang.gateway.entity.model.DtsLikeData;
-import net.ttcxy.tang.gateway.entity.model.DtsLikeDataExample;
+import net.ttcxy.tang.gateway.entity.model.DtsLikeBlog;
+import net.ttcxy.tang.gateway.entity.model.DtsLikeBlogExample;
 import net.ttcxy.tang.gateway.service.CurrentAuthorService;
 import net.ttcxy.tang.gateway.service.DtsBlogService;
-import org.h2.jdbc.JdbcSQLIntegrityConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
-import org.springframework.jdbc.support.SQLErrorCodeSQLExceptionTranslator;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-import java.util.List;
 import java.util.concurrent.ExecutorService;
 
 /**
@@ -42,7 +38,7 @@ public class DtsBlogServiceImpl implements DtsBlogService {
     private DtsBlogMapper blogMapper;
 
     @Autowired
-    private DtsLikeDataMapper likeMapper;
+    private DtsLikeBlogMapper likeMapper;
 
     @Autowired
     private CurrentAuthorService currentAuthorServiceImpl;
@@ -62,7 +58,7 @@ public class DtsBlogServiceImpl implements DtsBlogService {
     @Override
     public PageInfo<DtsBlogDto> selectBlogByAuthorName(String username, Integer page, Integer pageSize) {
         PageHelper.startPage(page,pageSize);
-        return new PageInfo<>(blogDao.selectByUsername(username));
+        return new PageInfo<>(blogDao.selectBlogListByUsername(username));
     }
 
     @Override
@@ -90,15 +86,15 @@ public class DtsBlogServiceImpl implements DtsBlogService {
     @Override
     public int like(String authorId, String blogId) {
         try{
-            DtsLikeDataExample likeDataExample = new DtsLikeDataExample();
+            DtsLikeBlogExample likeDataExample = new DtsLikeBlogExample();
             likeDataExample.createCriteria().andBlogIdEqualTo(blogId).andAuthorIdEqualTo(authorId);
-            DtsLikeData dtsLikeData = new DtsLikeData();
+            DtsLikeBlog dtsLikeBlog = new DtsLikeBlog();
             String uuid = IdUtil.fastSimpleUUID();
-            dtsLikeData.setAuthorId(authorId);
-            dtsLikeData.setBlogId(blogId);
-            dtsLikeData.setLikeDataId(uuid);
-            dtsLikeData.setCreateDate(DateUtil.date());
-            return likeMapper.insert(dtsLikeData);
+            dtsLikeBlog.setAuthorId(authorId);
+            dtsLikeBlog.setBlogId(blogId);
+            dtsLikeBlog.setLikeBlogId(uuid);
+            dtsLikeBlog.setCreateDate(DateUtil.date());
+            return likeMapper.insert(dtsLikeBlog);
         }catch (DuplicateKeyException e){
             throw new ApiException("重复插入");
         }
@@ -106,7 +102,7 @@ public class DtsBlogServiceImpl implements DtsBlogService {
 
     @Override
     public int unlike(String authorId, String blogId) {
-        DtsLikeDataExample likeDataExample = new DtsLikeDataExample();
+        DtsLikeBlogExample likeDataExample = new DtsLikeBlogExample();
         likeDataExample.createCriteria().andBlogIdEqualTo(blogId).andAuthorIdEqualTo(authorId);
         return likeMapper.deleteByExample(likeDataExample);
     }
@@ -130,7 +126,7 @@ public class DtsBlogServiceImpl implements DtsBlogService {
 
     @Override
     public long selectLike(String authorId, String blogId) {
-        DtsLikeDataExample likeExample = new DtsLikeDataExample();
+        DtsLikeBlogExample likeExample = new DtsLikeBlogExample();
         likeExample.createCriteria().andBlogIdEqualTo(blogId).andAuthorIdEqualTo(authorId);
         return likeMapper.countByExample(likeExample);
     }

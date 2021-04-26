@@ -2,7 +2,6 @@ package net.ttcxy.tang.gateway.core.security;
 
 import cn.hutool.json.JSONUtil;
 import net.ttcxy.tang.gateway.core.api.ResponseResult;
-import net.ttcxy.tang.gateway.entity.dto.UtsLoginDto;
 import net.ttcxy.tang.gateway.entity.model.UtsAuthor;
 import net.ttcxy.tang.gateway.service.CurrentAuthorService;
 import org.springframework.beans.factory.annotation.Autowired;

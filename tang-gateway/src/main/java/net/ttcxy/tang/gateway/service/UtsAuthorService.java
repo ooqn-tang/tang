@@ -1,12 +1,8 @@
 package net.ttcxy.tang.gateway.service;
 
 import com.github.pagehelper.PageInfo;
-import net.ttcxy.tang.gateway.entity.dto.UtsAuthorDto;
-import net.ttcxy.tang.gateway.entity.dto.UtsLoginDto;
 import net.ttcxy.tang.gateway.entity.model.UtsAuthor;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 /**
  * 用户服务

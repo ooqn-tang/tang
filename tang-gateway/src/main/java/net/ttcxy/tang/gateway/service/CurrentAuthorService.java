@@ -1,6 +1,5 @@
 package net.ttcxy.tang.gateway.service;
 
-import net.ttcxy.tang.gateway.entity.dto.UtsLoginDto;
 import net.ttcxy.tang.gateway.entity.model.UtsAuthor;
 
 /**

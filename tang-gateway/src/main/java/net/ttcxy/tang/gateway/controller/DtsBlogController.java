@@ -35,6 +35,17 @@ public class DtsBlogController {
     @Autowired
     private CurrentAuthorService currentAuthor;
 
+
+
+    @GetMapping("search")
+    @ApiOperation("搜索数据")
+    public ResponseResult<?> searchBlogList(
+            @RequestParam(value = "page" ,defaultValue = "1")Integer page,
+            @RequestParam(value = "title" ,defaultValue = "")String title){
+        PageInfo<DtsBlogDto> blogList = blogService.search(title, page, 20);
+        return ResponseResult.success(blogList);
+    }
+
     @GetMapping("list")
     @ApiOperation("获取首页数据")
     public ResponseResult<?> selectBlogList(@RequestParam(value = "page" ,defaultValue = "1")Integer page){
