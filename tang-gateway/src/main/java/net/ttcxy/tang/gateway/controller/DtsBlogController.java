@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @RequestMapping("blog")
-@Api(tags = "BlogController")
+@Api("博客")
 public class DtsBlogController {
 
     @Autowired

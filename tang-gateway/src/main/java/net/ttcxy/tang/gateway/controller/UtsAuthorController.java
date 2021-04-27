@@ -144,7 +144,7 @@ public class UtsAuthorController {
 
 
 
-    @GetMapping("mail-verify")
+    @PostMapping("mail-verify")
     @ApiOperation("发送验证码")
     public ResponseResult<?> sendMailVerify(@RequestParam("mail") @Email(message = "请输入正确邮箱号") String mail){
         mailVerifyService.sendMailVerify(mail);

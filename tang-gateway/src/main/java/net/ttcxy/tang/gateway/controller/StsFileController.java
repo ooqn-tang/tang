@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("file")
-@Api("FileController")
+@Api("文件")
 public class StsFileController {
 
 

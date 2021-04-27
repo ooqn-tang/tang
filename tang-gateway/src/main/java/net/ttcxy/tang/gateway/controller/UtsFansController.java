@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @RequestMapping("fans")
-@Api("FansController")
+@Api("粉丝操作")
 public class UtsFansController {
 
     @Autowired

@@ -22,7 +22,7 @@
         </commentGenerator>
 
         <jdbcConnection driverClass="org.h2.Driver"
-                        connectionURL="jdbc:h2:file:~/.h2/Tang"
+                        connectionURL="jdbc:h2:file:D://data/Tang"
                         userId="root"
                         password="root">
             <!--解决mysql驱动升级到8.0后不生成指定数据库代码的问题-->

@@ -59,8 +59,8 @@ public class ResponseResult<T> {
         return new ResponseResult<T>(responseCode.getMessage(), data);
     }
 
-    public static ResponseResult<?> success() {
-        return new ResponseResult<>(ResponseCode.SUCCESS.getMessage(),null);
+    public static ResponseResult<String> success() {
+        return new ResponseResult<>(ResponseCode.SUCCESS.getMessage(),"执行成功");
     }
 
     public String getMessage() {
