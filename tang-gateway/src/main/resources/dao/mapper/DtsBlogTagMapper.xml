@@ -4,6 +4,7 @@
   <resultMap id="BaseResultMap" type="net.ttcxy.tang.gateway.entity.model.DtsBlogTag">
     <id column="BLOG_TAG_ID" jdbcType="VARCHAR" property="blogTagId" />
     <result column="TAG_NAME" jdbcType="VARCHAR" property="tagName" />
+    <result column="SYNOPSIS" jdbcType="VARCHAR" property="synopsis" />
     <result column="CREATE_DATE" jdbcType="TIMESTAMP" property="createDate" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -65,7 +66,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    BLOG_TAG_ID, TAG_NAME, CREATE_DATE
+    BLOG_TAG_ID, TAG_NAME, SYNOPSIS, CREATE_DATE
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
@@ -84,10 +85,10 @@
     </if>
   </delete>
   <insert id="insert" parameterType="net.ttcxy.tang.gateway.entity.model.DtsBlogTag">
-    insert into DTS_BLOG_TAG (BLOG_TAG_ID, TAG_NAME, CREATE_DATE
-      )
-    values (#{blogTagId,jdbcType=VARCHAR}, #{tagName,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}
-      )
+    insert into DTS_BLOG_TAG (BLOG_TAG_ID, TAG_NAME, SYNOPSIS, 
+      CREATE_DATE)
+    values (#{blogTagId,jdbcType=VARCHAR}, #{tagName,jdbcType=VARCHAR}, #{synopsis,jdbcType=VARCHAR}, 
+      #{createDate,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="net.ttcxy.tang.gateway.entity.model.DtsBlogTag">
     insert into DTS_BLOG_TAG
@@ -97,6 +98,9 @@
       </if>
       <if test="tagName != null">
         TAG_NAME,
+      </if>
+      <if test="synopsis != null">
+        SYNOPSIS,
       </if>
       <if test="createDate != null">
         CREATE_DATE,
@@ -108,6 +112,9 @@
       </if>
       <if test="tagName != null">
         #{tagName,jdbcType=VARCHAR},
+      </if>
+      <if test="synopsis != null">
+        #{synopsis,jdbcType=VARCHAR},
       </if>
       <if test="createDate != null">
         #{createDate,jdbcType=TIMESTAMP},
@@ -129,6 +136,9 @@
       <if test="record.tagName != null">
         TAG_NAME = #{record.tagName,jdbcType=VARCHAR},
       </if>
+      <if test="record.synopsis != null">
+        SYNOPSIS = #{record.synopsis,jdbcType=VARCHAR},
+      </if>
       <if test="record.createDate != null">
         CREATE_DATE = #{record.createDate,jdbcType=TIMESTAMP},
       </if>
@@ -141,6 +151,7 @@
     update DTS_BLOG_TAG
     set BLOG_TAG_ID = #{record.blogTagId,jdbcType=VARCHAR},
       TAG_NAME = #{record.tagName,jdbcType=VARCHAR},
+      SYNOPSIS = #{record.synopsis,jdbcType=VARCHAR},
       CREATE_DATE = #{record.createDate,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -152,6 +163,9 @@
       <if test="tagName != null">
         TAG_NAME = #{tagName,jdbcType=VARCHAR},
       </if>
+      <if test="synopsis != null">
+        SYNOPSIS = #{synopsis,jdbcType=VARCHAR},
+      </if>
       <if test="createDate != null">
         CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
       </if>
@@ -161,6 +175,7 @@
   <update id="updateByPrimaryKey" parameterType="net.ttcxy.tang.gateway.entity.model.DtsBlogTag">
     update DTS_BLOG_TAG
     set TAG_NAME = #{tagName,jdbcType=VARCHAR},
+      SYNOPSIS = #{synopsis,jdbcType=VARCHAR},
       CREATE_DATE = #{createDate,jdbcType=TIMESTAMP}
     where BLOG_TAG_ID = #{blogTagId,jdbcType=VARCHAR}
   </update>

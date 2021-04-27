@@ -10,6 +10,9 @@ public class DtsBlogTag implements Serializable {
     @ApiModelProperty(value = "标签名")
     private String tagName;
 
+    @ApiModelProperty(value = "描述")
+    private String synopsis;
+
     @ApiModelProperty(value = "创建时间")
     private Date createDate;
 
@@ -31,6 +34,14 @@ public class DtsBlogTag implements Serializable {
         this.tagName = tagName;
     }
 
+    public String getSynopsis() {
+        return synopsis;
+    }
+
+    public void setSynopsis(String synopsis) {
+        this.synopsis = synopsis;
+    }
+
     public Date getCreateDate() {
         return createDate;
     }
@@ -47,6 +58,7 @@ public class DtsBlogTag implements Serializable {
         sb.append("Hash = ").append(hashCode());
         sb.append(", blogTagId=").append(blogTagId);
         sb.append(", tagName=").append(tagName);
+        sb.append(", synopsis=").append(synopsis);
         sb.append(", createDate=").append(createDate);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
