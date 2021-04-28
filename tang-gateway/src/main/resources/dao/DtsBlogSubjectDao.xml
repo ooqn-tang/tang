@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.ttcxy.tang.gateway.dao.DtsBlogSubjectDao">
+    <resultMap id="SubjectBase" type="net.ttcxy.tang.gateway.entity.dto.DtsBlogSubjectDto">
+        <id property="blogSubjectId" jdbcType="VARCHAR" column="blog_subject_id"/>
+        <result property="subjectName" jdbcType="VARCHAR" column="subject_name"/>
+        <result property="synopsis" jdbcType="VARCHAR" column="synopsis"/>
+        <result property="createDate" jdbcType="TIMESTAMP" column="create_date"/>
+        <result property="authorId" jdbcType="VARCHAR" column="author_id"/>
+        <result property="username" jdbcType="VARCHAR" column="username"/>
+        <result property="nickname" jdbcType="VARCHAR" column="nickname"/>
+    </resultMap>
+
+    <resultMap id="SubjectResult" type="net.ttcxy.tang.gateway.entity.dto.DtsBlogSubjectDto" extends="SubjectBase">
+        <collection property="blogList" ofType="net.ttcxy.tang.gateway.entity.model.DtsBlog" column="blog_subject_id">
+            <id property="blogId" jdbcType="VARCHAR" column="blog_id"/>
+            <result property="title" jdbcType="VARCHAR" column="title"/>
+            <result property="synopsis" jdbcType="VARCHAR" column="synopsis"/>
+            <result property="createDate" jdbcType="VARCHAR" column="create_date"/>
+        </collection>
+    </resultMap>
+
+
+    <select id="selectSubjectBlogListById" resultMap="SubjectResult">
+        SELECT BS1.BLOG_SUBJECT_ID ,BS1.SUBJECT_NAME ,BS1.CREATE_DATE,BS1.SYNOPSIS ,A1.AUTHOR_ID ,A1.USERNAME ,A1.NICKNAME ,B1.BLOG_ID ,B1.TITLE ,B1.CREATE_DATE
+        FROM DTS_BLOG_SUBJECT BS1
+        INNER JOIN UTS_AUTHOR A1 ON A1.AUTHOR_ID  = BS1.AUTHOR_ID AND BS1.BLOG_SUBJECT_ID = #{blogSubjectId}
+        LEFT JOIN DTS_BLOG_SUBJECT_RELATION BSR1 ON BSR1.BLOG_SUBJECT_ID = BS1.BLOG_SUBJECT_ID
+        LEFT JOIN DTS_BLOG B1 ON B1.BLOG_ID  = BSR1.BLOG_ID
+    </select>
+    <select id="selectSubjectList" resultMap="SubjectBase">
+        SELECT * FROM DTS_BLOG_SUBJECT BS1
+        INNER JOIN UTS_AUTHOR A1 ON A1.AUTHOR_ID = BS1.AUTHOR_ID
+    </select>
+</mapper>

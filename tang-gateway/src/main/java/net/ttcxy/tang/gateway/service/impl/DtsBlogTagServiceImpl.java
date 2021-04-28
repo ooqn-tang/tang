@@ -32,8 +32,8 @@ public class DtsBlogTagServiceImpl implements DtsBlogTagService {
     }
 
     @Override
-    public DtsBlogTagDto selectTagBlogListByUsername(String tagId, String username) {
-        return blogTagDao.selectTagBlogListByUsername(tagId,username);
+    public DtsBlogTagDto selectTagBlogCountListByUsername(String tagId, String username) {
+        return blogTagDao.selectTagBlogCountListByUsername(tagId,username);
     }
 
     @Override

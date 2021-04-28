@@ -16,4 +16,54 @@
 html,body{
     width: 100%;
     height: 100%;
+    overflow-x: hidden; /* Prevent scroll on narrow devices */
+}
+
+a{
+    text-decoration:none;
+    color:#054cb3;
+}
+.margin-bottom10{
+    margin-bottom:10px
+}
+
+
+
+@media (max-width: 768px) {
+    .no-lr-padding{
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+    .no-lr-border{
+        border-left: 0px;
+        border-right: 0px;
+        border-radius: 0;
+    }
+}
+
+
+.blog-list{
+    padding: 0px;
+    border: 0;
+  }
+  .blog-list .list-group-item{
+    border-left: 0px;
+    border-right: 0px;
+  }
+  .blog-list .list-group-item:first-child{
+    border-top: 0px;
+  }
+  .blog-list .list-group-item:last-child{
+    border-bottom: 0px;
+  }
+
+
+  .nav .active{
+    color: 3px solid #054cb3;
+    font-weight: bold;
+  }
+
+  
+.list-group-item.active{
+    background-color: #054cb3 !important;
 }

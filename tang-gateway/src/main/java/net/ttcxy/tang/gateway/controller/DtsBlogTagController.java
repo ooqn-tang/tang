@@ -33,7 +33,7 @@ public class DtsBlogTagController {
             @RequestParam(value = "tagId",defaultValue = "0")String tagId,
             @RequestParam(value = "username",defaultValue = "0")String username){
 
-        DtsBlogTagDto tagDto = blogTagService.selectTagBlogListByUsername(tagId,username);
+        DtsBlogTagDto tagDto = blogTagService.selectTagBlogCountListByUsername(tagId,username);
         return ResponseResult.success(tagDto);
     }
 

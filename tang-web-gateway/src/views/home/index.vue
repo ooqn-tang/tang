@@ -1,31 +1,34 @@
 <template>
-  <nav role="navigation" class="navbar navbar-default navbar-static-top" style="margin-bottom: 10px;">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" class="navbar-toggle">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a href="/" class="navbar-brand">堂堂程序员</a>
-            </div>
-            <div id="bs-example-navbar-collapse-1" class="collapse navbar-collapse">
-                <ul class="nav navbar-nav">
-                    <li><router-link to="/">博客</router-link></li>
-                </ul>
-                <form class="navbar-form navbar-left">
-                    <div id="search" class="input-group"><input autocapitalize="none" autocomplete="off" autocorrect="off" type="text" value="" placeholder="输入关键字" name="s" class="form-control"> <span class="input-group-btn"><button type="button" class="btn btn-default">搜索</button></span></div>
-                </form>
-                <ul class="nav navbar-nav navbar-right">
-                    <li v-if="username == ''"><router-link to="/login">登录</router-link></li>
-                    <li v-if="username != ''"><router-link :to="{name:'editor'}">投稿</router-link></li>
-                    <li v-if="username != ''"><router-link :to="{name:'author',params:{'username':username}}">我的</router-link></li>
-                </ul>
-            </div>
-        </div>
-  </nav>
-  <div class="container">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light margin-bottom10" style="border-bottom: 1px solid #cecece;">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">网站站</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <router-link class="nav-link" to="/">博客</router-link>
+        </li>
+
+        <li class="nav-item" v-if="username == ''">
+          <router-link class="nav-link"  to="/login">登录</router-link>
+        </li>
+        <li class="nav-item" v-if="username != ''">
+          <router-link class="nav-link"  :to="{name:'editor'}">投稿</router-link>
+        </li>
+        <li class="nav-item" v-if="username != ''">
+          <router-link class="nav-link"  :to="{name:'author',params:{'username':username}}">我的</router-link>
+        </li>
+      </ul>
+      <form class="d-flex">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
+    </div>
+  </div>
+</nav>
+  <div class="container-fluid">
     <router-view/>
   </div>
 </template>

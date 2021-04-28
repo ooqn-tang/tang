@@ -4,8 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="net.ttcxy.tang.gateway.dao.DtsCommentDao">
     <resultMap id="CommentMap" type="net.ttcxy.tang.gateway.entity.dto.DtsBlogCommentDto">
-        <id column="id" jdbcType="VARCHAR" property="id" />
-        <result column="blog_id" jdbcType="VARCHAR" property="blogId" />
+        <id column="blog_comment_id" jdbcType="VARCHAR" property="blogCommentId" />
         <result column="status" jdbcType="INTEGER" property="status" />
         <result column="author_id" jdbcType="VARCHAR" property="authorId" />
         <result column="content" jdbcType="VARCHAR" property="content" />

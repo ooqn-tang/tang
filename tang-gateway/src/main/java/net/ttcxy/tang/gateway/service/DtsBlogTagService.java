@@ -19,7 +19,7 @@ public interface DtsBlogTagService {
      * @param tagId 标签ID
      * @return 详细信息
      */
-    DtsBlogTagDto selectTagBlogListByUsername(String tagId, String username);
+    DtsBlogTagDto selectTagBlogCountListByUsername(String tagId, String username);
 
 
     /**

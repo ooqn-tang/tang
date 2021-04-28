@@ -8,17 +8,9 @@
         <result column="TAG_NAME" property="tagName"/>
         <result column="synopsis" property="synopsis"/>
         <result column="CREATE_DATE" property="createDate"/>
-        <collection column="blog_tag_id" ofType="net.ttcxy.tang.gateway.entity.dto.DtsBlogDto" property="blogDtoList">
-            <id property="blogId"  column="blog_id"/>
-            <result property="title" column="TITLE"/>
-        </collection>
     </resultMap>
-    <select id="selectTagBlogListByUsername" resultMap="BlogTagResult">
-        select bt1.BLOG_TAG_ID ,bt1.TAG_NAME ,bt1.synopsis,bt1.CREATE_DATE ,b1.blog_id,b1.TITLE
-        from DTS_BLOG_TAG bt1
-        inner join DTS_BLOG_TAG_RELATION btr1 on bt1.BLOG_TAG_ID = #{tagId} and bt1.blog_tag_id = btr1.blog_tag_id
-        inner join DTS_BLOG b1 on b1.blog_id = btr1.blog_id
-        inner join UTS_AUTHOR a1 on b1.author_id = b1.author_id and a1.username = #{username}
+    <select id="selectTagBlogCountListByUsername" resultMap="BlogTagResult">
+
     </select>
     <select id="selectTagList" resultMap="BlogTagResult">
         select * from DTS_BLOG_TAG

@@ -20,7 +20,7 @@ public class DtsBlogTagDto {
     @ApiModelProperty(value = "创建时间")
     private Date createDate;
 
-    @ApiModelProperty(value = "博客list")
-    private List<DtsBlogDto> blogDtoList;
+    @ApiModelProperty(value = "博客数量")
+    private Integer count;
 
 }

@@ -10,7 +10,7 @@ public class DtsBlogSubject implements Serializable {
     @ApiModelProperty(value = "标题")
     private String subjectName;
 
-    @ApiModelProperty(value = "创建者")
+    @ApiModelProperty(value = "作者ID")
     private String authorId;
 
     @ApiModelProperty(value = "创建时间")

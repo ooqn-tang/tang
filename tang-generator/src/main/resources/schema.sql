@@ -1,11 +1,4 @@
--- ----------------------------
--- Table DROP
--- ----------------------------
-DROP TABLE IF EXISTS `dts_favorite`;
-DROP TABLE IF EXISTS `sts_state`;
-DROP TABLE IF EXISTS `dts_like_data`;
-DROP TABLE IF EXISTS `dts_blog_subject`;
-DROP TABLE IF EXISTS `dts_blog_subject_relation`;
+
 
 
 
@@ -36,6 +29,31 @@ CREATE TABLE `dts_blog`  (
   `text` mediumtext NULL COMMENT '博文文本',
   `markdown` mediumtext NULL COMMENT 'markdown',
   `synopsis` varchar(1000) NULL DEFAULT NULL
+) ;
+
+-- ------------------------------------
+-- Table structure for dts_blog_subject
+-- ------------------------------------
+DROP TABLE IF EXISTS `dts_blog_subject`;
+CREATE TABLE `dts_blog_subject`  (
+  `blog_subject_id` varchar(32) NOT NULL PRIMARY KEY,
+  `subject_name` varchar(35) NOT NULL COMMENT '标题',
+  `author_id` varchar(32) NOT NULL COMMENT '作者ID',
+  `create_date` timestamp(0) NOT NULL COMMENT '创建时间',
+  `update_date` timestamp(0) NOT NULL COMMENT '更新时间',
+  `synopsis` varchar(1000) NULL DEFAULT NULL
+) ;
+
+-- ---------------------------------------------
+-- Table structure for dts_blog_subject_relation
+-- ---------------------------------------------
+DROP TABLE IF EXISTS `dts_blog_subject_relation`;
+CREATE TABLE `dts_blog_subject_relation`  (
+  `blog_subject_relation_id` varchar(32) NOT NULL PRIMARY KEY,
+  `blog_subject_id` varchar(32) NOT NULL COMMENT '专题ID',
+  `blog_id` varchar(32) NOT NULL COMMENT '博客ID',
+  `create_date` timestamp(0) NOT NULL COMMENT '创建时间',
+  UNIQUE INDEX `dts_blog_subject_relation`(`blog_subject_id`, `blog_id`) USING BTREE
 ) ;
 
 -- --------------------------------
