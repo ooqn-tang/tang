@@ -4,6 +4,8 @@ import com.github.pagehelper.PageInfo;
 import net.ttcxy.tang.gateway.entity.dto.DtsBlogTagDto;
 import net.ttcxy.tang.gateway.entity.model.DtsBlogTag;
 
+import java.util.List;
+
 public interface DtsBlogTagService {
 
     /**
@@ -47,4 +49,22 @@ public interface DtsBlogTagService {
     Integer updateTag(DtsBlogTag blogTag);
 
 
+    /**
+     * 模糊搜索
+     * @param name name
+     * @param page page
+     * @param pageSize pageSize
+     * @return 结果
+     */
+    PageInfo<DtsBlogTagDto> selectTagListByName(String name, int page, int pageSize);
+
+    /**
+     * 获取作者所有tag
+     */
+    List<DtsBlogTagDto> selectAuthorAllTag(String authorId);
+
+    /**
+     * 添加作者的tag
+     */
+    Integer insertAuthorTag(String authorId, String tagId);
 }

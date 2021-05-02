@@ -46,6 +46,13 @@ public class DtsBlogSubjectController {
         return ResponseResult.success(pageInfo);
     }
 
+    @GetMapping("search")
+    @ApiOperation("通过专题名模糊查询")
+    public ResponseResult<PageInfo<DtsBlogSubjectDto>> selectSubjectByName(
+            @RequestParam(value = "subjectName",defaultValue = "")String name){
+        PageInfo<DtsBlogSubjectDto> pageInfo = blogSubjectService.selectSubjectListByName(name,10,10);
+        return ResponseResult.success(pageInfo);
+    }
 
     @PostMapping
     @ApiOperation("添加专题")

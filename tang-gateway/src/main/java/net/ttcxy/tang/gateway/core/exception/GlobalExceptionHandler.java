@@ -1,6 +1,7 @@
 package net.ttcxy.tang.gateway.core.exception;
 
 import net.ttcxy.tang.gateway.core.api.ApiException;
+import net.ttcxy.tang.gateway.core.api.ResponseCode;
 import net.ttcxy.tang.gateway.core.api.ResponseResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,7 +46,7 @@ public class GlobalExceptionHandler {
     public ResponseResult<?> errorHandler(ApiException ex, HttpServletResponse httpServletResponse) {
         logger.error(ex.getMessage(),ex);
         httpServletResponse.setStatus(VALIDATE_FAILED.getCode());
-        return ResponseResult.failed(ex.getMessage(),null);
+        return ResponseResult.failed(ex.getMessage());
     }
 
     /**

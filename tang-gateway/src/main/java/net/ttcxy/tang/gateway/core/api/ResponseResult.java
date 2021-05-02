@@ -8,6 +8,11 @@ import net.ttcxy.tang.gateway.core.exception.IErrorCode;
  */
 public class ResponseResult<T> {
 
+    /**
+     * 状态码
+     */
+    private int code;
+
 
     /**
      * 提示信息
@@ -19,10 +24,17 @@ public class ResponseResult<T> {
      */
     private T data;
 
-    protected ResponseResult(String message, T data) {
+    protected ResponseResult(String message,Integer code, T data) {
+        this.code = code;
         this.message = message;
         this.data = data;
     }
+
+
+    protected ResponseResult(ResponseCode response, T data) {
+        this(response.getMessage(),response.getCode(),data);
+    }
+
 
     /**
      * 成功返回结果
@@ -30,7 +42,7 @@ public class ResponseResult<T> {
      * @param data 获取的数据
      */
     public static <T> ResponseResult<T> success(T data) {
-        return new ResponseResult<T>(ResponseCode.SUCCESS.getMessage(), data);
+        return new ResponseResult<T>(ResponseCode.SUCCESS, data);
     }
 
     /**
@@ -40,27 +52,19 @@ public class ResponseResult<T> {
      * @param  message 提示信息
      */
     public static <T> ResponseResult<T> success(T data, String message) {
-        return new ResponseResult<T>(message, data);
+        return new ResponseResult<T>(message,ResponseCode.SUCCESS.getCode(), data);
     }
 
-    /**
-     * 失败返回结果
-     * @param errorCode 错误码
-     */
-    public static <T> ResponseResult<T> failed(IErrorCode errorCode) {
-        return new ResponseResult<T>(errorCode.getMessage(), null);
-    }
-
-    public static <T> ResponseResult<T> failed(String message,T data) {
-        return new ResponseResult<T>(message, data);
+    public static <T> ResponseResult<T> failed(String message) {
+        return new ResponseResult<T>(message,ResponseCode.FAILED.getCode(), null);
     }
 
     public static <T> ResponseResult<T> failed(ResponseCode responseCode,T data) {
-        return new ResponseResult<T>(responseCode.getMessage(), data);
+        return new ResponseResult<T>(responseCode, data);
     }
 
     public static ResponseResult<String> success() {
-        return new ResponseResult<>(ResponseCode.SUCCESS.getMessage(),"执行成功");
+        return new ResponseResult<>(ResponseCode.SUCCESS,"执行成功");
     }
 
     public String getMessage() {
@@ -77,5 +81,13 @@ public class ResponseResult<T> {
 
     public void setData(T data) {
         this.data = data;
+    }
+
+    public int getCode() {
+        return code;
+    }
+
+    public void setCode(int code) {
+        this.code = code;
     }
 }

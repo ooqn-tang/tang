@@ -20,4 +20,6 @@ public interface DtsBlogSubjectService {
     Integer updateSubject(DtsBlogSubject subject);
 
     Integer insertBlogToSubject(String blogId, String subjectId);
+
+    PageInfo<DtsBlogSubjectDto> selectSubjectListByName(String name, Integer page, Integer pageSize);
 }

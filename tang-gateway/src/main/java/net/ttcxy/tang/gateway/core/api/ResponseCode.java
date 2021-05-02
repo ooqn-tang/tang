@@ -1,10 +1,12 @@
 package net.ttcxy.tang.gateway.core.api;
 
+import net.ttcxy.tang.gateway.core.exception.IErrorCode;
+
 /**
  * 枚举了一些常用API操作码
  * @author huanglei
  */
-public enum ResponseCode {
+public enum ResponseCode implements IErrorCode {
     SUCCESS(200, "操作成功"),
     FAILED(500, "操作失败"),
     VALIDATE_FAILED(404, "参数检验失败"),

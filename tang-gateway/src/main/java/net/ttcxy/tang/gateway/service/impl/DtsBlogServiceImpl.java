@@ -9,17 +9,18 @@ import com.github.pagehelper.PageInfo;
 import net.ttcxy.tang.gateway.core.api.ApiException;
 import net.ttcxy.tang.gateway.dao.DtsBlogDao;
 import net.ttcxy.tang.gateway.dao.mapper.DtsBlogMapper;
+import net.ttcxy.tang.gateway.dao.mapper.DtsBlogTagMapper;
+import net.ttcxy.tang.gateway.dao.mapper.DtsBlogTagRelationMapper;
 import net.ttcxy.tang.gateway.dao.mapper.DtsLikeBlogMapper;
 import net.ttcxy.tang.gateway.entity.dto.DtsBlogDto;
-import net.ttcxy.tang.gateway.entity.model.DtsBlog;
-import net.ttcxy.tang.gateway.entity.model.DtsLikeBlog;
-import net.ttcxy.tang.gateway.entity.model.DtsLikeBlogExample;
+import net.ttcxy.tang.gateway.entity.model.*;
 import net.ttcxy.tang.gateway.service.CurrentAuthorService;
 import net.ttcxy.tang.gateway.service.DtsBlogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 
 /**
@@ -36,6 +37,9 @@ public class DtsBlogServiceImpl implements DtsBlogService {
 
     @Autowired
     private DtsBlogMapper blogMapper;
+
+    @Autowired
+    private DtsBlogTagRelationMapper blogTagRelationMapper;
 
     @Autowired
     private DtsLikeBlogMapper likeMapper;
@@ -62,13 +66,23 @@ public class DtsBlogServiceImpl implements DtsBlogService {
     }
 
     @Override
-    public int insertBlog(DtsBlog blog) {
+    public int insertBlog(DtsBlog blog, List<String> tagIdList) {
         blog.setBlogId(IdUtil.fastSimpleUUID());
         blog.setAuthorId(currentAuthorServiceImpl.getAuthorId());
         DateTime date = DateUtil.date();
         blog.setUpdateDate(date);
         blog.setCreateDate(date);
         blog.setStateCode(1001);
+
+        DtsBlogTagRelation blogTagRelation = new DtsBlogTagRelation();
+        for (String tagId : tagIdList) {
+            blogTagRelation.setBlogTagRelationId(IdUtil.fastSimpleUUID());
+            blogTagRelation.setBlogId(blog.getBlogId());
+            blogTagRelation.setBlogTagId(tagId);
+            blogTagRelationMapper.insert(blogTagRelation);
+        }
+
+
         return blogMapper.insertSelective(blog);
     }
 

@@ -1,7 +1,3 @@
-
-
-
-
 -- ----------------------------
 -- Table structure for dts_advertise
 -- ----------------------------
@@ -53,8 +49,9 @@ CREATE TABLE `dts_blog_subject_relation`  (
   `blog_subject_id` varchar(32) NOT NULL COMMENT '专题ID',
   `blog_id` varchar(32) NOT NULL COMMENT '博客ID',
   `create_date` timestamp(0) NOT NULL COMMENT '创建时间',
-  UNIQUE INDEX `dts_blog_subject_relation`(`blog_subject_id`, `blog_id`) USING BTREE
+  UNIQUE INDEX `dts_blog_subject_relation_unique`(`blog_subject_id`, `blog_id`) USING BTREE
 ) ;
+
 
 -- --------------------------------
 -- Table structure for dts_blog_tag
@@ -63,7 +60,7 @@ DROP TABLE IF EXISTS `dts_blog_tag`;
 CREATE TABLE `dts_blog_tag`(
   `blog_tag_id` varchar(32) NOT NULL PRIMARY KEY,
   `tag_name` varchar(10) NOT NULL COMMENT '标签名',
-  `synopsis` varchar(1000) NOT NULL COMMENT '描述',
+  `synopsis` varchar(1000) NULL DEFAULT NULL COMMENT '描述',
   `create_date` timestamp(0) DEFAULT NULL COMMENT '创建时间'
 ) ;
 
@@ -76,6 +73,18 @@ CREATE TABLE `dts_blog_tag_relation`(
   `blog_id` varchar(32) NOT NULL COMMENT '博客ID',
   `blog_tag_id` varchar(32) NOT NULL COMMENT '博客标签ID',
   `create_date` timestamp(0) DEFAULT NULL COMMENT '创建时间'
+) ;
+
+-- --------------------------------
+-- Table structure for dts_blog_tag_author_relation
+-- --------------------------------
+DROP TABLE IF EXISTS `dts_blog_tag_author_relation`;
+CREATE TABLE `dts_blog_tag_author_relation`(
+  `blog_tag_author_relation_id` varchar(32) NOT NULL PRIMARY KEY,
+  `author_id` varchar(32) NOT NULL COMMENT '作者',
+  `blog_tag_id` varchar(32) NOT NULL COMMENT '博客标签ID',
+  `create_date` timestamp(0) DEFAULT NULL COMMENT '创建时间',
+  UNIQUE INDEX `dts_blog_tag_author_relation_unique`(`author_id`, `blog_tag_id`) USING BTREE
 ) ;
 
 

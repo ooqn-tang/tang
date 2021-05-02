@@ -38,10 +38,10 @@
               <router-link :to="{name: 'post', params: { id: item.blogId }}" class="blog-title">
                 <strong><p v-text="item.title"></p></strong>
                 </router-link>
-              <div class="blog-synopsis">{{item.synopsis}}</div>
+              <div class="blog-synopsis" style="color: #5f5a5a;">{{item.synopsis}}</div>
               <div>
                 <span class="date-color">{{item.createDate}}</span>
-                <span v-for="(item,index) in item.tagList" :key="index">{{item.tagName}}</span>
+                <span v-for="(item,index) in item.tagList" :key="index" > . <span style="font-size: 10px;color: #e6832e;">{{item.tagName}}</span></span>
                 <router-link :to="{name:'author',params:{username:item.username}}" class="float-end">{{item.nickname}}</router-link>
               </div>
             </li>

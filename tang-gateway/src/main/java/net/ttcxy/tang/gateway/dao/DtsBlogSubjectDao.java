@@ -9,4 +9,6 @@ public interface DtsBlogSubjectDao {
     DtsBlogSubjectDto selectSubjectBlogListById(String blogSubjectId);
 
     List<DtsBlogSubjectDto> selectSubjectList();
+
+    List<DtsBlogSubjectDto> selectSubjectListByName(String name);
 }

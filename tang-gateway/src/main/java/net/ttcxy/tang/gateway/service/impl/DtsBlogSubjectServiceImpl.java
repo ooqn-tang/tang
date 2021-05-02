@@ -46,6 +46,12 @@ public class DtsBlogSubjectServiceImpl implements DtsBlogSubjectService {
     }
 
     @Override
+    public PageInfo<DtsBlogSubjectDto> selectSubjectListByName(String name, Integer page, Integer pageSize) {
+        PageHelper.startPage(page,pageSize);
+        return new PageInfo<>(blogSubjectDao.selectSubjectListByName(name));
+    }
+
+    @Override
     public Integer insertSubject(DtsBlogSubject subject) {
         subject.setBlogSubjectId(IdUtil.fastSimpleUUID());
         DateTime date = DateUtil.date();

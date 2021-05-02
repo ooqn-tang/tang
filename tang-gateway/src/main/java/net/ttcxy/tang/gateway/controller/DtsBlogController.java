@@ -20,6 +20,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
  * 博客控制器
  * @author huanglei
@@ -111,7 +113,8 @@ public class DtsBlogController {
     @ApiOperation("添加博客")
     public ResponseResult<?> insert(@RequestBody @Validated DtsBlogParam blogParam){
         DtsBlog blog = BeanUtil.toBean(blogParam, DtsBlog.class);
-        return ResponseResult.success(blogService.insertBlog(blog));
+        List<String> tagIdList = blogParam.getTagIdList();
+        return ResponseResult.success(blogService.insertBlog(blog,tagIdList));
     }
 
     @GetMapping("load")

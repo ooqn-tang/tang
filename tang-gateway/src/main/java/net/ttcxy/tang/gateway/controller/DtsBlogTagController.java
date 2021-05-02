@@ -6,6 +6,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import net.ttcxy.tang.gateway.core.api.ApiException;
 import net.ttcxy.tang.gateway.core.api.ResponseResult;
+import net.ttcxy.tang.gateway.entity.dto.DtsBlogSubjectDto;
 import net.ttcxy.tang.gateway.entity.dto.DtsBlogTagDto;
 import net.ttcxy.tang.gateway.entity.model.DtsBlogTag;
 import net.ttcxy.tang.gateway.entity.param.DtsTagParam;
@@ -14,6 +15,8 @@ import net.ttcxy.tang.gateway.service.DtsBlogTagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Api("博客标签")
 @RestController
@@ -37,6 +40,31 @@ public class DtsBlogTagController {
         return ResponseResult.success(tagDto);
     }
 
+    @GetMapping("allTag")
+    @ApiOperation("通过专题名模糊查询")
+    public ResponseResult<List<DtsBlogTagDto>> selectAuthorAllTag(){
+        String authorId = currentAuthorService.getAuthorId();
+        List<DtsBlogTagDto> list = blogTagService.selectAuthorAllTag(authorId);
+        return ResponseResult.success(list);
+    }
+
+    @PostMapping("author")
+    @ApiOperation("添加作者的tag")
+    public ResponseResult<?> insertAuthorTag(@RequestParam(value = "tagId") String tagId){
+        String authorId = currentAuthorService.getAuthorId();
+        Integer count = blogTagService.insertAuthorTag(authorId,tagId);
+        return ResponseResult.success(count);
+    }
+
+    @GetMapping("search")
+    @ApiOperation("通过专题名模糊查询")
+    public ResponseResult<PageInfo<DtsBlogTagDto>> selectTagByName(
+            @RequestParam(value = "tagName",defaultValue = "")String name){
+        PageInfo<DtsBlogTagDto> pageInfo = blogTagService.selectTagListByName(name,10,10);
+        return ResponseResult.success(pageInfo);
+    }
+
+
 
     @GetMapping("list")
     @ApiOperation("查询标签列表")
@@ -50,11 +78,11 @@ public class DtsBlogTagController {
 
     @PostMapping
     @ApiOperation("添加标签")
-    public ResponseResult<String> insertTag(DtsTagParam tagParam){
+    public ResponseResult<DtsBlogTag> insertTag(@RequestBody DtsTagParam tagParam){
         DtsBlogTag tagDto = BeanUtil.toBean(tagParam, DtsBlogTag.class);
         Integer count = blogTagService.insertTag(tagDto);
         if (count > 0){
-            return ResponseResult.success();
+            return ResponseResult.success(tagDto);
         }
         throw new ApiException();
     }

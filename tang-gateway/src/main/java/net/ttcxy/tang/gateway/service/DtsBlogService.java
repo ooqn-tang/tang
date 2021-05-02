@@ -3,6 +3,9 @@ package net.ttcxy.tang.gateway.service;
 import com.github.pagehelper.PageInfo;
 import net.ttcxy.tang.gateway.entity.dto.DtsBlogDto;
 import net.ttcxy.tang.gateway.entity.model.DtsBlog;
+import net.ttcxy.tang.gateway.entity.model.DtsBlogTag;
+
+import java.util.List;
 
 /**
  * 博客操作
@@ -49,7 +52,7 @@ public interface DtsBlogService {
     /**
      * 添加blog
      */
-    int insertBlog(DtsBlog blog);
+    int insertBlog(DtsBlog blog, List<String> tagIdList);
 
     /**
      * 更新博客

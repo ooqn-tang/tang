@@ -2,9 +2,12 @@ package net.ttcxy.tang.gateway.entity.param;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import net.ttcxy.tang.gateway.entity.model.DtsBlogTag;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+import java.util.List;
 
 /**
  * @author huanglei
@@ -31,4 +34,11 @@ public class DtsBlogParam {
     @ApiModelProperty(value = "markdown")
     @NotBlank
     private String markdown;
+
+    @ApiModelProperty(value = "专题ID")
+    private String subjectId;
+
+    @ApiModelProperty(value = "标签ID列表")
+    @Size(max = 3, message = "标签数量不能超过3个")
+    private List<String> tagIdList;
 }

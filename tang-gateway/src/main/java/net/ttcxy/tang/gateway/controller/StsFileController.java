@@ -23,9 +23,9 @@ public class StsFileController {
 
 
     @ApiOperation("文件上传")
-    @RequestMapping(value = "/up-token", method = RequestMethod.GET)
+    @RequestMapping(value = "/upload", method = RequestMethod.GET)
     @ResponseBody
-    public ResponseResult<?> upToken() {
+    public ResponseResult<?> upload() {
         return ResponseResult.success("map");
     }
 

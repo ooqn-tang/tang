@@ -15,4 +15,13 @@
     <select id="selectTagList" resultMap="BlogTagResult">
         select * from DTS_BLOG_TAG
     </select>
+
+    <select id="selectTagListByName" resultMap="BlogTagResult">
+        select * from DTS_BLOG_TAG where TAG_NAME LIKE concat('%',#{name},'%')
+    </select>
+    <select id="selectAuthorAllTag" resultMap="BlogTagResult">
+        SELECT *
+        FROM DTS_BLOG_TAG_AUTHOR_RELATION BTAR1 , DTS_BLOG_TAG BT1
+        WHERE BT1.BLOG_TAG_ID = BTAR1.BLOG_TAG_ID AND AUTHOR_ID = #{authorId} ORDER BY CREATE_DATE
+    </select>
 </mapper>

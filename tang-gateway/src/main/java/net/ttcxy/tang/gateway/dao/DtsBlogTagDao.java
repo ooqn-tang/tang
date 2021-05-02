@@ -8,4 +8,8 @@ public interface DtsBlogTagDao {
     DtsBlogTagDto selectTagBlogCountListByUsername(String tagId , String username);
 
     List<DtsBlogTagDto> selectTagList();
+
+    List<DtsBlogTagDto> selectTagListByName(String name);
+
+    List<DtsBlogTagDto> selectAuthorAllTag(String authorId);
 }
