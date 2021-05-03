@@ -4,17 +4,17 @@
        <div class="card margin-bottom10"  >
          <div class="card-body " style="padding:0px;">
            <nav class="nav">
-             <a class="nav-link active" href="#">全部</a>
-          <a class="nav-link" href="#">Java</a>
-          <a class="nav-link" href="#">Python</a>
-          <a class="nav-link" href="#">Web前端</a>
-          <a class="nav-link" href="#">Android/IOS</a>
-          <a class="nav-link" href="#">数据库</a>
-          <a class="nav-link" href="#">面试</a>
-          <a class="nav-link" href="#">算法</a>
-          <a class="nav-link" href="#">故事</a>
-          <a class="nav-link" href="#">开源项目</a>
-           </nav>
+              <a class="nav-link" :class="selectTag == 1?'active':''" @click="selectTag = 1">全部</a>
+              <a class="nav-link" :class="selectTag == 2?'active':''" @click="selectTag = 2">Java</a>
+              <a class="nav-link" :class="selectTag == 3?'active':''" @click="selectTag = 3">Python</a>
+              <a class="nav-link" :class="selectTag == 4?'active':''" @click="selectTag = 4">Web前端</a>
+              <a class="nav-link" :class="selectTag == 5?'active':''" @click="selectTag = 5">Android/IOS</a>
+              <a class="nav-link" :class="selectTag == 6?'active':''" @click="selectTag = 6">数据库</a>
+              <a class="nav-link" :class="selectTag == 7?'active':''" @click="selectTag = 7">面试</a>
+              <a class="nav-link" :class="selectTag == 8?'active':''" @click="selectTag = 8">算法</a>
+              <a class="nav-link" :class="selectTag == 9?'active':''" @click="selectTag = 9">故事</a>
+              <a class="nav-link" :class="selectTag == 10?'active':''" @click="selectTag = 10">开源项目</a>
+            </nav>
          </div>
        </div>
       
@@ -22,13 +22,13 @@
         <div class="card-header">
           <ul class="nav nav-tabs card-header-tabs">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="true" href="#">博客</a>
+              <a class="nav-link" :class="selectType == 1?'active':''" @click="selectType = 1">博客</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">精选</a>
+              <a class="nav-link" :class="selectType == 2?'active':''" @click="selectType = 2">精选</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">专栏</a>
+              <a class="nav-link" :class="selectType == 3?'active':''" @click="selectType = 3">专栏</a>
             </li>
           </ul>
         </div>
@@ -41,7 +41,7 @@
               <div class="blog-synopsis" style="color: #5f5a5a;">{{item.synopsis}}</div>
               <div>
                 <span class="date-color">{{item.createDate}}</span>
-                <span v-for="(item,index) in item.tagList" :key="index" > . <span style="font-size: 10px;color: #e6832e;">{{item.tagName}}</span></span>
+                <span v-for="(item,index) in item.tagList" :key="index" > . <span style="font-size: 10px;color: #a2a2a2;">{{item.tagName}}</span></span>
                 <router-link :to="{name:'author',params:{username:item.username}}" class="float-end">{{item.nickname}}</router-link>
               </div>
             </li>
@@ -81,6 +81,8 @@ export default {
   name: "blog",
   data() {
     return {
+      selectTag:1,
+      selectType:1,
       param:{
         page:1
       },

@@ -20,6 +20,10 @@
           <button class="btn btn-outline-primary" style="padding: 0px 5px 0px 3px;font-size: 13px;">推荐</button>
           <button class="btn btn-outline-primary" style="padding: 0px 5px 0px 3px;font-size: 13px;margin-left: 5px;">分享</button>
           <button class="btn btn-outline-primary" style="padding: 0px 5px 0px 3px;font-size: 13px;margin-left: 5px;">举报</button>
+          <div class="float-end">
+            <span v-for="(item,index) in blog.tagList" :key="index" > . <span style="font-size: 10px;color: #a2a2a2;">{{item.tagName}}</span></span>
+          </div>
+          
         </div>
       </div>
       <div class="card margin-bottom10">

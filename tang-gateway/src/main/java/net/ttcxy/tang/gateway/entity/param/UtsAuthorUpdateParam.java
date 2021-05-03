@@ -6,15 +6,13 @@ import lombok.Data;
  * @author huanglei
  */
 @Data
-public class UtsAuthorParam {
+public class UtsAuthorUpdateParam {
 
     private String authorId;
 
     private String username;
 
     private String nickname;
-
-    private String password;
 
     private String mail;
 

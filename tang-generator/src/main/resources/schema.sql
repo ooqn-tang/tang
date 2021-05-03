@@ -200,3 +200,14 @@ CREATE TABLE `uts_fans`  (
   `create_date` timestamp(0) DEFAULT NULL,
   UNIQUE INDEX `uts_fans_unique`(`be_author_id`, `author_id`) USING BTREE
 ) ;
+
+-- ----------------------------
+-- Table structure for sts_config
+-- ----------------------------
+DROP TABLE IF EXISTS `sts_config`;
+CREATE TABLE `sts_config`  (
+  `config_id` varchar(32) NOT NULL PRIMARY KEY,
+  `config_name` varchar(32) NOT NULL,
+  `data` varchar(32) NOT NULL,
+  `create_date` timestamp(0) DEFAULT NULL
+) ;

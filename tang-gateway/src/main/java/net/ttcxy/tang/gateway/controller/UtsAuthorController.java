@@ -10,7 +10,7 @@ import net.ttcxy.tang.gateway.core.api.ResponseCode;
 import net.ttcxy.tang.gateway.core.api.ResponseResult;
 import net.ttcxy.tang.gateway.entity.dto.MailVerifyDto;
 import net.ttcxy.tang.gateway.entity.model.UtsAuthor;
-import net.ttcxy.tang.gateway.entity.param.UtsAuthorParam;
+import net.ttcxy.tang.gateway.entity.param.UtsAuthorUpdateParam;
 import net.ttcxy.tang.gateway.entity.param.UtsRePasswordParam;
 import net.ttcxy.tang.gateway.entity.param.UtsRegisterParam;
 import net.ttcxy.tang.gateway.service.CurrentAuthorService;
@@ -51,7 +51,7 @@ public class UtsAuthorController {
 
     @PutMapping
     @ApiOperation("更新作者")
-    public ResponseResult<?> updateAuthor(@RequestBody UtsAuthorParam authorParam){
+    public ResponseResult<?> updateAuthor(@RequestBody UtsAuthorUpdateParam authorParam){
 
         UtsAuthor author = BeanUtil.toBean(authorParam, UtsAuthor.class);
 
@@ -62,8 +62,7 @@ public class UtsAuthorController {
         int count = authorService.updateAuthorByName(author);
         if (count > 0){
             UtsAuthor currentAuthor = currentAuthorService.getAuthor();
-            currentAuthor.setNickname(authorParam.getNickname());
-            currentAuthor.setSignature(authorParam.getSignature());
+            currentAuthor = authorService.selectAuthorByName(currentAuthor.getUsername());
             return ResponseResult.success("更新成功");
         }
         throw new ApiException();
@@ -134,6 +133,14 @@ public class UtsAuthorController {
 
 
         throw new ApiException();
+    }
+
+    @GetMapping("{username}")
+    @ApiOperation("获取用户信息")
+    public ResponseResult<UtsAuthor> authorByUsername(@PathVariable(value = "username") String username){
+        UtsAuthor utsAuthor = authorService.selectAuthorByName(username);
+        utsAuthor.setPassword(null);
+        return ResponseResult.success(utsAuthor);
     }
 
     @GetMapping("list")

@@ -8,6 +8,14 @@ export function blogList(data) {
     })
 }
 
+export function loadBlogByUsername(username,data) {
+    return request({
+        url: '/blog/list/' + username,
+        method: 'get',
+        params:data
+    })
+}
+
 export function postBlog(data) {
     return request({
         url: '/blog/load',
