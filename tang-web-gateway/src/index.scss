@@ -16,7 +16,8 @@
 html,body{
     width: 100%;
     height: 100%;
-    overflow-x: hidden; /* Prevent scroll on narrow devices */
+    overflow-x: hidden;
+    -webkit-tap-highlight-color: transparent;
 }
 
 a{

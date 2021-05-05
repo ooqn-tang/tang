@@ -37,8 +37,6 @@ public class DtsBlogController {
     @Autowired
     private CurrentAuthorService currentAuthor;
 
-
-
     @GetMapping("search")
     @ApiOperation("搜索数据")
     public ResponseResult<?> searchBlogList(
@@ -127,7 +125,6 @@ public class DtsBlogController {
         return ResponseResult.success(blogDto);
     }
 
-    /* 博客点击喜欢功能 */
     @GetMapping("/like")
     @ApiOperation("喜欢")
     public ResponseResult<?> getLike(@RequestParam("blogId") String blogId){
