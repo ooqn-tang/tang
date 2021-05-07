@@ -25,10 +25,10 @@
               <a class="nav-link" :class="selectType == 1?'active':''" @click="selectType = 1">博客</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" :class="selectType == 2?'active':''" @click="selectType = 2">精选</a>
+              <a class="nav-link disabled">精选</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" :class="selectType == 3?'active':''" @click="selectType = 3">专栏</a>
+              <a class="nav-link disabled">专栏</a>
             </li>
           </ul>
         </div>
@@ -42,7 +42,7 @@
               <div>
                 <span class="date-color">{{item.createDate}}</span>
                 <span v-for="(item,index) in item.tagList" :key="index" > . <span style="font-size: 10px;color: #a2a2a2;">{{item.tagName}}</span></span>
-                <router-link :to="{name:'author',params:{username:item.username}}" class="float-end">{{item.nickname}}</router-link>
+                <router-link :to="{name:'author_blog',params:{username:item.username}}" class="float-end">{{item.nickname}}</router-link>
               </div>
             </li>
             <li class="list-group-item ">

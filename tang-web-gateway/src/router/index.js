@@ -18,8 +18,19 @@ const routes = [
             },
             {
                 path: '/author/:username',
-                name: 'author',
-                component: () => import('../views/author/index.vue')
+                component: () => import('../views/author/index.vue'),
+                children:[
+                    {
+                        path: '',
+                        name: 'author_blog',
+                        component: () => import('../views/author/blog.vue')
+                    },
+                    {
+                        path: 'setting',
+                        name: 'author_setting',
+                        component: () => import('../views/author/setting.vue')
+                    }
+                ]
             },
             {
                 path: '/post/:id',

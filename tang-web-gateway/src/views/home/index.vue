@@ -26,7 +26,7 @@
           <a class="nav-link"  href="/editor">✒投稿</a>
         </li>
         <li class="nav-item" v-if="username != ''">
-          <router-link class="nav-link"  :to="{name:'author',params:{'username':username}}">😀我的</router-link>
+          <router-link class="nav-link"  :to="{name:'author_blog',params:{'username':username}}">😀我的</router-link>
         </li>
       </ul>
       <form class="d-flex">

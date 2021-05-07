@@ -33,60 +33,44 @@
         <div class="card-header">
           <ul class="nav nav-tabs card-header-tabs">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="true" href="#">博客</a>
+              <a class="nav-link" :class="selectType == 'author_blog'?'active':''" @click="selectTypeClick('author_blog')">博客</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">专栏</a>
+              <a class="nav-link" :class="selectType == 2?'active':''" @click="selectTypeClick(2)">专栏</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">收藏</a>
+              <a class="nav-link"  :class="selectType == 3?'active':''" @click="selectTypeClick(3)">订阅</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">设置</a>
+              <a class="nav-link"  :class="selectType == 4?'active':''" @click="selectTypeClick(4)">收藏</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">关于</a>
+              <a class="nav-link" :class="selectType == 'author_setting'?'active':''" @click="selectTypeClick('author_setting')">设置</a>
+              
+            </li>
+            <li class="nav-item">
+              <a class="nav-link"  :class="selectType == 6?'active':''" @click="selectType = 6">关于</a>
             </li>
           </ul>
         </div>
         <div class="card-body blog-list">
-          <ul class="list-group">
-            <li class="list-group-item" v-for="(item,index) in blogList" :key="index">
-              <router-link :to="{name: 'post', params: { id: item.blogId }}" class="blog-title">
-                <strong><p v-text="item.title"></p></strong>
-              </router-link>
-              <div class="blog-synopsis">{{item.synopsis}}</div>
-              <div>
-                <span>{{item.createDate}}</span>
-                <div class="btn-group pull-right">
-                </div>
-              </div>
-            </li>
-            <li class="list-group-item">
-              <a>获取</a>
-            </li>
-          </ul>
+          <router-view/>
         </div>
       </div>
-
-      
     </div>
   </div>
 </template>
 
 <script>
 import {selectAuthor} from '/@/api/author'
-import {loadBlogByUsername} from '/@/api/blog'
 export default {
-  name: "author",
+  name: "author_index",
   data() {
     return {
+      selectType:'',
       author:{
         
       },
-      blogList:[
-        
-      ],
       thisUsername:"",
       from:{
         page:1
@@ -95,21 +79,20 @@ export default {
   },
   components: {},
   methods: {
+    selectTypeClick(name){
+      this.selectType = name;
+      this.$router.push({name:name})
+    },
     selectAuthor(username){
       selectAuthor(username).then((response) => {
         this.author = response.data
       })
     },
-    loadBlogByUsername(){
-      loadBlogByUsername(this.thisUsername,this.from).then((response) => {
-        this.blogList = response.data.list
-      })
-    }
+    
   },
   mounted(){
     this.selectAuthor(this.$route.params.username)
     this.thisUsername = this.$route.params.username
-    this.loadBlogByUsername()
   }
 };
 </script>
