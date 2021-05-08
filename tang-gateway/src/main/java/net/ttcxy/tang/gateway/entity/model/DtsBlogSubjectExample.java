@@ -315,6 +315,66 @@ public class DtsBlogSubjectExample {
             return (Criteria) this;
         }
 
+        public Criteria andOrderNumIsNull() {
+            addCriterion("ORDER_NUM is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderNumIsNotNull() {
+            addCriterion("ORDER_NUM is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderNumEqualTo(Integer value) {
+            addCriterion("ORDER_NUM =", value, "orderNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderNumNotEqualTo(Integer value) {
+            addCriterion("ORDER_NUM <>", value, "orderNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderNumGreaterThan(Integer value) {
+            addCriterion("ORDER_NUM >", value, "orderNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderNumGreaterThanOrEqualTo(Integer value) {
+            addCriterion("ORDER_NUM >=", value, "orderNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderNumLessThan(Integer value) {
+            addCriterion("ORDER_NUM <", value, "orderNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderNumLessThanOrEqualTo(Integer value) {
+            addCriterion("ORDER_NUM <=", value, "orderNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderNumIn(List<Integer> values) {
+            addCriterion("ORDER_NUM in", values, "orderNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderNumNotIn(List<Integer> values) {
+            addCriterion("ORDER_NUM not in", values, "orderNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderNumBetween(Integer value1, Integer value2) {
+            addCriterion("ORDER_NUM between", value1, value2, "orderNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderNumNotBetween(Integer value1, Integer value2) {
+            addCriterion("ORDER_NUM not between", value1, value2, "orderNum");
+            return (Criteria) this;
+        }
+
         public Criteria andCreateDateIsNull() {
             addCriterion("CREATE_DATE is null");
             return (Criteria) this;

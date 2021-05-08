@@ -28,4 +28,5 @@ public interface UtsFansService {
      */
     int deleteFans(String fansName,String authorId);
 
+    Integer isFans(String authorId, String username);
 }

@@ -54,4 +54,9 @@ public class UtsFansServiceImpl implements UtsFansService {
         }
         return 0;
     }
+
+    @Override
+    public Integer isFans(String authorId, String beAuthorId) {
+        return fansDao.isFans(authorId,beAuthorId);
+    }
 }

@@ -95,8 +95,8 @@ public class DtsBlogSubjectController {
     @PostMapping("blog")
     @ApiOperation("添加博客到专题")
     public ResponseResult<String> insertBlogToSubject(
-            @RequestParam(value = "blogId",required = true)String blogId,
-            @RequestParam(value = "subjectId" ,required = true)String subjectId){
+            @RequestParam(value = "blogId")String blogId,
+            @RequestParam(value = "subjectId")String subjectId){
 
         Integer count = blogSubjectService.insertBlogToSubject(blogId,subjectId);
         if (count > 0){
@@ -105,6 +105,11 @@ public class DtsBlogSubjectController {
         throw new ApiException();
     }
 
-
+    @GetMapping("blog")
+    @ApiOperation("通过博客ID查询当前专辑列表")
+    public ResponseResult<?> selectSubjectListByBlogId(@RequestParam("blogId")String blogId) {
+        String subjectId = blogSubjectService.selectSubjectIdByBlogId(blogId);
+        return ResponseResult.success(blogSubjectService.selectSubjectBlogListById(subjectId));
+    }
 
 }

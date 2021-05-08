@@ -35,6 +35,7 @@ CREATE TABLE `dts_blog_subject`  (
   `blog_subject_id` varchar(32) NOT NULL PRIMARY KEY,
   `subject_name` varchar(35) NOT NULL COMMENT '标题',
   `author_id` varchar(32) NOT NULL COMMENT '作者ID',
+  `order_num` int(0) DEFAULT 0 COMMENT '排序号码',
   `create_date` timestamp(0) NOT NULL COMMENT '创建时间',
   `update_date` timestamp(0) NOT NULL COMMENT '更新时间',
   `synopsis` varchar(1000) NULL DEFAULT NULL

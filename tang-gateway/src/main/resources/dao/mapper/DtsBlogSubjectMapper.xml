@@ -5,6 +5,7 @@
     <id column="BLOG_SUBJECT_ID" jdbcType="VARCHAR" property="blogSubjectId" />
     <result column="SUBJECT_NAME" jdbcType="VARCHAR" property="subjectName" />
     <result column="AUTHOR_ID" jdbcType="VARCHAR" property="authorId" />
+    <result column="ORDER_NUM" jdbcType="INTEGER" property="orderNum" />
     <result column="CREATE_DATE" jdbcType="TIMESTAMP" property="createDate" />
     <result column="UPDATE_DATE" jdbcType="TIMESTAMP" property="updateDate" />
     <result column="SYNOPSIS" jdbcType="VARCHAR" property="synopsis" />
@@ -68,7 +69,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    BLOG_SUBJECT_ID, SUBJECT_NAME, AUTHOR_ID, CREATE_DATE, UPDATE_DATE, SYNOPSIS
+    BLOG_SUBJECT_ID, SUBJECT_NAME, AUTHOR_ID, ORDER_NUM, CREATE_DATE, UPDATE_DATE, SYNOPSIS
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
@@ -88,11 +89,11 @@
   </delete>
   <insert id="insert" parameterType="net.ttcxy.tang.gateway.entity.model.DtsBlogSubject">
     insert into DTS_BLOG_SUBJECT (BLOG_SUBJECT_ID, SUBJECT_NAME, AUTHOR_ID, 
-      CREATE_DATE, UPDATE_DATE, SYNOPSIS
-      )
+      ORDER_NUM, CREATE_DATE, UPDATE_DATE, 
+      SYNOPSIS)
     values (#{blogSubjectId,jdbcType=VARCHAR}, #{subjectName,jdbcType=VARCHAR}, #{authorId,jdbcType=VARCHAR}, 
-      #{createDate,jdbcType=TIMESTAMP}, #{updateDate,jdbcType=TIMESTAMP}, #{synopsis,jdbcType=VARCHAR}
-      )
+      #{orderNum,jdbcType=INTEGER}, #{createDate,jdbcType=TIMESTAMP}, #{updateDate,jdbcType=TIMESTAMP}, 
+      #{synopsis,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="net.ttcxy.tang.gateway.entity.model.DtsBlogSubject">
     insert into DTS_BLOG_SUBJECT
@@ -105,6 +106,9 @@
       </if>
       <if test="authorId != null">
         AUTHOR_ID,
+      </if>
+      <if test="orderNum != null">
+        ORDER_NUM,
       </if>
       <if test="createDate != null">
         CREATE_DATE,
@@ -125,6 +129,9 @@
       </if>
       <if test="authorId != null">
         #{authorId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNum != null">
+        #{orderNum,jdbcType=INTEGER},
       </if>
       <if test="createDate != null">
         #{createDate,jdbcType=TIMESTAMP},
@@ -155,6 +162,9 @@
       <if test="record.authorId != null">
         AUTHOR_ID = #{record.authorId,jdbcType=VARCHAR},
       </if>
+      <if test="record.orderNum != null">
+        ORDER_NUM = #{record.orderNum,jdbcType=INTEGER},
+      </if>
       <if test="record.createDate != null">
         CREATE_DATE = #{record.createDate,jdbcType=TIMESTAMP},
       </if>
@@ -174,6 +184,7 @@
     set BLOG_SUBJECT_ID = #{record.blogSubjectId,jdbcType=VARCHAR},
       SUBJECT_NAME = #{record.subjectName,jdbcType=VARCHAR},
       AUTHOR_ID = #{record.authorId,jdbcType=VARCHAR},
+      ORDER_NUM = #{record.orderNum,jdbcType=INTEGER},
       CREATE_DATE = #{record.createDate,jdbcType=TIMESTAMP},
       UPDATE_DATE = #{record.updateDate,jdbcType=TIMESTAMP},
       SYNOPSIS = #{record.synopsis,jdbcType=VARCHAR}
@@ -189,6 +200,9 @@
       </if>
       <if test="authorId != null">
         AUTHOR_ID = #{authorId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNum != null">
+        ORDER_NUM = #{orderNum,jdbcType=INTEGER},
       </if>
       <if test="createDate != null">
         CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
@@ -206,6 +220,7 @@
     update DTS_BLOG_SUBJECT
     set SUBJECT_NAME = #{subjectName,jdbcType=VARCHAR},
       AUTHOR_ID = #{authorId,jdbcType=VARCHAR},
+      ORDER_NUM = #{orderNum,jdbcType=INTEGER},
       CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
       UPDATE_DATE = #{updateDate,jdbcType=TIMESTAMP},
       SYNOPSIS = #{synopsis,jdbcType=VARCHAR}

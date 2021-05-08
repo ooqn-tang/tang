@@ -33,6 +33,18 @@ public class UtsFansController {
     @Autowired
     UtsAuthorService utsAuthorService;
 
+    @GetMapping("is")
+    @ApiOperation("关注的作者列表")
+    public ResponseResult<Integer> isFans(@RequestParam("username") String username){
+        String authorId = currentAuthorService.getAuthor().getAuthorId();
+        UtsAuthor utsAuthor = utsAuthorService.selectAuthorByName(username);
+        if (utsAuthor != null){
+            Integer count = fansService.isFans(authorId,utsAuthor.getAuthorId());
+            return ResponseResult.success(count);
+        }
+        throw new ApiException();
+    }
+
     @GetMapping("list")
     @ApiOperation("关注的作者列表")
     public ResponseResult<PageInfo<UtsFansDto>> fansList(){

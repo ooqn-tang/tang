@@ -21,3 +21,13 @@ export function fansList(data) {
         method: 'get'
     })
 }
+
+export function isFans(username) {
+    return request({
+        url: '/fans/is',
+        method: 'get',
+        params:{
+            username:username
+        }
+    })
+}

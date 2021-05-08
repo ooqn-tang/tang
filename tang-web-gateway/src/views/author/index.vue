@@ -4,7 +4,8 @@
       <div class="card margin-bottom10">
         <div class="card-body ">
           <strong>{{author.nickname}}</strong>
-          <button class="btn btn-outline-warning float-end" style="padding: 0px 5px 0px 3px;font-size: 13px;" @click="insertFansClick(author.username)">订阅</button>
+          <button v-if="fans == 2" class="btn btn-outline-warning float-end" style="padding: 0px 5px 0px 3px;font-size: 13px;" @click="fansClick(author.username)">订阅</button>
+          <button v-if="fans == 1" class="btn btn-outline-warning float-end" style="padding: 0px 5px 0px 3px;font-size: 13px;" @click="fansClick(author.username)">取消订阅</button>
           <hr />
           <div>简介：<span>{{author.signature}}</span></div>
         </div>
@@ -59,7 +60,7 @@
 
 <script>
 import {selectAuthor} from '/@/api/author'
-import {insertFans} from "/@/api/fans"
+import {insertFans,deleteFans,isFans} from "/@/api/fans"
 export default {
   name: "author_index",
   data() {
@@ -71,14 +72,31 @@ export default {
       thisUsername:"",
       from:{
         page:1
-      }
+      },
+      fans:1
     };
   },
   components: {},
   methods: {
-    insertFansClick(username){
-      insertFans(username).then((response) => {
-        alert(JSON.stringify(response))
+    fansClick(username){
+      if(this.fans == 2){
+        insertFans(username).then((response) => {
+          this.fans = 1
+        })
+      }else{
+        deleteFans(username).then((response) => {
+          this.fans = 2
+        })
+      }
+      
+    },
+    isFans(){
+      isFans(this.thisUsername).then((response) => {
+        if(response.data == 1){
+          this.fans = 1
+        }else{
+          this.fans = 2
+        }
       })
     },
     selectTypeClick(routeName){
@@ -95,6 +113,7 @@ export default {
   mounted(){
     this.selectAuthor(this.$route.params.username)
     this.thisUsername = this.$route.params.username
+    this.isFans()
   }
 };
 </script>
