@@ -1,46 +1,47 @@
 <template>
   <ul class="list-group blog-list">
-    <li class="list-group-item" v-for="(item,index) in blogList" :key="index">
+    <li class="list-group-item" v-for="(item,index) in likeList" :key="index">
       <router-link :to="{name: 'post', params: { id: item.blogId }}" class="blog-title">
         <strong><p v-text="item.title"></p></strong>
       </router-link>
       <div class="blog-synopsis">{{item.synopsis}}</div>
       <div>
         <span>{{item.createDate}}</span>
-        <div class="btn-group pull-right">
-        </div>
+        <a class="float-end">
+          {{item.nickname}}
+        </a>
       </div>
     </li>   
     <li class="list-group-item ">
       <a class="" @click="loadBlog()">获取</a>
     </li> 
   </ul>
-
 </template>
 
 <script>
-import {loadBlogByUsername} from '/@/api/blog'
+import {likeList} from "/@/api/like"
 export default {
-  name: "author_blog",
+  name: "author_like",
   data() {
     return {
-      blogList:[
-        
-      ],
+      likeList:[]
+      
     };
   },
   components: {
 
   },
   methods: {
-    loadBlogByUsername(){
-      loadBlogByUsername(this.thisUsername,this.from).then((response) => {
-        this.blogList = response.data.list
+    likeListLoad(){
+      likeList({"username":this.$route.params.username, "page":1}).then((response) => {
+        this.likeList = response.data.list
       })
     }
+    
   },
   mounted(){
-    this.loadBlogByUsername() 
+    this.likeListLoad()
+    
   }
 };
 </script>

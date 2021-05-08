@@ -34,7 +34,9 @@
         SELECT * FROM DTS_BLOG_SUBJECT BS1
         INNER JOIN UTS_AUTHOR A1 ON A1.AUTHOR_ID = BS1.AUTHOR_ID
     </select>
-    <select id="selectSubjectListByName" resultMap="SubjectBase">
-        SELECT blog_Subject_Id,subject_Name FROM DTS_BLOG_SUBJECT WHERE SUBJECT_NAME LIKE concat('%',#{name},'%')
+    <select id="selectSubjectListByUsername" resultMap="SubjectBase">
+        SELECT * FROM DTS_BLOG_SUBJECT BS1
+        LEFT JOIN UTS_AUTHOR A1 ON BS1.AUTHOR_ID = A1.AUTHOR_ID
+        WHERE A1.USERNAME = #{username}
     </select>
 </mapper>

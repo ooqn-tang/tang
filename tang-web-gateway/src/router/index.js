@@ -29,6 +29,23 @@ const routes = [
                         path: 'setting',
                         name: 'author_setting',
                         component: () => import('../views/author/setting.vue')
+                    },
+                    {
+                        path: 'subject',
+                        name: 'author_subject',
+                        component: () => import('../views/author/subject.vue')
+                    }
+                    ,
+                    {
+                        path: 'subscribe',
+                        name: 'author_subscribe',
+                        component: () => import('../views/author/subscribe.vue')
+                    }
+                    ,
+                    {
+                        path: 'like',
+                        name: 'author_like',
+                        component: () => import('../views/author/like.vue')
                     }
                 ]
             },

@@ -22,10 +22,10 @@ public interface UtsFansService {
     int insertFans(UtsFans fans);
 
     /**
-     * @param fansId 粉丝名
+     * @param fansName 粉丝名
      * @param authorId
      * @return 影响的行数
      */
-    int deleteFans(String fansId,String authorId);
+    int deleteFans(String fansName,String authorId);
 
 }

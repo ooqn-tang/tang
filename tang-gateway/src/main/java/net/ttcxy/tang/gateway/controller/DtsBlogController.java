@@ -133,9 +133,10 @@ public class DtsBlogController {
     }
 
     @GetMapping("like/list")
-    @ApiOperation("获取自己喜欢的文章")
-    public ResponseResult<?> listLike(@RequestParam(value = "page",defaultValue = "1") Integer page){
-        String username = currentAuthor.getAuthor().getUsername();
+    @ApiOperation("用户名获取喜欢的文章")
+    public ResponseResult<PageInfo<DtsBlogDto>> listLike(
+            @RequestParam(value = "username") String username,
+            @RequestParam(value = "page",defaultValue = "1") Integer page){
         return ResponseResult.success(blogService.selectLikeBlogList(username, page, 20));
     }
 

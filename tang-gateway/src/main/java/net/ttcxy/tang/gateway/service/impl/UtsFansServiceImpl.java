@@ -7,6 +7,7 @@ import net.ttcxy.tang.gateway.dao.UtsAuthorDao;
 import net.ttcxy.tang.gateway.dao.UtsFansDao;
 import net.ttcxy.tang.gateway.dao.mapper.UtsFansMapper;
 import net.ttcxy.tang.gateway.entity.dto.UtsFansDto;
+import net.ttcxy.tang.gateway.entity.model.UtsAuthor;
 import net.ttcxy.tang.gateway.entity.model.UtsFans;
 import net.ttcxy.tang.gateway.entity.model.UtsFansExample;
 import net.ttcxy.tang.gateway.service.UtsFansService;
@@ -42,12 +43,15 @@ public class UtsFansServiceImpl implements UtsFansService {
     }
 
     @Override
-    public int deleteFans(String fansId,String authorId){
-        UtsFansExample fansExample = new UtsFansExample();
-        fansExample.createCriteria()
-                .andFansIdEqualTo(fansId)
-                .andAuthorIdEqualTo(authorId);
-
-        return fansMapper.deleteByExample(fansExample);
+    public int deleteFans(String fansName,String authorId){
+        UtsAuthor author = utsAuthorDao.selectAuthorByName(fansName);
+        if (author != null){
+            UtsFansExample fansExample = new UtsFansExample();
+            fansExample.createCriteria()
+                    .andBeAuthorIdEqualTo(author.getAuthorId())
+                    .andAuthorIdEqualTo(authorId);
+            return fansMapper.deleteByExample(fansExample);
+        }
+        return 0;
     }
 }

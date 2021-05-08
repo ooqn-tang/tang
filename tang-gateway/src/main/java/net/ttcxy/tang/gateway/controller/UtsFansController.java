@@ -41,7 +41,7 @@ public class UtsFansController {
         return ResponseResult.success(authorDtoPageInfo);
     }
 
-    @PostMapping("insert/{fansName}")
+    @PostMapping("{fansName}")
     @ApiOperation("添加关注")
     public ResponseResult<?> insert(@PathVariable("fansName") String fansName){
         String authorId = currentAuthorService.getAuthorId();
@@ -61,12 +61,12 @@ public class UtsFansController {
         throw new ApiException(ResponseCode.FAILED);
     }
 
-    @DeleteMapping("{fansId}")
+    @DeleteMapping("{fansName}")
     @ApiOperation("删除关注")
-    public ResponseResult<Integer> delete(@PathVariable("fansId") String fansId){
+    public ResponseResult<Integer> delete(@PathVariable("fansName") String fansName){
         String authorId = currentAuthorService.getAuthorId();
 
-        int count = fansService.deleteFans(fansId,authorId);
+        int count = fansService.deleteFans(fansName,authorId);
         if (count > 0){
             return ResponseResult.success(count);
         }

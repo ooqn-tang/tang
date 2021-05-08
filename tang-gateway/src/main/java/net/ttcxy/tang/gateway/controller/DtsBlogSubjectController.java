@@ -27,10 +27,20 @@ public class DtsBlogSubjectController {
     @Autowired
     private CurrentAuthorService currentAuthorService;
 
-    @GetMapping
+    @GetMapping("username")
     @ApiOperation("通过用户名查询专题博客列表")
-    public ResponseResult<DtsBlogSubjectDto> selectSubjectBlogListByUsername(
-            @RequestParam(value = "subjectId",defaultValue = "0")String subjectId){
+    public ResponseResult<PageInfo<DtsBlogSubjectDto>> selectSubjectBlogListByUsername(
+            @RequestParam(value = "username",defaultValue = "0")String username){
+
+        PageInfo<DtsBlogSubjectDto> subjectDtoPageInfo =
+                blogSubjectService.selectSubjectListByUsername(username, 1, 10);
+        return ResponseResult.success(subjectDtoPageInfo);
+    }
+
+    @GetMapping("subjectId")
+    @ApiOperation("通过专辑ID查询专辑所有博客")
+    public ResponseResult<DtsBlogSubjectDto> selectSubjectBlogById(
+            @PathVariable(value = "subjectId")String subjectId){
 
         DtsBlogSubjectDto subjectDto = blogSubjectService.selectSubjectBlogListById(subjectId);
         return ResponseResult.success(subjectDto);
@@ -41,6 +51,7 @@ public class DtsBlogSubjectController {
     @ApiOperation("查询专题列表")
     public ResponseResult<PageInfo<DtsBlogSubjectDto>> selectSubject(
             @RequestParam(value = "page",defaultValue = "0")Integer page){
+
         Integer pageSize = 20;
         PageInfo<DtsBlogSubjectDto> pageInfo = blogSubjectService.selectSubjectList(page,pageSize);
         return ResponseResult.success(pageInfo);
@@ -50,13 +61,15 @@ public class DtsBlogSubjectController {
     @ApiOperation("通过专题名模糊查询")
     public ResponseResult<PageInfo<DtsBlogSubjectDto>> selectSubjectByName(
             @RequestParam(value = "subjectName",defaultValue = "")String name){
-        PageInfo<DtsBlogSubjectDto> pageInfo = blogSubjectService.selectSubjectListByName(name,10,10);
+
+        PageInfo<DtsBlogSubjectDto> pageInfo = blogSubjectService.selectSubjectListByUsername(name,10,10);
         return ResponseResult.success(pageInfo);
     }
 
     @PostMapping
     @ApiOperation("添加专题")
     public ResponseResult<String> insertSubject(@RequestBody DtsSubjectParam subjectParam){
+
         DtsBlogSubject subjectDto = BeanUtil.toBean(subjectParam, DtsBlogSubject.class);
         String authorId = currentAuthorService.getAuthorId();
         subjectDto.setAuthorId(authorId);
@@ -70,6 +83,7 @@ public class DtsBlogSubjectController {
     @PutMapping
     @ApiOperation("修改专题")
     public ResponseResult<String> updateSubject(@RequestBody DtsSubjectParam subjectParam){
+
         DtsBlogSubject subject = BeanUtil.toBean(subjectParam, DtsBlogSubject.class);
         Integer count = blogSubjectService.updateSubject(subject);
         if (count > 0){

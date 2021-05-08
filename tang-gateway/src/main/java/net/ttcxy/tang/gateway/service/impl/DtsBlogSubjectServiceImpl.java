@@ -46,9 +46,9 @@ public class DtsBlogSubjectServiceImpl implements DtsBlogSubjectService {
     }
 
     @Override
-    public PageInfo<DtsBlogSubjectDto> selectSubjectListByName(String name, Integer page, Integer pageSize) {
+    public PageInfo<DtsBlogSubjectDto> selectSubjectListByUsername(String username, Integer page, Integer pageSize) {
         PageHelper.startPage(page,pageSize);
-        return new PageInfo<>(blogSubjectDao.selectSubjectListByName(name));
+        return new PageInfo<>(blogSubjectDao.selectSubjectListByUsername(username));
     }
 
     @Override

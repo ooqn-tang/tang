@@ -61,7 +61,8 @@ CREATE TABLE `dts_blog_tag`(
   `blog_tag_id` varchar(32) NOT NULL PRIMARY KEY,
   `tag_name` varchar(10) NOT NULL COMMENT '标签名',
   `synopsis` varchar(1000) NULL DEFAULT NULL COMMENT '描述',
-  `create_date` timestamp(0) DEFAULT NULL COMMENT '创建时间'
+  `create_date` timestamp(0) DEFAULT NULL COMMENT '创建时间',
+  UNIQUE INDEX `dts_blog_tag_unique`(`tag_name`) USING BTREE
 ) ;
 
 -- --------------------------------
