@@ -68,3 +68,14 @@ a{
 }
 
 .markdown-body pre{ border: 1px solid #d1d4d6; }
+
+.modal-open {
+  overflow-y: scroll;
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 2s
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active, 2.1.8 版本以下 */ {
+  opacity: 0
+}

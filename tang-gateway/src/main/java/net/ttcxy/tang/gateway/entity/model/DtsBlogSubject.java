@@ -13,6 +13,9 @@ public class DtsBlogSubject implements Serializable {
     @ApiModelProperty(value = "作者ID")
     private String authorId;
 
+    @ApiModelProperty(value = "排序号码")
+    private Integer orderNum;
+
     @ApiModelProperty(value = "创建时间")
     private Date createDate;
 
@@ -45,6 +48,14 @@ public class DtsBlogSubject implements Serializable {
 
     public void setAuthorId(String authorId) {
         this.authorId = authorId;
+    }
+
+    public Integer getOrderNum() {
+        return orderNum;
+    }
+
+    public void setOrderNum(Integer orderNum) {
+        this.orderNum = orderNum;
     }
 
     public Date getCreateDate() {
@@ -80,6 +91,7 @@ public class DtsBlogSubject implements Serializable {
         sb.append(", blogSubjectId=").append(blogSubjectId);
         sb.append(", subjectName=").append(subjectName);
         sb.append(", authorId=").append(authorId);
+        sb.append(", orderNum=").append(orderNum);
         sb.append(", createDate=").append(createDate);
         sb.append(", updateDate=").append(updateDate);
         sb.append(", synopsis=").append(synopsis);

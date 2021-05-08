@@ -16,3 +16,19 @@ export function likeList(data) {
         params:data
     })
 }
+
+export function like(blogId) {
+    return request({
+        url: '/blog/like',
+        method: 'POST',
+        params:{blogId:blogId}
+    })
+}
+
+export function unlike(blogId) {
+    return request({
+        url: '/blog/like',
+        method: 'DELETE',
+        params:{blogId:blogId}
+    })
+}

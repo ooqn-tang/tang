@@ -40,4 +40,12 @@ public interface UtsFansDao {
      * @return 粉丝列表
      */
     List<UtsFansDto> selectFansList(@Param("authorId") String userId);
+
+    /**
+     * 查询关注是否存在
+     * @param authorId 关注者ID
+     * @param beAuthorId 被关注者ID
+     * @return count
+     */
+    Integer isFans(String authorId, String beAuthorId);
 }

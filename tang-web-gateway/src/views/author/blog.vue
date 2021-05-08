@@ -7,8 +7,7 @@
       <div class="blog-synopsis">{{item.synopsis}}</div>
       <div>
         <span>{{item.createDate}}</span>
-        <div class="btn-group pull-right">
-        </div>
+        <div class="btn-group float-end"><span data-bs-toggle="modal" data-bs-target="#exampleModal"  @click="subjectFrom.blogId = item.blogId">添加到专辑</span></div>
       </div>
     </li>   
     <li class="list-group-item ">
@@ -16,10 +15,33 @@
     </li> 
   </ul>
 
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">添加博客到专辑</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <select class="form-select" v-model="subjectFrom.subjectId">
+          <option value="">请选择</option>
+          <option v-for="(item,index) in subjectList" :key="index" :value="item.blogSubjectId">{{item.subjectName}}</option>
+        </select>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">关闭</button>
+        <button type="button" class="btn btn-primary" @click="insertBlogToSubject">保存</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 </template>
 
 <script>
-import {loadBlogByUsername} from '/@/api/blog'
+import {loadBlogByUsername,loadSubjectList} from '/@/api/blog'
+import {insertBlogToSubject,selectSubjectListByUsername} from '/@/api/subject'
 export default {
   name: "author_blog",
   data() {
@@ -27,6 +49,10 @@ export default {
       blogList:[
         
       ],
+      subjectFrom:{
+        subjectId:""
+      },
+      subjectList:[]
     };
   },
   components: {
@@ -37,10 +63,25 @@ export default {
       loadBlogByUsername(this.thisUsername,this.from).then((response) => {
         this.blogList = response.data.list
       })
+    },
+    loadSubjectList(){
+      selectSubjectListByUsername(this.$route.params.username).then((response) => {
+        this.subjectList = response.data.list
+      })
+    },
+    insertBlogToSubject(){
+       alert(JSON.stringify(this.subjectFrom))
+      let blogId = this.subjectFrom.blogId;
+      let subjectId = this.subjectFrom.subjectId;
+     
+      insertBlogToSubject(blogId, subjectId).then((response) => {
+        alert(JSON.stringify(response.data))
+      })
     }
   },
   mounted(){
     this.loadBlogByUsername() 
+    this.loadSubjectList()
   }
 };
 </script>

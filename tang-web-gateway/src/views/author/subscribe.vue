@@ -1,7 +1,7 @@
 <template>
   <ul class="list-group blog-list">
     <li class="list-group-item" v-for="(item,index) in fansList" :key="index">
-      <router-link to="/">
+      <router-link target="_blank" :to="{name:'author_blog',params:{username:item.username}}">
         <strong v-text="item.nickname"></strong>
       </router-link>
       <span class="float-end" @click="deleteFansMethod(item.username,index)">取消关注</span>

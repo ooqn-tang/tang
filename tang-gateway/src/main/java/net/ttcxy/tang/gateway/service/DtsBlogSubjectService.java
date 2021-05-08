@@ -22,4 +22,6 @@ public interface DtsBlogSubjectService {
     Integer insertBlogToSubject(String blogId, String subjectId);
 
     PageInfo<DtsBlogSubjectDto> selectSubjectListByUsername(String name, Integer page, Integer pageSize);
+
+    String selectSubjectIdByBlogId(String blogId);
 }

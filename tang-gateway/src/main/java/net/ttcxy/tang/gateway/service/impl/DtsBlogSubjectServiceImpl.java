@@ -83,4 +83,10 @@ public class DtsBlogSubjectServiceImpl implements DtsBlogSubjectService {
         }
         throw new ApiException("是失败");
     }
+
+
+    @Override
+    public String selectSubjectIdByBlogId(String blogId) {
+        return blogSubjectDao.selectSubjectIdByBlogId(blogId);
+    }
 }

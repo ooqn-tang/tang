@@ -24,6 +24,9 @@
         and f.author_id = #{authorId}
         order by f.create_date Desc
     </select>
+    <select id="isFans" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM UTS_FANS WHERE AUTHOR_ID = #{authorId} AND BE_AUTHOR_ID = #{beAuthorId}
+    </select>
 
     <insert id="insertFans" parameterType="net.ttcxy.tang.gateway.entity.dto.UtsFansDto">
         insert into `uts_fans` (id,user_id,follower,create_date)
