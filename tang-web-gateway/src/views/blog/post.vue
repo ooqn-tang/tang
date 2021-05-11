@@ -1,6 +1,6 @@
 <template>
   <div class="row" style="margin-bottom: 50px">
-    <div class="col-md-3 col-lg-2" >
+    <div class="col-md-3 col-lg-3" >
       <div class="list-group margin-bottom10" v-if="showSubject">
         <a class="list-group-item">{{subject.subjectName}}<span class="float-end">🎇</span></a>
         <router-link @click="blog.blogId = item.blogId" :class="item.blogId == blog.blogId?'active':''" v-for="(item,index) in blogList" :key="index"  :to="{name: 'post', params: { id: item.blogId }}" 
@@ -16,7 +16,7 @@
         <a class="list-group-item ">推荐<span class="float-end">🎇</span></a>
       </div>
     </div>
-    <div class="col-md-9 col-lg-10">
+    <div class="col-md-9 col-lg-9">
       <div class="row">
         <div class="col-lg-8">
           <div class="card margin-bottom10">
@@ -96,14 +96,28 @@
           </div>
           <div class="card margin-bottom10">
             <div class="card-body">
-              <a
-                href="/post/f0a33f80ede44b45b98ce9f5f0b0bc90"
-                class="blog-title"
-                >博客园的打赏功能、打赏插件</a
-              >
+              <a class="blog-title">八点零点零点附近扩大飞机啊撒旦解放</a>
               <div>
                 <span>2020.05.27</span>
-                <a href="/author/nimin" class="pull-right">匿名</a>
+                <a class="float-end">匿名</a>
+              </div>
+            </div>
+          </div>
+          <div class="card margin-bottom10">
+            <div class="card-body">
+              <a class="blog-title">i俄日额u我i的上空的飞机饿哦五日为ur</a>
+              <div>
+                <span>2020.05.27</span>
+                <a class="float-end">匿名</a>
+              </div>
+            </div>
+          </div>
+          <div class="card margin-bottom10">
+            <div class="card-body">
+              <a class="blog-title">啊卡萨丁积分卡的肌肤健康的房间扩大解放</a>
+              <div>
+                <span>2020.05.27</span>
+                <a class="float-end">匿名</a>
               </div>
             </div>
           </div>
@@ -230,10 +244,16 @@ export default {
       })
     },
     loadBlogInfo() {
-      postBlog(this.param).then((response) => {
-        this.blog = response.data;
-        this.isFans()
-      });
+      if(indexBlog != undefined){
+        this.blog = indexBlog
+        indexBlog = undefined
+      }else{
+        postBlog(this.param).then((response) => {
+          this.blog = response.data;
+          this.isFans()
+        });
+      }
+      
     },
     selectSubjectBlogList(){
       selectSubjectBlogList(this.param.blogId).then((response) => {

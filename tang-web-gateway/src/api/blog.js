@@ -48,11 +48,11 @@ export function putBlog(data) {
     })
 }
 
-export function loadSubjectList(data) {
+export function loadSubjectList(username) {
     return request({
-        url: '/subject/search',
+        url: '/subject/username',
         method: 'GET',
-        params:data
+        params:{"username":username}
     })
 }
 

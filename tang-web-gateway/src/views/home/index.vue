@@ -10,7 +10,7 @@
         <li class="nav-item">
           <router-link class="nav-link" to="/">😶博客</router-link>
         </li>
-        <li class="nav-item">
+        <!-- <li class="nav-item">
           <router-link class="nav-link" to="/">👨‍🎓作者</router-link>
         </li>
         <li class="nav-item">
@@ -18,7 +18,7 @@
         </li>
                 <li class="nav-item">
           <router-link class="nav-link" to="/">📒专题</router-link>
-        </li>
+        </li> -->
         <li class="nav-item" v-if="username == ''">
           <router-link class="nav-link"  to="/login">🧐登录</router-link>
         </li>

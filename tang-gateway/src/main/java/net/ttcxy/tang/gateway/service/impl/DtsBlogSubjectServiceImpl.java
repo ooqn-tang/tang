@@ -84,6 +84,11 @@ public class DtsBlogSubjectServiceImpl implements DtsBlogSubjectService {
         throw new ApiException("是失败");
     }
 
+    @Override
+    public PageInfo<DtsBlogSubjectDto> selectSubjectListBySubjectName(String name, int page, int pageSize) {
+        PageHelper.startPage(page,pageSize);
+        return new PageInfo<>(blogSubjectDao.selectSubjectListBySubjectName(name));
+    }
 
     @Override
     public String selectSubjectIdByBlogId(String blogId) {

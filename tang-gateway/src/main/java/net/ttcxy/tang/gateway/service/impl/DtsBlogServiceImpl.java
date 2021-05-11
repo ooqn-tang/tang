@@ -48,9 +48,9 @@ public class DtsBlogServiceImpl implements DtsBlogService {
     private CurrentAuthorService currentAuthorServiceImpl;
 
     @Override
-    public PageInfo<DtsBlogDto> selectBlogList(Integer page, Integer pageSize) {
+    public PageInfo<DtsBlogDto> selectBlogList(String tagName,Integer page, Integer pageSize) {
         PageHelper.startPage(page, pageSize);
-        return new PageInfo<>(blogDao.selectBlogList());
+        return new PageInfo<>(blogDao.selectBlogList(tagName));
     }
 
     @Override
