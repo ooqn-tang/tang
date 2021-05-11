@@ -16,9 +16,10 @@ public interface DtsBlogService {
 
     /**
      * 博客列表
+     * @param tag 标签
      * @param page 页码
      */
-    PageInfo<DtsBlogDto> selectBlogList(Integer page, Integer pageSize);
+    PageInfo<DtsBlogDto> selectBlogList(String tag,Integer page, Integer pageSize);
 
     /**
      * 模糊查询blog

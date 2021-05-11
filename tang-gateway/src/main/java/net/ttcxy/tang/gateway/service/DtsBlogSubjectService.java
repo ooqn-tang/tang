@@ -24,4 +24,9 @@ public interface DtsBlogSubjectService {
     PageInfo<DtsBlogSubjectDto> selectSubjectListByUsername(String name, Integer page, Integer pageSize);
 
     String selectSubjectIdByBlogId(String blogId);
+
+    /**
+     * 通过专辑名查询
+     */
+    PageInfo<DtsBlogSubjectDto> selectSubjectListBySubjectName(String name, int page, int pageSize);
 }

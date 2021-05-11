@@ -104,7 +104,7 @@ export default {
         })
       },
       loadSubjectList(){
-        loadSubjectList({"subjectName":this.subjectName}).then((response) => {
+        loadSubjectList(this.$store.state.username).then((response) => {
           this.subjectList = response.data.list
           let li = response.data.list
           for(let item in response.data.list){
@@ -148,6 +148,7 @@ export default {
       }
   },mounted(){
     this.loadSubjectList()
+
     this.loadTagList()
     this.loadAuthorAllTagList()
   },
@@ -156,6 +157,12 @@ export default {
   }
 };
 </script>
+<style>
+  body{
+    overflow: hidden;
+  }
+</style>
+
 <style scoped lang="scss">
 img{
     max-width: 100%;
@@ -169,7 +176,7 @@ img{
     height:calc(100% - 80px);
     border-bottom: 1px solid black;
     border-top: 1px solid black;
-    overflow: auto;
+    
 }
 .foot{
     height: 40px;

@@ -12,5 +12,7 @@ public interface DtsBlogSubjectDao {
 
     List<DtsBlogSubjectDto> selectSubjectListByUsername(String username);
 
+    List<DtsBlogSubjectDto> selectSubjectListBySubjectName(String name);
+
     String selectSubjectIdByBlogId(String blogId);
 }

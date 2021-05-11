@@ -27,3 +27,20 @@ export function selectSubjectBlogList(blogId) {
     })
 }
 
+// 添加专辑
+export function insertSubject(data) {
+    return request({
+        url: '/subject',
+        method: 'POST',
+        data
+    })
+}
+
+// 更新专辑
+export function updateSubject(data) {
+    return request({
+        url: '/subject',
+        method: 'PUT',
+        data
+    })
+}

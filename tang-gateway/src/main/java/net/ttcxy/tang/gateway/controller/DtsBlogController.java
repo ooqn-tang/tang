@@ -48,13 +48,15 @@ public class DtsBlogController {
 
     @GetMapping("list")
     @ApiOperation("获取首页数据")
-    public ResponseResult<?> selectBlogList(@RequestParam(value = "page" ,defaultValue = "1")Integer page){
-        PageInfo<DtsBlogDto> blogList = blogService.selectBlogList(page, 20);
+    public ResponseResult<?> selectBlogList(
+            @RequestParam(value = "page" ,defaultValue = "1")Integer page,
+            @RequestParam(value = "tag",defaultValue = "")String tagName){
+        PageInfo<DtsBlogDto> blogList = blogService.selectBlogList(tagName,page, 20);
         return ResponseResult.success(blogList);
     }
 
     @GetMapping("list/{username}")
-    @ApiOperation("获取首页数据")
+    @ApiOperation("用户名获取首页数据")
     public ResponseResult<?> selectBlogListByUsername(
             @RequestParam(value = "page" ,defaultValue = "1")Integer page,
             @PathVariable(value = "username")String username){

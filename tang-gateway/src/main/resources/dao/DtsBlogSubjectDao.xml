@@ -39,6 +39,11 @@
         LEFT JOIN UTS_AUTHOR A1 ON BS1.AUTHOR_ID = A1.AUTHOR_ID
         WHERE A1.USERNAME = #{username}
     </select>
+    <select id="selectSubjectListBySubjectName" resultMap="SubjectBase">
+        SELECT BS1.SUBJECT_NAME FROM DTS_BLOG_SUBJECT BS1
+        LEFT JOIN UTS_AUTHOR A1 ON BS1.AUTHOR_ID = A1.AUTHOR_ID
+        WHERE A1.SUBJECT_NAME LIKE concat('%',#{name},'%')
+    </select>
     <select id="selectSubjectIdByBlogId" resultType="java.lang.String">
         SELECT BSR1.BLOG_SUBJECT_ID
         FROM DTS_BLOG_SUBJECT_RELATION BSR1

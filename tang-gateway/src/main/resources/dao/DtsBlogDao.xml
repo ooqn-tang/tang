@@ -63,6 +63,9 @@
         LEFT JOIN DTS_BLOG B ON A.AUTHOR_ID = B.AUTHOR_ID
         LEFT JOIN DTS_BLOG_TAG_RELATION DBTR ON DBTR.BLOG_ID = B.BLOG_ID
         LEFT JOIN DTS_BLOG_TAG BT ON BT.BLOG_TAG_ID = DBTR.BLOG_TAG_ID
+        <if test="tagName != ''">
+            AND upper(BT.TAG_NAME) = upper(#{tagName})
+        </if>
         AND B.STATE_CODE = 1001
         ORDER BY B.CREATE_DATE DESC
     </select>

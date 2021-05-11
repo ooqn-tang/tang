@@ -2,6 +2,7 @@
     height: 100%;
 }
 
+
 *{
     padding: 0;
     margin: 0;
@@ -11,6 +12,10 @@
     resize: none;
     outline: none;
     cursor: pointer;
+}
+
+body{
+  overflow-y: scroll;
 }
 
 html,body{

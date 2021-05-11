@@ -62,7 +62,7 @@ public class DtsBlogSubjectController {
     public ResponseResult<PageInfo<DtsBlogSubjectDto>> selectSubjectByName(
             @RequestParam(value = "subjectName",defaultValue = "")String name){
 
-        PageInfo<DtsBlogSubjectDto> pageInfo = blogSubjectService.selectSubjectListByUsername(name,10,10);
+        PageInfo<DtsBlogSubjectDto> pageInfo = blogSubjectService.selectSubjectListBySubjectName(name,1,10);
         return ResponseResult.success(pageInfo);
     }
 
