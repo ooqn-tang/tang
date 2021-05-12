@@ -1,7 +1,7 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-light bg-light margin-bottom10" style="border-bottom: 1px solid #cecece;">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">🧩堂堂程序员</a>
+    <a class="navbar-brand" href="/">🧩堂堂程序员</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -19,14 +19,14 @@
                 <li class="nav-item">
           <router-link class="nav-link" to="/">📒专题</router-link>
         </li> -->
-        <li class="nav-item" v-if="username == ''">
+        <li class="nav-item" v-if="$store.state.username == ''">
           <router-link class="nav-link"  to="/login">🧐登录</router-link>
         </li>
-        <li class="nav-item" v-if="username != ''">
+        <li class="nav-item" v-if="$store.state.username != ''">
           <a class="nav-link"  href="/editor">✒投稿</a>
         </li>
-        <li class="nav-item" v-if="username != ''">
-          <router-link class="nav-link"  :to="{name:'author_blog',params:{'username':username}}">😀我的</router-link>
+        <li class="nav-item" v-if="$store.state.username != ''">
+          <router-link class="nav-link"  :to="{name:'author_blog',params:{'username':$store.state.username}}">😀我的</router-link>
         </li>
       </ul>
       <form class="d-flex">
@@ -46,7 +46,6 @@ export default {
   name: "home",
   data() {
     return {
-      username: this.$store.getters.username
     };
   },
   computed: {

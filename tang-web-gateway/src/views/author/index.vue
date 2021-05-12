@@ -39,13 +39,13 @@
             <li class="nav-item">
               <a class="nav-link" :class="routeName == 'author_subject'?'active':''" @click="selectTypeClick('author_subject')">专栏</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" v-if="thisUsername == loginUsername">
               <a class="nav-link"  :class="routeName == 'author_subscribe'?'active':''" @click="selectTypeClick('author_subscribe')">订阅</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" v-if="thisUsername == loginUsername">
               <a class="nav-link"  :class="routeName == 'author_like'?'active':''" @click="selectTypeClick('author_like')">喜欢</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" v-if="thisUsername == loginUsername">
               <a class="nav-link" :class="routeName == 'author_setting'?'active':''" @click="selectTypeClick('author_setting')">设置</a>
             </li>
           </ul>
@@ -70,6 +70,7 @@ export default {
         
       },
       thisUsername:"",
+      loginUsername:this.$store.state.username,
       from:{
         page:1
       },

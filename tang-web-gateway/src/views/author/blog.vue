@@ -7,7 +7,10 @@
       <div class="blog-synopsis">{{item.synopsis}}</div>
       <div>
         <span>{{item.createDate}}</span>
-        <div class="btn-group float-end"><span data-bs-toggle="modal" data-bs-target="#exampleModal"  @click="subjectFrom.blogId = item.blogId">添加到专辑</span></div>
+        <div class="btn-group float-end">
+          <button class="btn btn-outline-dark float-end" style="padding: 0px 5px 0px 3px;font-size: 13px;" disabled>编辑</button>
+          <button class="btn btn-outline-dark float-end" style="padding: 0px 5px 0px 3px;font-size: 13px;">删除</button>
+          <button class="btn btn-outline-dark float-end" style="padding: 0px 5px 0px 3px;font-size: 13px;" data-bs-toggle="modal" data-bs-target="#exampleModal"  @click="subjectFrom.blogId = item.blogId">添加到专辑</button>
       </div>
     </li>   
     <li class="list-group-item ">
@@ -52,7 +55,7 @@ export default {
       subjectFrom:{
         subjectId:""
       },
-      subjectList:[]
+      subjectList:[],
     };
   },
   components: {
@@ -60,7 +63,7 @@ export default {
   },
   methods: {
     loadBlogByUsername(){
-      loadBlogByUsername(this.thisUsername,this.from).then((response) => {
+      loadBlogByUsername(this.$route.params.username,{}).then((response) => {
         this.blogList = response.data.list
       })
     },

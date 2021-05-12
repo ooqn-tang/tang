@@ -4,16 +4,16 @@
        <div class="card margin-bottom10"  >
          <div class="card-body " style="padding:0px;">
            <nav class="nav">
-              <a class="nav-link" :class="selectTag == ''?'active':''" @click="selectTag = ''">全部</a>
-              <a class="nav-link" :class="selectTag == 'Java'?'active':''" @click="selectTag = 'Java'">Java</a>
-              <a class="nav-link" :class="selectTag == 'Python'?'active':''" @click="selectTag = 'Python'">Python</a>
-              <a class="nav-link" :class="selectTag == 'Web前端'?'active':''" @click="selectTag = 'Web前端'">Web前端</a>
-              <a class="nav-link" :class="selectTag == 'Android'?'active':''" @click="selectTag = 'Android'">Android</a>
-              <a class="nav-link" :class="selectTag == '数据库'?'active':''" @click="selectTag = '数据库'">数据库</a>
-              <a class="nav-link" :class="selectTag == '面试'?'active':''" @click="selectTag = '面试'">面试</a>
-              <a class="nav-link" :class="selectTag == '算法'?'active':''" @click="selectTag = '算法'">算法</a>
-              <a class="nav-link" :class="selectTag == '故事'?'active':''" @click="selectTag = '故事'">故事</a>
-              <a class="nav-link" :class="selectTag == '开源项目'?'active':''" @click="selectTag = '开源项目'">开源项目</a>
+              <a class="nav-link" :class="selectTag == ''?'active':''" @click="selectTagClick('')">全部</a>
+              <a class="nav-link" :class="selectTag == 'Java'?'active':''" @click="selectTagClick('Java')">Java</a>
+              <a class="nav-link" :class="selectTag == 'Python'?'active':''" @click="selectTagClick('Python')">Python</a>
+              <a class="nav-link" :class="selectTag == 'Web前端'?'active':''" @click="selectTagClick('Web前端')">Web前端</a>
+              <a class="nav-link" :class="selectTag == 'Android'?'active':''" @click="selectTagClick('Android')">Android</a>
+              <a class="nav-link" :class="selectTag == '数据库'?'active':''" @click="selectTagClick('数据库')">数据库</a>
+              <a class="nav-link" :class="selectTag == '面试'?'active':''" @click="selectTagClick('面试')">面试</a>
+              <a class="nav-link" :class="selectTag == '算法'?'active':''" @click="selectTagClick('算法')">算法</a>
+              <a class="nav-link" :class="selectTag == '故事'?'active':''" @click="selectTagClick('故事')">故事</a>
+              <a class="nav-link" :class="selectTag == '开源项目'?'active':''" @click="selectTagClick('开源项目')">开源项目</a>
             </nav>
          </div>
        </div>
@@ -95,12 +95,13 @@ export default {
   components: {
     
   },
-  watch:{
-    selectType(){
-      this.loadBlog()
-    }
-  },
   methods: {
+    selectTagClick(tagName){
+      this.selectTag = tagName
+      this.blogData = []
+      this.param.page = 1
+      this.loadBlog()
+    },
     loadBlog(){
       this.param.tag = this.selectTag
       if(this.param.page > 0){
