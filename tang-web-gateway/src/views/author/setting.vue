@@ -26,11 +26,14 @@
       </div>
     </div>
     <button class="btn btn-primary" @click="save">保存</button>
+    <br><br>
+    <button class="btn btn-primary" @click="logout">退出登录</button>
   </div>
 </template>
 
 <script>
 import {selectAuthor,updateAuthor} from "/@/api/author"
+import {logout} from "/@/api/login"
 export default {
   name: "author_setting",
   data() {
@@ -44,6 +47,10 @@ export default {
   },
   components: {},
   methods: {
+    logout(){
+      logout().then()
+      location.href = "/"
+    },
     save(){
       updateAuthor(this.author).then((response) => {
         this.selectAuthorLoad()

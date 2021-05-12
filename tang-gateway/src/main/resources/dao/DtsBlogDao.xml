@@ -49,11 +49,10 @@
     <select id="selectBlogListByUsername" resultMap="BlogResult">
         SELECT A.USERNAME ,A.NICKNAME ,B.BLOG_ID ,B.TITLE ,B.CREATE_DATE ,B.SYNOPSIS ,BT.BLOG_TAG_ID ,BT.TAG_NAME
         FROM UTS_AUTHOR A
-        LEFT JOIN DTS_BLOG B ON A.AUTHOR_ID = B.AUTHOR_ID
+        LEFT JOIN DTS_BLOG B ON A.AUTHOR_ID = B.AUTHOR_ID AND A.USERNAME = #{username}
         LEFT JOIN DTS_BLOG_TAG_RELATION DBTR ON DBTR.BLOG_ID = B.BLOG_ID
         LEFT JOIN DTS_BLOG_TAG BT ON BT.BLOG_TAG_ID = DBTR.BLOG_TAG_ID
         AND  B.STATE_CODE = 1001
-        AND A.USERNAME = #{username}
         ORDER BY B.CREATE_DATE DESC
     </select>
 
@@ -63,10 +62,12 @@
         LEFT JOIN DTS_BLOG B ON A.AUTHOR_ID = B.AUTHOR_ID
         LEFT JOIN DTS_BLOG_TAG_RELATION DBTR ON DBTR.BLOG_ID = B.BLOG_ID
         LEFT JOIN DTS_BLOG_TAG BT ON BT.BLOG_TAG_ID = DBTR.BLOG_TAG_ID
-        <if test="tagName != ''">
-            AND upper(BT.TAG_NAME) = upper(#{tagName})
-        </if>
-        AND B.STATE_CODE = 1001
+        <where>
+            <if test="tagName != ''">
+                upper(BT.TAG_NAME) = upper(#{tagName})
+            </if>
+            AND B.STATE_CODE = 1001
+        </where>
         ORDER BY B.CREATE_DATE DESC
     </select>
 </mapper>
