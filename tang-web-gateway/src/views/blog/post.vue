@@ -1,19 +1,15 @@
 <template>
   <div class="row" style="margin-bottom: 50px">
     <div class="col-md-3 col-lg-3" >
-      <div class="list-group margin-bottom10" v-if="showSubject">
-        <a class="list-group-item">{{subject.subjectName}}<span class="float-end">🎇</span></a>
+      <div class="list-group margin-bottom10 hdl" v-if="showSubject">
+        <a class="list-group-item">{{subject.subjectName}}<span class="float-end">专题</span></a>
         <router-link @click="blog.blogId = item.blogId" :class="item.blogId == blog.blogId?'active':''" v-for="(item,index) in blogList" :key="index"  :to="{name: 'post', params: { id: item.blogId }}" 
           class="list-group-item"
           >{{item.title}}</router-link>
       </div>
 
-      <div class="list-group margin-bottom10">
-        <a class="list-group-item ">推荐<span class="float-end">🎇</span></a>
-        <a class="list-group-item ">推荐<span class="float-end">🎇</span></a>
-        <a class="list-group-item ">推荐<span class="float-end">🎇</span></a>
-        <a class="list-group-item ">推荐<span class="float-end">🎇</span></a>
-        <a class="list-group-item ">推荐<span class="float-end">🎇</span></a>
+      <div class="list-group margin-bottom10 hdl">
+        <a v-for="(item,index) in recommendList" class="list-group-item " :key="index">{{item.title}}</a>
       </div>
     </div>
     <div class="col-md-9 col-lg-9">
@@ -80,8 +76,7 @@
                 举报
               </button>
               <div class="float-end">
-                <span v-for="(item, index) in blog.tagList" :key="index">
-                  .
+                <span v-for="(item, index) in blog.tagList" :key="index">&nbsp;
                   <span style="font-size: 10px; color: #a2a2a2">{{
                     item.tagName
                   }}</span></span
@@ -127,24 +122,7 @@
               <a class="list-group-item active"
                 >广播<span class="pull-right">🎇</span></a
               >
-              <a
-                target="_blank"
-                href="http://www.ttcxy.net/post/098384e9a34d438480289ad23c8625ba"
-                class="list-group-item"
-                >公众号推荐列表</a
-              >
-              <a
-                target="_blank"
-                href="http://www.ttcxy.net/post/98d9f0454fe34b9589e36cdcfc45e02f"
-                class="list-group-item"
-                >好用的教程</a
-              >
-              <a
-                target="_blank"
-                href="http://www.ttcxy.net/post/461196615cb14caaad4cbb58e82c58e6"
-                class="list-group-item"
-                >可能是目前为止最好的QQ群列表
-              </a>
+              <advertise></advertise>
             </div>
             <div class="card">
               <div class="card-body">
@@ -177,7 +155,7 @@
 </template>
 
 <script>
-import { postBlog } from "/@/api/blog"
+import { postBlog,loadRecommend } from "/@/api/blog"
 import { selectSubjectBlogList } from "/@/api/subject"
 import { like,unlike,isLike } from "/@/api/like"
 import {insertFans,deleteFans,isFans} from "/@/api/fans"
@@ -190,6 +168,7 @@ export default {
       param: {
         blogId: this.$route.params.id,
       },
+      recommendList:[],
       blog: {
         title: "文章不存在",
         username: "admin",
@@ -263,12 +242,18 @@ export default {
           this.showSubject = true
         }
       })
+    },
+    loadRecommend(){
+      loadRecommend().then((response) => {
+        this.recommendList = response.data;
+      })
     }
   },
   mounted() {
     this.loadBlogInfo();
     this.selectSubjectBlogList()
     this.isLike()
+    this.loadRecommend()
   },
 };
 </script>

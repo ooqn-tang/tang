@@ -17,7 +17,7 @@
     </select>
 
     <select id="selectTagListByName" resultMap="BlogTagResult">
-        select * from DTS_BLOG_TAG where TAG_NAME LIKE concat('%',#{name},'%')
+        select * from DTS_BLOG_TAG where TAG_NAME LIKE concat(#{name},'%')
     </select>
     <select id="selectAuthorAllTag" resultMap="BlogTagResult">
         SELECT *

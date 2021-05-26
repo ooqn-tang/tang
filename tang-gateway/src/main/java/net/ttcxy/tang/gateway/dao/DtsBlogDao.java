@@ -45,4 +45,10 @@ public interface DtsBlogDao {
      * @return 博客列表
      */
     List<DtsBlogDto> selectBlogListByUsername(String username);
+
+    /**
+     * 获取前1000条数据
+     */
+    List<DtsBlogDto> selectBlogList1000();
+
 }

@@ -6,6 +6,7 @@ import net.ttcxy.tang.gateway.entity.model.DtsBlog;
 import net.ttcxy.tang.gateway.entity.model.DtsBlogTag;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * 博客操作
@@ -53,7 +54,7 @@ public interface DtsBlogService {
     /**
      * 添加blog
      */
-    int insertBlog(DtsBlog blog, List<String> tagIdList);
+    int insertBlog(DtsBlog blog , String subjectId , List<String> tagIdList);
 
     /**
      * 更新博客
@@ -86,14 +87,12 @@ public interface DtsBlogService {
      * 查询我是否喜欢了当前Blog
      * @param userId 用户ID
      * @param dataId 博客ID
-     * @return
      */
     long selectLike(String userId, String dataId);
 
     /**
      * 更新博客，获取原始MD格式
      * @param blogId 博客列表
-     * @return
      */
     DtsBlog selectByPrimaryId(String blogId);
 
@@ -113,4 +112,9 @@ public interface DtsBlogService {
      * @return 博客列表
      */
     PageInfo<DtsBlogDto> selectBlogListByUsername(String username, Integer page, int pageSize);
+
+    /**
+     * 前一千条
+     */
+    Set<DtsBlogDto> selectBlogListRandom();
 }

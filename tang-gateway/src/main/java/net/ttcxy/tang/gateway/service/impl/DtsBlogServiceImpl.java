@@ -1,5 +1,7 @@
 package net.ttcxy.tang.gateway.service.impl;
 
+import cn.hutool.cache.CacheUtil;
+import cn.hutool.cache.impl.TimedCache;
 import cn.hutool.core.date.DateTime;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.thread.ThreadUtil;
@@ -8,19 +10,21 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import net.ttcxy.tang.gateway.core.api.ApiException;
 import net.ttcxy.tang.gateway.dao.DtsBlogDao;
-import net.ttcxy.tang.gateway.dao.mapper.DtsBlogMapper;
+import net.ttcxy.tang.gateway.dao.mapper.*;
 import net.ttcxy.tang.gateway.dao.mapper.DtsBlogTagMapper;
-import net.ttcxy.tang.gateway.dao.mapper.DtsBlogTagRelationMapper;
-import net.ttcxy.tang.gateway.dao.mapper.DtsLikeBlogMapper;
 import net.ttcxy.tang.gateway.entity.dto.DtsBlogDto;
 import net.ttcxy.tang.gateway.entity.model.*;
 import net.ttcxy.tang.gateway.service.CurrentAuthorService;
 import net.ttcxy.tang.gateway.service.DtsBlogService;
+import net.ttcxy.tang.gateway.service.DtsBlogSubjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Random;
+import java.util.Set;
 import java.util.concurrent.ExecutorService;
 
 /**
@@ -31,6 +35,16 @@ import java.util.concurrent.ExecutorService;
 public class DtsBlogServiceImpl implements DtsBlogService {
 
     private static final ExecutorService executorService = ThreadUtil.newExecutor(50);
+
+    private static TimedCache<String, List<DtsBlogDto>> cache = null;
+
+    public static String FILE_LIST = "FILE_LIST";
+
+    static{
+        cache = CacheUtil.newTimedCache(60 * 60 * 60);
+    }
+
+
 
     @Autowired
     private DtsBlogDao blogDao;
@@ -65,8 +79,11 @@ public class DtsBlogServiceImpl implements DtsBlogService {
         return new PageInfo<>(blogDao.selectBlogListByUsername(username));
     }
 
+    @Autowired
+    private DtsBlogSubjectService blogSubjectService;
+
     @Override
-    public int insertBlog(DtsBlog blog, List<String> tagIdList) {
+    public int insertBlog(DtsBlog blog,String subjectId, List<String> tagIdList) {
         blog.setBlogId(IdUtil.fastSimpleUUID());
         blog.setAuthorId(currentAuthorServiceImpl.getAuthorId());
         DateTime date = DateUtil.date();
@@ -82,8 +99,12 @@ public class DtsBlogServiceImpl implements DtsBlogService {
             blogTagRelationMapper.insert(blogTagRelation);
         }
 
+        int i = blogMapper.insertSelective(blog);
+        if (i > 0){
+            blogSubjectService.insertBlogToSubject(blog.getBlogId(), subjectId);
+        }
 
-        return blogMapper.insertSelective(blog);
+        return i;
     }
 
     @Override
@@ -93,7 +114,6 @@ public class DtsBlogServiceImpl implements DtsBlogService {
 
     @Override
     public int deleteBlog(String id) {
-
         return blogMapper.deleteByPrimaryKey(id);
     }
 
@@ -153,5 +173,25 @@ public class DtsBlogServiceImpl implements DtsBlogService {
     @Override
     public PageInfo<DtsBlogDto> selectBlogListByUsername(String username, Integer page, int pageSize) {
         return new PageInfo<>(blogDao.selectBlogListByUsername(username));
+    }
+
+    @Override
+    public Set<DtsBlogDto> selectBlogListRandom() {
+        Set<DtsBlogDto> set = new HashSet<>(10);
+
+        if (cache.get(FILE_LIST) == null){
+            cache.put(FILE_LIST,blogDao.selectBlogList1000());
+        }
+
+        Random random = new Random();
+
+        while(true){
+            int n = random.nextInt(cache.get(FILE_LIST).size());
+            set.add(cache.get(FILE_LIST).get(n));
+            if (set.size() == 10 || set.size() == cache.get(FILE_LIST).size()){
+                break;
+            }
+        }
+        return set;
     }
 }
