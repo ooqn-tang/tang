@@ -37,6 +37,12 @@ public class DtsBlogDto {
     @ApiModelProperty(value = "博文文本")
     private String text;
 
+    @ApiModelProperty(value = "专题名")
+    private String subjectName;
+
+    @ApiModelProperty(value = "专题ID")
+    private String subjectId;
+
     @ApiModelProperty(value = "标签列表")
     private List<DtsBlogTag> tagList;
 

@@ -12,10 +12,13 @@
         <result column="username" property="username"/>
         <result column="nickname" property="nickname"/>
         <result column="text" property="text"/>
+        <result column="blog_subject_id" property="subjectId"/>
+        <result column="SUBJECT_NAME" property="subjectName"/>
         <collection column="BLOG_ID" ofType="net.ttcxy.tang.gateway.entity.model.DtsBlogTag" property="tagList">
             <id property="blogTagId"  column="BLOG_TAG_ID"/>
             <result property="tagName" column="TAG_NAME"/>
         </collection>
+
     </resultMap>
 
     <select id="search" resultMap="BlogResult">
@@ -47,13 +50,15 @@
     </select>
 
     <select id="selectBlogListByUsername" resultMap="BlogResult">
-        SELECT A.USERNAME ,A.NICKNAME ,B.BLOG_ID ,B.TITLE ,B.CREATE_DATE ,B.SYNOPSIS ,BT.BLOG_TAG_ID ,BT.TAG_NAME
-        FROM UTS_AUTHOR A
-        LEFT JOIN DTS_BLOG B ON A.AUTHOR_ID = B.AUTHOR_ID AND A.USERNAME = #{username}
-        LEFT JOIN DTS_BLOG_TAG_RELATION DBTR ON DBTR.BLOG_ID = B.BLOG_ID
-        LEFT JOIN DTS_BLOG_TAG BT ON BT.BLOG_TAG_ID = DBTR.BLOG_TAG_ID
-        AND  B.STATE_CODE = 1001
-        ORDER BY B.CREATE_DATE DESC
+        select A.USERNAME ,A.NICKNAME ,B.BLOG_ID ,B.TITLE ,B.CREATE_DATE ,B.SYNOPSIS ,BT.BLOG_TAG_ID ,BT.TAG_NAME,bs1.SUBJECT_NAME ,bs1.BLOG_SUBJECT_ID
+        from UTS_AUTHOR A
+        inner JOIN DTS_BLOG B ON A.AUTHOR_ID = B.AUTHOR_ID AND A.USERNAME = #{username}
+        left join DTS_BLOG_SUBJECT_RELATION bsr1 on bsr1.blog_id = b.blog_id
+        left join DTS_BLOG_SUBJECT bs1 on bs1.blog_subject_id = bsr1.BLOG_SUBJECT_ID
+        left JOIN DTS_BLOG_TAG_RELATION DBTR ON DBTR.BLOG_ID = B.BLOG_ID
+        left JOIN DTS_BLOG_TAG BT ON BT.BLOG_TAG_ID = DBTR.BLOG_TAG_ID
+        and B.STATE_CODE = 1001
+        order by B.CREATE_DATE DESC
     </select>
 
     <select id="selectBlogList" resultMap="BlogResult">
@@ -69,5 +74,9 @@
             AND B.STATE_CODE = 1001
         </where>
         ORDER BY B.CREATE_DATE DESC
+    </select>
+
+    <select id="selectBlogList1000" resultMap="BlogResult">
+        select blog_id,title from dts_blog limit 1000
     </select>
 </mapper>

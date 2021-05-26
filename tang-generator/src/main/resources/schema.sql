@@ -7,7 +7,6 @@ CREATE TABLE `dts_advertise`  (
   `title` varchar(50) NULL DEFAULT NULL,
   `url` varchar(255) NULL DEFAULT NULL,
   `create_date` timestamp(0) NULL DEFAULT NULL,
-  `delivery_time` int(0) NULL DEFAULT NULL,
   `description` varchar(255) NULL DEFAULT NULL
 ) ;
 

@@ -55,7 +55,7 @@
     <div class="col-md-3  margin-bottom10 ">
       <div class="list-group margin-bottom10">
         <a class="list-group-item active" >广播<span class="pull-right ">🎇</span></a>
-        <a target="_blank" href="http://www.ttcxy.net/post/098384e9a34d438480289ad23c8625ba" class="list-group-item ">公众号推荐列表</a>
+        <advertise></advertise>
       </div>
       <div class="card margin-bottom10">
         <div class="card-body">
@@ -127,6 +127,10 @@ strong p,.card-body p{
 .red {
   color: red;
 }
-
+nav .active {
+    font-weight: 500;
+    color: rgb(0, 40, 90);
+        background: rgb(241, 241, 241);
+}
 
 </style>

@@ -18,6 +18,7 @@ const routes = [
             },
             {
                 path: '/author/:username',
+                name:'author_index',
                 component: () => import('../views/author/index.vue'),
                 children:[
                     {
@@ -53,6 +54,16 @@ const routes = [
                 path: '/post/:id',
                 name: 'post',
                 component: () => import('../views/blog/post.vue')
+            },
+            {
+                path: '/subject',
+                name: 'subject',
+                component: () => import('../views/subject/index.vue')
+            },
+            {
+                path: '/subject/:subject_id',
+                name: 'subject_info',
+                component: () => import('../views/author/subject_info.vue')
             },
         ]
     },

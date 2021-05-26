@@ -28,17 +28,18 @@
         </div>
 
         <div class="input-group mb-3">
-            <input type="text" v-model="tagName" class="form-control" list="datalistOptions" placeholder="标签">
+            <input type="text" v-model="tagName" class="form-control" list="datalistOptions" @change="rtag" placeholder="标签">
             <datalist id="datalistOptions">
                 <option v-for="(item,index) in tagList" :key="index" v-bind:value="item.tagName"/>
             </datalist>
             <button class="btn btn-outline-secondary" type="button" id="button-addon2" @click="insertAuthorTag()">添加</button>
         </div>
+
         <div>
-          <input class="form-control" list="subjectOptions"  @change="changeSubject()" v-model="subjectName" placeholder="专题" >
-          <datalist id="subjectOptions">
-            <option v-for="(item,index) in subjectList" :key="index" v-bind:value="item.subjectName"/>
-          </datalist>
+          <select class="form-select" v-model="blogData.subjectId">
+            <option value="">请选择</option>
+            <option v-for="(item,index) in subjectList" :key="index" :value="item.blogSubjectId">{{item.subjectName}}</option>
+          </select>
         </div>
         
       </div>
@@ -72,7 +73,6 @@ export default {
   name: "editor",
   data() {
     return {
-      subjectName:"",
       blogData:{
         title:"",
         text:"",
@@ -81,7 +81,7 @@ export default {
         tagIdList:[],
         subjectId:""
       },
-      subjectName:"",
+      blogSubjectId:"",
       tagName:"",
       subjectList:[],
       subjectMap:{},
@@ -91,6 +91,9 @@ export default {
     };
   },
   methods: {
+      rtag(){
+        this.loadTagList()
+      },
       changeSubject(){
       },
       keyup(){
@@ -98,9 +101,10 @@ export default {
         this.blogData.synopsis = this.blogData.text.replace(/<(style|script|iframe)[^>]*?>[\s\S]+?<\/\1\s*>/gi,'').replace(/<[^>]+?>/g,'').replace(/\s+/g,' ').replace(/ /g,' ').replace(/>/g,' ').substring(0,150).replace(" ","");
       },
       insertBlog(){
-        this.blogData.subjectId = this.subjectMap[this.subjectName]
         insertBlog(this.blogData).then((response) => {
-          console.log(response.data)
+          if(response.code == 200){
+            window.location.href = "/post/" + response.data
+          }
         })
       },
       loadSubjectList(){

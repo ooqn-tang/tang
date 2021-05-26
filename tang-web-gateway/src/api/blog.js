@@ -86,3 +86,10 @@ export function insertTag(data) {
         data:data
     })
 }
+
+export function loadRecommend() {
+    return request({
+        url: '/blog/recommend',
+        method: 'GET'
+    })
+}

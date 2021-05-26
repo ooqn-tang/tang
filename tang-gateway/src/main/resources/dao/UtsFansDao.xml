@@ -18,9 +18,10 @@
     </select>
 
     <select id="selectFansList" resultMap="FansMap">
-        select f.fans_id,a.username,a.nickname
-        from `uts_fans` f,`uts_author` a
-        where a.author_id = f.author_id
+        select f.fans_id,a2.username,a2.nickname
+        from `uts_fans` f,`uts_author` a1,`uts_author` a2
+        where a1.author_id = f.author_id
+        and a2.author_id = f.be_author_id
         and f.author_id = #{authorId}
         order by f.create_date Desc
     </select>

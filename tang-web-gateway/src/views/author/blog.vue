@@ -5,12 +5,11 @@
         <strong><p v-text="item.title"></p></strong>
       </router-link>
       <div class="blog-synopsis">{{item.synopsis}}</div>
-      <div>
         <span>{{item.createDate}}</span>
         <div class="btn-group float-end">
-          <button class="btn btn-outline-dark float-end" style="padding: 0px 5px 0px 3px;font-size: 13px;" disabled>编辑</button>
+          <!-- <button class="btn btn-outline-dark float-end" style="padding: 0px 5px 0px 3px;font-size: 13px;" disabled>编辑</button> -->
           <button class="btn btn-outline-dark float-end" style="padding: 0px 5px 0px 3px;font-size: 13px;">删除</button>
-          <button class="btn btn-outline-dark float-end" style="padding: 0px 5px 0px 3px;font-size: 13px;" data-bs-toggle="modal" data-bs-target="#exampleModal"  @click="subjectFrom.blogId = item.blogId">添加到专辑</button>
+          <button class="btn btn-outline-dark float-end" style="padding: 0px 5px 0px 3px;font-size: 13px;" v-if="item.subjectId == null" data-bs-toggle="modal" data-bs-target="#exampleModal"  @click="subjectFrom.blogId = item.blogId">添加到专辑</button>
       </div>
     </li>   
     <li class="list-group-item ">
@@ -33,7 +32,7 @@
         </select>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">关闭</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" ref="close">关闭</button>
         <button type="button" class="btn btn-primary" @click="insertBlogToSubject">保存</button>
       </div>
     </div>
@@ -64,7 +63,9 @@ export default {
   methods: {
     loadBlogByUsername(){
       loadBlogByUsername(this.$route.params.username,{}).then((response) => {
-        this.blogList = response.data.list
+        if(response.data.list != undefined){
+          this.blogList = response.data.list
+        }
       })
     },
     loadSubjectList(){
@@ -73,12 +74,11 @@ export default {
       })
     },
     insertBlogToSubject(){
-       alert(JSON.stringify(this.subjectFrom))
       let blogId = this.subjectFrom.blogId;
       let subjectId = this.subjectFrom.subjectId;
-     
       insertBlogToSubject(blogId, subjectId).then((response) => {
-        alert(JSON.stringify(response.data))
+        this.loadBlogByUsername() 
+        this.$refs.close.click()
       })
     }
   },

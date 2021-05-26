@@ -64,6 +64,12 @@ public class DtsBlogController {
         return ResponseResult.success(blogList);
     }
 
+    @GetMapping("recommend")
+    @ApiOperation("获取推荐")
+    public ResponseResult<?> selectBlogListRecommend(){
+        return ResponseResult.success(blogService.selectBlogListRandom());
+    }
+
     @DeleteMapping("{blogId}")
     @ApiOperation("删除博客")
     public ResponseResult<?> delete(@PathVariable("blogId") String blogId){
@@ -114,7 +120,11 @@ public class DtsBlogController {
     public ResponseResult<?> insert(@RequestBody @Validated DtsBlogParam blogParam){
         DtsBlog blog = BeanUtil.toBean(blogParam, DtsBlog.class);
         List<String> tagIdList = blogParam.getTagIdList();
-        return ResponseResult.success(blogService.insertBlog(blog,tagIdList));
+        if (blogService.insertBlog(blog , blogParam.getSubjectId() , tagIdList) > 0){
+            return ResponseResult.success(blog.getBlogId());
+        }
+        return ResponseResult.failed("添加失败");
+
     }
 
     @GetMapping("load")

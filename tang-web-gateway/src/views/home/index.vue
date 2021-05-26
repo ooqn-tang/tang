@@ -76,5 +76,9 @@ p{
 body{
     overflow-y: scroll;
 }
+.nav .active {
+    font-weight: 500;
+    color: rgb(0, 40, 90);
+}
 
 </style>
