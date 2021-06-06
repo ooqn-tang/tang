@@ -1,7 +1,7 @@
 <template>
   <ul class="list-group blog-list">
     <li class="list-group-item" v-for="(item,index) in subjectList" :key="index">
-      <router-link to="/">
+      <router-link :to="{name:'subject_info',params:{subject_id:item.blogSubjectId}}">
         <strong v-text="item.subjectName"></strong>
       </router-link>
       <span class="float-end" data-bs-toggle="modal" data-bs-target="#exampleModal" @click="updateClick(item.blogSubjectId,item.subjectName,item.synopsis)">编辑</span>
@@ -55,9 +55,6 @@ export default {
         synopsis:""
       }
     };
-  },
-  components: {
-
   },
   methods: {
     save(){

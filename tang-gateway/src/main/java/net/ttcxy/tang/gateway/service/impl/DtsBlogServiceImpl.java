@@ -6,6 +6,7 @@ import cn.hutool.core.date.DateTime;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.thread.ThreadUtil;
 import cn.hutool.core.util.IdUtil;
+import cn.hutool.core.util.StrUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import net.ttcxy.tang.gateway.core.api.ApiException;
@@ -100,7 +101,7 @@ public class DtsBlogServiceImpl implements DtsBlogService {
         }
 
         int i = blogMapper.insertSelective(blog);
-        if (i > 0){
+        if (i > 0 && StrUtil.isNotBlank(subjectId)){
             blogSubjectService.insertBlogToSubject(blog.getBlogId(), subjectId);
         }
 

@@ -8,7 +8,7 @@
         <span>{{item.createDate}}</span>
         <div class="btn-group float-end">
           <!-- <button class="btn btn-outline-dark float-end" style="padding: 0px 5px 0px 3px;font-size: 13px;" disabled>编辑</button> -->
-          <button class="btn btn-outline-dark float-end" style="padding: 0px 5px 0px 3px;font-size: 13px;">删除</button>
+          <button class="btn btn-outline-dark float-end" style="padding: 0px 5px 0px 3px;font-size: 13px;" @click="deleteBlog(item.blogId,index)">删除</button>
           <button class="btn btn-outline-dark float-end" style="padding: 0px 5px 0px 3px;font-size: 13px;" v-if="item.subjectId == null" data-bs-toggle="modal" data-bs-target="#exampleModal"  @click="subjectFrom.blogId = item.blogId">添加到专辑</button>
       </div>
     </li>   
@@ -42,7 +42,7 @@
 </template>
 
 <script>
-import {loadBlogByUsername,loadSubjectList} from '/@/api/blog'
+import {loadBlogByUsername,loadSubjectList,deleteBlog} from '/@/api/blog'
 import {insertBlogToSubject,selectSubjectListByUsername} from '/@/api/subject'
 export default {
   name: "author_blog",
@@ -79,6 +79,11 @@ export default {
       insertBlogToSubject(blogId, subjectId).then((response) => {
         this.loadBlogByUsername() 
         this.$refs.close.click()
+      })
+    },
+    deleteBlog(blogId,index){
+      deleteBlog(blogId).then((response) => {
+        this.blogList.splice(index,1)
       })
     }
   },

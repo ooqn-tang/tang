@@ -32,11 +32,10 @@ export function insertBlog(data) {
     })
 }
 
-export function deleteBlog(data) {
+export function deleteBlog(blogId) {
     return request({
-        url: '/blog',
-        method: 'DELETE',
-        params:data
+        url: '/blog/' + blogId,
+        method: 'DELETE'
     })
 }
 

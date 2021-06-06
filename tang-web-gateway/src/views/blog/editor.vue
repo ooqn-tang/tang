@@ -163,8 +163,9 @@ export default {
 </script>
 <style>
   body{
-    overflow: hidden;
+    overflow-y: hidden !important;
   }
+  
 </style>
 
 <style scoped lang="scss">
