@@ -8,11 +8,10 @@
         <result column="title" property="title"/>
         <result column="url" property="url"/>
         <result column="create_date" property="createDate"/>
-        <result column="delivery_time" property="deliveryTime"/>
         <result column="description" property="description"/>
     </resultMap>
     <select id="selectAdvertiseAll" resultType="net.ttcxy.tang.gateway.entity.model.DtsAdvertise">
-        select advertise_id,title,url,create_date,delivery_time,description
+        select advertise_id,title,url,create_date,description
         from dts_advertise
     </select>
 </mapper>

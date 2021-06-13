@@ -41,7 +41,7 @@ public class UtsAuthorServiceImpl implements UtsAuthorService {
 
     @Override
     public int insertAuthor(UtsAuthor author) throws DuplicateKeyException {
-        author.setAuthorId(IdUtil.fastSimpleUUID());
+        author.setAuthorId(IdUtil.objectId());
         String username = getUsername();
         author.setNickname(username);
         author.setUsername(username);

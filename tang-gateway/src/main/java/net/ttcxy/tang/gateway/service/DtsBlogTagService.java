@@ -39,7 +39,7 @@ public interface DtsBlogTagService {
      * @param blogTag 标签
      * @return 结果
      */
-    Integer insertTag(DtsBlogTag blogTag);
+    String insertTag(DtsBlogTag blogTag);
 
     /**
      * 通过Id 修改标签

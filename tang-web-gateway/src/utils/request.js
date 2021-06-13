@@ -36,6 +36,10 @@ service.interceptors.response.use(
             localStorage.setItem("username","")
             store.state.username = ""
         }
+
+        if(error.response.status === 404){
+            alert(error.response.data.message)
+        }
         return Promise.reject(error);
     }
 );

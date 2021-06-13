@@ -6,7 +6,6 @@
     <result column="TITLE" jdbcType="VARCHAR" property="title" />
     <result column="URL" jdbcType="VARCHAR" property="url" />
     <result column="CREATE_DATE" jdbcType="TIMESTAMP" property="createDate" />
-    <result column="DELIVERY_TIME" jdbcType="INTEGER" property="deliveryTime" />
     <result column="DESCRIPTION" jdbcType="VARCHAR" property="description" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -68,7 +67,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    ADVERTISE_ID, TITLE, URL, CREATE_DATE, DELIVERY_TIME, DESCRIPTION
+    ADVERTISE_ID, TITLE, URL, CREATE_DATE, DESCRIPTION
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
@@ -88,11 +87,9 @@
   </delete>
   <insert id="insert" parameterType="net.ttcxy.tang.gateway.entity.model.DtsAdvertise">
     insert into DTS_ADVERTISE (ADVERTISE_ID, TITLE, URL, 
-      CREATE_DATE, DELIVERY_TIME, DESCRIPTION
-      )
+      CREATE_DATE, DESCRIPTION)
     values (#{advertiseId,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, 
-      #{createDate,jdbcType=TIMESTAMP}, #{deliveryTime,jdbcType=INTEGER}, #{description,jdbcType=VARCHAR}
-      )
+      #{createDate,jdbcType=TIMESTAMP}, #{description,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="net.ttcxy.tang.gateway.entity.model.DtsAdvertise">
     insert into DTS_ADVERTISE
@@ -108,9 +105,6 @@
       </if>
       <if test="createDate != null">
         CREATE_DATE,
-      </if>
-      <if test="deliveryTime != null">
-        DELIVERY_TIME,
       </if>
       <if test="description != null">
         DESCRIPTION,
@@ -128,9 +122,6 @@
       </if>
       <if test="createDate != null">
         #{createDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="deliveryTime != null">
-        #{deliveryTime,jdbcType=INTEGER},
       </if>
       <if test="description != null">
         #{description,jdbcType=VARCHAR},
@@ -158,9 +149,6 @@
       <if test="record.createDate != null">
         CREATE_DATE = #{record.createDate,jdbcType=TIMESTAMP},
       </if>
-      <if test="record.deliveryTime != null">
-        DELIVERY_TIME = #{record.deliveryTime,jdbcType=INTEGER},
-      </if>
       <if test="record.description != null">
         DESCRIPTION = #{record.description,jdbcType=VARCHAR},
       </if>
@@ -175,7 +163,6 @@
       TITLE = #{record.title,jdbcType=VARCHAR},
       URL = #{record.url,jdbcType=VARCHAR},
       CREATE_DATE = #{record.createDate,jdbcType=TIMESTAMP},
-      DELIVERY_TIME = #{record.deliveryTime,jdbcType=INTEGER},
       DESCRIPTION = #{record.description,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -193,9 +180,6 @@
       <if test="createDate != null">
         CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
       </if>
-      <if test="deliveryTime != null">
-        DELIVERY_TIME = #{deliveryTime,jdbcType=INTEGER},
-      </if>
       <if test="description != null">
         DESCRIPTION = #{description,jdbcType=VARCHAR},
       </if>
@@ -207,7 +191,6 @@
     set TITLE = #{title,jdbcType=VARCHAR},
       URL = #{url,jdbcType=VARCHAR},
       CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
-      DELIVERY_TIME = #{deliveryTime,jdbcType=INTEGER},
       DESCRIPTION = #{description,jdbcType=VARCHAR}
     where ADVERTISE_ID = #{advertiseId,jdbcType=VARCHAR}
   </update>

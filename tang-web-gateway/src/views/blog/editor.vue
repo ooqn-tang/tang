@@ -29,7 +29,7 @@
 
         <div class="input-group mb-3">
             <input type="text" v-model="tagName" class="form-control" placeholder="标签">
-            <button class="btn btn-outline-secondary" type="button" id="button-addon2" @click="insertAuthorTag()">添加</button>
+            <button class="btn btn-outline-secondary" type="button" id="button-addon2" @click="insertTag()">添加</button>
         </div>
 
         <div>
@@ -112,20 +112,16 @@ export default {
           this.authorTagList = response.data;
         })
       },
-      insertAuthorTag(){
-        if(this.tagMap[this.tagName] == undefined){
-          this.insertTag()
-        }else{
-          insertAuthorTag({"tagId":this.tagMap[this.tagName]}).then((response) => {
-            this.loadAuthorAllTagList()
-          })
-        }
-      },
       insertTag(){
         insertTag({"tagName":this.tagName}).then((response) => {
           if(response.code == 200){
-            insertAuthorTag({"tagId":response.data.blogTagId}).then((response) => {
-              this.loadAuthorAllTagList()
+            insertAuthorTag({"tagId":response.data}).then((response2) => {
+              if(response2.code == 200){
+                this.loadAuthorAllTagList()
+              }else{
+                alert(response2.message)
+              }
+              
             })
           }
         })

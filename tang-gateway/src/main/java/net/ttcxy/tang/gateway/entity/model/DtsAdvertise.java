@@ -13,8 +13,6 @@ public class DtsAdvertise implements Serializable {
 
     private Date createDate;
 
-    private Integer deliveryTime;
-
     private String description;
 
     private static final long serialVersionUID = 1L;
@@ -51,14 +49,6 @@ public class DtsAdvertise implements Serializable {
         this.createDate = createDate;
     }
 
-    public Integer getDeliveryTime() {
-        return deliveryTime;
-    }
-
-    public void setDeliveryTime(Integer deliveryTime) {
-        this.deliveryTime = deliveryTime;
-    }
-
     public String getDescription() {
         return description;
     }
@@ -77,7 +67,6 @@ public class DtsAdvertise implements Serializable {
         sb.append(", title=").append(title);
         sb.append(", url=").append(url);
         sb.append(", createDate=").append(createDate);
-        sb.append(", deliveryTime=").append(deliveryTime);
         sb.append(", description=").append(description);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");

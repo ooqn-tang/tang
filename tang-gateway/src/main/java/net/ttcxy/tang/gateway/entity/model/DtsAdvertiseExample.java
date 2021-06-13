@@ -375,66 +375,6 @@ public class DtsAdvertiseExample {
             return (Criteria) this;
         }
 
-        public Criteria andDeliveryTimeIsNull() {
-            addCriterion("DELIVERY_TIME is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andDeliveryTimeIsNotNull() {
-            addCriterion("DELIVERY_TIME is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andDeliveryTimeEqualTo(Integer value) {
-            addCriterion("DELIVERY_TIME =", value, "deliveryTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andDeliveryTimeNotEqualTo(Integer value) {
-            addCriterion("DELIVERY_TIME <>", value, "deliveryTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andDeliveryTimeGreaterThan(Integer value) {
-            addCriterion("DELIVERY_TIME >", value, "deliveryTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andDeliveryTimeGreaterThanOrEqualTo(Integer value) {
-            addCriterion("DELIVERY_TIME >=", value, "deliveryTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andDeliveryTimeLessThan(Integer value) {
-            addCriterion("DELIVERY_TIME <", value, "deliveryTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andDeliveryTimeLessThanOrEqualTo(Integer value) {
-            addCriterion("DELIVERY_TIME <=", value, "deliveryTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andDeliveryTimeIn(List<Integer> values) {
-            addCriterion("DELIVERY_TIME in", values, "deliveryTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andDeliveryTimeNotIn(List<Integer> values) {
-            addCriterion("DELIVERY_TIME not in", values, "deliveryTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andDeliveryTimeBetween(Integer value1, Integer value2) {
-            addCriterion("DELIVERY_TIME between", value1, value2, "deliveryTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andDeliveryTimeNotBetween(Integer value1, Integer value2) {
-            addCriterion("DELIVERY_TIME not between", value1, value2, "deliveryTime");
-            return (Criteria) this;
-        }
-
         public Criteria andDescriptionIsNull() {
             addCriterion("DESCRIPTION is null");
             return (Criteria) this;

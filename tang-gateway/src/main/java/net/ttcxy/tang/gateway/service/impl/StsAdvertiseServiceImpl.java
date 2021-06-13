@@ -36,8 +36,8 @@ public class StsAdvertiseServiceImpl implements StsAdvertiseService {
 
     @Override
     public int insertAdvertise(DtsAdvertise advertise) {
-        String uuid = IdUtil.fastSimpleUUID();
-        advertise.setAdvertiseId(uuid);
+        String id = IdUtil.objectId();
+        advertise.setAdvertiseId(id);
         return advertiseMapper.insertSelective(advertise);
     }
 
