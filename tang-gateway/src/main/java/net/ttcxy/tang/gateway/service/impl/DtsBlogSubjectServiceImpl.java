@@ -53,7 +53,7 @@ public class DtsBlogSubjectServiceImpl implements DtsBlogSubjectService {
 
     @Override
     public Integer insertSubject(DtsBlogSubject subject) {
-        subject.setBlogSubjectId(IdUtil.fastSimpleUUID());
+        subject.setBlogSubjectId(IdUtil.objectId());
         DateTime date = DateUtil.date();
         subject.setCreateDate(date);
         subject.setUpdateDate(date);
@@ -74,7 +74,7 @@ public class DtsBlogSubjectServiceImpl implements DtsBlogSubjectService {
         if (blog != null && blogSubject != null){
             if(StrUtil.equals(blog.getAuthorId(),blogSubject.getAuthorId())){
                 DtsBlogSubjectRelation blogSubjectRelation = new DtsBlogSubjectRelation();
-                blogSubjectRelation.setBlogSubjectRelationId(IdUtil.fastSimpleUUID());
+                blogSubjectRelation.setBlogSubjectRelationId(IdUtil.objectId());
                 blogSubjectRelation.setBlogId(blogId);
                 blogSubjectRelation.setBlogSubjectId(subjectId);
                 blogSubjectRelation.setCreateDate(DateUtil.date());

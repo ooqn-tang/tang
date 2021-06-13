@@ -95,7 +95,6 @@ export default {
         this.author = response.data
       })
     },
-    
   },
   mounted(){
     this.selectAuthor(this.$route.params.username)

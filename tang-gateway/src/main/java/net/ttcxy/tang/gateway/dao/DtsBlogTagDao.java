@@ -11,5 +11,7 @@ public interface DtsBlogTagDao {
 
     List<DtsBlogTagDto> selectTagListByName(String name);
 
+    DtsBlogTagDto selectTagByName(String name);
+
     List<DtsBlogTagDto> selectAuthorAllTag(String authorId);
 }

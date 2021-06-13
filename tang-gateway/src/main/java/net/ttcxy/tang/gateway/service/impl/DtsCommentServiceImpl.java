@@ -34,7 +34,7 @@ public class DtsCommentServiceImpl implements DtsCommentService {
 
     @Override
     public int insertComment(DtsBlogComment blogComment) {
-        String commentId = IdUtil.fastSimpleUUID();
+        String commentId = IdUtil.objectId();
         blogComment.setBlogCommentId(commentId);
         blogComment.setCreateDate(new Date());
         blogComment.setStatus(1);

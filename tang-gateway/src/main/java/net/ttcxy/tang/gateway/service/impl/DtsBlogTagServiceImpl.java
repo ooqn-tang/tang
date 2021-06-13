@@ -5,6 +5,7 @@ import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.IdUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import net.ttcxy.tang.gateway.core.api.ApiException;
 import net.ttcxy.tang.gateway.dao.DtsBlogTagDao;
 import net.ttcxy.tang.gateway.dao.mapper.DtsBlogTagAuthorRelationMapper;
 import net.ttcxy.tang.gateway.dao.mapper.DtsBlogTagMapper;
@@ -13,6 +14,7 @@ import net.ttcxy.tang.gateway.entity.model.DtsBlogTag;
 import net.ttcxy.tang.gateway.entity.model.DtsBlogTagAuthorRelation;
 import net.ttcxy.tang.gateway.service.DtsBlogTagService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -61,19 +63,33 @@ public class DtsBlogTagServiceImpl implements DtsBlogTagService {
 
     @Override
     public Integer insertAuthorTag(String authorId, String tagId) {
-        DtsBlogTagAuthorRelation blogTagAuthorRelation = new DtsBlogTagAuthorRelation();
-        blogTagAuthorRelation.setAuthorId(authorId);
-        blogTagAuthorRelation.setBlogTagId(tagId);
-        blogTagAuthorRelation.setCreateDate(DateUtil.date());
-        blogTagAuthorRelation.setBlogTagAuthorRelationId(IdUtil.fastSimpleUUID());
-        return blogTagAuthorRelationMapper.insert(blogTagAuthorRelation);
+        try{
+            DtsBlogTagAuthorRelation blogTagAuthorRelation = new DtsBlogTagAuthorRelation();
+            blogTagAuthorRelation.setAuthorId(authorId);
+            blogTagAuthorRelation.setBlogTagId(tagId);
+            blogTagAuthorRelation.setCreateDate(DateUtil.date());
+            blogTagAuthorRelation.setBlogTagAuthorRelationId(IdUtil.objectId());
+            return blogTagAuthorRelationMapper.insert(blogTagAuthorRelation);
+        }catch (DuplicateKeyException e){
+            throw new ApiException("你已经添加了当前标签");
+        }
+
     }
 
     @Override
-    public Integer insertTag(DtsBlogTag blogTag) {
-        blogTag.setBlogTagId(IdUtil.fastSimpleUUID());
+    public String insertTag(DtsBlogTag blogTag) {
+        blogTag.setBlogTagId(IdUtil.objectId());
         blogTag.setCreateDate(DateUtil.date());
-        return blogTagMapper.insert(blogTag);
+        DtsBlogTagDto tag = blogTagDao.selectTagByName(blogTag.getTagName());
+        if (tag != null){
+            return tag.getBlogTagId();
+        }else{
+            if (blogTagMapper.insertSelective(blogTag) > 0){
+                return blogTag.getBlogTagId();
+            }else{
+                throw new ApiException("添加失败");
+            }
+        }
     }
 
     @Override

@@ -78,13 +78,10 @@ public class DtsBlogTagController {
 
     @PostMapping
     @ApiOperation("添加标签")
-    public ResponseResult<DtsBlogTag> insertTag(@RequestBody DtsTagParam tagParam){
+    public ResponseResult<String> insertTag(@RequestBody DtsTagParam tagParam){
         DtsBlogTag tagDto = BeanUtil.toBean(tagParam, DtsBlogTag.class);
-        Integer count = blogTagService.insertTag(tagDto);
-        if (count > 0){
-            return ResponseResult.success(tagDto);
-        }
-        throw new ApiException();
+        String tagId = blogTagService.insertTag(tagDto);
+        return ResponseResult.success(tagId);
     }
 
     @PutMapping

@@ -13,10 +13,10 @@
         <result column="nickname" property="nickname"/>
         <result column="text" property="text"/>
         <result column="blog_subject_id" property="subjectId"/>
-        <result column="SUBJECT_NAME" property="subjectName"/>
-        <collection column="BLOG_ID" ofType="net.ttcxy.tang.gateway.entity.model.DtsBlogTag" property="tagList">
-            <id property="blogTagId"  column="BLOG_TAG_ID"/>
-            <result property="tagName" column="TAG_NAME"/>
+        <result column="subject_name" property="subjectName"/>
+        <collection column="blog_id" ofType="net.ttcxy.tang.gateway.entity.model.DtsBlogTag" property="tagList">
+            <id column="blog_tag_id" property="blogTagId"/>
+            <result column="tag_name" property="tagName"/>
         </collection>
 
     </resultMap>

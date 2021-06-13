@@ -10,6 +10,8 @@ CREATE TABLE `dts_advertise`  (
   `description` varchar(255) NULL DEFAULT NULL
 ) ;
 
+
+
 -- ----------------------------
 -- Table structure for dts_blog
 -- ----------------------------

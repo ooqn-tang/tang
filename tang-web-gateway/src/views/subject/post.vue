@@ -3,13 +3,13 @@
     <div class="col-md-9 ">
       <div class="card margin-bottom10">
         <div class="card-body">
-          <h4></h4>
-          <span></span>
+          <h4>{{subjectData.subjectName}}</h4>
+          <span>{{subjectData.synopsis}}</span>
         </div>
       </div>
       <ul class="list-group ">
-        <li class="list-group-item " v-for="(item,index) in subjectList" :key="index">
-          <router-link :to="{name: 'post', params: { id: item.subjectId }}" class="blog-title">
+        <li class="list-group-item " v-for="(item,index) in subjectData.blogList" :key="index">
+          <router-link :to="{name: 'post', params: { id: item.blogId }}" class="blog-title">
             <strong><p v-text="item.title"></p></strong>
             </router-link>
           <div class="blog-synopsis" style="color: #5f5a5a;">{{item.synopsis}}</div>
@@ -60,9 +60,7 @@ export default {
   methods: {
     loadSubjectById(){
       loadSubjectById(this.$route.params.subject_id).then((response) => {
-        alert(JSON.stringify(response.data))
         this.subjectData = response.data
-        
       })
     }
   },

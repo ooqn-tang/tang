@@ -38,7 +38,7 @@ public class UtsFansServiceImpl implements UtsFansService {
     @Override
     public int insertFans(UtsFans fans) {
         fans.setCreateDate(DateTime.now());
-        fans.setFansId(IdUtil.fastSimpleUUID());
+        fans.setFansId(IdUtil.objectId());
         return fansMapper.insertSelective(fans);
     }
 

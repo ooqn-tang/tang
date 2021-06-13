@@ -129,7 +129,7 @@ public class DtsBlogController {
 
     @GetMapping("load")
     @ApiOperation("通过ID加载博客HTML信息")
-    public ResponseResult<?> load(@RequestParam(name="blogId",required = false) String blogId){
+    public ResponseResult<?> load(@RequestParam(name="blogId") String blogId){
         DtsBlogDto blogDto = blogService.selectBlogById(blogId);
         if (blogDto == null){
             throw new ApiException(ResponseCode.FAILED);

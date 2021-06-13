@@ -32,7 +32,7 @@
             <div id="blog-body" class="card-body" style="overflow-y: hidden">
               <div>
                 <strong>
-                  <router-link to="">{{ blog.nickname }}</router-link>
+                  <router-link :to="{name:'author_blog',params:{username:blog.username}}">{{ blog.nickname }}</router-link> 
                 </strong>
                 .
                 <span style="color: rgb(180, 180, 180)">{{
@@ -58,8 +58,8 @@
               <h3>
                 <strong>{{ blog.title }}</strong>
               </h3>
-              <div style="border: 1px solid dimgrey;border-radius: 5px;background: #f1f1f1;">
-                    <span style="font-size: 10px; color: rgb(1 51 234);">&nbsp;Tag:&nbsp;</span>
+              <div style="border: 1px solid dimgrey;border-radius: 5px;background: #f1f1f1;padding-bottom: 3px;">
+                    <span style="font-size: 10px; color: rgb(1 51 234);" >&nbsp;标签:</span> 
                     <span v-for="(item, index) in blog.tagList" :key="index" style="font-size: 10px; color: rgb(1 51 234);">&nbsp;{{item.tagName}}&nbsp;</span>
                   </div>
               <hr/>
@@ -88,19 +88,18 @@
               >
                 分享
               </button>
-              <button
+              
+              <div class="float-end">
+                <button
                 disabled
                 class="btn btn-outline-primary"
                 style="
                   padding: 0px 5px 0px 3px;
                   font-size: 13px;
                   margin-left: 5px;
-                "
-              >
+                ">
                 举报
               </button>
-              <div class="float-end">
-                
               </div>
             </div>
           </div>

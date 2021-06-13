@@ -85,7 +85,7 @@ public class DtsBlogServiceImpl implements DtsBlogService {
 
     @Override
     public int insertBlog(DtsBlog blog,String subjectId, List<String> tagIdList) {
-        blog.setBlogId(IdUtil.fastSimpleUUID());
+        blog.setBlogId(IdUtil.objectId());
         blog.setAuthorId(currentAuthorServiceImpl.getAuthorId());
         DateTime date = DateUtil.date();
         blog.setUpdateDate(date);
@@ -94,7 +94,7 @@ public class DtsBlogServiceImpl implements DtsBlogService {
 
         DtsBlogTagRelation blogTagRelation = new DtsBlogTagRelation();
         for (String tagId : tagIdList) {
-            blogTagRelation.setBlogTagRelationId(IdUtil.fastSimpleUUID());
+            blogTagRelation.setBlogTagRelationId(IdUtil.objectId());
             blogTagRelation.setBlogId(blog.getBlogId());
             blogTagRelation.setBlogTagId(tagId);
             blogTagRelationMapper.insert(blogTagRelation);
@@ -124,10 +124,10 @@ public class DtsBlogServiceImpl implements DtsBlogService {
             DtsLikeBlogExample likeDataExample = new DtsLikeBlogExample();
             likeDataExample.createCriteria().andBlogIdEqualTo(blogId).andAuthorIdEqualTo(authorId);
             DtsLikeBlog dtsLikeBlog = new DtsLikeBlog();
-            String uuid = IdUtil.fastSimpleUUID();
+            String id = IdUtil.objectId();
             dtsLikeBlog.setAuthorId(authorId);
             dtsLikeBlog.setBlogId(blogId);
-            dtsLikeBlog.setLikeBlogId(uuid);
+            dtsLikeBlog.setLikeBlogId(id);
             dtsLikeBlog.setCreateDate(DateUtil.date());
             return likeMapper.insert(dtsLikeBlog);
         }catch (DuplicateKeyException e){
