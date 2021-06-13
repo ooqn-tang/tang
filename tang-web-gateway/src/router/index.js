@@ -63,7 +63,7 @@ const routes = [
             {
                 path: '/subject/:subject_id',
                 name: 'subject_info',
-                component: () => import('../views/author/subject_info.vue')
+                component: () => import('../views/subject/post.vue')
             },
         ]
     },

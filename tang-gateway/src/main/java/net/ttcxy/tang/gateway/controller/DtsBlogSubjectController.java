@@ -40,7 +40,7 @@ public class DtsBlogSubjectController {
     @GetMapping("subjectId")
     @ApiOperation("通过专辑ID查询专辑所有博客")
     public ResponseResult<DtsBlogSubjectDto> selectSubjectBlogById(
-            @PathVariable(value = "subjectId")String subjectId){
+            @RequestParam(value = "subjectId")String subjectId){
 
         DtsBlogSubjectDto subjectDto = blogSubjectService.selectSubjectBlogListById(subjectId);
         return ResponseResult.success(subjectDto);

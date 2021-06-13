@@ -44,3 +44,13 @@ export function updateSubject(data) {
         data
     })
 }
+
+export function loadSubjectById(id){
+    return request({
+        url: '/subject/subjectId',
+        method: 'GET',
+        params: {
+            "subjectId":id
+        }
+    })
+}

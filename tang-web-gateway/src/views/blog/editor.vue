@@ -28,20 +28,16 @@
         </div>
 
         <div class="input-group mb-3">
-            <input type="text" v-model="tagName" class="form-control" list="datalistOptions" @change="rtag" placeholder="标签">
-            <datalist id="datalistOptions">
-                <option v-for="(item,index) in tagList" :key="index" v-bind:value="item.tagName"/>
-            </datalist>
+            <input type="text" v-model="tagName" class="form-control" placeholder="标签">
             <button class="btn btn-outline-secondary" type="button" id="button-addon2" @click="insertAuthorTag()">添加</button>
         </div>
 
         <div>
           <select class="form-select" v-model="blogData.subjectId">
-            <option value="">请选择</option>
+            <option value="">请选择专辑</option>
             <option v-for="(item,index) in subjectList" :key="index" :value="item.blogSubjectId">{{item.subjectName}}</option>
           </select>
         </div>
-        
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">关闭</button>
@@ -56,7 +52,7 @@
 
 <script>
 import 'https://cdn.bootcdn.net/ajax/libs/marked/1.2.7/marked.min.js'
-import { insertBlog,loadSubjectList,loadTagList,loadAuthorAllTagList,insertAuthorTag,insertTag} from "/@/api/blog"
+import { insertBlog,loadSubjectList,loadAuthorAllTagList,insertAuthorTag,insertTag} from "/@/api/blog"
 marked.setOptions({
   renderer: new marked.Renderer(),
   gfm: true,
@@ -91,11 +87,6 @@ export default {
     };
   },
   methods: {
-      rtag(){
-        this.loadTagList()
-      },
-      changeSubject(){
-      },
       keyup(){
         this.blogData.text = marked(this.blogData.markdown)
         this.blogData.synopsis = this.blogData.text.replace(/<(style|script|iframe)[^>]*?>[\s\S]+?<\/\1\s*>/gi,'').replace(/<[^>]+?>/g,'').replace(/\s+/g,' ').replace(/ /g,' ').replace(/>/g,' ').substring(0,150).replace(" ","");
@@ -114,17 +105,6 @@ export default {
           for(let item in response.data.list){
             this.subjectMap[li[item]["subjectName"]] = li[item]["blogSubjectId"]
           }
-        })
-      },
-      loadTagList(){
-        loadTagList({"tagName":this.tagName}).then((response) => {
-          this.tagList = response.data.list
-          let li = response.data.list
-          for(let item in response.data.list){
-            this.tagMap[li[item]["tagName"]] = li[item]["blogTagId"]
-          }
-
-          console.log(response.data)
         })
       },
       loadAuthorAllTagList(){
@@ -152,8 +132,6 @@ export default {
       }
   },mounted(){
     this.loadSubjectList()
-
-    this.loadTagList()
     this.loadAuthorAllTagList()
   },
   created(){

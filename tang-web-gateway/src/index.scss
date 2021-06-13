@@ -19,7 +19,9 @@ html,body{
     overflow-x: hidden;
     -webkit-tap-highlight-color: transparent;
 }
-
+p{
+    margin-bottom: 0px;
+}
 a{
     text-decoration:none;
     color:#054cb3;
@@ -48,8 +50,7 @@ a{
     font-weight: bold;
 }
  
-.list-group-item.active{
-    background-color: #054cb3 !important;
+.list-group-item .active{
 }
 
 .markdown-body pre{

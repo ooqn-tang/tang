@@ -8,7 +8,7 @@
     <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <router-link class="nav-link" to="/">😶博客</router-link>
+          <a class="nav-link" href="/blog">😶博客</a>
         </li>
         <!-- <li class="nav-item">
           <router-link class="nav-link" to="/">👨‍🎓作者</router-link>
@@ -20,13 +20,15 @@
           <router-link class="nav-link" to="/">📒专题</router-link>
         </li> -->
         <li class="nav-item" v-if="$store.state.username == ''">
-          <router-link class="nav-link"  to="/login">🧐登录</router-link>
+          <router-link class="nav-link" to="/login">🧐登录</router-link>
         </li>
         <li class="nav-item" v-if="$store.state.username != ''">
           <a class="nav-link"  href="/editor">✒投稿</a>
         </li>
         <li class="nav-item" v-if="$store.state.username != ''">
-          <router-link class="nav-link"  :to="{name:'author_blog',params:{'username':$store.state.username}}">😀我的</router-link>
+          <keep-alive exclude="a">
+            <a class="nav-link" :href="'/author/'+$store.state.username">😀我的</a>
+          </keep-alive>
         </li>
       </ul>
       <form class="d-flex">
@@ -76,9 +78,6 @@ p{
 body{
     overflow-y: scroll;
 }
-.nav .active {
-    font-weight: 500;
-    color: rgb(0, 40, 90);
-}
+
 
 </style>
