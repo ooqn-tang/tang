@@ -39,8 +39,7 @@ public class DtsBlogTagServiceImpl implements DtsBlogTagService {
     @Override
     public PageInfo<DtsBlogTagDto> selectTagListByName(String name, int page, int pageSize) {
         PageHelper.startPage(page,pageSize);
-        List<DtsBlogTagDto> list = blogTagDao.selectTagListByName(name);
-        return new PageInfo<>(list);
+        return new PageInfo<>(blogTagDao.selectTagListByName(name));
     }
 
     @Override

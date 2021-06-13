@@ -58,7 +58,12 @@
               <h3>
                 <strong>{{ blog.title }}</strong>
               </h3>
-              <hr />
+              <div style="border: 1px solid dimgrey;border-radius: 5px;background: #f1f1f1;">
+                    <span style="font-size: 10px; color: rgb(1 51 234);">&nbsp;Tag:&nbsp;</span>
+                    <span v-for="(item, index) in blog.tagList" :key="index" style="font-size: 10px; color: rgb(1 51 234);">&nbsp;{{item.tagName}}&nbsp;</span>
+                  </div>
+              <hr/>
+              
               <div class="markdown-body" v-html="blog.text"></div>
             </div>
             <div class="card-footer">
@@ -95,12 +100,7 @@
                 举报
               </button>
               <div class="float-end">
-                <span v-for="(item, index) in blog.tagList" :key="index"
-                  >&nbsp;
-                  <span style="font-size: 10px; color: #a2a2a2">{{
-                    item.tagName
-                  }}</span></span
-                >
+                
               </div>
             </div>
           </div>

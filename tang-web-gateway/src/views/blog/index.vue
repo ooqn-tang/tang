@@ -95,6 +95,7 @@ export default {
   components: {
     
   },
+  
   methods: {
     selectTagClick(tagName){
       this.selectTag = tagName
@@ -129,8 +130,7 @@ strong p,.card-body p{
 }
 nav .active {
     font-weight: 500;
-    color: rgb(0, 40, 90);
-        background: rgb(241, 241, 241);
+    color: rgb(243, 0, 170);
 }
 
 </style>

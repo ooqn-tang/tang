@@ -1,5 +1,15 @@
 package net.ttcxy.tang.gateway.util;
 
+import cn.hutool.crypto.Mode;
+import cn.hutool.crypto.Padding;
+import cn.hutool.crypto.SecureUtil;
+import cn.hutool.crypto.symmetric.AES;
+import cn.hutool.crypto.symmetric.DES;
+
+import javax.crypto.SecretKey;
+import javax.crypto.SecretKeyFactory;
+import java.security.NoSuchAlgorithmException;
+
 /**
  * String util pro 对String操作的其他方法
  * @author huanglei

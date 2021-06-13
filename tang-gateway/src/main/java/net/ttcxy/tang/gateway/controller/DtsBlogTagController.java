@@ -60,7 +60,7 @@ public class DtsBlogTagController {
     @ApiOperation("通过专题名模糊查询")
     public ResponseResult<PageInfo<DtsBlogTagDto>> selectTagByName(
             @RequestParam(value = "tagName",defaultValue = "")String name){
-        PageInfo<DtsBlogTagDto> pageInfo = blogTagService.selectTagListByName(name,10,10);
+        PageInfo<DtsBlogTagDto> pageInfo = blogTagService.selectTagListByName(name,1,10);
         return ResponseResult.success(pageInfo);
     }
 

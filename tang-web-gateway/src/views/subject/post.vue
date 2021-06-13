@@ -3,8 +3,8 @@
     <div class="col-md-9 ">
       <div class="card margin-bottom10">
         <div class="card-body">
-          <H4>Java ajskdfjkd打开附件打开</H4>
-          <span>asdfasdfasdf手动阀手动阀骄傲可是大家疯狂拉升阶段氨基酸的开发了就啊螺丝扣搭街坊奥卡拉圣诞节</span>
+          <h4></h4>
+          <span></span>
         </div>
       </div>
       <ul class="list-group ">
@@ -18,9 +18,6 @@
             <span v-for="(item,index) in item.tagList" :key="index" > . <span style="font-size: 10px;color: #a2a2a2;">{{item.tagName}}</span></span>
             <router-link :to="{name:'author_blog',params:{username:item.username}}" class="float-end">{{item.nickname}}</router-link>
           </div>
-        </li>
-        <li class="list-group-item ">
-          <a class="" @click="loadBlog()">获取</a>
         </li>
       </ul>
     </div>
@@ -49,19 +46,28 @@
 </template>
 
 <script>
+import {loadSubjectById} from "/@/api/subject"
 export default {
   name: "subject_index",
   data() {
     return {
       username: this.$store.getters.username,
-      subjectList:[]
+      subjectData:{}
     };
   },
   created() {
   },
   methods: {
+    loadSubjectById(){
+      loadSubjectById(this.$route.params.subject_id).then((response) => {
+        alert(JSON.stringify(response.data))
+        this.subjectData = response.data
+        
+      })
+    }
   },
   mounted(){
+    this.loadSubjectById()
   }
 };
 </script>
