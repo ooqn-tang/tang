@@ -1,10 +1,14 @@
 <template>
   <div class="row" style="margin-bottom: 50px">
     <div class="col-md-3 col-lg-3">
+      <div class="card" v-if="loading">
+        <div id="blog-body" class="card-body" >
+          加载中...
+        </div>
+      </div>
+      
       <div class="list-group margin-bottom10 hdl" v-if="showSubject">
-        <a class="list-group-item"
-          >{{ subject.subjectName }}<span class="float-end">专题</span></a
-        >
+        <a class="list-group-item">{{ subject.subjectName }}<span class="float-end">专题</span></a>
         <router-link
           @click="blog.blogId = item.blogId"
           :class="item.blogId == blog.blogId ? 'active' : ''"
@@ -29,7 +33,7 @@
       <div class="row">
         <div class="col-lg-8">
           <div class="card margin-bottom10">
-            <div id="blog-body" class="card-body" style="overflow-y: hidden">
+            <div id="blog-body" class="card-body" style="overflow-y: hidden" v-if="!loading">
               <div>
                 <strong>
                   <router-link :to="{name:'author_blog',params:{username:blog.username}}">{{ blog.nickname }}</router-link> 
@@ -59,12 +63,14 @@
                 <strong>{{ blog.title }}</strong>
               </h3>
               <div style="border: 1px solid dimgrey;border-radius: 5px;background: #f1f1f1;padding-bottom: 3px;">
-                    <span style="font-size: 10px; color: rgb(1 51 234);" >&nbsp;标签:</span> 
-                    <span v-for="(item, index) in blog.tagList" :key="index" style="font-size: 10px; color: rgb(1 51 234);">&nbsp;{{item.tagName}}&nbsp;</span>
-                  </div>
+                <span style="font-size: 10px; color: rgb(1 51 234);" >&nbsp;标签:</span> 
+                <span v-for="(item, index) in blog.tagList" :key="index" style="font-size: 10px; color: rgb(1 51 234);">&nbsp;{{item.tagName}}&nbsp;</span>
+              </div>
               <hr/>
-              
               <div class="markdown-body" v-html="blog.text"></div>
+            </div>
+            <div id="blog-body" class="card-body" style="overflow-y: hidden" v-if="loading">
+             加载中...
             </div>
             <div class="card-footer">
               <button
@@ -178,7 +184,6 @@ import { postBlog, loadRecommend } from "/@/api/blog";
 import { selectSubjectBlogList } from "/@/api/subject";
 import { like, unlike, isLike } from "/@/api/like";
 import { insertFans, deleteFans, isFans } from "/@/api/fans";
-
 export default {
   name: "post",
   data() {
@@ -188,6 +193,7 @@ export default {
         blogId: this.$route.params.id,
       },
       recommendList: [],
+      loading:true,
       blog: {
         title: "文章不存在",
         username: "admin",
@@ -243,10 +249,21 @@ export default {
         this.like = response.data;
       });
     },
+    sleep(sm){
+      var now = new Date();
+      var exitTime = now.getTime() + sm;
+      while (true) {
+        now = new Date();
+        if (now.getTime() > exitTime){
+          return;
+        }
+      }
+    },
     loadBlogInfo() {
       postBlog(this.param).then((response) => {
           this.blog = response.data;
           this.isFans();
+          this.loading = false
         });
     },
     selectSubjectBlogList() {

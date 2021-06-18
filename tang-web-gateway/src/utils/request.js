@@ -24,8 +24,10 @@ service.interceptors.request.use(
 service.interceptors.response.use(
     response => {
         const res = response.data;
+        console.log(response.data)
         res.code = 200
         if (res.code !== 200) {
+            alert(res.message)
             return Promise.reject(new Error(res.message || "Error"));
         } else {
             return res;
@@ -35,12 +37,13 @@ service.interceptors.response.use(
         if(error.response.status === 401){
             localStorage.setItem("username","")
             store.state.username = ""
+            location.href = "/"
         }
-
         if(error.response.status === 404){
             alert(error.response.data.message)
+            return Promise.reject(error);
         }
-        return Promise.reject(error);
+        
     }
 );
 

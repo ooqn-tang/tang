@@ -5,6 +5,7 @@ import net.ttcxy.tang.gateway.core.properties.SecurityProperties;
 import net.ttcxy.tang.gateway.core.security.MyAuthenticationEntryPoint;
 import net.ttcxy.tang.gateway.core.security.MyAuthenticationFailureHandler;
 import net.ttcxy.tang.gateway.core.security.MyAuthenticationSuccessHandler;
+import net.ttcxy.tang.gateway.core.security.MyLogoutSuccessHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -58,6 +59,9 @@ public class MySecurityConfig  extends WebSecurityConfigurerAdapter {
         return super.authenticationManager();
     }
 
+    @Autowired
+    private MyLogoutSuccessHandler logoutSuccessHandler;
+
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -90,14 +94,14 @@ public class MySecurityConfig  extends WebSecurityConfigurerAdapter {
         http
         .formLogin()
         //配置登录页面
-        .loginPage(securityProperties.getLoginPagePath())
+        //.loginPage(securityProperties.getLoginPagePath())
         //登录POST请求
         .loginProcessingUrl(securityProperties.getFormLoginApi())
         //自己重写的登录成功处理器
         .successHandler(myAuthenticationSuccessHandler)
         //自己重写的登录失败处理器
         .failureHandler(myAuthenticationFailureHandler)
-
+        .and().logout().logoutSuccessHandler(logoutSuccessHandler)
         .and().cors().and()
         //关闭csrf安全
         .csrf().disable();

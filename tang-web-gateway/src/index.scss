@@ -51,6 +51,7 @@ a{
 }
  
 .list-group-item .active{
+    background-color: #054cb3 !important;
 }
 
 .markdown-body pre{
@@ -69,6 +70,15 @@ a{
     }
     .hdl{
         display: none;
+    }
+    
+    .nopd .nav-link{
+        padding: 8px;
+    }
+    .card{
+        border-left: 0px;
+        border-right: 0px;
+        border-radius: 0px;
     }
 }
 

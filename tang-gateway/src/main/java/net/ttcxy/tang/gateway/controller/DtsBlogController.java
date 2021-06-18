@@ -137,8 +137,8 @@ public class DtsBlogController {
         return ResponseResult.success(blogDto);
     }
 
-    @GetMapping("/like")
-    @ApiOperation("喜欢")
+    @GetMapping("like")
+    @ApiOperation("查询喜欢")
     public ResponseResult<?> getLike(@RequestParam("blogId") String blogId){
         UtsAuthor author = currentAuthor.getAuthor();
         return ResponseResult.success(blogService.selectLike(author.getAuthorId(),blogId));
@@ -152,14 +152,14 @@ public class DtsBlogController {
         return ResponseResult.success(blogService.selectLikeBlogList(username, page, 20));
     }
 
-    @PostMapping("/like")
-    @ApiOperation("喜欢")
+    @PostMapping("like")
+    @ApiOperation("添加喜欢")
     public ResponseResult<?> postLike(@RequestParam("blogId") String blogId){
         UtsAuthor author = currentAuthor.getAuthor();
         return ResponseResult.success(blogService.like(author.getAuthorId(),blogId));
     }
 
-    @DeleteMapping("/like")
+    @DeleteMapping("like")
     @ApiOperation("取消喜欢")
     public ResponseResult<?> deleteLike(@RequestParam("blogId") String blogId){
         UtsAuthor author = currentAuthor.getAuthor();

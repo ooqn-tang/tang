@@ -7,9 +7,6 @@ import './index.scss'
 import './permission'
 import advertise from '/@/components/advertise.vue'
 
-
-
-
 const Vue = createApp(App)
 
 Vue.config.globalProperties.$api = api
