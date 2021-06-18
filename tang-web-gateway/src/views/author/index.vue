@@ -18,7 +18,7 @@
     <div class="col-md-8 col-md-pull-4 margin-bottom10">
       <div class="card">
         <div class="card-header">
-          <ul class="nav nav-tabs card-header-tabs">
+          <ul class="nav justify-content-center nopd">
             <li class="nav-item">
               <a class="nav-link" :class="routeName == 'author_blog'?'active':''" @click="selectTypeClick('author_blog')">博客</a>
             </li>
@@ -95,6 +95,7 @@ export default {
         this.author = response.data
       })
     },
+    
   },
   mounted(){
     this.selectAuthor(this.$route.params.username)

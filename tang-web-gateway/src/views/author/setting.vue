@@ -25,9 +25,13 @@
         <input class="form-control" id="inputPassword3" v-model="author.signature" />
       </div>
     </div>
-    <button class="btn btn-primary" @click="save">保存</button>
-    <br><br>
-    <button class="btn btn-primary" @click="logout">退出登录</button>
+    
+    
+    <div>
+<button class="btn btn-primary" @click="save">保存信息</button>
+<button class="btn btn-primary float-end" @click="logout">退出登录</button>
+    </div>
+    
   </div>
 </template>
 
@@ -49,7 +53,6 @@ export default {
   methods: {
     logout(){
       logout().then()
-      location.href = "/"
     },
     save(){
       updateAuthor(this.author).then((response) => {

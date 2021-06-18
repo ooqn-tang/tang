@@ -46,7 +46,7 @@
     </div>
   </div>
 </nav>
-  <div class="container-fluid">
+  <div class="container-fluid no-lr-padding">
     <router-view/>
   </div>
 </template>
