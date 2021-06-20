@@ -1,4 +1,4 @@
-package net.ttcxy.tang.gateway.controller;
+package net.ttcxy.tang.gateway.controller.api;
 
 import cn.hutool.core.bean.BeanUtil;
 import com.github.pagehelper.PageInfo;
@@ -17,9 +17,9 @@ import org.springframework.web.bind.annotation.*;
 
 @Api("博客专题")
 @RestController
-@RequestMapping("subject")
+@RequestMapping("api/subject")
 @Validated
-public class DtsBlogSubjectController {
+public class ApiBlogSubjectController {
 
     @Autowired
     private DtsBlogSubjectService blogSubjectService;

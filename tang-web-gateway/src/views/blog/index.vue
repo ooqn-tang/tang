@@ -1,19 +1,19 @@
 <template>
   <div class="row">
-    <div class="col-md-9 margin-bottom10 ">
+    <div class="col-md-9 margin-bottom10">
        <div class="card margin-bottom10"  >
          <div class="card-body " style="padding:0px;">
            <nav class="nav">
-              <a class="nav-link" :class="selectTag == ''?'active':''" @click="selectTagClick('')">全部</a>
-              <a class="nav-link" :class="selectTag == 'Java'?'active':''" @click="selectTagClick('Java')">Java</a>
-              <a class="nav-link" :class="selectTag == 'Python'?'active':''" @click="selectTagClick('Python')">Python</a>
-              <a class="nav-link" :class="selectTag == 'Web前端'?'active':''" @click="selectTagClick('Web前端')">Web前端</a>
-              <a class="nav-link" :class="selectTag == 'Android'?'active':''" @click="selectTagClick('Android')">Android</a>
-              <a class="nav-link" :class="selectTag == '数据库'?'active':''" @click="selectTagClick('数据库')">数据库</a>
-              <a class="nav-link" :class="selectTag == '面试'?'active':''" @click="selectTagClick('面试')">面试</a>
-              <a class="nav-link" :class="selectTag == '算法'?'active':''" @click="selectTagClick('算法')">算法</a>
-              <a class="nav-link" :class="selectTag == '故事'?'active':''" @click="selectTagClick('故事')">故事</a>
-              <a class="nav-link" :class="selectTag == '开源项目'?'active':''" @click="selectTagClick('开源项目')">开源项目</a>
+              <a class="nav-link" :class="selectTag == ''?'nav-link-active':''" @click="selectTagClick('')">全部</a>
+              <a class="nav-link" :class="selectTag == 'Java'?'nav-link-active':''" @click="selectTagClick('Java')">Java</a>
+              <a class="nav-link" :class="selectTag == 'Python'?'nav-link-active':''" @click="selectTagClick('Python')">Python</a>
+              <a class="nav-link" :class="selectTag == 'Web前端'?'nav-link-active':''" @click="selectTagClick('Web前端')">Web前端</a>
+              <a class="nav-link" :class="selectTag == 'Android'?'nav-link-active':''" @click="selectTagClick('Android')">Android</a>
+              <a class="nav-link" :class="selectTag == '数据库'?'nav-link-active':''" @click="selectTagClick('数据库')">数据库</a>
+              <a class="nav-link" :class="selectTag == '面试'?'nav-link-active':''" @click="selectTagClick('面试')">面试</a>
+              <a class="nav-link" :class="selectTag == '算法'?'nav-link-active':''" @click="selectTagClick('算法')">算法</a>
+              <a class="nav-link" :class="selectTag == '故事'?'nav-link-active':''" @click="selectTagClick('故事')">故事</a>
+              <a class="nav-link" :class="selectTag == '开源项目'?'nav-link-active':''" @click="selectTagClick('开源项目')">开源项目</a>
             </nav>
          </div>
        </div>
@@ -34,8 +34,8 @@
         </div>
         <div class="card-body blog-list">
           <ul class="list-group ">
-            <li class="list-group-item " v-for="(item,index) in blogData" :key="index">
-              <router-link :to="{name: 'post', params: { id: item.blogId }}" class="blog-title">
+            <li class="list-group-item " v-for="(item,index) in blogList" :key="index">
+              <router-link :to="{name: 'blog_info', params: { id: item.blogId}}" class="blog-title">
                 <strong><p v-text="item.title"></p></strong>
                 </router-link>
               <div class="blog-synopsis" style="color: #5f5a5a;">{{item.synopsis}}</div>
@@ -45,8 +45,8 @@
                 <router-link :to="{name:'author_blog',params:{username:item.username}}" class="float-end">{{item.nickname}}</router-link>
               </div>
             </li>
-            <li class="list-group-item ">
-              <a class="" @click="loadBlog()">获取</a>
+            <li class="list-group-item">
+              <a @click="nextPage()">获取</a>
             </li>
           </ul>
         </div>
@@ -83,40 +83,33 @@ export default {
     return {
       selectTag:'',
       selectType:1,
-      param:{
-        page:1
+      blogPage:{
+        nextPage:1
       },
-      blogData:[],
-      thisBlogPage:{},
-      msg: 'Hello Vue 3.0 + Vite',
-       messageList: [{},{}],
+      blogList:[]
     }
   },
-  components: {
-    
-  },
-  
   methods: {
     selectTagClick(tagName){
       this.selectTag = tagName
-      this.blogData = []
-      this.param.page = 1
-      this.loadBlog()
+      this.blogList = []
+      this.loadBlog(this.blogPage.nextPage,this.selectTag)
     },
-    loadBlog(){
-      this.param.tag = this.selectTag
-      if(this.param.page > 0){
-        blogList(this.param).then((response) => {
-          this.thisBlogPage = response.data
-          this.blogData = this.blogData.concat(response.data.list)
-          this.param.page = response.data.nextPage
-        })
+    loadBlog(nextPage,tagName){
+      blogList({page:nextPage,tag:tagName}).then((response) => {
+        console.log(response.data)
+        this.blogPage = response.data
+        this.blogList = this.blogList.concat(response.data.list)
+      })
+    },
+    nextPage(){
+      if(!this.blogPage.isLastPage){
+        this.loadBlog(this.blogPage.nextPage,this.selectTag)
       }
-      
     }
   },
   mounted(){
-    this.loadBlog()
+    this.loadBlog(this.blogPage.nextPage,this.selectTag)
   }
 }
 </script>
@@ -128,9 +121,4 @@ strong p,.card-body p{
 .red {
   color: red;
 }
-nav .active {
-    font-weight: 500;
-    color: rgb(243, 0, 170);
-}
-
 </style>

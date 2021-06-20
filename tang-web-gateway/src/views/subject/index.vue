@@ -3,13 +3,13 @@
     <div class="col-md-9 ">
       <div class="card margin-bottom10">
         <div class="card-body">
-          <H4>Java ajskdfjkd打开附件打开</H4>
+          <h4>Java ajskdfjkd打开附件打开</h4>
           <span>asdfasdfasdf手动阀手动阀骄傲可是大家疯狂拉升阶段氨基酸的开发了就啊螺丝扣搭街坊奥卡拉圣诞节</span>
         </div>
       </div>
       <ul class="list-group ">
         <li class="list-group-item " v-for="(item,index) in subjectList" :key="index">
-          <router-link :to="{name: 'post', params: { id: item.subjectId }}" class="blog-title">
+          <router-link :to="{name: 'blog_info', params: { id: item.subjectId}}" class="blog-title">
             <strong><p v-text="item.title"></p></strong>
             </router-link>
           <div class="blog-synopsis" style="color: #5f5a5a;">{{item.synopsis}}</div>

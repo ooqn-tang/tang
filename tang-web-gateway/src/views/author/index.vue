@@ -20,19 +20,19 @@
         <div class="card-header">
           <ul class="nav justify-content-center nopd">
             <li class="nav-item">
-              <a class="nav-link" :class="routeName == 'author_blog'?'active':''" @click="selectTypeClick('author_blog')">博客</a>
+              <a class="nav-link" :class="routeName == 'author_blog'?'nav-link-active':''" @click="selectTypeClick('author_blog')">博客</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" :class="routeName == 'author_subject'?'active':''" @click="selectTypeClick('author_subject')">专栏</a>
+              <a class="nav-link" :class="routeName == 'author_subject'?'nav-link-active':''" @click="selectTypeClick('author_subject')">专栏</a>
             </li>
             <li class="nav-item" v-if="thisUsername == loginUsername">
-              <a class="nav-link"  :class="routeName == 'author_subscribe'?'active':''" @click="selectTypeClick('author_subscribe')">订阅</a>
+              <a class="nav-link"  :class="routeName == 'author_subscribe'?'nav-link-active':''" @click="selectTypeClick('author_subscribe')">订阅</a>
             </li>
             <li class="nav-item" v-if="thisUsername == loginUsername">
-              <a class="nav-link"  :class="routeName == 'author_like'?'active':''" @click="selectTypeClick('author_like')">喜欢</a>
+              <a class="nav-link"  :class="routeName == 'author_like'?'nav-link-active':''" @click="selectTypeClick('author_like')">喜欢</a>
             </li>
             <li class="nav-item" v-if="thisUsername == loginUsername">
-              <a class="nav-link" :class="routeName == 'author_setting'?'active':''" @click="selectTypeClick('author_setting')">设置</a>
+              <a class="nav-link" :class="routeName == 'author_setting'?'nav-link-active':''" @click="selectTypeClick('author_setting')">设置</a>
             </li>
           </ul>
         </div>

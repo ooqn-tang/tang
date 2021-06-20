@@ -6,7 +6,7 @@ import store from '../store'
 axios.defaults.withCredentials=true;
 
 const service = axios.create({
-    baseURL: 'http://localhost:80/',
+    baseURL: '/',
     timeout: 30000
 });
 
@@ -35,9 +35,9 @@ service.interceptors.response.use(
     },
     error => {
         if(error.response.status === 401){
-            localStorage.setItem("username","")
-            store.state.username = ""
-            location.href = "/"
+            alert("需要登录")
+            return Promise.reject(error);
+            // window.location.href = "/"
         }
         if(error.response.status === 404){
             alert(error.response.data.message)

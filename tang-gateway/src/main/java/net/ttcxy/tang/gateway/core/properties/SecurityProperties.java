@@ -22,12 +22,12 @@ public class SecurityProperties {
     /**
      * 登陆页面
      */
-    private String loginPagePath = "/login.html";
+    private String loginPagePath = "/";
 
     /**
      * 登陆请求
      */
-    private String formLoginApi = "/login";
+    private String formLoginApi = "/api/login";
 
     /**
      * 需要验证的

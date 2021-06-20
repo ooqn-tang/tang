@@ -2,7 +2,7 @@ import request from '../utils/request'
 
 export function blogList(data) {
     return request({
-        url: '/blog/list',
+        url: '/api/blog/list',
         method: 'get',
         params:data
     })
@@ -10,7 +10,7 @@ export function blogList(data) {
 
 export function loadBlogByUsername(username,data) {
     return request({
-        url: '/blog/list/' + username,
+        url: '/api/blog/list/' + username,
         method: 'get',
         params:data
     })
@@ -18,7 +18,7 @@ export function loadBlogByUsername(username,data) {
 
 export function postBlog(data) {
     return request({
-        url: '/blog/load',
+        url: '/api/blog/load',
         method: 'GET',
         params:data
     })
@@ -26,7 +26,7 @@ export function postBlog(data) {
 
 export function insertBlog(data) {
     return request({
-        url: '/blog',
+        url: '/api/blog',
         method: 'POST',
         data
     })
@@ -34,14 +34,14 @@ export function insertBlog(data) {
 
 export function deleteBlog(blogId) {
     return request({
-        url: '/blog/' + blogId,
+        url: '/api/blog/' + blogId,
         method: 'DELETE'
     })
 }
 
 export function putBlog(data) {
     return request({
-        url: '/blog',
+        url: '/api/blog',
         method: 'PUT',
         data
     })
@@ -49,7 +49,7 @@ export function putBlog(data) {
 
 export function loadSubjectList(username) {
     return request({
-        url: '/subject/username',
+        url: '/api/subject/username',
         method: 'GET',
         params:{"username":username}
     })
@@ -57,7 +57,7 @@ export function loadSubjectList(username) {
 
 export function loadTagList(data) {
     return request({
-        url: '/tag/search',
+        url: '/api/tag/search',
         method: 'GET',
         params:data
     })
@@ -65,14 +65,14 @@ export function loadTagList(data) {
 
 export function loadAuthorAllTagList() {
     return request({
-        url: '/tag/allTag',
+        url: '/api/tag/allTag',
         method: 'GET'
     })
 }
 
 export function insertAuthorTag(data) {
     return request({
-        url: '/tag/author',
+        url: '/api/tag/author',
         method: 'POST',
         params:data
     })
@@ -80,7 +80,7 @@ export function insertAuthorTag(data) {
 
 export function insertTag(data) {
     return request({
-        url: '/tag',
+        url: '/api/tag',
         method: 'POST',
         data:data
     })
@@ -88,7 +88,7 @@ export function insertTag(data) {
 
 export function loadRecommend() {
     return request({
-        url: '/blog/recommend',
+        url: '/api/blog/recommend',
         method: 'GET'
     })
 }

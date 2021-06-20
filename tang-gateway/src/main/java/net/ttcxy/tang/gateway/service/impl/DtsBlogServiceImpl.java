@@ -168,12 +168,8 @@ public class DtsBlogServiceImpl implements DtsBlogService {
 
     @Override
     public PageInfo<DtsBlogDto> selectLikeBlogList(String username, Integer page,Integer pageSize) {
+        PageHelper.startPage(page,pageSize);
         return new PageInfo<>(blogDao.selectLikeBlogs(username));
-    }
-
-    @Override
-    public PageInfo<DtsBlogDto> selectBlogListByUsername(String username, Integer page, int pageSize) {
-        return new PageInfo<>(blogDao.selectBlogListByUsername(username));
     }
 
     @Override

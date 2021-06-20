@@ -23,7 +23,7 @@ public class MyLogoutSuccessHandler implements LogoutSuccessHandler {
     @Override
     public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication){
         response.setContentType("application/json;charset=utf-8");
-        response.setStatus(401);
+        response.setStatus(200);
         try {
             response.getWriter().append("退出成功");
         } catch (IOException e) {

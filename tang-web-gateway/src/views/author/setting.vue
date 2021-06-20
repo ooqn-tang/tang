@@ -53,6 +53,7 @@ export default {
   methods: {
     logout(){
       logout().then()
+      window.location.href = "/"
     },
     save(){
       updateAuthor(this.author).then((response) => {

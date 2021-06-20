@@ -1,7 +1,11 @@
 package net.ttcxy.tang.gateway.core.component;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.server.ErrorPage;
+import org.springframework.boot.web.server.ErrorPageRegistrar;
+import org.springframework.boot.web.server.ErrorPageRegistry;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -35,13 +39,4 @@ public class MyWebMvcConfig implements WebMvcConfigurer {
                 .maxAge(3600)
                 .allowedHeaders("*");
     }
-
-    /*@Bean
-    public Validator validator() {
-        ValidatorFactory validatorFactory = Validation.byProvider(HibernateValidator.class)
-                .configure()
-                .failFast(true)
-                .buildValidatorFactory();
-        return validatorFactory.getValidator();
-    }*/
 }

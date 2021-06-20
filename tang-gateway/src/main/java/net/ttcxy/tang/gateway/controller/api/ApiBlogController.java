@@ -1,4 +1,4 @@
-package net.ttcxy.tang.gateway.controller;
+package net.ttcxy.tang.gateway.controller.api;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.date.DateTime;
@@ -8,8 +8,8 @@ import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import net.ttcxy.tang.gateway.core.api.ApiException;
-import net.ttcxy.tang.gateway.core.api.ResponseResult;
 import net.ttcxy.tang.gateway.core.api.ResponseCode;
+import net.ttcxy.tang.gateway.core.api.ResponseResult;
 import net.ttcxy.tang.gateway.entity.dto.DtsBlogDto;
 import net.ttcxy.tang.gateway.entity.model.DtsBlog;
 import net.ttcxy.tang.gateway.entity.model.UtsAuthor;
@@ -20,16 +20,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-/**
- * 博客控制器
- * @author huanglei
- */
 @RestController
-@RequestMapping("blog")
+@RequestMapping("api/blog")
 @Api("博客")
-public class DtsBlogController {
+public class ApiBlogController {
 
     @Autowired
     private DtsBlogService blogService;
@@ -42,7 +40,7 @@ public class DtsBlogController {
     public ResponseResult<?> searchBlogList(
             @RequestParam(value = "page" ,defaultValue = "1")Integer page,
             @RequestParam(value = "title" ,defaultValue = "")String title){
-        PageInfo<DtsBlogDto> blogList = blogService.search(title, page, 20);
+        PageInfo<DtsBlogDto> blogList = blogService.search(title, page, 10);
         return ResponseResult.success(blogList);
     }
 
@@ -51,7 +49,7 @@ public class DtsBlogController {
     public ResponseResult<?> selectBlogList(
             @RequestParam(value = "page" ,defaultValue = "1")Integer page,
             @RequestParam(value = "tag",defaultValue = "")String tagName){
-        PageInfo<DtsBlogDto> blogList = blogService.selectBlogList(tagName,page, 20);
+        PageInfo<DtsBlogDto> blogList = blogService.selectBlogList(tagName,page, 10);
         return ResponseResult.success(blogList);
     }
 
@@ -60,7 +58,7 @@ public class DtsBlogController {
     public ResponseResult<?> selectBlogListByUsername(
             @RequestParam(value = "page" ,defaultValue = "1")Integer page,
             @PathVariable(value = "username")String username){
-        PageInfo<DtsBlogDto> blogList = blogService.selectBlogListByUsername(username, page, 20);
+        PageInfo<DtsBlogDto> blogList = blogService.selectBlogByAuthorName(username, page, 10);
         return ResponseResult.success(blogList);
     }
 
@@ -78,16 +76,18 @@ public class DtsBlogController {
             throw new ApiException(ResponseCode.FAILED);
         }
         String blogAuthorId = blog.getAuthorId();
-        String currentAuthorId = currentAuthor.getAuthor().getAuthorId();
+        String currentAuthorId = currentAuthor.getAuthorId();
         int count = 0;
-        if (currentAuthor.getAuthor()!=null){
-            if(StrUtil.equals(currentAuthorId,blogAuthorId)){
-                count = blogService.deleteBlog(blogId);
+
+        if(StrUtil.equals(currentAuthorId,blogAuthorId)){
+            count = blogService.deleteBlog(blogId);
+            if(count > 0){
+                return ResponseResult.success();
             }
+        }else{
+            throw new ApiException("不能删除别入的文章");
         }
-        if(count > 0){
-            return ResponseResult.success();
-        }
+
         throw new ApiException(ResponseCode.FAILED);
 
     }
@@ -121,7 +121,10 @@ public class DtsBlogController {
         DtsBlog blog = BeanUtil.toBean(blogParam, DtsBlog.class);
         List<String> tagIdList = blogParam.getTagIdList();
         if (blogService.insertBlog(blog , blogParam.getSubjectId() , tagIdList) > 0){
-            return ResponseResult.success(blog.getBlogId());
+            Map<String,String> map = new HashMap<>();
+            map.put("blogId",blog.getBlogId());
+            map.put("username",currentAuthor.getAuthor().getUsername());
+            return ResponseResult.success(map);
         }
         return ResponseResult.failed("添加失败");
 
@@ -149,7 +152,7 @@ public class DtsBlogController {
     public ResponseResult<PageInfo<DtsBlogDto>> listLike(
             @RequestParam(value = "username") String username,
             @RequestParam(value = "page",defaultValue = "1") Integer page){
-        return ResponseResult.success(blogService.selectLikeBlogList(username, page, 20));
+        return ResponseResult.success(blogService.selectLikeBlogList(username, page, 10));
     }
 
     @PostMapping("like")

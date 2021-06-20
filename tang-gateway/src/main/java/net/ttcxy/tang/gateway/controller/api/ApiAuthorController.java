@@ -1,4 +1,4 @@
-package net.ttcxy.tang.gateway.controller;
+package net.ttcxy.tang.gateway.controller.api;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.StrUtil;
@@ -26,15 +26,11 @@ import javax.validation.constraints.Email;
 
 import static net.ttcxy.tang.gateway.core.ApplicationGlobal.MAIL_VERIFY;
 
-/**
- * 用户相关操作
- * @author huanglei
- */
 @RestController
-@RequestMapping("author")
+@RequestMapping("api/author")
 @Api("作者创作类")
 @Validated
-public class UtsAuthorController {
+public class ApiAuthorController {
 
 
     @Autowired
@@ -48,6 +44,15 @@ public class UtsAuthorController {
 
     @Autowired
     private HttpSession httpSession;
+
+    @GetMapping("isLogin")
+    public ResponseResult<Boolean> isLogin(){
+        UtsAuthor author = currentAuthorService.getAuthor();
+        if (author == null){
+            return ResponseResult.success(false);
+        }
+        return ResponseResult.success(true);
+    }
 
     @PutMapping
     @ApiOperation("更新作者")

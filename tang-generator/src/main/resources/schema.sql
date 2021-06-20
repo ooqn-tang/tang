@@ -214,3 +214,11 @@ CREATE TABLE `sts_config`  (
   `data` varchar(32) NOT NULL,
   `create_date` timestamp(0) DEFAULT NULL
 ) ;
+
+DROP TABLE IF EXISTS `persistent_logins`;
+CREATE TABLE `persistent_logins` (
+  `username` varchar(64) NOT NULL PRIMARY KEY,
+  `series` varchar(64) NOT NULL,
+  `token` varchar(64) NOT NULL,
+  `last_used` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+)

@@ -9,7 +9,7 @@
       </div>
       <ul class="list-group ">
         <li class="list-group-item " v-for="(item,index) in subjectData.blogList" :key="index">
-          <router-link :to="{name: 'post', params: { id: item.blogId }}" class="blog-title">
+          <router-link :to="{name: 'blog_info', params: {id: item.blogId}}" class="blog-title">
             <strong><p v-text="item.title"></p></strong>
             </router-link>
           <div class="blog-synopsis" style="color: #5f5a5a;">{{item.synopsis}}</div>
