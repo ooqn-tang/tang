@@ -1,4 +1,4 @@
-package net.ttcxy.tang.gateway.controller;
+package net.ttcxy.tang.gateway.controller.api;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RestController;
  * @author huanglei
  */
 @RestController
-@RequestMapping("file")
+@RequestMapping("api/file")
 @Api("文件")
-public class StsFileController {
+public class ApiFileController {
 
 
     @Value("${my-file-data}")

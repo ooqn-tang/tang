@@ -27,7 +27,7 @@
         INNER JOIN DTS_BLOG B ON A.AUTHOR_ID = B.AUTHOR_ID AND B.STATE_CODE = 1001 AND B.TITLE LIKE concat('%',#{title},'%')
         LEFT JOIN DTS_BLOG_TAG_RELATION DBTR ON DBTR.BLOG_ID = B.BLOG_ID
         LEFT JOIN DTS_BLOG_TAG BT ON BT.BLOG_TAG_ID = DBTR.BLOG_TAG_ID
-        ORDER BY B.CREATE_DATE DESC
+        ORDER BY B.BLOG_ID DESC
     </select>
 
     <select id="selectBlogById" resultMap="BlogResult">
@@ -58,7 +58,7 @@
         left JOIN DTS_BLOG_TAG_RELATION DBTR ON DBTR.BLOG_ID = B.BLOG_ID
         left JOIN DTS_BLOG_TAG BT ON BT.BLOG_TAG_ID = DBTR.BLOG_TAG_ID
         and B.STATE_CODE = 1001
-        order by B.CREATE_DATE DESC
+        ORDER BY B.BLOG_ID DESC
     </select>
 
     <select id="selectBlogList" resultMap="BlogResult">
@@ -73,7 +73,7 @@
             </if>
             AND B.STATE_CODE = 1001
         </where>
-        ORDER BY B.CREATE_DATE DESC
+        ORDER BY B.BLOG_ID DESC
     </select>
 
     <select id="selectBlogList1000" resultMap="BlogResult">

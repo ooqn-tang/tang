@@ -1,7 +1,7 @@
 <template>
   <ul class="list-group blog-list">
     <li class="list-group-item" v-for="(item,index) in blogList" :key="index">
-      <router-link :to="{name: 'post', params: { id: item.blogId }}" class="blog-title">
+      <router-link :to="{name: 'blog_info', params: { id: item.blogId }}" class="blog-title">
         <strong><p v-text="item.title"></p></strong>
       </router-link>
       <div class="blog-synopsis">{{item.synopsis}}</div>
@@ -12,8 +12,8 @@
           <button class="btn btn-outline-dark float-end" style="padding: 0px 5px 0px 3px;font-size: 13px;" v-if="item.subjectId == null" data-bs-toggle="modal" data-bs-target="#exampleModal"  @click="subjectFrom.blogId = item.blogId">添加到专辑</button>
       </div>
     </li>   
-    <li class="list-group-item ">
-      <a class="" @click="loadBlog()">获取</a>
+    <li class="list-group-item">
+      <a @click="nextPage()">获取</a>
     </li> 
   </ul>
 
@@ -48,23 +48,22 @@ export default {
   name: "author_blog",
   data() {
     return {
-      blogList:[
-        
-      ],
+      blogList:[],
+      blogPage:{
+        nextPage:1
+      },
       subjectFrom:{
         subjectId:""
       },
       subjectList:[],
     };
   },
-  components: {
-
-  },
   methods: {
-    loadBlogByUsername(){
-      loadBlogByUsername(this.$route.params.username,{}).then((response) => {
+    loadBlogByUsername(pageSize){
+      loadBlogByUsername(this.$route.params.username,{page:pageSize}).then((response) => {
         if(response.data.list != undefined){
-          this.blogList = response.data.list
+          this.blogPage = response.data
+          this.blogList = this.blogList.concat(response.data.list)
         }
       })
     },
@@ -83,12 +82,18 @@ export default {
     },
     deleteBlog(blogId,index){
       deleteBlog(blogId).then((response) => {
+        alert(JSON.stringify(response))
         this.blogList.splice(index,1)
       })
+    },
+    nextPage(){
+      if(!this.blogPage.isLastPage){
+        this.loadBlogByUsername(this.blogPage.nextPage) 
+      }
     }
   },
   mounted(){
-    this.loadBlogByUsername() 
+    this.loadBlogByUsername(this.blogPage.nextPage) 
     this.loadSubjectList()
   }
 };

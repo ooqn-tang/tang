@@ -51,9 +51,9 @@ const routes = [
                 ]
             },
             {
-                path: '/post/:id',
-                name: 'post',
-                component: () => import('../views/blog/post.vue')
+                path: '/blog/:id',
+                name: 'blog_info',
+                component: () => import('../views/blog/blog.vue')
             },
             {
                 path: '/subject',

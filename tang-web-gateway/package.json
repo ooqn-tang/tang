@@ -10,6 +10,7 @@
     "bootstrap3": "^3.3.5",
     "highlight.js": "^10.7.2",
     "jquery": "^2.1.2",
+    "js-cookie": "^2.2.1",
     "marked": "^2.0.3",
     "mavon-editor": "^2.9.1",
     "vue": "^3.0.4",

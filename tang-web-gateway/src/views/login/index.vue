@@ -69,6 +69,7 @@
 
 <script>
 import { login } from "/@/api/login"
+import Cookies from 'js-cookie'
 export default {
   name: "login",
   data() {
@@ -76,7 +77,8 @@ export default {
       type:"dl",
       loginData:{
         username:"",
-        password:""
+        password:"",
+        'remember-me':true
       }
     };
   },
@@ -86,7 +88,7 @@ export default {
       login(this.loginData).then((response) => {
         if(response.code === 200){
           this.$store.state.username = response.data.username
-          localStorage.setItem("username",response.data.username)
+          Cookies.set("username",response.data.username)
           this.$router.go(-1)
         }
       })

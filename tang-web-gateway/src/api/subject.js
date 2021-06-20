@@ -3,7 +3,7 @@ import request from '../utils/request'
 // 获取专题列表
 export function selectSubjectListByUsername(username) {
     return request({
-        url: '/subject/username',
+        url: '/api/subject/username',
         method: 'GET',
         params:{"username":username}
     })
@@ -12,7 +12,7 @@ export function selectSubjectListByUsername(username) {
 // 添加博客到专辑
 export function insertBlogToSubject(blogId,subjectId) {
     return request({
-        url: '/subject/blog',
+        url: '/api/subject/blog',
         method: 'POST',
         params:{"blogId":blogId,"subjectId":subjectId}
     })
@@ -21,7 +21,7 @@ export function insertBlogToSubject(blogId,subjectId) {
 // 博客ID查询专辑列表
 export function selectSubjectBlogList(blogId) {
     return request({
-        url: '/subject/blog',
+        url: '/api/subject/blog',
         method: 'GET',
         params:{"blogId":blogId}
     })
@@ -30,7 +30,7 @@ export function selectSubjectBlogList(blogId) {
 // 添加专辑
 export function insertSubject(data) {
     return request({
-        url: '/subject',
+        url: '/api/subject',
         method: 'POST',
         data
     })
@@ -39,7 +39,7 @@ export function insertSubject(data) {
 // 更新专辑
 export function updateSubject(data) {
     return request({
-        url: '/subject',
+        url: '/api/subject',
         method: 'PUT',
         data
     })
@@ -47,7 +47,7 @@ export function updateSubject(data) {
 
 export function loadSubjectById(id){
     return request({
-        url: '/subject/subjectId',
+        url: '/api/subject/subjectId',
         method: 'GET',
         params: {
             "subjectId":id

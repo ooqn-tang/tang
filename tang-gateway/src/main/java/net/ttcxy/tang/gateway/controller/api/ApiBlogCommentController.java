@@ -1,4 +1,4 @@
-package net.ttcxy.tang.gateway.controller;
+package net.ttcxy.tang.gateway.controller.api;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.StrUtil;
@@ -17,14 +17,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-/**
- * @author huanglei
- */
 @RestController
-@RequestMapping("comment")
+@RequestMapping("api/comment")
 @Validated
 @Api("博客评论")
-public class DtsBlogCommentController {
+public class ApiBlogCommentController {
 
     @Autowired
     private CurrentAuthorService currentAuthorService;

@@ -1,7 +1,6 @@
 package net.ttcxy.tang.gateway.core.exception;
 
 import net.ttcxy.tang.gateway.core.api.ApiException;
-import net.ttcxy.tang.gateway.core.api.ResponseCode;
 import net.ttcxy.tang.gateway.core.api.ResponseResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,7 +9,9 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.NoHandlerFoundException;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
@@ -81,4 +82,12 @@ public class GlobalExceptionHandler {
         logger.error(ex.getMessage(),ex);
         return ResponseResult.failed(FAILED,"系统异常");
     }
+    /**
+     * Exception 参数校验统一异常处理
+     */
+    @ExceptionHandler(NoHandlerFoundException.class)
+    public void errorHandler(NoHandlerFoundException ex, HttpServletResponse httpServletResponse, HttpServletRequest httpServletRequest) {
+        //return "forward:/";
+    }
+
 }

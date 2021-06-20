@@ -94,7 +94,7 @@ export default {
       insertBlog(){
         insertBlog(this.blogData).then((response) => {
           if(response.code == 200){
-            window.location.href = "/post/" + response.data
+            window.location.href = "/blog/" + response.data.blogId
           }
         })
       },

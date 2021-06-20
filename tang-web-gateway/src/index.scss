@@ -45,9 +45,9 @@ a{
     border-bottom: 0px;
 }
 
-.nav .active{
-    color: 3px solid #054cb3;
-    font-weight: bold;
+.nav-link-active{
+    color: #f108d2 !important;
+    font-weight: 500;
 }
  
 .list-group-item .active{
@@ -81,4 +81,3 @@ a{
         border-radius: 0px;
     }
 }
-

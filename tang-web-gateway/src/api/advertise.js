@@ -2,7 +2,7 @@ import request from '../utils/request'
 
 export function loadAdvertise() {
     return request({
-        url: '/advertise/list',
+        url: '/api/advertise/list',
         method: 'GET'
     })
 }

@@ -1,4 +1,4 @@
-package net.ttcxy.tang.gateway.controller;
+package net.ttcxy.tang.gateway.controller.api;
 
 import cn.hutool.core.bean.BeanUtil;
 import com.github.pagehelper.PageInfo;
@@ -6,7 +6,6 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import net.ttcxy.tang.gateway.core.api.ApiException;
 import net.ttcxy.tang.gateway.core.api.ResponseResult;
-import net.ttcxy.tang.gateway.entity.dto.DtsBlogSubjectDto;
 import net.ttcxy.tang.gateway.entity.dto.DtsBlogTagDto;
 import net.ttcxy.tang.gateway.entity.model.DtsBlogTag;
 import net.ttcxy.tang.gateway.entity.param.DtsTagParam;
@@ -20,9 +19,9 @@ import java.util.List;
 
 @Api("博客标签")
 @RestController
-@RequestMapping("tag")
+@RequestMapping("api/tag")
 @Validated
-public class DtsBlogTagController {
+public class ApiBlogTagController {
 
     @Autowired
     private DtsBlogTagService blogTagService;

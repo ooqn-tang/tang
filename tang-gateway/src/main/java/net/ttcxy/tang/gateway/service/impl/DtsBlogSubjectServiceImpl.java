@@ -15,6 +15,7 @@ import net.ttcxy.tang.gateway.entity.dto.DtsBlogSubjectDto;
 import net.ttcxy.tang.gateway.entity.model.DtsBlog;
 import net.ttcxy.tang.gateway.entity.model.DtsBlogSubject;
 import net.ttcxy.tang.gateway.entity.model.DtsBlogSubjectRelation;
+import net.ttcxy.tang.gateway.service.CurrentAuthorService;
 import net.ttcxy.tang.gateway.service.DtsBlogSubjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -66,22 +67,25 @@ public class DtsBlogSubjectServiceImpl implements DtsBlogSubjectService {
         return blogSubjectMapper.updateByPrimaryKeySelective(subject);
     }
 
+    @Autowired
+    private CurrentAuthorService currentAuthorService;
+
     @Override
     public Integer insertBlogToSubject(String blogId, String subjectId) {
         DtsBlogSubject blogSubject = blogSubjectMapper.selectByPrimaryKey(subjectId);
         DtsBlog blog = blogMapper.selectByPrimaryKey(blogId);
 
-        if (blog != null && blogSubject != null){
-            if(StrUtil.equals(blog.getAuthorId(),blogSubject.getAuthorId())){
-                DtsBlogSubjectRelation blogSubjectRelation = new DtsBlogSubjectRelation();
-                blogSubjectRelation.setBlogSubjectRelationId(IdUtil.objectId());
-                blogSubjectRelation.setBlogId(blogId);
-                blogSubjectRelation.setBlogSubjectId(subjectId);
-                blogSubjectRelation.setCreateDate(DateUtil.date());
-                return blogSubjectRelationMapper.insert(blogSubjectRelation);
-            }
+        if (StrUtil.equals(blog.getAuthorId(),blogSubject.getAuthorId()) &&
+                StrUtil.equals(blog.getAuthorId(),currentAuthorService.getAuthorId())){
+            DtsBlogSubjectRelation blogSubjectRelation = new DtsBlogSubjectRelation();
+            blogSubjectRelation.setBlogSubjectRelationId(IdUtil.objectId());
+            blogSubjectRelation.setBlogId(blogId);
+            blogSubjectRelation.setBlogSubjectId(subjectId);
+            blogSubjectRelation.setCreateDate(DateUtil.date());
+            return blogSubjectRelationMapper.insert(blogSubjectRelation);
+        }else{
+            throw new ApiException("权限不足");
         }
-        throw new ApiException("是失败");
     }
 
     @Override

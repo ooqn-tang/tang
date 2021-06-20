@@ -1,11 +1,11 @@
-package net.ttcxy.tang.gateway.controller;
+package net.ttcxy.tang.gateway.controller.api;
 
 import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import net.ttcxy.tang.gateway.core.api.ApiException;
-import net.ttcxy.tang.gateway.core.api.ResponseResult;
 import net.ttcxy.tang.gateway.core.api.ResponseCode;
+import net.ttcxy.tang.gateway.core.api.ResponseResult;
 import net.ttcxy.tang.gateway.entity.dto.UtsFansDto;
 import net.ttcxy.tang.gateway.entity.model.UtsAuthor;
 import net.ttcxy.tang.gateway.entity.model.UtsFans;
@@ -20,9 +20,9 @@ import org.springframework.web.bind.annotation.*;
  * @author huanglei
  */
 @RestController
-@RequestMapping("fans")
+@RequestMapping("api/fans")
 @Api("粉丝操作")
-public class UtsFansController {
+public class ApiFansController {
 
     @Autowired
     private CurrentAuthorService currentAuthorService;
