@@ -105,6 +105,19 @@ public class ApiBlogSubjectController {
         throw new ApiException();
     }
 
+    @PutMapping("blog")
+    @ApiOperation("更新博客到专题")
+    public ResponseResult<String> updateBlogToSubject(
+            @RequestParam(value = "blogId")String blogId,
+            @RequestParam(value = "subjectId")String subjectId){
+
+        Integer count = blogSubjectService.updateBlogToSubject(blogId,subjectId);
+        if (count > 0){
+            return ResponseResult.success();
+        }
+        throw new ApiException();
+    }
+
     @GetMapping("blog")
     @ApiOperation("通过博客ID查询当前专辑列表")
     public ResponseResult<?> selectSubjectListByBlogId(@RequestParam("blogId")String blogId) {

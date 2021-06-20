@@ -28,4 +28,9 @@
         FROM DTS_BLOG_TAG_AUTHOR_RELATION BTAR1 , DTS_BLOG_TAG BT1
         WHERE BT1.BLOG_TAG_ID = BTAR1.BLOG_TAG_ID AND AUTHOR_ID = #{authorId} ORDER BY CREATE_DATE
     </select>
+
+    <select id="selectByBlogId" resultMap="BlogTagResult">
+        select * from DTS_BLOG_TAG t1
+        inner join DTS_BLOG_TAG_RELATION t2  on t1.blog_tag_id = t2.blog_tag_id and blog_id = #{blogId}
+    </select>
 </mapper>

@@ -18,6 +18,15 @@ export function insertBlogToSubject(blogId,subjectId) {
     })
 }
 
+// 更新博客到专辑
+export function updateBlogToSubject(blogId,subjectId) {
+    return request({
+        url: '/api/subject/blog',
+        method: 'PUT',
+        params:{"blogId":blogId,"subjectId":subjectId}
+    })
+}
+
 // 博客ID查询专辑列表
 export function selectSubjectBlogList(blogId) {
     return request({

@@ -14,11 +14,7 @@
         <result column="text" property="text"/>
         <result column="blog_subject_id" property="subjectId"/>
         <result column="subject_name" property="subjectName"/>
-        <collection column="blog_id" ofType="net.ttcxy.tang.gateway.entity.model.DtsBlogTag" property="tagList">
-            <id column="blog_tag_id" property="blogTagId"/>
-            <result column="tag_name" property="tagName"/>
-        </collection>
-
+        <association property="tagList" column="{blogId=blog_id}" select="net.ttcxy.tang.gateway.dao.DtsBlogTagDao.selectByBlogId"/>
     </resultMap>
 
     <select id="search" resultMap="BlogResult">
