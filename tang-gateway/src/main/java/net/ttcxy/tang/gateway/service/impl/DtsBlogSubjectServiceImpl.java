@@ -15,6 +15,7 @@ import net.ttcxy.tang.gateway.entity.dto.DtsBlogSubjectDto;
 import net.ttcxy.tang.gateway.entity.model.DtsBlog;
 import net.ttcxy.tang.gateway.entity.model.DtsBlogSubject;
 import net.ttcxy.tang.gateway.entity.model.DtsBlogSubjectRelation;
+import net.ttcxy.tang.gateway.entity.model.DtsBlogSubjectRelationExample;
 import net.ttcxy.tang.gateway.service.CurrentAuthorService;
 import net.ttcxy.tang.gateway.service.DtsBlogSubjectService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -83,6 +84,25 @@ public class DtsBlogSubjectServiceImpl implements DtsBlogSubjectService {
             blogSubjectRelation.setBlogSubjectId(subjectId);
             blogSubjectRelation.setCreateDate(DateUtil.date());
             return blogSubjectRelationMapper.insert(blogSubjectRelation);
+        }else{
+            throw new ApiException("权限不足");
+        }
+    }
+
+    @Override
+    public Integer updateBlogToSubject(String blogId, String subjectId) {
+        DtsBlogSubject blogSubject = blogSubjectMapper.selectByPrimaryKey(subjectId);
+        DtsBlog blog = blogMapper.selectByPrimaryKey(blogId);
+
+        if (StrUtil.equals(blog.getAuthorId(),blogSubject.getAuthorId()) &&
+                StrUtil.equals(blog.getAuthorId(),currentAuthorService.getAuthorId())){
+            DtsBlogSubjectRelation blogSubjectRelation = new DtsBlogSubjectRelation();
+            blogSubjectRelation.setBlogId(blogId);
+            blogSubjectRelation.setBlogSubjectId(subjectId);
+            blogSubjectRelation.setCreateDate(DateUtil.date());
+            DtsBlogSubjectRelationExample dtsBlogSubjectRelationExample = new DtsBlogSubjectRelationExample();
+            dtsBlogSubjectRelationExample.createCriteria().andBlogIdEqualTo(blogId);
+            return blogSubjectRelationMapper.updateByExampleSelective(blogSubjectRelation,dtsBlogSubjectRelationExample);
         }else{
             throw new ApiException("权限不足");
         }

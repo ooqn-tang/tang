@@ -51,7 +51,7 @@
 </template>
 
 <script>
-import 'https://cdn.bootcdn.net/ajax/libs/marked/1.2.7/marked.min.js'
+import marked from 'marked'
 import { insertBlog,loadSubjectList,loadAuthorAllTagList,insertAuthorTag,insertTag} from "/@/api/blog"
 marked.setOptions({
   renderer: new marked.Renderer(),

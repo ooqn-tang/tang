@@ -5,11 +5,13 @@
         <strong><p v-text="item.title"></p></strong>
       </router-link>
       <div class="blog-synopsis">{{item.synopsis}}</div>
-        <span>{{item.createDate}}</span>
+        <span style="border: 1px solid #ff7d00; padding: 0px 5px; border-radius: 10px;">{{item.createDate}}</span>
+        <span style="border: 1px solid #ff7d00; padding: 0px 5px; border-radius: 10px;margin: 0px 5px;">专辑 : {{item.subjectName}}</span>
         <div class="btn-group float-end">
           <!-- <button class="btn btn-outline-dark float-end" style="padding: 0px 5px 0px 3px;font-size: 13px;" disabled>编辑</button> -->
-          <button class="btn btn-outline-dark float-end" style="padding: 0px 5px 0px 3px;font-size: 13px;" @click="deleteBlog(item.blogId,index)">删除</button>
-          <button class="btn btn-outline-dark float-end" style="padding: 0px 5px 0px 3px;font-size: 13px;" v-if="item.subjectId == null" data-bs-toggle="modal" data-bs-target="#exampleModal"  @click="subjectFrom.blogId = item.blogId">添加到专辑</button>
+          <button class="btn btn-outline-danger float-end" style="padding: 0px 5px 0px 3px;font-size: 13px;" @click="deleteBlog(item.blogId,index)">删除</button>
+          <button class="btn btn-outline-success float-end" style="padding: 0px 5px 0px 3px;font-size: 13px;" v-if="item.subjectId == null" data-bs-toggle="modal" data-bs-target="#exampleModal"  @click="subjectFrom.blogId = item.blogId , thisItem = item">添加到专辑</button>
+          <button class="btn btn-outline-warning float-end" style="padding: 0px 5px 0px 3px;font-size: 13px;" v-if="item.subjectId != null" data-bs-toggle="modal" data-bs-target="#exampleModal"  @click="subjectFrom.blogId = item.blogId , thisItem = item">修改到专辑</button>
       </div>
     </li>   
     <li class="list-group-item">
@@ -33,7 +35,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" ref="close">关闭</button>
-        <button type="button" class="btn btn-primary" @click="insertBlogToSubject">保存</button>
+        <button type="button" class="btn btn-primary" @click="saveBlogToSubject">保存</button>
       </div>
     </div>
   </div>
@@ -43,11 +45,12 @@
 
 <script>
 import {loadBlogByUsername,loadSubjectList,deleteBlog} from '/@/api/blog'
-import {insertBlogToSubject,selectSubjectListByUsername} from '/@/api/subject'
+import {insertBlogToSubject,updateBlogToSubject,selectSubjectListByUsername} from '/@/api/subject'
 export default {
   name: "author_blog",
   data() {
     return {
+      thisItem:{},
       blogList:[],
       blogPage:{
         nextPage:1
@@ -76,13 +79,34 @@ export default {
       let blogId = this.subjectFrom.blogId;
       let subjectId = this.subjectFrom.subjectId;
       insertBlogToSubject(blogId, subjectId).then((response) => {
-        this.loadBlogByUsername() 
+        this.thisItem.subjectId = subjectId
         this.$refs.close.click()
       })
     },
+    updateBlogToSubject(){
+      let blogId = this.subjectFrom.blogId;
+      let subjectId = this.subjectFrom.subjectId;
+      updateBlogToSubject(blogId, subjectId).then((response) => {
+        this.thisItem.subjectId = subjectId
+        debugger
+        for(let i in this.subjectList){
+          let t = this.subjectList[i]
+          if(subjectId == t.blogSubjectId){
+            this.thisItem.subjectName = t.subjectName
+          }
+        }
+        this.$refs.close.click()
+      })
+    },
+    saveBlogToSubject(){
+      if(this.thisItem.subjectId == null){
+        this.insertBlogToSubject()
+      }else{
+        this.updateBlogToSubject()
+      }
+    },
     deleteBlog(blogId,index){
       deleteBlog(blogId).then((response) => {
-        alert(JSON.stringify(response))
         this.blogList.splice(index,1)
       })
     },
