@@ -5,8 +5,11 @@
         <strong><p v-text="item.title"></p></strong>
       </router-link>
       <div class="blog-synopsis">{{item.synopsis}}</div>
+      <p v-if="item.subjectName != null">
+        <span style="border: 1px solid #ff7d00; padding: 0px 5px; border-radius: 10px;">专辑 : {{item.subjectName}}</span>
+      </p>
         <span style="border: 1px solid #ff7d00; padding: 0px 5px; border-radius: 10px;">{{item.createDate}}</span>
-        <span style="border: 1px solid #ff7d00; padding: 0px 5px; border-radius: 10px;margin: 0px 5px;">专辑 : {{item.subjectName}}</span>
+        
         <div class="btn-group float-end">
           <!-- <button class="btn btn-outline-dark float-end" style="padding: 0px 5px 0px 3px;font-size: 13px;" disabled>编辑</button> -->
           <button class="btn btn-outline-danger float-end" style="padding: 0px 5px 0px 3px;font-size: 13px;" @click="deleteBlog(item.blogId,index)">删除</button>
