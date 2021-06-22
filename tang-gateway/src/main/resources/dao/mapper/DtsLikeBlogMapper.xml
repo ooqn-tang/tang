@@ -2,10 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="net.ttcxy.tang.gateway.dao.mapper.DtsLikeBlogMapper">
   <resultMap id="BaseResultMap" type="net.ttcxy.tang.gateway.entity.model.DtsLikeBlog">
-    <id column="LIKE_BLOG_ID" jdbcType="VARCHAR" property="likeBlogId" />
-    <result column="AUTHOR_ID" jdbcType="VARCHAR" property="authorId" />
-    <result column="BLOG_ID" jdbcType="VARCHAR" property="blogId" />
-    <result column="CREATE_DATE" jdbcType="TIMESTAMP" property="createDate" />
+    <id column="like_blog_id" jdbcType="VARCHAR" property="likeBlogId" />
+    <result column="author_id" jdbcType="VARCHAR" property="authorId" />
+    <result column="blog_id" jdbcType="VARCHAR" property="blogId" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -66,44 +66,44 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    LIKE_BLOG_ID, AUTHOR_ID, BLOG_ID, CREATE_DATE
+    like_blog_id, author_id, blog_id, create_date
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from DTS_LIKE_BLOG
-    where LIKE_BLOG_ID = #{likeBlogId,jdbcType=VARCHAR}
+    from dts_like_blog
+    where like_blog_id = #{likeBlogId,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-    delete from DTS_LIKE_BLOG
-    where LIKE_BLOG_ID = #{likeBlogId,jdbcType=VARCHAR}
+    delete from dts_like_blog
+    where like_blog_id = #{likeBlogId,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="net.ttcxy.tang.gateway.entity.model.DtsLikeBlogExample">
-    delete from DTS_LIKE_BLOG
+    delete from dts_like_blog
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
   <insert id="insert" parameterType="net.ttcxy.tang.gateway.entity.model.DtsLikeBlog">
-    insert into DTS_LIKE_BLOG (LIKE_BLOG_ID, AUTHOR_ID, BLOG_ID, 
-      CREATE_DATE)
+    insert into dts_like_blog (like_blog_id, author_id, blog_id, 
+      create_date)
     values (#{likeBlogId,jdbcType=VARCHAR}, #{authorId,jdbcType=VARCHAR}, #{blogId,jdbcType=VARCHAR}, 
       #{createDate,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="net.ttcxy.tang.gateway.entity.model.DtsLikeBlog">
-    insert into DTS_LIKE_BLOG
+    insert into dts_like_blog
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="likeBlogId != null">
-        LIKE_BLOG_ID,
+        like_blog_id,
       </if>
       <if test="authorId != null">
-        AUTHOR_ID,
+        author_id,
       </if>
       <if test="blogId != null">
-        BLOG_ID,
+        blog_id,
       </if>
       <if test="createDate != null">
-        CREATE_DATE,
+        create_date,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -122,25 +122,25 @@
     </trim>
   </insert>
   <select id="countByExample" parameterType="net.ttcxy.tang.gateway.entity.model.DtsLikeBlogExample" resultType="java.lang.Long">
-    select count(*) from DTS_LIKE_BLOG
+    select count(*) from dts_like_blog
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update DTS_LIKE_BLOG
+    update dts_like_blog
     <set>
       <if test="record.likeBlogId != null">
-        LIKE_BLOG_ID = #{record.likeBlogId,jdbcType=VARCHAR},
+        like_blog_id = #{record.likeBlogId,jdbcType=VARCHAR},
       </if>
       <if test="record.authorId != null">
-        AUTHOR_ID = #{record.authorId,jdbcType=VARCHAR},
+        author_id = #{record.authorId,jdbcType=VARCHAR},
       </if>
       <if test="record.blogId != null">
-        BLOG_ID = #{record.blogId,jdbcType=VARCHAR},
+        blog_id = #{record.blogId,jdbcType=VARCHAR},
       </if>
       <if test="record.createDate != null">
-        CREATE_DATE = #{record.createDate,jdbcType=TIMESTAMP},
+        create_date = #{record.createDate,jdbcType=TIMESTAMP},
       </if>
     </set>
     <if test="_parameter != null">
@@ -148,35 +148,35 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update DTS_LIKE_BLOG
-    set LIKE_BLOG_ID = #{record.likeBlogId,jdbcType=VARCHAR},
-      AUTHOR_ID = #{record.authorId,jdbcType=VARCHAR},
-      BLOG_ID = #{record.blogId,jdbcType=VARCHAR},
-      CREATE_DATE = #{record.createDate,jdbcType=TIMESTAMP}
+    update dts_like_blog
+    set like_blog_id = #{record.likeBlogId,jdbcType=VARCHAR},
+      author_id = #{record.authorId,jdbcType=VARCHAR},
+      blog_id = #{record.blogId,jdbcType=VARCHAR},
+      create_date = #{record.createDate,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
   <update id="updateByPrimaryKeySelective" parameterType="net.ttcxy.tang.gateway.entity.model.DtsLikeBlog">
-    update DTS_LIKE_BLOG
+    update dts_like_blog
     <set>
       <if test="authorId != null">
-        AUTHOR_ID = #{authorId,jdbcType=VARCHAR},
+        author_id = #{authorId,jdbcType=VARCHAR},
       </if>
       <if test="blogId != null">
-        BLOG_ID = #{blogId,jdbcType=VARCHAR},
+        blog_id = #{blogId,jdbcType=VARCHAR},
       </if>
       <if test="createDate != null">
-        CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+        create_date = #{createDate,jdbcType=TIMESTAMP},
       </if>
     </set>
-    where LIKE_BLOG_ID = #{likeBlogId,jdbcType=VARCHAR}
+    where like_blog_id = #{likeBlogId,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="net.ttcxy.tang.gateway.entity.model.DtsLikeBlog">
-    update DTS_LIKE_BLOG
-    set AUTHOR_ID = #{authorId,jdbcType=VARCHAR},
-      BLOG_ID = #{blogId,jdbcType=VARCHAR},
-      CREATE_DATE = #{createDate,jdbcType=TIMESTAMP}
-    where LIKE_BLOG_ID = #{likeBlogId,jdbcType=VARCHAR}
+    update dts_like_blog
+    set author_id = #{authorId,jdbcType=VARCHAR},
+      blog_id = #{blogId,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP}
+    where like_blog_id = #{likeBlogId,jdbcType=VARCHAR}
   </update>
 </mapper>

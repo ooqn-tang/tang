@@ -2,13 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="net.ttcxy.tang.gateway.dao.mapper.DtsBlogSubjectMapper">
   <resultMap id="BaseResultMap" type="net.ttcxy.tang.gateway.entity.model.DtsBlogSubject">
-    <id column="BLOG_SUBJECT_ID" jdbcType="VARCHAR" property="blogSubjectId" />
-    <result column="SUBJECT_NAME" jdbcType="VARCHAR" property="subjectName" />
-    <result column="AUTHOR_ID" jdbcType="VARCHAR" property="authorId" />
-    <result column="ORDER_NUM" jdbcType="INTEGER" property="orderNum" />
-    <result column="CREATE_DATE" jdbcType="TIMESTAMP" property="createDate" />
-    <result column="UPDATE_DATE" jdbcType="TIMESTAMP" property="updateDate" />
-    <result column="SYNOPSIS" jdbcType="VARCHAR" property="synopsis" />
+    <id column="blog_subject_id" jdbcType="VARCHAR" property="blogSubjectId" />
+    <result column="subject_name" jdbcType="VARCHAR" property="subjectName" />
+    <result column="author_id" jdbcType="VARCHAR" property="authorId" />
+    <result column="order_num" jdbcType="INTEGER" property="orderNum" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
+    <result column="synopsis" jdbcType="VARCHAR" property="synopsis" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -69,55 +69,55 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    BLOG_SUBJECT_ID, SUBJECT_NAME, AUTHOR_ID, ORDER_NUM, CREATE_DATE, UPDATE_DATE, SYNOPSIS
+    blog_subject_id, subject_name, author_id, order_num, create_date, update_date, synopsis
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from DTS_BLOG_SUBJECT
-    where BLOG_SUBJECT_ID = #{blogSubjectId,jdbcType=VARCHAR}
+    from dts_blog_subject
+    where blog_subject_id = #{blogSubjectId,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-    delete from DTS_BLOG_SUBJECT
-    where BLOG_SUBJECT_ID = #{blogSubjectId,jdbcType=VARCHAR}
+    delete from dts_blog_subject
+    where blog_subject_id = #{blogSubjectId,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="net.ttcxy.tang.gateway.entity.model.DtsBlogSubjectExample">
-    delete from DTS_BLOG_SUBJECT
+    delete from dts_blog_subject
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
   <insert id="insert" parameterType="net.ttcxy.tang.gateway.entity.model.DtsBlogSubject">
-    insert into DTS_BLOG_SUBJECT (BLOG_SUBJECT_ID, SUBJECT_NAME, AUTHOR_ID, 
-      ORDER_NUM, CREATE_DATE, UPDATE_DATE, 
-      SYNOPSIS)
+    insert into dts_blog_subject (blog_subject_id, subject_name, author_id, 
+      order_num, create_date, update_date, 
+      synopsis)
     values (#{blogSubjectId,jdbcType=VARCHAR}, #{subjectName,jdbcType=VARCHAR}, #{authorId,jdbcType=VARCHAR}, 
       #{orderNum,jdbcType=INTEGER}, #{createDate,jdbcType=TIMESTAMP}, #{updateDate,jdbcType=TIMESTAMP}, 
       #{synopsis,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="net.ttcxy.tang.gateway.entity.model.DtsBlogSubject">
-    insert into DTS_BLOG_SUBJECT
+    insert into dts_blog_subject
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="blogSubjectId != null">
-        BLOG_SUBJECT_ID,
+        blog_subject_id,
       </if>
       <if test="subjectName != null">
-        SUBJECT_NAME,
+        subject_name,
       </if>
       <if test="authorId != null">
-        AUTHOR_ID,
+        author_id,
       </if>
       <if test="orderNum != null">
-        ORDER_NUM,
+        order_num,
       </if>
       <if test="createDate != null">
-        CREATE_DATE,
+        create_date,
       </if>
       <if test="updateDate != null">
-        UPDATE_DATE,
+        update_date,
       </if>
       <if test="synopsis != null">
-        SYNOPSIS,
+        synopsis,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -145,34 +145,34 @@
     </trim>
   </insert>
   <select id="countByExample" parameterType="net.ttcxy.tang.gateway.entity.model.DtsBlogSubjectExample" resultType="java.lang.Long">
-    select count(*) from DTS_BLOG_SUBJECT
+    select count(*) from dts_blog_subject
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update DTS_BLOG_SUBJECT
+    update dts_blog_subject
     <set>
       <if test="record.blogSubjectId != null">
-        BLOG_SUBJECT_ID = #{record.blogSubjectId,jdbcType=VARCHAR},
+        blog_subject_id = #{record.blogSubjectId,jdbcType=VARCHAR},
       </if>
       <if test="record.subjectName != null">
-        SUBJECT_NAME = #{record.subjectName,jdbcType=VARCHAR},
+        subject_name = #{record.subjectName,jdbcType=VARCHAR},
       </if>
       <if test="record.authorId != null">
-        AUTHOR_ID = #{record.authorId,jdbcType=VARCHAR},
+        author_id = #{record.authorId,jdbcType=VARCHAR},
       </if>
       <if test="record.orderNum != null">
-        ORDER_NUM = #{record.orderNum,jdbcType=INTEGER},
+        order_num = #{record.orderNum,jdbcType=INTEGER},
       </if>
       <if test="record.createDate != null">
-        CREATE_DATE = #{record.createDate,jdbcType=TIMESTAMP},
+        create_date = #{record.createDate,jdbcType=TIMESTAMP},
       </if>
       <if test="record.updateDate != null">
-        UPDATE_DATE = #{record.updateDate,jdbcType=TIMESTAMP},
+        update_date = #{record.updateDate,jdbcType=TIMESTAMP},
       </if>
       <if test="record.synopsis != null">
-        SYNOPSIS = #{record.synopsis,jdbcType=VARCHAR},
+        synopsis = #{record.synopsis,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null">
@@ -180,50 +180,50 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update DTS_BLOG_SUBJECT
-    set BLOG_SUBJECT_ID = #{record.blogSubjectId,jdbcType=VARCHAR},
-      SUBJECT_NAME = #{record.subjectName,jdbcType=VARCHAR},
-      AUTHOR_ID = #{record.authorId,jdbcType=VARCHAR},
-      ORDER_NUM = #{record.orderNum,jdbcType=INTEGER},
-      CREATE_DATE = #{record.createDate,jdbcType=TIMESTAMP},
-      UPDATE_DATE = #{record.updateDate,jdbcType=TIMESTAMP},
-      SYNOPSIS = #{record.synopsis,jdbcType=VARCHAR}
+    update dts_blog_subject
+    set blog_subject_id = #{record.blogSubjectId,jdbcType=VARCHAR},
+      subject_name = #{record.subjectName,jdbcType=VARCHAR},
+      author_id = #{record.authorId,jdbcType=VARCHAR},
+      order_num = #{record.orderNum,jdbcType=INTEGER},
+      create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      update_date = #{record.updateDate,jdbcType=TIMESTAMP},
+      synopsis = #{record.synopsis,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
   <update id="updateByPrimaryKeySelective" parameterType="net.ttcxy.tang.gateway.entity.model.DtsBlogSubject">
-    update DTS_BLOG_SUBJECT
+    update dts_blog_subject
     <set>
       <if test="subjectName != null">
-        SUBJECT_NAME = #{subjectName,jdbcType=VARCHAR},
+        subject_name = #{subjectName,jdbcType=VARCHAR},
       </if>
       <if test="authorId != null">
-        AUTHOR_ID = #{authorId,jdbcType=VARCHAR},
+        author_id = #{authorId,jdbcType=VARCHAR},
       </if>
       <if test="orderNum != null">
-        ORDER_NUM = #{orderNum,jdbcType=INTEGER},
+        order_num = #{orderNum,jdbcType=INTEGER},
       </if>
       <if test="createDate != null">
-        CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+        create_date = #{createDate,jdbcType=TIMESTAMP},
       </if>
       <if test="updateDate != null">
-        UPDATE_DATE = #{updateDate,jdbcType=TIMESTAMP},
+        update_date = #{updateDate,jdbcType=TIMESTAMP},
       </if>
       <if test="synopsis != null">
-        SYNOPSIS = #{synopsis,jdbcType=VARCHAR},
+        synopsis = #{synopsis,jdbcType=VARCHAR},
       </if>
     </set>
-    where BLOG_SUBJECT_ID = #{blogSubjectId,jdbcType=VARCHAR}
+    where blog_subject_id = #{blogSubjectId,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="net.ttcxy.tang.gateway.entity.model.DtsBlogSubject">
-    update DTS_BLOG_SUBJECT
-    set SUBJECT_NAME = #{subjectName,jdbcType=VARCHAR},
-      AUTHOR_ID = #{authorId,jdbcType=VARCHAR},
-      ORDER_NUM = #{orderNum,jdbcType=INTEGER},
-      CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
-      UPDATE_DATE = #{updateDate,jdbcType=TIMESTAMP},
-      SYNOPSIS = #{synopsis,jdbcType=VARCHAR}
-    where BLOG_SUBJECT_ID = #{blogSubjectId,jdbcType=VARCHAR}
+    update dts_blog_subject
+    set subject_name = #{subjectName,jdbcType=VARCHAR},
+      author_id = #{authorId,jdbcType=VARCHAR},
+      order_num = #{orderNum,jdbcType=INTEGER},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      update_date = #{updateDate,jdbcType=TIMESTAMP},
+      synopsis = #{synopsis,jdbcType=VARCHAR}
+    where blog_subject_id = #{blogSubjectId,jdbcType=VARCHAR}
   </update>
 </mapper>

@@ -2,17 +2,17 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="net.ttcxy.tang.gateway.dao.mapper.DtsBlogMapper">
   <resultMap id="BaseResultMap" type="net.ttcxy.tang.gateway.entity.model.DtsBlog">
-    <id column="BLOG_ID" jdbcType="VARCHAR" property="blogId" />
-    <result column="TITLE" jdbcType="VARCHAR" property="title" />
-    <result column="AUTHOR_ID" jdbcType="VARCHAR" property="authorId" />
-    <result column="CREATE_DATE" jdbcType="TIMESTAMP" property="createDate" />
-    <result column="UPDATE_DATE" jdbcType="TIMESTAMP" property="updateDate" />
-    <result column="STATE_CODE" jdbcType="INTEGER" property="stateCode" />
-    <result column="SYNOPSIS" jdbcType="VARCHAR" property="synopsis" />
+    <id column="blog_id" jdbcType="VARCHAR" property="blogId" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="author_id" jdbcType="VARCHAR" property="authorId" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
+    <result column="state_code" jdbcType="INTEGER" property="stateCode" />
+    <result column="synopsis" jdbcType="VARCHAR" property="synopsis" />
   </resultMap>
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="net.ttcxy.tang.gateway.entity.model.DtsBlog">
-    <result column="TEXT" jdbcType="CLOB" property="text" />
-    <result column="MARKDOWN" jdbcType="CLOB" property="markdown" />
+    <result column="text" jdbcType="LONGVARCHAR" property="text" />
+    <result column="markdown" jdbcType="LONGVARCHAR" property="markdown" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -73,66 +73,68 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    BLOG_ID, TITLE, AUTHOR_ID, CREATE_DATE, UPDATE_DATE, STATE_CODE, SYNOPSIS
+    blog_id, title, author_id, create_date, update_date, state_code, synopsis
   </sql>
   <sql id="Blob_Column_List">
-    TEXT, MARKDOWN
+    text, markdown
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
     select 
     <include refid="Base_Column_List" />
     ,
     <include refid="Blob_Column_List" />
-    from DTS_BLOG
-    where BLOG_ID = #{blogId,jdbcType=VARCHAR}
+    from dts_blog
+    where blog_id = #{blogId,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-    delete from DTS_BLOG
-    where BLOG_ID = #{blogId,jdbcType=VARCHAR}
+    delete from dts_blog
+    where blog_id = #{blogId,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="net.ttcxy.tang.gateway.entity.model.DtsBlogExample">
-    delete from DTS_BLOG
+    delete from dts_blog
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
   <insert id="insert" parameterType="net.ttcxy.tang.gateway.entity.model.DtsBlog">
-    insert into DTS_BLOG (BLOG_ID, TITLE, AUTHOR_ID, 
-      CREATE_DATE, UPDATE_DATE, STATE_CODE, 
-      SYNOPSIS, TEXT, MARKDOWN)
+    insert into dts_blog (blog_id, title, author_id, 
+      create_date, update_date, state_code, 
+      synopsis, text, markdown
+      )
     values (#{blogId,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{authorId,jdbcType=VARCHAR}, 
       #{createDate,jdbcType=TIMESTAMP}, #{updateDate,jdbcType=TIMESTAMP}, #{stateCode,jdbcType=INTEGER}, 
-      #{synopsis,jdbcType=VARCHAR}, #{text,jdbcType=CLOB}, #{markdown,jdbcType=CLOB})
+      #{synopsis,jdbcType=VARCHAR}, #{text,jdbcType=LONGVARCHAR}, #{markdown,jdbcType=LONGVARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="net.ttcxy.tang.gateway.entity.model.DtsBlog">
-    insert into DTS_BLOG
+    insert into dts_blog
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="blogId != null">
-        BLOG_ID,
+        blog_id,
       </if>
       <if test="title != null">
-        TITLE,
+        title,
       </if>
       <if test="authorId != null">
-        AUTHOR_ID,
+        author_id,
       </if>
       <if test="createDate != null">
-        CREATE_DATE,
+        create_date,
       </if>
       <if test="updateDate != null">
-        UPDATE_DATE,
+        update_date,
       </if>
       <if test="stateCode != null">
-        STATE_CODE,
+        state_code,
       </if>
       <if test="synopsis != null">
-        SYNOPSIS,
+        synopsis,
       </if>
       <if test="text != null">
-        TEXT,
+        text,
       </if>
       <if test="markdown != null">
-        MARKDOWN,
+        markdown,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -158,48 +160,48 @@
         #{synopsis,jdbcType=VARCHAR},
       </if>
       <if test="text != null">
-        #{text,jdbcType=CLOB},
+        #{text,jdbcType=LONGVARCHAR},
       </if>
       <if test="markdown != null">
-        #{markdown,jdbcType=CLOB},
+        #{markdown,jdbcType=LONGVARCHAR},
       </if>
     </trim>
   </insert>
   <select id="countByExample" parameterType="net.ttcxy.tang.gateway.entity.model.DtsBlogExample" resultType="java.lang.Long">
-    select count(*) from DTS_BLOG
+    select count(*) from dts_blog
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update DTS_BLOG
+    update dts_blog
     <set>
       <if test="record.blogId != null">
-        BLOG_ID = #{record.blogId,jdbcType=VARCHAR},
+        blog_id = #{record.blogId,jdbcType=VARCHAR},
       </if>
       <if test="record.title != null">
-        TITLE = #{record.title,jdbcType=VARCHAR},
+        title = #{record.title,jdbcType=VARCHAR},
       </if>
       <if test="record.authorId != null">
-        AUTHOR_ID = #{record.authorId,jdbcType=VARCHAR},
+        author_id = #{record.authorId,jdbcType=VARCHAR},
       </if>
       <if test="record.createDate != null">
-        CREATE_DATE = #{record.createDate,jdbcType=TIMESTAMP},
+        create_date = #{record.createDate,jdbcType=TIMESTAMP},
       </if>
       <if test="record.updateDate != null">
-        UPDATE_DATE = #{record.updateDate,jdbcType=TIMESTAMP},
+        update_date = #{record.updateDate,jdbcType=TIMESTAMP},
       </if>
       <if test="record.stateCode != null">
-        STATE_CODE = #{record.stateCode,jdbcType=INTEGER},
+        state_code = #{record.stateCode,jdbcType=INTEGER},
       </if>
       <if test="record.synopsis != null">
-        SYNOPSIS = #{record.synopsis,jdbcType=VARCHAR},
+        synopsis = #{record.synopsis,jdbcType=VARCHAR},
       </if>
       <if test="record.text != null">
-        TEXT = #{record.text,jdbcType=CLOB},
+        text = #{record.text,jdbcType=LONGVARCHAR},
       </if>
       <if test="record.markdown != null">
-        MARKDOWN = #{record.markdown,jdbcType=CLOB},
+        markdown = #{record.markdown,jdbcType=LONGVARCHAR},
       </if>
     </set>
     <if test="_parameter != null">
@@ -207,83 +209,83 @@
     </if>
   </update>
   <update id="updateByExampleWithBLOBs" parameterType="map">
-    update DTS_BLOG
-    set BLOG_ID = #{record.blogId,jdbcType=VARCHAR},
-      TITLE = #{record.title,jdbcType=VARCHAR},
-      AUTHOR_ID = #{record.authorId,jdbcType=VARCHAR},
-      CREATE_DATE = #{record.createDate,jdbcType=TIMESTAMP},
-      UPDATE_DATE = #{record.updateDate,jdbcType=TIMESTAMP},
-      STATE_CODE = #{record.stateCode,jdbcType=INTEGER},
-      SYNOPSIS = #{record.synopsis,jdbcType=VARCHAR},
-      TEXT = #{record.text,jdbcType=CLOB},
-      MARKDOWN = #{record.markdown,jdbcType=CLOB}
+    update dts_blog
+    set blog_id = #{record.blogId,jdbcType=VARCHAR},
+      title = #{record.title,jdbcType=VARCHAR},
+      author_id = #{record.authorId,jdbcType=VARCHAR},
+      create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      update_date = #{record.updateDate,jdbcType=TIMESTAMP},
+      state_code = #{record.stateCode,jdbcType=INTEGER},
+      synopsis = #{record.synopsis,jdbcType=VARCHAR},
+      text = #{record.text,jdbcType=LONGVARCHAR},
+      markdown = #{record.markdown,jdbcType=LONGVARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update DTS_BLOG
-    set BLOG_ID = #{record.blogId,jdbcType=VARCHAR},
-      TITLE = #{record.title,jdbcType=VARCHAR},
-      AUTHOR_ID = #{record.authorId,jdbcType=VARCHAR},
-      CREATE_DATE = #{record.createDate,jdbcType=TIMESTAMP},
-      UPDATE_DATE = #{record.updateDate,jdbcType=TIMESTAMP},
-      STATE_CODE = #{record.stateCode,jdbcType=INTEGER},
-      SYNOPSIS = #{record.synopsis,jdbcType=VARCHAR}
+    update dts_blog
+    set blog_id = #{record.blogId,jdbcType=VARCHAR},
+      title = #{record.title,jdbcType=VARCHAR},
+      author_id = #{record.authorId,jdbcType=VARCHAR},
+      create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      update_date = #{record.updateDate,jdbcType=TIMESTAMP},
+      state_code = #{record.stateCode,jdbcType=INTEGER},
+      synopsis = #{record.synopsis,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
   <update id="updateByPrimaryKeySelective" parameterType="net.ttcxy.tang.gateway.entity.model.DtsBlog">
-    update DTS_BLOG
+    update dts_blog
     <set>
       <if test="title != null">
-        TITLE = #{title,jdbcType=VARCHAR},
+        title = #{title,jdbcType=VARCHAR},
       </if>
       <if test="authorId != null">
-        AUTHOR_ID = #{authorId,jdbcType=VARCHAR},
+        author_id = #{authorId,jdbcType=VARCHAR},
       </if>
       <if test="createDate != null">
-        CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+        create_date = #{createDate,jdbcType=TIMESTAMP},
       </if>
       <if test="updateDate != null">
-        UPDATE_DATE = #{updateDate,jdbcType=TIMESTAMP},
+        update_date = #{updateDate,jdbcType=TIMESTAMP},
       </if>
       <if test="stateCode != null">
-        STATE_CODE = #{stateCode,jdbcType=INTEGER},
+        state_code = #{stateCode,jdbcType=INTEGER},
       </if>
       <if test="synopsis != null">
-        SYNOPSIS = #{synopsis,jdbcType=VARCHAR},
+        synopsis = #{synopsis,jdbcType=VARCHAR},
       </if>
       <if test="text != null">
-        TEXT = #{text,jdbcType=CLOB},
+        text = #{text,jdbcType=LONGVARCHAR},
       </if>
       <if test="markdown != null">
-        MARKDOWN = #{markdown,jdbcType=CLOB},
+        markdown = #{markdown,jdbcType=LONGVARCHAR},
       </if>
     </set>
-    where BLOG_ID = #{blogId,jdbcType=VARCHAR}
+    where blog_id = #{blogId,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKeyWithBLOBs" parameterType="net.ttcxy.tang.gateway.entity.model.DtsBlog">
-    update DTS_BLOG
-    set TITLE = #{title,jdbcType=VARCHAR},
-      AUTHOR_ID = #{authorId,jdbcType=VARCHAR},
-      CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
-      UPDATE_DATE = #{updateDate,jdbcType=TIMESTAMP},
-      STATE_CODE = #{stateCode,jdbcType=INTEGER},
-      SYNOPSIS = #{synopsis,jdbcType=VARCHAR},
-      TEXT = #{text,jdbcType=CLOB},
-      MARKDOWN = #{markdown,jdbcType=CLOB}
-    where BLOG_ID = #{blogId,jdbcType=VARCHAR}
+    update dts_blog
+    set title = #{title,jdbcType=VARCHAR},
+      author_id = #{authorId,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      update_date = #{updateDate,jdbcType=TIMESTAMP},
+      state_code = #{stateCode,jdbcType=INTEGER},
+      synopsis = #{synopsis,jdbcType=VARCHAR},
+      text = #{text,jdbcType=LONGVARCHAR},
+      markdown = #{markdown,jdbcType=LONGVARCHAR}
+    where blog_id = #{blogId,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="net.ttcxy.tang.gateway.entity.model.DtsBlog">
-    update DTS_BLOG
-    set TITLE = #{title,jdbcType=VARCHAR},
-      AUTHOR_ID = #{authorId,jdbcType=VARCHAR},
-      CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
-      UPDATE_DATE = #{updateDate,jdbcType=TIMESTAMP},
-      STATE_CODE = #{stateCode,jdbcType=INTEGER},
-      SYNOPSIS = #{synopsis,jdbcType=VARCHAR}
-    where BLOG_ID = #{blogId,jdbcType=VARCHAR}
+    update dts_blog
+    set title = #{title,jdbcType=VARCHAR},
+      author_id = #{authorId,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      update_date = #{updateDate,jdbcType=TIMESTAMP},
+      state_code = #{stateCode,jdbcType=INTEGER},
+      synopsis = #{synopsis,jdbcType=VARCHAR}
+    where blog_id = #{blogId,jdbcType=VARCHAR}
   </update>
 </mapper>

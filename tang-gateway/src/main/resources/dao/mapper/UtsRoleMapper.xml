@@ -2,10 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="net.ttcxy.tang.gateway.dao.mapper.UtsRoleMapper">
   <resultMap id="BaseResultMap" type="net.ttcxy.tang.gateway.entity.model.UtsRole">
-    <id column="ROLE_ID" jdbcType="VARCHAR" property="roleId" />
-    <result column="ROLE_NAME" jdbcType="VARCHAR" property="roleName" />
-    <result column="ROLE_VALUE" jdbcType="VARCHAR" property="roleValue" />
-    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <id column="role_id" jdbcType="VARCHAR" property="roleId" />
+    <result column="role_name" jdbcType="VARCHAR" property="roleName" />
+    <result column="role_value" jdbcType="VARCHAR" property="roleValue" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -66,44 +66,44 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    ROLE_ID, ROLE_NAME, ROLE_VALUE, CREATE_TIME
+    role_id, role_name, role_value, create_time
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from UTS_ROLE
-    where ROLE_ID = #{roleId,jdbcType=VARCHAR}
+    from uts_role
+    where role_id = #{roleId,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-    delete from UTS_ROLE
-    where ROLE_ID = #{roleId,jdbcType=VARCHAR}
+    delete from uts_role
+    where role_id = #{roleId,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="net.ttcxy.tang.gateway.entity.model.UtsRoleExample">
-    delete from UTS_ROLE
+    delete from uts_role
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
   <insert id="insert" parameterType="net.ttcxy.tang.gateway.entity.model.UtsRole">
-    insert into UTS_ROLE (ROLE_ID, ROLE_NAME, ROLE_VALUE, 
-      CREATE_TIME)
+    insert into uts_role (role_id, role_name, role_value, 
+      create_time)
     values (#{roleId,jdbcType=VARCHAR}, #{roleName,jdbcType=VARCHAR}, #{roleValue,jdbcType=VARCHAR}, 
       #{createTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="net.ttcxy.tang.gateway.entity.model.UtsRole">
-    insert into UTS_ROLE
+    insert into uts_role
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="roleId != null">
-        ROLE_ID,
+        role_id,
       </if>
       <if test="roleName != null">
-        ROLE_NAME,
+        role_name,
       </if>
       <if test="roleValue != null">
-        ROLE_VALUE,
+        role_value,
       </if>
       <if test="createTime != null">
-        CREATE_TIME,
+        create_time,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -122,25 +122,25 @@
     </trim>
   </insert>
   <select id="countByExample" parameterType="net.ttcxy.tang.gateway.entity.model.UtsRoleExample" resultType="java.lang.Long">
-    select count(*) from UTS_ROLE
+    select count(*) from uts_role
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update UTS_ROLE
+    update uts_role
     <set>
       <if test="record.roleId != null">
-        ROLE_ID = #{record.roleId,jdbcType=VARCHAR},
+        role_id = #{record.roleId,jdbcType=VARCHAR},
       </if>
       <if test="record.roleName != null">
-        ROLE_NAME = #{record.roleName,jdbcType=VARCHAR},
+        role_name = #{record.roleName,jdbcType=VARCHAR},
       </if>
       <if test="record.roleValue != null">
-        ROLE_VALUE = #{record.roleValue,jdbcType=VARCHAR},
+        role_value = #{record.roleValue,jdbcType=VARCHAR},
       </if>
       <if test="record.createTime != null">
-        CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
       </if>
     </set>
     <if test="_parameter != null">
@@ -148,35 +148,35 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update UTS_ROLE
-    set ROLE_ID = #{record.roleId,jdbcType=VARCHAR},
-      ROLE_NAME = #{record.roleName,jdbcType=VARCHAR},
-      ROLE_VALUE = #{record.roleValue,jdbcType=VARCHAR},
-      CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP}
+    update uts_role
+    set role_id = #{record.roleId,jdbcType=VARCHAR},
+      role_name = #{record.roleName,jdbcType=VARCHAR},
+      role_value = #{record.roleValue,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
   <update id="updateByPrimaryKeySelective" parameterType="net.ttcxy.tang.gateway.entity.model.UtsRole">
-    update UTS_ROLE
+    update uts_role
     <set>
       <if test="roleName != null">
-        ROLE_NAME = #{roleName,jdbcType=VARCHAR},
+        role_name = #{roleName,jdbcType=VARCHAR},
       </if>
       <if test="roleValue != null">
-        ROLE_VALUE = #{roleValue,jdbcType=VARCHAR},
+        role_value = #{roleValue,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null">
-        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+        create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
     </set>
-    where ROLE_ID = #{roleId,jdbcType=VARCHAR}
+    where role_id = #{roleId,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="net.ttcxy.tang.gateway.entity.model.UtsRole">
-    update UTS_ROLE
-    set ROLE_NAME = #{roleName,jdbcType=VARCHAR},
-      ROLE_VALUE = #{roleValue,jdbcType=VARCHAR},
-      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP}
-    where ROLE_ID = #{roleId,jdbcType=VARCHAR}
+    update uts_role
+    set role_name = #{roleName,jdbcType=VARCHAR},
+      role_value = #{roleValue,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where role_id = #{roleId,jdbcType=VARCHAR}
   </update>
 </mapper>

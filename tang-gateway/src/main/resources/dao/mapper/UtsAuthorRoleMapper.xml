@@ -2,10 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="net.ttcxy.tang.gateway.dao.mapper.UtsAuthorRoleMapper">
   <resultMap id="BaseResultMap" type="net.ttcxy.tang.gateway.entity.model.UtsAuthorRole">
-    <id column="AUTHOR_ROLE_ID" jdbcType="VARCHAR" property="authorRoleId" />
-    <result column="AUTHOR_ID" jdbcType="VARCHAR" property="authorId" />
-    <result column="ROLE_ID" jdbcType="VARCHAR" property="roleId" />
-    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <id column="author_role_id" jdbcType="VARCHAR" property="authorRoleId" />
+    <result column="author_id" jdbcType="VARCHAR" property="authorId" />
+    <result column="role_id" jdbcType="VARCHAR" property="roleId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -66,44 +66,44 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    AUTHOR_ROLE_ID, AUTHOR_ID, ROLE_ID, CREATE_TIME
+    author_role_id, author_id, role_id, create_time
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from UTS_AUTHOR_ROLE
-    where AUTHOR_ROLE_ID = #{authorRoleId,jdbcType=VARCHAR}
+    from uts_author_role
+    where author_role_id = #{authorRoleId,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-    delete from UTS_AUTHOR_ROLE
-    where AUTHOR_ROLE_ID = #{authorRoleId,jdbcType=VARCHAR}
+    delete from uts_author_role
+    where author_role_id = #{authorRoleId,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="net.ttcxy.tang.gateway.entity.model.UtsAuthorRoleExample">
-    delete from UTS_AUTHOR_ROLE
+    delete from uts_author_role
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
   <insert id="insert" parameterType="net.ttcxy.tang.gateway.entity.model.UtsAuthorRole">
-    insert into UTS_AUTHOR_ROLE (AUTHOR_ROLE_ID, AUTHOR_ID, ROLE_ID, 
-      CREATE_TIME)
+    insert into uts_author_role (author_role_id, author_id, role_id, 
+      create_time)
     values (#{authorRoleId,jdbcType=VARCHAR}, #{authorId,jdbcType=VARCHAR}, #{roleId,jdbcType=VARCHAR}, 
       #{createTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="net.ttcxy.tang.gateway.entity.model.UtsAuthorRole">
-    insert into UTS_AUTHOR_ROLE
+    insert into uts_author_role
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="authorRoleId != null">
-        AUTHOR_ROLE_ID,
+        author_role_id,
       </if>
       <if test="authorId != null">
-        AUTHOR_ID,
+        author_id,
       </if>
       <if test="roleId != null">
-        ROLE_ID,
+        role_id,
       </if>
       <if test="createTime != null">
-        CREATE_TIME,
+        create_time,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -122,25 +122,25 @@
     </trim>
   </insert>
   <select id="countByExample" parameterType="net.ttcxy.tang.gateway.entity.model.UtsAuthorRoleExample" resultType="java.lang.Long">
-    select count(*) from UTS_AUTHOR_ROLE
+    select count(*) from uts_author_role
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update UTS_AUTHOR_ROLE
+    update uts_author_role
     <set>
       <if test="record.authorRoleId != null">
-        AUTHOR_ROLE_ID = #{record.authorRoleId,jdbcType=VARCHAR},
+        author_role_id = #{record.authorRoleId,jdbcType=VARCHAR},
       </if>
       <if test="record.authorId != null">
-        AUTHOR_ID = #{record.authorId,jdbcType=VARCHAR},
+        author_id = #{record.authorId,jdbcType=VARCHAR},
       </if>
       <if test="record.roleId != null">
-        ROLE_ID = #{record.roleId,jdbcType=VARCHAR},
+        role_id = #{record.roleId,jdbcType=VARCHAR},
       </if>
       <if test="record.createTime != null">
-        CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
       </if>
     </set>
     <if test="_parameter != null">
@@ -148,35 +148,35 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update UTS_AUTHOR_ROLE
-    set AUTHOR_ROLE_ID = #{record.authorRoleId,jdbcType=VARCHAR},
-      AUTHOR_ID = #{record.authorId,jdbcType=VARCHAR},
-      ROLE_ID = #{record.roleId,jdbcType=VARCHAR},
-      CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP}
+    update uts_author_role
+    set author_role_id = #{record.authorRoleId,jdbcType=VARCHAR},
+      author_id = #{record.authorId,jdbcType=VARCHAR},
+      role_id = #{record.roleId,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
   <update id="updateByPrimaryKeySelective" parameterType="net.ttcxy.tang.gateway.entity.model.UtsAuthorRole">
-    update UTS_AUTHOR_ROLE
+    update uts_author_role
     <set>
       <if test="authorId != null">
-        AUTHOR_ID = #{authorId,jdbcType=VARCHAR},
+        author_id = #{authorId,jdbcType=VARCHAR},
       </if>
       <if test="roleId != null">
-        ROLE_ID = #{roleId,jdbcType=VARCHAR},
+        role_id = #{roleId,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null">
-        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+        create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
     </set>
-    where AUTHOR_ROLE_ID = #{authorRoleId,jdbcType=VARCHAR}
+    where author_role_id = #{authorRoleId,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="net.ttcxy.tang.gateway.entity.model.UtsAuthorRole">
-    update UTS_AUTHOR_ROLE
-    set AUTHOR_ID = #{authorId,jdbcType=VARCHAR},
-      ROLE_ID = #{roleId,jdbcType=VARCHAR},
-      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP}
-    where AUTHOR_ROLE_ID = #{authorRoleId,jdbcType=VARCHAR}
+    update uts_author_role
+    set author_id = #{authorId,jdbcType=VARCHAR},
+      role_id = #{roleId,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where author_role_id = #{authorRoleId,jdbcType=VARCHAR}
   </update>
 </mapper>

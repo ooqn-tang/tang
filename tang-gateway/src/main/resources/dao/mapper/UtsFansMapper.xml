@@ -2,10 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="net.ttcxy.tang.gateway.dao.mapper.UtsFansMapper">
   <resultMap id="BaseResultMap" type="net.ttcxy.tang.gateway.entity.model.UtsFans">
-    <id column="FANS_ID" jdbcType="VARCHAR" property="fansId" />
-    <result column="BE_AUTHOR_ID" jdbcType="VARCHAR" property="beAuthorId" />
-    <result column="AUTHOR_ID" jdbcType="VARCHAR" property="authorId" />
-    <result column="CREATE_DATE" jdbcType="TIMESTAMP" property="createDate" />
+    <id column="fans_id" jdbcType="VARCHAR" property="fansId" />
+    <result column="be_author_id" jdbcType="VARCHAR" property="beAuthorId" />
+    <result column="author_id" jdbcType="VARCHAR" property="authorId" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -66,44 +66,44 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    FANS_ID, BE_AUTHOR_ID, AUTHOR_ID, CREATE_DATE
+    fans_id, be_author_id, author_id, create_date
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from UTS_FANS
-    where FANS_ID = #{fansId,jdbcType=VARCHAR}
+    from uts_fans
+    where fans_id = #{fansId,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-    delete from UTS_FANS
-    where FANS_ID = #{fansId,jdbcType=VARCHAR}
+    delete from uts_fans
+    where fans_id = #{fansId,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="net.ttcxy.tang.gateway.entity.model.UtsFansExample">
-    delete from UTS_FANS
+    delete from uts_fans
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
   <insert id="insert" parameterType="net.ttcxy.tang.gateway.entity.model.UtsFans">
-    insert into UTS_FANS (FANS_ID, BE_AUTHOR_ID, AUTHOR_ID, 
-      CREATE_DATE)
+    insert into uts_fans (fans_id, be_author_id, author_id, 
+      create_date)
     values (#{fansId,jdbcType=VARCHAR}, #{beAuthorId,jdbcType=VARCHAR}, #{authorId,jdbcType=VARCHAR}, 
       #{createDate,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="net.ttcxy.tang.gateway.entity.model.UtsFans">
-    insert into UTS_FANS
+    insert into uts_fans
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="fansId != null">
-        FANS_ID,
+        fans_id,
       </if>
       <if test="beAuthorId != null">
-        BE_AUTHOR_ID,
+        be_author_id,
       </if>
       <if test="authorId != null">
-        AUTHOR_ID,
+        author_id,
       </if>
       <if test="createDate != null">
-        CREATE_DATE,
+        create_date,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -122,25 +122,25 @@
     </trim>
   </insert>
   <select id="countByExample" parameterType="net.ttcxy.tang.gateway.entity.model.UtsFansExample" resultType="java.lang.Long">
-    select count(*) from UTS_FANS
+    select count(*) from uts_fans
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update UTS_FANS
+    update uts_fans
     <set>
       <if test="record.fansId != null">
-        FANS_ID = #{record.fansId,jdbcType=VARCHAR},
+        fans_id = #{record.fansId,jdbcType=VARCHAR},
       </if>
       <if test="record.beAuthorId != null">
-        BE_AUTHOR_ID = #{record.beAuthorId,jdbcType=VARCHAR},
+        be_author_id = #{record.beAuthorId,jdbcType=VARCHAR},
       </if>
       <if test="record.authorId != null">
-        AUTHOR_ID = #{record.authorId,jdbcType=VARCHAR},
+        author_id = #{record.authorId,jdbcType=VARCHAR},
       </if>
       <if test="record.createDate != null">
-        CREATE_DATE = #{record.createDate,jdbcType=TIMESTAMP},
+        create_date = #{record.createDate,jdbcType=TIMESTAMP},
       </if>
     </set>
     <if test="_parameter != null">
@@ -148,35 +148,35 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update UTS_FANS
-    set FANS_ID = #{record.fansId,jdbcType=VARCHAR},
-      BE_AUTHOR_ID = #{record.beAuthorId,jdbcType=VARCHAR},
-      AUTHOR_ID = #{record.authorId,jdbcType=VARCHAR},
-      CREATE_DATE = #{record.createDate,jdbcType=TIMESTAMP}
+    update uts_fans
+    set fans_id = #{record.fansId,jdbcType=VARCHAR},
+      be_author_id = #{record.beAuthorId,jdbcType=VARCHAR},
+      author_id = #{record.authorId,jdbcType=VARCHAR},
+      create_date = #{record.createDate,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
   <update id="updateByPrimaryKeySelective" parameterType="net.ttcxy.tang.gateway.entity.model.UtsFans">
-    update UTS_FANS
+    update uts_fans
     <set>
       <if test="beAuthorId != null">
-        BE_AUTHOR_ID = #{beAuthorId,jdbcType=VARCHAR},
+        be_author_id = #{beAuthorId,jdbcType=VARCHAR},
       </if>
       <if test="authorId != null">
-        AUTHOR_ID = #{authorId,jdbcType=VARCHAR},
+        author_id = #{authorId,jdbcType=VARCHAR},
       </if>
       <if test="createDate != null">
-        CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+        create_date = #{createDate,jdbcType=TIMESTAMP},
       </if>
     </set>
-    where FANS_ID = #{fansId,jdbcType=VARCHAR}
+    where fans_id = #{fansId,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="net.ttcxy.tang.gateway.entity.model.UtsFans">
-    update UTS_FANS
-    set BE_AUTHOR_ID = #{beAuthorId,jdbcType=VARCHAR},
-      AUTHOR_ID = #{authorId,jdbcType=VARCHAR},
-      CREATE_DATE = #{createDate,jdbcType=TIMESTAMP}
-    where FANS_ID = #{fansId,jdbcType=VARCHAR}
+    update uts_fans
+    set be_author_id = #{beAuthorId,jdbcType=VARCHAR},
+      author_id = #{authorId,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP}
+    where fans_id = #{fansId,jdbcType=VARCHAR}
   </update>
 </mapper>

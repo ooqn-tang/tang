@@ -4,6 +4,7 @@
         "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
 
 <generatorConfiguration>
+    <properties resource="application.properties"/>
     <context id="MySqlContext" targetRuntime="MyBatis3" defaultModelType="flat">
         <property name="beginningDelimiter" value="`"/>
         <property name="endingDelimiter" value="`"/>
@@ -21,10 +22,10 @@
             <property name="addRemarkComments" value="true"/>
         </commentGenerator>
 
-        <jdbcConnection driverClass="org.h2.Driver"
-                        connectionURL="jdbc:h2:file:D://data/Tang"
-                        userId="root"
-                        password="root">
+        <jdbcConnection driverClass="${spring.datasource.driver-class-name}"
+                        connectionURL="${spring.datasource.url}"
+                        userId="${spring.datasource.username}"
+                        password="${spring.datasource.password}">
             <!--解决mysql驱动升级到8.0后不生成指定数据库代码的问题-->
             <property name="nullCatalogMeansCurrent" value="true" />
         </jdbcConnection>
@@ -43,8 +44,6 @@
                 targetProject="tang-gateway\src\main\java"/>
 
         <!--生成全部表tableName设为%-->
-        <table tableName="dts_%" enableSelectByExample="false"/>
-        <table tableName="uts_%" enableSelectByExample="false"/>
-        <table tableName="sts_%" enableSelectByExample="false"/>
+        <table tableName="%" enableSelectByExample="false"/>
     </context>
 </generatorConfiguration>

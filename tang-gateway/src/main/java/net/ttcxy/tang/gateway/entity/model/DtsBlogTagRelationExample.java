@@ -106,272 +106,272 @@ public class DtsBlogTagRelationExample {
         }
 
         public Criteria andBlogTagRelationIdIsNull() {
-            addCriterion("BLOG_TAG_RELATION_ID is null");
+            addCriterion("blog_tag_relation_id is null");
             return (Criteria) this;
         }
 
         public Criteria andBlogTagRelationIdIsNotNull() {
-            addCriterion("BLOG_TAG_RELATION_ID is not null");
+            addCriterion("blog_tag_relation_id is not null");
             return (Criteria) this;
         }
 
         public Criteria andBlogTagRelationIdEqualTo(String value) {
-            addCriterion("BLOG_TAG_RELATION_ID =", value, "blogTagRelationId");
+            addCriterion("blog_tag_relation_id =", value, "blogTagRelationId");
             return (Criteria) this;
         }
 
         public Criteria andBlogTagRelationIdNotEqualTo(String value) {
-            addCriterion("BLOG_TAG_RELATION_ID <>", value, "blogTagRelationId");
+            addCriterion("blog_tag_relation_id <>", value, "blogTagRelationId");
             return (Criteria) this;
         }
 
         public Criteria andBlogTagRelationIdGreaterThan(String value) {
-            addCriterion("BLOG_TAG_RELATION_ID >", value, "blogTagRelationId");
+            addCriterion("blog_tag_relation_id >", value, "blogTagRelationId");
             return (Criteria) this;
         }
 
         public Criteria andBlogTagRelationIdGreaterThanOrEqualTo(String value) {
-            addCriterion("BLOG_TAG_RELATION_ID >=", value, "blogTagRelationId");
+            addCriterion("blog_tag_relation_id >=", value, "blogTagRelationId");
             return (Criteria) this;
         }
 
         public Criteria andBlogTagRelationIdLessThan(String value) {
-            addCriterion("BLOG_TAG_RELATION_ID <", value, "blogTagRelationId");
+            addCriterion("blog_tag_relation_id <", value, "blogTagRelationId");
             return (Criteria) this;
         }
 
         public Criteria andBlogTagRelationIdLessThanOrEqualTo(String value) {
-            addCriterion("BLOG_TAG_RELATION_ID <=", value, "blogTagRelationId");
+            addCriterion("blog_tag_relation_id <=", value, "blogTagRelationId");
             return (Criteria) this;
         }
 
         public Criteria andBlogTagRelationIdLike(String value) {
-            addCriterion("BLOG_TAG_RELATION_ID like", value, "blogTagRelationId");
+            addCriterion("blog_tag_relation_id like", value, "blogTagRelationId");
             return (Criteria) this;
         }
 
         public Criteria andBlogTagRelationIdNotLike(String value) {
-            addCriterion("BLOG_TAG_RELATION_ID not like", value, "blogTagRelationId");
+            addCriterion("blog_tag_relation_id not like", value, "blogTagRelationId");
             return (Criteria) this;
         }
 
         public Criteria andBlogTagRelationIdIn(List<String> values) {
-            addCriterion("BLOG_TAG_RELATION_ID in", values, "blogTagRelationId");
+            addCriterion("blog_tag_relation_id in", values, "blogTagRelationId");
             return (Criteria) this;
         }
 
         public Criteria andBlogTagRelationIdNotIn(List<String> values) {
-            addCriterion("BLOG_TAG_RELATION_ID not in", values, "blogTagRelationId");
+            addCriterion("blog_tag_relation_id not in", values, "blogTagRelationId");
             return (Criteria) this;
         }
 
         public Criteria andBlogTagRelationIdBetween(String value1, String value2) {
-            addCriterion("BLOG_TAG_RELATION_ID between", value1, value2, "blogTagRelationId");
+            addCriterion("blog_tag_relation_id between", value1, value2, "blogTagRelationId");
             return (Criteria) this;
         }
 
         public Criteria andBlogTagRelationIdNotBetween(String value1, String value2) {
-            addCriterion("BLOG_TAG_RELATION_ID not between", value1, value2, "blogTagRelationId");
+            addCriterion("blog_tag_relation_id not between", value1, value2, "blogTagRelationId");
             return (Criteria) this;
         }
 
         public Criteria andBlogIdIsNull() {
-            addCriterion("BLOG_ID is null");
+            addCriterion("blog_id is null");
             return (Criteria) this;
         }
 
         public Criteria andBlogIdIsNotNull() {
-            addCriterion("BLOG_ID is not null");
+            addCriterion("blog_id is not null");
             return (Criteria) this;
         }
 
         public Criteria andBlogIdEqualTo(String value) {
-            addCriterion("BLOG_ID =", value, "blogId");
+            addCriterion("blog_id =", value, "blogId");
             return (Criteria) this;
         }
 
         public Criteria andBlogIdNotEqualTo(String value) {
-            addCriterion("BLOG_ID <>", value, "blogId");
+            addCriterion("blog_id <>", value, "blogId");
             return (Criteria) this;
         }
 
         public Criteria andBlogIdGreaterThan(String value) {
-            addCriterion("BLOG_ID >", value, "blogId");
+            addCriterion("blog_id >", value, "blogId");
             return (Criteria) this;
         }
 
         public Criteria andBlogIdGreaterThanOrEqualTo(String value) {
-            addCriterion("BLOG_ID >=", value, "blogId");
+            addCriterion("blog_id >=", value, "blogId");
             return (Criteria) this;
         }
 
         public Criteria andBlogIdLessThan(String value) {
-            addCriterion("BLOG_ID <", value, "blogId");
+            addCriterion("blog_id <", value, "blogId");
             return (Criteria) this;
         }
 
         public Criteria andBlogIdLessThanOrEqualTo(String value) {
-            addCriterion("BLOG_ID <=", value, "blogId");
+            addCriterion("blog_id <=", value, "blogId");
             return (Criteria) this;
         }
 
         public Criteria andBlogIdLike(String value) {
-            addCriterion("BLOG_ID like", value, "blogId");
+            addCriterion("blog_id like", value, "blogId");
             return (Criteria) this;
         }
 
         public Criteria andBlogIdNotLike(String value) {
-            addCriterion("BLOG_ID not like", value, "blogId");
+            addCriterion("blog_id not like", value, "blogId");
             return (Criteria) this;
         }
 
         public Criteria andBlogIdIn(List<String> values) {
-            addCriterion("BLOG_ID in", values, "blogId");
+            addCriterion("blog_id in", values, "blogId");
             return (Criteria) this;
         }
 
         public Criteria andBlogIdNotIn(List<String> values) {
-            addCriterion("BLOG_ID not in", values, "blogId");
+            addCriterion("blog_id not in", values, "blogId");
             return (Criteria) this;
         }
 
         public Criteria andBlogIdBetween(String value1, String value2) {
-            addCriterion("BLOG_ID between", value1, value2, "blogId");
+            addCriterion("blog_id between", value1, value2, "blogId");
             return (Criteria) this;
         }
 
         public Criteria andBlogIdNotBetween(String value1, String value2) {
-            addCriterion("BLOG_ID not between", value1, value2, "blogId");
+            addCriterion("blog_id not between", value1, value2, "blogId");
             return (Criteria) this;
         }
 
         public Criteria andBlogTagIdIsNull() {
-            addCriterion("BLOG_TAG_ID is null");
+            addCriterion("blog_tag_id is null");
             return (Criteria) this;
         }
 
         public Criteria andBlogTagIdIsNotNull() {
-            addCriterion("BLOG_TAG_ID is not null");
+            addCriterion("blog_tag_id is not null");
             return (Criteria) this;
         }
 
         public Criteria andBlogTagIdEqualTo(String value) {
-            addCriterion("BLOG_TAG_ID =", value, "blogTagId");
+            addCriterion("blog_tag_id =", value, "blogTagId");
             return (Criteria) this;
         }
 
         public Criteria andBlogTagIdNotEqualTo(String value) {
-            addCriterion("BLOG_TAG_ID <>", value, "blogTagId");
+            addCriterion("blog_tag_id <>", value, "blogTagId");
             return (Criteria) this;
         }
 
         public Criteria andBlogTagIdGreaterThan(String value) {
-            addCriterion("BLOG_TAG_ID >", value, "blogTagId");
+            addCriterion("blog_tag_id >", value, "blogTagId");
             return (Criteria) this;
         }
 
         public Criteria andBlogTagIdGreaterThanOrEqualTo(String value) {
-            addCriterion("BLOG_TAG_ID >=", value, "blogTagId");
+            addCriterion("blog_tag_id >=", value, "blogTagId");
             return (Criteria) this;
         }
 
         public Criteria andBlogTagIdLessThan(String value) {
-            addCriterion("BLOG_TAG_ID <", value, "blogTagId");
+            addCriterion("blog_tag_id <", value, "blogTagId");
             return (Criteria) this;
         }
 
         public Criteria andBlogTagIdLessThanOrEqualTo(String value) {
-            addCriterion("BLOG_TAG_ID <=", value, "blogTagId");
+            addCriterion("blog_tag_id <=", value, "blogTagId");
             return (Criteria) this;
         }
 
         public Criteria andBlogTagIdLike(String value) {
-            addCriterion("BLOG_TAG_ID like", value, "blogTagId");
+            addCriterion("blog_tag_id like", value, "blogTagId");
             return (Criteria) this;
         }
 
         public Criteria andBlogTagIdNotLike(String value) {
-            addCriterion("BLOG_TAG_ID not like", value, "blogTagId");
+            addCriterion("blog_tag_id not like", value, "blogTagId");
             return (Criteria) this;
         }
 
         public Criteria andBlogTagIdIn(List<String> values) {
-            addCriterion("BLOG_TAG_ID in", values, "blogTagId");
+            addCriterion("blog_tag_id in", values, "blogTagId");
             return (Criteria) this;
         }
 
         public Criteria andBlogTagIdNotIn(List<String> values) {
-            addCriterion("BLOG_TAG_ID not in", values, "blogTagId");
+            addCriterion("blog_tag_id not in", values, "blogTagId");
             return (Criteria) this;
         }
 
         public Criteria andBlogTagIdBetween(String value1, String value2) {
-            addCriterion("BLOG_TAG_ID between", value1, value2, "blogTagId");
+            addCriterion("blog_tag_id between", value1, value2, "blogTagId");
             return (Criteria) this;
         }
 
         public Criteria andBlogTagIdNotBetween(String value1, String value2) {
-            addCriterion("BLOG_TAG_ID not between", value1, value2, "blogTagId");
+            addCriterion("blog_tag_id not between", value1, value2, "blogTagId");
             return (Criteria) this;
         }
 
         public Criteria andCreateDateIsNull() {
-            addCriterion("CREATE_DATE is null");
+            addCriterion("create_date is null");
             return (Criteria) this;
         }
 
         public Criteria andCreateDateIsNotNull() {
-            addCriterion("CREATE_DATE is not null");
+            addCriterion("create_date is not null");
             return (Criteria) this;
         }
 
         public Criteria andCreateDateEqualTo(Date value) {
-            addCriterion("CREATE_DATE =", value, "createDate");
+            addCriterion("create_date =", value, "createDate");
             return (Criteria) this;
         }
 
         public Criteria andCreateDateNotEqualTo(Date value) {
-            addCriterion("CREATE_DATE <>", value, "createDate");
+            addCriterion("create_date <>", value, "createDate");
             return (Criteria) this;
         }
 
         public Criteria andCreateDateGreaterThan(Date value) {
-            addCriterion("CREATE_DATE >", value, "createDate");
+            addCriterion("create_date >", value, "createDate");
             return (Criteria) this;
         }
 
         public Criteria andCreateDateGreaterThanOrEqualTo(Date value) {
-            addCriterion("CREATE_DATE >=", value, "createDate");
+            addCriterion("create_date >=", value, "createDate");
             return (Criteria) this;
         }
 
         public Criteria andCreateDateLessThan(Date value) {
-            addCriterion("CREATE_DATE <", value, "createDate");
+            addCriterion("create_date <", value, "createDate");
             return (Criteria) this;
         }
 
         public Criteria andCreateDateLessThanOrEqualTo(Date value) {
-            addCriterion("CREATE_DATE <=", value, "createDate");
+            addCriterion("create_date <=", value, "createDate");
             return (Criteria) this;
         }
 
         public Criteria andCreateDateIn(List<Date> values) {
-            addCriterion("CREATE_DATE in", values, "createDate");
+            addCriterion("create_date in", values, "createDate");
             return (Criteria) this;
         }
 
         public Criteria andCreateDateNotIn(List<Date> values) {
-            addCriterion("CREATE_DATE not in", values, "createDate");
+            addCriterion("create_date not in", values, "createDate");
             return (Criteria) this;
         }
 
         public Criteria andCreateDateBetween(Date value1, Date value2) {
-            addCriterion("CREATE_DATE between", value1, value2, "createDate");
+            addCriterion("create_date between", value1, value2, "createDate");
             return (Criteria) this;
         }
 
         public Criteria andCreateDateNotBetween(Date value1, Date value2) {
-            addCriterion("CREATE_DATE not between", value1, value2, "createDate");
+            addCriterion("create_date not between", value1, value2, "createDate");
             return (Criteria) this;
         }
     }
