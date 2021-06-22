@@ -6,15 +6,21 @@
       </router-link>
       <div class="blog-synopsis">{{item.synopsis}}</div>
       <p v-if="item.subjectName != null">
-        <span style="border: 1px solid #ff7d00; padding: 0px 5px; border-radius: 10px;">专辑 : {{item.subjectName}}</span>
+        <span style="    background: #efefef;
+    padding: 0px 5px;
+    border-radius: 10px;
+    color: #7d7d7d;">专辑 : {{item.subjectName}}</span>
       </p>
-        <span style="border: 1px solid #ff7d00; padding: 0px 5px; border-radius: 10px;">{{item.createDate}}</span>
+        <span style="    background: #efefef;
+    padding: 0px 5px;
+    border-radius: 10px;
+    color: #7d7d7d;">{{item.createDate}}</span>
         
         <div class="btn-group float-end">
           <!-- <button class="btn btn-outline-dark float-end" style="padding: 0px 5px 0px 3px;font-size: 13px;" disabled>编辑</button> -->
-          <button class="btn btn-outline-danger float-end" style="padding: 0px 5px 0px 3px;font-size: 13px;" @click="deleteBlog(item.blogId,index)">删除</button>
-          <button class="btn btn-outline-success float-end" style="padding: 0px 5px 0px 3px;font-size: 13px;" v-if="item.subjectId == null" data-bs-toggle="modal" data-bs-target="#exampleModal"  @click="subjectFrom.blogId = item.blogId , thisItem = item">添加到专辑</button>
-          <button class="btn btn-outline-warning float-end" style="padding: 0px 5px 0px 3px;font-size: 13px;" v-if="item.subjectId != null" data-bs-toggle="modal" data-bs-target="#exampleModal"  @click="subjectFrom.blogId = item.blogId , thisItem = item">修改到专辑</button>
+          <button class="btn btn-outline-danger float-end" style="padding: 0px 5px 0px 3px;font-size: 13px;" v-if="isThisUser" @click="deleteBlog(item.blogId,index)">删除</button>
+          <button class="btn btn-outline-success float-end" style="padding: 0px 5px 0px 3px;font-size: 13px;" v-if="item.subjectId == null && isThisUser" data-bs-toggle="modal" data-bs-target="#exampleModal"  @click="subjectFrom.blogId = item.blogId , thisItem = item">添加到专辑</button>
+          <button class="btn btn-outline-warning float-end" style="padding: 0px 5px 0px 3px;font-size: 13px;" v-if="item.subjectId != null  && isThisUser" data-bs-toggle="modal" data-bs-target="#exampleModal"  @click="subjectFrom.blogId = item.blogId , thisItem = item">修改到专辑</button>
       </div>
     </li>   
     <li class="list-group-item">
@@ -53,6 +59,8 @@ export default {
   name: "author_blog",
   data() {
     return {
+      thisUsername: this.$route.params.username,
+      isThisUser: this.$route.params.username == this.$store.state.username,
       thisItem:{},
       blogList:[],
       blogPage:{

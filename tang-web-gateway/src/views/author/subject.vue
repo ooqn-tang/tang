@@ -4,12 +4,12 @@
       <router-link :to="{name:'subject_info',params:{subject_id:item.blogSubjectId}}">
         <strong v-text="item.subjectName"></strong>
       </router-link>
-      <span class="float-end" data-bs-toggle="modal" data-bs-target="#exampleModal" @click="updateClick(item.blogSubjectId,item.subjectName,item.synopsis)">编辑</span>
+      <span class="float-end" data-bs-toggle="modal" data-bs-target="#exampleModal" v-if="isThisUser" @click="updateClick(item.blogSubjectId,item.subjectName,item.synopsis)">编辑</span>
       <div>
         {{item.synopsis}}
       </div>
     </li>   
-    <li class="list-group-item ">
+    <li class="list-group-item " v-if="isThisUser">
       <a data-bs-toggle="modal" data-bs-target="#exampleModal" @click="dataFrom = {} , saveType = 'insert'">创建专辑</a>
     </li> 
   </ul>
@@ -48,6 +48,8 @@ export default {
   data() {
     return {
       saveType:"update",// insert
+      thisUsername: this.$route.params.username,
+      isThisUser: this.$route.params.username == this.$store.state.username,
       subjectList:[],
       dataFrom:{
         blogSubjectId:"",
