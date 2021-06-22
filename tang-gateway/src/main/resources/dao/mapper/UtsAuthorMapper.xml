@@ -2,12 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="net.ttcxy.tang.gateway.dao.mapper.UtsAuthorMapper">
   <resultMap id="BaseResultMap" type="net.ttcxy.tang.gateway.entity.model.UtsAuthor">
-    <id column="AUTHOR_ID" jdbcType="VARCHAR" property="authorId" />
-    <result column="USERNAME" jdbcType="VARCHAR" property="username" />
-    <result column="NICKNAME" jdbcType="VARCHAR" property="nickname" />
-    <result column="PASSWORD" jdbcType="VARCHAR" property="password" />
-    <result column="MAIL" jdbcType="VARCHAR" property="mail" />
-    <result column="SIGNATURE" jdbcType="VARCHAR" property="signature" />
+    <id column="author_id" jdbcType="VARCHAR" property="authorId" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="nickname" jdbcType="VARCHAR" property="nickname" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="mail" jdbcType="VARCHAR" property="mail" />
+    <result column="signature" jdbcType="VARCHAR" property="signature" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -68,52 +68,52 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    AUTHOR_ID, USERNAME, NICKNAME, PASSWORD, MAIL, SIGNATURE
+    author_id, username, nickname, password, mail, signature
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from UTS_AUTHOR
-    where AUTHOR_ID = #{authorId,jdbcType=VARCHAR}
+    from uts_author
+    where author_id = #{authorId,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-    delete from UTS_AUTHOR
-    where AUTHOR_ID = #{authorId,jdbcType=VARCHAR}
+    delete from uts_author
+    where author_id = #{authorId,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="net.ttcxy.tang.gateway.entity.model.UtsAuthorExample">
-    delete from UTS_AUTHOR
+    delete from uts_author
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
   <insert id="insert" parameterType="net.ttcxy.tang.gateway.entity.model.UtsAuthor">
-    insert into UTS_AUTHOR (AUTHOR_ID, USERNAME, NICKNAME, 
-      PASSWORD, MAIL, SIGNATURE
+    insert into uts_author (author_id, username, nickname, 
+      password, mail, signature
       )
     values (#{authorId,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR}, 
       #{password,jdbcType=VARCHAR}, #{mail,jdbcType=VARCHAR}, #{signature,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="net.ttcxy.tang.gateway.entity.model.UtsAuthor">
-    insert into UTS_AUTHOR
+    insert into uts_author
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="authorId != null">
-        AUTHOR_ID,
+        author_id,
       </if>
       <if test="username != null">
-        USERNAME,
+        username,
       </if>
       <if test="nickname != null">
-        NICKNAME,
+        nickname,
       </if>
       <if test="password != null">
-        PASSWORD,
+        password,
       </if>
       <if test="mail != null">
-        MAIL,
+        mail,
       </if>
       <if test="signature != null">
-        SIGNATURE,
+        signature,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -138,31 +138,31 @@
     </trim>
   </insert>
   <select id="countByExample" parameterType="net.ttcxy.tang.gateway.entity.model.UtsAuthorExample" resultType="java.lang.Long">
-    select count(*) from UTS_AUTHOR
+    select count(*) from uts_author
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update UTS_AUTHOR
+    update uts_author
     <set>
       <if test="record.authorId != null">
-        AUTHOR_ID = #{record.authorId,jdbcType=VARCHAR},
+        author_id = #{record.authorId,jdbcType=VARCHAR},
       </if>
       <if test="record.username != null">
-        USERNAME = #{record.username,jdbcType=VARCHAR},
+        username = #{record.username,jdbcType=VARCHAR},
       </if>
       <if test="record.nickname != null">
-        NICKNAME = #{record.nickname,jdbcType=VARCHAR},
+        nickname = #{record.nickname,jdbcType=VARCHAR},
       </if>
       <if test="record.password != null">
-        PASSWORD = #{record.password,jdbcType=VARCHAR},
+        password = #{record.password,jdbcType=VARCHAR},
       </if>
       <if test="record.mail != null">
-        MAIL = #{record.mail,jdbcType=VARCHAR},
+        mail = #{record.mail,jdbcType=VARCHAR},
       </if>
       <if test="record.signature != null">
-        SIGNATURE = #{record.signature,jdbcType=VARCHAR},
+        signature = #{record.signature,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null">
@@ -170,45 +170,45 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update UTS_AUTHOR
-    set AUTHOR_ID = #{record.authorId,jdbcType=VARCHAR},
-      USERNAME = #{record.username,jdbcType=VARCHAR},
-      NICKNAME = #{record.nickname,jdbcType=VARCHAR},
-      PASSWORD = #{record.password,jdbcType=VARCHAR},
-      MAIL = #{record.mail,jdbcType=VARCHAR},
-      SIGNATURE = #{record.signature,jdbcType=VARCHAR}
+    update uts_author
+    set author_id = #{record.authorId,jdbcType=VARCHAR},
+      username = #{record.username,jdbcType=VARCHAR},
+      nickname = #{record.nickname,jdbcType=VARCHAR},
+      password = #{record.password,jdbcType=VARCHAR},
+      mail = #{record.mail,jdbcType=VARCHAR},
+      signature = #{record.signature,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
   <update id="updateByPrimaryKeySelective" parameterType="net.ttcxy.tang.gateway.entity.model.UtsAuthor">
-    update UTS_AUTHOR
+    update uts_author
     <set>
       <if test="username != null">
-        USERNAME = #{username,jdbcType=VARCHAR},
+        username = #{username,jdbcType=VARCHAR},
       </if>
       <if test="nickname != null">
-        NICKNAME = #{nickname,jdbcType=VARCHAR},
+        nickname = #{nickname,jdbcType=VARCHAR},
       </if>
       <if test="password != null">
-        PASSWORD = #{password,jdbcType=VARCHAR},
+        password = #{password,jdbcType=VARCHAR},
       </if>
       <if test="mail != null">
-        MAIL = #{mail,jdbcType=VARCHAR},
+        mail = #{mail,jdbcType=VARCHAR},
       </if>
       <if test="signature != null">
-        SIGNATURE = #{signature,jdbcType=VARCHAR},
+        signature = #{signature,jdbcType=VARCHAR},
       </if>
     </set>
-    where AUTHOR_ID = #{authorId,jdbcType=VARCHAR}
+    where author_id = #{authorId,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="net.ttcxy.tang.gateway.entity.model.UtsAuthor">
-    update UTS_AUTHOR
-    set USERNAME = #{username,jdbcType=VARCHAR},
-      NICKNAME = #{nickname,jdbcType=VARCHAR},
-      PASSWORD = #{password,jdbcType=VARCHAR},
-      MAIL = #{mail,jdbcType=VARCHAR},
-      SIGNATURE = #{signature,jdbcType=VARCHAR}
-    where AUTHOR_ID = #{authorId,jdbcType=VARCHAR}
+    update uts_author
+    set username = #{username,jdbcType=VARCHAR},
+      nickname = #{nickname,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      mail = #{mail,jdbcType=VARCHAR},
+      signature = #{signature,jdbcType=VARCHAR}
+    where author_id = #{authorId,jdbcType=VARCHAR}
   </update>
 </mapper>

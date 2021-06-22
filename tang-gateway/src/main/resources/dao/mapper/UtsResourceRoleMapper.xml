@@ -2,10 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="net.ttcxy.tang.gateway.dao.mapper.UtsResourceRoleMapper">
   <resultMap id="BaseResultMap" type="net.ttcxy.tang.gateway.entity.model.UtsResourceRole">
-    <id column="RESOURCE_ROLE_ID" jdbcType="VARCHAR" property="resourceRoleId" />
-    <result column="RESOURCE_ID" jdbcType="VARCHAR" property="resourceId" />
-    <result column="ROLE_ID" jdbcType="VARCHAR" property="roleId" />
-    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <id column="resource_role_id" jdbcType="VARCHAR" property="resourceRoleId" />
+    <result column="resource_id" jdbcType="VARCHAR" property="resourceId" />
+    <result column="role_id" jdbcType="VARCHAR" property="roleId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -66,44 +66,44 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    RESOURCE_ROLE_ID, RESOURCE_ID, ROLE_ID, CREATE_TIME
+    resource_role_id, resource_id, role_id, create_time
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from UTS_RESOURCE_ROLE
-    where RESOURCE_ROLE_ID = #{resourceRoleId,jdbcType=VARCHAR}
+    from uts_resource_role
+    where resource_role_id = #{resourceRoleId,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-    delete from UTS_RESOURCE_ROLE
-    where RESOURCE_ROLE_ID = #{resourceRoleId,jdbcType=VARCHAR}
+    delete from uts_resource_role
+    where resource_role_id = #{resourceRoleId,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="net.ttcxy.tang.gateway.entity.model.UtsResourceRoleExample">
-    delete from UTS_RESOURCE_ROLE
+    delete from uts_resource_role
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
   <insert id="insert" parameterType="net.ttcxy.tang.gateway.entity.model.UtsResourceRole">
-    insert into UTS_RESOURCE_ROLE (RESOURCE_ROLE_ID, RESOURCE_ID, ROLE_ID, 
-      CREATE_TIME)
+    insert into uts_resource_role (resource_role_id, resource_id, role_id, 
+      create_time)
     values (#{resourceRoleId,jdbcType=VARCHAR}, #{resourceId,jdbcType=VARCHAR}, #{roleId,jdbcType=VARCHAR}, 
       #{createTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="net.ttcxy.tang.gateway.entity.model.UtsResourceRole">
-    insert into UTS_RESOURCE_ROLE
+    insert into uts_resource_role
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="resourceRoleId != null">
-        RESOURCE_ROLE_ID,
+        resource_role_id,
       </if>
       <if test="resourceId != null">
-        RESOURCE_ID,
+        resource_id,
       </if>
       <if test="roleId != null">
-        ROLE_ID,
+        role_id,
       </if>
       <if test="createTime != null">
-        CREATE_TIME,
+        create_time,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -122,25 +122,25 @@
     </trim>
   </insert>
   <select id="countByExample" parameterType="net.ttcxy.tang.gateway.entity.model.UtsResourceRoleExample" resultType="java.lang.Long">
-    select count(*) from UTS_RESOURCE_ROLE
+    select count(*) from uts_resource_role
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update UTS_RESOURCE_ROLE
+    update uts_resource_role
     <set>
       <if test="record.resourceRoleId != null">
-        RESOURCE_ROLE_ID = #{record.resourceRoleId,jdbcType=VARCHAR},
+        resource_role_id = #{record.resourceRoleId,jdbcType=VARCHAR},
       </if>
       <if test="record.resourceId != null">
-        RESOURCE_ID = #{record.resourceId,jdbcType=VARCHAR},
+        resource_id = #{record.resourceId,jdbcType=VARCHAR},
       </if>
       <if test="record.roleId != null">
-        ROLE_ID = #{record.roleId,jdbcType=VARCHAR},
+        role_id = #{record.roleId,jdbcType=VARCHAR},
       </if>
       <if test="record.createTime != null">
-        CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
       </if>
     </set>
     <if test="_parameter != null">
@@ -148,35 +148,35 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update UTS_RESOURCE_ROLE
-    set RESOURCE_ROLE_ID = #{record.resourceRoleId,jdbcType=VARCHAR},
-      RESOURCE_ID = #{record.resourceId,jdbcType=VARCHAR},
-      ROLE_ID = #{record.roleId,jdbcType=VARCHAR},
-      CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP}
+    update uts_resource_role
+    set resource_role_id = #{record.resourceRoleId,jdbcType=VARCHAR},
+      resource_id = #{record.resourceId,jdbcType=VARCHAR},
+      role_id = #{record.roleId,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
   <update id="updateByPrimaryKeySelective" parameterType="net.ttcxy.tang.gateway.entity.model.UtsResourceRole">
-    update UTS_RESOURCE_ROLE
+    update uts_resource_role
     <set>
       <if test="resourceId != null">
-        RESOURCE_ID = #{resourceId,jdbcType=VARCHAR},
+        resource_id = #{resourceId,jdbcType=VARCHAR},
       </if>
       <if test="roleId != null">
-        ROLE_ID = #{roleId,jdbcType=VARCHAR},
+        role_id = #{roleId,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null">
-        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+        create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
     </set>
-    where RESOURCE_ROLE_ID = #{resourceRoleId,jdbcType=VARCHAR}
+    where resource_role_id = #{resourceRoleId,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="net.ttcxy.tang.gateway.entity.model.UtsResourceRole">
-    update UTS_RESOURCE_ROLE
-    set RESOURCE_ID = #{resourceId,jdbcType=VARCHAR},
-      ROLE_ID = #{roleId,jdbcType=VARCHAR},
-      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP}
-    where RESOURCE_ROLE_ID = #{resourceRoleId,jdbcType=VARCHAR}
+    update uts_resource_role
+    set resource_id = #{resourceId,jdbcType=VARCHAR},
+      role_id = #{roleId,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where resource_role_id = #{resourceRoleId,jdbcType=VARCHAR}
   </update>
 </mapper>

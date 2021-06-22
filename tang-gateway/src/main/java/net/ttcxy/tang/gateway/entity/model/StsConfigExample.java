@@ -106,272 +106,272 @@ public class StsConfigExample {
         }
 
         public Criteria andConfigIdIsNull() {
-            addCriterion("CONFIG_ID is null");
+            addCriterion("config_id is null");
             return (Criteria) this;
         }
 
         public Criteria andConfigIdIsNotNull() {
-            addCriterion("CONFIG_ID is not null");
+            addCriterion("config_id is not null");
             return (Criteria) this;
         }
 
         public Criteria andConfigIdEqualTo(String value) {
-            addCriterion("CONFIG_ID =", value, "configId");
+            addCriterion("config_id =", value, "configId");
             return (Criteria) this;
         }
 
         public Criteria andConfigIdNotEqualTo(String value) {
-            addCriterion("CONFIG_ID <>", value, "configId");
+            addCriterion("config_id <>", value, "configId");
             return (Criteria) this;
         }
 
         public Criteria andConfigIdGreaterThan(String value) {
-            addCriterion("CONFIG_ID >", value, "configId");
+            addCriterion("config_id >", value, "configId");
             return (Criteria) this;
         }
 
         public Criteria andConfigIdGreaterThanOrEqualTo(String value) {
-            addCriterion("CONFIG_ID >=", value, "configId");
+            addCriterion("config_id >=", value, "configId");
             return (Criteria) this;
         }
 
         public Criteria andConfigIdLessThan(String value) {
-            addCriterion("CONFIG_ID <", value, "configId");
+            addCriterion("config_id <", value, "configId");
             return (Criteria) this;
         }
 
         public Criteria andConfigIdLessThanOrEqualTo(String value) {
-            addCriterion("CONFIG_ID <=", value, "configId");
+            addCriterion("config_id <=", value, "configId");
             return (Criteria) this;
         }
 
         public Criteria andConfigIdLike(String value) {
-            addCriterion("CONFIG_ID like", value, "configId");
+            addCriterion("config_id like", value, "configId");
             return (Criteria) this;
         }
 
         public Criteria andConfigIdNotLike(String value) {
-            addCriterion("CONFIG_ID not like", value, "configId");
+            addCriterion("config_id not like", value, "configId");
             return (Criteria) this;
         }
 
         public Criteria andConfigIdIn(List<String> values) {
-            addCriterion("CONFIG_ID in", values, "configId");
+            addCriterion("config_id in", values, "configId");
             return (Criteria) this;
         }
 
         public Criteria andConfigIdNotIn(List<String> values) {
-            addCriterion("CONFIG_ID not in", values, "configId");
+            addCriterion("config_id not in", values, "configId");
             return (Criteria) this;
         }
 
         public Criteria andConfigIdBetween(String value1, String value2) {
-            addCriterion("CONFIG_ID between", value1, value2, "configId");
+            addCriterion("config_id between", value1, value2, "configId");
             return (Criteria) this;
         }
 
         public Criteria andConfigIdNotBetween(String value1, String value2) {
-            addCriterion("CONFIG_ID not between", value1, value2, "configId");
+            addCriterion("config_id not between", value1, value2, "configId");
             return (Criteria) this;
         }
 
         public Criteria andConfigNameIsNull() {
-            addCriterion("CONFIG_NAME is null");
+            addCriterion("config_name is null");
             return (Criteria) this;
         }
 
         public Criteria andConfigNameIsNotNull() {
-            addCriterion("CONFIG_NAME is not null");
+            addCriterion("config_name is not null");
             return (Criteria) this;
         }
 
         public Criteria andConfigNameEqualTo(String value) {
-            addCriterion("CONFIG_NAME =", value, "configName");
+            addCriterion("config_name =", value, "configName");
             return (Criteria) this;
         }
 
         public Criteria andConfigNameNotEqualTo(String value) {
-            addCriterion("CONFIG_NAME <>", value, "configName");
+            addCriterion("config_name <>", value, "configName");
             return (Criteria) this;
         }
 
         public Criteria andConfigNameGreaterThan(String value) {
-            addCriterion("CONFIG_NAME >", value, "configName");
+            addCriterion("config_name >", value, "configName");
             return (Criteria) this;
         }
 
         public Criteria andConfigNameGreaterThanOrEqualTo(String value) {
-            addCriterion("CONFIG_NAME >=", value, "configName");
+            addCriterion("config_name >=", value, "configName");
             return (Criteria) this;
         }
 
         public Criteria andConfigNameLessThan(String value) {
-            addCriterion("CONFIG_NAME <", value, "configName");
+            addCriterion("config_name <", value, "configName");
             return (Criteria) this;
         }
 
         public Criteria andConfigNameLessThanOrEqualTo(String value) {
-            addCriterion("CONFIG_NAME <=", value, "configName");
+            addCriterion("config_name <=", value, "configName");
             return (Criteria) this;
         }
 
         public Criteria andConfigNameLike(String value) {
-            addCriterion("CONFIG_NAME like", value, "configName");
+            addCriterion("config_name like", value, "configName");
             return (Criteria) this;
         }
 
         public Criteria andConfigNameNotLike(String value) {
-            addCriterion("CONFIG_NAME not like", value, "configName");
+            addCriterion("config_name not like", value, "configName");
             return (Criteria) this;
         }
 
         public Criteria andConfigNameIn(List<String> values) {
-            addCriterion("CONFIG_NAME in", values, "configName");
+            addCriterion("config_name in", values, "configName");
             return (Criteria) this;
         }
 
         public Criteria andConfigNameNotIn(List<String> values) {
-            addCriterion("CONFIG_NAME not in", values, "configName");
+            addCriterion("config_name not in", values, "configName");
             return (Criteria) this;
         }
 
         public Criteria andConfigNameBetween(String value1, String value2) {
-            addCriterion("CONFIG_NAME between", value1, value2, "configName");
+            addCriterion("config_name between", value1, value2, "configName");
             return (Criteria) this;
         }
 
         public Criteria andConfigNameNotBetween(String value1, String value2) {
-            addCriterion("CONFIG_NAME not between", value1, value2, "configName");
+            addCriterion("config_name not between", value1, value2, "configName");
             return (Criteria) this;
         }
 
         public Criteria andDataIsNull() {
-            addCriterion("DATA is null");
+            addCriterion("data is null");
             return (Criteria) this;
         }
 
         public Criteria andDataIsNotNull() {
-            addCriterion("DATA is not null");
+            addCriterion("data is not null");
             return (Criteria) this;
         }
 
         public Criteria andDataEqualTo(String value) {
-            addCriterion("DATA =", value, "data");
+            addCriterion("data =", value, "data");
             return (Criteria) this;
         }
 
         public Criteria andDataNotEqualTo(String value) {
-            addCriterion("DATA <>", value, "data");
+            addCriterion("data <>", value, "data");
             return (Criteria) this;
         }
 
         public Criteria andDataGreaterThan(String value) {
-            addCriterion("DATA >", value, "data");
+            addCriterion("data >", value, "data");
             return (Criteria) this;
         }
 
         public Criteria andDataGreaterThanOrEqualTo(String value) {
-            addCriterion("DATA >=", value, "data");
+            addCriterion("data >=", value, "data");
             return (Criteria) this;
         }
 
         public Criteria andDataLessThan(String value) {
-            addCriterion("DATA <", value, "data");
+            addCriterion("data <", value, "data");
             return (Criteria) this;
         }
 
         public Criteria andDataLessThanOrEqualTo(String value) {
-            addCriterion("DATA <=", value, "data");
+            addCriterion("data <=", value, "data");
             return (Criteria) this;
         }
 
         public Criteria andDataLike(String value) {
-            addCriterion("DATA like", value, "data");
+            addCriterion("data like", value, "data");
             return (Criteria) this;
         }
 
         public Criteria andDataNotLike(String value) {
-            addCriterion("DATA not like", value, "data");
+            addCriterion("data not like", value, "data");
             return (Criteria) this;
         }
 
         public Criteria andDataIn(List<String> values) {
-            addCriterion("DATA in", values, "data");
+            addCriterion("data in", values, "data");
             return (Criteria) this;
         }
 
         public Criteria andDataNotIn(List<String> values) {
-            addCriterion("DATA not in", values, "data");
+            addCriterion("data not in", values, "data");
             return (Criteria) this;
         }
 
         public Criteria andDataBetween(String value1, String value2) {
-            addCriterion("DATA between", value1, value2, "data");
+            addCriterion("data between", value1, value2, "data");
             return (Criteria) this;
         }
 
         public Criteria andDataNotBetween(String value1, String value2) {
-            addCriterion("DATA not between", value1, value2, "data");
+            addCriterion("data not between", value1, value2, "data");
             return (Criteria) this;
         }
 
         public Criteria andCreateDateIsNull() {
-            addCriterion("CREATE_DATE is null");
+            addCriterion("create_date is null");
             return (Criteria) this;
         }
 
         public Criteria andCreateDateIsNotNull() {
-            addCriterion("CREATE_DATE is not null");
+            addCriterion("create_date is not null");
             return (Criteria) this;
         }
 
         public Criteria andCreateDateEqualTo(Date value) {
-            addCriterion("CREATE_DATE =", value, "createDate");
+            addCriterion("create_date =", value, "createDate");
             return (Criteria) this;
         }
 
         public Criteria andCreateDateNotEqualTo(Date value) {
-            addCriterion("CREATE_DATE <>", value, "createDate");
+            addCriterion("create_date <>", value, "createDate");
             return (Criteria) this;
         }
 
         public Criteria andCreateDateGreaterThan(Date value) {
-            addCriterion("CREATE_DATE >", value, "createDate");
+            addCriterion("create_date >", value, "createDate");
             return (Criteria) this;
         }
 
         public Criteria andCreateDateGreaterThanOrEqualTo(Date value) {
-            addCriterion("CREATE_DATE >=", value, "createDate");
+            addCriterion("create_date >=", value, "createDate");
             return (Criteria) this;
         }
 
         public Criteria andCreateDateLessThan(Date value) {
-            addCriterion("CREATE_DATE <", value, "createDate");
+            addCriterion("create_date <", value, "createDate");
             return (Criteria) this;
         }
 
         public Criteria andCreateDateLessThanOrEqualTo(Date value) {
-            addCriterion("CREATE_DATE <=", value, "createDate");
+            addCriterion("create_date <=", value, "createDate");
             return (Criteria) this;
         }
 
         public Criteria andCreateDateIn(List<Date> values) {
-            addCriterion("CREATE_DATE in", values, "createDate");
+            addCriterion("create_date in", values, "createDate");
             return (Criteria) this;
         }
 
         public Criteria andCreateDateNotIn(List<Date> values) {
-            addCriterion("CREATE_DATE not in", values, "createDate");
+            addCriterion("create_date not in", values, "createDate");
             return (Criteria) this;
         }
 
         public Criteria andCreateDateBetween(Date value1, Date value2) {
-            addCriterion("CREATE_DATE between", value1, value2, "createDate");
+            addCriterion("create_date between", value1, value2, "createDate");
             return (Criteria) this;
         }
 
         public Criteria andCreateDateNotBetween(Date value1, Date value2) {
-            addCriterion("CREATE_DATE not between", value1, value2, "createDate");
+            addCriterion("create_date not between", value1, value2, "createDate");
             return (Criteria) this;
         }
     }

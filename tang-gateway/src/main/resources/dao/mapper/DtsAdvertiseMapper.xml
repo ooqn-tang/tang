@@ -2,11 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="net.ttcxy.tang.gateway.dao.mapper.DtsAdvertiseMapper">
   <resultMap id="BaseResultMap" type="net.ttcxy.tang.gateway.entity.model.DtsAdvertise">
-    <id column="ADVERTISE_ID" jdbcType="VARCHAR" property="advertiseId" />
-    <result column="TITLE" jdbcType="VARCHAR" property="title" />
-    <result column="URL" jdbcType="VARCHAR" property="url" />
-    <result column="CREATE_DATE" jdbcType="TIMESTAMP" property="createDate" />
-    <result column="DESCRIPTION" jdbcType="VARCHAR" property="description" />
+    <id column="advertise_id" jdbcType="VARCHAR" property="advertiseId" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="url" jdbcType="VARCHAR" property="url" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -67,47 +67,47 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    ADVERTISE_ID, TITLE, URL, CREATE_DATE, DESCRIPTION
+    advertise_id, title, url, create_date, description
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from DTS_ADVERTISE
-    where ADVERTISE_ID = #{advertiseId,jdbcType=VARCHAR}
+    from dts_advertise
+    where advertise_id = #{advertiseId,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-    delete from DTS_ADVERTISE
-    where ADVERTISE_ID = #{advertiseId,jdbcType=VARCHAR}
+    delete from dts_advertise
+    where advertise_id = #{advertiseId,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="net.ttcxy.tang.gateway.entity.model.DtsAdvertiseExample">
-    delete from DTS_ADVERTISE
+    delete from dts_advertise
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
   <insert id="insert" parameterType="net.ttcxy.tang.gateway.entity.model.DtsAdvertise">
-    insert into DTS_ADVERTISE (ADVERTISE_ID, TITLE, URL, 
-      CREATE_DATE, DESCRIPTION)
+    insert into dts_advertise (advertise_id, title, url, 
+      create_date, description)
     values (#{advertiseId,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, 
       #{createDate,jdbcType=TIMESTAMP}, #{description,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="net.ttcxy.tang.gateway.entity.model.DtsAdvertise">
-    insert into DTS_ADVERTISE
+    insert into dts_advertise
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="advertiseId != null">
-        ADVERTISE_ID,
+        advertise_id,
       </if>
       <if test="title != null">
-        TITLE,
+        title,
       </if>
       <if test="url != null">
-        URL,
+        url,
       </if>
       <if test="createDate != null">
-        CREATE_DATE,
+        create_date,
       </if>
       <if test="description != null">
-        DESCRIPTION,
+        description,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -129,28 +129,28 @@
     </trim>
   </insert>
   <select id="countByExample" parameterType="net.ttcxy.tang.gateway.entity.model.DtsAdvertiseExample" resultType="java.lang.Long">
-    select count(*) from DTS_ADVERTISE
+    select count(*) from dts_advertise
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update DTS_ADVERTISE
+    update dts_advertise
     <set>
       <if test="record.advertiseId != null">
-        ADVERTISE_ID = #{record.advertiseId,jdbcType=VARCHAR},
+        advertise_id = #{record.advertiseId,jdbcType=VARCHAR},
       </if>
       <if test="record.title != null">
-        TITLE = #{record.title,jdbcType=VARCHAR},
+        title = #{record.title,jdbcType=VARCHAR},
       </if>
       <if test="record.url != null">
-        URL = #{record.url,jdbcType=VARCHAR},
+        url = #{record.url,jdbcType=VARCHAR},
       </if>
       <if test="record.createDate != null">
-        CREATE_DATE = #{record.createDate,jdbcType=TIMESTAMP},
+        create_date = #{record.createDate,jdbcType=TIMESTAMP},
       </if>
       <if test="record.description != null">
-        DESCRIPTION = #{record.description,jdbcType=VARCHAR},
+        description = #{record.description,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null">
@@ -158,40 +158,40 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update DTS_ADVERTISE
-    set ADVERTISE_ID = #{record.advertiseId,jdbcType=VARCHAR},
-      TITLE = #{record.title,jdbcType=VARCHAR},
-      URL = #{record.url,jdbcType=VARCHAR},
-      CREATE_DATE = #{record.createDate,jdbcType=TIMESTAMP},
-      DESCRIPTION = #{record.description,jdbcType=VARCHAR}
+    update dts_advertise
+    set advertise_id = #{record.advertiseId,jdbcType=VARCHAR},
+      title = #{record.title,jdbcType=VARCHAR},
+      url = #{record.url,jdbcType=VARCHAR},
+      create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      description = #{record.description,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
   <update id="updateByPrimaryKeySelective" parameterType="net.ttcxy.tang.gateway.entity.model.DtsAdvertise">
-    update DTS_ADVERTISE
+    update dts_advertise
     <set>
       <if test="title != null">
-        TITLE = #{title,jdbcType=VARCHAR},
+        title = #{title,jdbcType=VARCHAR},
       </if>
       <if test="url != null">
-        URL = #{url,jdbcType=VARCHAR},
+        url = #{url,jdbcType=VARCHAR},
       </if>
       <if test="createDate != null">
-        CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+        create_date = #{createDate,jdbcType=TIMESTAMP},
       </if>
       <if test="description != null">
-        DESCRIPTION = #{description,jdbcType=VARCHAR},
+        description = #{description,jdbcType=VARCHAR},
       </if>
     </set>
-    where ADVERTISE_ID = #{advertiseId,jdbcType=VARCHAR}
+    where advertise_id = #{advertiseId,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="net.ttcxy.tang.gateway.entity.model.DtsAdvertise">
-    update DTS_ADVERTISE
-    set TITLE = #{title,jdbcType=VARCHAR},
-      URL = #{url,jdbcType=VARCHAR},
-      CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
-      DESCRIPTION = #{description,jdbcType=VARCHAR}
-    where ADVERTISE_ID = #{advertiseId,jdbcType=VARCHAR}
+    update dts_advertise
+    set title = #{title,jdbcType=VARCHAR},
+      url = #{url,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      description = #{description,jdbcType=VARCHAR}
+    where advertise_id = #{advertiseId,jdbcType=VARCHAR}
   </update>
 </mapper>
