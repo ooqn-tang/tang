@@ -86,8 +86,8 @@ public class GlobalExceptionHandler {
      * Exception 参数校验统一异常处理
      */
     @ExceptionHandler(NoHandlerFoundException.class)
-    public void errorHandler(NoHandlerFoundException ex, HttpServletResponse httpServletResponse, HttpServletRequest httpServletRequest) {
-        //return "forward:/";
+    public String errorHandler(NoHandlerFoundException ex, HttpServletResponse httpServletResponse, HttpServletRequest httpServletRequest) {
+        return "forward:/";
     }
 
 }

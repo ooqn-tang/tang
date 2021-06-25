@@ -1,5 +1,7 @@
 <template>
+
   <ul class="list-group blog-list">
+    
     <li class="list-group-item" v-for="(item,index) in blogList" :key="index">
       <router-link :to="{name: 'blog_info', params: { id: item.blogId }}" class="blog-title">
         <strong><p v-text="item.title"></p></strong>

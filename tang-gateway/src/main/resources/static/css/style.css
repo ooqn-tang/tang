@@ -1,0 +1,85 @@
+*{
+        box-sizing:border-box;
+    }
+    html,body{
+        padding: 0;
+        margin: 0;
+        background: #ececeb
+    }
+    body{
+        overflow-y: scroll;
+    }
+    a:hover{
+        color: #014ea5;
+    }
+    a{
+        color: #0366d6;
+        text-decoration:none;
+    }
+    #main{
+        margin: auto;width: 100%;min-width: 300px;max-width: 1200px;padding: 8px;
+    }
+    #header{
+        background-color: #e2e2e2;width: 100%;font-size: 30px;border-bottom: 1px solid rgb(179, 179, 179);
+    }
+    #header a{
+        color: #5a5959 !important;
+    }
+    #header a:hover{
+        color: rgb(104, 104, 104) !important;
+    }
+    #header-n{
+        margin: auto;width: 100%;min-width: 300px;max-width: 1200px;padding: 8px;
+    }
+    #bzms{
+        float:right
+    }
+    #footer{
+        margin: auto;min-width: 100%;min-width: 300px;max-width: 1200px;padding: 8px;background-color: rgb(226, 226, 226);margin-bottom: 50px;
+    }
+    h1{
+        margin: 0;
+    }
+    .post-title{
+        border-bottom: 1px solid rgb(179, 179, 179);padding-bottom: 8px;
+    }
+    #left-main{
+        float: left; width: 25%; padding: 0px 0px 0px 5px; box-sizing: border-box;
+
+    }
+    #left-main,#right-main{
+        margin-bottom: 10px;
+    }
+    #left-main a{
+        display: block;
+        border: 1px solid #b3b3b3;
+        padding: 5px;
+        margin-left: -5px;
+        background: #efe9d5;
+        margin-bottom: 5px;
+        overflow:hidden;
+        border-radius: 5px;
+    }
+    #left-main div{
+        margin-right: 10px;
+    }
+    #right-main{
+        float: right;
+        width: 75%;
+        border: 1px solid #b3b3b3;
+        background: #efe9d5;
+        padding: 5px;
+        border-radius: 5px;
+    }
+    @media screen and (max-width: 800px){
+        #left-main{
+            display: none;
+        }
+        #right-main{
+            width: 100%;
+        }
+    }
+    .markdown-body .highlight pre, .markdown-body pre{
+        background-color: #dedede !important;
+    }
+

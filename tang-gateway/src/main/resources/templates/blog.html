@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="zh-cn" xmlns:th="http://www.w3.org/1999/xhtml">
+<meta charset="UTF-8">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0"/>
+    <link href="/css/style.css" rel="stylesheet" type="text/css">
+    <link href="https://cdn.bootcss.com/github-markdown-css/4.0.0/github-markdown.min.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div id="header">
+    <div id="header-n">
+        <div class="blogNickname"> 
+            <a href="#" >清梦徐徐丶莫</a><a href="#" id="bzms">标准模式</a>
+        </div>
+    </div>
+    
+</div>
+<div id="main">
+    <div id="left-main">
+        <div>
+            <a>asdfasdfasdfasdf</a>
+            <a>asdfasdfasdfasdf</a>
+            <a>asdfasdfasdfasdf</a>
+            <a>asdfasdfasdfasdf</a>
+            <a>asdfasdfasdfasdf</a>
+            <a>asdfasdfasdfasdf</a>
+            <a>asdfasdfasdfasdf</a>
+        </div>
+    </div>
+    <div id="right-main">
+        <h1 class="post-title">
+            <a href="https://www.cnblogs.com/justyouadmin/p/11850475.html" >
+                html公共部分-header、footer部分引用
+            </a>
+        </h1>
+        <div id="postBody" class="markdown-body" >
+
+            <h2 id="html公共部分-header、footer部分引用">html公共部分-header、footer部分引用</h2>
+            <p>主要介绍两种方式：</p>
+            <h5 id="1、通过jq-以请求的方式加载">1、通过jq 以请求的方式加载</h5>
+            <h5 id="2、通过--include-virtualheaderhtml--的方式加载">2、通过&lt;!--#include
+                virtual="header.html"--&gt;的方式加载</h5>
+            <p>两种方式各有优缺点，先说第一种。</p>
+            <h2 id="用jq方式加载：">用jq方式加载：</h2>
+            <p>需要被引用的页面header.html里面只是头部的dom结构。不需要其他的标签</p>
+            <pre><code>&lt;div class="header"&gt;我是头部公用样式&lt;/div&gt;
+</code></pre>
+            <p>需要引用header的页面index.html</p>
+            <pre><code>...//head省略
+//引入jq
+&lt;script type="text/javascript" src="Content/Front/js/jquery-3.3.1.min.js"&gt;&lt;/script&gt;
+
+
+//需要被插入的地方
+&lt;div class="headerpage"&gt;&lt;/div&gt;
+
+//通过jq的load方法以ajax的方式去获取公用部分，填充到headrpage的位置
+&lt;script&gt;
+$(function () {
+$(".headerpage").load("../header.html");
+});
+&lt;/script&gt;
+
+</code></pre>
+            <p>
+                这种方式有一个缺点就是，当页面本身加载就很慢的时候，这种方式，体验会非常不好，会出现，页面出现之后头部还没有出现。但是最终还是会出现的。当然在保证页面加载得很快的情况下还是挺不错的。</p>
+            <h2 id="include方式引用">include方式引用</h2>
+            <p>先准备好header.html公共页面。然后在需要引入的页面位置写入&lt;!--#include
+                virtual="header.html"--&gt;。</p>
+            <pre><code>...//省略
+&lt;!--#include virtual="header.html"--&gt;
+...//其他代码
+</code></pre>
+            <p>同时需要注意include file 与include virtual的区别</p>
+            <pre><code>1、#include file 包含文件的相对路径，#include virtual包含文件的虚拟路径。
+
+2、在同一个虚拟目录内，&lt;!--#include file="file.asp"--&gt;和&lt;!--#include virtual="file.asp"--&gt;效果是相同的，但假设虚拟目录名为myweb，则&lt;!--#include virtual="myweb/file.asp"--&gt;也可以通过调试，但我们知道&lt;!--#include file="myweb/file.asp"--&gt;是绝对要报错的。
+
+3、如果一个站点下有2个虚拟目录myweb1和myweb2，myweb1下有文件file1.asp，myweb2下有文件file2.asp,，如果file1.asp要调用file2.asp，那么在file1.asp中要这样写：&lt;!--#include virtual="myweb2/file2.asp"--&gt;，在这种情况下用#include file是无法实现的，用&lt;!--#include file="myweb2/file2.asp"--&gt;必然报错。相反，在myweb2的文件中包含myweb1中的文件也是一样。如果该被包含文件在某个文件夹下面，只要在虚拟路径中加上该文件夹即可。
+
+4、不论用#include file 还是 #include virtual，在路径中用“/”还是“\”或者二者交叉使用都不会影响编译效果，程序会顺利执行。
+
+5、以上情况不适用于2个站点文件的相互调用，而且在同一个站点内，&lt;!--#include file="file.asp"--&gt;和&lt;!--#include virtual="file.asp"--&gt;等效，但假设站点名为website，使用&lt;!--#include virtual="website/file.asp"--&gt;是错误的。
+</code></pre>
+            <p>如果此时通过include的方式不行的话还得需要配置一下，apache的httpd.conf。</p>
+            <pre><code>1. 确认加载include.so模块，将注释去掉：&nbsp;
+LoadModule include_module libexec/apache2/mod_include.so&nbsp;
+
+2. AddType部分去掉这两段注释：&nbsp;
+AddType text/html .shtml&nbsp;
+AddOutputFilter INCLUDES .shtml&nbsp;
+
+3. Directory目录权限里面找到&nbsp;
+Options Indexes FollowSymLinks&nbsp;
+增加Includes修改为：&nbsp;
+Options Indexes FollowSymLinks Includes&nbsp;
+
+4. 重新启动Apache，测试：&nbsp;
+&lt;!–#include file=”head.html”–&gt;&nbsp;
+Holle Word!，这是中间的内容&nbsp;
+&lt;!–#include file=”foot.html”–&gt;
+</code></pre>
+            <p>此种方式我在apache是测试过，有效。<br>
+                如果你的网站是通过jexus部署的话，暂时没有方式去解决。</p>
+
+
+        </div>
+    </div>
+</div>
+<!--<div id="footer">-->
+<!--    &lt;!&ndash;done&ndash;&gt;-->
+<!--    Copyright &copy; 2021 <span th:text="${author.nickname}">清梦徐徐丶莫</span>-->
+<!--    <br/><span id="poweredby">Powered by .NET 5.0 on Kubernetes</span>-->
+<!--</div>-->
+</body>
+</html>
