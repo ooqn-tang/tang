@@ -25,6 +25,9 @@ public class MyScheduling {
     @Autowired
     private WebApplicationContext webApplicationContext;
 
+    public MyScheduling() {
+    }
+
     /**
      * 定时更新广告 10分钟更新一次
      */

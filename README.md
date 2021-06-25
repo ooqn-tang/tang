@@ -1,14 +1,12 @@
 # 介绍
 系统进行大规模变更，
 
-H2 替代 MySQL 
-
 模板应用程序 转为 单页应用程序
 
 单页应用程序使用特色方法实现SEO优化
 
 ### 开发
-执行 tang-generator GeneratorApplication main方法自动构建本地数据库
+执行 tang-generator GeneratorApplication mybatis-generator
 执行 tang-gateway TangApplication main方法启动
 
 然后就可以curd了
