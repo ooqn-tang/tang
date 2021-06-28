@@ -16,7 +16,7 @@ import org.springframework.context.annotation.Bean;
 public class TangApplication {
 
     @Bean
-    @ConditionalOnProperty(value = "not-https", havingValue = "true")
+    @ConditionalOnProperty(value = "tang-https", havingValue = "true")
     public ServletWebServerFactory servletContainer() {
         TomcatServletWebServerFactory tomcat = new TomcatServletWebServerFactory() {
             @Override

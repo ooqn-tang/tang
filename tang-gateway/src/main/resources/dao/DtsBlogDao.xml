@@ -18,58 +18,58 @@
     </resultMap>
 
     <select id="search" resultMap="BlogResult">
-        SELECT A.USERNAME ,A.NICKNAME ,B.BLOG_ID,B.TITLE  ,B.CREATE_DATE ,B.SYNOPSIS ,BT.BLOG_TAG_ID ,BT.TAG_NAME
-        FROM UTS_AUTHOR A
-        INNER JOIN DTS_BLOG B ON A.AUTHOR_ID = B.AUTHOR_ID AND B.STATE_CODE = 1001 AND B.TITLE LIKE concat('%',#{title},'%')
-        LEFT JOIN DTS_BLOG_TAG_RELATION DBTR ON DBTR.BLOG_ID = B.BLOG_ID
-        LEFT JOIN DTS_BLOG_TAG BT ON BT.BLOG_TAG_ID = DBTR.BLOG_TAG_ID
-        ORDER BY B.BLOG_ID DESC
+        select a.username ,a.nickname ,b.blog_id,b.title  ,b.create_date ,b.synopsis ,bt.blog_tag_id ,bt.tag_name
+        from uts_author a
+        inner join dts_blog b on a.author_id = b.author_id and b.state_code = 1001 and b.title like concat('%',#{title},'%')
+        left join dts_blog_tag_relation dbtr on dbtr.blog_id = b.blog_id
+        left join dts_blog_tag bt on bt.blog_tag_id = dbtr.blog_tag_id
+        order by b.blog_id desc
     </select>
 
     <select id="selectBlogById" resultMap="BlogResult">
-        SELECT A1.USERNAME ,A1.NICKNAME ,B1.BLOG_ID ,B1.TITLE ,B1.CREATE_DATE ,B1.SYNOPSIS ,B1.TEXT ,BT1.BLOG_TAG_ID ,BT1.TAG_NAME
-        FROM DTS_BLOG B1
-        INNER JOIN UTS_AUTHOR A1 ON B1.BLOG_ID = #{id} AND B1.AUTHOR_ID = A1.AUTHOR_ID
-        LEFT JOIN DTS_BLOG_TAG_RELATION BTR1 ON BTR1.BLOG_ID = B1.BLOG_ID
-        LEFT JOIN DTS_BLOG_TAG BT1 ON BT1.BLOG_TAG_ID = BTR1.BLOG_TAG_ID
+        select a1.username ,a1.nickname ,b1.blog_id ,b1.title ,b1.create_date ,b1.synopsis ,b1.text ,bt1.blog_tag_id ,bt1.tag_name
+        from dts_blog b1
+        inner join uts_author a1 on b1.blog_id = #{id} and b1.author_id = a1.author_id
+        left join dts_blog_tag_relation btr1 on btr1.blog_id = b1.blog_id
+        left join dts_blog_tag bt1 on bt1.blog_tag_id = btr1.blog_tag_id
     </select>
 
     <select id="selectLikeBlogs" resultMap="BlogResult">
-        SELECT A2.USERNAME ,A2.NICKNAME ,B1.BLOG_ID ,B1.TITLE ,B1.CREATE_DATE ,B1.SYNOPSIS ,BT1.BLOG_TAG_ID ,BT1.TAG_NAME
-        FROM UTS_AUTHOR A1
-        INNER JOIN DTS_LIKE_BLOG LD1 ON A1.USERNAME = #{username} AND LD1.AUTHOR_ID = A1.AUTHOR_ID
-        INNER JOIN DTS_BLOG  B1 ON B1.BLOG_ID = LD1.BLOG_ID
-        INNER JOIN UTS_AUTHOR A2 ON A2.AUTHOR_ID = LD1.AUTHOR_ID
-        LEFT JOIN DTS_BLOG_TAG_RELATION BTR1 ON BTR1.BLOG_ID = B1.BLOG_ID
-        LEFT JOIN DTS_BLOG_TAG BT1 ON BT1.BLOG_TAG_ID = BTR1.BLOG_TAG_ID
-        ORDER BY LD1.CREATE_DATE DESC
+        select a2.username ,a2.nickname ,b1.blog_id ,b1.title ,b1.create_date ,b1.synopsis ,bt1.blog_tag_id ,bt1.tag_name
+        from uts_author a1
+        inner join dts_like_blog ld1 on a1.username = #{username} and ld1.author_id = a1.author_id
+        inner join dts_blog  b1 on b1.blog_id = ld1.blog_id
+        inner join uts_author a2 on a2.author_id = ld1.author_id
+        left join dts_blog_tag_relation btr1 on btr1.blog_id = b1.blog_id
+        left join dts_blog_tag bt1 on bt1.blog_tag_id = btr1.blog_tag_id
+        order by ld1.create_date desc
     </select>
 
     <select id="selectBlogListByUsername" resultMap="BlogResult">
-        select A.USERNAME ,A.NICKNAME ,B.BLOG_ID ,B.TITLE ,B.CREATE_DATE ,B.SYNOPSIS ,BT.BLOG_TAG_ID ,BT.TAG_NAME,bs1.SUBJECT_NAME ,bs1.BLOG_SUBJECT_ID
-        from UTS_AUTHOR A
-        inner JOIN DTS_BLOG B ON A.AUTHOR_ID = B.AUTHOR_ID AND A.USERNAME = #{username}
-        left join DTS_BLOG_SUBJECT_RELATION bsr1 on bsr1.blog_id = b.blog_id
-        left join DTS_BLOG_SUBJECT bs1 on bs1.blog_subject_id = bsr1.BLOG_SUBJECT_ID
-        left JOIN DTS_BLOG_TAG_RELATION DBTR ON DBTR.BLOG_ID = B.BLOG_ID
-        left JOIN DTS_BLOG_TAG BT ON BT.BLOG_TAG_ID = DBTR.BLOG_TAG_ID
-        and B.STATE_CODE = 1001
-        ORDER BY B.BLOG_ID DESC
+        select a.username ,a.nickname ,b.blog_id ,b.title ,b.create_date ,b.synopsis ,bt.blog_tag_id ,bt.tag_name,bs1.subject_name ,bs1.blog_subject_id
+        from uts_author a
+        inner join dts_blog b on a.author_id = b.author_id and a.username = #{username}
+        left join dts_blog_subject_relation bsr1 on bsr1.blog_id = b.blog_id
+        left join dts_blog_subject bs1 on bs1.blog_subject_id = bsr1.blog_subject_id
+        left join dts_blog_tag_relation dbtr on dbtr.blog_id = b.blog_id
+        left join dts_blog_tag bt on bt.blog_tag_id = dbtr.blog_tag_id
+        and b.state_code = 1001
+        order by b.blog_id desc
     </select>
 
     <select id="selectBlogList" resultMap="BlogResult">
-        SELECT A.USERNAME ,A.NICKNAME ,B.BLOG_ID ,B.TITLE ,B.CREATE_DATE ,B.SYNOPSIS ,BT.BLOG_TAG_ID ,BT.TAG_NAME
-        FROM UTS_AUTHOR A
-        LEFT JOIN DTS_BLOG B ON A.AUTHOR_ID = B.AUTHOR_ID
-        LEFT JOIN DTS_BLOG_TAG_RELATION DBTR ON DBTR.BLOG_ID = B.BLOG_ID
-        LEFT JOIN DTS_BLOG_TAG BT ON BT.BLOG_TAG_ID = DBTR.BLOG_TAG_ID
+        select a.username ,a.nickname ,b.blog_id ,b.title ,b.create_date ,b.synopsis ,bt.blog_tag_id ,bt.tag_name
+        from uts_author a
+        left join dts_blog b on a.author_id = b.author_id
+        left join dts_blog_tag_relation dbtr on dbtr.blog_id = b.blog_id
+        left join dts_blog_tag bt on bt.blog_tag_id = dbtr.blog_tag_id
         <where>
             <if test="tagName != ''">
-                upper(BT.TAG_NAME) = upper(#{tagName})
+                upper(bt.tag_name) = upper(#{tagName})
             </if>
-            AND B.STATE_CODE = 1001
+            and b.state_code = 1001
         </where>
-        ORDER BY B.BLOG_ID DESC
+        order by b.create_date desc
     </select>
 
     <select id="selectBlogList1000" resultMap="BlogResult">

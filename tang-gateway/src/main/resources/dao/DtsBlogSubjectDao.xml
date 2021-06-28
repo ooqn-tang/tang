@@ -24,29 +24,29 @@
 
 
     <select id="selectSubjectBlogListById" resultMap="SubjectResult">
-        SELECT BS1.BLOG_SUBJECT_ID ,BS1.SUBJECT_NAME ,BS1.CREATE_DATE,BS1.SYNOPSIS ,A1.AUTHOR_ID ,A1.USERNAME ,A1.NICKNAME ,B1.BLOG_ID ,B1.TITLE ,B1.CREATE_DATE
-        FROM DTS_BLOG_SUBJECT BS1
-        INNER JOIN UTS_AUTHOR A1 ON A1.AUTHOR_ID  = BS1.AUTHOR_ID AND BS1.BLOG_SUBJECT_ID = #{blogSubjectId}
-        INNER JOIN DTS_BLOG_SUBJECT_RELATION BSR1 ON BSR1.BLOG_SUBJECT_ID = BS1.BLOG_SUBJECT_ID
-        INNER JOIN DTS_BLOG B1 ON B1.BLOG_ID  = BSR1.BLOG_ID
+        select bs1.blog_subject_id ,bs1.subject_name ,bs1.create_date,bs1.synopsis ,a1.author_id ,a1.username ,a1.nickname ,b1.blog_id ,b1.title ,b1.create_date
+        from dts_blog_subject bs1
+        inner join uts_author a1 on a1.author_id  = bs1.author_id and bs1.blog_subject_id = #{blogSubjectId}
+        inner join dts_blog_subject_relation bsr1 on bsr1.blog_subject_id = bs1.blog_subject_id
+        inner join dts_blog b1 on b1.blog_id  = bsr1.blog_id
     </select>
     <select id="selectSubjectList" resultMap="SubjectBase">
-        SELECT * FROM DTS_BLOG_SUBJECT BS1
-        INNER JOIN UTS_AUTHOR A1 ON A1.AUTHOR_ID = BS1.AUTHOR_ID
+        select * from dts_blog_subject bs1
+        inner join uts_author a1 on a1.author_id = bs1.author_id
     </select>
     <select id="selectSubjectListByUsername" resultMap="SubjectBase">
-        SELECT * FROM DTS_BLOG_SUBJECT BS1
-        LEFT JOIN UTS_AUTHOR A1 ON BS1.AUTHOR_ID = A1.AUTHOR_ID
-        WHERE A1.USERNAME = #{username}
+        select * from dts_blog_subject bs1
+        left join uts_author a1 on bs1.author_id = a1.author_id
+        where a1.username = #{username}
     </select>
     <select id="selectSubjectListBySubjectName" resultMap="SubjectBase">
-        SELECT BS1.SUBJECT_NAME FROM DTS_BLOG_SUBJECT BS1
-        LEFT JOIN UTS_AUTHOR A1 ON BS1.AUTHOR_ID = A1.AUTHOR_ID
-        WHERE A1.SUBJECT_NAME LIKE concat('%',#{name},'%')
+        select bs1.subject_name from dts_blog_subject bs1
+        left join uts_author a1 on bs1.author_id = a1.author_id
+        where a1.subject_name like concat('%',#{name},'%')
     </select>
     <select id="selectSubjectIdByBlogId" resultType="java.lang.String">
-        SELECT BSR1.BLOG_SUBJECT_ID
-        FROM DTS_BLOG_SUBJECT_RELATION BSR1
-        WHERE BSR1.BLOG_ID = #{blogId}
+        select bsr1.blog_subject_id
+        from dts_blog_subject_relation bsr1
+        where bsr1.blog_id = #{blogId}
     </select>
 </mapper>
