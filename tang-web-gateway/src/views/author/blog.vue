@@ -1,22 +1,14 @@
 <template>
-
   <ul class="list-group blog-list">
-    
     <li class="list-group-item" v-for="(item,index) in blogList" :key="index">
       <router-link :to="{name: 'blog_info', params: { id: item.blogId }}" class="blog-title">
         <strong><p v-text="item.title"></p></strong>
       </router-link>
       <div class="blog-synopsis">{{item.synopsis}}</div>
       <p v-if="item.subjectName != null">
-        <span style="    background: #efefef;
-    padding: 0px 5px;
-    border-radius: 10px;
-    color: #7d7d7d;">专辑 : {{item.subjectName}}</span>
+        <span style="background: #efefef;padding: 0px 5px;border-radius: 10px;color: #7d7d7d;">专辑 : {{item.subjectName}}</span>
       </p>
-        <span style="    background: #efefef;
-    padding: 0px 5px;
-    border-radius: 10px;
-    color: #7d7d7d;">{{item.createDate}}</span>
+        <span style="background: #efefef;padding: 0px 5px;border-radius: 10px;color: #7d7d7d;">{{item.createDate}}</span>
         
         <div class="btn-group float-end">
           <!-- <button class="btn btn-outline-dark float-end" style="padding: 0px 5px 0px 3px;font-size: 13px;" disabled>编辑</button> -->

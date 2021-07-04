@@ -1,7 +1,7 @@
 <template>
 <div class="row clearfix">
     <div class="col-md-9 ">
-      <div class="card margin-bottom10">
+      <div class="card mb-2">
         <div class="card-body">
           <h4>{{subjectData.subjectName}}</h4>
           <span>{{subjectData.synopsis}}</span>
@@ -21,12 +21,12 @@
         </li>
       </ul>
     </div>
-    <div class="col-md-3  margin-bottom10 ">
-      <div class="list-group margin-bottom10">
+    <div class="col-md-3  mb-2 ">
+      <div class="list-group mb-2">
         <a class="list-group-item active" >广播<span class="pull-right ">🎇</span></a>
         <advertise></advertise>
       </div>
-      <div class="card margin-bottom10">
+      <div class="card mb-2">
         <div class="card-body">
           <p>
             <a href="https://ttcxy.net/post/0b0d396713a54e2fbf714478d740e53e" target="_blank">关于</a>

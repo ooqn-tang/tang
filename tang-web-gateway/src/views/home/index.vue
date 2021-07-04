@@ -1,12 +1,12 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light margin-bottom10" style="border-bottom: 1px solid #cecece;">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light t-b-b-1 mb-2">
     <div class="container-fluid">
       <a class="navbar-brand" href="/">🧩堂堂程序员</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <ul class="navbar-nav me-auto mb-lg-0">
           <li class="nav-item">
             <a class="nav-link" href="/blog">😶博客</a>
           </li>
@@ -28,8 +28,7 @@
           
         </ul>
         <form class="d-flex">
-          
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <ul class="navbar-nav me-auto">
             <li class="nav-item" v-if="$store.state.username == ''">
               <router-link class="nav-link" to="/login">🧐登录</router-link>
             </li>
@@ -46,7 +45,7 @@
       </div>
     </div>
   </nav>
-  <div class="container-fluid no-lr-padding">
+  <div class="container-fluid">
     <router-view/>
   </div>
 </template>

@@ -1,8 +1,8 @@
 <template>
   <div class="row">
-    <div class="col-md-9 margin-bottom10">
-       <div class="card margin-bottom10"  >
-         <div class="card-body " style="padding:0px;">
+    <div class="col-md-9 mb-2 col-move">
+       <div class="card mb-2">
+         <div class="card-body p-0">
            <nav class="nav">
               <a class="nav-link" :class="selectTag == ''?'nav-link-active':''" @click="selectTagClick('')">全部</a>
               <a class="nav-link" :class="selectTag == 'Java'?'nav-link-active':''" @click="selectTagClick('Java')">Java</a>
@@ -17,7 +17,6 @@
             </nav>
          </div>
        </div>
-      
       <div class="card">
         <div class="card-header">
           <ul class="nav nav-tabs card-header-tabs">
@@ -32,7 +31,7 @@
             </li>
           </ul>
         </div>
-        <div class="card-body blog-list">
+        <div class="card-body blog-list p-0">
           <ul class="list-group ">
             <li class="list-group-item " v-for="(item,index) in blogList" :key="index">
               <router-link :to="{name: 'blog_info', params: { id: item.blogId}}" class="blog-title">
@@ -46,18 +45,18 @@
               </div>
             </li>
             <li class="list-group-item">
-              <a @click="nextPage()">获取</a>
+              <a @click="nextPage()" v-if="!isLoding">获取</a><a v-if="isLoding">加载中...</a>
             </li>
           </ul>
         </div>
       </div>
     </div>
-    <div class="col-md-3  margin-bottom10 ">
-      <div class="list-group margin-bottom10">
+    <div class="col-md-3 mb-2 col-move">
+      <div class="list-group mb-2">
         <a class="list-group-item active" >广播<span class="pull-right ">🎇</span></a>
         <advertise></advertise>
       </div>
-      <div class="card margin-bottom10">
+      <div class="card mb-2">
         <div class="card-body">
           <p>
             <a href="https://ttcxy.net/post/0b0d396713a54e2fbf714478d740e53e" target="_blank">关于</a>
@@ -86,7 +85,8 @@ export default {
       blogPage:{
         nextPage:1
       },
-      blogList:[]
+      blogList:[],
+      isLoding:true
     }
   },
   methods: {
@@ -96,10 +96,11 @@ export default {
       this.loadBlog(this.blogPage.nextPage,this.selectTag)
     },
     loadBlog(nextPage,tagName){
+      this.isLoding = true
       blogList({page:nextPage,tag:tagName}).then((response) => {
-        console.log(response.data)
         this.blogPage = response.data
         this.blogList = this.blogList.concat(response.data.list)
+        this.isLoding = false
       })
     },
     nextPage(){

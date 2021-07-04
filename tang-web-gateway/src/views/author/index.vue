@@ -1,7 +1,7 @@
 <template>
   <div class="row clearfix">
-    <div class="col-md-4 col-md-push-8">
-      <div class="card margin-bottom10">
+    <div class="col-md-4 col-md-push-8 col-move">
+      <div class="card mb-2">
         <div class="card-body ">
           <strong>{{author.nickname}}</strong>
           <button v-if="fans == 2" class="btn btn-outline-warning float-end" style="padding: 0px 5px 0px 3px;font-size: 13px;" @click="fansClick(author.username)">订阅</button>
@@ -10,15 +10,15 @@
           <div>简介：<span>{{author.signature}}</span></div>
         </div>
       </div>
-      <div class="list-group margin-bottom10 hdl">
+      <div class="list-group mb-2  d-md-inline d-none">
         <a class="list-group-item active" >广播<span class="pull-right">🎇</span></a>
         <advertise></advertise>
       </div>
     </div>
-    <div class="col-md-8 col-md-pull-4 margin-bottom10">
+    <div class="col-md-8 col-md-pull-4 mb-2 col-move">
       <div class="card">
         <div class="card-header">
-          <ul class="nav justify-content-center nopd">
+          <ul class="nav justify-content-center">
             <li class="nav-item">
               <a class="nav-link" :class="routeName == 'author_blog'?'nav-link-active':''" @click="selectTypeClick('author_blog')">博客</a>
             </li>
@@ -36,7 +36,7 @@
             </li>
           </ul>
         </div>
-        <div class="card-body blog-list">
+        <div class="card-body p-0">
           <router-view/>
         </div>
       </div>

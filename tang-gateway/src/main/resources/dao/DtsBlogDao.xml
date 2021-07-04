@@ -23,7 +23,7 @@
         inner join dts_blog b on a.author_id = b.author_id and b.state_code = 1001 and b.title like concat('%',#{title},'%')
         left join dts_blog_tag_relation dbtr on dbtr.blog_id = b.blog_id
         left join dts_blog_tag bt on bt.blog_tag_id = dbtr.blog_tag_id
-        order by b.blog_id desc
+        order by b.create_date desc
     </select>
 
     <select id="selectBlogById" resultMap="BlogResult">
@@ -54,7 +54,7 @@
         left join dts_blog_tag_relation dbtr on dbtr.blog_id = b.blog_id
         left join dts_blog_tag bt on bt.blog_tag_id = dbtr.blog_tag_id
         and b.state_code = 1001
-        order by b.blog_id desc
+        order by b.create_date desc
     </select>
 
     <select id="selectBlogList" resultMap="BlogResult">

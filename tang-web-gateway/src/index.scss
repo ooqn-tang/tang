@@ -3,7 +3,6 @@
     margin: 0;
     border: 0;
     box-sizing: border-box;
-    border-radius: 0;
     resize: none;
     outline: none;
     cursor: pointer;
@@ -26,9 +25,11 @@ a{
     text-decoration:none;
     color:#054cb3;
 }
-.margin-bottom10{
-    margin-bottom:10px
+.tang-nav{
+    margin-bottom:10px;
+    border-bottom: 1px solid #cecece;
 }
+
 .blog-list{
     padding: 0px;
     border: 0;
@@ -59,25 +60,34 @@ a{
 }
 
 @media (max-width: 768px) {
-    .no-lr-padding{
-        padding-left: 0px;
-        padding-right: 0px;
+    .col-move{
+        padding-left: 0;
+        padding-right: 0;
     }
-    .no-lr-border{
-        border-left: 0px;
-        border-right: 0px;
-        border-radius: 0;
+    .list-group-item{
+        border-left: 0;
+        border-right: 0;
+
+        padding: 12px;
     }
-    .hdl{
-        display: none;
-    }
-    
-    .nopd .nav-link{
-        padding: 8px;
-    }
-    .card{
-        border-left: 0px;
-        border-right: 0px;
+    .list-group{
         border-radius: 0px;
     }
+    .card-body{
+        padding: 12px;
+    }
+    .blog-body, .col-move .card{
+        border-radius: 0px;
+        border-left: 0;
+        border-right: 0;
+    }
+}
+
+// bootstrap stype
+
+.t-b-b-1{
+    border-bottom: 1px solid #cecece;
+}
+.t-b-m-1{
+    padding: 0px 5px 0px 3px; font-size: 13px
 }
