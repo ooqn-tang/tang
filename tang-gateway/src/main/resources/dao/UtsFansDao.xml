@@ -28,7 +28,7 @@
     <select id="isFans" resultType="java.lang.Integer">
         select count(*) 
         from uts_fans 
-        where author_id = #{authorid} 
+        where author_id = #{authorId}
         and be_author_id = #{beAuthorId}
     </select>
 

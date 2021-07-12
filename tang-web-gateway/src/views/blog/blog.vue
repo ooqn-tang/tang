@@ -65,7 +65,7 @@
                 <span
                   v-for="(item, index) in blog.tagList"
                   :key="index"
-                  style="font-size: 10px; color: rgb(1 51 234);border: 1px solid black;border-radius: 10px;"
+                  style="font-size: 16px; color: rgb(220, 53, 69);"
                   >&nbsp;{{ item.tagName }}&nbsp;</span>
                 </div>
             </div>
@@ -183,7 +183,7 @@ export default {
   name: "blog_info",
   data() {
     return {
-      fans: 1,
+      fans: 2,
       param: {
         blogId: this.$route.params.id,
       },
@@ -257,7 +257,9 @@ export default {
     loadBlogInfo() {
       postBlog(this.param).then((response) => {
         this.blog = response.data;
-        this.isFans();
+        if(this.$store.state.username != ""){
+          this.isFans();
+        }
         this.loading = false
       });
     },
@@ -277,7 +279,10 @@ export default {
     },
   },
   mounted() {
-    this.isLike();
+    if(this.$store.state.username != ""){
+      this.isLike();
+    }
+    
     this.loadRecommend();
   },
 };

@@ -14,10 +14,13 @@
         <result column="text" property="text"/>
         <result column="blog_subject_id" property="subjectId"/>
         <result column="subject_name" property="subjectName"/>
-        <association property="tagList" column="{blogId=blog_id}" select="net.ttcxy.tang.gateway.dao.DtsBlogTagDao.selectByBlogId"/>
     </resultMap>
 
-    <select id="search" resultMap="BlogResult">
+    <resultMap id="BlogTagResult" type="net.ttcxy.tang.gateway.entity.dto.DtsBlogDto" extends="BlogResult">
+        <association property="tagList" column="{blogId = blog_id}" select="net.ttcxy.tang.gateway.dao.DtsBlogTagDao.selectByBlogId"/>
+    </resultMap>
+
+    <select id="search" resultMap="BlogTagResult">
         select t1.username ,t1.nickname ,t2.blog_id,t2.title  ,t2.create_date ,t2.synopsis ,t4.blog_tag_id ,t4.tag_name
         from uts_author a
         inner join dts_blog t2 on t1.author_id = t2.author_id and t2.state_code = 1001 and t2.title like concat('%',#{title},'%')
@@ -26,7 +29,7 @@
         order by t2.create_date desc
     </select>
 
-    <select id="selectBlogById" resultMap="BlogResult">
+    <select id="selectBlogById" resultMap="BlogTagResult">
         select t2.username ,t2.nickname ,t1.blog_id ,t1.title ,t1.create_date ,t1.synopsis ,t1.text ,t4.blog_tag_id ,t4.tag_name
         from dts_blog t1
         inner join uts_author t2 on t1.blog_id = #{id} and t1.author_id = t2.author_id
@@ -34,7 +37,7 @@
         left join dts_blog_tag t4 on t4.blog_tag_id = t3.blog_tag_id
     </select>
 
-    <select id="selectLikeBlogs" resultMap="BlogResult">
+    <select id="selectLikeBlogs" resultMap="BlogTagResult">
         select t4.username ,t4.nickname ,t3.blog_id ,t3.title ,t3.create_date ,t3.synopsis ,t6.blog_tag_id ,t6.tag_name
         from uts_author t1
         inner join dts_like_blog t2 on t1.username = #{username} and t2.author_id = t1.author_id
@@ -45,7 +48,7 @@
         order by t2.create_date desc
     </select>
 
-    <select id="selectBlogListByUsername" resultMap="BlogResult">
+    <select id="selectBlogListByUsername" resultMap="BlogTagResult">
         select t1.username ,t1.nickname ,t2.blog_id ,t2.title ,t2.create_date ,t2.synopsis ,t6.blog_tag_id ,t6.tag_name,t4.subject_name ,t4.blog_subject_id
         from uts_author t1
         inner join dts_blog t2 on t1.author_id = t2.author_id and t1.username = #{username}
@@ -57,7 +60,7 @@
         order by t2.create_date desc
     </select>
 
-    <select id="selectBlogList" resultMap="BlogResult">
+    <select id="selectBlogList" resultMap="BlogTagResult">
         select t1.username ,t1.nickname ,t2.blog_id ,t2.title ,t2.create_date ,t2.synopsis ,t4.blog_tag_id ,t4.tag_name
         from uts_author t1
         left join dts_blog t2 on t1.author_id = t2.author_id

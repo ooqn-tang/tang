@@ -48,7 +48,7 @@
         where t2.subject_name like concat('%',#{name},'%')
     </select>
     <select id="selectSubjectIdByBlogId" resultType="java.lang.String">
-        select bsr1.blog_subject_id
+        select t1.blog_subject_id
         from dts_blog_subject_relation t1
         where t1.blog_id = #{blogId}
     </select>
