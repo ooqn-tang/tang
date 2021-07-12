@@ -12,31 +12,34 @@
 
     <select id="selectFans"  resultType="Integer" parameterType="net.ttcxy.tang.gateway.entity.dto.UtsFansDto">
       select count(1)
-      from `uts_fans`
+      from uts_fans
       where user_id = #{userId}
       and follower = #{follower}
     </select>
 
     <select id="selectFansList" resultMap="FansMap">
-        select f.fans_id,a2.username,a2.nickname
-        from `uts_fans` f,`uts_author` a1,`uts_author` a2
-        where a1.author_id = f.author_id
-        and a2.author_id = f.be_author_id
-        and f.author_id = #{authorId}
-        order by f.create_date Desc
+        select t1.fans_id,t3.username,t3.nickname
+        from uts_fans t1,uts_author t2,uts_author t3
+        where t2.author_id = t1.author_id
+        and t3.author_id = t1.be_author_id
+        and t1.author_id = #{authorId}
+        order by t1.create_date
     </select>
     <select id="isFans" resultType="java.lang.Integer">
-        select count(*) from uts_fans where author_id = #{authorid} and be_author_id = #{beAuthorId}
+        select count(*) 
+        from uts_fans 
+        where author_id = #{authorid} 
+        and be_author_id = #{beAuthorId}
     </select>
 
     <insert id="insertFans" parameterType="net.ttcxy.tang.gateway.entity.dto.UtsFansDto">
-        insert into `uts_fans` (id,user_id,follower,create_date)
+        insert into uts_fans (id,user_id,follower,create_date)
         values (#{id},#{userId},#{follower},#{createDate})
     </insert>
 
    <delete id="deleteFans" parameterType="net.ttcxy.tang.gateway.entity.dto.UtsFansDto">
        delete
-       from `uts_fans`
+       from uts_fans
        where user_id = #{userId}
        and follower = #{follower}
    </delete>

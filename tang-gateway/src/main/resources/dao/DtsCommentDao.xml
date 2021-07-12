@@ -20,18 +20,18 @@
     </delete>
 
     <select id="selectComments" resultType="net.ttcxy.tang.gateway.entity.dto.DtsBlogCommentDto">
-        select bc.author_id,bc.blog_comment_id,bc.blog_id,bc.status,u.nickname,u.username,bc.create_date,bc.content
-        from `dts_blog_comment` bc , `uts_author` u
-        where u.author_id = bc.author_id
-        and bc.blog_id = #{id}
-        order by create_date ASC
+        select t1.author_id,t1.blog_comment_id,t1.blog_id,t1.status,t2.nickname,t2.username,t1.create_date,t1.content
+        from `dts_blog_comment` t1 , `uts_author` t2
+        where t2.author_id = t1.author_id
+        and t1.blog_id = #{id}
+        order by create_date asc
     </select>
 
     <select id="selectComment" resultType="net.ttcxy.tang.gateway.entity.dto.DtsBlogCommentDto">
-        select bc.author_id,bc.id,bc.blog_id,bc.status,u.nickname,u.username,bc.create_date,bc.content
-        from `dts_blog_comment` bc , `uts_author` u
-        where u.author_id = bc.author_idv
-        and bc.id = #{id}
+        select t1.author_id,t1.id,t1.blog_id,t1.status,t2.nickname,t2.username,t1.create_date,t1.content
+        from `dts_blog_comment` t1 , `uts_author` t2
+        where t2.author_id = t1.author_idv
+        and t1.id = #{id}
     </select>
 
 </mapper>
