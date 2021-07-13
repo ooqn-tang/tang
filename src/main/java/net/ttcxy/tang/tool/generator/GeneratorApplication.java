@@ -1,4 +1,4 @@
-package net.ttcxy.tang.generator;
+package net.ttcxy.tang.tool.generator;
 
 import org.mybatis.generator.api.MyBatisGenerator;
 import org.mybatis.generator.config.Configuration;

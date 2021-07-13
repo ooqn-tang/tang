@@ -1,4 +1,4 @@
-package net.ttcxy.tang.generator;
+package net.ttcxy.tang.tool.generator;
 
 import org.mybatis.generator.api.IntrospectedColumn;
 import org.mybatis.generator.api.IntrospectedTable;
