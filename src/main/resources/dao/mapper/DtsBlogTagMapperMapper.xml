@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.ttcxy.tang.dao.mapper.DtsBlogTagMapperMapper">
+  <resultMap id="BaseResultMap" type="net.ttcxy.tang.entity.model.DtsBlogTagMapper">
+    <id column="BLOG_TAG_MAPPER_ID" jdbcType="VARCHAR" property="blogTagMapperId" />
+    <result column="BLOG_ID" jdbcType="VARCHAR" property="blogId" />
+    <result column="BLOG_TAG_ID" jdbcType="VARCHAR" property="blogTagId" />
+    <result column="CREATE_DATE" jdbcType="TIMESTAMP" property="createDate" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    BLOG_TAG_MAPPER_ID, BLOG_ID, BLOG_TAG_ID, CREATE_DATE
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from DTS_BLOG_TAG_MAPPER
+    where BLOG_TAG_MAPPER_ID = #{blogTagMapperId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from DTS_BLOG_TAG_MAPPER
+    where BLOG_TAG_MAPPER_ID = #{blogTagMapperId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="net.ttcxy.tang.entity.model.DtsBlogTagMapperExample">
+    delete from DTS_BLOG_TAG_MAPPER
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="net.ttcxy.tang.entity.model.DtsBlogTagMapper">
+    insert into DTS_BLOG_TAG_MAPPER (BLOG_TAG_MAPPER_ID, BLOG_ID, BLOG_TAG_ID, 
+      CREATE_DATE)
+    values (#{blogTagMapperId,jdbcType=VARCHAR}, #{blogId,jdbcType=VARCHAR}, #{blogTagId,jdbcType=VARCHAR}, 
+      #{createDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="net.ttcxy.tang.entity.model.DtsBlogTagMapper">
+    insert into DTS_BLOG_TAG_MAPPER
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="blogTagMapperId != null">
+        BLOG_TAG_MAPPER_ID,
+      </if>
+      <if test="blogId != null">
+        BLOG_ID,
+      </if>
+      <if test="blogTagId != null">
+        BLOG_TAG_ID,
+      </if>
+      <if test="createDate != null">
+        CREATE_DATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="blogTagMapperId != null">
+        #{blogTagMapperId,jdbcType=VARCHAR},
+      </if>
+      <if test="blogId != null">
+        #{blogId,jdbcType=VARCHAR},
+      </if>
+      <if test="blogTagId != null">
+        #{blogTagId,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="net.ttcxy.tang.entity.model.DtsBlogTagMapperExample" resultType="java.lang.Long">
+    select count(*) from DTS_BLOG_TAG_MAPPER
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update DTS_BLOG_TAG_MAPPER
+    <set>
+      <if test="record.blogTagMapperId != null">
+        BLOG_TAG_MAPPER_ID = #{record.blogTagMapperId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.blogId != null">
+        BLOG_ID = #{record.blogId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.blogTagId != null">
+        BLOG_TAG_ID = #{record.blogTagId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createDate != null">
+        CREATE_DATE = #{record.createDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update DTS_BLOG_TAG_MAPPER
+    set BLOG_TAG_MAPPER_ID = #{record.blogTagMapperId,jdbcType=VARCHAR},
+      BLOG_ID = #{record.blogId,jdbcType=VARCHAR},
+      BLOG_TAG_ID = #{record.blogTagId,jdbcType=VARCHAR},
+      CREATE_DATE = #{record.createDate,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="net.ttcxy.tang.entity.model.DtsBlogTagMapper">
+    update DTS_BLOG_TAG_MAPPER
+    <set>
+      <if test="blogId != null">
+        BLOG_ID = #{blogId,jdbcType=VARCHAR},
+      </if>
+      <if test="blogTagId != null">
+        BLOG_TAG_ID = #{blogTagId,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where BLOG_TAG_MAPPER_ID = #{blogTagMapperId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="net.ttcxy.tang.entity.model.DtsBlogTagMapper">
+    update DTS_BLOG_TAG_MAPPER
+    set BLOG_ID = #{blogId,jdbcType=VARCHAR},
+      BLOG_TAG_ID = #{blogTagId,jdbcType=VARCHAR},
+      CREATE_DATE = #{createDate,jdbcType=TIMESTAMP}
+    where BLOG_TAG_MAPPER_ID = #{blogTagMapperId,jdbcType=VARCHAR}
+  </update>
+</mapper>

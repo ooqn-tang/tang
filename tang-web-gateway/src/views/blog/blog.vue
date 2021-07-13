@@ -204,8 +204,8 @@ export default {
   },
   components: {},
   created() {
-    this.loadBlogInfo();
     this.selectSubjectBlogList();
+    this.loadBlogInfo();
   },
   methods: {
     fansClick(username) {
