@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.ttcxy.tang.portal.dao.UtsFansDao">
+  <resultMap id="FansMap" type="net.ttcxy.tang.portal.entity.dto.UtsFansDto">
+      <id column="fans_id" jdbcType="VARCHAR" property="fansId" />
+      <result column="be_author_id" jdbcType="VARCHAR" property="beAuthorId" />
+      <result column="author_id" jdbcType="VARCHAR" property="authorId" />
+      <result column="username" jdbcType="VARCHAR" property="username" />
+      <result column="nickname" jdbcType="VARCHAR" property="nickname" />
+      <result column="create_date" jdbcType="VARCHAR" property="createDate" />
+  </resultMap>
+
+    <select id="selectFans"  resultType="Integer" parameterType="net.ttcxy.tang.portal.entity.dto.UtsFansDto">
+      select count(1)
+      from uts_fans
+      where user_id = #{userId}
+      and follower = #{follower}
+    </select>
+
+    <select id="selectFansList" resultMap="FansMap">
+        select t1.fans_id,t3.username,t3.nickname
+        from uts_fans t1,uts_author t2,uts_author t3
+        where t2.author_id = t1.author_id
+        and t3.author_id = t1.be_author_id
+        and t1.author_id = #{authorId}
+        order by t1.create_date
+    </select>
+    <select id="isFans" resultType="java.lang.Integer">
+        select count(*) 
+        from uts_fans 
+        where author_id = #{authorId}
+        and be_author_id = #{beAuthorId}
+    </select>
+
+    <insert id="insertFans" parameterType="net.ttcxy.tang.portal.entity.dto.UtsFansDto">
+        insert into uts_fans (id,user_id,follower,create_date)
+        values (#{id},#{userId},#{follower},#{createDate})
+    </insert>
+
+   <delete id="deleteFans" parameterType="net.ttcxy.tang.portal.entity.dto.UtsFansDto">
+       delete
+       from uts_fans
+       where user_id = #{userId}
+       and follower = #{follower}
+   </delete>
+
+</mapper>

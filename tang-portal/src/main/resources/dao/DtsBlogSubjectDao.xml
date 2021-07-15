@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.ttcxy.tang.portal.dao.DtsBlogSubjectDao">
+    <resultMap id="SubjectBase" type="net.ttcxy.tang.portal.entity.dto.DtsBlogSubjectDto">
+        <id property="blogSubjectId" jdbcType="VARCHAR" column="blog_subject_id"/>
+        <result property="subjectName" jdbcType="VARCHAR" column="subject_name"/>
+        <result property="synopsis" jdbcType="VARCHAR" column="synopsis"/>
+        <result property="createDate" jdbcType="TIMESTAMP" column="create_date"/>
+        <result property="authorId" jdbcType="VARCHAR" column="author_id"/>
+        <result property="username" jdbcType="VARCHAR" column="username"/>
+        <result property="nickname" jdbcType="VARCHAR" column="nickname"/>
+    </resultMap>
+
+    <resultMap id="SubjectResult" type="net.ttcxy.tang.portal.entity.dto.DtsBlogSubjectDto" extends="SubjectBase">
+        <collection property="blogList" ofType="net.ttcxy.tang.portal.entity.model.DtsBlog" column="blog_subject_id">
+            <id property="blogId" jdbcType="VARCHAR" column="blog_id"/>
+            <result property="title" jdbcType="VARCHAR" column="title"/>
+            <result property="synopsis" jdbcType="VARCHAR" column="synopsis"/>
+            <result property="createDate" jdbcType="VARCHAR" column="create_date"/>
+        </collection>
+    </resultMap>
+
+
+    <select id="selectSubjectBlogListById" resultMap="SubjectResult">
+        select t1.blog_subject_id ,t1.subject_name ,t1.create_date,t1.synopsis ,t2.author_id ,t2.username ,t2.nickname ,t4.blog_id ,t4.title ,t4.create_date
+        from dts_blog_subject t1
+        inner join uts_author t2 on t2.author_id  = t1.author_id and t1.blog_subject_id = #{blogSubjectId}
+        inner join dts_blog_subject_relation t3 on t3.blog_subject_id = t1.blog_subject_id
+        inner join dts_blog t4 on t4.blog_id  = t3.blog_id
+    </select>
+    <select id="selectSubjectList" resultMap="SubjectBase">
+        select *
+        from dts_blog_subject t1
+        inner join uts_author t2 on t2.author_id = t1.author_id
+    </select>
+    <select id="selectSubjectListByUsername" resultMap="SubjectBase">
+        select *
+        from dts_blog_subject t1
+        left join uts_author t2 on t1.author_id = t2.author_id
+        where t2.username = #{username}
+    </select>
+    <select id="selectSubjectListBySubjectName" resultMap="SubjectBase">
+        select t1.subject_name
+        from dts_blog_subject t1
+        left join uts_author t2 on t1.author_id = t2.author_id
+        where t2.subject_name like concat('%',#{name},'%')
+    </select>
+    <select id="selectSubjectIdByBlogId" resultType="java.lang.String">
+        select t1.blog_subject_id
+        from dts_blog_subject_relation t1
+        where t1.blog_id = #{blogId}
+    </select>
+</mapper>
