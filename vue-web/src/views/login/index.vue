@@ -69,7 +69,7 @@
 
 <script>
 import { login } from "/@/api/login"
-import Cookies from 'js-cookie'
+import jwt_decode from "jwt-decode"
 export default {
   name: "login",
   data() {
@@ -78,7 +78,7 @@ export default {
       loginData:{
         username:"",
         password:"",
-        'remember-me':true
+        'rememberMe':true
       }
     };
   },
@@ -87,9 +87,11 @@ export default {
     login(){
       login(this.loginData).then((response) => {
         if(response.code === 200){
-          this.$store.state.username = response.data.username
-          Cookies.set("username",response.data.username)
-          this.$router.go(-1)
+          debugger
+          let user = jwt_decode(response.jwt_token)
+          localStorage.setItem("token",response.jwt_token)
+          localStorage.setItem("user",JSON.stringify(user.user))
+          this.$store.state.user = user.user
         }
       })
     }

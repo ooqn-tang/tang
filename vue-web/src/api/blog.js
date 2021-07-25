@@ -16,6 +16,14 @@ export function loadBlogByUsername(username,data) {
     })
 }
 
+export function loadBlogAllInfo(blogId) {
+    return request({
+        url: '/api/blog/load/all',
+        method: 'GET',
+        params: {"blogId":blogId}
+    })
+}
+
 export function postBlog(data) {
     return request({
         url: '/api/blog/load',
@@ -24,10 +32,17 @@ export function postBlog(data) {
     })
 }
 
-export function insertBlog(data) {
+export function createBlog() {
     return request({
         url: '/api/blog',
-        method: 'POST',
+        method: 'POST'
+    })
+}
+
+export function saveBlog(data) {
+    return request({
+        url: '/api/blog',
+        method: 'PUT',
         data
     })
 }
@@ -36,14 +51,6 @@ export function deleteBlog(blogId) {
     return request({
         url: '/api/blog/' + blogId,
         method: 'DELETE'
-    })
-}
-
-export function putBlog(data) {
-    return request({
-        url: '/api/blog',
-        method: 'PUT',
-        data
     })
 }
 

@@ -11,7 +11,7 @@
         </div>
       </div>
       <div class="list-group mb-2  d-md-inline d-none">
-        <a class="list-group-item active" >广播<span class="pull-right">🎇</span></a>
+        <a class="list-group-item active" >TOP<span class="float-end">🎇</span></a>
         <advertise></advertise>
       </div>
     </div>
@@ -56,7 +56,7 @@ export default {
         
       },
       thisUsername:"",
-      loginUsername:this.$store.state.username,
+      loginUsername:this.$store.state.user.username,
       from:{
         page:1
       },

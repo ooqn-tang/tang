@@ -31,6 +31,13 @@ public interface DtsBlogDao {
     DtsBlogDto selectBlogById(String id);
 
     /**
+     * 通过ID获取blog信息
+     * @param id 博客ID
+     * @return 博客
+     */
+    DtsBlogDto selectBlogAllById(String id);
+
+    /**
      * 通过用户ID 查询喜欢泪飙
      * @param username username
      * @return 博客列表
@@ -48,5 +55,6 @@ public interface DtsBlogDao {
      * 获取前1000条数据
      */
     List<DtsBlogDto> selectBlogList1000();
+
 
 }

@@ -52,7 +52,9 @@ export default {
   components: {},
   methods: {
     logout(){
-      logout().then()
+      localStorage.setItem("token","")
+      localStorage.setItem("user",{})
+      this.$store.state.user = {}
       window.location.href = "/"
     },
     save(){

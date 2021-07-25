@@ -2,14 +2,12 @@ package net.ttcxy.tang.portal.controller.api;
 
 import cn.hutool.core.bean.BeanUtil;
 import com.github.pagehelper.PageInfo;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 import net.ttcxy.tang.portal.core.api.ApiException;
 import net.ttcxy.tang.portal.core.api.ResponseResult;
+import net.ttcxy.tang.portal.core.security.CurrentUtil;
 import net.ttcxy.tang.portal.entity.dto.DtsBlogTagDto;
 import net.ttcxy.tang.portal.entity.model.DtsBlogTag;
 import net.ttcxy.tang.portal.entity.param.DtsTagParam;
-import net.ttcxy.tang.portal.service.CurrentAuthorService;
 import net.ttcxy.tang.portal.service.DtsBlogTagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -17,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Api("博客标签")
 @RestController
 @RequestMapping("api/tag")
 @Validated
@@ -26,11 +23,7 @@ public class ApiBlogTagController {
     @Autowired
     private DtsBlogTagService blogTagService;
 
-    @Autowired
-    private CurrentAuthorService currentAuthorService;
-
     @GetMapping
-    @ApiOperation("通过用户名查询标签博客列表")
     public ResponseResult<DtsBlogTagDto> selectTagBlogListByUsername(
             @RequestParam(value = "tagId",defaultValue = "0")String tagId,
             @RequestParam(value = "username",defaultValue = "0")String username){
@@ -40,23 +33,20 @@ public class ApiBlogTagController {
     }
 
     @GetMapping("allTag")
-    @ApiOperation("通过专题名模糊查询")
     public ResponseResult<List<DtsBlogTagDto>> selectAuthorAllTag(){
-        String authorId = currentAuthorService.getAuthorId();
+        String authorId = CurrentUtil.id();
         List<DtsBlogTagDto> list = blogTagService.selectAuthorAllTag(authorId);
         return ResponseResult.success(list);
     }
 
     @PostMapping("author")
-    @ApiOperation("添加作者的tag")
     public ResponseResult<?> insertAuthorTag(@RequestParam(value = "tagId") String tagId){
-        String authorId = currentAuthorService.getAuthorId();
+        String authorId = CurrentUtil.id();
         Integer count = blogTagService.insertAuthorTag(authorId,tagId);
         return ResponseResult.success(count);
     }
 
     @GetMapping("search")
-    @ApiOperation("通过专题名模糊查询")
     public ResponseResult<PageInfo<DtsBlogTagDto>> selectTagByName(
             @RequestParam(value = "tagName",defaultValue = "")String name){
         PageInfo<DtsBlogTagDto> pageInfo = blogTagService.selectTagListByName(name,1,10);
@@ -66,7 +56,6 @@ public class ApiBlogTagController {
 
 
     @GetMapping("list")
-    @ApiOperation("查询标签列表")
     public ResponseResult<PageInfo<DtsBlogTagDto>> selectTag(
             @RequestParam(value = "page",defaultValue = "0")Integer page){
         Integer pageSize = 20;
@@ -76,7 +65,6 @@ public class ApiBlogTagController {
 
 
     @PostMapping
-    @ApiOperation("添加标签")
     public ResponseResult<String> insertTag(@RequestBody DtsTagParam tagParam){
         DtsBlogTag tagDto = BeanUtil.toBean(tagParam, DtsBlogTag.class);
         String tagId = blogTagService.insertTag(tagDto);
@@ -84,7 +72,6 @@ public class ApiBlogTagController {
     }
 
     @PutMapping
-    @ApiOperation("修改标签")
     public ResponseResult<String> updateTag(DtsTagParam tagParam){
         DtsBlogTag tag = BeanUtil.toBean(tagParam, DtsBlogTag.class);
         Integer count = blogTagService.updateTag(tag);

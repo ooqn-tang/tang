@@ -8,7 +8,6 @@ import net.ttcxy.tang.portal.dao.mapper.DtsBlogCommentMapper;
 import net.ttcxy.tang.portal.entity.dto.DtsBlogCommentDto;
 import net.ttcxy.tang.portal.entity.model.DtsBlogComment;
 import net.ttcxy.tang.portal.entity.model.DtsBlogCommentExample;
-import net.ttcxy.tang.portal.service.CurrentAuthorService;
 import net.ttcxy.tang.portal.service.DtsCommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,9 +27,6 @@ public class DtsCommentServiceImpl implements DtsCommentService {
 
     @Autowired
     private DtsBlogCommentMapper blogCommentMapper;
-
-    @Autowired
-    private CurrentAuthorService currentAuthorService;
 
     @Override
     public int insertComment(DtsBlogComment blogComment) {

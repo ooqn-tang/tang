@@ -1,0 +1,42 @@
+<style type="text/css">
+    #show{display:none;}
+    #show:target{background:orange; display:block;}
+    #hide:target{display:none;}
+
+
+    .event_step{position:fixed; top:50%; right:10px; padding:10px 20px 10px 20px; background:#fff; color:#333; border:2px solid #ccc; z-index: 3;}
+    .event_help{position:fixed; top:50%; right:10px; padding:10px; background:rgba(205,27,27); color:#fff; border-radius:20px; z-index:2;}
+     
+    .event_step .step1, .event_step  .step2{padding:10px; border-radius:3px; text-align:center;}
+    .event_step .step1{background:#eee; border:1px solid #ccc; color:#333;}
+    .event_step .step1:hover {background:#ccc;}
+    .event_step .step2{background:#cd1b1b; color:#fff; margin-top:10px;}
+    .event_step .step2:hover {background:#ab1b1b;}
+     
+    .step_hide{position:absolute; top:-15px; right:1px; border:1px solid #ccc; padding:0 5px;}
+     
+    #show{display:block;}
+    #hide:target{display:none;}
+    #show:target{display:block;}
+    </style>
+     
+    <a href="#show">点击显示</a>
+     
+    <div id="hide">
+        <div id="show">
+            happy birthday!
+            <a href="#hide">点击隐藏</a>
+        </div>
+    </div>
+
+    <div id="show">
+        <div id="hide" class="event_step">
+        <p>Hi, What you want to do?</p>
+        <a href="#learn-event"><p class="step1">Learn Event</p></a>
+        <a href="#submit-projects"><p class="step2">Submit Projects</p></a>
+        <a href="#hide"><p class="step_hide">X</p></a>
+        </div>
+    </div>
+     
+    <a href="#show"><p class="event_help">HELP</p></a>
+     

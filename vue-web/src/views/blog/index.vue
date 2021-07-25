@@ -7,8 +7,7 @@
               <a class="nav-link" :class="selectTag == ''?'nav-link-active':''" @click="selectTagClick('')">全部</a>
               <a class="nav-link" :class="selectTag == 'Java'?'nav-link-active':''" @click="selectTagClick('Java')">Java</a>
               <a class="nav-link" :class="selectTag == 'Python'?'nav-link-active':''" @click="selectTagClick('Python')">Python</a>
-              <a class="nav-link" :class="selectTag == 'Web前端'?'nav-link-active':''" @click="selectTagClick('Web前端')">Web前端</a>
-              <a class="nav-link" :class="selectTag == 'Android'?'nav-link-active':''" @click="selectTagClick('Android')">Android</a>
+              <a class="nav-link" :class="selectTag == 'Web前端'?'nav-link-active':''" @click="selectTagClick('Web前端')">前端</a>
               <a class="nav-link" :class="selectTag == '数据库'?'nav-link-active':''" @click="selectTagClick('数据库')">数据库</a>
               <a class="nav-link" :class="selectTag == '面试'?'nav-link-active':''" @click="selectTagClick('面试')">面试</a>
               <a class="nav-link" :class="selectTag == '算法'?'nav-link-active':''" @click="selectTagClick('算法')">算法</a>
@@ -39,7 +38,7 @@
                 </router-link>
               <div class="blog-synopsis" style="color: #5f5a5a;">{{item.synopsis}}</div>
               <div>
-                <span class="date-color">{{item.createDate}}</span>
+                <span class="date-color" style="font-size: 16px;">{{item.createDate}}</span>
                 <span v-for="(item,index) in item.tagList" :key="index" > . <span style="font-size: 16px;color: #dc3545;">{{item.tagName}}</span></span>
                 <router-link :to="{name:'author_blog',params:{username:item.username}}" class="float-end">{{item.nickname}}</router-link>
               </div>
@@ -53,7 +52,7 @@
     </div>
     <div class="col-md-3 mb-2 col-move">
       <div class="list-group mb-2">
-        <a class="list-group-item active" >广播<span class="pull-right ">🎇</span></a>
+        <a class="list-group-item active" >TOP<span class="float-end">🎇</span></a>
         <advertise></advertise>
       </div>
       <div class="card mb-2">

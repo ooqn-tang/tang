@@ -29,15 +29,15 @@
         </ul>
         <form class="d-flex">
           <ul class="navbar-nav me-auto">
-            <li class="nav-item" v-if="$store.state.username == ''">
+            <li class="nav-item" v-if="$store.state.user == undefined">
               <router-link class="nav-link" to="/login">🧐登录</router-link>
             </li>
-            <li class="nav-item" v-if="$store.state.username != ''">
-              <a class="nav-link"  href="/editor">✒投稿</a>
+            <li class="nav-item" v-if="$store.state.user != undefined">
+              <a class="nav-link"  @click="createBlog()">✒投稿</a>
             </li>
-            <li class="nav-item" v-if="$store.state.username != ''">
+            <li class="nav-item" v-if="$store.state.user != undefined">
               <keep-alive exclude="a">
-                <a class="nav-link" :href="'/author/'+$store.state.username">😀我的</a>
+                <a class="nav-link" :href="'/author/' + $store.state.user.username">😀我的</a>
               </keep-alive>
             </li>
           </ul>
@@ -51,6 +51,7 @@
 </template>
 
 <script>
+import { createBlog } from "/@/api/blog"
 export default {
   name: "home",
   data() {
@@ -65,8 +66,14 @@ export default {
   created() {
   },
   methods: {
+    createBlog(){
+      createBlog().then((response) => {
+        this.$router.push({name:"editor",params:{id:response.data}})
+      })
+    }
   },
   mounted(){
+    
   }
 };
 </script>

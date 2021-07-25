@@ -12,7 +12,7 @@ import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactor
 import org.springframework.boot.web.servlet.server.ServletWebServerFactory;
 import org.springframework.context.annotation.Bean;
 
-@SpringBootApplication(scanBasePackages = {"net.ttcxy"})
+@SpringBootApplication(scanBasePackages = {"net.ttcxy.tang"})
 public class TangApplication {
 
     @Bean

@@ -68,7 +68,7 @@ const routes = [
         ]
     },
     {
-        path: '/editor',
+        path: '/editor/:id',
         name: 'editor',
         component: () => import('../views/blog/editor.vue')
     },

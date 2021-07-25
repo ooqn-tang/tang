@@ -5,27 +5,7 @@ export default createStore({
     * 存储
     */
     state: {
-        username: ""
-    },
-
-    /*
-    * 获取
-    */
-    getters: {
-        username(state) {
-            return state.username
-        }
-    },
-
-    /*
-    * 1、通过提交commit改变数据
-    * 2、只是一个单纯的函数
-    * 3、不要使用异步操作，异步操作会导致变量不能追踪
-    */
-    mutations: {
-        setUsername(state, username) {
-            state.username = username
-        }
+        user: {}
     },
 
     /*

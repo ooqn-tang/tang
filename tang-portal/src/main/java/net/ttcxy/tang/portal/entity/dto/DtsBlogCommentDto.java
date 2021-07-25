@@ -1,6 +1,5 @@
 package net.ttcxy.tang.portal.entity.dto;
 
-import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.util.Date;
@@ -16,21 +15,21 @@ public class DtsBlogCommentDto {
 
     private String blogCommentId;
 
-    @ApiModelProperty(value = "评论状态")
+    // 评论状态
     private Integer status;
 
-    @ApiModelProperty(value = "评论人")
+    // 评论人
     private String authorId;
 
-    @ApiModelProperty(value = "内容")
+    // 内容
     private String content;
 
-    @ApiModelProperty(value = "评论时间")
+    // 评论时间
     private Date createDate;
 
-    @ApiModelProperty(value = "用户名")
+    // 用户名
     private String username;
 
-    @ApiModelProperty(value = "昵称")
+    // 昵称
     private String nickname;
 }

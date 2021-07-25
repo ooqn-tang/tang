@@ -1,7 +1,7 @@
 package net.ttcxy.tang.portal.core.component;
 
-import net.ttcxy.tang.portal.entity.model.UtsAuthor;
-import net.ttcxy.tang.portal.service.CurrentAuthorService;
+import net.ttcxy.tang.portal.core.security.CurrentUtil;
+import net.ttcxy.tang.portal.entity.dto.CurrentAuthor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,19 +20,8 @@ public class MyNetWorldLogHandlerInterceptor implements HandlerInterceptor {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
-    @Autowired
-    private CurrentAuthorService currentAuthorService;
-
-    /**
-     * 记录请求IP
-     */
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
-        UtsAuthor author = currentAuthorService.getAuthor();
-        String userId = author == null ? "未登陆用户": author.getAuthorId();
-        String address = request.getLocalAddr();
-        logger.info("userId ：{}，address ：{}" , userId , address);
-
         return true;
     }
 

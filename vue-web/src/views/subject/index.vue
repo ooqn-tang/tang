@@ -26,7 +26,7 @@
     </div>
     <div class="col-md-3  mb-2 ">
       <div class="list-group mb-2">
-        <a class="list-group-item active" >广播<span class="pull-right ">🎇</span></a>
+        <a class="list-group-item active" >TOP<span class="float-end">🎇</span></a>
         <advertise></advertise>
       </div>
       <div class="card mb-2">

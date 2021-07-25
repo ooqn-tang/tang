@@ -61,7 +61,7 @@
           <div class="card mb-2">
             <div class="card-body">
               <div>
-                <span style="font-size: 13px;color: rgb(0 0 0);font-weight: 600;">标签：</span>
+                <span style="font-size: 16px;color: rgb(0 0 0);font-weight: 600;">标签：</span>
                 <span
                   v-for="(item, index) in blog.tagList"
                   :key="index"
@@ -114,7 +114,7 @@
         </div>
         <div class="col-lg-4 col-move">
           <div class="list-group mb-2">
-            <a class="list-group-item active">广播<span class="pull-right">🎇</span></a>
+            <a class="list-group-item active">TOP<span class="float-end">🎇</span></a>
             <advertise></advertise>
           </div>
           <div class="card">
@@ -257,7 +257,7 @@ export default {
     loadBlogInfo() {
       postBlog(this.param).then((response) => {
         this.blog = response.data;
-        if(this.$store.state.username != ""){
+        if(this.$store.state.user != undefined){
           this.isFans();
         }
         this.loading = false
@@ -279,7 +279,7 @@ export default {
     },
   },
   mounted() {
-    if(this.$store.state.username != ""){
+    if(this.$store.state.user != undefined){
       this.isLike();
     }
     

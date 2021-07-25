@@ -2,20 +2,17 @@ package net.ttcxy.tang.portal.controller.api;
 
 import cn.hutool.core.bean.BeanUtil;
 import com.github.pagehelper.PageInfo;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 import net.ttcxy.tang.portal.core.api.ApiException;
 import net.ttcxy.tang.portal.core.api.ResponseResult;
+import net.ttcxy.tang.portal.core.security.CurrentUtil;
 import net.ttcxy.tang.portal.entity.dto.DtsBlogSubjectDto;
 import net.ttcxy.tang.portal.entity.model.DtsBlogSubject;
 import net.ttcxy.tang.portal.entity.param.DtsSubjectParam;
-import net.ttcxy.tang.portal.service.CurrentAuthorService;
 import net.ttcxy.tang.portal.service.DtsBlogSubjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-@Api("博客专题")
 @RestController
 @RequestMapping("api/subject")
 @Validated
@@ -24,11 +21,8 @@ public class ApiBlogSubjectController {
     @Autowired
     private DtsBlogSubjectService blogSubjectService;
 
-    @Autowired
-    private CurrentAuthorService currentAuthorService;
 
     @GetMapping("username")
-    @ApiOperation("通过用户名查询专题博客列表")
     public ResponseResult<PageInfo<DtsBlogSubjectDto>> selectSubjectBlogListByUsername(
             @RequestParam(value = "username",defaultValue = "0")String username){
 
@@ -38,7 +32,6 @@ public class ApiBlogSubjectController {
     }
 
     @GetMapping("subjectId")
-    @ApiOperation("通过专辑ID查询专辑所有博客")
     public ResponseResult<DtsBlogSubjectDto> selectSubjectBlogById(
             @RequestParam(value = "subjectId")String subjectId){
 
@@ -48,7 +41,6 @@ public class ApiBlogSubjectController {
 
 
     @GetMapping("list")
-    @ApiOperation("查询专题列表")
     public ResponseResult<PageInfo<DtsBlogSubjectDto>> selectSubject(
             @RequestParam(value = "page",defaultValue = "0")Integer page){
 
@@ -58,7 +50,6 @@ public class ApiBlogSubjectController {
     }
 
     @GetMapping("search")
-    @ApiOperation("通过专题名模糊查询")
     public ResponseResult<PageInfo<DtsBlogSubjectDto>> selectSubjectByName(
             @RequestParam(value = "subjectName",defaultValue = "")String name){
 
@@ -67,11 +58,10 @@ public class ApiBlogSubjectController {
     }
 
     @PostMapping
-    @ApiOperation("添加专题")
     public ResponseResult<String> insertSubject(@RequestBody DtsSubjectParam subjectParam){
 
         DtsBlogSubject subjectDto = BeanUtil.toBean(subjectParam, DtsBlogSubject.class);
-        String authorId = currentAuthorService.getAuthorId();
+        String authorId = CurrentUtil.id();
         subjectDto.setAuthorId(authorId);
         Integer count = blogSubjectService.insertSubject(subjectDto);
         if (count > 0){
@@ -81,7 +71,6 @@ public class ApiBlogSubjectController {
     }
 
     @PutMapping
-    @ApiOperation("修改专题")
     public ResponseResult<String> updateSubject(@RequestBody DtsSubjectParam subjectParam){
 
         DtsBlogSubject subject = BeanUtil.toBean(subjectParam, DtsBlogSubject.class);
@@ -93,7 +82,6 @@ public class ApiBlogSubjectController {
     }
 
     @PostMapping("blog")
-    @ApiOperation("添加博客到专题")
     public ResponseResult<String> insertBlogToSubject(
             @RequestParam(value = "blogId")String blogId,
             @RequestParam(value = "subjectId")String subjectId){
@@ -106,7 +94,6 @@ public class ApiBlogSubjectController {
     }
 
     @PutMapping("blog")
-    @ApiOperation("更新博客到专题")
     public ResponseResult<String> updateBlogToSubject(
             @RequestParam(value = "blogId")String blogId,
             @RequestParam(value = "subjectId")String subjectId){
@@ -119,7 +106,6 @@ public class ApiBlogSubjectController {
     }
 
     @GetMapping("blog")
-    @ApiOperation("通过博客ID查询当前专辑列表")
     public ResponseResult<?> selectSubjectListByBlogId(@RequestParam("blogId")String blogId) {
         String subjectId = blogSubjectService.selectSubjectIdByBlogId(blogId);
         return ResponseResult.success(blogSubjectService.selectSubjectBlogListById(subjectId));

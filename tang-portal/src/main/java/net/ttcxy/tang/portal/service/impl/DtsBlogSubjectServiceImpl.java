@@ -7,6 +7,7 @@ import cn.hutool.core.util.StrUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import net.ttcxy.tang.portal.core.api.ApiException;
+import net.ttcxy.tang.portal.core.security.CurrentUtil;
 import net.ttcxy.tang.portal.dao.DtsBlogSubjectDao;
 import net.ttcxy.tang.portal.dao.mapper.DtsBlogMapper;
 import net.ttcxy.tang.portal.dao.mapper.DtsBlogSubjectMapper;
@@ -16,7 +17,6 @@ import net.ttcxy.tang.portal.entity.model.DtsBlog;
 import net.ttcxy.tang.portal.entity.model.DtsBlogSubject;
 import net.ttcxy.tang.portal.entity.model.DtsBlogSubjectRelation;
 import net.ttcxy.tang.portal.entity.model.DtsBlogSubjectRelationExample;
-import net.ttcxy.tang.portal.service.CurrentAuthorService;
 import net.ttcxy.tang.portal.service.DtsBlogSubjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -68,16 +68,13 @@ public class DtsBlogSubjectServiceImpl implements DtsBlogSubjectService {
         return blogSubjectMapper.updateByPrimaryKeySelective(subject);
     }
 
-    @Autowired
-    private CurrentAuthorService currentAuthorService;
-
     @Override
     public Integer insertBlogToSubject(String blogId, String subjectId) {
         DtsBlogSubject blogSubject = blogSubjectMapper.selectByPrimaryKey(subjectId);
         DtsBlog blog = blogMapper.selectByPrimaryKey(blogId);
 
         if (StrUtil.equals(blog.getAuthorId(),blogSubject.getAuthorId()) &&
-                StrUtil.equals(blog.getAuthorId(),currentAuthorService.getAuthorId())){
+                StrUtil.equals(blog.getAuthorId(), CurrentUtil.id())){
             DtsBlogSubjectRelation blogSubjectRelation = new DtsBlogSubjectRelation();
             blogSubjectRelation.setBlogSubjectRelationId(IdUtil.objectId());
             blogSubjectRelation.setBlogId(blogId);
@@ -95,7 +92,7 @@ public class DtsBlogSubjectServiceImpl implements DtsBlogSubjectService {
         DtsBlog blog = blogMapper.selectByPrimaryKey(blogId);
 
         if (StrUtil.equals(blog.getAuthorId(),blogSubject.getAuthorId()) &&
-                StrUtil.equals(blog.getAuthorId(),currentAuthorService.getAuthorId())){
+                StrUtil.equals(blog.getAuthorId(),CurrentUtil.id())){
             DtsBlogSubjectRelation blogSubjectRelation = new DtsBlogSubjectRelation();
             blogSubjectRelation.setBlogId(blogId);
             blogSubjectRelation.setBlogSubjectId(subjectId);

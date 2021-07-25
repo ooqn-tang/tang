@@ -49,7 +49,7 @@ export default {
     return {
       saveType:"update",// insert
       thisUsername: this.$route.params.username,
-      isThisUser: this.$route.params.username == this.$store.state.username,
+      isThisUser: this.$route.params.username == this.$store.state.user.username,
       subjectList:[],
       dataFrom:{
         blogSubjectId:"",

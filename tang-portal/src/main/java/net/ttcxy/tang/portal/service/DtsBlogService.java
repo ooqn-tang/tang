@@ -45,6 +45,13 @@ public interface DtsBlogService {
 
     /**
      * 通过博客ID查询数据
+     * @param id id
+     * @return 博客
+     */
+    DtsBlogDto selectBlogAllById(String id);
+
+    /**
+     * 通过博客ID查询数据
      * @param id  id
      * @return 博客
      */
@@ -53,14 +60,14 @@ public interface DtsBlogService {
     /**
      * 添加blog
      */
-    int insertBlog(DtsBlog blog , String subjectId , List<String> tagIdList);
+    int insertBlog(DtsBlog blog );
 
     /**
      * 更新博客
      * @param blog blog
      * @return 影响的行数
      */
-    int updateBlog(DtsBlog blog);
+    int updateBlog(DtsBlog blog , String subjectId , List<String> tagIdList);
 
     /**
      * 删除博客

@@ -1,6 +1,5 @@
 package net.ttcxy.tang.portal.entity.param;
 
-import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 
@@ -13,14 +12,14 @@ import javax.validation.constraints.NotBlank;
 @Data
 public class DtsBlogCommentParam {
 
-    @ApiModelProperty("博客评论ID")
+    // 博客评论ID")
     private String blogCommentId;
 
-    @ApiModelProperty("博客ID")
+    // 博客ID")
     @NotBlank(message = "评论不能为空")
     private String blogId;
 
-    @ApiModelProperty("评论内容")
+    // 评论内容")
     @Length(min = 1,max = 250,message = "请正确输入内容")
     private String content;
 
