@@ -52,9 +52,9 @@ export default {
   components: {},
   methods: {
     logout(){
-      localStorage.setItem("token","")
-      localStorage.setItem("user",{})
-      this.$store.state.user = {}
+      localStorage.removeItem("token")
+      localStorage.removeItem("author")
+      this.$store.state.username = ""
       window.location.href = "/"
     },
     save(){

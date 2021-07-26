@@ -55,7 +55,7 @@ export default {
   data() {
     return {
       thisUsername: this.$route.params.username,
-      isThisUser: this.$route.params.username == this.$store.state.user.username,
+      isThisUser: this.$route.params.username == this.$store.state.username,
       thisItem:{},
       blogList:[],
       blogPage:{

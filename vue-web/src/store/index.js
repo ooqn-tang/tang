@@ -5,7 +5,7 @@ export default createStore({
     * 存储
     */
     state: {
-        user: {}
+        username: ""
     },
 
     /*

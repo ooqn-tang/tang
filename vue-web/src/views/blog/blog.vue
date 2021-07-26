@@ -257,7 +257,7 @@ export default {
     loadBlogInfo() {
       postBlog(this.param).then((response) => {
         this.blog = response.data;
-        if(this.$store.state.user != undefined){
+        if(this.$store.state.username != ""){
           this.isFans();
         }
         this.loading = false
@@ -279,7 +279,7 @@ export default {
     },
   },
   mounted() {
-    if(this.$store.state.user != undefined){
+    if(this.$store.state.username != ""){
       this.isLike();
     }
     

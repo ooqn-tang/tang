@@ -101,7 +101,7 @@ export default {
         })
       },
       loadSubjectList(){
-        loadSubjectList(this.$store.state.user.username).then((response) => {
+        loadSubjectList(this.$store.state.username).then((response) => {
           this.subjectList = response.data.list
           let li = response.data.list
           for(let item in response.data.list){

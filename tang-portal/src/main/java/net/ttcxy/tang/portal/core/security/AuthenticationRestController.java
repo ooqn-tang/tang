@@ -1,7 +1,7 @@
 package net.ttcxy.tang.portal.core.security;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import net.ttcxy.tang.portal.core.security.jwt.JwtFilter;
+import net.ttcxy.tang.portal.core.security.filter.JwtFilter;
 import net.ttcxy.tang.portal.core.security.jwt.TokenProvider;
 import net.ttcxy.tang.portal.entity.dto.CurrentAuthor;
 import net.ttcxy.tang.portal.entity.param.UtsLoginParam;

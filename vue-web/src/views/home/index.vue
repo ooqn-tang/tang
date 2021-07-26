@@ -29,15 +29,15 @@
         </ul>
         <form class="d-flex">
           <ul class="navbar-nav me-auto">
-            <li class="nav-item" v-if="$store.state.user == undefined">
+            <li class="nav-item" v-if="$store.state.username == ''">
               <router-link class="nav-link" to="/login">🧐登录</router-link>
             </li>
-            <li class="nav-item" v-if="$store.state.user != undefined">
+            <li class="nav-item" v-if="$store.state.username != ''">
               <a class="nav-link"  @click="createBlog()">✒投稿</a>
             </li>
-            <li class="nav-item" v-if="$store.state.user != undefined">
+            <li class="nav-item" v-if="$store.state.username != ''">
               <keep-alive exclude="a">
-                <a class="nav-link" :href="'/author/' + $store.state.user.username">😀我的</a>
+                <a class="nav-link" :href="'/author/' + $store.state.username">😀我的</a>
               </keep-alive>
             </li>
           </ul>

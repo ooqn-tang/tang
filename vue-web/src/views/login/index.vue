@@ -87,16 +87,17 @@ export default {
     login(){
       login(this.loginData).then((response) => {
         if(response.code === 200){
-          debugger
-          let user = jwt_decode(response.jwt_token)
+          let tokenData = jwt_decode(response.jwt_token)
           localStorage.setItem("token",response.jwt_token)
-          localStorage.setItem("user",JSON.stringify(user.user))
-          this.$store.state.user = user.user
+          localStorage.setItem("author",JSON.stringify(tokenData.author))
+          this.$router.go(-1)
         }
       })
     }
   },
   mounted(){
+    localStorage.removeItem("token")
+    localStorage.removeItem("author")
   }
 };
 </script>

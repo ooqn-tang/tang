@@ -56,7 +56,7 @@ export default {
         
       },
       thisUsername:"",
-      loginUsername:this.$store.state.user.username,
+      loginUsername:this.$store.state.username,
       from:{
         page:1
       },

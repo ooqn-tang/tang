@@ -1,11 +1,12 @@
 package net.ttcxy.tang.portal.core.security;
 
 import net.ttcxy.tang.portal.core.properties.SecurityProperties;
-import net.ttcxy.tang.portal.core.security.jwt.JwtFilter;
+import net.ttcxy.tang.portal.core.security.filter.JwtFilter;
 import net.ttcxy.tang.portal.core.security.jwt.JwtAccessDeniedHandler;
 import net.ttcxy.tang.portal.core.security.jwt.JwtAuthenticationEntryPoint;
 import net.ttcxy.tang.portal.core.security.jwt.TokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -17,6 +18,9 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
@@ -40,21 +44,15 @@ public class WebSecurityConfig  extends WebSecurityConfigurerAdapter {
     }
 
     @Override
-    public void configure(WebSecurity web) {
-        web.ignoring().antMatchers(HttpMethod.OPTIONS, "/**");
-    }
-
-    @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         JwtFilter jwtFilter = new JwtFilter(tokenProvider);
 
         httpSecurity.authorizeRequests().antMatchers(securityProperties.getOpenUrls()).permitAll();
+        httpSecurity.authorizeRequests().antMatchers(HttpMethod.OPTIONS).permitAll();
 
         httpSecurity
                 // 我们不需要CSRF
                 .csrf().disable()
-
-                //.addFilterBefore(corsFilter, UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
                 .exceptionHandling()
                 .authenticationEntryPoint(authenticationErrorHandler)
@@ -81,5 +79,20 @@ public class WebSecurityConfig  extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/admin").hasAuthority("ROLE_ADMIN")
 
                 .anyRequest().authenticated();
+    }
+
+    @Bean
+    public FilterRegistrationBean corsFilter() {
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        CorsConfiguration config = new CorsConfiguration();
+        config.addAllowedOrigin("*");
+        config.setAllowCredentials(true);
+        config.addAllowedHeader("*");
+        config.addAllowedMethod("*");
+        source.registerCorsConfiguration("/**", config);
+
+        FilterRegistrationBean bean = new FilterRegistrationBean(new CorsFilter(source));
+        bean.setOrder(0);//配置CorsFilter优先级
+        return bean;
     }
 }

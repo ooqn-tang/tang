@@ -8,5 +8,12 @@ router.beforeEach((to, from, next) => {
 });
 router.afterEach((to, from, next) => {
     // console.log('路由跳转后')
-    store.state.user = JSON.parse(localStorage.getItem("user"))
+    
+    if(localStorage.getItem("author") != null){
+        store.state.username = JSON.parse(localStorage.getItem("author")).username
+    }else{
+        store.state.username = ""
+    }
+    
+    
 })

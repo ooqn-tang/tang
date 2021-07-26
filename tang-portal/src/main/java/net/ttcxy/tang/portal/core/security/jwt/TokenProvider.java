@@ -1,13 +1,9 @@
 package net.ttcxy.tang.portal.core.security.jwt;
 
-import cn.hutool.json.JSONUtil;
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import net.ttcxy.tang.portal.entity.dto.CurrentAuthor;
-import net.ttcxy.tang.portal.entity.model.UtsAuthor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
@@ -15,13 +11,11 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
 
 import java.security.Key;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 @Component
@@ -30,7 +24,7 @@ public class TokenProvider implements InitializingBean {
     private final Logger log = LoggerFactory.getLogger(TokenProvider.class);
 
     private static final String AUTHORITIES_KEY = "auth";
-    private static final String USER_INFO_KEY = "user";
+    private static final String USER_INFO_KEY = "author";
 
     private final String base64Secret;
     private final long tokenValidityInMilliseconds;
@@ -82,8 +76,10 @@ public class TokenProvider implements InitializingBean {
                 .getBody();
         HashMap stringStringHashMap = claims.get(USER_INFO_KEY, HashMap.class);
         CurrentAuthor currentAuthor = new CurrentAuthor();
-        currentAuthor.setAuthorId((String) stringStringHashMap.get("authorId"));
-        currentAuthor.setUsername((String) stringStringHashMap.get("username"));
+        if (stringStringHashMap!=null){
+            currentAuthor.setAuthorId((String) stringStringHashMap.get("authorId"));
+            currentAuthor.setUsername((String) stringStringHashMap.get("username"));
+        }
         return new UsernamePasswordAuthenticationToken(currentAuthor, token, null);
     }
 
