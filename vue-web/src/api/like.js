@@ -1,6 +1,6 @@
 import request from '../utils/request'
 
-// 获取作者信息
+// 查看是否喜欢了当前博客
 export function isLike(blogId) {
     return request({
         url: '/api/blog/like',
@@ -9,11 +9,12 @@ export function isLike(blogId) {
     })
 }
 
-export function likeList(data) {
+// 查询登录用户喜欢的博客列表
+export function likeList(pageNum) {
     return request({
         url: '/api/blog/like/list',
         method: 'GET',
-        params:data
+        params:{page:pageNum}
     })
 }
 

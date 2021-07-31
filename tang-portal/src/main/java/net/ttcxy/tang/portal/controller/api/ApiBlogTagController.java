@@ -33,9 +33,8 @@ public class ApiBlogTagController {
     }
 
     @GetMapping("allTag")
-    public ResponseResult<List<DtsBlogTagDto>> selectAuthorAllTag(){
-        String authorId = CurrentUtil.id();
-        List<DtsBlogTagDto> list = blogTagService.selectAuthorAllTag(authorId);
+    public ResponseResult<List<DtsBlogTagDto>> selectAllTag(){
+        List<DtsBlogTagDto> list = blogTagService.selectAuthorAllTag();
         return ResponseResult.success(list);
     }
 

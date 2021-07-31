@@ -70,26 +70,10 @@ export function loadTagList(data) {
     })
 }
 
-export function loadAuthorAllTagList() {
+export function loadAllTagList() {
     return request({
         url: '/api/tag/allTag',
         method: 'GET'
-    })
-}
-
-export function insertAuthorTag(data) {
-    return request({
-        url: '/api/tag/author',
-        method: 'POST',
-        params:data
-    })
-}
-
-export function insertTag(data) {
-    return request({
-        url: '/api/tag',
-        method: 'POST',
-        data:data
     })
 }
 

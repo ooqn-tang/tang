@@ -45,8 +45,8 @@ public class DtsBlogTagServiceImpl implements DtsBlogTagService {
     }
 
     @Override
-    public List<DtsBlogTagDto> selectAuthorAllTag(String authorId) {
-        return blogTagDao.selectAuthorAllTag(authorId);
+    public List<DtsBlogTagDto> selectAuthorAllTag() {
+        return blogTagDao.selectAllTag();
     }
 
     @Override

@@ -12,16 +12,16 @@ import javax.servlet.http.HttpServletResponse;
 
 @Controller
 public class MyErrorController extends BasicErrorController {
+
     public MyErrorController(ServerProperties serverProperties) {
         super(new DefaultErrorAttributes(), serverProperties.getError());
     }
 
+    /**
+     * 所有异常转发到首页，vue来显示异常
+     */
     @Override
     public ModelAndView errorHtml(HttpServletRequest request, HttpServletResponse response) {
-        HttpStatus status = getStatus(request);
-        if (status.value() == 404){
-            return new ModelAndView("forward:");
-        }
-        return super.errorHtml(request, response);
+        return new ModelAndView("forward:");
     }
 }

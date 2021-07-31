@@ -1,5 +1,7 @@
 package net.ttcxy.tang.portal.core.security.jwt;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
@@ -15,7 +17,6 @@ import org.springframework.stereotype.Component;
 
 import java.security.Key;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.stream.Collectors;
 
 @Component
@@ -42,7 +43,7 @@ public class TokenProvider implements InitializingBean {
     }
 
     @Override
-    public void afterPropertiesSet() throws Exception {
+    public void afterPropertiesSet() {
         byte[] keyBytes = Decoders.BASE64.decode(base64Secret);
         this.key = Keys.hmacShaKeyFor(keyBytes);
     }
@@ -74,11 +75,11 @@ public class TokenProvider implements InitializingBean {
                 .setSigningKey(key)
                 .parseClaimsJws(token)
                 .getBody();
-        HashMap stringStringHashMap = claims.get(USER_INFO_KEY, HashMap.class);
+        JSONObject json = (JSONObject) JSON.toJSON(claims.get(USER_INFO_KEY));
         CurrentAuthor currentAuthor = new CurrentAuthor();
-        if (stringStringHashMap!=null){
-            currentAuthor.setAuthorId((String) stringStringHashMap.get("authorId"));
-            currentAuthor.setUsername((String) stringStringHashMap.get("username"));
+        if (json!=null){
+            currentAuthor.setAuthorId(json.getString("authorId"));
+            currentAuthor.setUsername(json.getString("username"));
         }
         return new UsernamePasswordAuthenticationToken(currentAuthor, token, null);
     }

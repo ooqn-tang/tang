@@ -61,7 +61,7 @@ public interface DtsBlogTagService {
     /**
      * 获取作者所有tag
      */
-    List<DtsBlogTagDto> selectAuthorAllTag(String authorId);
+    List<DtsBlogTagDto> selectAuthorAllTag();
 
     /**
      * 添加作者的tag

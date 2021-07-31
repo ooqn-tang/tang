@@ -149,8 +149,8 @@ public class ApiBlogController {
 
     @GetMapping("like/list")
     public ResponseResult<PageInfo<DtsBlogDto>> listLike(
-            @RequestParam(value = "username") String username,
             @RequestParam(value = "page",defaultValue = "1") Integer page){
+        String username = CurrentUtil.author().getUsername();
         return ResponseResult.success(blogService.selectLikeBlogList(username, page, 10));
     }
 

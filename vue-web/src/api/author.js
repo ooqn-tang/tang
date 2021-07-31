@@ -8,12 +8,6 @@ export function selectAuthor(username) {
     })
 }
 
-export function isLogin(){
-    return request({
-        url: '/api/author/isLogin',
-        method: 'GET'
-    })
-}
 
 export function updateAuthor(data) {
     return request({

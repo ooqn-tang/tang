@@ -21,10 +21,10 @@
     <select id="selectTagByName" resultMap="BlogTagResult">
         select * from dts_blog_tag where tag_name = #{name}
     </select>
-    <select id="selectAuthorAllTag" resultMap="BlogTagResult">
-        select *
-        from dts_blog_tag_author_relation t1 , dts_blog_tag t2
-        where t2.blog_tag_id = t1.blog_tag_id and author_id = #{authorId} order by t1.create_date
+    <select id="selectAllTag" resultMap="BlogTagResult">
+        select blog_tag_id,tag_name
+        from dts_blog_tag t2
+        order by blog_tag_id
     </select>
 
     <select id="selectByBlogId" resultMap="BlogTagResult">

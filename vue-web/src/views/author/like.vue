@@ -32,20 +32,20 @@ export default {
     };
   },
   methods: {
-    likeListLoad(pageSize){
-      likeList({"username":this.$route.params.username,page:pageSize}).then((response) => {
+    likeList(pageNum){
+      likeList(pageNum).then((response) => {
         this.blogPage = response.data
         this.blogList = this.blogList.concat(response.data.list)
       })
     },
     nextPage(){
       if(!this.blogPage.isLastPage){
-        this.likeListLoad(this.blogPage.nextPage)
+        this.likeList(this.blogPage.nextPage)
       }
     }
   },
   mounted(){
-    this.likeListLoad(this.blogPage.nextPage)
+    this.likeList(this.blogPage.nextPage)
   }
 };
 </script>

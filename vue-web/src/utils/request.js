@@ -13,7 +13,7 @@ const service = axios.create({
 //请求前拦截
 service.interceptors.request.use(
     config => {
-        config.headers.Authorization = 'Bearer ' + localStorage.getItem("jwt_token")
+        config.headers.Authorization = 'Bearer ' + localStorage.getItem("token")
         return config;
     },
     error => {

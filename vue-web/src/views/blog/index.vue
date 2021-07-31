@@ -7,7 +7,7 @@
               <a class="nav-link" :class="selectTag == ''?'nav-link-active':''" @click="selectTagClick('')">全部</a>
               <a class="nav-link" :class="selectTag == 'Java'?'nav-link-active':''" @click="selectTagClick('Java')">Java</a>
               <a class="nav-link" :class="selectTag == 'Python'?'nav-link-active':''" @click="selectTagClick('Python')">Python</a>
-              <a class="nav-link" :class="selectTag == 'Web前端'?'nav-link-active':''" @click="selectTagClick('Web前端')">前端</a>
+              <a class="nav-link" :class="selectTag == '前端'?'nav-link-active':''" @click="selectTagClick('前端')">前端</a>
               <a class="nav-link" :class="selectTag == '数据库'?'nav-link-active':''" @click="selectTagClick('数据库')">数据库</a>
               <a class="nav-link" :class="selectTag == '面试'?'nav-link-active':''" @click="selectTagClick('面试')">面试</a>
               <a class="nav-link" :class="selectTag == '算法'?'nav-link-active':''" @click="selectTagClick('算法')">算法</a>
@@ -44,7 +44,7 @@
               </div>
             </li>
             <li class="list-group-item">
-              <a @click="nextPage()" v-if="!isLoding">获取</a><a v-if="isLoding">加载中...</a>
+              <a @click="next()" v-if="!isLoding">获取</a><a v-if="isLoding">加载中...</a>
             </li>
           </ul>
         </div>
@@ -92,6 +92,7 @@ export default {
     selectTagClick(tagName){
       this.selectTag = tagName
       this.blogList = []
+      this.blogPage.nextPage = 1
       this.loadBlog(this.blogPage.nextPage,this.selectTag)
     },
     loadBlog(nextPage,tagName){
@@ -102,7 +103,7 @@ export default {
         this.isLoding = false
       })
     },
-    nextPage(){
+    next(){
       if(!this.blogPage.isLastPage){
         this.loadBlog(this.blogPage.nextPage,this.selectTag)
       }

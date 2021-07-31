@@ -4,8 +4,8 @@
       <input type="button" id="save" value="发布" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
   </div>
   <div class="body">
-      <textarea id="text" v-model="blogData.markdown" @keyup="keyup()" @change="keyup()" placeholder="可以输入Markdown文本为内容添加样式"></textarea>
-      <div id="content" v-html="blogData.text" class="markdown-body"></div>
+      <textarea ref="systemForm" @scroll="sysHandleScroll()"  @mouseover="changeFlag(false)" id="text" v-model="blogData.markdown" @keyup="keyup()" @change="keyup()" placeholder="可以输入Markdown文本为内容添加样式"></textarea>
+      <div ref='externalForm' @scroll="exterHandleScroll()" @mouseover="changeFlag(true)" id="content" v-html="blogData.text" class="markdown-body"></div>
   </div>
   <div class="foot">
       <span>文本块</span>
@@ -21,17 +21,10 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-
         <div class="form-check form-check-inline" v-for="(item,index) in authorTagList" :key="index" style="margin-bottom: 10px;">
           <input class="form-check-input" type="checkbox" v-model="selectTagIdList" :id="index" :value="item.blogTagId">
           <label class="form-check-label" :for="index">{{item.tagName}}</label>
         </div>
-
-        <div class="input-group mb-3">
-            <input type="text" v-model="tagName" class="form-control" placeholder="标签">
-            <button class="btn btn-outline-secondary" type="button" id="button-addon2" @click="insertTag()">添加</button>
-        </div>
-
         <div>
           <select class="form-select" v-model="blogData.subjectId">
             <option value="">请选择专辑</option>
@@ -52,8 +45,7 @@
 
 <script>
 import marked from 'marked'
-import TurndownService from 'turndown'
-import { loadBlogAllInfo,saveBlog,loadSubjectList,loadAuthorAllTagList,insertAuthorTag,insertTag} from "/@/api/blog"
+import { loadBlogAllInfo,saveBlog,loadSubjectList,loadAllTagList} from "/@/api/blog"
 marked.setOptions({
   renderer: new marked.Renderer(),
   gfm: true,
@@ -61,11 +53,8 @@ marked.setOptions({
   breaks: true,
   pedantic: false,
   smartLists: true,
-  sanitize:true,
   smartypants: false
 });
-
-
 export default {
   name: "editor",
   data() {
@@ -96,7 +85,6 @@ export default {
       saveBlog(){
         this.blogData.tagIdList = this.selectTagIdList
         saveBlog(this.blogData).then((response) => {
-          
           window.location.href = "/blog/" + response.data
         })
       },
@@ -109,35 +97,28 @@ export default {
           }
         })
       },
-      loadAuthorAllTagList(){
-        loadAuthorAllTagList().then((response) => {
+      loadAllTagList(){
+        loadAllTagList().then((response) => {
           this.authorTagList = response.data;
         })
       },
-      insertTag(){
-        insertTag({"tagName":this.tagName}).then((response) => {
-          if(response.code == 200){
-            insertAuthorTag({"tagId":response.data}).then((response2) => {
-              if(response2.code == 200){
-                this.loadAuthorAllTagList()
-              }else{
-                alert(response2.message)
-              }
-              
-            })
-          }
-        })
+      changeFlag(flag) {
+        this.flag = flag
+      },
+      sysHandleScroll() {
+        if (!this.flag) {
+          this.$refs.externalForm.scrollTop = this.$refs.systemForm.scrollTop
+        }
+      },
+      exterHandleScroll() {
+        if (this.flag) {
+          this.$refs.systemForm.scrollTop = this.$refs.externalForm.scrollTop
+        }
       }
   },mounted(){
     this.loadSubjectList()
-    this.loadAuthorAllTagList()
+    this.loadAllTagList()
     this.loadBlogAllInfo(this.thisBlogId)
-    // var turndownService = new TurndownService()
-    // var markdown = turndownService.turndown('<h3>Hello world!</h3>')
-    // alert(markdown)
-  },
-  created(){
-      
   }
 };
 </script>
@@ -145,7 +126,6 @@ export default {
   body{
     overflow-y: hidden !important;
   }
-  
 </style>
 
 <style scoped lang="scss">
@@ -161,7 +141,6 @@ img{
     height:calc(100% - 80px);
     border-bottom: 1px solid black;
     border-top: 1px solid black;
-    
 }
 .foot{
     height: 40px;

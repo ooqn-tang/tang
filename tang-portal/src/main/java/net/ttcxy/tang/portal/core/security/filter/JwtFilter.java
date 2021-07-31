@@ -1,5 +1,6 @@
 package net.ttcxy.tang.portal.core.security.filter;
 
+import lombok.extern.java.Log;
 import net.ttcxy.tang.portal.core.security.jwt.TokenProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,13 +16,14 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
+@Log
 public class JwtFilter extends GenericFilterBean {
 
     private static final Logger LOG = LoggerFactory.getLogger(JwtFilter.class);
 
     public static final String AUTHORIZATION_HEADER = "Authorization";
 
-    private TokenProvider tokenProvider;
+    private final TokenProvider tokenProvider;
 
     public JwtFilter(TokenProvider tokenProvider) {
         this.tokenProvider = tokenProvider;

@@ -11,6 +11,12 @@
             <a class="nav-link" href="/blog">😶博客</a>
           </li>
           <li class="nav-item">
+            <a class="nav-link" href="/blog">📺视频</a>
+          </li>
+           <li class="nav-item">
+            <a class="nav-link" href="/blog">📂文件</a>
+          </li>
+          <li class="nav-item">
             <router-link class="nav-link" to="/">👨‍🎓作者</router-link>
           </li>
           <li class="nav-item">
@@ -20,20 +26,24 @@
             <router-link class="nav-link" to="/">📒专题</router-link>
           </li>
           <li class="nav-item" >
-            <div class="input-group input-group-sm" style="margin-top: 4.5px;margin-bottom: 4.5px;">
-              <input type="text" class="form-control" >
-              <button class="btn btn-outline-secondary" type="button" id="button-addon2">Button</button>
-            </div>
+            <router-link class="nav-link" to="/search">🔍搜索</router-link>
           </li>
           
         </ul>
-        <form class="d-flex">
+        <form class="d-flex d-md-inline">
           <ul class="navbar-nav me-auto">
             <li class="nav-item" v-if="$store.state.username == ''">
               <router-link class="nav-link" to="/login">🧐登录</router-link>
             </li>
-            <li class="nav-item" v-if="$store.state.username != ''">
-              <a class="nav-link"  @click="createBlog()">✒投稿</a>
+            <li class="nav-item dropdown" v-if="$store.state.username != ''">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                发布
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" @click="createBlog()">文章</a></li>
+                <li><a class="dropdown-item">视频</a></li>
+                <li><a class="dropdown-item">文件</a></li>
+              </ul>
             </li>
             <li class="nav-item" v-if="$store.state.username != ''">
               <keep-alive exclude="a">

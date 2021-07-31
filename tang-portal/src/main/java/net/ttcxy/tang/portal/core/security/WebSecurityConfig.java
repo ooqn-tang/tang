@@ -43,12 +43,19 @@ public class WebSecurityConfig  extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
+    /**
+     * WebSecurity 配置级别跟高。
+     */
+    @Override
+    public void configure(WebSecurity web) {
+        web.ignoring().antMatchers(HttpMethod.OPTIONS);
+    }
+
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         JwtFilter jwtFilter = new JwtFilter(tokenProvider);
 
         httpSecurity.authorizeRequests().antMatchers(securityProperties.getOpenUrls()).permitAll();
-        httpSecurity.authorizeRequests().antMatchers(HttpMethod.OPTIONS).permitAll();
 
         httpSecurity
                 // 我们不需要CSRF

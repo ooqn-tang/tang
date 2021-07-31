@@ -70,7 +70,7 @@
                 </div>
             </div>
           </div>
-          <div class="card mb-2" id="PL" name="PL">
+          <div class="card mb-2" id="PL">
             <div class="card-body">
               <div>没有留言...</div>
             </div>
@@ -78,8 +78,8 @@
           <div class="card mb-2" >
             <div class="card-body">
               <div class="mb-3">
-                <label for="exampleFormControlTextarea1" class="form-label">Example textarea</label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                <label for="exampleFormControlTextarea1" class="form-label" id="PL_TEXT">Example textarea</label>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" onclick="window.location.href = '#PL_TEXT'"></textarea>
               </div>
               <button type="button" class="btn btn-primary">评论</button>
             </div>
@@ -136,7 +136,7 @@
       </div>
     </div>
   </div>
-<nav  class="navbar fixed-bottom navbar-light bg-light" style="border-top: 1px solid rgb(206, 206, 206)">
+  <nav  class="navbar fixed-bottom navbar-light bg-light" style="border-top: 1px solid rgb(206, 206, 206)">
     <div class="container-fluid">
       <div class="col-md-12 col-lg-12">
         <button
@@ -282,7 +282,6 @@ export default {
     if(this.$store.state.username != ""){
       this.isLike();
     }
-    
     this.loadRecommend();
   },
 };

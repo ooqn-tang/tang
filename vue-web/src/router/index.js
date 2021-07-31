@@ -65,6 +65,11 @@ const routes = [
                 name: 'subject_info',
                 component: () => import('../views/subject/post.vue')
             },
+            {
+                path: '/search',
+                name: 'search_index',
+                component: () => import('../views/search/index.vue')
+            },
         ]
     },
     {

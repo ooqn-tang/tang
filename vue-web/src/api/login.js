@@ -7,11 +7,3 @@ export function login(data) {
         data:data
     })
 }
-
-export function logout() {
-    return request({
-        url: '/api/logout',
-        method: 'get'
-    })
-}
-

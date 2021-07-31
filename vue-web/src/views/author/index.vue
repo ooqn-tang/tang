@@ -100,7 +100,9 @@ export default {
   mounted(){
     this.selectAuthor(this.$route.params.username)
     this.thisUsername = this.$route.params.username
-    this.isFans()
+    if(this.$store.state.username != ""){
+      this.isFans()
+    }
   }
 };
 </script>

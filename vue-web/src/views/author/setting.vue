@@ -37,7 +37,6 @@
 
 <script>
 import {selectAuthor,updateAuthor} from "/@/api/author"
-import {logout} from "/@/api/login"
 export default {
   name: "author_setting",
   data() {
