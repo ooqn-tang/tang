@@ -6,7 +6,6 @@ import cn.hutool.json.JSONArray;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 
-import java.io.File;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -17,7 +16,7 @@ public class ReadDataJson {
         System.out.println("读取");
         int i = 0;
         for (int j = 295596; j < strings.size(); j++) {
-            String string = "";
+            String string;
             try{
                 string = FileUtil.readString("G:\\web_page1\\" + strings.get(j).replaceAll("\"","") + ".data", "utf-8");
             }catch (Exception e){
@@ -25,7 +24,7 @@ public class ReadDataJson {
                 continue;
             }
 
-            JSONArray objects = null;
+            JSONArray objects;
             try{
                 objects = JSONUtil.parseArray(string);
             }catch (Exception e){

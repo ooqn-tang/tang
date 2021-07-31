@@ -58,14 +58,12 @@ public class WebSecurityConfig  extends WebSecurityConfigurerAdapter {
         httpSecurity.authorizeRequests().antMatchers(securityProperties.getOpenUrls()).permitAll();
 
         httpSecurity
-                // 我们不需要CSRF
                 .csrf().disable()
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
                 .exceptionHandling()
                 .authenticationEntryPoint(authenticationErrorHandler)
                 .accessDeniedHandler(jwtAccessDeniedHandler)
 
-                // enable h2-console
                 .and()
                 .headers()
                 .frameOptions()
@@ -82,14 +80,13 @@ public class WebSecurityConfig  extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/api/authenticate").permitAll()
 
-                //.antMatchers("/api/user").hasAuthority("ROLE_USER")
                 .antMatchers("/api/admin").hasAuthority("ROLE_ADMIN")
 
                 .anyRequest().authenticated();
     }
 
     @Bean
-    public FilterRegistrationBean corsFilter() {
+    public FilterRegistrationBean<CorsFilter> corsFilter() {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
         config.addAllowedOrigin("*");
@@ -97,9 +94,6 @@ public class WebSecurityConfig  extends WebSecurityConfigurerAdapter {
         config.addAllowedHeader("*");
         config.addAllowedMethod("*");
         source.registerCorsConfiguration("/**", config);
-
-        FilterRegistrationBean bean = new FilterRegistrationBean(new CorsFilter(source));
-        bean.setOrder(0);//配置CorsFilter优先级
-        return bean;
+        return new FilterRegistrationBean<>(new CorsFilter(source));
     }
 }

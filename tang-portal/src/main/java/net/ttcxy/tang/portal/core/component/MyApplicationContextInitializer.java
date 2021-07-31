@@ -20,9 +20,6 @@ public class MyApplicationContextInitializer implements ApplicationContextInitia
         logger.info("我被调用了。。。");
     }
 
-    /**
-     * todo 启动项目查看系统是否存在外部资源路径，如果不存在，创建
-     */
     private void checkFilePath(){
 
     }

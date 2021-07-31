@@ -10,12 +10,10 @@ import java.util.concurrent.ExecutorService;
 
 public class DatabaseOutData {
 
-    public static void main(String[] args) throws SQLException {
+    public static void main(String[] args) {
         ExecutorService executorService = ThreadUtil.newExecutor(15);
 
         List<String> strings = FileUtil.readLines("C:\\Users\\Administrator\\Desktop\\1.csv", "UTF-8");
-        System.out.println("总数据数："+strings.size());
-
         int i = 0;
         for (String string : strings) {
             i++;
@@ -23,7 +21,7 @@ public class DatabaseOutData {
             String finalString = string;
             int finalI1 = i;
             executorService.execute(()->{
-                List<Entity> query = null;
+                List<Entity> query;
                 if (finalI1 % 10000 == 0){
                     System.out.println(finalI1);
                 }
@@ -31,10 +29,9 @@ public class DatabaseOutData {
                     if (FileUtil.exist("G:\\web_page1\\" + finalString +".data")){
                         return;
                     }
-
                     query = Db.use().query("select * from web_page where id = ?", finalString);
                     if (query.isEmpty()){
-                        System.out.println("======================================================================"+finalString);
+                        System.out.println(finalString);
                         return;
                     }
                     FileUtil.appendUtf8String(JSONUtil.toJsonStr(query) + "\n","G:\\web_page1\\"+finalString+".data");

@@ -58,8 +58,4 @@ public class ApiBlogCommentController {
         PageInfo<DtsBlogCommentDto> commentDtoPageInfo = dtsCommentService.selectComments(blogId, page, 10);
         return ResponseResult.success(commentDtoPageInfo);
     }
-
-    public static void main(String[] args) {
-        System.out.println("sd".substring(250));
-    }
 }

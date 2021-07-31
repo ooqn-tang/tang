@@ -6,8 +6,5 @@ import org.mybatis.generator.internal.types.JavaTypeResolverDefaultImpl;
 public class MyBatisJavaTypeResolver extends JavaTypeResolverDefaultImpl {
     public MyBatisJavaTypeResolver() {
         super();
-        /*typeMap.put(Types.TINYINT,
-                new JavaTypeResolverDefaultImpl.JdbcTypeInformation("TINYINT",new FullyQualifiedJavaType(Integer.class.getName()))
-        );*/
     }
 }

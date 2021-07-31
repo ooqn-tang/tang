@@ -65,7 +65,7 @@ public class ApiBlogController {
         }
         String blogAuthorId = blog.getAuthorId();
         String currentAuthorId = CurrentUtil.id();
-        int count = 0;
+        int count;
 
         if(StrUtil.equals(currentAuthorId,blogAuthorId)){
             count = blogService.deleteBlog(blogId);
@@ -143,7 +143,7 @@ public class ApiBlogController {
 
     @GetMapping("like")
     public ResponseResult<?> getLike(@RequestParam("blogId") String blogId){
-        String authorId = CurrentUtil.id();;
+        String authorId = CurrentUtil.id();
         return ResponseResult.success(blogService.selectLike(authorId,blogId));
     }
 
