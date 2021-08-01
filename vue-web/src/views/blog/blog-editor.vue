@@ -56,7 +56,7 @@ marked.setOptions({
   smartypants: false
 });
 export default {
-  name: "editor",
+  name: "blog-editor",
   data() {
     return {
       thisBlogId:this.$route.params.id,

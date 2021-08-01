@@ -13,7 +13,7 @@
         <div class="btn-group float-end">
           <!-- <button class="btn btn-outline-dark float-end" style="padding: 0px 5px 0px 3px;font-size: 13px;" disabled>编辑</button> -->
           <button class="btn btn-outline-danger float-end" style="padding: 0px 5px 0px 3px;font-size: 13px;" v-if="isThisUser" @click="deleteBlog(item.blogId,index)">删除</button>
-          <router-link class="btn btn-outline-danger float-end" style="padding: 0px 5px 0px 3px;font-size: 13px;" v-if="isThisUser"  target="_blank"  :to="{name: 'editor', params: { id: item.blogId }}" >修改</router-link>
+          <router-link class="btn btn-outline-danger float-end" style="padding: 0px 5px 0px 3px;font-size: 13px;" v-if="isThisUser"  target="_blank"  :to="{name: 'blog-editor', params: { id: item.blogId }}" >修改</router-link>
           <button class="btn btn-outline-success float-end" style="padding: 0px 5px 0px 3px;font-size: 13px;" v-if="item.subjectId == null && isThisUser" data-bs-toggle="modal" data-bs-target="#exampleModal"  @click="subjectFrom.blogId = item.blogId , thisItem = item">添加到专辑</button>
           <button class="btn btn-outline-warning float-end" style="padding: 0px 5px 0px 3px;font-size: 13px;" v-if="item.subjectId != null  && isThisUser" data-bs-toggle="modal" data-bs-target="#exampleModal"  @click="subjectFrom.blogId = item.blogId , thisItem = item">修改到专辑</button>
       </div>

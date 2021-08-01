@@ -70,13 +70,24 @@ const routes = [
                 name: 'search_index',
                 component: () => import('../views/search/index.vue')
             },
+            {
+                path: '/video-editor/:id',
+                name: 'video-editor',
+                component: () => import('../views/video/video-editor.vue')
+            },
+            {
+                path: '/video',
+                name: 'video_index',
+                component: () => import('../views/video/index.vue')
+            },
         ]
     },
     {
-        path: '/editor/:id',
-        name: 'editor',
-        component: () => import('../views/blog/editor.vue')
+        path: '/blog-editor/:id',
+        name: 'blog-editor',
+        component: () => import('../views/blog/blog-editor.vue')
     },
+    
     {
         path: '/login',
         name: 'login',

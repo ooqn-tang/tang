@@ -11,10 +11,7 @@
             <a class="nav-link" href="/blog">😶博客</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/blog">📺视频</a>
-          </li>
-           <li class="nav-item">
-            <a class="nav-link" href="/blog">📂文件</a>
+            <a class="nav-link" href="/video">📺视频</a>
           </li>
           <li class="nav-item">
             <router-link class="nav-link" to="/">👨‍🎓作者</router-link>
@@ -41,8 +38,7 @@
               </a>
               <ul class="dropdown-menu">
                 <li><a class="dropdown-item" @click="createBlog()">文章</a></li>
-                <li><a class="dropdown-item">视频</a></li>
-                <li><a class="dropdown-item">文件</a></li>
+                <li><a class="dropdown-item" @click="createVideo()">视频</a></li>
               </ul>
             </li>
             <li class="nav-item" v-if="$store.state.username != ''">
@@ -78,8 +74,11 @@ export default {
   methods: {
     createBlog(){
       createBlog().then((response) => {
-        this.$router.push({name:"editor",params:{id:response.data}})
+        this.$router.push({name:"blog-editor",params:{id:response.data}})
       })
+    },
+    createVideo(){
+      this.$router.push({name:"video-editor",params:{id:"kasdjfkasjdfkajsdfk"}})
     }
   },
   mounted(){

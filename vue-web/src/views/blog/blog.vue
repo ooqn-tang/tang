@@ -2,9 +2,7 @@
   <div class="row">
     <div class="col-md-3 col-lg-3 d-md-inline d-none">
       <div class="list-group mb-2" v-if="showSubject">
-        <a class="list-group-item"
-          >{{ subject.subjectName }}<span class="float-end">专题</span></a
-        >
+        <a class="list-group-item">{{ subject.subjectName }}<span class="float-end">专题</span></a>
         <router-link
           @click="blog.blogId = item.blogId"
           :class="item.blogId == blog.blogId ? 'active' : ''"
@@ -12,17 +10,10 @@
           :key="index"
           :to="{ name: 'blog_info', params: {id: item.blogId}}"
           class="list-group-item"
-          >{{ item.title }}</router-link
-        >
+          >{{ item.title }}</router-link>
       </div>
       <div class="list-group mb-2">
-        <a
-          v-for="(item, index) in recommendList"
-          class="list-group-item"
-          :key="index"
-          :href="'/blog/' + item.blogId"
-          >{{ item.title }}</a
-        >
+        <a v-for="(item, index) in recommendList" class="list-group-item" :key="index" :href="'/blog/' + item.blogId">{{ item.title }}</a>
       </div>
     </div>
     <div class="col-md-9 col-lg-9 pb-5">
