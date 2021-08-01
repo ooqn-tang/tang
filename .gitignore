@@ -1,4 +1,10 @@
 target/
 .idea/
 *.iml
-*/application.properties
+application.properties
+node_modules
+.DS_Store
+dist
+dist-ssr
+*.local
+.idea
