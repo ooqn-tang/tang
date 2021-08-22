@@ -14,10 +14,7 @@ import net.ttcxy.tang.portal.dao.mapper.DtsBlogMapper;
 import net.ttcxy.tang.portal.dao.mapper.DtsBlogTagRelationMapper;
 import net.ttcxy.tang.portal.dao.mapper.DtsLikeBlogMapper;
 import net.ttcxy.tang.portal.entity.dto.DtsBlogDto;
-import net.ttcxy.tang.portal.entity.model.DtsBlog;
-import net.ttcxy.tang.portal.entity.model.DtsBlogTagRelation;
-import net.ttcxy.tang.portal.entity.model.DtsLikeBlog;
-import net.ttcxy.tang.portal.entity.model.DtsLikeBlogExample;
+import net.ttcxy.tang.portal.entity.model.*;
 import net.ttcxy.tang.portal.service.DtsBlogService;
 import net.ttcxy.tang.portal.service.DtsBlogSubjectService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,6 +58,9 @@ public class DtsBlogServiceImpl implements DtsBlogService {
     @Autowired
     private DtsLikeBlogMapper likeMapper;
 
+    @Autowired
+    private DtsBlogSubjectService blogSubjectService;
+
     @Override
     public PageInfo<DtsBlogDto> selectBlogList(String tagName, Integer page, Integer pageSize) {
         PageHelper.startPage(page, pageSize);
@@ -79,23 +79,20 @@ public class DtsBlogServiceImpl implements DtsBlogService {
         return new PageInfo<>(blogDao.selectBlogListByUsername(username));
     }
 
-    @Autowired
-    private DtsBlogSubjectService blogSubjectService;
-
     @Override
     public int insertBlog(DtsBlog blog) {
-
-
-        int i = blogMapper.insertSelective(blog);
-
-
-        return i;
+        return blogMapper.insertSelective(blog);
     }
 
     @Override
     public int updateBlog(DtsBlog blog,String subjectId,List<String> tagIdList) {
         DtsBlogTagRelation blogTagRelation = new DtsBlogTagRelation();
         int i = blogMapper.updateByPrimaryKeySelective(blog);
+
+        DtsBlogTagRelationExample blogTagRelationExample = new DtsBlogTagRelationExample();
+        blogTagRelationExample.createCriteria().andBlogIdEqualTo(blog.getBlogId());
+
+        blogTagRelationMapper.deleteByExample(blogTagRelationExample);
 
         for (String tagId : tagIdList) {
             blogTagRelation.setBlogTagRelationId(IdUtil.objectId());
@@ -104,12 +101,11 @@ public class DtsBlogServiceImpl implements DtsBlogService {
             blogTagRelationMapper.insert(blogTagRelation);
         }
 
-        if (i > 0 && StrUtil.isNotBlank(subjectId)){
+        blogSubjectService.deleteBlogSubjectBlogId(blog.getBlogId());
 
+        if (i > 0 && StrUtil.isNotBlank(subjectId)){
             blogSubjectService.insertBlogToSubject(blog.getBlogId(), subjectId);
         }
-
-
 
         return i;
     }

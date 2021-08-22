@@ -33,9 +33,11 @@
     </select>
 
     <select id="selectBlogAllById" resultMap="BlogTagResult">
-        select t2.username ,t2.nickname ,t1.blog_id ,t1.title ,t1.create_date ,t1.synopsis ,t1.text ,t1.markdown
+        select t2.username ,t2.nickname ,t1.blog_id ,t1.title ,t1.create_date ,t1.synopsis ,t1.text ,t1.markdown,dbs.blog_subject_id
         from dts_blog t1
         inner join uts_author t2 on t1.blog_id = #{id} and t1.author_id = t2.author_id
+        left join dts_blog_subject_relation dbsr on t1.blog_id = dbsr.blog_id
+        left join dts_blog_subject dbs on dbsr.blog_subject_id = dbs.blog_subject_id
     </select>
 
     <select id="selectLikeBlogs" resultMap="BlogTagResult">

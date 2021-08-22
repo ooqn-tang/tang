@@ -4,7 +4,7 @@
       <input type="button" id="save" value="发布" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
   </div>
   <div class="body">
-      <textarea ref="systemForm" @scroll="sysHandleScroll()"  @mouseover="changeFlag(false)" id="text" v-model="blogData.markdown" @keyup="keyup()" @change="keyup()" placeholder="可以输入Markdown文本为内容添加样式"></textarea>
+      <textarea ref="systemForm" @scroll="sysHandleScroll()"  @mouseover="changeFlag(false)" id="text" v-model="blogData.markdown"  placeholder="可以输入Markdown文本为内容添加样式"></textarea>
       <div ref='externalForm' @scroll="exterHandleScroll()" @mouseover="changeFlag(true)" id="content" v-html="blogData.text" class="markdown-body"></div>
   </div>
   <div class="foot">
@@ -46,8 +46,13 @@
 <script>
 import marked from 'marked'
 import { loadBlogAllInfo,saveBlog,loadSubjectList,loadAllTagList} from "/@/api/blog"
+import hljs from "highlight.js"
+import 'highlight.js/styles/github.css'
 marked.setOptions({
   renderer: new marked.Renderer(),
+   highlight: function(code) {
+      return hljs.highlightAuto(code).value;
+    },
   gfm: true,
   tables: true,
   breaks: true,
@@ -72,14 +77,26 @@ export default {
       authorTagList:[]
     };
   },
-  methods: {
-      keyup(){
-        this.blogData.text = marked(this.blogData.markdown)
-        this.blogData.synopsis = this.blogData.text.replace(/<(style|script|iframe)[^>]*?>[\s\S]+?<\/\1\s*>/gi,'').replace(/<[^>]+?>/g,'').replace(/\s+/g,' ').replace(/ /g,' ').replace(/>/g,' ').substring(0,150).replace(" ","");
+  watch :{
+    blogData:{
+      handler(val){
+        if(val.markdown != undefined){
+          this.blogData.text =  marked(val.markdown)
+          this.blogData.synopsis = val.text.replace(/<(style|script|iframe)[^>]*?>[\s\S]+?<\/\1\s*>/gi,'').replace(/<[^>]+?>/g,'').replace(/\s+/g,' ').replace(/ /g,' ').replace(/>/g,' ').substring(0,150).replace(" ","");
+        }
+        
       },
+      deep:true //true 深度监听
+    }
+  },
+  methods: {
       loadBlogAllInfo(blogId){
         loadBlogAllInfo(blogId).then((response) => {
           this.blogData = response.data
+          let tList = response.data.tagList
+          for(let v in tList){
+            this.selectTagIdList.push(tList[v].blogTagId)
+          }
         })
       },
       saveBlog(){
@@ -190,8 +207,9 @@ img{
     border-right: 1px solid black;
     background-color: #e2e3e4;
     padding: 10px;
-    font-size: 18px;
+    font-size: 17px;
     overflow-y: auto;
+    resize: none;
 }
 @media screen and (max-width: 700px) {
     #text {

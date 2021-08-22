@@ -31,4 +31,6 @@ public interface DtsBlogSubjectService {
      * 通过专辑名查询
      */
     PageInfo<DtsBlogSubjectDto> selectSubjectListBySubjectName(String name, int page, int pageSize);
+
+    boolean deleteBlogSubjectBlogId(String blogId);
 }

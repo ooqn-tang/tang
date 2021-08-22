@@ -2,23 +2,33 @@
   <div class="row">
     <div class="col-md-3 col-lg-3 d-md-inline d-none">
       <div class="list-group mb-2" v-if="showSubject">
-        <a class="list-group-item">{{ subject.subjectName }}<span class="float-end">专题</span></a>
+        <a class="list-group-item active">{{ subject.subjectName }}<span class="float-end">专题</span></a>
         <router-link
           @click="blog.blogId = item.blogId"
-          :class="item.blogId == blog.blogId ? 'active' : ''"
+          :class="item.blogId == blog.blogId ? 'active2' : ''"
           v-for="(item, index) in blogList"
           :key="index"
           :to="{ name: 'blog_info', params: {id: item.blogId}}"
           class="list-group-item"
           >{{ item.title }}</router-link>
       </div>
+
+      <div class="card mb-2" v-if="recommendList==null">
+        <div class="card-body"> 
+          <div class="spinner-border" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+        </div>
+      </div>
+
       <div class="list-group mb-2">
+        <a class="list-group-item active">推荐<span class="float-end">🎇</span></a>
         <a v-for="(item, index) in recommendList" class="list-group-item" :key="index" :href="'/blog/' + item.blogId">{{ item.title }}</a>
       </div>
     </div>
     <div class="col-md-9 col-lg-9 pb-5">
       <div class="row">
-        <div class="col-lg-8 col-move">
+        <div class="col-lg-8">
           <div class="card mb-2 blog-body">
             <div class="card-body" v-if="!loading">
               <div>
@@ -51,28 +61,35 @@
           </div>
           <div class="card mb-2">
             <div class="card-body">
-              <div>
                 <span style="font-size: 16px;color: rgb(0 0 0);font-weight: 600;">标签：</span>
                 <span
                   v-for="(item, index) in blog.tagList"
                   :key="index"
                   style="font-size: 16px; color: rgb(220, 53, 69);"
                   >&nbsp;{{ item.tagName }}&nbsp;</span>
-                </div>
             </div>
           </div>
           <div class="card mb-2" id="PL">
             <div class="card-body">
-              <div>没有留言...</div>
+              <span v-if="commentList.length == 0">没有评论</span>
+              <div class="comment-list" v-for="(item,index) in commentList" :key="index">
+                <p>
+                  <strong>
+                    <router-link :to="{ name: 'author_blog', params: { username: item.username }, }" >{{ item.nickname }}</router-link>
+                  </strong>
+                  <span class="float-end">{{item.createDate}}</span>
+                </p>
+                {{item.content}}<span v-if="item.username == loginUsername" style="color:red;float: right;">删除</span>
+              </div> 
             </div>
           </div>
           <div class="card mb-2" >
             <div class="card-body">
               <div class="mb-3">
                 <label for="exampleFormControlTextarea1" class="form-label" id="PL_TEXT">Example textarea</label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" onclick="window.location.href = '#PL_TEXT'"></textarea>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" v-model="commentText"></textarea>
               </div>
-              <button type="button" class="btn btn-primary">评论</button>
+              <button type="button" class="btn btn-primary" @click="comment()">评论</button>
             </div>
           </div>
           <div class="card mb-2">
@@ -103,10 +120,9 @@
             </div>
           </div>
         </div>
-        <div class="col-lg-4 col-move">
+        <div class="col-lg-4">
           <div class="list-group mb-2">
-            <a class="list-group-item active">TOP<span class="float-end">🎇</span></a>
-            <advertise></advertise>
+            <notice></notice>
           </div>
           <div class="card">
             <div class="card-body">
@@ -132,34 +148,36 @@
       <div class="col-md-12 col-lg-12">
         <button
             :class="like == 1 ? 'btn-outline-danger' : 'btn-outline-primary'"
-            class="btn"
-            style="padding: 0px 5px 0px 3px; font-size: 13px"
+            class="btn btn-sm"
+            style="padding: 0px 5px 0px 3px;"
             @click="likeClick"
           >
             喜欢
           </button>
           <a
-            class="btn btn-outline-primary"
-            style="padding: 0px 5px 0px 3px; font-size: 13px; margin-left: 5px"
+            class="btn btn-outline-primary btn-sm"
+            style="padding: 0px 5px 0px 3px; margin-left: 5px"
             href="#PL"
           >
             评论
           </a>
-          <button
-            disabled
-            class="btn btn-outline-primary"
-            style="padding: 0px 5px 0px 3px; font-size: 13px; margin-left: 5px"
-          >
-            分享
-          </button>
 
           <button
             disabled
-            class="btn btn-outline-primary"
-            style="padding: 0px 5px 0px 3px; font-size: 13px; margin-left: 5px"
+            class="btn btn-outline-primary btn-sm"
+            style="padding: 0px 5px 0px 3px; margin-left: 5px"
           >
             举报
           </button>
+          <a class="btn btn-outline-primary btn-sm" :href="'/post/' + param.blogId" style="padding: 0px 5px 0px 3px; margin-left: 5px;">阅读模式</a>
+
+          <a
+            class="btn btn-outline-primary btn-sm"
+            style="padding: 0px 5px 0px 3px; margin-left: 5px"
+            href="#top"
+          >
+            ⬆TOP
+          </a>
       </div>
     </div>
   </nav>
@@ -170,16 +188,20 @@ import { postBlog, loadRecommend } from "/@/api/blog";
 import { selectSubjectBlogList } from "/@/api/subject";
 import { like, unlike, isLike } from "/@/api/like";
 import { insertFans, deleteFans, isFans } from "/@/api/fans";
+import { selectComment, deleteComment, insertComment } from "/@/api/comment";
+import 'highlight.js/styles/github.css'
 export default {
   name: "blog_info",
   data() {
     return {
       fans: 2,
+      loginUsername:this.$store.state.username,
       param: {
         blogId: this.$route.params.id,
       },
       loading:true,
-      recommendList: [],
+      recommendList: null,
+      commentList:[],
       blog: {
         title: "文章不存在",
         username: "admin",
@@ -187,6 +209,7 @@ export default {
         createDate: "2020.03.27",
         text: "文章不存在",
       },
+      commentText:"",
       subject: [],
       blogList: [],
       showSubject: false,
@@ -199,6 +222,20 @@ export default {
     this.loadBlogInfo();
   },
   methods: {
+    comment(){
+      var a = {
+        dataId:this.param.blogId,
+        content:this.commentText
+      }
+      insertComment(a).then((response) => {
+        this.commentList.push(response.data)
+      })
+    },
+    loadComment(){
+      selectComment(this.param.blogId,1).then((response) => {
+          this.commentList = response.data.list
+      })
+    },
     fansClick(username) {
       if (this.fans == 2) {
         insertFans(username).then((response) => {
@@ -274,6 +311,7 @@ export default {
       this.isLike();
     }
     this.loadRecommend();
+    this.loadComment()
   },
 };
 </script>

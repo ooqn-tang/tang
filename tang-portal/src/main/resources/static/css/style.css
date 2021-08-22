@@ -1,5 +1,5 @@
 *{
-    box-sizing:border-box;
+    box-sizing:border-box !important;
 }
 html,body{
     padding: 0;
@@ -21,7 +21,7 @@ a{
     margin: auto;width: 100%;min-width: 300px;max-width: 1200px;padding: 8px;
 }
 #header{
-    background-color: #e2e2e2;width: 100%;font-size: 30px;border-bottom: 1px solid rgb(179, 179, 179);
+    background-color: #e2e2e2;width: 100%;font-size: 20px;border-bottom: 1px solid rgb(179, 179, 179);
 }
 #header a{
     color: #5a5959 !important;
@@ -35,17 +35,17 @@ a{
 h1{
     margin: 0;
 }
-.post-title{
 
-
-}
 #post-body{
     padding-top: 8px;
     margin-top: 10px;
     border-top: 1px solid rgb(179, 179, 179);
 }
 #left-main{
-    float: left; padding: 0px 0px 0px 5px; box-sizing: border-box;
+    float: left; 
+    padding: 0px 0px 0px 5px; 
+    box-sizing: border-box;
+    border-radius: 5px;
 
 }
 #left-main,#right-main{
@@ -53,13 +53,21 @@ h1{
 }
 #left-main a{
     display: block;
-    border: 1px solid #b3b3b3;
     padding: 5px;
-    margin-left: -5px;
     background: #efe9d5;
-    margin-bottom: 5px;
+    margin-bottom: 0px;
     overflow:hidden;
-    border-radius: 5px;
+    border-radius: 0px;
+    border-left:1px solid #b3b3b3;
+    border-right:1px solid #b3b3b3;
+    border-top:1px solid #b3b3b3;
+}
+#left-main a:last-child{
+    border-bottom:1px solid #b3b3b3;
+    border-radius: 0 0 5px 5px;
+}
+#left-main a:first-child{
+    border-radius: 5px 5px 0 0 ;
 }
 #left-main div{
     margin-right: 10px;
@@ -71,14 +79,27 @@ h1{
     padding: 5px;
     border-radius: 5px;
 }
+
+
 @media screen and (max-width: 800px){
+    #left-main div{
+        margin-right: 0;
+    }
     #left-main{
         display: none;
+        width: 100%;
     }
     #right-main{
         width: 100%;
     }
+    .an1{
+        display: inline !important;
+        position:absolute;
+    }
 }
+
+
+
 .markdown-body .highlight pre, .markdown-body pre{
     background-color: #dedede !important;
 }

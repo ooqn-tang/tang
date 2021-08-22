@@ -1,12 +1,11 @@
 <template>
   <div class="row">
-    <div class="col-lg-8 col-move">
+    <div class="col-lg-8">
 
     </div>
-    <div class="col-lg-4 col-move">
+    <div class="col-lg-4">
       <div class="list-group mb-2">
-        <a class="list-group-item active" >TOP<span class="float-end">🎇</span></a>
-        <advertise></advertise>
+        <notice></notice>
       </div>
       <div class="card mb-2">
         <div class="card-body">

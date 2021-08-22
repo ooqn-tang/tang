@@ -7,7 +7,7 @@
   },
   "dependencies": {
     "axios": "^0.21.1",
-    "highlight.js": "^10.7.2",
+    "highlight.js": "^10.7.3",
     "jwt-decode": "^3.1.2",
     "marked": "^2.0.3",
     "turndown": "^7.1.1",

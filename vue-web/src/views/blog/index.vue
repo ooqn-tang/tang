@@ -1,6 +1,6 @@
 <template>
   <div class="row">
-    <div class="col-md-9 mb-2 col-move">
+    <div class="col-md-9 mb-2">
        <div class="card mb-2">
          <div class="card-body p-0">
            <nav class="nav">
@@ -33,14 +33,14 @@
         <div class="card-body blog-list p-0">
           <ul class="list-group ">
             <li class="list-group-item " v-for="(item,index) in blogList" :key="index">
-              <router-link :to="{name: 'blog_info', params: { id: item.blogId}}" class="blog-title">
+              <router-link target="_blank" :to="{name: 'blog_info', params: { id: item.blogId}}" class="blog-title">
                 <strong><p v-text="item.title"></p></strong>
-                </router-link>
+              </router-link>
               <div class="blog-synopsis" style="color: #5f5a5a;">{{item.synopsis}}</div>
               <div>
                 <span class="date-color" style="font-size: 16px;">{{item.createDate}}</span>
                 <span v-for="(item,index) in item.tagList" :key="index" > . <span style="font-size: 16px;color: #dc3545;">{{item.tagName}}</span></span>
-                <router-link :to="{name:'author_blog',params:{username:item.username}}" class="float-end">{{item.nickname}}</router-link>
+                <router-link target="_blank" :to="{name:'author_blog',params:{username:item.username}}" class="float-end">{{item.nickname}}</router-link>
               </div>
             </li>
             <li class="list-group-item">
@@ -50,10 +50,9 @@
         </div>
       </div>
     </div>
-    <div class="col-md-3 mb-2 col-move">
+    <div class="col-md-3 mb-2">
       <div class="list-group mb-2">
-        <a class="list-group-item active" >TOP<span class="float-end">🎇</span></a>
-        <advertise></advertise>
+        <notice></notice>
       </div>
       <div class="card mb-2">
         <div class="card-body">

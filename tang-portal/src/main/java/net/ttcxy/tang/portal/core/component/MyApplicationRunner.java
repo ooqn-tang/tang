@@ -1,7 +1,7 @@
 package net.ttcxy.tang.portal.core.component;
 
 import net.ttcxy.tang.portal.service.DtsBlogService;
-import net.ttcxy.tang.portal.service.StsAdvertiseService;
+import net.ttcxy.tang.portal.service.StsNoticeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -19,7 +19,7 @@ import java.util.Objects;
 public class MyApplicationRunner implements ApplicationRunner {
 
     @Autowired
-    private StsAdvertiseService stsAdvertiseService;
+    private StsNoticeService stsNoticeService;
 
     @Autowired
     private WebApplicationContext webApplicationContext;
@@ -37,7 +37,7 @@ public class MyApplicationRunner implements ApplicationRunner {
      */
     private void mkStaticLocations(){
         Objects.requireNonNull(webApplicationContext.getServletContext())
-                .setAttribute("advertises", stsAdvertiseService.selectAllAdvertise());
+                .setAttribute("advertises", stsNoticeService.selectAllNotice());
     }
 
 }

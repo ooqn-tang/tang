@@ -6,6 +6,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0"/>
     <link href="/css/style.css" rel="stylesheet" type="text/css">
+    <link href="/css/github.css" rel="stylesheet" type="text/css">
     <link href="https://cdn.bootcss.com/github-markdown-css/4.0.0/github-markdown.min.css" rel="stylesheet" type="text/css">
     <meta name="description" th:content="${blog.synopsis}"/>
 </head>
@@ -14,6 +15,7 @@
         <div id="header-n">
             <div class="blogNickname">
                 <a th:href="'/author/' + ${blog.username}" th:utext="${blog.nickname}"></a>
+                <a th:href="'/blog/' + ${blog.blogId}" style="float:right;color: #227abf !important;">标准</a>
             </div>
         </div>
     </div>
@@ -25,14 +27,17 @@
         </div>
         <div id="left-main" th:if="${subject!=null}" class="W30">
             <div>
-                <strong><a>专题</a></strong>
-                <a th:each="item : ${subject.blogList}" href="#" th:text="${item.title}"></a>
+                <a th:text="${subject.subjectName}" ><strong>专题</strong></a>
+                <a th:each="item : ${subject.blogList}" th:href="'/post/' + ${item.blogId}" th:text="${item.title}"></a>
             </div>
         </div>
     </div>
     <div id="footer">
-        <div id="footer-n">
-            作者：<span th:text="${blog.nickname}"></span><a th:href="'/blog/' + ${blog.blogId}" style="float:right">标准模式</a>
+        <div id="footer-n" th:if="${subject!=null}">
+            <span>目录</span>
+            <select onchange="change()" id="ml">
+                <option th:each="item : ${subject.blogList}" th:selected="${item.blogId eq blog.blogId}" th:value="${item.blogId}" th:text="${item.title}" ></option>
+            </select>
         </div>
     </div>
     </body>
@@ -44,5 +49,8 @@
       var s = document.getElementsByTagName("script")[0];
       s.parentNode.insertBefore(hm, s);
     })();
+    function change(){
+        location.href = "/post/" + document.getElementById("ml").value
+    }
     </script>
 </html>

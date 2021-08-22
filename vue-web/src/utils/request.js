@@ -6,7 +6,7 @@ import store from '../store'
 axios.defaults.withCredentials=true;
 
 const service = axios.create({
-    baseURL: 'http://localhost:8888/',
+    baseURL: '/',
     timeout: 30000
 });
 
@@ -25,7 +25,6 @@ service.interceptors.request.use(
 service.interceptors.response.use(
     response => {
         const res = response.data;
-        console.log(response.data)
         res.code = 200
         if (res.code !== 200) {
             alert(res.message)

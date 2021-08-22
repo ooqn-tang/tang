@@ -115,4 +115,11 @@ public class DtsBlogSubjectServiceImpl implements DtsBlogSubjectService {
     public String selectSubjectIdByBlogId(String blogId) {
         return blogSubjectDao.selectSubjectIdByBlogId(blogId);
     }
+
+    @Override
+    public boolean deleteBlogSubjectBlogId(String blogId) {
+        DtsBlogSubjectRelationExample blogSubjectRelationExample = new DtsBlogSubjectRelationExample();
+        blogSubjectRelationExample.createCriteria().andBlogIdEqualTo(blogId);
+        return blogSubjectRelationMapper.deleteByExample(blogSubjectRelationExample) > 0;
+    }
 }

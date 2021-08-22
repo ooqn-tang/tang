@@ -23,8 +23,7 @@
     </div>
     <div class="col-md-3  mb-2 ">
       <div class="list-group mb-2">
-        <a class="list-group-item active" >TOP<span class="float-end">🎇</span></a>
-        <advertise></advertise>
+        <notice></notice>
       </div>
       <div class="card mb-2">
         <div class="card-body">

@@ -1,6 +1,6 @@
 <template>
   <div class="row">
-    <div class="col-lg-8 col-move">
+    <div class="col-lg-8">
       <div class="input-group mb-2">
         <input type="text" class="form-control search-input" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="button-addon2">
         <button class="btn btn-outline-secondary search-button" type="button" id="button-addon2">搜索</button>
@@ -18,7 +18,7 @@
          </div>
        </div>
 
-       <ul class="list-group">
+       <ul class="list-group mb-2">
             <li class="list-group-item">
               <a class="blog-title">
                 <strong><p>啊手动阀</p></strong>
@@ -33,12 +33,11 @@
             <li class="list-group-item">
               <a>加载中...</a>
             </li>
-          </ul>
+       </ul>
     </div>
-    <div class="col-lg-4 col-move">
+    <div class="col-lg-4">
       <div class="list-group mb-2">
-        <a class="list-group-item active" >TOP<span class="float-end">🎇</span></a>
-        <advertise></advertise>
+        <notice></notice>
       </div>
       <div class="card mb-2">
         <div class="card-body">

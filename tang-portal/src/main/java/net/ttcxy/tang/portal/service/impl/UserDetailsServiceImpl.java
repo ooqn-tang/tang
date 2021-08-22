@@ -23,13 +23,17 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-            if (Validator.isEmail(username)){
-            UtsAuthor author = utsAuthorService.selectAuthorByMail(username);
-            if (author != null){
-                return BeanUtil.toBean(author,CurrentAuthor.class);
-            }
+        UtsAuthor author = null;
+        if (Validator.isEmail(username)){
+            author = utsAuthorService.selectAuthorByMail(username);
+        }else{
+            author = utsAuthorService.selectAuthorByName(username);
         }
-        throw new UsernameNotFoundException("输入的邮箱号不正确");
+        if (author != null){
+            return BeanUtil.toBean(author,CurrentAuthor.class);
+        }
+
+        throw new UsernameNotFoundException("输入的用户名或密码不正确");
     }
 
 

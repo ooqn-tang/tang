@@ -15,7 +15,6 @@ export default {
     }
   },
   created() {
-    console.log(666)
   },
   methods: {
     edit(){

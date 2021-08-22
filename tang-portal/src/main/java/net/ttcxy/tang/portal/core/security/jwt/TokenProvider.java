@@ -80,6 +80,8 @@ public class TokenProvider implements InitializingBean {
         if (json!=null){
             currentAuthor.setAuthorId(json.getString("authorId"));
             currentAuthor.setUsername(json.getString("username"));
+            currentAuthor.setNickname(json.getString("nickname"));
+            currentAuthor.setMail(json.getString("mail"));
         }
         return new UsernamePasswordAuthenticationToken(currentAuthor, token, null);
     }

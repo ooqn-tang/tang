@@ -1,7 +1,7 @@
 package net.ttcxy.tang.portal.core.component;
 
-import net.ttcxy.tang.portal.entity.model.DtsAdvertise;
-import net.ttcxy.tang.portal.service.StsAdvertiseService;
+import net.ttcxy.tang.portal.entity.model.DtsNotice;
+import net.ttcxy.tang.portal.service.StsNoticeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -20,7 +20,7 @@ import java.util.List;
 public class MyScheduling {
 
     @Autowired
-    private StsAdvertiseService stsAdvertiseService;
+    private StsNoticeService stsNoticeService;
 
     @Autowired
     private WebApplicationContext webApplicationContext;
@@ -33,7 +33,7 @@ public class MyScheduling {
      */
     @Scheduled(fixedDelay = 1000 * 60 * 10)
     public void advertiseTimerUpdate(){
-        List<DtsAdvertise>  advertises = stsAdvertiseService.selectAllAdvertise();
+        List<DtsNotice>  advertises = stsNoticeService.selectAllNotice();
         if (advertises != null){
             ServletContext servletContext = webApplicationContext.getServletContext();
             if (servletContext!=null){

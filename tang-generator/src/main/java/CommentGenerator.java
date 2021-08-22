@@ -13,7 +13,6 @@ import java.util.Properties;
  */
 public class CommentGenerator extends DefaultCommentGenerator {
     private boolean addRemarkComments = false;
-    private static final String EXAMPLE_SUFFIX="Example";
 
     /**
      * 设置用户配置的参数

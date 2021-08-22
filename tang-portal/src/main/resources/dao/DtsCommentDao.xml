@@ -1,35 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="net.ttcxy.tang.portal.dao.DtsCommentDao">
-    <resultMap id="CommentMap" type="net.ttcxy.tang.portal.entity.dto.DtsBlogCommentDto">
-        <id column="blog_comment_id" jdbcType="VARCHAR" property="blogCommentId" />
+    <resultMap id="CommentMap" type="net.ttcxy.tang.portal.entity.dto.DtsCommentDto">
+        <id column="comment_id" jdbcType="VARCHAR" property="commentId" />
         <result column="status" jdbcType="INTEGER" property="status" />
         <result column="author_id" jdbcType="VARCHAR" property="authorId" />
         <result column="content" jdbcType="VARCHAR" property="content" />
         <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
     </resultMap>
 
-    <insert id="insertComment">
-        insert into dts_blog_comment (id,blog_id,status,author_id,content,create_date) values(#{id},#{blogId},#{status},#{authorId},#{content},#{createDate})
-    </insert>
-
-    <delete id="deleteComment">
-        delete from dts_blog_comment where id = #{id}
-    </delete>
-
-    <select id="selectComments" resultType="net.ttcxy.tang.portal.entity.dto.DtsBlogCommentDto">
-        select t1.author_id,t1.blog_comment_id,t1.blog_id,t1.status,t2.nickname,t2.username,t1.create_date,t1.content
-        from `dts_blog_comment` t1 , `uts_author` t2
+    <select id="selectComments" resultType="net.ttcxy.tang.portal.entity.dto.DtsCommentDto">
+        select t1.author_id,t1.comment_id,t1.data_id,t1.status,t2.nickname,t2.username,t1.create_date,t1.content
+        from `dts_comment` t1 , `uts_author` t2
         where t2.author_id = t1.author_id
-        and t1.blog_id = #{id}
+        and t1.data_id = #{id}
         order by create_date asc
     </select>
-
-    <select id="selectComment" resultType="net.ttcxy.tang.portal.entity.dto.DtsBlogCommentDto">
-        select t1.author_id,t1.id,t1.blog_id,t1.status,t2.nickname,t2.username,t1.create_date,t1.content
-        from `dts_blog_comment` t1 , `uts_author` t2
-        where t2.author_id = t1.author_idv
-        and t1.id = #{id}
-    </select>
-
 </mapper>

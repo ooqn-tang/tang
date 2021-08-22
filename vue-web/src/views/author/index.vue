@@ -1,6 +1,6 @@
 <template>
   <div class="row clearfix">
-    <div class="col-md-4 col-md-push-8 col-move">
+    <div class="col-md-4 col-md-push-8">
       <div class="card mb-2">
         <div class="card-body ">
           <strong>{{author.nickname}}</strong>
@@ -11,11 +11,10 @@
         </div>
       </div>
       <div class="list-group mb-2  d-md-inline d-none">
-        <a class="list-group-item active" >TOP<span class="float-end">🎇</span></a>
-        <advertise></advertise>
+        <notice></notice>
       </div>
     </div>
-    <div class="col-md-8 col-md-pull-4 mb-2 col-move">
+    <div class="col-md-8 col-md-pull-4 mb-2">
       <div class="card">
         <div class="card-header">
           <ul class="nav justify-content-center">
@@ -97,8 +96,10 @@ export default {
     },
     
   },
-  mounted(){
+  created(){
     this.selectAuthor(this.$route.params.username)
+  },
+  mounted(){
     this.thisUsername = this.$route.params.username
     if(this.$store.state.username != ""){
       this.isFans()
