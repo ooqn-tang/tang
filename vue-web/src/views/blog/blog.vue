@@ -26,10 +26,10 @@
         <a v-for="(item, index) in recommendList" class="list-group-item" :key="index" :href="'/blog/' + item.blogId">{{ item.title }}</a>
       </div>
     </div>
-    <div class="col-md-9 col-lg-9 pb-5">
+    <div class="col-md-9 col-lg-9 pb-5 move-p-lr-0">
       <div class="row">
         <div class="col-lg-8">
-          <div class="card mb-2 blog-body">
+          <div class="card mb-2 blog-body move-b-lr-0">
             <div class="card-body" v-if="!loading">
               <div>
                 <strong>
@@ -59,7 +59,7 @@
               加载中...
             </div>
           </div>
-          <div class="card mb-2">
+          <div class="card mb-2 move-b-lr-0">
             <div class="card-body">
                 <span style="font-size: 16px;color: rgb(0 0 0);font-weight: 600;">标签：</span>
                 <span
@@ -69,7 +69,7 @@
                   >&nbsp;{{ item.tagName }}&nbsp;</span>
             </div>
           </div>
-          <div class="card mb-2" id="PL">
+          <div class="card mb-2 move-b-lr-0" id="PL">
             <div class="card-body">
               <span v-if="commentList.length == 0">没有评论</span>
               <div class="comment-list" v-for="(item,index) in commentList" :key="index">
@@ -83,7 +83,7 @@
               </div> 
             </div>
           </div>
-          <div class="card mb-2" >
+          <div class="card mb-2 move-b-lr-0" >
             <div class="card-body">
               <div class="mb-3">
                 <label for="exampleFormControlTextarea1" class="form-label" id="PL_TEXT">Example textarea</label>
@@ -92,7 +92,7 @@
               <button type="button" class="btn btn-primary" @click="comment()">评论</button>
             </div>
           </div>
-          <div class="card mb-2">
+          <div class="card mb-2 move-b-lr-0">
             <div class="card-body">
               <a class="blog-title">八点零点零点附近扩大飞机啊撒旦解放</a>
               <div>
@@ -101,7 +101,7 @@
               </div>
             </div>
           </div>
-          <div class="card mb-2">
+          <div class="card mb-2 move-b-lr-0">
             <div class="card-body">
               <a class="blog-title">i俄日额u我i的上空的飞机饿哦五日为ur</a>
               <div>
@@ -110,7 +110,7 @@
               </div>
             </div>
           </div>
-          <div class="card mb-2">
+          <div class="card mb-2 move-b-lr-0">
             <div class="card-body">
               <a class="blog-title">啊卡萨丁积分卡的肌肤健康的房间扩大解放</a>
               <div>
@@ -121,10 +121,10 @@
           </div>
         </div>
         <div class="col-lg-4">
-          <div class="list-group mb-2">
+          <div class="list-group mb-2 move-b-lr-0">
             <notice></notice>
           </div>
-          <div class="card">
+          <div class="card move-b-lr-0">
             <div class="card-body">
               <p>
                 <a href="https://ttcxy.net/post/0b0d396713a54e2fbf714478d740e53e" target="_blank">关于</a>

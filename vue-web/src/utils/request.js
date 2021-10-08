@@ -6,7 +6,7 @@ import store from '../store'
 axios.defaults.withCredentials=true;
 
 const service = axios.create({
-    baseURL: '/',
+    baseURL: 'http://localhost:8888/',
     timeout: 30000
 });
 

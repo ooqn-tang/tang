@@ -1,11 +1,13 @@
 <template>
   <div class="row">
-    <div class="col-lg-8">
+    <div class="col-lg-12">
       <div class="input-group mb-2">
         <input type="text" class="form-control search-input" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="button-addon2">
         <button class="btn btn-outline-secondary search-button" type="button" id="button-addon2">搜索</button>
       </div>
-      <div class="card mb-2">
+    </div>
+    <div class="col-lg-8 move-p-lr-0">
+      <div class="card mb-2 move-b-lr-0">
          <div class="card-body p-0">
            <nav class="nav">
               <a class="nav-link" :class="selectTag == 'Java'?'nav-link-active':''" @click="selectTagClick('Java')">博客</a>
@@ -18,7 +20,7 @@
          </div>
        </div>
 
-       <ul class="list-group mb-2">
+       <ul class="list-group mb-2 move-b-lr-0">
             <li class="list-group-item">
               <a class="blog-title">
                 <strong><p>啊手动阀</p></strong>
@@ -35,11 +37,11 @@
             </li>
        </ul>
     </div>
-    <div class="col-lg-4">
-      <div class="list-group mb-2">
+    <div class="col-lg-4 move-p-lr-0">
+      <div class="list-group mb-2 move-b-lr-0">
         <notice></notice>
       </div>
-      <div class="card mb-2">
+      <div class="card mb-2 move-b-lr-0">
         <div class="card-body">
           <p>
             <a href="https://ttcxy.net/post/0b0d396713a54e2fbf714478d740e53e" target="_blank">关于</a>

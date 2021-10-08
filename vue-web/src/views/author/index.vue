@@ -1,7 +1,7 @@
 <template>
   <div class="row clearfix">
-    <div class="col-md-4 col-md-push-8">
-      <div class="card mb-2">
+    <div class="col-md-4 col-md-push-8 move-p-lr-0">
+      <div class="card mb-2 move-b-lr-0">
         <div class="card-body ">
           <strong>{{author.nickname}}</strong>
           <button v-if="fans == 2" class="btn btn-outline-warning float-end" style="padding: 0px 5px 0px 3px;font-size: 13px;" @click="fansClick(author.username)">订阅</button>
@@ -14,8 +14,8 @@
         <notice></notice>
       </div>
     </div>
-    <div class="col-md-8 col-md-pull-4 mb-2">
-      <div class="card">
+    <div class="col-md-8 col-md-pull-4 mb-2 move-p-lr-0">
+      <div class="card  move-b-lr-0">
         <div class="card-header">
           <ul class="nav justify-content-center">
             <li class="nav-item">

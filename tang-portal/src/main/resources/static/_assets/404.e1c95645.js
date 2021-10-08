@@ -1,0 +1,1 @@
+let e=document.createElement("style");e.innerHTML="body{overflow-y:scroll}",document.head.appendChild(e);import{o as n,c as o}from"./index.dc9d8f03.js";var d={name:"error",data:()=>({}),components:{},methods:{},mounted(){}};d.render=function(e,d,r,t,a,l){return n(),o("div",null,"404")};export default d;

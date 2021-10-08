@@ -76,6 +76,11 @@ const routes = [
                 component: () => import('../views/video/video-editor.vue')
             },
             {
+                path: '/laoke',
+                name: 'laoke_index',
+                component: () => import('../views/laoke/index.vue')
+            },
+            {
                 path: '/video',
                 name: 'video_index',
                 component: () => import('../views/video/index.vue')

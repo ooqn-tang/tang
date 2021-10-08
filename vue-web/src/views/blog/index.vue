@@ -1,7 +1,7 @@
 <template>
   <div class="row">
-    <div class="col-md-9 mb-2">
-       <div class="card mb-2">
+    <div class="col-md-9 mb-2 move-p-lr-0">
+       <div class="card mb-2 move-b-lr-0">
          <div class="card-body p-0">
            <nav class="nav">
               <a class="nav-link" :class="selectTag == ''?'nav-link-active':''" @click="selectTagClick('')">全部</a>
@@ -16,7 +16,7 @@
             </nav>
          </div>
        </div>
-      <div class="card">
+      <div class="card move-b-lr-0">
         <div class="card-header">
           <ul class="nav nav-tabs card-header-tabs">
             <li class="nav-item">
@@ -50,11 +50,11 @@
         </div>
       </div>
     </div>
-    <div class="col-md-3 mb-2">
-      <div class="list-group mb-2">
+    <div class="col-md-3 mb-2 move-p-lr-0">
+      <div class="list-group mb-2  move-b-lr-0">
         <notice></notice>
       </div>
-      <div class="card mb-2">
+      <div class="card mb-2  move-b-lr-0">
         <div class="card-body">
           <p>
             <a href="https://ttcxy.net/post/0b0d396713a54e2fbf714478d740e53e" target="_blank">关于</a>

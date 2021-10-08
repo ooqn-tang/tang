@@ -16,10 +16,10 @@
             <a class="nav-link" href="/video">📺视频</a>
           </li>
           <li class="nav-item">
-            <router-link class="nav-link" to="/">👨‍🎓作者</router-link>
+            <router-link class="nav-link" to="/laoke">🥁唠嗑</router-link>
           </li>
           <li class="nav-item">
-            <router-link class="nav-link" to="/">🏷标签</router-link>
+            <router-link class="nav-link" to="/">👨‍🎓作者</router-link>
           </li>
           <li class="nav-item">
             <router-link class="nav-link" to="/">📒专题</router-link>
@@ -36,7 +36,7 @@
             <ul class="dropdown-menu" aria-labelledby="dropdown03">
               <li><a class="dropdown-item" href="/blog">📔文章</a></li>
               <li><a class="dropdown-item" href="/video">📺视频</a></li>
-              <li><a class="dropdown-item" href="/video">🏷标签</a></li>
+              <li><a class="dropdown-item" href="/laoke">🥁唠嗑</a></li>
               <li><a class="dropdown-item" href="/video">📒专题</a></li>
             </ul>
           </li>

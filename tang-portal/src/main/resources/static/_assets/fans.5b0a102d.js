@@ -1,0 +1,1 @@
+import{s as n}from"./index.dc9d8f03.js";function a(a){return n({url:"/api/fans/"+a,method:"POST"})}function r(a){return n({url:"/api/fans/"+a,method:"DELETE"})}function t(a){return n({url:"/api/fans/list",method:"get"})}function s(a){return n({url:"/api/fans/is",method:"get",params:{username:a}})}export{s as a,r as d,t as f,a as i};
