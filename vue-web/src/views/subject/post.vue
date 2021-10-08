@@ -1,14 +1,14 @@
 <template>
 <div class="row clearfix">
-    <div class="col-md-9 ">
-      <div class="card mb-2">
+    <div class="col-md-9  move-p-lr-0">
+      <div class="card mb-2  move-b-lr-0">
         <div class="card-body">
           <h4>{{subjectData.subjectName}}</h4>
           <span>{{subjectData.synopsis}}</span>
         </div>
       </div>
-      <ul class="list-group ">
-        <li class="list-group-item " v-for="(item,index) in subjectData.blogList" :key="index">
+      <ul class="list-group  mb-2 move-b-lr-0">
+        <li class="list-group-item move-b-lr-0" v-for="(item,index) in subjectData.blogList" :key="index">
           <router-link :to="{name: 'blog_info', params: {id: item.blogId}}" class="blog-title">
             <strong><p v-text="item.title"></p></strong>
             </router-link>
@@ -21,11 +21,11 @@
         </li>
       </ul>
     </div>
-    <div class="col-md-3  mb-2 ">
-      <div class="list-group mb-2">
+    <div class="col-md-3  mb-2  move-p-lr-0">
+      <div class="list-group mb-2  move-b-lr-0">
         <notice></notice>
       </div>
-      <div class="card mb-2">
+      <div class="card mb-2  move-b-lr-0">
         <div class="card-body">
           <p>
             <a href="https://ttcxy.net/post/0b0d396713a54e2fbf714478d740e53e" target="_blank">关于</a>
