@@ -1,10 +1,15 @@
 package net.ttcxy.tang.portal.service;
 
+import net.ttcxy.tang.portal.entity.dto.DtsLaokeDto;
+import net.ttcxy.tang.portal.entity.model.DtsLaoke;
+
+import java.util.List;
+
 public interface DtsLaokeService {
 
-    int insert(String authorId, String type , String text);
+    Integer insert(DtsLaoke laoke);
 
-    int delete(String id);
+    Integer delete(String id);
 
-    void loadList();
+    List<DtsLaokeDto> loadList();
 }

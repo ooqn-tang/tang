@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.ttcxy.tang.portal.dao.DtsLaokeDao">
+    <resultMap id="BaseResultMap" type="net.ttcxy.tang.portal.entity.dto.DtsLaokeDto">
+        <result column="laoke_id" jdbcType="VARCHAR" property="laokeId" />
+        <result column="author_id" jdbcType="VARCHAR" property="authorId" />
+        <result column="nickname" jdbcType="VARCHAR" property="nickname" />
+        <result column="text" jdbcType="VARCHAR" property="text" />
+        <result column="type" jdbcType="VARCHAR" property="type" />
+        <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    </resultMap>
+    <select id="selectList" resultMap="BaseResultMap">
+        select t1.laoke_id ,t1.text ,t1.type ,t1.create_date ,t2.username,t2.nickname
+        from dts_laoke t1,uts_author t2
+        where t1.author_id = t2.author_id order by create_date desc
+    </select>
+</mapper>

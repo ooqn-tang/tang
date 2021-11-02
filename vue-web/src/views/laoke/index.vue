@@ -7,12 +7,12 @@
             >消息</label
           >
           <label for="exampleFormControlTextarea1" class="form-label float-end"
-            >{{message.length}}/200</label
+            >{{laokeForm.text.length}}/200</label
           >
           <textarea
             class="form-control mb-2"
             placeholder="最多200字"
-            v-model="message"
+            v-model="laokeForm.text"
             maxlength="200"
             rows="5"
           ></textarea>
@@ -22,12 +22,13 @@
                 class="form-select"
                 id="inputGroupSelect04"
                 aria-label="Example select with button addon"
+                v-model="laokeForm.type"
               >
                 <option value="0" selected>唠嗑</option>
                 <option value="1">问题</option>
                 <option value="2">想法</option>
               </select>
-              <button class="btn btn-outline-secondary" type="button">
+              <button class="btn btn-outline-secondary" type="button" @click="sendLaoke()">
                 发送
               </button>
             </div>
@@ -38,18 +39,19 @@
     
     <div class="col-xl-3 col-lg-4 col-md-4 col-12 mb-2 move-p-lr-0" v-for="(item, index) in laokeList" :key="index">
       <div class="card move-b-lr-0">
-        <div class="card-body">
+        <div class="card-body" >
           <div>
-            <a href="/author/eHlw" target="_blank" class="">平安喜乐</a>
-            <span class="date-color float-end" style="font-size: 16px">2021.09.16</span>
+            <a :href="'/author/' + item.nickname" target="_blank" class="">{{item.nickname}}</a>
+            <span class="date-color float-end" style="font-size: 16px">{{item.createDate}}</span>
           </div>
-          <div class="text-truncate" @click="openMeg(index)" data-bs-target="#lkMsg" data-bs-toggle="modal">
-            Some quick fasdfasd fasdfa sdfasdfasd fasdf asdf asdfexa mple text
-            to build
-          </div>
-          <div @click="openMeg(index)">
-            <span style="font-size: 16px; color: rgb(220, 53, 69)">唠嗑</span>
-            <span class="float-end">评论(1)</span>
+          <div class="text-truncate" @click="thisItem = item" data-bs-target="#lkMsg" data-bs-toggle="modal">
+            {{item.text}}
+            <div @click="thisItem = item">
+              <span style="font-size: 16px; color: #198754" v-if="item.type == 0">唠嗑</span>
+              <span style="font-size: 16px; color: #dc3545" v-if="item.type == 1">问题</span>
+              <span style="font-size: 16px; color: #fd7e14" v-if="item.type == 2">想法</span>
+              <span class="float-end">评论(1)</span>
+            </div>
           </div>
         </div>
       </div>
@@ -79,12 +81,11 @@
           <div class="card mb-2 move-b-lr-0">
             <div class="card-body">
               <div>
-                <a href="/author/eHlw" target="_blank" class="">平安喜乐</a>
+                <a href="/author/eHlw" target="_blank" class="">{{thisItem.nickname}}</a>
                 <span class="date-color float-end" style="font-size: 16px">2021.09.16</span>
               </div>
-              <div data-bs-target="#lkMsg" data-bs-toggle="modal">
-                Some quick fasdfasd fasdfa sdfasdfasd fasdf asdf asdfexa mple
-                text to build
+              <div>
+                {{thisItem.text}}
               </div>
             </div>
           </div>
@@ -126,23 +127,64 @@
 </template>
 
 <script>
-import { sendLaoke,sendMsg,loadLaoke,loadMsg,deleteLaoke,deleteMsg } from "/@/api/laoke"
+import { sendLaoke,loadLaoke,deleteLaoke } from "/@/api/laoke"
 export default {
   name: "laoke_index",
   data() {
     return {
-      laokeList: [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}],
+      laokeList: [],
       lst: [{},{},{},{}],
-      message:""
+      message:"",
+      thisItem:{},
+      laokeForm:{
+        text:"",
+        type:"0",
+      },
+      msgForm:{
+        comment:""
+      }
     };
   },
   computed: {},
   created() {},
   methods: {
-    openMeg() {},
+    openMsg(item){
+      this.thisItem = item
+    },
+    sendLaoke(){
+      sendLaoke(this.laokeForm).then((response) => {
+        this.laokeForm.text = ""
+        this.loadLaoke()
+      })
+    },
+    sendMsg(){
+      sendMsg(this.msgForm).then((response) => {
+
+      })
+    },
+    loadLaoke(){
+      loadLaoke().then((response) => {
+        this.laokeList = response.data
+      })
+    },
+    loadMsg(id){
+      loadMsg(id).then((response) => {
+
+      })
+    },
+    deleteLaoke(id){
+      deleteLaoke(id).then((response) => {
+        
+      })
+    },
+    deleteMsg(id){
+      deleteMsg(id).then((response) => {
+        
+      })
+    }
   },
   mounted() {
-
+    this.loadLaoke()
   },
 };
 </script>

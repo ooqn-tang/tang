@@ -1,57 +1,26 @@
 import request from '../utils/request'
 
 // 发送信息
-export function sendLaoke(id, laoke) {
+export function sendLaoke(data) {
     return request({
         url: '/api/laoke',
         method: 'POST',
-        params: { id: id, laoke: laoke }
+        data: data
     })
 }
 
-// 发送评论
-export function sendMsg(id, message) {
+// 加载信息
+export function loadLaoke() {
     return request({
-        url: '/api/laoke/msg',
-        method: 'POST',
-        params: { id: id, message: message }
+        url: '/api/laoke',
+        method: 'GET'
     })
 }
 
-// 加载消息
-export function loadLaoke(page, loadTime) {
-    return request({
-        url: '/api/blog',
-        method: 'GET',
-        params: { page: page, loadTime: loadTime }
-    })
-}
-
-// 加载评论
-export function loadMsg(page, loadTime) {
-    return request({
-        url: '/api/laoke/message',
-        method: 'GET',
-        params: { page: page, loadTime: loadTime }
-    })
-}
-
-// 删除消息
+// 删除信息
 export function deleteLaoke(id) {
     return request({
-        url: '/api/laoke',
-        method: 'DELETE',
-        params: { id: id }
+        url: '/api/laoke/'+id,
+        method: 'DELETE'
     })
 }
-
-
-// 删除评论
-export function deleteMsg(id) {
-    return request({
-        url: '/api/laoke/message',
-        method: 'DELETE',
-        params: { id: id }
-    })
-}
-

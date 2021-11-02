@@ -41,17 +41,19 @@ h1{
     margin-top: 10px;
     border-top: 1px solid rgb(179, 179, 179);
 }
-#left-main{
-    float: left; 
+.left-main{
     padding: 0px 0px 0px 5px; 
     box-sizing: border-box;
     border-radius: 5px;
+}
+.left-foot,.right-foot{
+    margin-bottom: 50px !important;;
+}
 
+.right-main{
+    margin-bottom: 10px;
 }
-#left-main,#right-main{
-    margin-bottom: 50px;
-}
-#left-main a{
+.left-main a{
     display: block;
     padding: 5px;
     background: #efe9d5;
@@ -62,17 +64,17 @@ h1{
     border-right:1px solid #b3b3b3;
     border-top:1px solid #b3b3b3;
 }
-#left-main a:last-child{
+.left-main a:last-child{
     border-bottom:1px solid #b3b3b3;
     border-radius: 0 0 5px 5px;
 }
-#left-main a:first-child{
+.left-main a:first-child{
     border-radius: 5px 5px 0 0 ;
 }
-#left-main div{
+.left-main div{
     margin-right: 10px;
 }
-#right-main{
+.right-main{
     float: right;
     border: 1px solid #b3b3b3;
     background: #efe9d5;
@@ -82,15 +84,15 @@ h1{
 
 
 @media screen and (max-width: 800px){
-    #left-main div{
+    .left-main div{
         margin-right: 0;
     }
-    #left-main{
+    .left-main{
         display: none;
-        width: 100%;
+        width: 100% !important;
     }
-    #right-main{
-        width: 100%;
+    .right-main{
+        width: 100% !important;
     }
     .an1{
         display: inline !important;

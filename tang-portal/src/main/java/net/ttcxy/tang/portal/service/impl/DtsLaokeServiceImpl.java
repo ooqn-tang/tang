@@ -9,6 +9,7 @@ import net.ttcxy.tang.portal.entity.dto.DtsLaokeDto;
 import net.ttcxy.tang.portal.entity.model.DtsLaoke;
 import net.ttcxy.tang.portal.entity.model.DtsLaokeExample;
 import net.ttcxy.tang.portal.service.DtsLaokeService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,30 +17,26 @@ import java.util.List;
 @Service
 public class DtsLaokeServiceImpl implements DtsLaokeService {
 
+    @Autowired
     private DtsLaokeMapper dtsLaokeMapper;
 
+    @Autowired
     private DtsLaokeDao dtsLaokeDao;
 
     @Override
-    public int insert(String authorId , String type , String text) {
-        DtsLaoke dtsLaoke = new DtsLaoke();
-        dtsLaoke.setLaokeId(IdUtil.objectId());
-        dtsLaoke.setAuthorId(CurrentUtil.id());
-        dtsLaoke.setText(text);
-        dtsLaoke.setCreateDate(DateUtil.date());
-        dtsLaoke.setType(type);
-        return dtsLaokeMapper.insert(dtsLaoke);
+    public Integer insert(DtsLaoke laoke) {
+        return dtsLaokeMapper.insert(laoke);
     }
 
     @Override
-    public int delete(String id) {
+    public Integer delete(String id) {
         DtsLaokeExample dtsLaokeExample = new DtsLaokeExample();
         dtsLaokeExample.createCriteria().andLaokeIdEqualTo(id);
         return dtsLaokeMapper.deleteByExample(dtsLaokeExample);
     }
 
     @Override
-    public void loadList() {
-        List<DtsLaokeDto> dtsLaokeDtos = dtsLaokeDao.selectList();
+    public List<DtsLaokeDto> loadList() {
+        return dtsLaokeDao.selectList();
     }
 }
