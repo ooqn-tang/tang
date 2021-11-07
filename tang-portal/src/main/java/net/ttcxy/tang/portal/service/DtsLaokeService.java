@@ -1,5 +1,6 @@
 package net.ttcxy.tang.portal.service;
 
+import com.github.pagehelper.PageInfo;
 import net.ttcxy.tang.portal.entity.dto.DtsLaokeDto;
 import net.ttcxy.tang.portal.entity.model.DtsLaoke;
 
@@ -11,5 +12,5 @@ public interface DtsLaokeService {
 
     Integer delete(String id);
 
-    List<DtsLaokeDto> loadList();
+    PageInfo<List<DtsLaokeDto>> loadList(Integer page,Integer pageSize);
 }

@@ -2,6 +2,8 @@ package net.ttcxy.tang.portal.service.impl;
 
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.IdUtil;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import net.ttcxy.tang.portal.core.security.CurrentUtil;
 import net.ttcxy.tang.portal.dao.DtsLaokeDao;
 import net.ttcxy.tang.portal.dao.mapper.DtsLaokeMapper;
@@ -36,7 +38,8 @@ public class DtsLaokeServiceImpl implements DtsLaokeService {
     }
 
     @Override
-    public List<DtsLaokeDto> loadList() {
-        return dtsLaokeDao.selectList();
+    public PageInfo<List<DtsLaokeDto>> loadList(Integer page,Integer pageSize) {
+        PageHelper.startPage(page,pageSize);
+        return new PageInfo(dtsLaokeDao.selectList());
     }
 }

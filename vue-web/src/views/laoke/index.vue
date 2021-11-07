@@ -164,7 +164,7 @@ export default {
     },
     loadLaoke(){
       loadLaoke().then((response) => {
-        this.laokeList = response.data
+        this.laokeList = response.data.list
       })
     },
     loadMsg(id){

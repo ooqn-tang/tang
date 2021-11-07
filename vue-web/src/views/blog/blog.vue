@@ -26,10 +26,10 @@
         <a v-for="(item, index) in recommendList" class="list-group-item" :key="index" :href="'/blog/' + item.blogId">{{ item.title }}</a>
       </div>
     </div>
-    <div class="col-md-9 col-lg-9 pb-5 move-p-lr-0">
+    <div class="col-md-9 col-lg-9 pb-5">
       <div class="row">
-        <div class="col-lg-8">
-          <div class="card mb-2 blog-body move-b-lr-0">
+        <div class="col-lg-8 move-p-lr-0">
+          <div class="card mb-2 blog-body">
             <div class="card-body" v-if="!loading">
               <div>
                 <strong>
@@ -62,11 +62,7 @@
           <div class="card mb-2 move-b-lr-0">
             <div class="card-body">
                 <span style="font-size: 16px;color: rgb(0 0 0);font-weight: 600;">标签：</span>
-                <span
-                  v-for="(item, index) in blog.tagList"
-                  :key="index"
-                  style="font-size: 16px; color: rgb(220, 53, 69);"
-                  >&nbsp;{{ item.tagName }}&nbsp;</span>
+                <span v-for="(item, index) in blog.tagList" :key="index" style="font-size: 16px; color: rgb(220, 53, 69);">&nbsp;{{ item.tagName }}&nbsp;</span>
             </div>
           </div>
           <div class="card mb-2 move-b-lr-0" id="PL">
@@ -120,23 +116,16 @@
             </div>
           </div>
         </div>
-        <div class="col-lg-4">
+        <div class="col-lg-4 move-p-lr-0">
           <div class="list-group mb-2 move-b-lr-0">
             <notice></notice>
           </div>
           <div class="card move-b-lr-0">
             <div class="card-body">
-              <p>
-                <a href="https://ttcxy.net/post/0b0d396713a54e2fbf714478d740e53e" target="_blank">关于</a>
-              </p>
-              <p>
-                <a
-                  href="https://ttcxy.net/post/98b255d539f743e193e398bfa9b97cfd" target="_blank">友情链接</a>
-              </p>
-              <p>
-                <a href="http://beian.miit.gov.cn" target="_blank">湘ICP备20009234号</a>
-              </p>
-              <a href="/map" class="hidden">地图</a>
+              <p><a href="/post/0b0d396713a54e2fbf714478d740e53e" target="_blank">关于</a></p>
+              <p><a href="/post/98b255d539f743e193e398bfa9b97cfd" target="_blank">友情链接</a></p>
+              <p><a href="http://beian.miit.gov.cn" target="_blank">湘ICP备20009234号</a></p>
+              <p><a href="/map" class="hidden">地图</a></p>
             </div>
           </div>
         </div>
@@ -146,38 +135,11 @@
   <nav  class="navbar fixed-bottom navbar-light bg-light" style="border-top: 1px solid rgb(206, 206, 206)">
     <div class="container-fluid">
       <div class="col-md-12 col-lg-12">
-        <button
-            :class="like == 1 ? 'btn-outline-danger' : 'btn-outline-primary'"
-            class="btn btn-sm"
-            style="padding: 0px 5px 0px 3px;"
-            @click="likeClick"
-          >
-            喜欢
-          </button>
-          <a
-            class="btn btn-outline-primary btn-sm"
-            style="padding: 0px 5px 0px 3px; margin-left: 5px"
-            href="#PL"
-          >
-            评论
-          </a>
-
-          <button
-            disabled
-            class="btn btn-outline-primary btn-sm"
-            style="padding: 0px 5px 0px 3px; margin-left: 5px"
-          >
-            举报
-          </button>
-          <a class="btn btn-outline-primary btn-sm" :href="'/post/' + param.blogId" style="padding: 0px 5px 0px 3px; margin-left: 5px;">阅读模式</a>
-
-          <a
-            class="btn btn-outline-primary btn-sm"
-            style="padding: 0px 5px 0px 3px; margin-left: 5px"
-            href="#top"
-          >
-            ⬆TOP
-          </a>
+        <a :class="like == 1 ? 'btn-outline-danger' : 'btn-outline-primary'" class="btn btn-sm mini-but" style="margin-left:0px" @click="likeClick">喜欢</a>
+        <a class="btn btn-outline-primary btn-sm mini-but" href="#PL">评论</a>
+        <a disabled class="btn btn-outline-primary btn-sm mini-but" >举报</a>
+        <a class="btn btn-outline-primary btn-sm mini-but" :href="'/post/' + param.blogId">阅读模式</a>
+        <a class="btn btn-outline-primary btn-sm mini-but" href="#top">⬆TOP</a>
       </div>
     </div>
   </nav>
