@@ -10,7 +10,7 @@ module.exports = {
     open: true, // 是否自动在浏览器打开
     https: false, // 是否开启 https
     ssr: false, // 服务端渲染
-    base: '', // 生产环境下的公共路径
+    base: '/', // 生产环境下的公共路径
     outDir: 'dist', // 打包构建输出路径，默认 dist ，如果路径存在，构建之前会被删除
     proxy: { // 反向代理
         '/api': {

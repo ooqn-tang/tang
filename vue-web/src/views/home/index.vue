@@ -10,9 +10,12 @@
       <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
         <ul class="navbar-nav me-auto mb-lg-0 pc">
           <li class="nav-item">
-            <a class="nav-link" href="/blog">📔文章</a>
+            <a class="nav-link" href="/">🏠主页</a>
           </li>
-            <li class="nav-item">
+          <li class="nav-item">
+            <a class="nav-link" href="/blog">📰文章</a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" href="/video">📺视频</a>
           </li>
           <li class="nav-item">
@@ -34,10 +37,12 @@
           <li class="nav-item dropdown float-start">
             <a class="nav-link dropdown-toggle" href="#" id="dropdown03" data-bs-toggle="dropdown" aria-expanded="false">{{title}}</a>
             <ul class="dropdown-menu" aria-labelledby="dropdown03">
-              <li><a class="dropdown-item" href="/blog">📔文章</a></li>
+              <li><a class="dropdown-item" href="/">🏠主页</a></li>
+              <li><a class="dropdown-item" href="/blog">📰文章</a></li>
               <li><a class="dropdown-item" href="/video">📺视频</a></li>
               <li><a class="dropdown-item" href="/laoke">🥁唠嗑</a></li>
-              <li><a class="dropdown-item" href="/video">📒专题</a></li>
+              <li><a class="dropdown-item" href="/laoke">👨‍🎓作者</a></li>
+              <li><a class="dropdown-item" href="/subject">📒专题</a></li>
             </ul>
           </li>
           <li class="nav-item float-start">
@@ -116,10 +121,16 @@ export default {
     }
   },
   mounted(){
-    if(this.$route.name == 'blog'){
-      this.title = '博客'
+    if(this.$route.name == 'home_index'){
+      this.title = '首页'
+    }else if(this.$route.name == 'blog'){
+      this.title = '文章'
     }else if(this.$route.name == 'video_index'){
       this.title = '视频'
+    }else if(this.$route.name == 'laoke_index'){
+      this.title = '唠嗑'
+    }else if(this.$route.name == 'subject_index'){
+      this.title = '专辑'
     }else{
       this.title = '菜单'
     }

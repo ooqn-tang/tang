@@ -2,7 +2,9 @@ package net.ttcxy.tang.portal;
 
 import net.ttcxy.tang.portal.core.component.MyApplicationContextInitializer;
 import org.apache.catalina.Context;
+import org.apache.catalina.Realm;
 import org.apache.catalina.connector.Connector;
+import org.apache.catalina.realm.RealmBase;
 import org.apache.tomcat.util.descriptor.web.SecurityCollection;
 import org.apache.tomcat.util.descriptor.web.SecurityConstraint;
 import org.mybatis.spring.annotation.MapperScan;
@@ -13,9 +15,12 @@ import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactor
 import org.springframework.boot.web.servlet.server.ServletWebServerFactory;
 import org.springframework.context.annotation.Bean;
 
+import java.security.Principal;
+
 @SpringBootApplication(scanBasePackages = {"net.ttcxy.tang"})
 @MapperScan(basePackages ={"net.ttcxy.tang.portal.dao.mapper","net.ttcxy.tang.portal.dao"})
 public class TangApplication {
+
 
     @Bean
     @ConditionalOnProperty(value = "tang-https", havingValue = "true")
@@ -31,7 +36,23 @@ public class TangApplication {
                 context.addConstraint(constraint);
             }
         };
+
         tomcat.addAdditionalTomcatConnectors(createStandardConnector());
+
+        tomcat.addContextCustomizers( context -> {
+            RealmBase realmBase = new RealmBase() {
+                @Override
+                protected String getPassword(String username) {
+                    return null;
+                }
+                @Override
+                protected Principal getPrincipal(String username) {
+                    return null;
+                }
+            };
+            realmBase.setTransportGuaranteeRedirectStatus(301);
+            context.setRealm(realmBase);
+        });
         return tomcat;
     }
 

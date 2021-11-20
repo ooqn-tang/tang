@@ -8,9 +8,13 @@ const routes = [
     {
         path: '/',
         name: 'home',
-        redirect: '/blog',
         component: () => import('../views/home/index.vue'),
         children: [
+            {
+                path: '/',
+                name: 'main',
+                component: () => import('../views/blog/index.vue')
+            },
             {
                 path: '/blog',
                 name: 'blog',
@@ -57,7 +61,7 @@ const routes = [
             },
             {
                 path: '/subject',
-                name: 'subject',
+                name: 'subject_index',
                 component: () => import('../views/subject/index.vue')
             },
             {

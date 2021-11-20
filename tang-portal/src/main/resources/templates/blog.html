@@ -24,7 +24,7 @@
             <h1 id="post-title" th:text="${blog.title}"></h1>
             <div id="post-body" class="markdown-body" th:utext="${blog.text}"></div>
         </div>
-        <div  class="right-main right-foot"  th:classappend="${subject == null} ? 'W100' : 'W70' ">
+        <div class="right-main right-foot"  th:classappend="${subject == null} ? 'W100' : 'W70 m-b' ">
             <a href="http://beian.miit.gov.cn" target="_blank">湘ICP备20009234号</a><br>
             <a href="/post/98b255d539f743e193e398bfa9b97cfd" target="_blank">友情链接</a>
         </div>
