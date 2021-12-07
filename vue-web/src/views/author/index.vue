@@ -15,7 +15,7 @@
       </div>
     </div>
     <div class="col-md-8 col-md-pull-4 mb-2 move-p-lr-0">
-      <div class="card  move-b-lr-0">
+      <div class="card move-b-lr-0">
         <div class="card-header">
           <ul class="nav justify-content-center">
             <li class="nav-item">

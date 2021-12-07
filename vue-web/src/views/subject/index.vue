@@ -1,6 +1,6 @@
 <template>
 <div class="row clearfix">
-    <div class="col-md-9  move-p-lr-0">
+    <div class="col-md-9 ">
       <div class="card mb-2">
         <div class="card-body">
           <h4>Java ajskdfjkd打开附件打开</h4>

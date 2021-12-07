@@ -5,7 +5,6 @@
     box-sizing: border-box;
     resize: none;
     outline: none;
-    cursor: pointer;
 }
 
 #app{
@@ -69,7 +68,8 @@ a{
     display: none;
 }
 .mini-but{
-    padding: 0px 5px 0px 3px; margin-left: 5px
+    padding: 0px 5px 0px 3px; 
+    margin-left: 5px
 }
 
 @media (max-width: 768px) {

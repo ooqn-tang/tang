@@ -1,7 +1,4 @@
 import axios from 'axios'
-// 引入store
-import store from '../store'
-
 
 axios.defaults.withCredentials=true;
 
@@ -37,7 +34,6 @@ service.interceptors.response.use(
         if(error.response.status === 401){
             alert("需要登录")
             return Promise.reject(error);
-            // window.location.href = "/"
         }
         if(error.response.status === 404){
             alert(error.response.data.message)
