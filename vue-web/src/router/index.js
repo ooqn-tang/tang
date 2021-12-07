@@ -78,12 +78,7 @@ const routes = [
                 path: '/video-editor/:id',
                 name: 'video-editor',
                 component: () => import('../views/video/video-editor.vue')
-            },
-            {
-                path: '/video',
-                name: 'video_index',
-                component: () => import('../views/video/index.vue')
-            },
+            }
         ]
     },
     {
