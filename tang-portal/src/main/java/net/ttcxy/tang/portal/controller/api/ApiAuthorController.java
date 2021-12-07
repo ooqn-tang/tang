@@ -28,6 +28,12 @@ public class ApiAuthorController {
     @Autowired
     private HttpSession httpSession;
 
+    @GetMapping("authorListBlogCount")
+    public ResponseResult<?> select(@RequestParam(value = "page",defaultValue = "1") Integer page){
+        return ResponseResult.success(authorService.selectAuthorBlogCount(page,100));
+    }
+
+
     @GetMapping("isLogin")
     public ResponseResult<Boolean> isLogin(){
         String authorId = CurrentUtil.id();

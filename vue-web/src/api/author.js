@@ -8,6 +8,13 @@ export function selectAuthor(username) {
     })
 }
 
+export function authorListBlogCount(page){
+    return request({
+        url: '/api/author/authorListBlogCount',
+        method: 'GET'
+    })
+}
+
 
 export function updateAuthor(data) {
     return request({

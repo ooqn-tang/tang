@@ -4,12 +4,18 @@ package net.ttcxy.tang.portal.dao;
 import net.ttcxy.tang.portal.entity.model.UtsAuthor;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 用户
  * @author huanglei
  */
 public interface UtsAuthorDao {
+
+    /**
+     * 查询用户博客数
+     */
+    List<Map<String,String>> selectAuthorBlogCount();
 
     /**
      * 通过邮箱查询用户是否存在

@@ -4,6 +4,9 @@ import com.github.pagehelper.PageInfo;
 import net.ttcxy.tang.portal.entity.model.UtsAuthor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * 用户服务
  * @author huanglei
@@ -69,4 +72,11 @@ public interface UtsAuthorService {
      */
     PageInfo<UtsAuthor> authorList(Integer page, Integer size);
 
+    /**
+     * 通过作者博客数
+     * @param page 页码
+     * @param size 大小
+     * @return 列表
+     */
+    PageInfo<List<Map<String, String>>>  selectAuthorBlogCount(Integer page, Integer size);
 }

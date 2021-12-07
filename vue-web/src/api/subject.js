@@ -1,6 +1,14 @@
 import request from '../utils/request'
 
 // 获取专题列表
+export function selectSubjectList() {
+    return request({
+        url: '/api/subject/list',
+        method: 'GET'
+    })
+}
+
+// 通过用户名获取专题列表
 export function selectSubjectListByUsername(username) {
     return request({
         url: '/api/subject/username',

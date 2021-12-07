@@ -79,6 +79,12 @@ public class UtsAuthorServiceImpl implements UtsAuthorService {
         return new PageInfo<>(utsAuthorDao.selectAuthor());
     }
 
+    @Override
+    public PageInfo selectAuthorBlogCount(Integer page, Integer size) {
+        PageHelper.startPage(page, size);
+        return new PageInfo(utsAuthorDao.selectAuthorBlogCount());
+    }
+
     /**
      * 生成用户名
      */

@@ -11,6 +11,12 @@
       <result column="mail" jdbcType="VARCHAR" property="mail" />
   </resultMap>
 
+    <select id="selectAuthorBlogCount" resultType="Map">
+        select username,nickname,signature,count(*) count
+        from dts_blog t1,uts_author t2
+        where t1.author_id = t2.author_id group by username,nickname
+    </select>
+
     <select id="selectMailIsTrue" resultType="integer">
         select count(1)
         from uts_author

@@ -16,10 +16,10 @@
             <a class="nav-link" href="/blog">📰文章</a>
           </li>
           <li class="nav-item">
-            <router-link class="nav-link" to="/">👨‍🎓作者</router-link>
+            <router-link class="nav-link" to="/authors">👨‍🎓作者</router-link>
           </li>
           <li class="nav-item">
-            <router-link class="nav-link" to="/">📒专题</router-link>
+            <router-link class="nav-link" to="/subject">📒专题</router-link>
           </li>
           <li class="nav-item" >
             <router-link class="nav-link" to="/search">🔍搜索</router-link>
@@ -33,7 +33,7 @@
             <ul class="dropdown-menu" aria-labelledby="dropdown03">
               <li><a class="dropdown-item" href="/">🏠主页</a></li>
               <li><a class="dropdown-item" href="/blog">📰文章</a></li>
-              <li><a class="dropdown-item" href="/laoke">👨‍🎓作者</a></li>
+              <li><a class="dropdown-item" href="/authors">👨‍🎓作者</a></li>
               <li><a class="dropdown-item" href="/subject">📒专题</a></li>
             </ul>
           </li>

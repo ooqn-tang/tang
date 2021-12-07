@@ -65,6 +65,11 @@ const routes = [
                 component: () => import('../views/subject/index.vue')
             },
             {
+                path: '/authors',
+                name: 'author_list',
+                component: () => import('../views/author/author_list.vue')
+            },
+            {
                 path: '/subject/:subject_id',
                 name: 'subject_info',
                 component: () => import('../views/subject/post.vue')

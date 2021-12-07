@@ -21,7 +21,6 @@ public class ApiBlogSubjectController {
     @Autowired
     private DtsBlogSubjectService blogSubjectService;
 
-
     @GetMapping("username")
     public ResponseResult<PageInfo<DtsBlogSubjectDto>> selectSubjectBlogListByUsername(
             @RequestParam(value = "username",defaultValue = "0")String username){
