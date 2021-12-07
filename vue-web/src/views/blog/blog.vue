@@ -65,29 +65,6 @@
                 <span v-for="(item, index) in blog.tagList" :key="index" style="font-size: 16px; color: rgb(220, 53, 69);">&nbsp;{{ item.tagName }}&nbsp;</span>
             </div>
           </div>
-          <div class="card mb-2 move-b-lr-0" id="PL">
-            <div class="card-body">
-              <span v-if="commentList.length == 0">没有评论</span>
-              <div class="comment-list" v-for="(item,index) in commentList" :key="index">
-                <p>
-                  <strong>
-                    <router-link :to="{ name: 'author_blog', params: { username: item.username }, }" >{{ item.nickname }}</router-link>
-                  </strong>
-                  <span class="float-end">{{item.createDate}}</span>
-                </p>
-                {{item.content}}<span v-if="item.username == loginUsername" style="color:red;float: right;">删除</span>
-              </div> 
-            </div>
-          </div>
-          <div class="card mb-2 move-b-lr-0" >
-            <div class="card-body">
-              <div class="mb-3">
-                <label for="exampleFormControlTextarea1" class="form-label" id="PL_TEXT">Example textarea</label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" v-model="commentText"></textarea>
-              </div>
-              <button type="button" class="btn btn-primary" @click="comment()">评论</button>
-            </div>
-          </div>
           <div class="card mb-2 move-b-lr-0">
             <div class="card-body">
               <a class="blog-title">八点零点零点附近扩大飞机啊撒旦解放</a>
@@ -136,7 +113,6 @@
     <div class="container-fluid">
       <div class="col-md-12 col-lg-12">
         <a :class="like == 1 ? 'btn-outline-danger' : 'btn-outline-primary'" class="btn btn-sm mini-but" style="margin-left:0px" @click="likeClick">喜欢</a>
-        <a class="btn btn-outline-primary btn-sm mini-but" href="#PL">评论</a>
         <a disabled class="btn btn-outline-primary btn-sm mini-but" >举报</a>
         <a class="btn btn-outline-primary btn-sm mini-but" :href="'/post/' + param.blogId">阅读模式</a>
         <a class="btn btn-outline-primary btn-sm mini-but" href="#top">⬆TOP</a>
@@ -150,7 +126,6 @@ import { postBlog, loadRecommend } from "/@/api/blog";
 import { selectSubjectBlogList } from "/@/api/subject";
 import { like, unlike, isLike } from "/@/api/like";
 import { insertFans, deleteFans, isFans } from "/@/api/fans";
-import { selectComment, deleteComment, insertComment } from "/@/api/comment";
 import 'highlight.js/styles/github.css'
 export default {
   name: "blog_info",
@@ -165,11 +140,6 @@ export default {
       recommendList: null,
       commentList:[],
       blog: {
-        title: "文章不存在",
-        username: "admin",
-        nickname: "管理员",
-        createDate: "2020.03.27",
-        text: "文章不存在",
       },
       commentText:"",
       subject: [],
@@ -184,20 +154,6 @@ export default {
     this.loadBlogInfo();
   },
   methods: {
-    comment(){
-      var a = {
-        dataId:this.param.blogId,
-        content:this.commentText
-      }
-      insertComment(a).then((response) => {
-        this.commentList.push(response.data)
-      })
-    },
-    loadComment(){
-      selectComment(this.param.blogId,1).then((response) => {
-          this.commentList = response.data.list
-      })
-    },
     fansClick(username) {
       if (this.fans == 2) {
         insertFans(username).then((response) => {
@@ -273,7 +229,6 @@ export default {
       this.isLike();
     }
     this.loadRecommend();
-    this.loadComment()
   },
 };
 </script>

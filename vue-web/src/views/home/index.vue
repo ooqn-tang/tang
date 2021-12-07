@@ -16,12 +16,6 @@
             <a class="nav-link" href="/blog">📰文章</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/video">📺视频</a>
-          </li>
-          <li class="nav-item">
-            <router-link class="nav-link" to="/laoke">🥁唠嗑</router-link>
-          </li>
-          <li class="nav-item">
             <router-link class="nav-link" to="/">👨‍🎓作者</router-link>
           </li>
           <li class="nav-item">
@@ -39,8 +33,6 @@
             <ul class="dropdown-menu" aria-labelledby="dropdown03">
               <li><a class="dropdown-item" href="/">🏠主页</a></li>
               <li><a class="dropdown-item" href="/blog">📰文章</a></li>
-              <li><a class="dropdown-item" href="/video">📺视频</a></li>
-              <li><a class="dropdown-item" href="/laoke">🥁唠嗑</a></li>
               <li><a class="dropdown-item" href="/laoke">👨‍🎓作者</a></li>
               <li><a class="dropdown-item" href="/subject">📒专题</a></li>
             </ul>
@@ -57,32 +49,13 @@
               <router-link class="nav-link" to="/login">登录</router-link>
             </li>
             <li class="nav-item dropdown" v-if="$store.state.username != ''">
-              <a class="nav-link" data-bs-target="#exampleModalFb" data-bs-toggle="modal">发布</a>
+              <a class="nav-link" @click="createBlog()">投稿</a>
             </li>
             <li class="nav-item" v-if="$store.state.username != ''">
               <a class="nav-link" :href="'/author/' + $store.state.username">我的</a>
             </li>
           </ul>
         </form>
-
-        <div class="modal fade" id="exampleModalFb" tabindex="-1" aria-labelledby="exampleModalFbLabel" aria-hidden="true">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalFbLabel">发布</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <!-- form-control -->
-              <div class="modal-body">
-                <a class="nav-link" @click="createBlog()">文章</a>
-                <a class="nav-link" @click="createVideo()">视频</a>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" ref='close'>关闭</button>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   </nav>
@@ -114,10 +87,6 @@ export default {
         window.open(routeData.href, '_blank');
         this.$refs.close.click()
       })
-    },
-    createVideo(){
-      this.$router.push({name:"video-editor",params:{id:"kasdjfkasjdfkajsdfk"}})
-      this.$refs.close.click()
     }
   },
   mounted(){
@@ -125,10 +94,6 @@ export default {
       this.title = '首页'
     }else if(this.$route.name == 'blog'){
       this.title = '文章'
-    }else if(this.$route.name == 'video_index'){
-      this.title = '视频'
-    }else if(this.$route.name == 'laoke_index'){
-      this.title = '唠嗑'
     }else if(this.$route.name == 'subject_index'){
       this.title = '专辑'
     }else{
