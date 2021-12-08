@@ -21,6 +21,8 @@ import net.ttcxy.tang.portal.service.DtsBlogSubjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class DtsBlogSubjectServiceImpl implements DtsBlogSubjectService {
 
@@ -38,7 +40,10 @@ public class DtsBlogSubjectServiceImpl implements DtsBlogSubjectService {
 
     @Override
     public DtsBlogSubjectDto selectSubjectBlogListById(String subjectId) {
-        return blogSubjectDao.selectSubjectBlogListById(subjectId);
+        DtsBlogSubjectDto dtsBlogSubjectDto = blogSubjectDao.selectSubjectById(subjectId);
+        List<DtsBlog> dtsBlogs = blogSubjectDao.selectSubjectBlogListById(subjectId);
+        dtsBlogSubjectDto.setBlogList(dtsBlogs);
+        return dtsBlogSubjectDto;
     }
 
     @Override

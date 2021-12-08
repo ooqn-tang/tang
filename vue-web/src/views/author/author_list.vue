@@ -1,6 +1,6 @@
 <template>
   <div class="row">
-    <div class="col-md-9 mb-2 move-p-lr-0">
+    <div class="col-md-9 mb-2">
       <div class="row">
         <div
           class="col-xl-3 col-lg-4 col-md-4 col-12 mb-2 move-p-lr-0"
@@ -58,7 +58,7 @@ export default {
   name: "author_list",
   data() {
     return {
-      authorList: [{}, {}, {}, {}, {}, {}],
+      authorList: [],
     };
   },
   methods: {

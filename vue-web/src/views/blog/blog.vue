@@ -115,6 +115,7 @@
         <a :class="like == 1 ? 'btn-outline-danger' : 'btn-outline-primary'" class="btn btn-sm mini-but" style="margin-left:0px" @click="likeClick">喜欢</a>
         <a disabled class="btn btn-outline-primary btn-sm mini-but" >举报</a>
         <a class="btn btn-outline-primary btn-sm mini-but" :href="'/post/' + param.blogId">阅读模式</a>
+        <router-link class="btn btn-outline-primary btn-sm mini-but" v-if="blog.username == loginUsername" :to="{name: 'blog-editor', params: { id: blog.blogId }}">修改</router-link>
         <a class="btn btn-outline-primary btn-sm mini-but" href="#top">⬆TOP</a>
       </div>
     </div>

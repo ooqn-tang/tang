@@ -90,12 +90,12 @@ export default {
     }
   },
   mounted(){
-    if(this.$route.name == 'home_index'){
-      this.title = '首页'
-    }else if(this.$route.name == 'blog'){
+    if(this.$route.name == 'blog'){
       this.title = '文章'
     }else if(this.$route.name == 'subject_index'){
       this.title = '专辑'
+    }else if(this.$route.name == 'author_list'){
+      this.title = '作者'
     }else{
       this.title = '菜单'
     }
