@@ -42,6 +42,9 @@ public class DtsBlogSubjectServiceImpl implements DtsBlogSubjectService {
     public DtsBlogSubjectDto selectSubjectBlogListById(String subjectId) {
         DtsBlogSubjectDto dtsBlogSubjectDto = blogSubjectDao.selectSubjectById(subjectId);
         List<DtsBlog> dtsBlogs = blogSubjectDao.selectSubjectBlogListById(subjectId);
+        if (dtsBlogSubjectDto == null){
+            return null;
+        }
         dtsBlogSubjectDto.setBlogList(dtsBlogs);
         return dtsBlogSubjectDto;
     }

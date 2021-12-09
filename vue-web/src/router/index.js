@@ -78,11 +78,6 @@ const routes = [
                 path: '/search',
                 name: 'search_index',
                 component: () => import('../views/search/index.vue')
-            },
-            {
-                path: '/video-editor/:id',
-                name: 'video-editor',
-                component: () => import('../views/video/video-editor.vue')
             }
         ]
     },
