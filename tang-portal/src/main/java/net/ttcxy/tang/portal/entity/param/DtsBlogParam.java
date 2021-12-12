@@ -17,12 +17,12 @@ public class DtsBlogParam {
 
     // 博客标题")
     @NotBlank
-    @Length(min = 1, max = 30, message = "长度在1 ~ 30之间")
+    @Length(min = 1, max = 150, message = "长度在1 ~ 150之间")
     private String title;
 
     // 描述")
     @NotBlank
-    @Length(min = 1, max = 150, message = "长度在1 ~ 150之间")
+    @Length(min = 1, max = 200, message = "长度在1 ~ 200之间")
     private String synopsis;
 
     // 博文文本")
