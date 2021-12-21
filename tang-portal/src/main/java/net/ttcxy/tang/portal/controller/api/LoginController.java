@@ -98,7 +98,7 @@ public class LoginController {
    }
 
    @PostMapping("password")
-   public ResponseResult<?> updatePassword(@RequestBody UtsRePasswordParam param){
+   public ResponseResult<String> updatePassword(@RequestBody UtsRePasswordParam param){
       String mail = param.getMail();
       Boolean isTrue = authorService.selectMailIsTrue(mail);
       if (!isTrue){

@@ -39,7 +39,7 @@ public class ApiBlogTagController {
     }
 
     @PostMapping("author")
-    public ResponseResult<?> insertAuthorTag(@RequestParam(value = "tagId") String tagId){
+    public ResponseResult<Integer> insertAuthorTag(@RequestParam(value = "tagId") String tagId){
         String authorId = CurrentUtil.id();
         Integer count = blogTagService.insertAuthorTag(authorId,tagId);
         return ResponseResult.success(count);

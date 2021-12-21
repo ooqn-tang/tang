@@ -20,6 +20,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("api/blog")
@@ -29,7 +30,7 @@ public class ApiBlogController {
     private DtsBlogService blogService;
 
     @GetMapping("search")
-    public ResponseResult<?> searchBlogList(
+    public ResponseResult<PageInfo<DtsBlogDto>> searchBlogList(
             @RequestParam(value = "page" ,defaultValue = "1")Integer page,
             @RequestParam(value = "title" ,defaultValue = "")String title){
         PageInfo<DtsBlogDto> blogList = blogService.search(title, page, 10);
@@ -37,7 +38,7 @@ public class ApiBlogController {
     }
 
     @GetMapping("list")
-    public ResponseResult<?> selectBlogList(
+    public ResponseResult<PageInfo<DtsBlogDto>> selectBlogList(
             @RequestParam(value = "page" ,defaultValue = "1")Integer page,
             @RequestParam(value = "tag",defaultValue = "")String tagName){
         PageInfo<DtsBlogDto> blogList = blogService.selectBlogList(tagName,page, 10);
@@ -45,7 +46,7 @@ public class ApiBlogController {
     }
 
     @GetMapping("list/{username}")
-    public ResponseResult<?> selectBlogListByUsername(
+    public ResponseResult<PageInfo<DtsBlogDto>> selectBlogListByUsername(
             @RequestParam(value = "page" ,defaultValue = "1")Integer page,
             @PathVariable(value = "username")String username){
         PageInfo<DtsBlogDto> blogList = blogService.selectBlogByAuthorName(username, page, 10);
@@ -53,12 +54,12 @@ public class ApiBlogController {
     }
 
     @GetMapping("recommend")
-    public ResponseResult<?> selectBlogListRecommend(){
+    public ResponseResult<Set<DtsBlogDto>> selectBlogListRecommend(){
         return ResponseResult.success(blogService.selectBlogListRandom());
     }
 
     @DeleteMapping("{blogId}")
-    public ResponseResult<?> delete(@PathVariable("blogId") String blogId){
+    public ResponseResult<String> delete(@PathVariable("blogId") String blogId){
         DtsBlog blog = blogService.selectByPrimaryId(blogId);
         if (blog == null){
             throw new ApiException(ResponseCode.FAILED);
@@ -81,7 +82,7 @@ public class ApiBlogController {
     }
 
     @PostMapping
-    public ResponseResult<?> create(){
+    public ResponseResult<String> create(){
         DtsBlog blog = new DtsBlog();
         blog.setBlogId(IdUtil.objectId());
         DateTime dateTime = new DateTime();
@@ -98,7 +99,7 @@ public class ApiBlogController {
     }
 
     @PutMapping
-    public ResponseResult<?> update(@RequestBody @Validated DtsBlogParam blogParam){
+    public ResponseResult<String> update(@RequestBody @Validated DtsBlogParam blogParam){
         DtsBlog blog = BeanUtil.toBean(blogParam, DtsBlog.class);
         blog.setStateCode(1001);
 
@@ -124,7 +125,7 @@ public class ApiBlogController {
     }
 
     @GetMapping("load")
-    public ResponseResult<?> load(@RequestParam(name="blogId") String blogId){
+    public ResponseResult<DtsBlogDto> load(@RequestParam(name="blogId") String blogId){
         DtsBlogDto blogDto = blogService.selectBlogById(blogId);
         if (blogDto == null){
             throw new ApiException(ResponseCode.FAILED);
@@ -133,7 +134,7 @@ public class ApiBlogController {
     }
 
     @GetMapping("load/all")
-    public ResponseResult<?> loadAll(@RequestParam(name = "blogId") String blogId){
+    public ResponseResult<DtsBlogDto> loadAll(@RequestParam(name = "blogId") String blogId){
         DtsBlogDto blogDto = blogService.selectBlogAllById(blogId);
         if (blogDto == null){
             throw new ApiException(ResponseCode.FAILED);
@@ -142,7 +143,7 @@ public class ApiBlogController {
     }
 
     @GetMapping("like")
-    public ResponseResult<?> getLike(@RequestParam("blogId") String blogId){
+    public ResponseResult<Long> getLike(@RequestParam("blogId") String blogId){
         String authorId = CurrentUtil.id();
         return ResponseResult.success(blogService.selectLike(authorId,blogId));
     }
@@ -155,13 +156,13 @@ public class ApiBlogController {
     }
 
     @PostMapping("like")
-    public ResponseResult<?> postLike(@RequestParam("blogId") String blogId){
+    public ResponseResult<Integer> postLike(@RequestParam("blogId") String blogId){
         String authorId = CurrentUtil.id();
         return ResponseResult.success(blogService.like(authorId,blogId));
     }
 
     @DeleteMapping("like")
-    public ResponseResult<?> deleteLike(@RequestParam("blogId") String blogId){
+    public ResponseResult<Integer> deleteLike(@RequestParam("blogId") String blogId){
         String authorId = CurrentUtil.id();
         return ResponseResult.success(blogService.unlike(authorId,blogId));
     }

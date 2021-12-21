@@ -15,6 +15,8 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("api/author")
@@ -29,7 +31,8 @@ public class ApiAuthorController {
     private HttpSession httpSession;
 
     @GetMapping("authorListBlogCount")
-    public ResponseResult<?> select(@RequestParam(value = "page",defaultValue = "1") Integer page){
+    public ResponseResult<PageInfo<List<Map<String, String>>>> select(
+            @RequestParam(value = "page",defaultValue = "1") Integer page){
         return ResponseResult.success(authorService.selectAuthorBlogCount(page,100));
     }
 
@@ -44,7 +47,7 @@ public class ApiAuthorController {
     }
 
     @PutMapping
-    public ResponseResult<?> updateAuthor(@RequestBody UtsAuthorUpdateParam authorParam){
+    public ResponseResult<String> updateAuthor(@RequestBody UtsAuthorUpdateParam authorParam){
 
         UtsAuthor author = BeanUtil.toBean(authorParam, UtsAuthor.class);
 

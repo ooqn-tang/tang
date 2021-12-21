@@ -105,7 +105,7 @@ public class ApiBlogSubjectController {
     }
 
     @GetMapping("blog")
-    public ResponseResult<?> selectSubjectListByBlogId(@RequestParam("blogId")String blogId) {
+    public ResponseResult<DtsBlogSubjectDto> selectSubjectListByBlogId(@RequestParam("blogId")String blogId) {
         String subjectId = blogSubjectService.selectSubjectIdByBlogId(blogId);
         return ResponseResult.success(blogSubjectService.selectSubjectBlogListById(subjectId));
     }

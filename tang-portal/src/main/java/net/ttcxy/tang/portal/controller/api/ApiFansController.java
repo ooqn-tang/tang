@@ -47,7 +47,7 @@ public class ApiFansController {
     }
 
     @PostMapping("{fansName}")
-    public ResponseResult<?> insert(@PathVariable("fansName") String fansName){
+    public ResponseResult<Integer> insert(@PathVariable("fansName") String fansName){
         String authorId = CurrentUtil.id();
 
         UtsAuthor utsAuthor = utsAuthorService.selectAuthorByName(fansName);
