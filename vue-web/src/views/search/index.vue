@@ -62,6 +62,7 @@
 </template>
 
 <script>
+import request from 'src/utils/request'
 export default {
   name: "search_index",
   data() {

@@ -18,7 +18,7 @@ import org.springframework.context.annotation.Bean;
 import java.security.Principal;
 
 @SpringBootApplication(scanBasePackages = {"net.ttcxy.tang"})
-@MapperScan(basePackages ={"net.ttcxy.tang.portal.dao.mapper","net.ttcxy.tang.portal.dao"})
+@MapperScan(basePackages ={"net.ttcxy.tang.portal.mapper","net.ttcxy.tang.portal.mapper.dao"})
 public class TangApplication {
 
 

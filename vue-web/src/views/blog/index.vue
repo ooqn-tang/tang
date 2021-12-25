@@ -73,7 +73,7 @@
 </template>
 
 <script>
-import { blogList } from "/@/api/blog"
+import request from 'src/utils/request'
 export default {
   name: "blog",
   data() {
@@ -96,7 +96,11 @@ export default {
     },
     loadBlog(nextPage,tagName){
       this.isLoding = true
-      blogList({page:nextPage,tag:tagName}).then((response) => {
+      request({
+        url: '/api/blog/list',
+        method: 'get',
+        params:{page:nextPage,tag:tagName}
+      }).then((response) => {
         this.blogPage = response.data
         this.blogList = this.blogList.concat(response.data.list)
         this.isLoding = false

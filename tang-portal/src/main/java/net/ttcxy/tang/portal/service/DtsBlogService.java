@@ -111,5 +111,5 @@ public interface DtsBlogService {
     /**
      * 前一千条
      */
-    Set<DtsBlogDto> selectBlogListRandom();
+    List<DtsBlogDto> selectBlogListRandom();
 }

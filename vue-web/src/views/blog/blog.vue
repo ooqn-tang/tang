@@ -4,11 +4,10 @@
       <div class="list-group mb-2" v-if="showSubject">
         <a class="list-group-item active">{{ subject.subjectName }}<span class="float-end">专题</span></a>
         <router-link
-          @click="blog.blogId = item.blogId"
           :class="item.blogId == blog.blogId ? 'active2' : ''"
-          v-for="(item, index) in blogList"
           :key="index"
           :to="{ name: 'blog_info', params: {id: item.blogId}}"
+          v-for="(item, index) in blogList"
           class="list-group-item"
           >{{ item.title }}</router-link>
       </div>
@@ -114,7 +113,7 @@
       <div class="col-md-12 col-lg-12">
         <a :class="like == 1 ? 'btn-outline-danger' : 'btn-outline-primary'" class="btn btn-sm mini-but" style="margin-left:0px" @click="likeClick">喜欢</a>
         <a disabled class="btn btn-outline-primary btn-sm mini-but" >举报</a>
-        <a class="btn btn-outline-primary btn-sm mini-but" :href="'/post/' + param.blogId">阅读模式</a>
+        <a class="btn btn-outline-primary btn-sm mini-but" :href="'https://ttcxy.cn/post/' + param.blogId">阅读模式</a>
         <router-link class="btn btn-outline-primary btn-sm mini-but" v-if="blog.username == loginUsername" :to="{name: 'blog-editor', params: { id: blog.blogId }}">修改</router-link>
         <a class="btn btn-outline-primary btn-sm mini-but" href="#top">⬆TOP</a>
       </div>
@@ -123,11 +122,8 @@
 </template>
 
 <script>
-import { postBlog, loadRecommend } from "/@/api/blog";
-import { selectSubjectBlogList } from "/@/api/subject";
-import { like, unlike, isLike } from "/@/api/like";
-import { insertFans, deleteFans, isFans } from "/@/api/fans";
 import 'highlight.js/styles/github.css'
+import request from 'src/utils/request'
 export default {
   name: "blog_info",
   data() {
@@ -150,24 +146,32 @@ export default {
     };
   },
   components: {},
-  created() {
-    this.selectSubjectBlogList();
-    this.loadBlogInfo();
-  },
   methods: {
     fansClick(username) {
       if (this.fans == 2) {
-        insertFans(username).then((response) => {
+        request({
+            url: '/api/fans/' + username,
+            method: 'POST'
+        }).then((response) => {
           this.fans = 1;
         });
       } else {
-        deleteFans(username).then((response) => {
+        request({
+            url: '/api/fans/' + username,
+            method: 'DELETE'
+        }).then((response) => {
           this.fans = 2;
         });
       }
     },
     isFans() {
-      isFans(this.blog.username).then((response) => {
+      request({
+        url: '/api/fans/is',
+        method: 'get',
+        params:{
+          username:this.blog.username
+        }
+    }).then((response) => {
         if (response.data == 1) {
           this.fans = 1;
         } else {
@@ -177,17 +181,29 @@ export default {
     },
     likeClick() {
       if (this.like == 1) {
-        unlike(this.param.blogId).then((response) => {
+        request({
+            url: '/api/blog/like',
+            method: 'DELETE',
+            params:{blogId:this.param.blogId}
+        }).then((response) => {
           this.like = 0;
         });
       } else {
-        like(this.param.blogId).then((response) => {
+        request({
+          url: '/api/blog/like',
+          method: 'POST',
+          params:{blogId:this.param.blogId}
+      }).then((response) => {
           this.like = 1;
         });
       }
     },
     isLike() {
-      isLike(this.param.blogId).then((response) => {
+      request({
+        url: '/api/blog/like',
+        method: 'GET',
+        params:{"blogId":this.param.blogId}
+      }).then((response) => {
         this.like = response.data;
       });
     },
@@ -202,7 +218,11 @@ export default {
       }
     },
     loadBlogInfo() {
-      postBlog(this.param).then((response) => {
+      request({
+        url: '/api/blog/load',
+        method: 'GET',
+        params:this.param
+    }).then((response) => {
         this.blog = response.data;
         if(this.$store.state.username != ""){
           this.isFans();
@@ -211,7 +231,11 @@ export default {
       });
     },
     selectSubjectBlogList() {
-      selectSubjectBlogList(this.param.blogId).then((response) => {
+      request({
+        url: '/api/subject/blog',
+        method: 'GET',
+        params:{"blogId":this.param.blogId}
+    }).then((response) => {
         this.subject = response.data;
         if (this.subject != undefined) {
           this.blogList = response.data.blogList;
@@ -220,17 +244,28 @@ export default {
       });
     },
     loadRecommend() {
-      loadRecommend().then((response) => {
+      request({
+        url: '/api/blog/recommend',
+        method: 'GET'
+      }).then((response) => {
         this.recommendList = response.data;
       });
     },
+    load(){
+      this.param.blogId =  this.$route.params.id
+      if(this.$store.state.username != ""){
+        this.isLike();
+      }
+      this.selectSubjectBlogList();
+      this.loadBlogInfo();
+    }
   },
   mounted() {
-    if(this.$store.state.username != ""){
-      this.isLike();
-    }
+    this.load()
     this.loadRecommend();
-  },
+  },watch:{
+    '$route':"load"
+  } 
 };
 </script>
 

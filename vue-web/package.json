@@ -1,26 +1,25 @@
 {
-  "name": "vue3demo",
+  "name": "group-chat",
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",
-    "build": "vite build"
+    "build": "vite build",
+    "serve": "vite preview"
   },
   "dependencies": {
-    "axios": "^0.21.1",
-    "highlight.js": "^10.7.3",
+    "@varlet/ui": "^1.23.10",
+    "axios": "^0.24.0",
     "jwt-decode": "^3.1.2",
+    "sass": "^1.43.5",
+    "vue": "^3.2.22",
     "marked": "^2.0.3",
-    "turndown": "^7.1.1",
-    "vue": "^3.0.4",
-    "vue-router": "^4.0.5",
-    "vuex": "^4.0.0"
+    "vue-router": "^4.0.12",
+    "vuex": "^4.0.2"
   },
   "devDependencies": {
-    "@types/crypto-js": "^4.0.2",
-    "@types/marked": "^2.0.4",
-    "@vue/compiler-sfc": "^3.0.4",
-    "crypto-js": "^4.1.1",
-    "sass": "^1.32.8",
-    "vite": "^1.0.0-rc.13"
+    "@vitejs/plugin-vue": "^1.9.3",
+    "naive-ui": "^2.21.1",
+    "unplugin-vue-components": "^0.17.4",
+    "vite": "^2.6.4"
   }
 }

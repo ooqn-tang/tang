@@ -45,9 +45,9 @@
 
 <script>
 import marked from 'marked'
-import { loadBlogAllInfo,saveBlog,loadSubjectList,loadAllTagList} from "/@/api/blog"
 import hljs from "highlight.js"
 import 'highlight.js/styles/github.css'
+import request from 'src/utils/request'
 marked.setOptions({
   renderer: new marked.Renderer(),
    highlight: function(code) {
@@ -91,7 +91,11 @@ export default {
   },
   methods: {
       loadBlogAllInfo(blogId){
-        loadBlogAllInfo(blogId).then((response) => {
+        request({
+          url: '/api/blog/load/all',
+          method: 'GET',
+          params: {"blogId":blogId}
+        }).then((response) => {
           this.blogData = response.data
           let tList = response.data.tagList
           for(let v in tList){
@@ -101,12 +105,20 @@ export default {
       },
       saveBlog(){
         this.blogData.tagIdList = this.selectTagIdList
-        saveBlog(this.blogData).then((response) => {
+        request({
+          url: '/api/blog',
+          method: 'PUT',
+          data:this.blogData
+        }).then((response) => {
           window.location.href = "/blog/" + response.data
         })
       },
       loadSubjectList(){
-        loadSubjectList(this.$store.state.username).then((response) => {
+        request({
+          url: '/api/subject/username',
+          method: 'GET',
+          params:{"username":this.$store.state.username}
+        }).then((response) => {
           this.subjectList = response.data.list
           let li = response.data.list
           for(let item in response.data.list){
@@ -115,7 +127,10 @@ export default {
         })
       },
       loadAllTagList(){
-        loadAllTagList().then((response) => {
+        request({
+          url: '/api/tag/allTag',
+          method: 'GET'
+        }).then((response) => {
           this.authorTagList = response.data;
         })
       },

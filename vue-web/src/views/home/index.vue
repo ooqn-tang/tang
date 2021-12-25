@@ -65,7 +65,7 @@
 </template>
 
 <script>
-import { createBlog } from "/@/api/blog"
+import request from 'src/utils/request'
 export default {
   name: "home",
   data() {
@@ -82,7 +82,10 @@ export default {
   },
   methods: {
     createBlog(){
-      createBlog().then((response) => {
+      request({
+        url: '/api/blog',
+        method: 'POST'
+      }).then((response) => {
         let routeData = this.$router.resolve({name:"blog-editor",params:{id:response.data}});
         window.open(routeData.href, '_blank');
         this.$refs.close.click()

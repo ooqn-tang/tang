@@ -54,7 +54,7 @@ public class ApiBlogController {
     }
 
     @GetMapping("recommend")
-    public ResponseResult<Set<DtsBlogDto>> selectBlogListRecommend(){
+    public ResponseResult<List<DtsBlogDto>> selectBlogListRecommend(){
         return ResponseResult.success(blogService.selectBlogListRandom());
     }
 

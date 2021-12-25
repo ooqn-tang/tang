@@ -63,9 +63,8 @@
 </template>
 
 <script>
-import { login,sendMailVerify,register } from "/@/api/login"
 import jwt_decode from "jwt-decode"
-
+import request from 'src/utils/request'
 export default {
   name: "login",
   data() {
@@ -83,7 +82,11 @@ export default {
   components: {},
   methods: {
     login(){
-      login(this.loginData).then((response) => {
+      request({
+        url: '/api/authenticate',
+        method: 'post',
+        data:this.loginData
+    }).then((response) => {
         if(response.code === 200){
           let tokenData = jwt_decode(response.jwt_token)
           localStorage.setItem("token",response.jwt_token)
@@ -93,7 +96,11 @@ export default {
       })
     },
     sendMail(){
-      sendMailVerify(this.loginData.username).then((response) => {
+      request({
+        url: '/api/mail-verify',
+        method: 'post',
+        params:{mail:this.loginData.username}
+    }).then((response) => {
         alert(response.message)
       })
     },
@@ -102,7 +109,11 @@ export default {
         alert("两次密码不一致")
         return
       }
-      register(this.loginData).then((response) => {
+      request({
+        url: '/api/register',
+        method: 'post',
+        data:this.loginData
+    }).then((response) => {
         alert(response.data)
       })
     }

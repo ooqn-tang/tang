@@ -44,8 +44,7 @@
 </template>
 
 <script>
-import {selectAuthor} from '/@/api/author'
-import {insertFans,deleteFans,isFans} from "/@/api/fans"
+import request from 'src/utils/request'
 export default {
   name: "author_index",
   data() {
@@ -66,18 +65,30 @@ export default {
   methods: {
     fansClick(username){
       if(this.fans == 2){
-        insertFans(username).then((response) => {
+        request({
+          url: '/api/fans/' + username,
+          method: 'POST'
+        }).then((response) => {
           this.fans = 1
         })
       }else{
-        deleteFans(username).then((response) => {
+        request({
+          url: '/api/fans/' + username,
+          method: 'DELETE'
+        })(username).then((response) => {
           this.fans = 2
         })
       }
       
     },
     isFans(){
-      isFans(this.thisUsername).then((response) => {
+      request({
+        url: '/api/fans/is',
+        method: 'get',
+        params:{
+            username:this.thisUsername
+        }
+      }).then((response) => {
         if(response.data == 1){
           this.fans = 1
         }else{
@@ -90,7 +101,10 @@ export default {
       this.$router.push({name:routeName})
     },
     selectAuthor(username){
-      selectAuthor(username).then((response) => {
+      request({
+        url: '/api/author/' + username,
+        method: 'GET'
+      }).then((response) => {
         this.author = response.data
       })
     },

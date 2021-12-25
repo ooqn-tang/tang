@@ -45,7 +45,7 @@
 </template>
 
 <script>
-import {loadSubjectById} from "/@/api/subject"
+import request from 'src/utils/request'
 export default {
   name: "subject_index",
   data() {
@@ -58,7 +58,13 @@ export default {
   },
   methods: {
     loadSubjectById(){
-      loadSubjectById(this.$route.params.subject_id).then((response) => {
+      request({
+        url: '/api/subject/subjectId',
+        method: 'GET',
+        params: {
+            "subjectId":this.$route.params.subject_id
+        }
+      }).then((response) => {
         this.subjectData = response.data
       })
     }

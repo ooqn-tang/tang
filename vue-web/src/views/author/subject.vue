@@ -42,7 +42,7 @@
 </template>
 
 <script>
-import {selectSubjectListByUsername,insertSubject,updateSubject}from "/@/api/subject"
+import request from 'src/utils/request'
 export default {
   name: "author_subject",
   data() {
@@ -61,11 +61,19 @@ export default {
   methods: {
     save(){
       if(this.saveType == "insert"){
-        insertSubject(this.dataFrom).then((response) => {
+        request({
+        url: '/api/subject',
+        method: 'POST',
+        data:this.dataFrom
+        }).then((response) => {
           alert(JSON.stringify(response))
         })
       }else{
-        updateSubject(this.dataFrom).then((response) => {
+        request({
+          url: '/api/subject',
+          method: 'PUT',
+          data:this.dataFrom
+        }).then((response) => {
           alert(JSON.stringify(response))
         })
       }
@@ -77,7 +85,11 @@ export default {
       this.saveType = 'update'
     },
     selectSubjectListByUsername(username){
-      selectSubjectListByUsername(username).then((response) => {
+      request({
+        url: '/api/subject/username',
+        method: 'GET',
+        params:{"username":username}
+      }).then((response) => {
         this.subjectList = response.data.list
       })
     }

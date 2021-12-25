@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import {likeList} from "/@/api/like"
+import request from 'src/utils/request'
 export default {
   name: "author_like",
   data() {
@@ -33,7 +33,11 @@ export default {
   },
   methods: {
     likeList(pageNum){
-      likeList(pageNum).then((response) => {
+      request({
+        url: '/api/blog/like/list',
+        method: 'GET',
+        params:{page:pageNum}
+      }).then((response) => {
         this.blogPage = response.data
         this.blogList = this.blogList.concat(response.data.list)
       })

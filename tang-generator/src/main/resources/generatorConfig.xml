@@ -30,11 +30,11 @@
 
         <sqlMapGenerator
                 targetPackage="mapper"
-                targetProject="tang-portal\src\main\resources\dao"/>
+                targetProject="tang-portal\src\main\resources"/>
 
         <javaClientGenerator
-                type="XMLMAPPER"
-                targetPackage="net.ttcxy.tang.portal.dao.mapper"
+                type="MyJavaMapperGenerator"
+                targetPackage="net.ttcxy.tang.portal.mapper"
                 targetProject="tang-portal\src\main\java"/>
 
         <!--生成全部表tableName设为%-->

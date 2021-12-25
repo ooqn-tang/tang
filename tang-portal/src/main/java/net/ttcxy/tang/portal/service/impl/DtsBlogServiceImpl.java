@@ -9,10 +9,10 @@ import cn.hutool.core.util.StrUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import net.ttcxy.tang.portal.core.api.ApiException;
-import net.ttcxy.tang.portal.dao.DtsBlogDao;
-import net.ttcxy.tang.portal.dao.mapper.DtsBlogMapper;
-import net.ttcxy.tang.portal.dao.mapper.DtsBlogTagRelationMapper;
-import net.ttcxy.tang.portal.dao.mapper.DtsLikeBlogMapper;
+import net.ttcxy.tang.portal.mapper.DtsBlogMapper;
+import net.ttcxy.tang.portal.mapper.DtsBlogTagRelationMapper;
+import net.ttcxy.tang.portal.mapper.DtsLikeBlogMapper;
+import net.ttcxy.tang.portal.mapper.dao.DtsBlogDao;
 import net.ttcxy.tang.portal.entity.dto.DtsBlogDto;
 import net.ttcxy.tang.portal.entity.model.*;
 import net.ttcxy.tang.portal.service.DtsBlogService;
@@ -21,10 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.ExecutorService;
 
 /**
@@ -36,15 +33,7 @@ public class DtsBlogServiceImpl implements DtsBlogService {
 
     private static final ExecutorService executorService = ThreadUtil.newExecutor(50);
 
-    private static TimedCache<String, List<DtsBlogDto>> cache = null;
-
-    public static String FILE_LIST = "FILE_LIST";
-
-    static{
-        cache = CacheUtil.newTimedCache(60 * 60 * 60);
-    }
-
-
+    private static List<DtsBlogDto> cache = new ArrayList<>();
 
     @Autowired
     private DtsBlogDao blogDao;
@@ -175,22 +164,15 @@ public class DtsBlogServiceImpl implements DtsBlogService {
     }
 
     @Override
-    public Set<DtsBlogDto> selectBlogListRandom() {
-        Set<DtsBlogDto> set = new HashSet<>(10);
-
-        if (cache.get(FILE_LIST) == null){
-            cache.put(FILE_LIST,blogDao.selectBlogList1000());
+    public List<DtsBlogDto> selectBlogListRandom() {
+        List<DtsBlogDto> set = new ArrayList<>();
+        cache = blogDao.selectBlogList1000();
+        while(set.size() <= 10){
+            Random random = new Random();
+            int n = random.nextInt(cache.size());
+            DtsBlogDto dtsBlogDto = cache.get(n);
+            set.add(dtsBlogDto);
         }
-
-        Random random = new Random();
-
-        while(true){
-            int n = random.nextInt(cache.get(FILE_LIST).size());
-            set.add(cache.get(FILE_LIST).get(n));
-            if (set.size() == 10 || set.size() == cache.get(FILE_LIST).size()){
-                break;
-            }
-        }
-        return set;
+       return set;
     }
 }

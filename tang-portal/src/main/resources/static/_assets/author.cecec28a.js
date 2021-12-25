@@ -1,1 +1,0 @@
-import{s as t}from"./index.b78c9def.js";function r(r){return t({url:"/api/author/"+r,method:"GET"})}function o(r){return t({url:"/api/author/authorListBlogCount",method:"GET"})}function u(r){return t({url:"/api/author",method:"PUT",data:r})}export{o as a,r as s,u};

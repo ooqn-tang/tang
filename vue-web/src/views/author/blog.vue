@@ -48,8 +48,7 @@
 </template>
 
 <script>
-import {loadBlogByUsername,loadSubjectList,deleteBlog} from '/@/api/blog'
-import {insertBlogToSubject,updateBlogToSubject,selectSubjectListByUsername} from '/@/api/subject'
+import request from 'src/utils/request'
 export default {
   name: "author_blog",
   data() {
@@ -69,7 +68,11 @@ export default {
   },
   methods: {
     loadBlogByUsername(pageSize){
-      loadBlogByUsername(this.$route.params.username,{page:pageSize}).then((response) => {
+      request({
+        url: '/api/blog/list/' + this.$route.params.username,
+        method: 'get',
+        params:{page:pageSize}
+      }).then((response) => {
         if(response.data.list != undefined){
           this.blogPage = response.data
           this.blogList = this.blogList.concat(response.data.list)
@@ -77,14 +80,22 @@ export default {
       })
     },
     loadSubjectList(){
-      selectSubjectListByUsername(this.$route.params.username).then((response) => {
+      request({
+        url: '/api/subject/username',
+        method: 'GET',
+        params:{"username":this.$route.params.username}
+      }).then((response) => {
         this.subjectList = response.data.list
       })
     },
     insertBlogToSubject(){
       let blogId = this.subjectFrom.blogId;
       let subjectId = this.subjectFrom.subjectId;
-      insertBlogToSubject(blogId, subjectId).then((response) => {
+      request({
+          url: '/api/subject/blog',
+          method: 'POST',
+          params:{"blogId":blogId,"subjectId":subjectId}
+      }).then((response) => {
         this.thisItem.subjectId = subjectId
         this.$refs.close.click()
       })
@@ -92,9 +103,12 @@ export default {
     updateBlogToSubject(){
       let blogId = this.subjectFrom.blogId;
       let subjectId = this.subjectFrom.subjectId;
-      updateBlogToSubject(blogId, subjectId).then((response) => {
+      request({
+        url: '/api/subject/blog',
+        method: 'PUT',
+        params:{"blogId":blogId,"subjectId":subjectId}
+      }).then((response) => {
         this.thisItem.subjectId = subjectId
-        debugger
         for(let i in this.subjectList){
           let t = this.subjectList[i]
           if(subjectId == t.blogSubjectId){
@@ -112,7 +126,10 @@ export default {
       }
     },
     deleteBlog(blogId,index){
-      deleteBlog(blogId).then((response) => {
+      request({
+        url: '/api/blog/' + blogId,
+        method: 'DELETE'
+      }).then((response) => {
         this.blogList.splice(index,1)
       })
     },

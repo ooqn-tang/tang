@@ -36,7 +36,7 @@
 </template>
 
 <script>
-import {selectAuthor,updateAuthor} from "/@/api/author"
+import request from 'src/utils/request'
 export default {
   name: "author_setting",
   data() {
@@ -57,12 +57,19 @@ export default {
       window.location.href = "/"
     },
     save(){
-      updateAuthor(this.author).then((response) => {
+      request({
+        url: '/api/author',
+        method: 'PUT',
+        data:this.author
+      }).then((response) => {
         this.selectAuthorLoad()
       })
     },
     selectAuthorLoad(){
-      selectAuthor(this.$route.params.username).then((response) => {
+      request({
+        url: '/api/author/' + this.$route.params.username,
+        method: 'GET'
+      }).then((response) => {
         this.author = response.data
       })
     }

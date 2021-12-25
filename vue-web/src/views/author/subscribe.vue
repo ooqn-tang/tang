@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import {deleteFans,fansList} from "/@/api/fans"
+import request from 'src/utils/request'
 export default {
   name: "author_subscribe",
   data() {
@@ -26,12 +26,18 @@ export default {
   },
   methods: {
     fansListMethod(){
-      fansList().then((response) => {
+      request({
+        url: '/api/fans/list',
+        method: 'get'
+      }).then((response) => {
         this.fansList = response.data.list;
       })
     },
     deleteFansMethod(username,index){
-      deleteFans(username).then((response) => {
+      request({
+        url: '/api/fans/' + username,
+        method: 'DELETE'
+      }).then((response) => {
         if(response.code == 200){
           this.fansList.splice(index,1)
         }

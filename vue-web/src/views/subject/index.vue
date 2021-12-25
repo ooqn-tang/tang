@@ -46,7 +46,7 @@
 </template>
 
 <script>
-import { selectSubjectList } from '/@/api/subject'
+import request from 'src/utils/request'
 export default {
   name: "subject_index",
   data() {
@@ -59,7 +59,10 @@ export default {
   },
   methods: {
     selectSubjectList(){
-      selectSubjectList().then((response) => {
+      request({
+        url: '/api/subject/list',
+        method: 'GET'
+      }).then((response) => {
         this.subjectList = response.data.list
       })
     }

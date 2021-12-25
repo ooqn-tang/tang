@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.ttcxy.tang.portal.mapper.dao.DtsBlogDao">
+    <resultMap id="BlogResult" type="net.ttcxy.tang.portal.entity.dto.DtsBlogDto">
+        <id column="blog_id" property="blogId"/>
+        <result column="title" property="title"/>
+        <result column="create_date" property="createDate"/>
+        <result column="update_date" property="updateDate"/>
+        <result column="synopsis" property="synopsis"/>
+        <result column="username" property="username"/>
+        <result column="nickname" property="nickname"/>
+        <result column="text" property="text"/>
+        <result column="markdown" property="markdown"/>
+        <result column="blog_subject_id" property="subjectId"/>
+        <result column="subject_name" property="subjectName"/>
+    </resultMap>
+
+    <resultMap id="BlogTagResult" type="net.ttcxy.tang.portal.entity.dto.DtsBlogDto" extends="BlogResult">
+        <association property="tagList" column="{blogId = blog_id}" select="net.ttcxy.tang.portal.mapper.dao.DtsBlogTagDao.selectByBlogId"/>
+    </resultMap>
+
+    <select id="search" resultMap="BlogTagResult">
+        select t1.username ,t1.nickname ,t2.blog_id,t2.title  ,t2.create_date ,t2.synopsis
+        from uts_author a
+        inner join dts_blog t2 on t1.author_id = t2.author_id and t2.state_code = 1001 and t2.title like concat('%',#{title},'%')
+        order by t2.create_date desc
+    </select>
+
+    <select id="selectBlogById" resultMap="BlogTagResult">
+        select t2.username ,t2.nickname ,t1.blog_id ,t1.title ,t1.create_date ,t1.synopsis ,t1.text
+        from dts_blog t1
+        inner join uts_author t2 on t1.blog_id = #{id} and t1.author_id = t2.author_id
+    </select>
+
+    <select id="selectBlogAllById" resultMap="BlogTagResult">
+        select t2.username ,t2.nickname ,t1.blog_id ,t1.title ,t1.create_date ,t1.synopsis ,t1.text ,t1.markdown,dbs.blog_subject_id
+        from dts_blog t1
+        inner join uts_author t2 on t1.blog_id = #{id} and t1.author_id = t2.author_id
+        left join dts_blog_subject_relation dbsr on t1.blog_id = dbsr.blog_id
+        left join dts_blog_subject dbs on dbsr.blog_subject_id = dbs.blog_subject_id
+    </select>
+
+    <select id="selectLikeBlogs" resultMap="BlogTagResult">
+        select t4.username ,t4.nickname ,t3.blog_id ,t3.title ,t3.create_date ,t3.synopsis
+        from uts_author t1
+        inner join dts_like_blog t2 on t1.username = #{username} and t2.author_id = t1.author_id
+        inner join dts_blog  t3 on t3.blog_id = t2.blog_id
+        inner join uts_author t4 on t4.author_id = t2.author_id
+        where t3.state_code = 1001
+        order by t2.create_date desc
+    </select>
+
+    <select id="selectBlogListByUsername" resultMap="BlogTagResult">
+        select t1.username ,t1.nickname ,t2.blog_id ,t2.title ,t2.create_date ,t2.synopsis ,t4.subject_name ,t4.blog_subject_id
+        from uts_author t1
+        inner join dts_blog t2 on t1.author_id = t2.author_id and t1.username = #{username}
+        left join dts_blog_subject_relation t3 on t3.blog_id = t2.blog_id
+        left join dts_blog_subject t4 on t4.blog_subject_id = t3.blog_subject_id
+        where t2.state_code = 1001
+        order by t2.create_date desc
+    </select>
+
+    <select id="selectBlogList" resultMap="BlogTagResult">
+        select t1.username ,t1.nickname ,t2.blog_id ,t2.title ,t2.create_date ,t2.synopsis
+        from uts_author t1
+        inner join dts_blog t2 on t1.author_id = t2.author_id
+        <if test="tagName != ''">
+            inner join dts_blog_tag_relation t3 on t3.blog_id = t2.blog_id
+            inner join dts_blog_tag t4 on t4.blog_tag_id = t3.blog_tag_id
+        </if>
+        <where>
+            <if test="tagName != ''">
+                upper(t4.tag_name) = upper(#{tagName})
+            </if>
+            and t2.state_code = 1001
+        </where>
+        order by t2.create_date desc
+    </select>
+
+    <select id="selectBlogList1000" resultMap="BlogResult">
+        select blog_id,title from dts_blog limit 1000
+    </select>
+
+</mapper>

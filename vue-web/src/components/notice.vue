@@ -4,7 +4,7 @@
 </template>
 
 <script>
-import {loadNotice} from '/@/api/notice'
+import request from 'src/utils/request'
 export default {
   name: 'notice',
   data() {
@@ -17,7 +17,10 @@ export default {
   },
   methods: {
     loadNotice(){
-        loadNotice().then((response) => {
+        request({
+          url: '/api/notice/list',
+          method: 'GET'
+        }).then((response) => {
             this.advList = response.data
         })
     }

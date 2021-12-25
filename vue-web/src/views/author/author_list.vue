@@ -53,7 +53,7 @@
 </template>
 
 <script>
-import { authorListBlogCount } from '/@/api/author.js'
+import request from 'src/utils/request'
 export default {
   name: "author_list",
   data() {
@@ -63,7 +63,10 @@ export default {
   },
   methods: {
     authorListBlogCount(){
-      authorListBlogCount().then((response) => {
+      request({
+        url: '/api/author/authorListBlogCount',
+        method: 'GET'
+      }).then((response) => {
         this.authorList = response.data.list
       })
     }

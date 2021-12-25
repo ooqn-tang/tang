@@ -1,9 +1,9 @@
 package net.ttcxy.tang.portal.service.impl;
 
 import cn.hutool.core.util.IdUtil;
-import net.ttcxy.tang.portal.dao.DtsNoticeDao;
-import net.ttcxy.tang.portal.dao.mapper.DtsNoticeMapper;
 import net.ttcxy.tang.portal.entity.model.DtsNotice;
+import net.ttcxy.tang.portal.mapper.DtsNoticeMapper;
+import net.ttcxy.tang.portal.mapper.dao.DtsNoticeDao;
 import net.ttcxy.tang.portal.service.StsNoticeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
