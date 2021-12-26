@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class DtsTagParam {
 
-    private String blogTagId;
+    private String articleTagId;
 
     // 标签名")
     private String tagName;

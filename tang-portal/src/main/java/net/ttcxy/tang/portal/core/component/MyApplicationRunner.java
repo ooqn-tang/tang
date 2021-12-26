@@ -1,6 +1,6 @@
 package net.ttcxy.tang.portal.core.component;
 
-import net.ttcxy.tang.portal.service.DtsBlogService;
+import net.ttcxy.tang.portal.service.DtsArticleService;
 import net.ttcxy.tang.portal.service.StsNoticeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
@@ -25,7 +25,7 @@ public class MyApplicationRunner implements ApplicationRunner {
     private WebApplicationContext webApplicationContext;
 
     @Autowired
-    private DtsBlogService blogService;
+    private DtsArticleService articleService;
 
     @Override
     public void run(ApplicationArguments args) {

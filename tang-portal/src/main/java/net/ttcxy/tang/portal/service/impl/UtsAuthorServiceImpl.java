@@ -80,9 +80,9 @@ public class UtsAuthorServiceImpl implements UtsAuthorService {
     }
 
     @Override
-    public PageInfo selectAuthorBlogCount(Integer page, Integer size) {
+    public PageInfo selectAuthorArticleCount(Integer page, Integer size) {
         PageHelper.startPage(page, size);
-        return new PageInfo(utsAuthorDao.selectAuthorBlogCount());
+        return new PageInfo(utsAuthorDao.selectAuthorArticleCount());
     }
 
     /**

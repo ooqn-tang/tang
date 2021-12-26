@@ -5,9 +5,9 @@
     <title>Title</title></head>
 <body>
 <ul>
-    <li th:each="item : ${blogPage.list}"><a th:href="'/post/' + ${item.blogId}" th:text="${item.title}"></a></li>
+    <li th:each="item : ${articlePage.list}"><a th:href="'/post/' + ${item.articleId}" th:text="${item.title}"></a></li>
 </ul>
-<a th:each="item : ${blogPage.navigatepageNums}" th:href="'/map?page=' + ${item}" th:text="${item}"></a>
+<a th:each="item : ${articlePage.navigatepageNums}" th:href="'/map?page=' + ${item}" th:text="${item}"></a>
 </body>
 <script>
     var _hmt = _hmt || [];

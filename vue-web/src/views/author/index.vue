@@ -19,7 +19,7 @@
         <div class="card-header">
           <ul class="nav justify-content-center">
             <li class="nav-item">
-              <a class="nav-link" :class="routeName == 'author_blog'?'nav-link-active':''" @click="selectTypeClick('author_blog')">博客</a>
+              <a class="nav-link" :class="routeName == 'author_article'?'nav-link-active':''" @click="selectTypeClick('author_article')">博客</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" :class="routeName == 'author_subject'?'nav-link-active':''" @click="selectTypeClick('author_subject')">专栏</a>

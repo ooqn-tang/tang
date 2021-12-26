@@ -22,10 +22,10 @@
 
        <ul class="list-group mb-2 move-b-lr-0">
             <li class="list-group-item">
-              <a class="blog-title">
+              <a class="article-title">
                 <strong><p>啊手动阀</p></strong>
                 </a>
-              <div class="blog-synopsis" style="color: #5f5a5a;">啊手动阀手动阀啊手动阀手动阀手动阀啊手动阀手动阀啊手动阀手动阀啊手动阀手动阀手动阀啊手动阀手动阀啊手动阀手动阀啊手动阀手动阀手动阀啊手动阀手动阀啊手动阀手动阀啊手动阀手动阀手动阀啊手动阀手动阀</div>
+              <div class="article-synopsis" style="color: #5f5a5a;">啊手动阀手动阀啊手动阀手动阀手动阀啊手动阀手动阀啊手动阀手动阀啊手动阀手动阀手动阀啊手动阀手动阀啊手动阀手动阀啊手动阀手动阀手动阀啊手动阀手动阀啊手动阀手动阀啊手动阀手动阀手动阀啊手动阀手动阀</div>
               <div>
                 <span class="date-color" style="font-size: 16px;color: #5f5a5a;">2020.02.02</span>
                 <span > . <span style="font-size: 16px;color: #dc3545;">Java</span></span>

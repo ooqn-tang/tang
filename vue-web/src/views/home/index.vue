@@ -13,7 +13,7 @@
             <a class="nav-link" href="/">🏠主页</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/blog">📰文章</a>
+            <a class="nav-link" href="/article">📰文章</a>
           </li>
           <li class="nav-item">
             <router-link class="nav-link" to="/authors">👨‍🎓作者</router-link>
@@ -32,7 +32,7 @@
             <a class="nav-link dropdown-toggle" href="#" id="dropdown03" data-bs-toggle="dropdown" aria-expanded="false">{{title}}</a>
             <ul class="dropdown-menu" aria-labelledby="dropdown03">
               <li><a class="dropdown-item" href="/">🏠主页</a></li>
-              <li><a class="dropdown-item" href="/blog">📰文章</a></li>
+              <li><a class="dropdown-item" href="/article">📰文章</a></li>
               <li><a class="dropdown-item" href="/authors">👨‍🎓作者</a></li>
               <li><a class="dropdown-item" href="/subject">📒专题</a></li>
             </ul>
@@ -49,7 +49,7 @@
               <router-link class="nav-link" to="/login">登录</router-link>
             </li>
             <li class="nav-item dropdown" v-if="$store.state.username != ''">
-              <a class="nav-link" @click="createBlog()">投稿</a>
+              <a class="nav-link" @click="createArticle()">投稿</a>
             </li>
             <li class="nav-item" v-if="$store.state.username != ''">
               <a class="nav-link" :href="'/author/' + $store.state.username">我的</a>
@@ -81,19 +81,19 @@ export default {
   created() {
   },
   methods: {
-    createBlog(){
+    createArticle(){
       request({
-        url: '/api/blog',
+        url: '/api/article',
         method: 'POST'
       }).then((response) => {
-        let routeData = this.$router.resolve({name:"blog-editor",params:{id:response.data}});
+        let routeData = this.$router.resolve({name:"article-editor",params:{id:response.data}});
         window.open(routeData.href, '_blank');
         this.$refs.close.click()
       })
     }
   },
   mounted(){
-    if(this.$route.name == 'blog'){
+    if(this.$route.name == 'article'){
       this.title = '文章'
     }else if(this.$route.name == 'subject_index'){
       this.title = '专辑'

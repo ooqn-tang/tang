@@ -10,7 +10,7 @@
           <div class="card move-b-lr-0">
             <div class="card-body" style="">
               <p class="card-text text-truncate">
-                <router-link :to="{name:'subject_info',params:{subject_id:item.blogSubjectId}}">
+                <router-link :to="{name:'subject_info',params:{subject_id:item.articleSubjectId}}">
                   <strong>{{item.subjectName}}</strong>
                 </router-link>
                 

@@ -1,9 +1,9 @@
 package net.ttcxy.tang.portal.controller;
 
 import com.github.pagehelper.PageInfo;
-import net.ttcxy.tang.portal.entity.dto.DtsBlogDto;
-import net.ttcxy.tang.portal.service.DtsBlogService;
-import net.ttcxy.tang.portal.service.DtsBlogSubjectService;
+import net.ttcxy.tang.portal.entity.dto.DtsArticleDto;
+import net.ttcxy.tang.portal.service.DtsArticleService;
+import net.ttcxy.tang.portal.service.DtsArticleSubjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,10 +17,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class PageController {
 
     @Autowired
-    private DtsBlogService blogService;
+    private DtsArticleService articleService;
 
     @Autowired
-    private DtsBlogSubjectService blogSubjectService;
+    private DtsArticleSubjectService articleSubjectService;
 
     @GetMapping({"/",""})
     public String toIndex(){
@@ -28,19 +28,19 @@ public class PageController {
     }
 
     @GetMapping("post/{id}")
-    public String toBlog(@PathVariable("id") String id, Model model){
-        DtsBlogDto blogDto = blogService.selectBlogById(id);
-        model.addAttribute("blog",blogDto);
+    public String toArticle(@PathVariable("id") String id, Model model){
+        DtsArticleDto articleDto = articleService.selectArticleById(id);
+        model.addAttribute("article",articleDto);
 
-        String subjectId = blogSubjectService.selectSubjectIdByBlogId(id);
-        model.addAttribute("subject",blogSubjectService.selectSubjectBlogListById(subjectId));
-        return "blog";
+        String subjectId = articleSubjectService.selectSubjectIdByArticleId(id);
+        model.addAttribute("subject",articleSubjectService.selectSubjectArticleListById(subjectId));
+        return "article";
     }
 
     @GetMapping("map")
     public String map(@RequestParam(value = "page",defaultValue = "1") Integer page, Model model){
-        PageInfo<DtsBlogDto> dtsBlogDtoPageInfo = blogService.selectBlogList("", page, 50);
-        model.addAttribute("blogPage",dtsBlogDtoPageInfo);
+        PageInfo<DtsArticleDto> dtsArticleDtoPageInfo = articleService.selectArticleList("", page, 50);
+        model.addAttribute("articlePage",dtsArticleDtoPageInfo);
         return "map";
     }
 }

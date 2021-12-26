@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.ttcxy.tang.portal.mapper.dao.DtsArticleDao">
+    <resultMap id="ArticleResult" type="net.ttcxy.tang.portal.entity.dto.DtsArticleDto">
+        <id column="article_id" property="articleId"/>
+        <result column="title" property="title"/>
+        <result column="create_date" property="createDate"/>
+        <result column="update_date" property="updateDate"/>
+        <result column="synopsis" property="synopsis"/>
+        <result column="username" property="username"/>
+        <result column="nickname" property="nickname"/>
+        <result column="text" property="text"/>
+        <result column="markdown" property="markdown"/>
+        <result column="article_subject_id" property="subjectId"/>
+        <result column="subject_name" property="subjectName"/>
+    </resultMap>
+
+    <resultMap id="ArticleTagResult" type="net.ttcxy.tang.portal.entity.dto.DtsArticleDto" extends="ArticleResult">
+        <association property="tagList" column="{articleId = article_id}" select="net.ttcxy.tang.portal.mapper.dao.DtsArticleTagDao.selectByArticleId"/>
+    </resultMap>
+
+    <select id="search" resultMap="ArticleTagResult">
+        select t1.username ,t1.nickname ,t2.article_id,t2.title  ,t2.create_date ,t2.synopsis
+        from uts_author t1
+        inner join dts_article t2 on t1.author_id = t2.author_id and t2.state_code = 1001 and t2.title like concat('%',#{title},'%')
+        order by t2.create_date desc
+    </select>
+
+    <select id="selectArticleById" resultMap="ArticleTagResult">
+        select t2.username ,t2.nickname ,t1.article_id ,t1.title ,t1.create_date ,t1.synopsis ,t3.text
+        from dts_article t1
+        inner join uts_author t2 on t1.article_id = #{id} and t1.author_id = t2.author_id
+        inner join dts_article_content t3 on t1.article_id = t3.article_id
+    </select>
+
+    <select id="selectArticleAllById" resultMap="ArticleTagResult">
+        select t2.username ,t2.nickname ,t1.article_id ,t1.title ,t1.create_date ,t1.synopsis ,t3.text ,t3.markdown ,dbs.article_subject_id
+        from dts_article t1
+        inner join uts_author t2 on t1.article_id = #{id} and t1.author_id = t2.author_id
+        inner join dts_article_content t3 on t1.article_id = t3.article_id
+        left join dts_article_subject_relation dbsr on t1.article_id = dbsr.article_id
+        left join dts_article_subject dbs on dbsr.article_subject_id = dbs.article_subject_id
+    </select>
+
+    <select id="selectLikeArticles" resultMap="ArticleTagResult">
+        select t4.username ,t4.nickname ,t3.article_id ,t3.title ,t3.create_date ,t3.synopsis
+        from uts_author t1
+        inner join dts_like_article t2 on t1.username = #{username} and t2.author_id = t1.author_id
+        inner join dts_article  t3 on t3.article_id = t2.article_id
+        inner join uts_author t4 on t4.author_id = t2.author_id
+        where t3.state_code = 1001
+        order by t2.create_date desc
+    </select>
+
+    <select id="selectArticleListByUsername" resultMap="ArticleTagResult">
+        select t1.username ,t1.nickname ,t2.article_id ,t2.title ,t2.create_date ,t2.synopsis ,t4.subject_name ,t4.article_subject_id
+        from uts_author t1
+        inner join dts_article t2 on t1.author_id = t2.author_id and t1.username = #{username}
+        left join dts_article_subject_relation t3 on t3.article_id = t2.article_id
+        left join dts_article_subject t4 on t4.article_subject_id = t3.article_subject_id
+        where t2.state_code = 1001
+        order by t2.create_date desc
+    </select>
+
+    <select id="selectArticleList" resultMap="ArticleTagResult">
+        select t1.username ,t1.nickname ,t2.article_id ,t2.title ,t2.create_date ,t2.synopsis
+        from uts_author t1
+        inner join dts_article t2 on t1.author_id = t2.author_id
+        <if test="tagName != ''">
+            inner join dts_article_tag_relation t3 on t3.article_id = t2.article_id
+            inner join dts_article_tag t4 on t4.article_tag_id = t3.article_tag_id
+        </if>
+        <where>
+            <if test="tagName != ''">
+                upper(t4.tag_name) = upper(#{tagName})
+            </if>
+            and t2.state_code = 1001
+        </where>
+        order by t2.create_date desc
+    </select>
+
+    <select id="selectArticleList1000" resultMap="ArticleResult">
+        select article_id,title from dts_article limit 1000
+    </select>
+
+</mapper>

@@ -11,9 +11,9 @@
       <result column="mail" jdbcType="VARCHAR" property="mail" />
   </resultMap>
 
-    <select id="selectAuthorBlogCount" resultType="Map">
+    <select id="selectAuthorArticleCount" resultType="Map">
         select username,nickname,signature,count(*) count
-        from dts_blog t1,uts_author t2
+        from dts_article t1,uts_author t2
         where t1.author_id = t2.author_id group by username,nickname
     </select>
 

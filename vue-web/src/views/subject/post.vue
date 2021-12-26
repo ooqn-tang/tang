@@ -8,15 +8,15 @@
         </div>
       </div>
       <ul class="list-group  mb-2 move-b-lr-0">
-        <li class="list-group-item move-b-lr-0" v-for="(item,index) in subjectData.blogList" :key="index">
-          <router-link :to="{name: 'blog_info', params: {id: item.blogId}}" class="blog-title">
+        <li class="list-group-item move-b-lr-0" v-for="(item,index) in subjectData.articleList" :key="index">
+          <router-link :to="{name: 'article_info', params: {id: item.articleId}}" class="article-title">
             <strong><p v-text="item.title"></p></strong>
             </router-link>
-          <div class="blog-synopsis" style="color: #5f5a5a;">{{item.synopsis}}</div>
+          <div class="article-synopsis" style="color: #5f5a5a;">{{item.synopsis}}</div>
           <div>
             <span class="date-color">{{item.createDate}}</span>
             <span v-for="(item,index) in item.tagList" :key="index" > . <span style="font-size: 10px;color: #a2a2a2;">{{item.tagName}}</span></span>
-            <router-link :to="{name:'author_blog',params:{username:item.username}}" class="float-end">{{item.nickname}}</router-link>
+            <router-link :to="{name:'author_article',params:{username:item.username}}" class="float-end">{{item.nickname}}</router-link>
           </div>
         </li>
       </ul>

@@ -15,7 +15,7 @@ public interface UtsAuthorDao {
     /**
      * 查询用户博客数
      */
-    List<Map<String,String>> selectAuthorBlogCount();
+    List<Map<String,String>> selectAuthorArticleCount();
 
     /**
      * 通过邮箱查询用户是否存在

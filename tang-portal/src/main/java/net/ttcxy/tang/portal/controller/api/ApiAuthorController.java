@@ -30,10 +30,10 @@ public class ApiAuthorController {
     @Autowired
     private HttpSession httpSession;
 
-    @GetMapping("authorListBlogCount")
+    @GetMapping("authorListArticleCount")
     public ResponseResult<PageInfo<List<Map<String, String>>>> select(
             @RequestParam(value = "page",defaultValue = "1") Integer page){
-        return ResponseResult.success(authorService.selectAuthorBlogCount(page,100));
+        return ResponseResult.success(authorService.selectAuthorArticleCount(page,100));
     }
 
 

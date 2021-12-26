@@ -1,10 +1,10 @@
 <template>
-  <ul class="list-group blog-list">
-    <li class="list-group-item" v-for="(item,index) in blogList" :key="index">
-      <router-link :to="{name: 'blog_info', params: { id: item.blogId}}" class="blog-title">
+  <ul class="list-group article-list">
+    <li class="list-group-item" v-for="(item,index) in articleList" :key="index">
+      <router-link :to="{name: 'article_info', params: { id: item.articleId}}" class="article-title">
         <strong><p v-text="item.title"></p></strong>
       </router-link>
-      <div class="blog-synopsis">{{item.synopsis}}</div>
+      <div class="article-synopsis">{{item.synopsis}}</div>
       <div>
         <span>{{item.createDate}}</span>
         <a class="float-end">
@@ -24,32 +24,32 @@ export default {
   name: "author_like",
   data() {
     return {
-      blogPage:{
+      articlePage:{
         nextPage:1
       },
-      blogList:[]
+      articleList:[]
       
     };
   },
   methods: {
     likeList(pageNum){
       request({
-        url: '/api/blog/like/list',
+        url: '/api/article/like/list',
         method: 'GET',
         params:{page:pageNum}
       }).then((response) => {
-        this.blogPage = response.data
-        this.blogList = this.blogList.concat(response.data.list)
+        this.articlePage = response.data
+        this.articleList = this.articleList.concat(response.data.list)
       })
     },
     nextPage(){
-      if(!this.blogPage.isLastPage){
-        this.likeList(this.blogPage.nextPage)
+      if(!this.articlePage.isLastPage){
+        this.likeList(this.articlePage.nextPage)
       }
     }
   },
   mounted(){
-    this.likeList(this.blogPage.nextPage)
+    this.likeList(this.articlePage.nextPage)
   }
 };
 </script>

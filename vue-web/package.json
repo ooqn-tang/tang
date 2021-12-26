@@ -7,12 +7,13 @@
     "serve": "vite preview"
   },
   "dependencies": {
+    "@toast-ui/editor": "^2.5.4",
     "@varlet/ui": "^1.23.10",
     "axios": "^0.24.0",
     "jwt-decode": "^3.1.2",
+    "marked": "^2.0.3",
     "sass": "^1.43.5",
     "vue": "^3.2.22",
-    "marked": "^2.0.3",
     "vue-router": "^4.0.12",
     "vuex": "^4.0.2"
   },

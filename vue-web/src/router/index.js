@@ -13,12 +13,12 @@ const routes = [
             {
                 path: '/',
                 name: 'main',
-                component: () => import('../views/blog/index.vue')
+                component: () => import('../views/article/index.vue')
             },
             {
-                path: '/blog',
-                name: 'blog',
-                component: () => import('../views/blog/index.vue')
+                path: '/article',
+                name: 'article',
+                component: () => import('../views/article/index.vue')
             },
             {
                 path: '/author/:username',
@@ -27,8 +27,8 @@ const routes = [
                 children:[
                     {
                         path: '',
-                        name: 'author_blog',
-                        component: () => import('../views/author/blog.vue')
+                        name: 'author_article',
+                        component: () => import('../views/author/article.vue')
                     },
                     {
                         path: 'setting',
@@ -55,9 +55,9 @@ const routes = [
                 ]
             },
             {
-                path: '/blog/:id',
-                name: 'blog_info',
-                component: () => import('../views/blog/blog.vue')
+                path: '/article/:id',
+                name: 'article_info',
+                component: () => import('../views/article/article.vue')
             },
             {
                 path: '/subject',
@@ -82,11 +82,10 @@ const routes = [
         ]
     },
     {
-        path: '/blog-editor/:id',
-        name: 'blog-editor',
-        component: () => import('../views/blog/blog-editor.vue')
+        path: '/article-editor/:id',
+        name: 'article-editor',
+        component: () => import('../views/article/article-editor.vue')
     },
-    
     {
         path: '/login',
         name: 'login',

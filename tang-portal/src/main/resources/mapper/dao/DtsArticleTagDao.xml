@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.ttcxy.tang.portal.mapper.dao.DtsArticleTagDao">
+    <resultMap id="ArticleTagResult" type="net.ttcxy.tang.portal.entity.dto.DtsArticleTagDto">
+        <id column="Article_TAG_ID" property="articleTagId"/>
+        <result column="TAG_NAME" property="tagName"/>
+        <result column="synopsis" property="synopsis"/>
+        <result column="CREATE_DATE" property="createDate"/>
+    </resultMap>
+    <select id="selectTagArticleCountListByUsername" resultMap="ArticleTagResult">
+
+    </select>
+    <select id="selectTagList" resultMap="ArticleTagResult">
+        select * from dts_article_tag
+    </select>
+
+    <select id="selectTagListByName" resultMap="ArticleTagResult">
+        select * from dts_article_tag where tag_name like concat(#{name},'%')
+    </select>
+
+    <select id="selectTagByName" resultMap="ArticleTagResult">
+        select * from dts_article_tag where tag_name = #{name}
+    </select>
+    <select id="selectAllTag" resultMap="ArticleTagResult">
+        select article_tag_id,tag_name
+        from dts_article_tag t2
+        order by article_tag_id
+    </select>
+
+    <select id="selectByArticleId" resultMap="ArticleTagResult">
+        select * from dts_article_tag t1
+        inner join dts_article_tag_relation t2  on t1.article_tag_id = t2.article_tag_id and article_id = #{articleId}
+    </select>
+</mapper>

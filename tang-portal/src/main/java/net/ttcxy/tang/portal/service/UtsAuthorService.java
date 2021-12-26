@@ -78,5 +78,5 @@ public interface UtsAuthorService {
      * @param size 大小
      * @return 列表
      */
-    PageInfo<List<Map<String, String>>>  selectAuthorBlogCount(Integer page, Integer size);
+    PageInfo<List<Map<String, String>>>  selectAuthorArticleCount(Integer page, Integer size);
 }

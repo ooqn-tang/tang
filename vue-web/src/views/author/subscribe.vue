@@ -1,13 +1,13 @@
 <template>
-  <ul class="list-group blog-list">
+  <ul class="list-group article-list">
     <li class="list-group-item" v-for="(item,index) in fansList" :key="index">
-      <router-link target="_blank" :to="{name:'author_blog',params:{username:item.username}}">
+      <router-link target="_blank" :to="{name:'author_article',params:{username:item.username}}">
         <strong v-text="item.nickname"></strong>
       </router-link>
       <span class="float-end" @click="deleteFansMethod(item.username,index)">取消关注</span>
     </li>   
     <li class="list-group-item ">
-      <a class="" @click="loadBlog()">获取</a>
+      <a class="" @click="loadArticle()">获取</a>
     </li> 
   </ul>
 </template>
