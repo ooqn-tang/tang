@@ -20,7 +20,7 @@
         <div class="card-header">
           <ul class="nav nav-tabs card-header-tabs">
             <li class="nav-item">
-              <a class="nav-link" :class="selectType == 1?'active':''" @click="selectType = 1">博客</a>
+              <a class="nav-link" :class="selectType == 1?'active':''" @click="selectType = 1">文章</a>
             </li>
             <li class="nav-item">
               <a class="nav-link disabled">精选</a>
@@ -33,14 +33,14 @@
         <div class="card-body article-list p-0">
           <ul class="list-group ">
             <li class="list-group-item " v-for="(item,index) in articleList" :key="index">
-              <router-link target="_blank" :to="{name: 'article_info', params: { id: item.articleId}}" class="article-title">
+              <router-link :to="{name: 'article_info', params: { id: item.articleId}}" class="article-title">
                 <strong><p v-text="item.title"></p></strong>
               </router-link>
               <div class="article-synopsis" style="color: #5f5a5a;">{{item.synopsis}}</div>
               <div>
                 <span class="date-color" style="font-size: 16px;">{{item.createDate}}</span>
                 <span v-for="(item,index) in item.tagList" :key="index" > . <span style="font-size: 16px;color: #dc3545;">{{item.tagName}}</span></span>
-                <router-link target="_blank" :to="{name:'author_article',params:{username:item.username}}" class="float-end">{{item.nickname}}</router-link>
+                <router-link :to="{name:'author_article',params:{username:item.username}}" class="float-end">{{item.nickname}}</router-link>
               </div>
             </li>
             <li class="list-group-item">
