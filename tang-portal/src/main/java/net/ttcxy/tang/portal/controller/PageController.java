@@ -23,8 +23,10 @@ public class PageController {
     private DtsArticleSubjectService articleSubjectService;
 
     @GetMapping({"/",""})
-    public String toIndex(){
-        return "forward:/index.html";
+    public String toIndex(@RequestParam(value = "page",defaultValue = "1") Integer page, Model model){
+        PageInfo<DtsArticleDto> dtsArticleDtoPageInfo = articleService.selectArticleList("", page, 50);
+        model.addAttribute("articlePage",dtsArticleDtoPageInfo);
+        return "articles";
     }
 
     @GetMapping("post/{id}")
