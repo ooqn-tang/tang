@@ -1,10 +1,5 @@
 package net.ttcxy.tang.portal.controller.api;
 
-import cn.hutool.json.JSONObject;
-import lombok.Data;
-import lombok.extern.java.Log;
-import lombok.extern.log4j.Log4j;
-import net.ttcxy.tang.portal.core.api.ResponseResult;
 import org.apache.catalina.connector.ClientAbortException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

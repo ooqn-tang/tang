@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 /**
  * 粉丝
+ *
  * @author huanglei
  */
 @RestController
@@ -29,29 +30,29 @@ public class ApiFansController {
     UtsAuthorService utsAuthorService;
 
     @GetMapping("is")
-    public ResponseResult<Integer> isFans(@RequestParam("username") String username){
+    public ResponseResult<Integer> isFans(@RequestParam("username") String username) {
         String authorId = CurrentUtil.id();
         UtsAuthor utsAuthor = utsAuthorService.selectAuthorByName(username);
-        if (utsAuthor != null){
-            Integer count = fansService.isFans(authorId,utsAuthor.getAuthorId());
+        if (utsAuthor != null) {
+            Integer count = fansService.isFans(authorId, utsAuthor.getAuthorId());
             return ResponseResult.success(count);
         }
         throw new ApiException();
     }
 
     @GetMapping("list")
-    public ResponseResult<PageInfo<UtsFansDto>> fansList(){
+    public ResponseResult<PageInfo<UtsFansDto>> fansList() {
         String authorId = CurrentUtil.id();
         PageInfo<UtsFansDto> authorDtoPageInfo = fansService.selectFansList(authorId);
         return ResponseResult.success(authorDtoPageInfo);
     }
 
     @PostMapping("{fansName}")
-    public ResponseResult<Integer> insert(@PathVariable("fansName") String fansName){
+    public ResponseResult<Integer> insert(@PathVariable("fansName") String fansName) {
         String authorId = CurrentUtil.id();
 
         UtsAuthor utsAuthor = utsAuthorService.selectAuthorByName(fansName);
-        if (utsAuthor == null){
+        if (utsAuthor == null) {
             throw new ApiException(ResponseCode.VALIDATE_FAILED);
         }
 
@@ -59,18 +60,18 @@ public class ApiFansController {
         fans.setAuthorId(authorId);
         fans.setBeAuthorId(utsAuthor.getAuthorId());
         int count = fansService.insertFans(fans);
-        if (count > 0){
+        if (count > 0) {
             return ResponseResult.success(count);
         }
         throw new ApiException(ResponseCode.FAILED);
     }
 
     @DeleteMapping("{fansName}")
-    public ResponseResult<Integer> delete(@PathVariable("fansName") String fansName){
+    public ResponseResult<Integer> delete(@PathVariable("fansName") String fansName) {
         String authorId = CurrentUtil.id();
 
-        int count = fansService.deleteFans(fansName,authorId);
-        if (count > 0){
+        int count = fansService.deleteFans(fansName, authorId);
+        if (count > 0) {
             return ResponseResult.success(count);
         }
         throw new ApiException(ResponseCode.FAILED);

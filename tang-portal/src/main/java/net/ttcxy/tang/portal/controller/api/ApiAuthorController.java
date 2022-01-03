@@ -32,22 +32,22 @@ public class ApiAuthorController {
 
     @GetMapping("authorListArticleCount")
     public ResponseResult<PageInfo<List<Map<String, String>>>> select(
-            @RequestParam(value = "page",defaultValue = "1") Integer page){
-        return ResponseResult.success(authorService.selectAuthorArticleCount(page,100));
+            @RequestParam(value = "page", defaultValue = "1") Integer page) {
+        return ResponseResult.success(authorService.selectAuthorArticleCount(page, 100));
     }
 
 
     @GetMapping("isLogin")
-    public ResponseResult<Boolean> isLogin(){
+    public ResponseResult<Boolean> isLogin() {
         String authorId = CurrentUtil.id();
-        if (authorId == null){
+        if (authorId == null) {
             return ResponseResult.success(false);
         }
         return ResponseResult.success(true);
     }
 
     @PutMapping
-    public ResponseResult<String> updateAuthor(@RequestBody UtsAuthorUpdateParam authorParam){
+    public ResponseResult<String> updateAuthor(@RequestBody UtsAuthorUpdateParam authorParam) {
 
         UtsAuthor author = BeanUtil.toBean(authorParam, UtsAuthor.class);
 
@@ -56,26 +56,25 @@ public class ApiAuthorController {
         author.setAuthorId(authorId);
 
         int count = authorService.updateAuthorByName(author);
-        if (count > 0){
+        if (count > 0) {
             CurrentAuthor currentAuthor = CurrentUtil.author();
-            BeanUtil.copyProperties(currentAuthor,authorService.selectAuthorByName(currentAuthor.getUsername()));
+            BeanUtil.copyProperties(currentAuthor, authorService.selectAuthorByName(currentAuthor.getUsername()));
             return ResponseResult.success("更新成功");
         }
         throw new ApiException();
     }
 
 
-
     @GetMapping("{username}")
-    public ResponseResult<UtsAuthor> authorByUsername(@PathVariable(value = "username") String username){
+    public ResponseResult<UtsAuthor> authorByUsername(@PathVariable(value = "username") String username) {
         UtsAuthor utsAuthor = authorService.selectAuthorByName(username);
         utsAuthor.setPassword(null);
         return ResponseResult.success(utsAuthor);
     }
 
     @GetMapping("list")
-    public ResponseResult<PageInfo<UtsAuthor>> authorList(@RequestParam(value = "page",defaultValue = "1") Integer page){
-        return ResponseResult.success(authorService.authorList(page,10));
+    public ResponseResult<PageInfo<UtsAuthor>> authorList(@RequestParam(value = "page", defaultValue = "1") Integer page) {
+        return ResponseResult.success(authorService.authorList(page, 10));
     }
 
 

@@ -18,7 +18,7 @@ public class ApiNoticeController {
     private StsNoticeService noticeService;
 
     @GetMapping("list")
-    public ResponseResult<List<DtsNotice>> loadAdv(){
+    public ResponseResult<List<DtsNotice>> loadAdv() {
         return ResponseResult.success(noticeService.selectAllNotice());
     }
 }

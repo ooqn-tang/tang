@@ -81,13 +81,15 @@ public class ApiArticleController {
 
     @PostMapping
     public ResponseResult<String> create(){
+
+        DateTime dateTime = new DateTime();
+        String authorId = CurrentUtil.id();
+
         DtsArticle article = new DtsArticle();
         article.setArticleId(IdUtil.objectId());
-        DateTime dateTime = new DateTime();
         article.setCreateDate(dateTime);
         article.setUpdateDate(dateTime);
         article.setStateCode(1005);
-        String authorId = CurrentUtil.id();
         article.setAuthorId(authorId);
         if (articleService.insertArticle(article) > 0){
             return ResponseResult.success(article.getArticleId());

@@ -111,7 +111,7 @@ public class DtsArticleServiceImpl implements DtsArticleService {
             String id = IdUtil.objectId();
             dtsArticleLike.setAuthorId(authorId);
             dtsArticleLike.setArticleId(articleId);
-            dtsArticleLike.setArticleLikeId(id);
+            dtsArticleLike.setLikeArticleId(id);
             dtsArticleLike.setCreateDate(DateUtil.date());
             return likeMapper.insert(dtsArticleLike);
         }catch (DuplicateKeyException e){

@@ -1,52 +1,41 @@
 <!DOCTYPE html>
-<html lang="zh-cn" xmlns:th="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title text="堂堂程序员"></title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0"/>
+    <meta charset="utf-8">
+    <title>Bootstrap 实例 - 非导航链接</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link href="/css/style.css" rel="stylesheet" type="text/css">
-    <link href="/css/github.css" rel="stylesheet" type="text/css">
-    <link href="https://cdn.bootcss.com/github-markdown-css/4.0.0/github-markdown.min.css" rel="stylesheet" type="text/css">
-    <meta name="description" content=""/>
 </head>
 <body>
-<div id="header">
-    <div id="header-body">
-        <ul class="nav-head">
-            <li><a href="/">堂堂程序员</a></li>
-        </ul>
-        <ul class="nav-tag">
-            <li><a href="#">分类</a></li>
-            <li><a href="#">作者</a></li>
-            <li><a href="#">专辑</a></li>
-            <li><a href="http://www.ttcxy.net/">国际版</a></li>
-        </ul>
+<nav th:replace="comm::nav"></nav>
+<div class="container-fluid">
+    <div class="row clearfix">
+        <div class="col-md-8 column">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <ul class="blog-list">
+                        <li th:each="item : ${articlePage.list}">
+                            <a th:href="'/post/' + ${item.articleId}" th:text="${item.title}"></a>
+                            <span th:text="${#dates.format(item.createDate, 'yyyy-MM-dd')}" class="blog-time"></span>
+                            <hr style="border:2px double #e8e8e8"/>
+                        </li>
+                    </ul>
+                </div>
+                <div class="panel-footer">
+                    <ul class="pager">
+                        <li class="previous"><a href="#">&larr; Older</a></li>
+                        <li class="next"><a href="#">Newer &rarr;</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 column">
+            <nav th:replace="comm::recommend"></nav>
+            <nav th:replace="comm::website"></nav>
+        </div>
     </div>
-</div>
-<div id="main">
-    <div id="main-body">
-        <ul>
-            <li th:each="item : ${articlePage.list}"><a th:href="'/post/' + ${item.articleId}" th:text="${item.title}"></a></li>
-        </ul>
-    </div>
-</div>
-<div class="footer">
-    <a href="http://beian.miit.gov.cn" target="_blank">湘ICP备20009234号</a>
-    &nbsp;&nbsp;&nbsp;&nbsp;
-    <a href="/post/98b255d539f743e193e398bfa9b97cfd" target="_blank">友情链接</a>
 </div>
 </body>
-<script>
-    var _hmt = _hmt || [];
-    (function() {
-      var hm = document.createElement("script");
-      hm.src = "https://hm.baidu.com/hm.js?7449589c273ee75cf0c7def43d91fa44";
-      var s = document.getElementsByTagName("script")[0];
-      s.parentNode.insertBefore(hm, s);
-    })();
-    function change(){
-        location.href = "/post/" + document.getElementById("ml").value
-    }
-    </script>
 </html>

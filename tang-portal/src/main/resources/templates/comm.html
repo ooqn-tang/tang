@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!--导航-->
+<div th:fragment="nav">
+    <nav class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">堂堂程序员</span><span class="icon-bar"></span><span
+                    class="icon-bar"></span><span class="icon-bar"></span></button>
+            <a class="navbar-brand" href="/">堂堂程序员</a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li>
+                    <a href="/subjects">专辑</a>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="#">国际版</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</div>
+<!--网站消息-->
+<div th:fragment="website">
+    <div class="list-group">
+        <a href="#" class="list-group-item active">网站信息</a>
+        <a class="list-group-item">
+            友情链接
+        </a>
+        <a class="list-group-item" href="http://beian.miit.gov.cn" target="_blank">
+            湘ICP备20009234号
+        </a>
+    </div>
+</div>
+<!--内容推荐-->
+<div th:fragment="recommend">
+    <div class="list-group">
+        <a href="#" class="list-group-item active">推荐内容</a>
+        <a class="list-group-item">
+            List header
+        </a>
+        <a class="list-group-item">
+            List header
+        </a>
+    </div>
+</div>
+
+<script th:fragment="script">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?7449589c273ee75cf0c7def43d91fa44";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+    function change(){
+        location.href = "/post/" + document.getElementById("ml").value
+    }
+</script>
+</body>
+</html>

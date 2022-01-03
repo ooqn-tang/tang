@@ -1,10 +1,47 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-cn" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset="utf-8">
+    <title>Bootstrap 实例 - 非导航链接</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link href="/css/style.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-
+<nav th:replace="comm::nav"></nav>
+<div class="container-fluid">
+    <div class="row clearfix">
+        <div class="col-md-8 column">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <ul class="blog-list">
+                        <li>
+                            <a th:href="'/subject/' + ${subject.articleSubjectId}" th:text="${subject.subjectName}" class="fw"></a>
+                            <span th:text="${#dates.format(subject.createDate, 'yyyy-MM-dd')}" style="float: right;"></span>
+                            <br>
+                            <div th:text="${subject.synopsis}"></div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <ul class="blog-list">
+                        <li th:each="item : ${subject.articleList}">
+                            <a th:href="'/post/' + ${item.articleId}" th:text="${item.title}" class="fw"></a>
+                            <p th:text="${item.synopsis}"></p>
+                            <hr style="border:2px double #e8e8e8"/>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 column">
+            <nav th:replace="comm::recommend"></nav>
+            <nav th:replace="comm::website"></nav>
+        </div>
+    </div>
+</div>
 </body>
 </html>
