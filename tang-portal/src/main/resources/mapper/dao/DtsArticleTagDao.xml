@@ -23,8 +23,8 @@
     </select>
     <select id="selectAllTag" resultMap="ArticleTagResult">
         select article_tag_id,tag_name
-        from dts_article_tag t2
-        order by article_tag_id
+        from dts_article_tag
+        order by order_num
     </select>
 
     <select id="selectByArticleId" resultMap="ArticleTagResult">

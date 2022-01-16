@@ -2,10 +2,11 @@ package net.ttcxy.tang.portal.entity.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import net.ttcxy.tang.portal.entity.model.UtsAuthor;
+import net.ttcxy.tang.portal.entity.model.UtsRole;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Collection;
+import java.util.*;
 
 /**
  * 用户返回值
@@ -13,23 +14,43 @@ import java.util.Collection;
  */
 public class CurrentAuthor implements UserDetails {
 
-    private String authorId;
+    private UtsAuthor utsAuthor = new UtsAuthor();
 
-    private String username;
+    private List<UtsRole> utsRoles = new ArrayList<>();
 
-    private String nickname;
-
-    private String password;
-
-    private String mail;
-
-    private String signature;
-
-    private Boolean rememberMe;
+    private String updateToken;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        Set<TangGrantedAuthority> set = new HashSet<>();
+        for (UtsRole utsRole : utsRoles) {
+            set.add(new TangGrantedAuthority(utsRole));
+        }
+        return set;
+    }
+
+    public String getUpdateToken() {
+        return updateToken;
+    }
+
+    public void setUpdateToken(String updateToken) {
+        this.updateToken = updateToken;
+    }
+
+    public UtsAuthor getUtsAuthor() {
+        return utsAuthor;
+    }
+
+    public void setUtsAuthor(UtsAuthor utsAuthor) {
+        this.utsAuthor = utsAuthor;
+    }
+
+    public List<UtsRole> getUtsRoles() {
+        return utsRoles;
+    }
+
+    public void setUtsRoles(List<UtsRole> utsRoles) {
+        this.utsRoles = utsRoles;
     }
 
     @Override
@@ -55,59 +76,12 @@ public class CurrentAuthor implements UserDetails {
     @Override
     @JsonIgnore
     public String getPassword() {
-        return password;
+        return utsAuthor.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return username;
+        return utsAuthor.getUsername();
     }
 
-    public String getAuthorId() {
-        return authorId;
-    }
-
-    public void setAuthorId(String authorId) {
-        this.authorId = authorId;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getNickname() {
-        return nickname;
-    }
-
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getMail() {
-        return mail;
-    }
-
-    public void setMail(String mail) {
-        this.mail = mail;
-    }
-
-    public String getSignature() {
-        return signature;
-    }
-
-    public void setSignature(String signature) {
-        this.signature = signature;
-    }
-
-    public Boolean getRememberMe() {
-        return rememberMe;
-    }
-
-    public void setRememberMe(Boolean rememberMe) {
-        this.rememberMe = rememberMe;
-    }
 }

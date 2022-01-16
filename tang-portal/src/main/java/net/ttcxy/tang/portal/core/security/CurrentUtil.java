@@ -42,6 +42,6 @@ public class CurrentUtil {
     */
    public static String id() {
       CurrentAuthor currentAuthor = author();
-      return currentAuthor.getAuthorId();
+      return currentAuthor.getUtsAuthor().getAuthorId();
    }
 }

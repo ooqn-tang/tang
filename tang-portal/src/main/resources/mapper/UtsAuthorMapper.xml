@@ -8,6 +8,8 @@
     <result column="password" jdbcType="VARCHAR" property="password" />
     <result column="mail" jdbcType="VARCHAR" property="mail" />
     <result column="signature" jdbcType="VARCHAR" property="signature" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="refresh_time" jdbcType="TIMESTAMP" property="refreshTime" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -68,8 +70,22 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    author_id, username, nickname, password, mail, signature
+    author_id, username, nickname, `password`, mail, signature, update_time, refresh_time
   </sql>
+  <select id="selectByExample" parameterType="net.ttcxy.tang.portal.entity.model.UtsAuthorExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from uts_author
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
@@ -88,11 +104,11 @@
   </delete>
   <insert id="insert" parameterType="net.ttcxy.tang.portal.entity.model.UtsAuthor">
     insert into uts_author (author_id, username, nickname, 
-      password, mail, signature
-      )
+      `password`, mail, signature, 
+      update_time, refresh_time)
     values (#{authorId,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR}, 
-      #{password,jdbcType=VARCHAR}, #{mail,jdbcType=VARCHAR}, #{signature,jdbcType=VARCHAR}
-      )
+      #{password,jdbcType=VARCHAR}, #{mail,jdbcType=VARCHAR}, #{signature,jdbcType=VARCHAR}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{refreshTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="net.ttcxy.tang.portal.entity.model.UtsAuthor">
     insert into uts_author
@@ -107,13 +123,19 @@
         nickname,
       </if>
       <if test="password != null">
-        password,
+        `password`,
       </if>
       <if test="mail != null">
         mail,
       </if>
       <if test="signature != null">
         signature,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="refreshTime != null">
+        refresh_time,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -134,6 +156,12 @@
       </if>
       <if test="signature != null">
         #{signature,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="refreshTime != null">
+        #{refreshTime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -156,13 +184,19 @@
         nickname = #{record.nickname,jdbcType=VARCHAR},
       </if>
       <if test="record.password != null">
-        password = #{record.password,jdbcType=VARCHAR},
+        `password` = #{record.password,jdbcType=VARCHAR},
       </if>
       <if test="record.mail != null">
         mail = #{record.mail,jdbcType=VARCHAR},
       </if>
       <if test="record.signature != null">
         signature = #{record.signature,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.refreshTime != null">
+        refresh_time = #{record.refreshTime,jdbcType=TIMESTAMP},
       </if>
     </set>
     <if test="_parameter != null">
@@ -174,9 +208,11 @@
     set author_id = #{record.authorId,jdbcType=VARCHAR},
       username = #{record.username,jdbcType=VARCHAR},
       nickname = #{record.nickname,jdbcType=VARCHAR},
-      password = #{record.password,jdbcType=VARCHAR},
+      `password` = #{record.password,jdbcType=VARCHAR},
       mail = #{record.mail,jdbcType=VARCHAR},
-      signature = #{record.signature,jdbcType=VARCHAR}
+      signature = #{record.signature,jdbcType=VARCHAR},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      refresh_time = #{record.refreshTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -191,13 +227,19 @@
         nickname = #{nickname,jdbcType=VARCHAR},
       </if>
       <if test="password != null">
-        password = #{password,jdbcType=VARCHAR},
+        `password` = #{password,jdbcType=VARCHAR},
       </if>
       <if test="mail != null">
         mail = #{mail,jdbcType=VARCHAR},
       </if>
       <if test="signature != null">
         signature = #{signature,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="refreshTime != null">
+        refresh_time = #{refreshTime,jdbcType=TIMESTAMP},
       </if>
     </set>
     where author_id = #{authorId,jdbcType=VARCHAR}
@@ -206,9 +248,11 @@
     update uts_author
     set username = #{username,jdbcType=VARCHAR},
       nickname = #{nickname,jdbcType=VARCHAR},
-      password = #{password,jdbcType=VARCHAR},
+      `password` = #{password,jdbcType=VARCHAR},
       mail = #{mail,jdbcType=VARCHAR},
-      signature = #{signature,jdbcType=VARCHAR}
+      signature = #{signature,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      refresh_time = #{refreshTime,jdbcType=TIMESTAMP}
     where author_id = #{authorId,jdbcType=VARCHAR}
   </update>
 </mapper>

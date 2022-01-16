@@ -5,14 +5,7 @@
          <div class="card-body p-0">
            <nav class="nav">
               <a class="nav-link" :class="selectTag == ''?'nav-link-active':''" @click="selectTagClick('')">全部</a>
-              <a class="nav-link" :class="selectTag == 'Java'?'nav-link-active':''" @click="selectTagClick('Java')">Java</a>
-              <a class="nav-link" :class="selectTag == 'Python'?'nav-link-active':''" @click="selectTagClick('Python')">Python</a>
-              <a class="nav-link" :class="selectTag == '前端'?'nav-link-active':''" @click="selectTagClick('前端')">前端</a>
-              <a class="nav-link" :class="selectTag == '数据库'?'nav-link-active':''" @click="selectTagClick('数据库')">数据库</a>
-              <a class="nav-link" :class="selectTag == '面试'?'nav-link-active':''" @click="selectTagClick('面试')">面试</a>
-              <a class="nav-link" :class="selectTag == '算法'?'nav-link-active':''" @click="selectTagClick('算法')">算法</a>
-              <a class="nav-link" :class="selectTag == '故事'?'nav-link-active':''" @click="selectTagClick('故事')">故事</a>
-              <a class="nav-link" :class="selectTag == '开源项目'?'nav-link-active':''" @click="selectTagClick('开源项目')">开源项目</a>
+              <a class="nav-link" v-for="(item,index) in allTag" @click="selectTagClick(item.tagName)" :key="index" :class="selectTag == item.tagName?'nav-link-active':''">{{item.tagName}}</a>
             </nav>
          </div>
        </div>
@@ -80,12 +73,21 @@ export default {
     return {
       selectTag:'',
       selectType:1,
+      allTag:[],
       articlePage:{
         nextPage:1
       },
       articleList:[],
       isLoding:true
     }
+  },
+  created(){
+    request({
+          url: '/api/tag/all',
+          method: 'GET'
+        }).then((response) => {
+          this.allTag = response.data;
+        })
   },
   methods: {
     selectTagClick(tagName){

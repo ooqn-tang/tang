@@ -68,6 +68,20 @@
   <sql id="Base_Column_List">
     resource_role_id, resource_id, role_id, create_time
   </sql>
+  <select id="selectByExample" parameterType="net.ttcxy.tang.portal.entity.model.UtsResourceRoleExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from uts_resource_role
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />

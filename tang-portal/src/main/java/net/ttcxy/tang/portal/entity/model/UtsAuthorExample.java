@@ -1,6 +1,7 @@
 package net.ttcxy.tang.portal.entity.model;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class UtsAuthorExample {
@@ -315,72 +316,72 @@ public class UtsAuthorExample {
         }
 
         public Criteria andPasswordIsNull() {
-            addCriterion("password is null");
+            addCriterion("`password` is null");
             return (Criteria) this;
         }
 
         public Criteria andPasswordIsNotNull() {
-            addCriterion("password is not null");
+            addCriterion("`password` is not null");
             return (Criteria) this;
         }
 
         public Criteria andPasswordEqualTo(String value) {
-            addCriterion("password =", value, "password");
+            addCriterion("`password` =", value, "password");
             return (Criteria) this;
         }
 
         public Criteria andPasswordNotEqualTo(String value) {
-            addCriterion("password <>", value, "password");
+            addCriterion("`password` <>", value, "password");
             return (Criteria) this;
         }
 
         public Criteria andPasswordGreaterThan(String value) {
-            addCriterion("password >", value, "password");
+            addCriterion("`password` >", value, "password");
             return (Criteria) this;
         }
 
         public Criteria andPasswordGreaterThanOrEqualTo(String value) {
-            addCriterion("password >=", value, "password");
+            addCriterion("`password` >=", value, "password");
             return (Criteria) this;
         }
 
         public Criteria andPasswordLessThan(String value) {
-            addCriterion("password <", value, "password");
+            addCriterion("`password` <", value, "password");
             return (Criteria) this;
         }
 
         public Criteria andPasswordLessThanOrEqualTo(String value) {
-            addCriterion("password <=", value, "password");
+            addCriterion("`password` <=", value, "password");
             return (Criteria) this;
         }
 
         public Criteria andPasswordLike(String value) {
-            addCriterion("password like", value, "password");
+            addCriterion("`password` like", value, "password");
             return (Criteria) this;
         }
 
         public Criteria andPasswordNotLike(String value) {
-            addCriterion("password not like", value, "password");
+            addCriterion("`password` not like", value, "password");
             return (Criteria) this;
         }
 
         public Criteria andPasswordIn(List<String> values) {
-            addCriterion("password in", values, "password");
+            addCriterion("`password` in", values, "password");
             return (Criteria) this;
         }
 
         public Criteria andPasswordNotIn(List<String> values) {
-            addCriterion("password not in", values, "password");
+            addCriterion("`password` not in", values, "password");
             return (Criteria) this;
         }
 
         public Criteria andPasswordBetween(String value1, String value2) {
-            addCriterion("password between", value1, value2, "password");
+            addCriterion("`password` between", value1, value2, "password");
             return (Criteria) this;
         }
 
         public Criteria andPasswordNotBetween(String value1, String value2) {
-            addCriterion("password not between", value1, value2, "password");
+            addCriterion("`password` not between", value1, value2, "password");
             return (Criteria) this;
         }
 
@@ -521,6 +522,126 @@ public class UtsAuthorExample {
 
         public Criteria andSignatureNotBetween(String value1, String value2) {
             addCriterion("signature not between", value1, value2, "signature");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpdateTimeIsNull() {
+            addCriterion("update_time is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpdateTimeIsNotNull() {
+            addCriterion("update_time is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpdateTimeEqualTo(Date value) {
+            addCriterion("update_time =", value, "updateTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpdateTimeNotEqualTo(Date value) {
+            addCriterion("update_time <>", value, "updateTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpdateTimeGreaterThan(Date value) {
+            addCriterion("update_time >", value, "updateTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpdateTimeGreaterThanOrEqualTo(Date value) {
+            addCriterion("update_time >=", value, "updateTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpdateTimeLessThan(Date value) {
+            addCriterion("update_time <", value, "updateTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpdateTimeLessThanOrEqualTo(Date value) {
+            addCriterion("update_time <=", value, "updateTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpdateTimeIn(List<Date> values) {
+            addCriterion("update_time in", values, "updateTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpdateTimeNotIn(List<Date> values) {
+            addCriterion("update_time not in", values, "updateTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpdateTimeBetween(Date value1, Date value2) {
+            addCriterion("update_time between", value1, value2, "updateTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpdateTimeNotBetween(Date value1, Date value2) {
+            addCriterion("update_time not between", value1, value2, "updateTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andRefreshTimeIsNull() {
+            addCriterion("refresh_time is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRefreshTimeIsNotNull() {
+            addCriterion("refresh_time is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRefreshTimeEqualTo(Date value) {
+            addCriterion("refresh_time =", value, "refreshTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andRefreshTimeNotEqualTo(Date value) {
+            addCriterion("refresh_time <>", value, "refreshTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andRefreshTimeGreaterThan(Date value) {
+            addCriterion("refresh_time >", value, "refreshTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andRefreshTimeGreaterThanOrEqualTo(Date value) {
+            addCriterion("refresh_time >=", value, "refreshTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andRefreshTimeLessThan(Date value) {
+            addCriterion("refresh_time <", value, "refreshTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andRefreshTimeLessThanOrEqualTo(Date value) {
+            addCriterion("refresh_time <=", value, "refreshTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andRefreshTimeIn(List<Date> values) {
+            addCriterion("refresh_time in", values, "refreshTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andRefreshTimeNotIn(List<Date> values) {
+            addCriterion("refresh_time not in", values, "refreshTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andRefreshTimeBetween(Date value1, Date value2) {
+            addCriterion("refresh_time between", value1, value2, "refreshTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andRefreshTimeNotBetween(Date value1, Date value2) {
+            addCriterion("refresh_time not between", value1, value2, "refreshTime");
             return (Criteria) this;
         }
     }

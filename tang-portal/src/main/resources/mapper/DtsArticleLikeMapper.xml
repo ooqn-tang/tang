@@ -68,6 +68,20 @@
   <sql id="Base_Column_List">
     like_article_id, author_id, article_id, create_date
   </sql>
+  <select id="selectByExample" parameterType="net.ttcxy.tang.portal.entity.model.DtsArticleLikeExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from dts_article_like
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />

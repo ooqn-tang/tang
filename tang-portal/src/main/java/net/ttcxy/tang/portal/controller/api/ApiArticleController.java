@@ -56,7 +56,7 @@ public class ApiArticleController {
         return ResponseResult.success(articleService.selectArticleListRandom());
     }
 
-    @DeleteMapping("articleId}")
+    @DeleteMapping("{articleId}")
     public ResponseResult<String> delete(@PathVariable("articleId") String articleId){
         DtsArticle article = articleService.selectByPrimaryId(articleId);
         if (article == null){

@@ -72,6 +72,20 @@
     article_subject_id, subject_name, author_id, order_num, create_date, update_date, 
     synopsis
   </sql>
+  <select id="selectByExample" parameterType="net.ttcxy.tang.portal.entity.model.DtsArticleSubjectExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from dts_article_subject
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />

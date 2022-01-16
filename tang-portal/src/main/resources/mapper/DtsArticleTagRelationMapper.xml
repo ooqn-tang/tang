@@ -68,6 +68,20 @@
   <sql id="Base_Column_List">
     article_tag_relation_id, article_id, article_tag_id, create_date
   </sql>
+  <select id="selectByExample" parameterType="net.ttcxy.tang.portal.entity.model.DtsArticleTagRelationExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from dts_article_tag_relation
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />

@@ -1,5 +1,6 @@
 package net.ttcxy.tang.portal.mapper;
 
+import java.util.List;
 import net.ttcxy.tang.portal.entity.model.DtsNotice;
 import net.ttcxy.tang.portal.entity.model.DtsNoticeExample;
 import org.apache.ibatis.annotations.Param;
@@ -14,6 +15,8 @@ public interface DtsNoticeMapper {
     int insert(DtsNotice record);
 
     int insertSelective(DtsNotice record);
+
+    List<DtsNotice> selectByExample(DtsNoticeExample example);
 
     DtsNotice selectByPrimaryKey(String noticeId);
 

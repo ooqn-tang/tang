@@ -29,8 +29,8 @@ public class ApiFansController {
     @Autowired
     UtsAuthorService utsAuthorService;
 
-    @GetMapping("is")
-    public ResponseResult<Integer> isFans(@RequestParam("username") String username) {
+    @GetMapping("username/{username}")
+    public ResponseResult<Integer> username(@PathVariable("username") String username) {
         String authorId = CurrentUtil.id();
         UtsAuthor utsAuthor = utsAuthorService.selectAuthorByName(username);
         if (utsAuthor != null) {

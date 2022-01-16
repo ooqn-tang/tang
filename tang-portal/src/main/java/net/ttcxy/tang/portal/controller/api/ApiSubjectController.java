@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("api/subject")
 @Validated
-public class ApiArticleSubjectController {
+public class ApiSubjectController {
 
     @Autowired
     private DtsArticleSubjectService articleSubjectService;

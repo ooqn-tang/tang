@@ -1,70 +1,98 @@
 package net.ttcxy.tang.portal.service;
 
+import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.date.DateUtil;
+import cn.hutool.core.util.IdUtil;
+import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import net.ttcxy.tang.portal.core.api.ApiException;
 import net.ttcxy.tang.portal.entity.dto.DtsArticleTagDto;
 import net.ttcxy.tang.portal.entity.model.DtsArticleTag;
+import net.ttcxy.tang.portal.entity.model.DtsArticleTagAuthorRelation;
+import net.ttcxy.tang.portal.mapper.DtsArticleTagAuthorRelationMapper;
+import net.ttcxy.tang.portal.mapper.DtsArticleTagMapper;
+import net.ttcxy.tang.portal.mapper.dao.DtsArticleTagDao;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-public interface DtsArticleTagService {
+@Service
+public class DtsArticleTagService {
 
-    /**
-     * 通过ID 查询标签详细消息
-     * @param tagId 标签ID
-     * @return 详细信息
-     */
-    DtsArticleTagDto selectTagInfo(String tagId);
+    @Autowired
+    private DtsArticleTagDao articleTagDao;
 
-    /**
-     * 通过ID 查询标签详细消息
-     * 以及标签文章列表
-     * @param tagId 标签ID
-     * @return 详细信息
-     */
-    DtsArticleTagDto selectTagArticleCountListByUsername(String tagId, String username);
+    @Autowired
+    private DtsArticleTagMapper articleTagMapper;
+
+    @Autowired
+    private DtsArticleTagAuthorRelationMapper articleTagAuthorRelationMapper;
 
 
-    /**
-     * 查询标签列表
-     * @param page page
-     * @param size 行
-     * @return 结果
-     */
-    PageInfo<DtsArticleTagDto> selectTagList(Integer page , Integer size);
+    
+    public DtsArticleTagDto selectTagInfo(String tagId) {
+        DtsArticleTag tag = articleTagMapper.selectByPrimaryKey(tagId);
+        return BeanUtil.toBean(tag, DtsArticleTagDto.class);
+    }
 
+    
+    public PageInfo<DtsArticleTagDto> selectTagListByName(String name, int page, int pageSize) {
+        PageHelper.startPage(page,pageSize);
+        return new PageInfo<>(articleTagDao.selectTagListByName(name));
+    }
 
+    
+    public List<DtsArticleTagDto> selectAuthorAllTag() {
+        return articleTagDao.selectAllTag();
+    }
 
-    /**
-     * 添加标签
-     * @param articleTag 标签
-     * @return 结果
-     */
-    String insertTag(DtsArticleTag articleTag);
+    
+    public DtsArticleTagDto selectTagArticleCountListByUsername(String tagId, String username) {
+        return articleTagDao.selectTagArticleCountListByUsername(tagId,username);
+    }
 
-    /**
-     * 通过Id 修改标签
-     * @param articleTag 标签
-     * @return 影响的行数
-     */
-    Integer updateTag(DtsArticleTag articleTag);
+    
+    public PageInfo<DtsArticleTagDto> selectTagList(Integer page, Integer size) {
+        PageHelper.startPage(page,size);
+        List<DtsArticleTagDto> articleTagDto = articleTagDao.selectTagList();
+        return new PageInfo<>(articleTagDto);
+    }
 
+    
+    public Integer insertAuthorTag(String authorId, String tagId) {
+        try{
+            DtsArticleTagAuthorRelation articleTagAuthorRelation = new DtsArticleTagAuthorRelation();
+            articleTagAuthorRelation.setAuthorId(authorId);
+            articleTagAuthorRelation.setArticleTagId(tagId);
+            articleTagAuthorRelation.setCreateDate(DateUtil.date());
+            articleTagAuthorRelation.setArticleTagAuthorRelationId(IdUtil.objectId());
+            return articleTagAuthorRelationMapper.insert(articleTagAuthorRelation);
+        }catch (DuplicateKeyException e){
+            throw new ApiException("你已经添加了当前标签");
+        }
 
-    /**
-     * 模糊搜索
-     * @param name name
-     * @param page page
-     * @param pageSize pageSize
-     * @return 结果
-     */
-    PageInfo<DtsArticleTagDto> selectTagListByName(String name, int page, int pageSize);
+    }
 
-    /**
-     * 获取作者所有tag
-     */
-    List<DtsArticleTagDto> selectAuthorAllTag();
+    
+    public String insertTag(DtsArticleTag articleTag) {
+        articleTag.setArticleTagId(IdUtil.objectId());
+        articleTag.setCreateDate(DateUtil.date());
+        DtsArticleTagDto tag = articleTagDao.selectTagByName(articleTag.getTagName());
+        if (tag != null){
+            return tag.getArticleTagId();
+        }else{
+            if (articleTagMapper.insertSelective(articleTag) > 0){
+                return articleTag.getArticleTagId();
+            }else{
+                throw new ApiException("添加失败");
+            }
+        }
+    }
 
-    /**
-     * 添加作者的tag
-     */
-    Integer insertAuthorTag(String authorId, String tagId);
+    
+    public Integer updateTag(DtsArticleTag articleTag) {
+        return articleTagMapper.updateByPrimaryKeySelective(articleTag);
+    }
 }

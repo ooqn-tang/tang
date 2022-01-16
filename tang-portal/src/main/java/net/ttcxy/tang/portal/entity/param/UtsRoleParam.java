@@ -9,16 +9,16 @@ import java.util.Date;
  */
 @Data
 public class UtsRoleParam {
-    // id")
-    private String id;
+    // id
+    private String roleId;
 
-    // 中文名称")
+    // 中文名称
     private String roleName;
 
-    // 角色值，需要为字母，推荐为中文拼音")
+    // 角色值，需要为字母，推荐为中文拼音
     private String roleValue;
 
-    // 创建时间")
+    // 创建时间
     private Date createTime;
 
 }

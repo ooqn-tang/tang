@@ -12,7 +12,7 @@ import java.util.Objects;
  * @author huanglei
  */
 @Data
-public class UtsRoleDto implements GrantedAuthority, ConfigAttribute {
+public class UtsRoleDto implements GrantedAuthority {
 
     static final long serialVersionUID = 1L;
 
@@ -69,11 +69,6 @@ public class UtsRoleDto implements GrantedAuthority, ConfigAttribute {
 
     @Override
     public String getAuthority() {
-        return "ROLE_" + value;
-    }
-
-    @Override
-    public String getAttribute() {
         return "ROLE_" + value;
     }
 

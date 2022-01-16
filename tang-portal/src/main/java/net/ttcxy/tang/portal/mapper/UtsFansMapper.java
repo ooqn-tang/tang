@@ -1,5 +1,6 @@
 package net.ttcxy.tang.portal.mapper;
 
+import java.util.List;
 import net.ttcxy.tang.portal.entity.model.UtsFans;
 import net.ttcxy.tang.portal.entity.model.UtsFansExample;
 import org.apache.ibatis.annotations.Param;
@@ -14,6 +15,8 @@ public interface UtsFansMapper {
     int insert(UtsFans record);
 
     int insertSelective(UtsFans record);
+
+    List<UtsFans> selectByExample(UtsFansExample example);
 
     UtsFans selectByPrimaryKey(String fansId);
 

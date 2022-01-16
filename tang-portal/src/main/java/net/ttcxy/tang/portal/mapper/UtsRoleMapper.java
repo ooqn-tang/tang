@@ -1,5 +1,6 @@
 package net.ttcxy.tang.portal.mapper;
 
+import java.util.List;
 import net.ttcxy.tang.portal.entity.model.UtsRole;
 import net.ttcxy.tang.portal.entity.model.UtsRoleExample;
 import org.apache.ibatis.annotations.Param;
@@ -14,6 +15,8 @@ public interface UtsRoleMapper {
     int insert(UtsRole record);
 
     int insertSelective(UtsRole record);
+
+    List<UtsRole> selectByExample(UtsRoleExample example);
 
     UtsRole selectByPrimaryKey(String roleId);
 

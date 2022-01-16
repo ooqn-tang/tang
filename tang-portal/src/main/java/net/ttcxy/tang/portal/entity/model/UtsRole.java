@@ -12,6 +12,10 @@ public class UtsRole implements Serializable {
 
     private Date createTime;
 
+    private Date updateTime;
+
+    private Date refreshTime;
+
     private static final long serialVersionUID = 1L;
 
     public String getRoleId() {
@@ -46,6 +50,22 @@ public class UtsRole implements Serializable {
         this.createTime = createTime;
     }
 
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
+    }
+
+    public Date getRefreshTime() {
+        return refreshTime;
+    }
+
+    public void setRefreshTime(Date refreshTime) {
+        this.refreshTime = refreshTime;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -56,6 +76,8 @@ public class UtsRole implements Serializable {
         sb.append(", roleName=").append(roleName);
         sb.append(", roleValue=").append(roleValue);
         sb.append(", createTime=").append(createTime);
+        sb.append(", updateTime=").append(updateTime);
+        sb.append(", refreshTime=").append(refreshTime);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

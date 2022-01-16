@@ -1,5 +1,6 @@
 package net.ttcxy.tang.portal.mapper;
 
+import java.util.List;
 import net.ttcxy.tang.portal.entity.model.StsConfig;
 import net.ttcxy.tang.portal.entity.model.StsConfigExample;
 import org.apache.ibatis.annotations.Param;
@@ -14,6 +15,8 @@ public interface StsConfigMapper {
     int insert(StsConfig record);
 
     int insertSelective(StsConfig record);
+
+    List<StsConfig> selectByExample(StsConfigExample example);
 
     StsConfig selectByPrimaryKey(String configId);
 

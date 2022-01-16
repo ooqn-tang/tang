@@ -76,8 +76,38 @@
     article_id, title, author_id, create_date, update_date, state_code, synopsis
   </sql>
   <sql id="Blob_Column_List">
-    text, markdown
+    `text`, markdown
   </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="net.ttcxy.tang.portal.entity.model.DtsArticleExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from dts_article
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="net.ttcxy.tang.portal.entity.model.DtsArticleExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from dts_article
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
     select 
     <include refid="Base_Column_List" />
@@ -99,7 +129,7 @@
   <insert id="insert" parameterType="net.ttcxy.tang.portal.entity.model.DtsArticle">
     insert into dts_article (article_id, title, author_id, 
       create_date, update_date, state_code, 
-      synopsis, text, markdown
+      synopsis, `text`, markdown
       )
     values (#{articleId,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{authorId,jdbcType=VARCHAR}, 
       #{createDate,jdbcType=TIMESTAMP}, #{updateDate,jdbcType=TIMESTAMP}, #{stateCode,jdbcType=INTEGER}, 
@@ -131,7 +161,7 @@
         synopsis,
       </if>
       <if test="text != null">
-        text,
+        `text`,
       </if>
       <if test="markdown != null">
         markdown,
@@ -198,7 +228,7 @@
         synopsis = #{record.synopsis,jdbcType=VARCHAR},
       </if>
       <if test="record.text != null">
-        text = #{record.text,jdbcType=LONGVARCHAR},
+        `text` = #{record.text,jdbcType=LONGVARCHAR},
       </if>
       <if test="record.markdown != null">
         markdown = #{record.markdown,jdbcType=LONGVARCHAR},
@@ -217,7 +247,7 @@
       update_date = #{record.updateDate,jdbcType=TIMESTAMP},
       state_code = #{record.stateCode,jdbcType=INTEGER},
       synopsis = #{record.synopsis,jdbcType=VARCHAR},
-      text = #{record.text,jdbcType=LONGVARCHAR},
+      `text` = #{record.text,jdbcType=LONGVARCHAR},
       markdown = #{record.markdown,jdbcType=LONGVARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -258,7 +288,7 @@
         synopsis = #{synopsis,jdbcType=VARCHAR},
       </if>
       <if test="text != null">
-        text = #{text,jdbcType=LONGVARCHAR},
+        `text` = #{text,jdbcType=LONGVARCHAR},
       </if>
       <if test="markdown != null">
         markdown = #{markdown,jdbcType=LONGVARCHAR},
@@ -274,7 +304,7 @@
       update_date = #{updateDate,jdbcType=TIMESTAMP},
       state_code = #{stateCode,jdbcType=INTEGER},
       synopsis = #{synopsis,jdbcType=VARCHAR},
-      text = #{text,jdbcType=LONGVARCHAR},
+      `text` = #{text,jdbcType=LONGVARCHAR},
       markdown = #{markdown,jdbcType=LONGVARCHAR}
     where article_id = #{articleId,jdbcType=VARCHAR}
   </update>

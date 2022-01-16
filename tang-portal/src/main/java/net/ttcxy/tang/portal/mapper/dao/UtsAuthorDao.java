@@ -2,6 +2,7 @@ package net.ttcxy.tang.portal.mapper.dao;
 
 
 import net.ttcxy.tang.portal.entity.model.UtsAuthor;
+import net.ttcxy.tang.portal.entity.model.UtsRole;
 
 import java.util.List;
 import java.util.Map;

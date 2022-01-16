@@ -69,6 +69,20 @@
   <sql id="Base_Column_List">
     notice_id, title, url, create_date, description
   </sql>
+  <select id="selectByExample" parameterType="net.ttcxy.tang.portal.entity.model.DtsNoticeExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from dts_notice
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />

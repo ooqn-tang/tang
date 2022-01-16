@@ -10,7 +10,7 @@ import net.ttcxy.tang.portal.core.api.ApiException;
 import net.ttcxy.tang.portal.core.api.ResponseCode;
 import net.ttcxy.tang.portal.core.api.ResponseResult;
 import net.ttcxy.tang.portal.core.security.CurrentUtil;
-import net.ttcxy.tang.portal.core.security.filter.JwtFilter;
+import net.ttcxy.tang.portal.core.security.filter.JWTFilter;
 import net.ttcxy.tang.portal.core.security.jwt.TokenProvider;
 import net.ttcxy.tang.portal.entity.dto.CurrentAuthor;
 import net.ttcxy.tang.portal.entity.model.UtsAuthor;
@@ -40,10 +40,10 @@ public class LoginController {
 
     public static Cache<String, String> fifoCache = CacheUtil.newTimedCache(6000);
 
-    private final TokenProvider tokenProvider;
-
     @Autowired
     private UtsAuthorService authorService;
+
+    private final TokenProvider tokenProvider;
 
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
 
@@ -62,17 +62,13 @@ public class LoginController {
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         boolean rememberMe = loginParam.getRememberMe() != null && loginParam.getRememberMe();
+
         String jwt = tokenProvider.createToken(authentication, rememberMe);
 
         HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.add(JwtFilter.AUTHORIZATION_HEADER, "Bearer " + jwt);
+        httpHeaders.add(JWTFilter.AUTHORIZATION_HEADER, "Bearer " + jwt);
 
         return new ResponseEntity<>(new JwtToken(jwt), httpHeaders, HttpStatus.OK);
-    }
-
-    @GetMapping("/user")
-    public ResponseEntity<CurrentAuthor> getActualUser() {
-        return ResponseEntity.ok(CurrentUtil.author());
     }
 
     @PostMapping("register")

@@ -30,14 +30,14 @@
         select t2.username ,t2.nickname ,t1.article_id ,t1.title ,t1.create_date ,t1.synopsis ,t3.text
         from dts_article t1
         inner join uts_author t2 on t1.article_id = #{id} and t1.author_id = t2.author_id
-        inner join dts_article_content t3 on t1.article_id = t3.article_id
+        left join dts_article_content t3 on t1.article_id = t3.article_id
     </select>
 
     <select id="selectArticleAllById" resultMap="ArticleTagResult">
         select t2.username ,t2.nickname ,t1.article_id ,t1.title ,t1.create_date ,t1.synopsis ,t3.text ,t3.markdown ,dbs.article_subject_id
         from dts_article t1
         inner join uts_author t2 on t1.article_id = #{id} and t1.author_id = t2.author_id
-        inner join dts_article_content t3 on t1.article_id = t3.article_id
+        left join dts_article_content t3 on t1.article_id = t3.article_id
         left join dts_article_subject_relation dbsr on t1.article_id = dbsr.article_id
         left join dts_article_subject dbs on dbsr.article_subject_id = dbs.article_subject_id
     </select>

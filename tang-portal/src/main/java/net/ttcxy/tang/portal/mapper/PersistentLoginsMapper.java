@@ -1,5 +1,6 @@
 package net.ttcxy.tang.portal.mapper;
 
+import java.util.List;
 import net.ttcxy.tang.portal.entity.model.PersistentLogins;
 import net.ttcxy.tang.portal.entity.model.PersistentLoginsExample;
 import org.apache.ibatis.annotations.Param;
@@ -14,6 +15,8 @@ public interface PersistentLoginsMapper {
     int insert(PersistentLogins record);
 
     int insertSelective(PersistentLogins record);
+
+    List<PersistentLogins> selectByExample(PersistentLoginsExample example);
 
     PersistentLogins selectByPrimaryKey(String username);
 

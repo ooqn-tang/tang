@@ -23,28 +23,20 @@ public class PageController {
     @Autowired
     private DtsArticleSubjectService articleSubjectService;
 
-    @GetMapping({"/", ""})
+    @GetMapping
     public String toIndex(@RequestParam(value = "page", defaultValue = "1") Integer page, Model model) {
         PageInfo<DtsArticleDto> dtsArticleDtoPageInfo = articleService.selectArticleList("", page, 50);
         model.addAttribute("articlePage", dtsArticleDtoPageInfo);
         return "articles";
     }
 
-    @GetMapping("post/{id}")
+    @GetMapping("article/{id}")
     public String toArticle(@PathVariable("id") String id, Model model) {
         DtsArticleDto articleDto = articleService.selectArticleById(id);
         model.addAttribute("article", articleDto);
-
         String subjectId = articleSubjectService.selectSubjectIdByArticleId(id);
         model.addAttribute("subject", articleSubjectService.selectSubjectArticleListById(subjectId));
         return "article";
-    }
-
-    @GetMapping("map")
-    public String map(@RequestParam(value = "page", defaultValue = "1") Integer page, Model model) {
-        PageInfo<DtsArticleDto> dtsArticleDtoPageInfo = articleService.selectArticleList("", page, 50);
-        model.addAttribute("articlePage", dtsArticleDtoPageInfo);
-        return "map";
     }
 
     @GetMapping("subject/{id}")

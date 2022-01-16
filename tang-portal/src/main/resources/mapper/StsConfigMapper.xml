@@ -66,8 +66,22 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    config_id, config_name, data, create_date
+    config_id, config_name, `data`, create_date
   </sql>
+  <select id="selectByExample" parameterType="net.ttcxy.tang.portal.entity.model.StsConfigExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sts_config
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
@@ -85,7 +99,7 @@
     </if>
   </delete>
   <insert id="insert" parameterType="net.ttcxy.tang.portal.entity.model.StsConfig">
-    insert into sts_config (config_id, config_name, data, 
+    insert into sts_config (config_id, config_name, `data`, 
       create_date)
     values (#{configId,jdbcType=VARCHAR}, #{configName,jdbcType=VARCHAR}, #{data,jdbcType=VARCHAR}, 
       #{createDate,jdbcType=TIMESTAMP})
@@ -100,7 +114,7 @@
         config_name,
       </if>
       <if test="data != null">
-        data,
+        `data`,
       </if>
       <if test="createDate != null">
         create_date,
@@ -137,7 +151,7 @@
         config_name = #{record.configName,jdbcType=VARCHAR},
       </if>
       <if test="record.data != null">
-        data = #{record.data,jdbcType=VARCHAR},
+        `data` = #{record.data,jdbcType=VARCHAR},
       </if>
       <if test="record.createDate != null">
         create_date = #{record.createDate,jdbcType=TIMESTAMP},
@@ -151,7 +165,7 @@
     update sts_config
     set config_id = #{record.configId,jdbcType=VARCHAR},
       config_name = #{record.configName,jdbcType=VARCHAR},
-      data = #{record.data,jdbcType=VARCHAR},
+      `data` = #{record.data,jdbcType=VARCHAR},
       create_date = #{record.createDate,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -164,7 +178,7 @@
         config_name = #{configName,jdbcType=VARCHAR},
       </if>
       <if test="data != null">
-        data = #{data,jdbcType=VARCHAR},
+        `data` = #{data,jdbcType=VARCHAR},
       </if>
       <if test="createDate != null">
         create_date = #{createDate,jdbcType=TIMESTAMP},
@@ -175,7 +189,7 @@
   <update id="updateByPrimaryKey" parameterType="net.ttcxy.tang.portal.entity.model.StsConfig">
     update sts_config
     set config_name = #{configName,jdbcType=VARCHAR},
-      data = #{data,jdbcType=VARCHAR},
+      `data` = #{data,jdbcType=VARCHAR},
       create_date = #{createDate,jdbcType=TIMESTAMP}
     where config_id = #{configId,jdbcType=VARCHAR}
   </update>

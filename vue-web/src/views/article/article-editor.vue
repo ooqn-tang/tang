@@ -7,11 +7,6 @@
       <textarea ref="systemForm" @scroll="sysHandleScroll()"  @mouseover="changeFlag(false)" id="text" v-model="articleData.markdown"  placeholder="可以输入Markdown文本为内容添加样式"></textarea>
       <div ref='externalForm' @scroll="exterHandleScroll()" @mouseover="changeFlag(true)" id="content" v-html="articleData.text" class="markdown-body"></div>
   </div>
-  <div class="foot">
-      <span>文本块</span>
-      <span style="float: right;">帮助</span>
-  </div>
-
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -74,14 +69,14 @@ export default {
       subjectMap:{},
       tagList:[],
       tagMap:{},
-      authorTagList:[]
+      authorTagList:[],
     };
   },
   watch :{
     articleData:{
       handler(val){
         if(val.markdown != undefined){
-          this.articleData.text =  marked(val.markdown)
+          this.articleData.text = marked(val.markdown)
           this.articleData.synopsis = val.text.replace(/<(style|script|iframe)[^>]*?>[\s\S]+?<\/\1\s*>/gi,'').replace(/<[^>]+?>/g,'').replace(/\s+/g,' ').replace(/ /g,' ').replace(/>/g,' ').substring(0,150).replace(" ","");
         }
         
@@ -90,6 +85,7 @@ export default {
     }
   },
   methods: {
+    
       loadArticleAllInfo(articleId){
         request({
           url: '/api/article/load/all',
@@ -101,6 +97,7 @@ export default {
           for(let v in tList){
             this.selectTagIdList.push(tList[v].articleTagId)
           }
+          this.articleData.subjectId = (this.articleData.subjectId == null ? "" : this.articleData.subjectId)
         })
       },
       saveArticle(){
@@ -168,22 +165,14 @@ img{
     height: 40px;
 }
 .body{
-    height:-webkit-calc(100% - 80px);
-    height:-moz-calc(100% - 80px);
-    height:calc(100% - 80px);
-    border-bottom: 1px solid black;
+    height:-webkit-calc(100% - 40px);
+    height:-moz-calc(100% - 40px);
+    height:calc(100% - 40px);
     border-top: 1px solid black;
-}
-.foot{
-    height: 40px;
-    background: #f4f4f4;
-    line-height: 40px;
-    padding:0 10px;
-    color: rgb(45, 89, 184);
-    font-weight:bold
 }
 #save{
     border-left: 1px #b5adad solid;
+    border-bottom: 0px;
     outline: none;
     width: 90px;
     float: right;

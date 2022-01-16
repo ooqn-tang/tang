@@ -1,6 +1,7 @@
 package net.ttcxy.tang.portal.entity.model;
 
 import java.io.Serializable;
+import java.util.Date;
 
 public class UtsAuthor implements Serializable {
     private String authorId;
@@ -14,6 +15,10 @@ public class UtsAuthor implements Serializable {
     private String mail;
 
     private String signature;
+
+    private Date updateTime;
+
+    private Date refreshTime;
 
     private static final long serialVersionUID = 1L;
 
@@ -65,6 +70,22 @@ public class UtsAuthor implements Serializable {
         this.signature = signature;
     }
 
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
+    }
+
+    public Date getRefreshTime() {
+        return refreshTime;
+    }
+
+    public void setRefreshTime(Date refreshTime) {
+        this.refreshTime = refreshTime;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -77,6 +98,8 @@ public class UtsAuthor implements Serializable {
         sb.append(", password=").append(password);
         sb.append(", mail=").append(mail);
         sb.append(", signature=").append(signature);
+        sb.append(", updateTime=").append(updateTime);
+        sb.append(", refreshTime=").append(refreshTime);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

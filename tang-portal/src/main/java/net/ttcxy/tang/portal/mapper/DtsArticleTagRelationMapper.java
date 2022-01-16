@@ -1,5 +1,6 @@
 package net.ttcxy.tang.portal.mapper;
 
+import java.util.List;
 import net.ttcxy.tang.portal.entity.model.DtsArticleTagRelation;
 import net.ttcxy.tang.portal.entity.model.DtsArticleTagRelationExample;
 import org.apache.ibatis.annotations.Param;
@@ -14,6 +15,8 @@ public interface DtsArticleTagRelationMapper {
     int insert(DtsArticleTagRelation record);
 
     int insertSelective(DtsArticleTagRelation record);
+
+    List<DtsArticleTagRelation> selectByExample(DtsArticleTagRelationExample example);
 
     DtsArticleTagRelation selectByPrimaryKey(String articleTagRelationId);
 

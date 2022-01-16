@@ -68,6 +68,20 @@
   <sql id="Base_Column_List">
     fans_id, be_author_id, author_id, create_date
   </sql>
+  <select id="selectByExample" parameterType="net.ttcxy.tang.portal.entity.model.UtsFansExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from uts_fans
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />

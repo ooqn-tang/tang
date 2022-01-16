@@ -1,48 +1,54 @@
 package net.ttcxy.tang.portal.service;
 
-
+import cn.hutool.core.util.IdUtil;
 import net.ttcxy.tang.portal.entity.model.DtsNotice;
+import net.ttcxy.tang.portal.mapper.DtsNoticeMapper;
+import net.ttcxy.tang.portal.mapper.dao.DtsNoticeDao;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 /**
- * 广告服务
+ * 广告
  * @author huanglei
  */
-public interface StsNoticeService {
+@Service
+public class StsNoticeService {
 
-    /**
-     * 查询全部广告
-     * @return 所有广告的集合
-     */
-    List<DtsNotice> selectAllNotice();
+    @Autowired
+    private DtsNoticeMapper noticeMapper;
 
-    /**
-     * 根据广告id查询
-     * @param id 要查询的广告id
-     * @return 根据id查询的广告信息
-     */
-    DtsNotice selectById(String id);
+    @Autowired
+    private DtsNoticeDao noticeDao;
 
-    /**
-     * 向数据库插入一条广告信息
-     * @param notice 封装的广告信息
-     * @return
-     */
-    int insertNotice(DtsNotice notice);
 
-    /**
-     * 更新一条广告信息
-     * @param notice 封装的广告信息
-     * @return
-     */
-    int updateNotice(DtsNotice notice);
+    
+    public List<DtsNotice> selectAllNotice() {
+        return noticeDao.selectNoticeAll();
+    }
 
-    /**
-     * 删除一条广告信息
-     * @param id 要删除的广告id
-     * @return
-     */
-    int deleteNotice(String id);
+    
+    public DtsNotice selectById(String id) {
+        return noticeMapper.selectByPrimaryKey(id);
+    }
+
+    
+    public int insertNotice(DtsNotice notice) {
+        String id = IdUtil.objectId();
+        notice.setNoticeId(id);
+        return noticeMapper.insertSelective(notice);
+    }
+
+    
+    public int updateNotice(DtsNotice notice) {
+        return noticeMapper.updateByPrimaryKey(notice);
+    }
+
+    
+    public int deleteNotice(String id) {
+        return noticeMapper.deleteByPrimaryKey(id);
+    }
+
 
 }

@@ -1,114 +1,157 @@
 package net.ttcxy.tang.portal.service;
 
+import cn.hutool.core.date.DateUtil;
+import cn.hutool.core.thread.ThreadUtil;
+import cn.hutool.core.util.IdUtil;
+import cn.hutool.core.util.StrUtil;
+import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import net.ttcxy.tang.portal.core.api.ApiException;
+import net.ttcxy.tang.portal.mapper.DtsArticleMapper;
+import net.ttcxy.tang.portal.mapper.DtsArticleTagRelationMapper;
+import net.ttcxy.tang.portal.mapper.DtsArticleLikeMapper;
+import net.ttcxy.tang.portal.mapper.dao.DtsArticleDao;
 import net.ttcxy.tang.portal.entity.dto.DtsArticleDto;
-import net.ttcxy.tang.portal.entity.model.DtsArticle;
+import net.ttcxy.tang.portal.entity.model.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
+import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.*;
+import java.util.concurrent.ExecutorService;
 
 /**
- * 博客操作
+ * 博客服务
  * @author huanglei
  */
-public interface DtsArticleService {
+@Service
+public class DtsArticleService {
 
+    private static final ExecutorService executorService = ThreadUtil.newExecutor(50);
 
-    /**
-     * 博客列表
-     * @param tag 标签
-     * @param page 页码
-     */
-    PageInfo<DtsArticleDto> selectArticleList(String tag, Integer page, Integer pageSize);
+    private static List<DtsArticleDto> cache = new ArrayList<>();
 
-    /**
-     * 模糊查询article
-     * @param title 标题
-     * @param page 页码
-     * @return  ArticleDto list
-     */
-    PageInfo<DtsArticleDto> search(String title, Integer page, Integer pageSize);
+    @Autowired
+    private DtsArticleDao articleDao;
 
-    /**
-     * 通过用户名查询所有BLOG
-     * @param username 用户名
-     * @return ArticleDto list
-     */
-    PageInfo<DtsArticleDto> selectArticleByAuthorName(String username, Integer page, Integer pageSize);
+    @Autowired
+    private DtsArticleMapper articleMapper;
 
-    /**
-     * 通过博客ID查询数据
-     * @param id  id
-     * @return 博客
-     */
-    DtsArticleDto selectArticleById(String id);
+    @Autowired
+    private DtsArticleTagRelationMapper articleTagRelationMapper;
 
-    /**
-     * 通过博客ID查询数据
-     * @param id id
-     * @return 博客
-     */
-    DtsArticleDto selectArticleAllById(String id);
+    @Autowired
+    private DtsArticleLikeMapper likeMapper;
 
-    /**
-     * 通过博客ID查询数据
-     * @param id  id
-     * @return 博客
-     */
-    DtsArticle selectArticleInfoById(String id);
+    @Autowired
+    private DtsArticleSubjectService articleSubjectService;
 
-    /**
-     * 添加article
-     */
-    int insertArticle(DtsArticle article );
+    public PageInfo<DtsArticleDto> selectArticleList(String tagName, Integer page, Integer pageSize) {
+        PageHelper.startPage(page, pageSize);
+        return new PageInfo<>(articleDao.selectArticleList(tagName));
+    }
 
-    /**
-     * 更新博客
-     * @param article article
-     * @return 影响的行数
-     */
-    int updateArticle(DtsArticle article , String subjectId , List<String> tagIdList);
+    public PageInfo<DtsArticleDto> search(String title, Integer page , Integer pageSize) {
+        PageHelper.startPage(page, pageSize);
+        return new PageInfo<>(articleDao.search(title));
+    }
 
-    /**
-     * 删除博客
-     * @return 影响的行数
-     */
-    int deleteArticle(String id);
+    public PageInfo<DtsArticleDto> selectArticleByAuthorName(String username, Integer page, Integer pageSize) {
+        PageHelper.startPage(page,pageSize);
+        return new PageInfo<>(articleDao.selectArticleListByUsername(username));
+    }
 
-    /**
-     * 喜欢article
-     * @param userId 用户ID
-     * @param articleId 博客ID
-     */
-    int like(String userId, String articleId);
+    public int insertArticle(DtsArticle article) {
+        return articleMapper.insertSelective(article);
+    }
 
-    /**
-     * 喜欢article
-     * @param userId 用户ID
-     * @param articleId 博客ID
-     */
-    int unlike(String userId, String articleId);
+    public int updateArticle(DtsArticle article, String subjectId, List<String> tagIdList) {
+        DtsArticleTagRelation articleTagRelation = new DtsArticleTagRelation();
+        int i = articleMapper.updateByPrimaryKeySelective(article);
 
-    /**
-     * 查询我是否喜欢了当前Article
-     * @param userId 用户ID
-     * @param dataId 博客ID
-     */
-    long selectLike(String userId, String dataId);
+        DtsArticleTagRelationExample articleTagRelationExample = new DtsArticleTagRelationExample();
+        articleTagRelationExample.createCriteria().andArticleIdEqualTo(article.getArticleId());
 
-    /**
-     * 更新博客，获取原始MD格式
-     * @param articleId 博客列表
-     */
-    DtsArticle selectByPrimaryId(String articleId);
+        articleTagRelationMapper.deleteByExample(articleTagRelationExample);
 
-    /**
-     * 查询用户喜欢的所有BLOG
-     * @return 喜欢的博客列表
-     */
-    PageInfo<DtsArticleDto> selectLikeArticleList(String username, Integer page, Integer pageSize);
+        for (String tagId : tagIdList) {
+            articleTagRelation.setArticleTagRelationId(IdUtil.objectId());
+            articleTagRelation.setArticleId(article.getArticleId());
+            articleTagRelation.setArticleTagId(tagId);
+            articleTagRelationMapper.insert(articleTagRelation);
+        }
 
-    /**
-     * 前一千条
-     */
-    List<DtsArticleDto> selectArticleListRandom();
+        articleSubjectService.deleteArticleSubjectArticleId(article.getArticleId());
+
+        if (i > 0 && StrUtil.isNotBlank(subjectId)){
+            articleSubjectService.insertArticleToSubject(article.getArticleId(), subjectId);
+        }
+
+        return i;
+    }
+
+    public int deleteArticle(String id) {
+        return articleMapper.deleteByPrimaryKey(id);
+    }
+
+    public int like(String authorId, String articleId) {
+        try{
+            DtsArticleLikeExample likeDataExample = new DtsArticleLikeExample();
+            likeDataExample.createCriteria().andArticleIdEqualTo(articleId).andAuthorIdEqualTo(authorId);
+            DtsArticleLike dtsArticleLike = new DtsArticleLike();
+            String id = IdUtil.objectId();
+            dtsArticleLike.setAuthorId(authorId);
+            dtsArticleLike.setArticleId(articleId);
+            dtsArticleLike.setLikeArticleId(id);
+            dtsArticleLike.setCreateDate(DateUtil.date());
+            return likeMapper.insert(dtsArticleLike);
+        }catch (DuplicateKeyException e){
+            throw new ApiException("重复插入");
+        }
+    }
+
+    public int unlike(String authorId, String articleId) {
+        DtsArticleLikeExample likeDataExample = new DtsArticleLikeExample();
+        likeDataExample.createCriteria().andArticleIdEqualTo(articleId).andAuthorIdEqualTo(authorId);
+        return likeMapper.deleteByExample(likeDataExample);
+    }
+
+    public DtsArticleDto selectArticleById(String id) {
+        return articleDao.selectArticleById(id);
+    }
+
+    public DtsArticleDto selectArticleAllById(String id) {
+        return articleDao.selectArticleAllById(id);
+    }
+
+    public DtsArticle selectArticleInfoById(String id) {
+        return articleMapper.selectByPrimaryKey(id);
+    }
+
+    public DtsArticle selectByPrimaryId(String id) {
+        return articleMapper.selectByPrimaryKey(id);
+    }
+
+    public long selectLike(String authorId, String articleId) {
+        DtsArticleLikeExample likeExample = new DtsArticleLikeExample();
+        likeExample.createCriteria().andArticleIdEqualTo(articleId).andAuthorIdEqualTo(authorId);
+        return likeMapper.countByExample(likeExample);
+    }
+
+    public PageInfo<DtsArticleDto> selectLikeArticleList(String username, Integer page, Integer pageSize) {
+        PageHelper.startPage(page,pageSize);
+        return new PageInfo<>(articleDao.selectLikeArticles(username));
+    }
+
+    public List<DtsArticleDto> selectArticleListRandom() {
+        List<DtsArticleDto> set = new ArrayList<>();
+        cache = articleDao.selectArticleList1000();
+        while(set.size() <= 10){
+            Random random = new Random();
+            int n = random.nextInt(cache.size());
+            DtsArticleDto dtsArticleDto = cache.get(n);
+            set.add(dtsArticleDto);
+        }
+       return set;
+    }
 }

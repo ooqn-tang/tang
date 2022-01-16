@@ -1,5 +1,6 @@
 package net.ttcxy.tang.portal.mapper;
 
+import java.util.List;
 import net.ttcxy.tang.portal.entity.model.DtsArticleSubject;
 import net.ttcxy.tang.portal.entity.model.DtsArticleSubjectExample;
 import org.apache.ibatis.annotations.Param;
@@ -14,6 +15,8 @@ public interface DtsArticleSubjectMapper {
     int insert(DtsArticleSubject record);
 
     int insertSelective(DtsArticleSubject record);
+
+    List<DtsArticleSubject> selectByExample(DtsArticleSubjectExample example);
 
     DtsArticleSubject selectByPrimaryKey(String articleSubjectId);
 

@@ -6,6 +6,7 @@
     <result column="tag_name" jdbcType="VARCHAR" property="tagName" />
     <result column="synopsis" jdbcType="VARCHAR" property="synopsis" />
     <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="order_num" jdbcType="INTEGER" property="orderNum" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -66,8 +67,22 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    article_tag_id, tag_name, synopsis, create_date
+    article_tag_id, tag_name, synopsis, create_date, order_num
   </sql>
+  <select id="selectByExample" parameterType="net.ttcxy.tang.portal.entity.model.DtsArticleTagExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from dts_article_tag
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
@@ -86,9 +101,9 @@
   </delete>
   <insert id="insert" parameterType="net.ttcxy.tang.portal.entity.model.DtsArticleTag">
     insert into dts_article_tag (article_tag_id, tag_name, synopsis, 
-      create_date)
+      create_date, order_num)
     values (#{articleTagId,jdbcType=VARCHAR}, #{tagName,jdbcType=VARCHAR}, #{synopsis,jdbcType=VARCHAR}, 
-      #{createDate,jdbcType=TIMESTAMP})
+      #{createDate,jdbcType=TIMESTAMP}, #{orderNum,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="net.ttcxy.tang.portal.entity.model.DtsArticleTag">
     insert into dts_article_tag
@@ -105,6 +120,9 @@
       <if test="createDate != null">
         create_date,
       </if>
+      <if test="orderNum != null">
+        order_num,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="articleTagId != null">
@@ -118,6 +136,9 @@
       </if>
       <if test="createDate != null">
         #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderNum != null">
+        #{orderNum,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -142,6 +163,9 @@
       <if test="record.createDate != null">
         create_date = #{record.createDate,jdbcType=TIMESTAMP},
       </if>
+      <if test="record.orderNum != null">
+        order_num = #{record.orderNum,jdbcType=INTEGER},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -152,7 +176,8 @@
     set article_tag_id = #{record.articleTagId,jdbcType=VARCHAR},
       tag_name = #{record.tagName,jdbcType=VARCHAR},
       synopsis = #{record.synopsis,jdbcType=VARCHAR},
-      create_date = #{record.createDate,jdbcType=TIMESTAMP}
+      create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      order_num = #{record.orderNum,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -169,6 +194,9 @@
       <if test="createDate != null">
         create_date = #{createDate,jdbcType=TIMESTAMP},
       </if>
+      <if test="orderNum != null">
+        order_num = #{orderNum,jdbcType=INTEGER},
+      </if>
     </set>
     where article_tag_id = #{articleTagId,jdbcType=VARCHAR}
   </update>
@@ -176,7 +204,8 @@
     update dts_article_tag
     set tag_name = #{tagName,jdbcType=VARCHAR},
       synopsis = #{synopsis,jdbcType=VARCHAR},
-      create_date = #{createDate,jdbcType=TIMESTAMP}
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      order_num = #{orderNum,jdbcType=INTEGER}
     where article_tag_id = #{articleTagId,jdbcType=VARCHAR}
   </update>
 </mapper>

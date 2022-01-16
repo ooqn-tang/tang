@@ -82,6 +82,30 @@ const routes = [
         ]
     },
     {
+        path: '/admin',
+        name: 'admin',
+        component: () => import('../views/admin/index.vue'),
+        children:[
+            {
+                path:"",
+                name:"admin_article",
+                component: () => import('../views/admin/article.vue')
+            },{
+                path:"author",
+                name:"admin_author",
+                component: () => import('../views/admin/author.vue')
+            },{
+                path:"role",
+                name:"admin_role",
+                component: () => import('../views/admin/role.vue')
+            },{
+                path:"resource",
+                name:"admin_resource",
+                component: () => import('../views/admin/resource.vue')
+            }
+        ]
+    },
+    {
         path: '/article-editor/:id',
         name: 'article-editor',
         component: () => import('../views/article/article-editor.vue')

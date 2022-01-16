@@ -12,6 +12,8 @@ public class DtsArticleTag implements Serializable {
 
     private Date createDate;
 
+    private Integer orderNum;
+
     private static final long serialVersionUID = 1L;
 
     public String getArticleTagId() {
@@ -46,6 +48,14 @@ public class DtsArticleTag implements Serializable {
         this.createDate = createDate;
     }
 
+    public Integer getOrderNum() {
+        return orderNum;
+    }
+
+    public void setOrderNum(Integer orderNum) {
+        this.orderNum = orderNum;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -56,6 +66,7 @@ public class DtsArticleTag implements Serializable {
         sb.append(", tagName=").append(tagName);
         sb.append(", synopsis=").append(synopsis);
         sb.append(", createDate=").append(createDate);
+        sb.append(", orderNum=").append(orderNum);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

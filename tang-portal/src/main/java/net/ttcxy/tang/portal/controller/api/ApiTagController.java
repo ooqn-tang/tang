@@ -18,7 +18,7 @@ import java.util.List;
 @RestController
 @RequestMapping("api/tag")
 @Validated
-public class ApiArticleTagController {
+public class ApiTagController {
 
     @Autowired
     private DtsArticleTagService articleTagService;
@@ -32,7 +32,7 @@ public class ApiArticleTagController {
         return ResponseResult.success(tagDto);
     }
 
-    @GetMapping("allTag")
+    @GetMapping("all")
     public ResponseResult<List<DtsArticleTagDto>> selectAllTag() {
         List<DtsArticleTagDto> list = articleTagService.selectAuthorAllTag();
         return ResponseResult.success(list);

@@ -1,5 +1,6 @@
 package net.ttcxy.tang.portal.mapper;
 
+import java.util.List;
 import net.ttcxy.tang.portal.entity.model.DtsArticleLike;
 import net.ttcxy.tang.portal.entity.model.DtsArticleLikeExample;
 import org.apache.ibatis.annotations.Param;
@@ -14,6 +15,8 @@ public interface DtsArticleLikeMapper {
     int insert(DtsArticleLike record);
 
     int insertSelective(DtsArticleLike record);
+
+    List<DtsArticleLike> selectByExample(DtsArticleLikeExample example);
 
     DtsArticleLike selectByPrimaryKey(String likeArticleId);
 

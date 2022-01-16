@@ -70,8 +70,38 @@
     article_id
   </sql>
   <sql id="Blob_Column_List">
-    text, markdown
+    `text`, markdown
   </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="net.ttcxy.tang.portal.entity.model.DtsArticleContentExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from dts_article_content
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="net.ttcxy.tang.portal.entity.model.DtsArticleContentExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from dts_article_content
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
     select 
     <include refid="Base_Column_List" />
@@ -91,7 +121,7 @@
     </if>
   </delete>
   <insert id="insert" parameterType="net.ttcxy.tang.portal.entity.model.DtsArticleContent">
-    insert into dts_article_content (article_id, text, markdown
+    insert into dts_article_content (article_id, `text`, markdown
       )
     values (#{articleId,jdbcType=VARCHAR}, #{text,jdbcType=LONGVARCHAR}, #{markdown,jdbcType=LONGVARCHAR}
       )
@@ -103,7 +133,7 @@
         article_id,
       </if>
       <if test="text != null">
-        text,
+        `text`,
       </if>
       <if test="markdown != null">
         markdown,
@@ -134,7 +164,7 @@
         article_id = #{record.articleId,jdbcType=VARCHAR},
       </if>
       <if test="record.text != null">
-        text = #{record.text,jdbcType=LONGVARCHAR},
+        `text` = #{record.text,jdbcType=LONGVARCHAR},
       </if>
       <if test="record.markdown != null">
         markdown = #{record.markdown,jdbcType=LONGVARCHAR},
@@ -147,7 +177,7 @@
   <update id="updateByExampleWithBLOBs" parameterType="map">
     update dts_article_content
     set article_id = #{record.articleId,jdbcType=VARCHAR},
-      text = #{record.text,jdbcType=LONGVARCHAR},
+      `text` = #{record.text,jdbcType=LONGVARCHAR},
       markdown = #{record.markdown,jdbcType=LONGVARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -164,7 +194,7 @@
     update dts_article_content
     <set>
       <if test="text != null">
-        text = #{text,jdbcType=LONGVARCHAR},
+        `text` = #{text,jdbcType=LONGVARCHAR},
       </if>
       <if test="markdown != null">
         markdown = #{markdown,jdbcType=LONGVARCHAR},
@@ -174,7 +204,7 @@
   </update>
   <update id="updateByPrimaryKeyWithBLOBs" parameterType="net.ttcxy.tang.portal.entity.model.DtsArticleContent">
     update dts_article_content
-    set text = #{text,jdbcType=LONGVARCHAR},
+    set `text` = #{text,jdbcType=LONGVARCHAR},
       markdown = #{markdown,jdbcType=LONGVARCHAR}
     where article_id = #{articleId,jdbcType=VARCHAR}
   </update>

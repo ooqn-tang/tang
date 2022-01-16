@@ -3,10 +3,8 @@
 <mapper namespace="net.ttcxy.tang.portal.mapper.UtsResourceMapper">
   <resultMap id="BaseResultMap" type="net.ttcxy.tang.portal.entity.model.UtsResource">
     <id column="resource_id" jdbcType="VARCHAR" property="resourceId" />
-    <result column="parent_id" jdbcType="VARCHAR" property="parentId" />
     <result column="path" jdbcType="VARCHAR" property="path" />
     <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="level" jdbcType="VARCHAR" property="level" />
     <result column="type" jdbcType="VARCHAR" property="type" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
   </resultMap>
@@ -69,8 +67,22 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    resource_id, parent_id, path, name, level, type, create_time
+    resource_id, `path`, `name`, `type`, create_time
   </sql>
+  <select id="selectByExample" parameterType="net.ttcxy.tang.portal.entity.model.UtsResourceExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from uts_resource
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
@@ -88,12 +100,10 @@
     </if>
   </delete>
   <insert id="insert" parameterType="net.ttcxy.tang.portal.entity.model.UtsResource">
-    insert into uts_resource (resource_id, parent_id, path, 
-      name, level, type, 
-      create_time)
-    values (#{resourceId,jdbcType=VARCHAR}, #{parentId,jdbcType=VARCHAR}, #{path,jdbcType=VARCHAR}, 
-      #{name,jdbcType=VARCHAR}, #{level,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, 
-      #{createTime,jdbcType=TIMESTAMP})
+    insert into uts_resource (resource_id, `path`, `name`, 
+      `type`, create_time)
+    values (#{resourceId,jdbcType=VARCHAR}, #{path,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{type,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="net.ttcxy.tang.portal.entity.model.UtsResource">
     insert into uts_resource
@@ -101,20 +111,14 @@
       <if test="resourceId != null">
         resource_id,
       </if>
-      <if test="parentId != null">
-        parent_id,
-      </if>
       <if test="path != null">
-        path,
+        `path`,
       </if>
       <if test="name != null">
-        name,
-      </if>
-      <if test="level != null">
-        level,
+        `name`,
       </if>
       <if test="type != null">
-        type,
+        `type`,
       </if>
       <if test="createTime != null">
         create_time,
@@ -124,17 +128,11 @@
       <if test="resourceId != null">
         #{resourceId,jdbcType=VARCHAR},
       </if>
-      <if test="parentId != null">
-        #{parentId,jdbcType=VARCHAR},
-      </if>
       <if test="path != null">
         #{path,jdbcType=VARCHAR},
       </if>
       <if test="name != null">
         #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="level != null">
-        #{level,jdbcType=VARCHAR},
       </if>
       <if test="type != null">
         #{type,jdbcType=VARCHAR},
@@ -156,20 +154,14 @@
       <if test="record.resourceId != null">
         resource_id = #{record.resourceId,jdbcType=VARCHAR},
       </if>
-      <if test="record.parentId != null">
-        parent_id = #{record.parentId,jdbcType=VARCHAR},
-      </if>
       <if test="record.path != null">
-        path = #{record.path,jdbcType=VARCHAR},
+        `path` = #{record.path,jdbcType=VARCHAR},
       </if>
       <if test="record.name != null">
-        name = #{record.name,jdbcType=VARCHAR},
-      </if>
-      <if test="record.level != null">
-        level = #{record.level,jdbcType=VARCHAR},
+        `name` = #{record.name,jdbcType=VARCHAR},
       </if>
       <if test="record.type != null">
-        type = #{record.type,jdbcType=VARCHAR},
+        `type` = #{record.type,jdbcType=VARCHAR},
       </if>
       <if test="record.createTime != null">
         create_time = #{record.createTime,jdbcType=TIMESTAMP},
@@ -182,11 +174,9 @@
   <update id="updateByExample" parameterType="map">
     update uts_resource
     set resource_id = #{record.resourceId,jdbcType=VARCHAR},
-      parent_id = #{record.parentId,jdbcType=VARCHAR},
-      path = #{record.path,jdbcType=VARCHAR},
-      name = #{record.name,jdbcType=VARCHAR},
-      level = #{record.level,jdbcType=VARCHAR},
-      type = #{record.type,jdbcType=VARCHAR},
+      `path` = #{record.path,jdbcType=VARCHAR},
+      `name` = #{record.name,jdbcType=VARCHAR},
+      `type` = #{record.type,jdbcType=VARCHAR},
       create_time = #{record.createTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -195,20 +185,14 @@
   <update id="updateByPrimaryKeySelective" parameterType="net.ttcxy.tang.portal.entity.model.UtsResource">
     update uts_resource
     <set>
-      <if test="parentId != null">
-        parent_id = #{parentId,jdbcType=VARCHAR},
-      </if>
       <if test="path != null">
-        path = #{path,jdbcType=VARCHAR},
+        `path` = #{path,jdbcType=VARCHAR},
       </if>
       <if test="name != null">
-        name = #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="level != null">
-        level = #{level,jdbcType=VARCHAR},
+        `name` = #{name,jdbcType=VARCHAR},
       </if>
       <if test="type != null">
-        type = #{type,jdbcType=VARCHAR},
+        `type` = #{type,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null">
         create_time = #{createTime,jdbcType=TIMESTAMP},
@@ -218,11 +202,9 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="net.ttcxy.tang.portal.entity.model.UtsResource">
     update uts_resource
-    set parent_id = #{parentId,jdbcType=VARCHAR},
-      path = #{path,jdbcType=VARCHAR},
-      name = #{name,jdbcType=VARCHAR},
-      level = #{level,jdbcType=VARCHAR},
-      type = #{type,jdbcType=VARCHAR},
+    set `path` = #{path,jdbcType=VARCHAR},
+      `name` = #{name,jdbcType=VARCHAR},
+      `type` = #{type,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP}
     where resource_id = #{resourceId,jdbcType=VARCHAR}
   </update>
