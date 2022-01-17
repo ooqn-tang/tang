@@ -39,6 +39,5 @@ public class SecurityProperties {
      */
     private int tokenTime = 2592000;
 
-    private String[] openUrls;
 
 }

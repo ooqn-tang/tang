@@ -71,7 +71,7 @@ public class MyApplicationRunner implements ApplicationRunner {
                         utsResource.setCreateTime(new Date());
                         resourceService.insert(utsResource);
                     }catch (Exception e){
-                        System.out.println(e.getMessage());
+                        System.out.println("数据已经存在");
                     }
                 }
             }
