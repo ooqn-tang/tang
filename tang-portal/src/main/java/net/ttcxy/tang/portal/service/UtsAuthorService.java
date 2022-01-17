@@ -33,18 +33,21 @@ public class UtsAuthorService {
     @Autowired
     private UtsAuthorRoleMapper authorRoleMapper;
 
+    @Autowired
+    private UtsRoleService roleService;
 
-    
+    private static final Map<String,Date> usernameTime = new HashMap<>();
+
+    private static final Map<String,Date> roleNameTime = new HashMap<>();
+
     public UtsAuthor selectAuthorByName(String username) {
         return utsAuthorDao.selectAuthorByName(username);
     }
 
-    
     public UtsAuthor selectAuthorByMail(String mail) {
         return utsAuthorDao.selectAuthorByMailAll(mail);
     }
 
-    
     public int insertAuthor(UtsAuthor author) throws DuplicateKeyException {
         author.setAuthorId(IdUtil.objectId());
         String username = getUsername();
@@ -53,59 +56,49 @@ public class UtsAuthorService {
         return utsAuthorMapper.insertSelective(author);
     }
 
-    
     public int updateAuthorByName(UtsAuthor author) {
         UtsAuthorExample authorExample = new UtsAuthorExample();
         authorExample.createCriteria().andMailEqualTo(author.getMail());
         return utsAuthorMapper.updateByExampleSelective(author, authorExample);
     }
 
-    
     public Boolean selectUsernameIsTrue(String username) {
         int count = utsAuthorDao.selectUsernameIsTrue(username);
         return count > 0;
     }
 
-    
     public Boolean selectNicknameIsTrue(String nickname) {
         int count = utsAuthorDao.selectNicknameIsTrue(nickname);
         return count > 0;
     }
 
-    
     public Boolean selectMailIsTrue(String username) {
         int count = utsAuthorDao.selectMailIsTrue(username);
         return count > 0;
     }
 
-    
     public PageInfo<UtsAuthor> authorList(Integer page, Integer size){
         PageHelper.startPage(page, size);
         return new PageInfo<>(utsAuthorDao.selectAuthor());
     }
 
-    
-    public PageInfo selectAuthorArticleCount(Integer page, Integer size) {
+    public PageInfo<Map<String,String>> selectAuthorArticleCount(Integer page, Integer size) {
         PageHelper.startPage(page, size);
-        return new PageInfo(utsAuthorDao.selectAuthorArticleCount());
+        return new PageInfo<>(utsAuthorDao.selectAuthorArticleCount());
     }
 
-    
     public List<UtsAuthor> select() {
         return utsAuthorMapper.selectByExample(null);
     }
 
-    
     public int update(UtsAuthor author) {
         return utsAuthorMapper.updateByPrimaryKeySelective(author);
     }
 
-    
     public int delete(String authorId) {
         return utsAuthorMapper.deleteByPrimaryKey(authorId);
     }
 
-    
     public void insertRole(String authorId,List<UtsRoleParam> roleParams) {
         UtsAuthorRoleExample authorRoleExample = new UtsAuthorRoleExample();
         authorRoleExample.createCriteria().andAuthorIdEqualTo(authorId);
@@ -120,20 +113,16 @@ public class UtsAuthorService {
         }
     }
 
-
-
-    
-    public Date nowTime(String username, String... roleNames) {
+    public Date nowTime(String username, List<UtsRole> roleList) {
         Set<Date> dateSet = new TreeSet<>();
-        dateSet.add(getUsernameTime(username));
-        dateSet.addAll(getRoleNameTime(roleNames));
+        Date usernameTime = getUsernameTime(username);
+        if (usernameTime!=null){
+            dateSet.add(usernameTime);
+        }
+        dateSet.addAll(getRoleNameTime(roleList));
 
         return dateSet.stream().reduce((first, second) -> second).orElse(new Date());
     }
-
-    Map<String,Date> usernameTime = new HashMap<>();
-
-    Map<String,Date> roleNameTime = new HashMap<>();
 
     private Date getUsernameTime(String username){
         Date date = usernameTime.get(username);
@@ -145,15 +134,12 @@ public class UtsAuthorService {
         return date;
     }
 
-    @Autowired
-    UtsRoleService roleService;
-
-    private Set<Date> getRoleNameTime(String... roleNames){
+    private Set<Date> getRoleNameTime(List<UtsRole> roleList){
         Set<Date> dateSet = new TreeSet<>();
-        for (String roleName : roleNames) {
-            List<UtsRole> roleList = roleService.selectByName(roleName);
-            for (UtsRole role : roleList) {
-                Date refreshTime = role.getRefreshTime();
+        for (UtsRole role : roleList) {
+            List<UtsRole> roles = roleService.selectByName(role.getRoleName());
+            for (UtsRole r : roles) {
+                Date refreshTime = r.getRefreshTime();
                 if (!ObjectUtil.isEmpty(refreshTime)){
                     dateSet.add(refreshTime);
                 }

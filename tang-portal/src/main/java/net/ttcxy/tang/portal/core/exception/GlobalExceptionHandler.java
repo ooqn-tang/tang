@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.ConstraintViolation;
@@ -35,6 +36,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(AccessDeniedException.class)
     public ResponseResult<?> errorHandler(AccessDeniedException ex, HttpServletResponse httpServletResponse) {
         logger.error(ex.getMessage(),ex);
+        httpServletResponse.setStatus(HttpStatus.HTTP_BAD_REQUEST);
         return ResponseResult.validateFailed("ex.getMessage()");
     }
 
@@ -69,6 +71,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseResult<?> errorHandler(MethodArgumentNotValidException ex, HttpServletResponse httpServletResponse) {
         logger.error(ex.getMessage(),ex);
+        httpServletResponse.setStatus(HttpStatus.HTTP_BAD_REQUEST);
         String result = ex.getBindingResult().getFieldErrors().get(0).getDefaultMessage();
         return ResponseResult.validateFailed(result);
     }
@@ -79,14 +82,17 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     public ResponseResult<?> errorHandler(Exception ex, HttpServletResponse httpServletResponse) {
         logger.error(ex.getMessage(),ex);
+        httpServletResponse.setStatus(HttpStatus.HTTP_BAD_REQUEST);
         return ResponseResult.failed("系统异常");
     }
     /**
      * Exception 参数校验统一异常处理
      */
-    @ExceptionHandler(NoHandlerFoundException.class)
-    public String errorHandler(NoHandlerFoundException ex, HttpServletResponse httpServletResponse, HttpServletRequest httpServletRequest) {
-        return "forward:/";
+    @ResponseBody
+    @ExceptionHandler(ServletException.class)
+    public ResponseResult<?> errorHandler(ServletException ex, HttpServletResponse httpServletResponse, HttpServletRequest httpServletRequest) {
+        httpServletResponse.setStatus(HttpStatus.HTTP_BAD_REQUEST);
+        return ResponseResult.failed(ex.getMessage());
     }
 
 }

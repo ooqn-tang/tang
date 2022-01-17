@@ -171,7 +171,7 @@
           :to="{ name: 'article-editor', params: { id: article.articleId } }"
           >修改</router-link
         >
-        <a class="btn btn-outline-primary btn-sm mini-but" href="#top">⬆TOP</a>
+        <a class="btn btn-outline-primary btn-sm mini-but" onclick="document.body.scrollTop = document.documentElement.scrollTop = 0">⬆TOP</a>
       </div>
     </div>
   </nav>

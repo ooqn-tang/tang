@@ -83,11 +83,8 @@ export default {
     },
     isFans(){
       request({
-        url: '/api/fans/is',
+        url: '/api/fans/username/'+this.thisUsername,
         method: 'get',
-        params:{
-            username:this.thisUsername
-        }
       }).then((response) => {
         if(response.data == 1){
           this.fans = 1

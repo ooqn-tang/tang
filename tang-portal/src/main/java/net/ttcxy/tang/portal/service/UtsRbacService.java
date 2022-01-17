@@ -1,10 +1,8 @@
 package net.ttcxy.tang.portal.service;
 
-import net.ttcxy.tang.portal.service.UtsResourceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.util.AntPathMatcher;
 
@@ -12,8 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Collection;
 import java.util.List;
 
-@Service("rbacService")
-public class RbacService {
+@Service
+public class UtsRbacService {
 
     private final AntPathMatcher antPathMatcher = new AntPathMatcher();
 

@@ -1,20 +1,30 @@
 package net.ttcxy.tang.portal.core.security.filter;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import lombok.extern.java.Log;
+import net.ttcxy.tang.portal.core.api.ResponseCode;
+import net.ttcxy.tang.portal.core.api.ResponseResult;
 import net.ttcxy.tang.portal.core.security.jwt.TokenProvider;
+import net.ttcxy.tang.portal.entity.dto.CurrentAuthor;
+import net.ttcxy.tang.portal.service.UtsAuthorService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.util.AntPathMatcher;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.GenericFilterBean;
+import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Date;
 
 @Log
 public class JWTFilter extends GenericFilterBean {
@@ -25,27 +35,40 @@ public class JWTFilter extends GenericFilterBean {
 
     private final TokenProvider tokenProvider;
 
-    public JWTFilter(TokenProvider tokenProvider) {
-        this.tokenProvider = tokenProvider;
-    }
+    private final UtsAuthorService authorService;
 
+
+    public JWTFilter(TokenProvider tokenProvider,UtsAuthorService authorService) {
+        this.tokenProvider = tokenProvider;
+        this.authorService = authorService;
+    }
+    private AntPathMatcher antPathMatcher = new AntPathMatcher();
     @Override
-    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
-            throws IOException, ServletException {
-        HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+        HttpServletRequest httpServletRequest = (HttpServletRequest) request;
+        HttpServletResponse httpServletResponse = (HttpServletResponse) response;
         String jwt = resolveToken(httpServletRequest);
         String requestURI = httpServletRequest.getRequestURI();
 
-        if (StringUtils.hasText(jwt) && tokenProvider.validateToken(jwt)) {
+        if (StringUtils.hasText(jwt) && tokenProvider.validateToken(jwt)&&!antPathMatcher.match("/api/refresh",requestURI)) {
             Authentication authentication = tokenProvider.getAuthentication(jwt);
-            SecurityContextHolder.getContext().setAuthentication(authentication);
+            CurrentAuthor currentAuthor = (CurrentAuthor) authentication.getPrincipal();
+            Date date = authorService.nowTime(currentAuthor.getUsername(), currentAuthor.getUtsRoles());
+            if (date != null && date.getTime() != currentAuthor.getRefreshTime()){
+                httpServletResponse.setStatus(666);
+                httpServletResponse.getWriter().print(JSON.toJSONString(ResponseResult.failed(ResponseCode.REFRESH)));
+                return;
+            }else{
+                SecurityContextHolder.getContext().setAuthentication(authentication);
+            }
             LOG.debug("set Authentication to security context for '{}', uri: {}", authentication.getName(), requestURI);
         } else {
             LOG.debug("no valid JWT token found, uri: {}", requestURI);
         }
 
-        filterChain.doFilter(servletRequest, servletResponse);
+        chain.doFilter(request, response);
     }
+
 
     private String resolveToken(HttpServletRequest request) {
         String bearerToken = request.getHeader(AUTHORIZATION_HEADER);

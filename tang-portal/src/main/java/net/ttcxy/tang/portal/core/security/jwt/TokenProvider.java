@@ -1,10 +1,12 @@
 package net.ttcxy.tang.portal.core.security.jwt;
 
+import cn.hutool.core.bean.BeanUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import net.ttcxy.tang.portal.entity.TokenEntity;
 import net.ttcxy.tang.portal.entity.dto.CurrentAuthor;
 import net.ttcxy.tang.portal.entity.model.UtsAuthor;
 import net.ttcxy.tang.portal.entity.model.UtsRole;
@@ -52,10 +54,9 @@ public class TokenProvider implements InitializingBean {
         this.key = Keys.hmacShaKeyFor(keyBytes);
     }
 
-    public String createToken(Authentication authentication, boolean rememberMe) {
-        String authorities = authentication.getAuthorities().stream()
-                .map(GrantedAuthority::getAuthority)
-                .collect(Collectors.joining(","));
+    public String createToken(TokenEntity tokenEntity , boolean rememberMe) {
+        String authorities = tokenEntity.getAuth();
+        CurrentAuthor currentAuthor = tokenEntity.getAuthor();
 
         long now = (new Date()).getTime();
         Date validity;
@@ -66,9 +67,9 @@ public class TokenProvider implements InitializingBean {
         }
 
         return Jwts.builder()
-                .setSubject(authentication.getName())
+                .setSubject(currentAuthor.getUsername())
                 .claim(AUTHORITIES_KEY, authorities)
-                .claim(USER_INFO_KEY, authentication.getPrincipal())
+                .claim(USER_INFO_KEY, currentAuthor)
                 .signWith(key, SignatureAlgorithm.HS512)
                 .setExpiration(validity)
                 .compact();
@@ -80,12 +81,10 @@ public class TokenProvider implements InitializingBean {
                 .parseClaimsJws(token)
                 .getBody();
 
-        Collection<? extends GrantedAuthority> authorities =
-                Arrays.stream(claims.get(AUTHORITIES_KEY).toString().split(","))
+        Collection<? extends GrantedAuthority> authorities = Arrays.stream(claims.get(AUTHORITIES_KEY).toString().split(","))
                         .map(SimpleGrantedAuthority::new)
                         .collect(Collectors.toList());
-
-        User principal = new User(claims.getSubject(), "", authorities);
+        CurrentAuthor principal = BeanUtil.toBean(claims.get(USER_INFO_KEY),CurrentAuthor.class);
 
         return new UsernamePasswordAuthenticationToken(principal, token, authorities);
     }
@@ -109,4 +108,5 @@ public class TokenProvider implements InitializingBean {
         }
         return false;
     }
+
 }

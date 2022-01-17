@@ -18,7 +18,7 @@ public class CurrentAuthor implements UserDetails {
 
     private List<UtsRole> utsRoles = new ArrayList<>();
 
-    private String updateToken;
+    private long refreshTime;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -29,12 +29,12 @@ public class CurrentAuthor implements UserDetails {
         return set;
     }
 
-    public String getUpdateToken() {
-        return updateToken;
+    public long getRefreshTime() {
+        return refreshTime;
     }
 
-    public void setUpdateToken(String updateToken) {
-        this.updateToken = updateToken;
+    public void setRefreshTime(long refreshTime) {
+        this.refreshTime = refreshTime;
     }
 
     public UtsAuthor getUtsAuthor() {

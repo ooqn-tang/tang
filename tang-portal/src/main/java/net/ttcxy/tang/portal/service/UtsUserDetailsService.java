@@ -8,6 +8,7 @@ import net.ttcxy.tang.portal.entity.model.UtsAuthor;
 import net.ttcxy.tang.portal.entity.model.UtsRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -16,8 +17,8 @@ import java.util.List;
 /**
  * @author huanglei
  */
-@Service("userDetailsService")
-public class UserDetailsService implements org.springframework.security.core.userdetails.UserDetailsService {
+@Service
+public class UtsUserDetailsService implements UserDetailsService {
 
     @Autowired
     private UtsAuthorService utsAuthorService;
@@ -27,7 +28,7 @@ public class UserDetailsService implements org.springframework.security.core.use
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UtsAuthor author = null;
+        UtsAuthor author;
         if (Validator.isEmail(username)){
             author = utsAuthorService.selectAuthorByMail(username);
         }else{
@@ -39,8 +40,10 @@ public class UserDetailsService implements org.springframework.security.core.use
             currentAuthor.setUtsAuthor(author);
             List<UtsRole> utsRoles = utsRoleService.selectRoleList(author.getAuthorId());
             currentAuthor.setUtsRoles(utsRoles);
+            currentAuthor.setRefreshTime(utsAuthorService.nowTime(author.getUsername(),currentAuthor.getUtsRoles()).getTime());
             return BeanUtil.toBean(currentAuthor,CurrentAuthor.class);
         }
+
 
         throw new UsernameNotFoundException("输入的用户名或密码不正确");
     }

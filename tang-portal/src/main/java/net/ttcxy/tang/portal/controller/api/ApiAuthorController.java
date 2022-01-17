@@ -31,9 +31,10 @@ public class ApiAuthorController {
     private HttpSession httpSession;
 
     @GetMapping("authorListArticleCount")
-    public ResponseResult<PageInfo<List<Map<String, String>>>> select(
+    public ResponseResult<PageInfo<Map<String, String>>> select(
             @RequestParam(value = "page", defaultValue = "1") Integer page) {
-        return ResponseResult.success(authorService.selectAuthorArticleCount(page, 100));
+        PageInfo<Map<String, String>> mapPageInfo = authorService.selectAuthorArticleCount(page, 100);
+        return ResponseResult.success(mapPageInfo);
     }
 
 

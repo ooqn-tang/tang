@@ -91,7 +91,6 @@ export default {
           let tokenData = jwt_decode(response.jwt_token)
           localStorage.setItem("token",response.jwt_token)
           localStorage.setItem("author",JSON.stringify(tokenData.author))
-          alert(JSON.stringify(tokenData))
           this.$router.push({path:"/author/"+tokenData.sub})
         }
       })

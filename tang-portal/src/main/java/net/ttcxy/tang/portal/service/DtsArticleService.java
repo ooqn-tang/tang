@@ -46,8 +46,8 @@ public class DtsArticleService {
     @Autowired
     private DtsArticleSubjectService articleSubjectService;
 
-    public PageInfo<DtsArticleDto> selectArticleList(String tagName, Integer page, Integer pageSize) {
-        PageHelper.startPage(page, pageSize);
+    public PageInfo<DtsArticleDto> selectArticleList(String tagName, Integer page, Integer size) {
+        PageHelper.startPage(page, size);
         return new PageInfo<>(articleDao.selectArticleList(tagName));
     }
 
@@ -56,8 +56,8 @@ public class DtsArticleService {
         return new PageInfo<>(articleDao.search(title));
     }
 
-    public PageInfo<DtsArticleDto> selectArticleByAuthorName(String username, Integer page, Integer pageSize) {
-        PageHelper.startPage(page,pageSize);
+    public PageInfo<DtsArticleDto> selectArticleByAuthorName(String username, Integer page, Integer size) {
+        PageHelper.startPage(page,size);
         return new PageInfo<>(articleDao.selectArticleListByUsername(username));
     }
 
@@ -145,11 +145,11 @@ public class DtsArticleService {
 
     public List<DtsArticleDto> selectArticleListRandom() {
         List<DtsArticleDto> set = new ArrayList<>();
-        cache = articleDao.selectArticleList1000();
+        DtsArticleService.cache = articleDao.selectArticleList1000();
         while(set.size() <= 10){
             Random random = new Random();
-            int n = random.nextInt(cache.size());
-            DtsArticleDto dtsArticleDto = cache.get(n);
+            int n = random.nextInt(DtsArticleService.cache.size());
+            DtsArticleDto dtsArticleDto = DtsArticleService.cache.get(n);
             set.add(dtsArticleDto);
         }
        return set;
