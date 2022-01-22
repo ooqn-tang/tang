@@ -67,7 +67,7 @@ public class ApiSubjectController {
         if (count > 0) {
             return ResponseEntity.ok("处理成功");
         }
-        throw new ApiException(ResponseCode.ACCEPTED);
+        throw new ApiException(ResponseCode.FAILED);
     }
 
     @PutMapping
@@ -78,7 +78,7 @@ public class ApiSubjectController {
         if (count > 0) {
             return ResponseEntity.ok("处理成功");
         }
-        throw new ApiException(ResponseCode.ACCEPTED);
+        throw new ApiException(ResponseCode.FAILED);
     }
 
     @PostMapping("article")
@@ -90,7 +90,7 @@ public class ApiSubjectController {
         if (count > 0) {
             return ResponseEntity.ok("处理成功");
         }
-        throw new ApiException(ResponseCode.ACCEPTED);
+        throw new ApiException(ResponseCode.FAILED);
     }
 
     @PutMapping("article")
@@ -102,7 +102,7 @@ public class ApiSubjectController {
         if (count > 0) {
             return ResponseEntity.ok("处理成功");
         }
-        throw new ApiException(ResponseCode.ACCEPTED);
+        throw new ApiException(ResponseCode.FAILED);
     }
 
     @GetMapping("article/{articleId}")

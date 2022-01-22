@@ -68,7 +68,7 @@ public class ApiTagController {
         if (count > 0) {
             return ResponseEntity.ok("操作成功");
         }
-        throw new ApiException(ResponseCode.ACCEPTED);
+        throw new ApiException(ResponseCode.FAILED);
     }
 
 }

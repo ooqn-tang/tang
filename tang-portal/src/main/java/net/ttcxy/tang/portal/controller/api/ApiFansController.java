@@ -63,7 +63,7 @@ public class ApiFansController {
         if (count > 0) {
             return ResponseEntity.ok(count);
         }
-        throw new ApiException(ResponseCode.ACCEPTED);
+        throw new ApiException(ResponseCode.FAILED);
     }
 
     @DeleteMapping("{fansName}")
@@ -74,6 +74,6 @@ public class ApiFansController {
         if (count > 0) {
             return ResponseEntity.ok(count);
         }
-        throw new ApiException(ResponseCode.ACCEPTED);
+        throw new ApiException(ResponseCode.FAILED);
     }
 }

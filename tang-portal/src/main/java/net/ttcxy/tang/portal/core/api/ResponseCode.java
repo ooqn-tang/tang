@@ -10,13 +10,9 @@ public enum ResponseCode {
      */
     SUCCESS(200, "执行成功"),
     /**
-     * 处理失败
-     */
-    ACCEPTED(202, "处理失败"),
-    /**
      * 服务器异常
      */
-    FAILED(500, "服务器异常"),
+    FAILED(500, "执行失败"),
     /**
      * 参数检验失败
      */

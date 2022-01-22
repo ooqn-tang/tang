@@ -36,7 +36,7 @@ public class ApiAdminResourceController {
         if (count > 0){
             return ResponseEntity.ok("添加成功");
         }
-        throw new ApiException(ResponseCode.ACCEPTED);
+        throw new ApiException(ResponseCode.FAILED);
     }
 
     @PutMapping
@@ -46,7 +46,7 @@ public class ApiAdminResourceController {
         if (count > 0){
             return ResponseEntity.ok("添加成功");
         }
-        throw new ApiException(ResponseCode.ACCEPTED);
+        throw new ApiException(ResponseCode.FAILED);
     }
 
     @GetMapping("{resourceId}")
@@ -61,7 +61,7 @@ public class ApiAdminResourceController {
         if (count > 0){
             return ResponseEntity.ok("删除成功");
         }
-        throw new ApiException(ResponseCode.ACCEPTED);
+        throw new ApiException(ResponseCode.FAILED);
     }
 
     @GetMapping("role/{roleId}")

@@ -37,7 +37,7 @@ public class ApiAdminAuthorController {
         if (count > 0){
             return ResponseEntity.ok("添加成功");
         }
-        throw new ApiException(ResponseCode.ACCEPTED);
+        throw new ApiException(ResponseCode.FAILED);
     }
 
     @PutMapping
@@ -47,7 +47,7 @@ public class ApiAdminAuthorController {
         if (count > 0){
             return ResponseEntity.ok("添加成功");
         }
-        throw new ApiException(ResponseCode.ACCEPTED);
+        throw new ApiException(ResponseCode.FAILED);
     }
 
     @DeleteMapping("{authorId}")
@@ -56,7 +56,7 @@ public class ApiAdminAuthorController {
         if (count > 0){
             return ResponseEntity.ok("删除成功");
         }
-        throw new ApiException(ResponseCode.ACCEPTED);
+        throw new ApiException(ResponseCode.FAILED);
     }
 
 }
