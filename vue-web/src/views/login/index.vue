@@ -87,9 +87,9 @@ export default {
         method: 'post',
         data:this.loginData
     }).then((response) => {
-        if(response.code === 200){
-          let tokenData = jwt_decode(response.jwt_token)
-          localStorage.setItem("token",response.jwt_token)
+        if(response.data.code === 200){
+          let tokenData = jwt_decode(response.data.jwt)
+          localStorage.setItem("jwt",response.data.jwt)
           localStorage.setItem("author",JSON.stringify(tokenData.author))
           this.$router.push({path:"/author/"+tokenData.sub})
         }
@@ -101,7 +101,7 @@ export default {
         method: 'post',
         params:{mail:this.loginData.username}
     }).then((response) => {
-        alert(response.message)
+        alert(response.data.message)
       })
     },
     register(){

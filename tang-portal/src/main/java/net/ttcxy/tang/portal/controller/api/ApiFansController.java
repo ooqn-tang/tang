@@ -3,7 +3,6 @@ package net.ttcxy.tang.portal.controller.api;
 import com.github.pagehelper.PageInfo;
 import net.ttcxy.tang.portal.core.api.ApiException;
 import net.ttcxy.tang.portal.core.api.ResponseCode;
-import net.ttcxy.tang.portal.core.api.ResponseResult;
 import net.ttcxy.tang.portal.core.security.CurrentUtil;
 import net.ttcxy.tang.portal.entity.dto.UtsFansDto;
 import net.ttcxy.tang.portal.entity.model.UtsAuthor;
@@ -11,6 +10,7 @@ import net.ttcxy.tang.portal.entity.model.UtsFans;
 import net.ttcxy.tang.portal.service.UtsAuthorService;
 import net.ttcxy.tang.portal.service.UtsFansService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -27,28 +27,28 @@ public class ApiFansController {
     private UtsFansService fansService;
 
     @Autowired
-    UtsAuthorService utsAuthorService;
+    private UtsAuthorService utsAuthorService;
 
     @GetMapping("username/{username}")
-    public ResponseResult<Integer> username(@PathVariable("username") String username) {
+    public ResponseEntity<Integer> selectByUsername(@PathVariable("username") String username) {
         String authorId = CurrentUtil.id();
         UtsAuthor utsAuthor = utsAuthorService.selectAuthorByName(username);
         if (utsAuthor != null) {
             Integer count = fansService.isFans(authorId, utsAuthor.getAuthorId());
-            return ResponseResult.success(count);
+            return ResponseEntity.ok(count);
         }
         throw new ApiException();
     }
 
     @GetMapping("list")
-    public ResponseResult<PageInfo<UtsFansDto>> fansList() {
+    public ResponseEntity<PageInfo<UtsFansDto>> selectList() {
         String authorId = CurrentUtil.id();
         PageInfo<UtsFansDto> authorDtoPageInfo = fansService.selectFansList(authorId);
-        return ResponseResult.success(authorDtoPageInfo);
+        return ResponseEntity.ok(authorDtoPageInfo);
     }
 
     @PostMapping("{fansName}")
-    public ResponseResult<Integer> insert(@PathVariable("fansName") String fansName) {
+    public ResponseEntity<Integer> insert(@PathVariable("fansName") String fansName) {
         String authorId = CurrentUtil.id();
 
         UtsAuthor utsAuthor = utsAuthorService.selectAuthorByName(fansName);
@@ -61,19 +61,19 @@ public class ApiFansController {
         fans.setBeAuthorId(utsAuthor.getAuthorId());
         int count = fansService.insertFans(fans);
         if (count > 0) {
-            return ResponseResult.success(count);
+            return ResponseEntity.ok(count);
         }
-        throw new ApiException(ResponseCode.FAILED);
+        throw new ApiException(ResponseCode.ACCEPTED);
     }
 
     @DeleteMapping("{fansName}")
-    public ResponseResult<Integer> delete(@PathVariable("fansName") String fansName) {
+    public ResponseEntity<Integer> delete(@PathVariable("fansName") String fansName) {
         String authorId = CurrentUtil.id();
 
         int count = fansService.deleteFans(fansName, authorId);
         if (count > 0) {
-            return ResponseResult.success(count);
+            return ResponseEntity.ok(count);
         }
-        throw new ApiException(ResponseCode.FAILED);
+        throw new ApiException(ResponseCode.ACCEPTED);
     }
 }

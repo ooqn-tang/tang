@@ -1,12 +1,14 @@
 package net.ttcxy.tang.portal.controller.api.admin;
 
 import cn.hutool.core.bean.BeanUtil;
-import net.ttcxy.tang.portal.core.api.ResponseResult;
+import net.ttcxy.tang.portal.core.api.ApiException;
+import net.ttcxy.tang.portal.core.api.ResponseCode;
 import net.ttcxy.tang.portal.entity.model.UtsAuthor;
 import net.ttcxy.tang.portal.entity.param.UtsAuthorParam;
 import net.ttcxy.tang.portal.service.UtsAuthorService;
 import net.ttcxy.tang.portal.service.UtsRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,38 +25,38 @@ public class ApiAdminAuthorController {
 
 
     @GetMapping
-    public ResponseResult<List<UtsAuthor>> select(){
+    public ResponseEntity<List<UtsAuthor>> select(){
         List<UtsAuthor> authorList = authorService.select();
-        return ResponseResult.success(authorList);
+        return ResponseEntity.ok(authorList);
     }
 
     @PostMapping
-    public ResponseResult<String> insert(@RequestBody UtsAuthorParam authorParam){
+    public ResponseEntity<String> insert(@RequestBody UtsAuthorParam authorParam){
         UtsAuthor author = BeanUtil.toBean(authorParam, UtsAuthor.class);
         int count = authorService.insertAuthor(author);
         if (count > 0){
-            return ResponseResult.success("添加成功");
+            return ResponseEntity.ok("添加成功");
         }
-        return ResponseResult.failed("添加失败");
+        throw new ApiException(ResponseCode.ACCEPTED);
     }
 
     @PutMapping
-    public ResponseResult<String> update(@RequestBody UtsAuthorParam authorParam){
+    public ResponseEntity<String> update(@RequestBody UtsAuthorParam authorParam){
         UtsAuthor author = BeanUtil.toBean(authorParam, UtsAuthor.class);
         int count = authorService.update(author);
         if (count > 0){
-            return ResponseResult.success("添加成功");
+            return ResponseEntity.ok("添加成功");
         }
-        return ResponseResult.failed("添加失败");
+        throw new ApiException(ResponseCode.ACCEPTED);
     }
 
     @DeleteMapping("{authorId}")
-    public ResponseResult<String> delete(@PathVariable("authorId") String authorId){
+    public ResponseEntity<String> delete(@PathVariable("authorId") String authorId){
         int count = authorService.delete(authorId);
         if (count > 0){
-            return ResponseResult.success("删除成功");
+            return ResponseEntity.ok("删除成功");
         }
-        return ResponseResult.failed("删除失败");
+        throw new ApiException(ResponseCode.ACCEPTED);
     }
 
 }

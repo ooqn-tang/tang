@@ -101,7 +101,7 @@ export default {
         method: "POST",
         data:this.roleForm
       }).then((response) => {
-        this.roleIdList = response.data;
+        this.roleIdList = response;
       });
     },
     rowAuthorClick(row, column, event){
@@ -113,12 +113,12 @@ export default {
         url: "api/admin/role",
         method: "GET",
       }).then((response) => {
-        this.roleList = response.data;
+        this.roleList = response;
         request({
           url: "api/admin/role/author/"+row.authorId,
           method: "GET",
         }).then((response) => {
-          this.roleIdList = response.data;
+          this.roleIdList = response;
         });
       });
     },

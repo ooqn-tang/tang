@@ -18,7 +18,7 @@ public class UtsResourceService {
     private UtsResourceMapper resourceMapper;
 
     
-    public List<String> loadResourceUrlByRoleValue(String roleValue) {
+    public List<UtsResource> loadResourceUrlByRoleValue(String roleValue) {
         return resourceDao.loadResourceUrlByRoleValue(roleValue);
     }
 

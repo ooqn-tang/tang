@@ -1,5 +1,6 @@
 package net.ttcxy.tang.portal.service;
 
+import net.ttcxy.tang.portal.entity.model.UtsResource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -23,9 +24,10 @@ public class UtsRbacService {
         Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
         for (GrantedAuthority authority : authorities) {
             String role = authority.getAuthority();
-            List<String> strings = utsResourceService.loadResourceUrlByRoleValue(role);
-            for (String string : strings) {
-                if (antPathMatcher.match(string,request.getRequestURI())){
+            List<UtsResource> resourceList = utsResourceService.loadResourceUrlByRoleValue(role);
+            for (UtsResource resource : resourceList) {
+                String method = request.getMethod();
+                if (antPathMatcher.match(resource.getPath(),request.getRequestURI()) && method.equals(resource.getType())){
                     return true;
                 }
             }

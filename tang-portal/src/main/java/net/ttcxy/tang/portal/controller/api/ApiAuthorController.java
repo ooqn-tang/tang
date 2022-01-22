@@ -3,19 +3,18 @@ package net.ttcxy.tang.portal.controller.api;
 import cn.hutool.core.bean.BeanUtil;
 import com.github.pagehelper.PageInfo;
 import net.ttcxy.tang.portal.core.api.ApiException;
-import net.ttcxy.tang.portal.core.api.ResponseResult;
 import net.ttcxy.tang.portal.core.security.CurrentUtil;
 import net.ttcxy.tang.portal.entity.dto.CurrentAuthor;
 import net.ttcxy.tang.portal.entity.model.UtsAuthor;
 import net.ttcxy.tang.portal.entity.param.UtsAuthorUpdateParam;
 import net.ttcxy.tang.portal.service.UtsAuthorService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
-import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -31,24 +30,24 @@ public class ApiAuthorController {
     private HttpSession httpSession;
 
     @GetMapping("authorListArticleCount")
-    public ResponseResult<PageInfo<Map<String, String>>> select(
+    public ResponseEntity<PageInfo<Map<String, String>>> select(
             @RequestParam(value = "page", defaultValue = "1") Integer page) {
         PageInfo<Map<String, String>> mapPageInfo = authorService.selectAuthorArticleCount(page, 100);
-        return ResponseResult.success(mapPageInfo);
+        return ResponseEntity.ok(mapPageInfo);
     }
 
 
     @GetMapping("isLogin")
-    public ResponseResult<Boolean> isLogin() {
+    public ResponseEntity<Boolean> isLogin() {
         String authorId = CurrentUtil.id();
         if (authorId == null) {
-            return ResponseResult.success(false);
+            return ResponseEntity.ok(false);
         }
-        return ResponseResult.success(true);
+        return ResponseEntity.ok(true);
     }
 
     @PutMapping
-    public ResponseResult<String> updateAuthor(@RequestBody UtsAuthorUpdateParam authorParam) {
+    public ResponseEntity<String> updateAuthor(@RequestBody UtsAuthorUpdateParam authorParam) {
 
         UtsAuthor author = BeanUtil.toBean(authorParam, UtsAuthor.class);
 
@@ -60,26 +59,22 @@ public class ApiAuthorController {
         if (count > 0) {
             CurrentAuthor currentAuthor = CurrentUtil.author();
             BeanUtil.copyProperties(currentAuthor, authorService.selectAuthorByName(currentAuthor.getUsername()));
-            return ResponseResult.success("更新成功");
+            return ResponseEntity.ok("更新成功");
         }
         throw new ApiException();
     }
 
 
     @GetMapping("{username}")
-    public ResponseResult<UtsAuthor> authorByUsername(@PathVariable(value = "username") String username) {
+    public ResponseEntity<UtsAuthor> authorByUsername(@PathVariable(value = "username") String username) {
         UtsAuthor utsAuthor = authorService.selectAuthorByName(username);
         utsAuthor.setPassword(null);
-        return ResponseResult.success(utsAuthor);
+        return ResponseEntity.ok(utsAuthor);
     }
 
     @GetMapping("list")
-    public ResponseResult<PageInfo<UtsAuthor>> authorList(@RequestParam(value = "page", defaultValue = "1") Integer page) {
-        return ResponseResult.success(authorService.authorList(page, 10));
+    public ResponseEntity<PageInfo<UtsAuthor>> authorList(@RequestParam(value = "page", defaultValue = "1") Integer page) {
+        return ResponseEntity.ok(authorService.authorList(page, 10));
     }
 
-
-    public static void main(String[] args) {
-        System.out.println(new BCryptPasswordEncoder().encode("mima135654.."));
-    }
 }

@@ -162,13 +162,13 @@
         <a disabled class="btn btn-outline-primary btn-sm mini-but">举报</a>
         <a
           class="btn btn-outline-primary btn-sm mini-but"
-          :href="'https://ttcxy.cn/post/' + param.articleId"
+          :href="'https://ttcxy.cn/post/' + articleId"
           >阅读模式</a
         >
         <router-link
           class="btn btn-outline-primary btn-sm mini-but"
           v-if="article.username == loginUsername"
-          :to="{ name: 'article-editor', params: { id: article.articleId } }"
+          :to="{ name: 'article-editor', params: { id: articleId } }"
           >修改</router-link
         >
         <a class="btn btn-outline-primary btn-sm mini-but" onclick="document.body.scrollTop = document.documentElement.scrollTop = 0">⬆TOP</a>
@@ -186,9 +186,7 @@ export default {
     return {
       fans: 2,
       loginUsername: this.$store.state.username,
-      param: {
-        articleId: this.$route.params.id,
-      },
+      articleId: this.$route.params.id,
       loading: true,
       recommendList: null,
       commentList: [],
@@ -221,9 +219,8 @@ export default {
     },
     isFans() {
       request({
-        url: "/api/fans/is",
+        url: "/api/fans/username/" + this.article.username,
         method: "get",
-        params: {username:this.article.username},
       }).then((response) => {
         if (response.data == 1) {
           this.fans = 1;
@@ -235,17 +232,15 @@ export default {
     likeClick() {
       if (this.like == 1) {
         request({
-          url: "/api/article/like",
+          url: "/api/article/like/"+this.articleId,
           method: "DELETE",
-          params: this.param,
         }).then((response) => {
           this.like = 0;
         });
       } else {
         request({
-          url: "/api/article/like",
+          url: "/api/article/like/"+this.articleId,
           method: "POST",
-          params: this.param,
         }).then((response) => {
           this.like = 1;
         });
@@ -253,9 +248,8 @@ export default {
     },
     isLike() {
       request({
-        url: "/api/article/like",
+        url: "/api/article/like/"+this.articleId,
         method: "GET",
-        params: this.param,
       }).then((response) => {
         this.like = response.data;
       });
@@ -272,9 +266,8 @@ export default {
     },
     loadArticleInfo() {
       request({
-        url: "/api/article/load",
+        url: "/api/article/load/"+this.articleId,
         method: "GET",
-        params: this.param,
       }).then((response) => {
         this.article = response.data;
         if (this.$store.state.username != "") {
@@ -285,12 +278,11 @@ export default {
     },
     selectSubjectArticleList() {
       request({
-        url: "/api/subject/article",
+        url: "/api/subject/article/"+this.articleId,
         method: "GET",
-        params: this.param,
       }).then((response) => {
         this.subject = response.data;
-        if (this.subject != undefined) {
+        if (this.subject != "") {
           this.articleList = response.data.articleList;
           this.showSubject = true;
         }
@@ -305,7 +297,7 @@ export default {
       });
     },
     load() {
-      this.param.articleId = this.$route.params.id;
+      this.articleId = this.$route.params.id;
       if (this.$store.state.username != "") {
         this.isLike();
       }

@@ -12,8 +12,8 @@
         from uts_resource t1, uts_resource_role t2 ,uts_role t3
         where t1.resource_id = t2.resource_id and t3.role_id = t2.role_id
     </select>
-    <select id="loadResourceUrlByRoleValue" resultType="java.lang.String">
-        select path
+    <select id="loadResourceUrlByRoleValue" resultType="net.ttcxy.tang.portal.entity.model.UtsResource">
+        select path,type
         from uts_resource t1, uts_resource_role t2 ,uts_role t3
         where t1.resource_id = t2.resource_id and t3.role_id = t2.role_id and t3.role_value = #{roleValue}
     </select>

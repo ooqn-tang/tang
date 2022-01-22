@@ -75,7 +75,7 @@ export default {
         request({
           url: '/api/fans/' + username,
           method: 'DELETE'
-        })(username).then((response) => {
+        }).then((response) => {
           this.fans = 2
         })
       }

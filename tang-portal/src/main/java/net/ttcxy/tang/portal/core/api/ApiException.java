@@ -1,44 +1,58 @@
 package net.ttcxy.tang.portal.core.api;
 
+import org.springframework.http.HttpStatus;
+
 /**
  * 自定义API异常
  * @author huanglei
  */
-public class ApiException extends RuntimeException implements IErrorCode {
+public class ApiException extends RuntimeException {
 
-    private int errorCode;
-
-    public ApiException(int errorCode, String message) {
-        super(message);
-        this.errorCode = errorCode;
-    }
-
-    public ApiException(ResponseCode responseCode) {
-        super(responseCode.getMessage());
-        this.errorCode = responseCode.getCode();
-    }
+    private int status;
+    private String message;
 
     public ApiException() {
-        super(ResponseCode.FAILED.getMessage());
-        this.errorCode = ResponseCode.FAILED.getCode();
+        this.status = ResponseCode.FAILED.getStatus();
+    }
+    public ApiException(ResponseCode responseCode) {
+        this.status = responseCode.getStatus();
+        this.message = responseCode.getMessage();
     }
 
-    @Override
-    public int getCode() {
-        return errorCode;
+    public ApiException(int errorCode, String message) {
+        this.status = errorCode;
+        this.message = message;
+    }
+
+    public ApiException(org.springframework.http.HttpStatus status) {
+        this.status = status.value();
+        this.message = status.getReasonPhrase();
+    }
+
+    public ApiException(org.springframework.http.HttpStatus status,String message) {
+        this.status = status.value();
+        this.message = message;
     }
 
     public ApiException(String message) {
-        super(message);
-        this.errorCode = ResponseCode.FAILED.getCode();
+        this.status = HttpStatus.INTERNAL_SERVER_ERROR.value();
+        this.message = message;
     }
 
-    public ApiException(Throwable cause) {
-        super(cause);
+    public int getStatus() {
+        return status;
     }
 
-    public ApiException(String message, Throwable cause) {
-        super(message, cause);
+    public void setStatus(int status) {
+        this.status = status;
     }
 
+    @Override
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
 }

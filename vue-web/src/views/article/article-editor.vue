@@ -88,9 +88,8 @@ export default {
     
       loadArticleAllInfo(articleId){
         request({
-          url: '/api/article/load/all',
+          url: '/api/article/load/'+articleId+"/all",
           method: 'GET',
-          params: {"articleId":articleId}
         }).then((response) => {
           this.articleData = response.data
           let tList = response.data.tagList
@@ -125,7 +124,7 @@ export default {
       },
       loadAllTagList(){
         request({
-          url: '/api/tag/allTag',
+          url: '/api/tag/all',
           method: 'GET'
         }).then((response) => {
           this.authorTagList = response.data;

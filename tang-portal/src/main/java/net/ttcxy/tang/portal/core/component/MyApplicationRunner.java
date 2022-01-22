@@ -44,7 +44,7 @@ public class MyApplicationRunner implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) {
         mkStaticLocations();
-        urls();
+        //urls();
     }
 
     @Autowired

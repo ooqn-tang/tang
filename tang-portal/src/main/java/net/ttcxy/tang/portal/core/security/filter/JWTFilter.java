@@ -1,10 +1,6 @@
 package net.ttcxy.tang.portal.core.security.filter;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import lombok.extern.java.Log;
-import net.ttcxy.tang.portal.core.api.ResponseCode;
-import net.ttcxy.tang.portal.core.api.ResponseResult;
 import net.ttcxy.tang.portal.core.security.jwt.TokenProvider;
 import net.ttcxy.tang.portal.entity.dto.CurrentAuthor;
 import net.ttcxy.tang.portal.service.UtsAuthorService;
@@ -15,7 +11,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.GenericFilterBean;
-import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -42,7 +37,7 @@ public class JWTFilter extends GenericFilterBean {
         this.tokenProvider = tokenProvider;
         this.authorService = authorService;
     }
-    private AntPathMatcher antPathMatcher = new AntPathMatcher();
+    private final AntPathMatcher antPathMatcher = new AntPathMatcher();
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest httpServletRequest = (HttpServletRequest) request;
@@ -56,7 +51,7 @@ public class JWTFilter extends GenericFilterBean {
             Date date = authorService.nowTime(currentAuthor.getUsername(), currentAuthor.getUtsRoles());
             if (date != null && date.getTime() != currentAuthor.getRefreshTime()){
                 httpServletResponse.setStatus(666);
-                httpServletResponse.getWriter().print(JSON.toJSONString(ResponseResult.failed(ResponseCode.REFRESH)));
+                httpServletResponse.getWriter().print("JWT权限刷新了");
                 return;
             }else{
                 SecurityContextHolder.getContext().setAuthentication(authentication);
@@ -72,8 +67,8 @@ public class JWTFilter extends GenericFilterBean {
 
     private String resolveToken(HttpServletRequest request) {
         String bearerToken = request.getHeader(AUTHORIZATION_HEADER);
-        if (StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")) {
-            return bearerToken.substring(7);
+        if (StringUtils.hasText(bearerToken)) {
+            return bearerToken;
         }
         return null;
     }

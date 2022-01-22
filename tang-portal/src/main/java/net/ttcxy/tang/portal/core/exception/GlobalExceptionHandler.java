@@ -1,17 +1,15 @@
 package net.ttcxy.tang.portal.core.exception;
 
-import cn.hutool.http.HttpStatus;
 import net.ttcxy.tang.portal.core.api.ApiException;
-import net.ttcxy.tang.portal.core.api.ResponseCode;
-import net.ttcxy.tang.portal.core.api.ResponseResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.NoHandlerFoundException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -34,10 +32,9 @@ public class GlobalExceptionHandler {
      */
     @ResponseBody
     @ExceptionHandler(AccessDeniedException.class)
-    public ResponseResult<?> errorHandler(AccessDeniedException ex, HttpServletResponse httpServletResponse) {
+    public ResponseEntity<String> errorHandler(AccessDeniedException ex, HttpServletResponse httpServletResponse) {
         logger.error(ex.getMessage(),ex);
-        httpServletResponse.setStatus(HttpStatus.HTTP_BAD_REQUEST);
-        return ResponseResult.validateFailed("ex.getMessage()");
+        return ResponseEntity.badRequest().body("验证异常:"+ex.getMessage());
     }
 
     /**
@@ -45,10 +42,9 @@ public class GlobalExceptionHandler {
      */
     @ResponseBody
     @ExceptionHandler(ApiException.class)
-    public ResponseResult<?> errorHandler(ApiException ex, HttpServletResponse httpServletResponse) {
+    public ResponseEntity<String> errorHandler(ApiException ex, HttpServletResponse httpServletResponse) {
         logger.error(ex.getMessage(),ex);
-        httpServletResponse.setStatus(ResponseCode.VALIDATE_FAILED.getCode());
-        return ResponseResult.failed(ex.getMessage());
+        return ResponseEntity.badRequest().body("验证异常:"+ex.getMessage());
     }
 
     /**
@@ -56,12 +52,9 @@ public class GlobalExceptionHandler {
      */
     @ResponseBody
     @ExceptionHandler(ConstraintViolationException.class)
-    public ResponseResult<?> errorHandler(ConstraintViolationException ex, HttpServletResponse httpServletResponse) {
-        logger.error(ex.getMessage(),ex);
-        httpServletResponse.setStatus(HttpStatus.HTTP_BAD_REQUEST);
-
+    public ResponseEntity<String> errorHandler(ConstraintViolationException ex, HttpServletResponse httpServletResponse) {
         Set<ConstraintViolation<?>> violations = ex.getConstraintViolations();
-        return ResponseResult.validateFailed(violations.iterator().next().getMessage());
+        return ResponseEntity.badRequest().body("验证异常:"+violations.iterator().next().getMessage());
     }
 
     /**
@@ -69,30 +62,27 @@ public class GlobalExceptionHandler {
      */
     @ResponseBody
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseResult<?> errorHandler(MethodArgumentNotValidException ex, HttpServletResponse httpServletResponse) {
+    public ResponseEntity<String> errorHandler(MethodArgumentNotValidException ex, HttpServletResponse httpServletResponse) {
         logger.error(ex.getMessage(),ex);
-        httpServletResponse.setStatus(HttpStatus.HTTP_BAD_REQUEST);
         String result = ex.getBindingResult().getFieldErrors().get(0).getDefaultMessage();
-        return ResponseResult.validateFailed(result);
+        return ResponseEntity.badRequest().body("验证异常:"+result);
     }
     /**
      * Exception 参数校验统一异常处理
      */
     @ResponseBody
     @ExceptionHandler(Exception.class)
-    public ResponseResult<?> errorHandler(Exception ex, HttpServletResponse httpServletResponse) {
+    public ResponseEntity<String> errorHandler(Exception ex, HttpServletResponse httpServletResponse) {
         logger.error(ex.getMessage(),ex);
-        httpServletResponse.setStatus(HttpStatus.HTTP_BAD_REQUEST);
-        return ResponseResult.failed("系统异常");
+        return ResponseEntity.badRequest().body("验证异常:"+ex.getMessage());
     }
     /**
      * Exception 参数校验统一异常处理
      */
     @ResponseBody
     @ExceptionHandler(ServletException.class)
-    public ResponseResult<?> errorHandler(ServletException ex, HttpServletResponse httpServletResponse, HttpServletRequest httpServletRequest) {
-        httpServletResponse.setStatus(HttpStatus.HTTP_BAD_REQUEST);
-        return ResponseResult.failed(ex.getMessage());
+    public ResponseEntity<?> errorHandler(ServletException ex, HttpServletResponse httpServletResponse, HttpServletRequest httpServletRequest) {
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("系统异常："+ex.getMessage());
     }
 
 }

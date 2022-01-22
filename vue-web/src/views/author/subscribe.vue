@@ -38,7 +38,7 @@ export default {
         url: '/api/fans/' + username,
         method: 'DELETE'
       }).then((response) => {
-        if(response.code == 200){
+        if(response.data.code == 200){
           this.fansList.splice(index,1)
         }
       })

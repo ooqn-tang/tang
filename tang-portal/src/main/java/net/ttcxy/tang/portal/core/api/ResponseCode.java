@@ -4,24 +4,46 @@ package net.ttcxy.tang.portal.core.api;
  * 枚举了一些常用API操作码
  * Created by macro on 2019/4/19.
  */
-public enum ResponseCode implements IErrorCode {
-    SUCCESS(200, "操作成功"),
-    FAILED(500, "操作失败"),
+public enum ResponseCode {
+    /**
+     * 执行成功
+     */
+    SUCCESS(200, "执行成功"),
+    /**
+     * 处理失败
+     */
+    ACCEPTED(202, "处理失败"),
+    /**
+     * 服务器异常
+     */
+    FAILED(500, "服务器异常"),
+    /**
+     * 参数检验失败
+     */
     VALIDATE_FAILED(404, "参数检验失败"),
+    /**
+     * 暂未登录或token已经过期
+     */
     UNAUTHORIZED(401, "暂未登录或token已经过期"),
+    /**
+     * 没有相关权限
+     */
     FORBIDDEN(403, "没有相关权限"),
-    REFRESH(666, "Please refresh TOKEN");
-    private final int code;
+    /**
+     * 请刷新JWT
+     */
+    REFRESH(666, "请刷新JWT");
+    private final int status;
     private final String message;
 
-    private ResponseCode(int code, String message) {
+    ResponseCode(int status, String message) {
 
-        this.code = code;
+        this.status = status;
         this.message = message;
     }
 
-    public int getCode() {
-        return code;
+    public int getStatus() {
+        return status;
     }
 
     public String getMessage() {

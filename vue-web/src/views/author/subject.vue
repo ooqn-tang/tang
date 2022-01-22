@@ -66,7 +66,7 @@ export default {
         method: 'POST',
         data:this.dataFrom
         }).then((response) => {
-          alert(JSON.stringify(response))
+          alert(JSON.stringify(response.data))
         })
       }else{
         request({
@@ -74,7 +74,7 @@ export default {
           method: 'PUT',
           data:this.dataFrom
         }).then((response) => {
-          alert(JSON.stringify(response))
+          alert(JSON.stringify(response.data))
         })
       }
     },

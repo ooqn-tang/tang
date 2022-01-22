@@ -5,14 +5,10 @@ import cn.hutool.cache.CacheUtil;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.lang.Validator;
 import cn.hutool.core.util.StrUtil;
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import net.ttcxy.tang.portal.core.api.ApiException;
 import net.ttcxy.tang.portal.core.api.ResponseCode;
-import net.ttcxy.tang.portal.core.api.ResponseResult;
-import net.ttcxy.tang.portal.core.security.CurrentUtil;
-import net.ttcxy.tang.portal.core.security.filter.JWTFilter;
 import net.ttcxy.tang.portal.core.security.jwt.TokenProvider;
 import net.ttcxy.tang.portal.entity.TokenEntity;
 import net.ttcxy.tang.portal.entity.dto.CurrentAuthor;
@@ -23,80 +19,60 @@ import net.ttcxy.tang.portal.entity.param.UtsRegisterParam;
 import net.ttcxy.tang.portal.service.UtsAuthorService;
 import net.ttcxy.tang.portal.service.UtsUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import java.util.Collection;
-import java.util.Date;
 
 /**
  * 登录，注册，修改密码
  */
 @RestController
 @RequestMapping("/api")
-public class LoginController {
+public class ApiLoginController {
 
     public static Cache<String, String> fifoCache = CacheUtil.newTimedCache(6000);
 
     @Autowired
     private UtsAuthorService authorService;
 
-    private final TokenProvider tokenProvider;
-
-    private final AuthenticationManagerBuilder authenticationManagerBuilder;
-
-    public LoginController(TokenProvider tokenProvider, AuthenticationManagerBuilder authenticationManagerBuilder) {
-        this.tokenProvider = tokenProvider;
-        this.authenticationManagerBuilder = authenticationManagerBuilder;
-    }
-
-    @PostMapping("/authenticate")
-    public ResponseEntity<JwtToken> authorize(@Valid @RequestBody UtsLoginParam loginParam) {
-
-        UsernamePasswordAuthenticationToken authenticationToken =
-                new UsernamePasswordAuthenticationToken(loginParam.getUsername(), loginParam.getPassword());
-
-        Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-
-        boolean rememberMe = loginParam.getRememberMe() != null && loginParam.getRememberMe();
-
-        CurrentAuthor principal = (CurrentAuthor) authentication.getPrincipal();
-        Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
-        StringBuilder stringBuffer = new StringBuilder();
-        for (GrantedAuthority authority : authorities) {
-            stringBuffer.append(authority.getAuthority()).append(",");
-        }
-        if (stringBuffer.length() > 0){
-            stringBuffer.deleteCharAt(stringBuffer.length() - 1);
-        }
-
-        TokenEntity tokenEntity = new TokenEntity();
-        tokenEntity.setAuth(stringBuffer.toString());
-        tokenEntity.setAuthor(principal);
-
-        String jwt = tokenProvider.createToken(tokenEntity, rememberMe);
-
-        HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.add(JWTFilter.AUTHORIZATION_HEADER, "Bearer " + jwt);
-
-        return new ResponseEntity<>(new JwtToken(jwt), httpHeaders, HttpStatus.OK);
-    }
+    @Autowired
+    private TokenProvider tokenProvider;
 
     @Autowired
     private UtsUserDetailsService utsUserDetailsService;
 
+    @PostMapping("/authenticate")
+    public ResponseEntity<JwtToken> authorize(@Valid @RequestBody UtsLoginParam loginParam) {
+
+        CurrentAuthor currentAuthor = (CurrentAuthor)utsUserDetailsService.loadUserByUsername(loginParam.getUsername());
+        boolean rememberMe = loginParam.getRememberMe() != null && loginParam.getRememberMe();
+
+        Collection<? extends GrantedAuthority> authorities = currentAuthor.getAuthorities();
+        StringBuilder authorityStr = new StringBuilder();
+        for (GrantedAuthority authority : authorities) {
+            authorityStr.append(authority.getAuthority()).append(",");
+        }
+        if (authorityStr.length() > 0){
+            authorityStr.deleteCharAt(authorityStr.length() - 1);
+        }
+
+        TokenEntity tokenEntity = new TokenEntity();
+        tokenEntity.setAuth(authorityStr.toString());
+        tokenEntity.setAuthor(currentAuthor);
+
+        String jwt = tokenProvider.createToken(tokenEntity, rememberMe);
+        return new ResponseEntity<>(new JwtToken(jwt), HttpStatus.OK);
+    }
 
     @PostMapping("/refresh")
     public ResponseEntity<JwtToken> refresh(@RequestBody JSONObject jsonObject) {
@@ -121,14 +97,14 @@ public class LoginController {
             tokenEntity.setAuthor(newCurrentAuthor);
 
 
-            String new_jwt = tokenProvider.createToken(tokenEntity, true);
-            return new ResponseEntity<>(new JwtToken(new_jwt), HttpStatus.OK);
+            String newJwt = tokenProvider.createToken(tokenEntity, true);
+            return new ResponseEntity<>(new JwtToken(newJwt), HttpStatus.OK);
         }
         throw new ApiException("无效token");
     }
 
     @PostMapping("register")
-    public ResponseResult<?> register(@RequestBody UtsRegisterParam param) {
+    public ResponseEntity<?> register(@RequestBody UtsRegisterParam param) {
         String mail = param.getMail();
         if (Validator.isEmail(mail)) {
             Boolean isTrue = authorService.selectMailIsTrue(mail);
@@ -141,7 +117,7 @@ public class LoginController {
             author.setMail(mail);
             int count = authorService.insertAuthor(author);
             if (count > 0) {
-                return ResponseResult.success("注册成功");
+                return ResponseEntity.ok("注册成功");
             }
             throw new ApiException(ResponseCode.FAILED);
         } else {
@@ -150,7 +126,7 @@ public class LoginController {
     }
 
     @PostMapping("password")
-    public ResponseResult<String> updatePassword(@RequestBody UtsRePasswordParam param) {
+    public ResponseEntity<String> updatePassword(@RequestBody UtsRePasswordParam param) {
         String mail = param.getMail();
         Boolean isTrue = authorService.selectMailIsTrue(mail);
         if (!isTrue) {
@@ -166,7 +142,7 @@ public class LoginController {
             author.setPassword(new BCryptPasswordEncoder().encode(password));
             int count = authorService.updateAuthorByName(author);
             if (count > 0) {
-                return ResponseResult.success("修改成功");
+                return ResponseEntity.ok("修改成功");
             }
         }
         throw new ApiException();
@@ -177,19 +153,19 @@ public class LoginController {
      */
     static class JwtToken {
 
-        private String jwtToken;
+        private String jwt;
 
         JwtToken(String jwtToken) {
-            this.jwtToken = jwtToken;
+            this.jwt = jwtToken;
         }
 
-        @JsonProperty("jwt_token")
-        String getJwtToken() {
-            return jwtToken;
+        @JsonProperty("jwt")
+        String getJwt() {
+            return jwt;
         }
 
-        void setJwtToken(String jwtToken) {
-            this.jwtToken = jwtToken;
+        void setJwt(String jwt) {
+            this.jwt = jwt;
         }
     }
 }

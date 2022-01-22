@@ -8,7 +8,7 @@ import java.util.List;
 public interface UtsResourceDao {
     List<UtsRoleResourceDto> selectAll();
 
-    List<String> loadResourceUrlByRoleValue(String roleValue);
+    List<UtsResource> loadResourceUrlByRoleValue(String roleValue);
 
     List<String> selectByRoleId(String roleId);
 }

@@ -8,13 +8,14 @@ import cn.hutool.core.util.StrUtil;
 import com.github.pagehelper.PageInfo;
 import net.ttcxy.tang.portal.core.api.ApiException;
 import net.ttcxy.tang.portal.core.api.ResponseCode;
-import net.ttcxy.tang.portal.core.api.ResponseResult;
 import net.ttcxy.tang.portal.core.security.CurrentUtil;
 import net.ttcxy.tang.portal.entity.dto.DtsArticleDto;
 import net.ttcxy.tang.portal.entity.model.DtsArticle;
 import net.ttcxy.tang.portal.entity.param.DtsArticleParam;
 import net.ttcxy.tang.portal.service.DtsArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,39 +29,39 @@ public class ApiArticleController {
     private DtsArticleService articleService;
 
     @GetMapping("search")
-    public ResponseResult<PageInfo<DtsArticleDto>> searchArticleList(
+    public ResponseEntity<PageInfo<DtsArticleDto>> searchArticleList(
             @RequestParam(value = "page" ,defaultValue = "1")Integer page,
             @RequestParam(value = "title" ,defaultValue = "")String title){
         PageInfo<DtsArticleDto> articleList = articleService.search(title, page, 10);
-        return ResponseResult.success(articleList);
+        return ResponseEntity.ok(articleList);
     }
 
     @GetMapping("list")
-    public ResponseResult<PageInfo<DtsArticleDto>> selectArticleList(
+    public ResponseEntity<PageInfo<DtsArticleDto>> selectArticleList(
             @RequestParam(value = "page" ,defaultValue = "1")Integer page,
             @RequestParam(value = "tag",defaultValue = "")String tagName){
         PageInfo<DtsArticleDto> articleList = articleService.selectArticleList(tagName,page, 10);
-        return ResponseResult.success(articleList);
+        return ResponseEntity.ok(articleList);
     }
 
     @GetMapping("list/{username}")
-    public ResponseResult<PageInfo<DtsArticleDto>> selectArticleListByUsername(
+    public ResponseEntity<PageInfo<DtsArticleDto>> selectArticleListByUsername(
             @RequestParam(value = "page" ,defaultValue = "1")Integer page,
             @PathVariable(value = "username")String username){
         PageInfo<DtsArticleDto> articleList = articleService.selectArticleByAuthorName(username, page, 10);
-        return ResponseResult.success(articleList);
+        return ResponseEntity.ok(articleList);
     }
 
     @GetMapping("recommend")
-    public ResponseResult<List<DtsArticleDto>> selectArticleListRecommend(){
-        return ResponseResult.success(articleService.selectArticleListRandom());
+    public ResponseEntity<List<DtsArticleDto>> selectArticleListRecommend(){
+        return ResponseEntity.ok(articleService.selectArticleListRandom());
     }
 
     @DeleteMapping("{articleId}")
-    public ResponseResult<String> delete(@PathVariable("articleId") String articleId){
+    public ResponseEntity<String> delete(@PathVariable("articleId") String articleId){
         DtsArticle article = articleService.selectByPrimaryId(articleId);
         if (article == null){
-            throw new ApiException(ResponseCode.FAILED);
+            throw new ApiException(ResponseCode.VALIDATE_FAILED);
         }
         String articleAuthorId = article.getAuthorId();
         String currentAuthorId = CurrentUtil.id();
@@ -69,18 +70,18 @@ public class ApiArticleController {
         if(StrUtil.equals(currentAuthorId,articleAuthorId)){
             count = articleService.deleteArticle(articleId);
             if(count > 0){
-                return ResponseResult.success("处理成功");
+                return ResponseEntity.ok("处理成功");
             }
         }else{
             throw new ApiException("不能删除别入的文章");
         }
 
-        throw new ApiException(ResponseCode.FAILED);
+        throw new ApiException(HttpStatus.ACCEPTED);
 
     }
 
     @PostMapping
-    public ResponseResult<String> create(){
+    public ResponseEntity<String> create(){
 
         DateTime dateTime = new DateTime();
         String authorId = CurrentUtil.id();
@@ -92,14 +93,14 @@ public class ApiArticleController {
         article.setStateCode(1005);
         article.setAuthorId(authorId);
         if (articleService.insertArticle(article) > 0){
-            return ResponseResult.success(article.getArticleId());
+            return ResponseEntity.ok(article.getArticleId());
         }
-        throw new ApiException("创建失败");
+        throw new ApiException(HttpStatus.ACCEPTED);
 
     }
 
     @PutMapping
-    public ResponseResult<String> update(@RequestBody @Validated DtsArticleParam articleParam){
+    public ResponseEntity<String> update(@RequestBody @Validated DtsArticleParam articleParam){
         DtsArticle article = BeanUtil.toBean(articleParam, DtsArticle.class);
         article.setStateCode(1001);
 
@@ -118,53 +119,53 @@ public class ApiArticleController {
             article.setUpdateDate(date);
             int count = articleService.updateArticle(article,subjectId,tagIdList);
             if (count > 0){
-                return ResponseResult.success(article.getArticleId());
+                return ResponseEntity.ok(article.getArticleId());
             }
         }
         throw new ApiException(ResponseCode.FORBIDDEN);
     }
 
-    @GetMapping("load")
-    public ResponseResult<DtsArticleDto> load(@RequestParam(name="articleId") String articleId){
+    @GetMapping("load/{articleId}")
+    public ResponseEntity<DtsArticleDto> load(@PathVariable(name="articleId") String articleId){
         DtsArticleDto articleDto = articleService.selectArticleById(articleId);
         if (articleDto == null){
             throw new ApiException(ResponseCode.FAILED);
         }
-        return ResponseResult.success(articleDto);
+        return ResponseEntity.ok(articleDto);
     }
 
-    @GetMapping("load/all")
-    public ResponseResult<DtsArticleDto> loadAll(@RequestParam(name = "articleId") String articleId){
+    @GetMapping("load/{articleId}/all")
+    public ResponseEntity<DtsArticleDto> loadAll(@PathVariable(name = "articleId") String articleId){
         DtsArticleDto articleDto = articleService.selectArticleAllById(articleId);
         if (articleDto == null){
             throw new ApiException(ResponseCode.FAILED);
         }
-        return ResponseResult.success(articleDto);
+        return ResponseEntity.ok(articleDto);
     }
 
-    @GetMapping("like")
-    public ResponseResult<Long> getLike(@RequestParam("articleId") String articleId){
+    @GetMapping("like/{articleId}")
+    public ResponseEntity<Long> getLike(@PathVariable("articleId") String articleId){
         String authorId = CurrentUtil.id();
-        return ResponseResult.success(articleService.selectLike(authorId,articleId));
+        return ResponseEntity.ok(articleService.selectLike(authorId,articleId));
     }
 
     @GetMapping("like/list")
-    public ResponseResult<PageInfo<DtsArticleDto>> listLike(
+    public ResponseEntity<PageInfo<DtsArticleDto>> listLike(
             @RequestParam(value = "page",defaultValue = "1") Integer page){
         String username = CurrentUtil.author().getUsername();
-        return ResponseResult.success(articleService.selectLikeArticleList(username, page, 10));
+        return ResponseEntity.ok(articleService.selectLikeArticleList(username, page, 10));
     }
 
-    @PostMapping("like")
-    public ResponseResult<Integer> postLike(@RequestParam("articleId") String articleId){
+    @PostMapping("like/{articleId}")
+    public ResponseEntity<Integer> postLike(@PathVariable("articleId") String articleId){
         String authorId = CurrentUtil.id();
-        return ResponseResult.success(articleService.like(authorId,articleId));
+        return ResponseEntity.ok(articleService.like(authorId,articleId));
     }
 
-    @DeleteMapping("like")
-    public ResponseResult<Integer> deleteLike(@RequestParam("articleId") String articleId){
+    @DeleteMapping("like/{articleId}")
+    public ResponseEntity<Integer> deleteLike(@PathVariable("articleId") String articleId){
         String authorId = CurrentUtil.id();
-        return ResponseResult.success(articleService.unlike(authorId,articleId));
+        return ResponseEntity.ok(articleService.unlike(authorId,articleId));
     }
 
 

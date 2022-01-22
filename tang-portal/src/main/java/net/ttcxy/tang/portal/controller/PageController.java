@@ -39,6 +39,13 @@ public class PageController {
         return "article";
     }
 
+    @GetMapping("map")
+    public String map(@RequestParam(value = "page", defaultValue = "1") Integer page, Model model) {
+        PageInfo<DtsArticleDto> dtsArticleDtoPageInfo = articleService.selectArticleList("", page, 50);
+        model.addAttribute("articlePage", dtsArticleDtoPageInfo);
+        return "map";
+    }
+
     @GetMapping("subject/{id}")
     public String subject(@PathVariable("id") String id, Model model){
         DtsArticleSubjectDto dtsArticleSubjectDto = articleSubjectService.selectSubjectArticleListById(id);
