@@ -39,7 +39,7 @@
                 targetProject="tang-portal\src\main\resources"/>
 
         <javaClientGenerator
-                type="MyJavaMapperGenerator"
+                type="XMLMAPPER"
                 targetPackage="net.ttcxy.tang.portal.mapper"
                 targetProject="tang-portal\src\main\java"/>
 

@@ -67,7 +67,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/swagger-ui/**",
                         "/swagger-resources/**",
                         "/swagger-resources",
-                        "/v3/api-docs"
+                        "/v3/api-docs",
+                        "/**/*.jpg",
+                        "/**/*.*"
                 );
     }
 
@@ -85,7 +87,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authenticationEntryPoint(authenticationErrorHandler)
                 .accessDeniedHandler(jwtAccessDeniedHandler)
 
-                // enable h2-console
+                // enable
                 .and()
                 .headers()
                 .frameOptions()
@@ -98,17 +100,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers("/api/authenticate","/api/refresh").permitAll()
+                .antMatchers("/api/register").permitAll()
+                .antMatchers("/api/activate").permitAll()
+                .antMatchers("/api/account/reset-password/init").permitAll()
+                .antMatchers("/api/account/reset-password/finish").permitAll()
                 .and()
                 .authorizeRequests()
                 .anyRequest().access("@utsRbacService.hasPermission(request,authentication)")
                 .and()
-                // .antMatchers("/api/register").permitAll()
-                // .antMatchers("/api/activate").permitAll()
-                // .antMatchers("/api/account/reset-password/init").permitAll()
-                // .antMatchers("/api/account/reset-password/finish").permitAll()
-
-                //.antMatchers("/api/person").hasAuthority("ROLE_USER")
-                //.antMatchers("/api/hiddenmessage").hasAuthority("ROLE_ADMIN")
                 .apply(securityConfigurerAdapter());
     }
 

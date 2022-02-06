@@ -51,7 +51,7 @@ export default {
   components: {},
   methods: {
     logout(){
-      localStorage.removeItem("token")
+      localStorage.removeItem("jwt")
       localStorage.removeItem("author")
       this.$store.state.username = ""
       window.location.href = "/"

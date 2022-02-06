@@ -64,6 +64,7 @@
 
 <script>
 import request from "src/utils/request";
+import { ElMessage } from 'element-plus'
 export default {
   name: "admin_author",
   data() {
@@ -101,7 +102,11 @@ export default {
         method: "POST",
         data:this.roleForm
       }).then((response) => {
-        this.roleIdList = response;
+        this.roleIdList = response.data;
+        ElMessage({
+          type: 'success',
+          message: '删除成功',
+        })
       });
     },
     rowAuthorClick(row, column, event){
@@ -113,12 +118,12 @@ export default {
         url: "api/admin/role",
         method: "GET",
       }).then((response) => {
-        this.roleList = response;
+        this.roleList = response.data;
         request({
           url: "api/admin/role/author/"+row.authorId,
           method: "GET",
         }).then((response) => {
-          this.roleIdList = response;
+          this.roleIdList = response.data;
         });
       });
     },

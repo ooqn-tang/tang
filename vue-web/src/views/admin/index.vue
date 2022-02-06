@@ -7,6 +7,7 @@
     active-text-color="#ffd04b"
     @select="handleSelect"
   >
+    <el-menu-item index="admin_video" @click="$router.push({name:'admin_video'})">视频管理</el-menu-item>
     <el-menu-item index="admin_article" @click="$router.push({name:'admin_article'})">博客管理</el-menu-item>
     <el-menu-item index="admin_author"  @click="$router.push({name:'admin_author'})">用户管理</el-menu-item>
     <el-menu-item index="admin_role"  @click="$router.push({name:'admin_role'})">角色管理</el-menu-item>

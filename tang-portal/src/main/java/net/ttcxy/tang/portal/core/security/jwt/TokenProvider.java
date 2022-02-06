@@ -1,15 +1,11 @@
 package net.ttcxy.tang.portal.core.security.jwt;
 
 import cn.hutool.core.bean.BeanUtil;
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import net.ttcxy.tang.portal.entity.TokenEntity;
 import net.ttcxy.tang.portal.entity.dto.CurrentAuthor;
-import net.ttcxy.tang.portal.entity.model.UtsAuthor;
-import net.ttcxy.tang.portal.entity.model.UtsRole;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
@@ -18,7 +14,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import java.security.Key;
@@ -30,8 +26,8 @@ public class TokenProvider implements InitializingBean {
 
     private final Logger log = LoggerFactory.getLogger(TokenProvider.class);
 
-    private static final String AUTHORITIES_KEY = "auth";
-    private static final String USER_INFO_KEY = "author";
+    private static final String AUTHORITIES_KEY = "authorities";
+    private static final String AUTHOR_KEY = "author";
 
     private final String base64Secret;
     private final long tokenValidityInMilliseconds;
@@ -54,9 +50,10 @@ public class TokenProvider implements InitializingBean {
         this.key = Keys.hmacShaKeyFor(keyBytes);
     }
 
-    public String createToken(TokenEntity tokenEntity , boolean rememberMe) {
-        String authorities = tokenEntity.getAuth();
-        CurrentAuthor currentAuthor = tokenEntity.getAuthor();
+    public String createToken(Object details, boolean rememberMe) {
+        UserDetails userDetails = (UserDetails) details;
+        Collection<? extends GrantedAuthority> authorities = userDetails.getAuthorities();
+        CurrentAuthor currentAuthor = (CurrentAuthor) userDetails;
 
         long now = (new Date()).getTime();
         Date validity;
@@ -66,10 +63,19 @@ public class TokenProvider implements InitializingBean {
             validity = new Date(now + this.tokenValidityInMilliseconds);
         }
 
+        StringBuilder stringBuilder = new StringBuilder();
+        for (GrantedAuthority authority : authorities) {
+            stringBuilder.append(authority.getAuthority());
+            stringBuilder.append(",");
+        }
+        if (stringBuilder.length() > 0){
+            stringBuilder.deleteCharAt(stringBuilder.length() - 1);
+        }
+
         return Jwts.builder()
                 .setSubject(currentAuthor.getUsername())
-                .claim(AUTHORITIES_KEY, authorities)
-                .claim(USER_INFO_KEY, currentAuthor)
+                .claim(AUTHORITIES_KEY, stringBuilder)
+                .claim(AUTHOR_KEY, currentAuthor)
                 .signWith(key, SignatureAlgorithm.HS512)
                 .setExpiration(validity)
                 .compact();
@@ -82,10 +88,11 @@ public class TokenProvider implements InitializingBean {
                 .parseClaimsJws(token)
                 .getBody();
 
-        Collection<? extends GrantedAuthority> authorities = Arrays.stream(claims.get(AUTHORITIES_KEY).toString().split(","))
-                        .map(SimpleGrantedAuthority::new)
-                        .collect(Collectors.toList());
-        CurrentAuthor principal = BeanUtil.toBean(claims.get(USER_INFO_KEY),CurrentAuthor.class);
+        Collection<? extends GrantedAuthority> authorities = Arrays
+                .stream(claims.get(AUTHORITIES_KEY).toString().split(","))
+                .map(SimpleGrantedAuthority::new)
+                .collect(Collectors.toList());
+        CurrentAuthor principal = BeanUtil.toBean(claims.get(AUTHOR_KEY),CurrentAuthor.class);
 
         return new UsernamePasswordAuthenticationToken(principal, token, authorities);
     }

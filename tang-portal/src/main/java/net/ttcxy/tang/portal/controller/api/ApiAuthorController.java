@@ -5,8 +5,10 @@ import com.github.pagehelper.PageInfo;
 import net.ttcxy.tang.portal.core.api.ApiException;
 import net.ttcxy.tang.portal.core.security.CurrentUtil;
 import net.ttcxy.tang.portal.entity.dto.CurrentAuthor;
+import net.ttcxy.tang.portal.entity.dto.UtsDynamicDto;
 import net.ttcxy.tang.portal.entity.model.UtsAuthor;
 import net.ttcxy.tang.portal.entity.param.UtsAuthorUpdateParam;
+import net.ttcxy.tang.portal.service.DynamicService;
 import net.ttcxy.tang.portal.service.UtsAuthorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +17,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -76,5 +79,4 @@ public class ApiAuthorController {
     public ResponseEntity<PageInfo<UtsAuthor>> authorList(@RequestParam(value = "page", defaultValue = "1") Integer page) {
         return ResponseEntity.ok(authorService.authorList(page, 10));
     }
-
 }

@@ -87,7 +87,7 @@ export default {
         method: 'post',
         data:this.loginData
     }).then((response) => {
-        if(response.data.code === 200){
+        if(response.status === 200){
           let tokenData = jwt_decode(response.data.jwt)
           localStorage.setItem("jwt",response.data.jwt)
           localStorage.setItem("author",JSON.stringify(tokenData.author))

@@ -7,7 +7,7 @@
     <result column="author_id" jdbcType="VARCHAR" property="authorId" />
     <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
     <result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
-    <result column="state_code" jdbcType="INTEGER" property="stateCode" />
+    <result column="state" jdbcType="INTEGER" property="state" />
     <result column="synopsis" jdbcType="VARCHAR" property="synopsis" />
   </resultMap>
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="net.ttcxy.tang.portal.entity.model.DtsArticle">
@@ -73,7 +73,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    article_id, title, author_id, create_date, update_date, state_code, synopsis
+    article_id, title, author_id, create_date, update_date, `state`, synopsis
   </sql>
   <sql id="Blob_Column_List">
     `text`, markdown
@@ -128,11 +128,11 @@
   </delete>
   <insert id="insert" parameterType="net.ttcxy.tang.portal.entity.model.DtsArticle">
     insert into dts_article (article_id, title, author_id, 
-      create_date, update_date, state_code, 
+      create_date, update_date, `state`, 
       synopsis, `text`, markdown
       )
     values (#{articleId,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{authorId,jdbcType=VARCHAR}, 
-      #{createDate,jdbcType=TIMESTAMP}, #{updateDate,jdbcType=TIMESTAMP}, #{stateCode,jdbcType=INTEGER}, 
+      #{createDate,jdbcType=TIMESTAMP}, #{updateDate,jdbcType=TIMESTAMP}, #{state,jdbcType=INTEGER}, 
       #{synopsis,jdbcType=VARCHAR}, #{text,jdbcType=LONGVARCHAR}, #{markdown,jdbcType=LONGVARCHAR}
       )
   </insert>
@@ -154,8 +154,8 @@
       <if test="updateDate != null">
         update_date,
       </if>
-      <if test="stateCode != null">
-        state_code,
+      <if test="state != null">
+        `state`,
       </if>
       <if test="synopsis != null">
         synopsis,
@@ -183,8 +183,8 @@
       <if test="updateDate != null">
         #{updateDate,jdbcType=TIMESTAMP},
       </if>
-      <if test="stateCode != null">
-        #{stateCode,jdbcType=INTEGER},
+      <if test="state != null">
+        #{state,jdbcType=INTEGER},
       </if>
       <if test="synopsis != null">
         #{synopsis,jdbcType=VARCHAR},
@@ -221,8 +221,8 @@
       <if test="record.updateDate != null">
         update_date = #{record.updateDate,jdbcType=TIMESTAMP},
       </if>
-      <if test="record.stateCode != null">
-        state_code = #{record.stateCode,jdbcType=INTEGER},
+      <if test="record.state != null">
+        `state` = #{record.state,jdbcType=INTEGER},
       </if>
       <if test="record.synopsis != null">
         synopsis = #{record.synopsis,jdbcType=VARCHAR},
@@ -245,7 +245,7 @@
       author_id = #{record.authorId,jdbcType=VARCHAR},
       create_date = #{record.createDate,jdbcType=TIMESTAMP},
       update_date = #{record.updateDate,jdbcType=TIMESTAMP},
-      state_code = #{record.stateCode,jdbcType=INTEGER},
+      `state` = #{record.state,jdbcType=INTEGER},
       synopsis = #{record.synopsis,jdbcType=VARCHAR},
       `text` = #{record.text,jdbcType=LONGVARCHAR},
       markdown = #{record.markdown,jdbcType=LONGVARCHAR}
@@ -260,7 +260,7 @@
       author_id = #{record.authorId,jdbcType=VARCHAR},
       create_date = #{record.createDate,jdbcType=TIMESTAMP},
       update_date = #{record.updateDate,jdbcType=TIMESTAMP},
-      state_code = #{record.stateCode,jdbcType=INTEGER},
+      `state` = #{record.state,jdbcType=INTEGER},
       synopsis = #{record.synopsis,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -281,8 +281,8 @@
       <if test="updateDate != null">
         update_date = #{updateDate,jdbcType=TIMESTAMP},
       </if>
-      <if test="stateCode != null">
-        state_code = #{stateCode,jdbcType=INTEGER},
+      <if test="state != null">
+        `state` = #{state,jdbcType=INTEGER},
       </if>
       <if test="synopsis != null">
         synopsis = #{synopsis,jdbcType=VARCHAR},
@@ -302,7 +302,7 @@
       author_id = #{authorId,jdbcType=VARCHAR},
       create_date = #{createDate,jdbcType=TIMESTAMP},
       update_date = #{updateDate,jdbcType=TIMESTAMP},
-      state_code = #{stateCode,jdbcType=INTEGER},
+      `state` = #{state,jdbcType=INTEGER},
       synopsis = #{synopsis,jdbcType=VARCHAR},
       `text` = #{text,jdbcType=LONGVARCHAR},
       markdown = #{markdown,jdbcType=LONGVARCHAR}
@@ -314,7 +314,7 @@
       author_id = #{authorId,jdbcType=VARCHAR},
       create_date = #{createDate,jdbcType=TIMESTAMP},
       update_date = #{updateDate,jdbcType=TIMESTAMP},
-      state_code = #{stateCode,jdbcType=INTEGER},
+      `state` = #{state,jdbcType=INTEGER},
       synopsis = #{synopsis,jdbcType=VARCHAR}
     where article_id = #{articleId,jdbcType=VARCHAR}
   </update>

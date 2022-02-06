@@ -6,7 +6,7 @@
 export default {
   name: 'nav',
   props: {
-    title:"堂堂程序员"
+    title:"哔哩哔哩"
   },
   emits: ['edit', 'update:modelValue'],
   data() {

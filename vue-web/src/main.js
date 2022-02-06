@@ -7,7 +7,10 @@ import './permission'
 import notice from './components/notice.vue'
 import "highlight.js/styles/github.css"
 import naive from 'naive-ui'
-  
+
+router.beforeEach((to,from)=>{
+    document.documentElement.scrollTop=0;
+})
 
 const app = createApp(App)
 

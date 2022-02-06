@@ -14,7 +14,7 @@ public class DtsArticle implements Serializable {
 
     private Date updateDate;
 
-    private Integer stateCode;
+    private Integer state;
 
     private String synopsis;
 
@@ -64,12 +64,12 @@ public class DtsArticle implements Serializable {
         this.updateDate = updateDate;
     }
 
-    public Integer getStateCode() {
-        return stateCode;
+    public Integer getState() {
+        return state;
     }
 
-    public void setStateCode(Integer stateCode) {
-        this.stateCode = stateCode;
+    public void setState(Integer state) {
+        this.state = state;
     }
 
     public String getSynopsis() {
@@ -107,7 +107,7 @@ public class DtsArticle implements Serializable {
         sb.append(", authorId=").append(authorId);
         sb.append(", createDate=").append(createDate);
         sb.append(", updateDate=").append(updateDate);
-        sb.append(", stateCode=").append(stateCode);
+        sb.append(", state=").append(state);
         sb.append(", synopsis=").append(synopsis);
         sb.append(", text=").append(text);
         sb.append(", markdown=").append(markdown);

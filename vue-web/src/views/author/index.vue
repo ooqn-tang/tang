@@ -19,7 +19,10 @@
         <div class="card-header">
           <ul class="nav justify-content-center">
             <li class="nav-item">
-              <a class="nav-link" :class="routeName == 'author_article'?'nav-link-active':''" @click="selectTypeClick('author_article')">博客</a>
+              <a class="nav-link" :class="routeName == 'author_video'?'nav-link-active':''" @click="selectTypeClick('author_video')">视频</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" :class="routeName == 'author_article'?'nav-link-active':''" @click="selectTypeClick('author_article')">文章</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" :class="routeName == 'author_subject'?'nav-link-active':''" @click="selectTypeClick('author_subject')">专栏</a>

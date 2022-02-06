@@ -90,7 +90,7 @@ public class ApiArticleController {
         article.setArticleId(IdUtil.objectId());
         article.setCreateDate(dateTime);
         article.setUpdateDate(dateTime);
-        article.setStateCode(1005);
+        article.setState(5);
         article.setAuthorId(authorId);
         if (articleService.insertArticle(article) > 0){
             return ResponseEntity.ok(article.getArticleId());
@@ -102,7 +102,7 @@ public class ApiArticleController {
     @PutMapping
     public ResponseEntity<String> update(@RequestBody @Validated DtsArticleParam articleParam){
         DtsArticle article = BeanUtil.toBean(articleParam, DtsArticle.class);
-        article.setStateCode(1001);
+        article.setState(1);
 
         List<String> tagIdList = articleParam.getTagIdList();
         String subjectId = articleParam.getSubjectId();

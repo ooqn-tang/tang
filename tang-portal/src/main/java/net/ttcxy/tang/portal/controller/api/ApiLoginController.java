@@ -9,6 +9,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import net.ttcxy.tang.portal.core.api.ApiException;
 import net.ttcxy.tang.portal.core.api.ResponseCode;
+import net.ttcxy.tang.portal.core.security.filter.JWTFilter;
 import net.ttcxy.tang.portal.core.security.jwt.TokenProvider;
 import net.ttcxy.tang.portal.entity.TokenEntity;
 import net.ttcxy.tang.portal.entity.dto.CurrentAuthor;
@@ -19,10 +20,18 @@ import net.ttcxy.tang.portal.entity.param.UtsRegisterParam;
 import net.ttcxy.tang.portal.service.UtsAuthorService;
 import net.ttcxy.tang.portal.service.UtsUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AbstractAuthenticationToken;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.core.AuthenticatedPrincipal;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -51,27 +60,26 @@ public class ApiLoginController {
     @Autowired
     private UtsUserDetailsService utsUserDetailsService;
 
+    @Autowired
+    private AuthenticationManagerBuilder authenticationManagerBuilder;
+
     @PostMapping("/authenticate")
     public ResponseEntity<JwtToken> authorize(@Valid @RequestBody UtsLoginParam loginParam) {
 
-        CurrentAuthor currentAuthor = (CurrentAuthor)utsUserDetailsService.loadUserByUsername(loginParam.getUsername());
+        UsernamePasswordAuthenticationToken authenticationToken =
+                new UsernamePasswordAuthenticationToken(loginParam.getUsername(), loginParam.getPassword());
+
+        Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+
         boolean rememberMe = loginParam.getRememberMe() != null && loginParam.getRememberMe();
 
-        Collection<? extends GrantedAuthority> authorities = currentAuthor.getAuthorities();
-        StringBuilder authorityStr = new StringBuilder();
-        for (GrantedAuthority authority : authorities) {
-            authorityStr.append(authority.getAuthority()).append(",");
+        if (authentication.getPrincipal() instanceof UserDetails){
+            String jwt = tokenProvider.createToken(authentication.getPrincipal(), rememberMe);
+            return new ResponseEntity<>(new JwtToken(jwt), HttpStatus.OK);
         }
-        if (authorityStr.length() > 0){
-            authorityStr.deleteCharAt(authorityStr.length() - 1);
-        }
+        throw new ApiException(ResponseCode.FAILED);
 
-        TokenEntity tokenEntity = new TokenEntity();
-        tokenEntity.setAuth(authorityStr.toString());
-        tokenEntity.setAuthor(currentAuthor);
-
-        String jwt = tokenProvider.createToken(tokenEntity, rememberMe);
-        return new ResponseEntity<>(new JwtToken(jwt), HttpStatus.OK);
     }
 
     @PostMapping("/refresh")
@@ -80,24 +88,9 @@ public class ApiLoginController {
         if (StringUtils.hasText(jwt) && tokenProvider.validateToken(jwt)) {
             Authentication authentication = tokenProvider.getAuthentication(jwt);
             CurrentAuthor oldCurrentAuthor = (CurrentAuthor) authentication.getPrincipal();
-            CurrentAuthor newCurrentAuthor = (CurrentAuthor)utsUserDetailsService.loadUserByUsername(oldCurrentAuthor.getUsername());
+            CurrentAuthor currentAuthor = (CurrentAuthor)utsUserDetailsService.loadUserByUsername(oldCurrentAuthor.getUsername());
 
-
-            Collection<? extends GrantedAuthority> authorities = newCurrentAuthor.getAuthorities();
-            StringBuilder stringBuffer = new StringBuilder();
-            for (GrantedAuthority authority : authorities) {
-                stringBuffer.append(authority.getAuthority()).append(",");
-            }
-            if (stringBuffer.length() > 0){
-                stringBuffer.deleteCharAt(stringBuffer.length() - 1);
-            }
-
-            TokenEntity tokenEntity = new TokenEntity();
-            tokenEntity.setAuth(stringBuffer.toString());
-            tokenEntity.setAuthor(newCurrentAuthor);
-
-
-            String newJwt = tokenProvider.createToken(tokenEntity, true);
+            String newJwt = tokenProvider.createToken(currentAuthor, true);
             return new ResponseEntity<>(new JwtToken(newJwt), HttpStatus.OK);
         }
         throw new ApiException("无效token");

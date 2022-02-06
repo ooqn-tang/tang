@@ -3,15 +3,15 @@ package net.ttcxy.tang.portal.entity;
 import net.ttcxy.tang.portal.entity.dto.CurrentAuthor;
 
 public class TokenEntity {
-    String auth;
-    CurrentAuthor author;
+    private String authorities;
+    private CurrentAuthor author;
 
-    public String getAuth() {
-        return auth;
+    public String getAuthorities() {
+        return authorities;
     }
 
-    public void setAuth(String auth) {
-        this.auth = auth;
+    public void setAuthorities(String authorities) {
+        this.authorities = authorities;
     }
 
     public CurrentAuthor getAuthor() {

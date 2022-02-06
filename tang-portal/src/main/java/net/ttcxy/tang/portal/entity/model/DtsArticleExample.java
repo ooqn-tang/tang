@@ -12,7 +12,7 @@ public class DtsArticleExample {
     protected List<Criteria> oredCriteria;
 
     public DtsArticleExample() {
-        oredCriteria = new ArrayList<Criteria>();
+        oredCriteria = new ArrayList<>();
     }
 
     public void setOrderByClause(String orderByClause) {
@@ -69,7 +69,7 @@ public class DtsArticleExample {
 
         protected GeneratedCriteria() {
             super();
-            criteria = new ArrayList<Criterion>();
+            criteria = new ArrayList<>();
         }
 
         public boolean isValid() {
@@ -435,63 +435,63 @@ public class DtsArticleExample {
             return (Criteria) this;
         }
 
-        public Criteria andStateCodeIsNull() {
-            addCriterion("state_code is null");
+        public Criteria andStateIsNull() {
+            addCriterion("`state` is null");
             return (Criteria) this;
         }
 
-        public Criteria andStateCodeIsNotNull() {
-            addCriterion("state_code is not null");
+        public Criteria andStateIsNotNull() {
+            addCriterion("`state` is not null");
             return (Criteria) this;
         }
 
-        public Criteria andStateCodeEqualTo(Integer value) {
-            addCriterion("state_code =", value, "stateCode");
+        public Criteria andStateEqualTo(Integer value) {
+            addCriterion("`state` =", value, "state");
             return (Criteria) this;
         }
 
-        public Criteria andStateCodeNotEqualTo(Integer value) {
-            addCriterion("state_code <>", value, "stateCode");
+        public Criteria andStateNotEqualTo(Integer value) {
+            addCriterion("`state` <>", value, "state");
             return (Criteria) this;
         }
 
-        public Criteria andStateCodeGreaterThan(Integer value) {
-            addCriterion("state_code >", value, "stateCode");
+        public Criteria andStateGreaterThan(Integer value) {
+            addCriterion("`state` >", value, "state");
             return (Criteria) this;
         }
 
-        public Criteria andStateCodeGreaterThanOrEqualTo(Integer value) {
-            addCriterion("state_code >=", value, "stateCode");
+        public Criteria andStateGreaterThanOrEqualTo(Integer value) {
+            addCriterion("`state` >=", value, "state");
             return (Criteria) this;
         }
 
-        public Criteria andStateCodeLessThan(Integer value) {
-            addCriterion("state_code <", value, "stateCode");
+        public Criteria andStateLessThan(Integer value) {
+            addCriterion("`state` <", value, "state");
             return (Criteria) this;
         }
 
-        public Criteria andStateCodeLessThanOrEqualTo(Integer value) {
-            addCriterion("state_code <=", value, "stateCode");
+        public Criteria andStateLessThanOrEqualTo(Integer value) {
+            addCriterion("`state` <=", value, "state");
             return (Criteria) this;
         }
 
-        public Criteria andStateCodeIn(List<Integer> values) {
-            addCriterion("state_code in", values, "stateCode");
+        public Criteria andStateIn(List<Integer> values) {
+            addCriterion("`state` in", values, "state");
             return (Criteria) this;
         }
 
-        public Criteria andStateCodeNotIn(List<Integer> values) {
-            addCriterion("state_code not in", values, "stateCode");
+        public Criteria andStateNotIn(List<Integer> values) {
+            addCriterion("`state` not in", values, "state");
             return (Criteria) this;
         }
 
-        public Criteria andStateCodeBetween(Integer value1, Integer value2) {
-            addCriterion("state_code between", value1, value2, "stateCode");
+        public Criteria andStateBetween(Integer value1, Integer value2) {
+            addCriterion("`state` between", value1, value2, "state");
             return (Criteria) this;
         }
 
-        public Criteria andStateCodeNotBetween(Integer value1, Integer value2) {
-            addCriterion("state_code not between", value1, value2, "stateCode");
+        public Criteria andStateNotBetween(Integer value1, Integer value2) {
+            addCriterion("`state` not between", value1, value2, "state");
             return (Criteria) this;
         }
 
@@ -567,7 +567,6 @@ public class DtsArticleExample {
     }
 
     public static class Criteria extends GeneratedCriteria {
-
         protected Criteria() {
             super();
         }

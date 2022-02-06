@@ -6,6 +6,7 @@ import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.RandomUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import net.ttcxy.tang.portal.entity.dto.UtsDynamicDto;
 import net.ttcxy.tang.portal.entity.model.*;
 import net.ttcxy.tang.portal.entity.param.UtsRoleParam;
 import net.ttcxy.tang.portal.mapper.UtsAuthorMapper;
@@ -163,12 +164,4 @@ public class UtsAuthorService {
     }
 
 
-
-    public static void main(String[] args) {
-        Set<Date> dateSet = new TreeSet<>();
-        dateSet.add(DateUtil.parse("2021/01/01","yyyy/MM/dd"));
-        dateSet.add(DateUtil.parse("2021/01/04","yyyy/MM/dd"));
-        dateSet.add(DateUtil.parse("2021/01/02","yyyy/MM/dd"));
-        dateSet.add(DateUtil.parse("2021/01/03","yyyy/MM/dd"));
-    }
 }

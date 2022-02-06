@@ -13,7 +13,17 @@ const routes = [
             {
                 path: '/',
                 name: 'main',
-                component: () => import('../views/article/index.vue')
+                component: () => import('../views/video/index.vue')
+            },
+            {
+                path: 'history',
+                name: 'history',
+                component: () => import('../views/home/history.vue')
+            },
+            {
+                path: 'dynamic',
+                name: 'dynamic',
+                component: () => import('../views/home/dynamic.vue')
             },
             {
                 path: '/article',
@@ -21,10 +31,30 @@ const routes = [
                 component: () => import('../views/article/index.vue')
             },
             {
+                path: '/video',
+                name: 'video',
+                component: () => import('../views/video/index.vue')
+            },
+            {
+                path: 'video/:id',
+                name: 'video_info',
+                component: () => import('../views/video/video.vue')
+            },
+            {
+                path: 'video/:id/contribute',
+                name: 'video_contribute',
+                component: () => import('../views/video/contribute.vue')
+            },
+            {
                 path: '/author/:username',
                 name:'author_index',
                 component: () => import('../views/author/index.vue'),
                 children:[
+                    {
+                        path: '',
+                        name: 'author_video',
+                        component: () => import('../views/author/video.vue')
+                    },
                     {
                         path: '',
                         name: 'author_article',
@@ -66,8 +96,8 @@ const routes = [
             },
             {
                 path: '/authors',
-                name: 'author_list',
-                component: () => import('../views/author/author_list.vue')
+                name: 'authors',
+                component: () => import('../views/home/authors.vue')
             },
             {
                 path: '/subject/:subject_id',
@@ -88,6 +118,15 @@ const routes = [
         children:[
             {
                 path:"",
+                name:"admin_video",
+                component: () => import('../views/admin/video.vue')
+            },
+            {
+                path:"video",
+                name:"admin_video",
+                component: () => import('../views/admin/video.vue')
+            },{
+                path:"article",
                 name:"admin_article",
                 component: () => import('../views/admin/article.vue')
             },{
