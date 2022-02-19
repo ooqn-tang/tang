@@ -56,7 +56,7 @@ export default {
       like: 0,
       videoClassList:[],
       formData:{
-        
+        coverUrl:""
       }
     };
   },

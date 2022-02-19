@@ -1,6 +1,7 @@
 package net.ttcxy.tang.portal.core.security;
 
 import net.ttcxy.tang.portal.core.api.ApiException;
+import net.ttcxy.tang.portal.core.api.ResponseCode;
 import net.ttcxy.tang.portal.entity.dto.CurrentAuthor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,29 +20,32 @@ public class CurrentUtil {
     * 获取当前登录的用户名
     */
    public static String name() {
-      CurrentAuthor currentAuthor = author();
-      return currentAuthor.getUsername();
+      final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+      if (authentication.getPrincipal() instanceof UserDetails) {
+         return ((CurrentAuthor) authentication.getPrincipal()).getUsername();
+      }
+      throw new ApiException(ResponseCode.UNAUTHORIZED);
    }
 
    /**
     * 获取当前登录的用户名
     */
    public static CurrentAuthor author() {
-
       final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
-      if (authentication == null) {
-         throw new ApiException("未登录");
+      if (authentication.getPrincipal() instanceof UserDetails) {
+         return (CurrentAuthor) authentication.getPrincipal();
       }
-
-      return (CurrentAuthor) authentication.getPrincipal();
+      return null;
    }
 
    /**
     * 获取当前登录的用户名
     */
    public static String id() {
-      CurrentAuthor currentAuthor = author();
-      return currentAuthor.getUtsAuthor().getAuthorId();
+      final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+      if (authentication.getPrincipal() instanceof UserDetails) {
+         return ((CurrentAuthor) authentication.getPrincipal()).getUtsAuthor().getAuthorId();
+      }
+      throw new ApiException(ResponseCode.UNAUTHORIZED);
    }
 }

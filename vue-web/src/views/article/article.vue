@@ -153,11 +153,11 @@
     <div class="container-fluid">
       <div class="col-md-12 col-lg-12">
         <a
-          :class="like == 1 ? 'btn-outline-danger' : 'btn-outline-primary'"
+          :class="collect == 1 ? 'btn-outline-danger' : 'btn-outline-primary'"
           class="btn btn-sm mini-but"
           style="margin-left: 0px"
-          @click="likeClick"
-          >喜欢</a
+          @click="collectClick"
+          >收藏</a
         >
         <a disabled class="btn btn-outline-primary btn-sm mini-but">举报</a>
         <a
@@ -195,7 +195,7 @@ export default {
       subject: [],
       articleList: [],
       showSubject: false,
-      like: 0,
+      collect: 0,
     };
   },
   components: {},
@@ -229,29 +229,29 @@ export default {
         }
       });
     },
-    likeClick() {
-      if (this.like == 1) {
+    collectClick() {
+      if (this.collect == 1) {
         request({
-          url: "/api/article/like/"+this.articleId,
+          url: "/api/collect/"+this.articleId,
           method: "DELETE",
         }).then((response) => {
-          this.like = 0;
+          this.collect = 0;
         });
       } else {
         request({
-          url: "/api/article/like/"+this.articleId,
+          url: "/api/collect/"+this.articleId,
           method: "POST",
         }).then((response) => {
-          this.like = 1;
+          this.collect = 1;
         });
       }
     },
     isLike() {
       request({
-        url: "/api/article/like/"+this.articleId,
+        url: "/api/collect/"+this.articleId,
         method: "GET",
       }).then((response) => {
-        this.like = response.data;
+        this.collect = response.data;
       });
     },
     sleep(sm) {

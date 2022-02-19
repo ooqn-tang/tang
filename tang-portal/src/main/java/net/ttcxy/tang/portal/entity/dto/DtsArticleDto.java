@@ -47,6 +47,8 @@ public class DtsArticleDto {
     // 专题ID
     private String subjectId;
 
+    private String type;
+
     // 标签列表
     private List<DtsArticleTag> tagList;
 

@@ -18,9 +18,29 @@ public class DtsVideoDto {
 
     private String videoUrl;
 
+    private String name;
+
     private String username;
 
     private String nickname;
+
+    private DtsDataCount dataCount;
+
+    public DtsDataCount getDataCount() {
+        return dataCount;
+    }
+
+    public void setDataCount(DtsDataCount dataCount) {
+        this.dataCount = dataCount;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public String getVideoId() {
         return videoId;

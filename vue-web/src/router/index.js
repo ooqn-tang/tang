@@ -56,7 +56,7 @@ const routes = [
                         component: () => import('../views/author/video.vue')
                     },
                     {
-                        path: '',
+                        path: 'article',
                         name: 'author_article',
                         component: () => import('../views/author/article.vue')
                     },
@@ -78,9 +78,15 @@ const routes = [
                     }
                     ,
                     {
-                        path: 'like',
-                        name: 'author_like',
-                        component: () => import('../views/author/like.vue')
+                        path: 'collect',
+                        name: 'author_collect',
+                        component: () => import('../views/author/collect.vue')
+                    }
+                    ,
+                    {
+                        path: 'credit',
+                        name: 'author_credit',
+                        component: () => import('../views/author/credit.vue')
                     }
                 ]
             },

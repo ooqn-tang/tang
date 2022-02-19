@@ -19,22 +19,25 @@
         <div class="card-header">
           <ul class="nav justify-content-center">
             <li class="nav-item">
-              <a class="nav-link" :class="routeName == 'author_video'?'nav-link-active':''" @click="selectTypeClick('author_video')">视频</a>
+              <router-link class="nav-link" :class="routeName == 'author_video'?'nav-link-active':''" :to="{name:'author_video'}">视频</router-link>
             </li>
             <li class="nav-item">
-              <a class="nav-link" :class="routeName == 'author_article'?'nav-link-active':''" @click="selectTypeClick('author_article')">文章</a>
+              <router-link class="nav-link" :class="routeName == 'author_article'?'nav-link-active':''" :to="{name:'author_article'}">文章</router-link>
             </li>
             <li class="nav-item">
-              <a class="nav-link" :class="routeName == 'author_subject'?'nav-link-active':''" @click="selectTypeClick('author_subject')">专栏</a>
+              <router-link class="nav-link" :class="routeName == 'author_subject'?'nav-link-active':''" :to="{name:'author_subject'}">专栏</router-link>
             </li>
             <li class="nav-item" v-if="thisUsername == loginUsername">
-              <a class="nav-link"  :class="routeName == 'author_subscribe'?'nav-link-active':''" @click="selectTypeClick('author_subscribe')">订阅</a>
+              <router-link class="nav-link"  :class="routeName == 'author_subscribe'?'nav-link-active':''" :to="{name:'author_subscribe'}">订阅</router-link>
             </li>
             <li class="nav-item" v-if="thisUsername == loginUsername">
-              <a class="nav-link"  :class="routeName == 'author_like'?'nav-link-active':''" @click="selectTypeClick('author_like')">喜欢</a>
+              <router-link class="nav-link"  :class="routeName == 'author_collect'?'nav-link-active':''" :to="{name:'author_collect'}">收藏</router-link>
             </li>
             <li class="nav-item" v-if="thisUsername == loginUsername">
-              <a class="nav-link" :class="routeName == 'author_setting'?'nav-link-active':''" @click="selectTypeClick('author_setting')">设置</a>
+              <router-link class="nav-link"  :class="routeName == 'author_credit'?'nav-link-active':''" :to="{name:'author_credit'}">资产</router-link>
+            </li>
+            <li class="nav-item" v-if="thisUsername == loginUsername">
+              <router-link class="nav-link" :class="routeName == 'author_setting'?'nav-link-active':''" :to="{name:'author_setting'}">设置</router-link>
             </li>
           </ul>
         </div>
@@ -65,6 +68,11 @@ export default {
     };
   },
   components: {},
+  watch:{
+    $route(to,from){
+      this.routeName = this.$route.name
+    }
+  },
   methods: {
     fansClick(username){
       if(this.fans == 2){
@@ -95,10 +103,6 @@ export default {
           this.fans = 2
         }
       })
-    },
-    selectTypeClick(routeName){
-      this.routeName = routeName;
-      this.$router.push({name:routeName})
     },
     selectAuthor(username){
       request({

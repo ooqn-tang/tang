@@ -1,20 +1,22 @@
 <template>
   <el-table :data="tableData" style="width: 100%">
-    <el-table-column label="Date" prop="date" />
-    <el-table-column label="Name" prop="name" />
+    <el-table-column label="标题" prop="date" />
+    <el-table-column label="用户" prop="name" />
+    <el-table-column label="时间" prop="name" />
+    <el-table-column label="状态" prop="name" />
     <el-table-column align="right">
       <template #header>
         <el-input v-model="search" size="small" placeholder="Type to search" />
       </template>
       <template #default="scope">
         <el-button size="small" @click="handleEdit(scope.$index, scope.row)"
-          >Edit</el-button
+          >通过</el-button
         >
         <el-button
           size="small"
           type="danger"
           @click="handleDelete(scope.$index, scope.row)"
-          >Delete</el-button
+          >拒绝通过</el-button
         >
       </template>
     </el-table-column>

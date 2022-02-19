@@ -42,16 +42,6 @@
         left join dts_article_subject dbs on dbsr.article_subject_id = dbs.article_subject_id
     </select>
 
-    <select id="selectLikeArticles" resultMap="ArticleTagResult">
-        select t4.username ,t4.nickname ,t3.article_id ,t3.title ,t3.create_date ,t3.synopsis
-        from uts_author t1
-        inner join dts_article_like t2 on t1.username = #{username} and t2.author_id = t1.author_id
-        inner join dts_article  t3 on t3.article_id = t2.article_id
-        inner join uts_author t4 on t4.author_id = t2.author_id
-        where t3.state = 1
-        order by t2.create_date desc
-    </select>
-
     <select id="selectArticleListByUsername" resultMap="ArticleTagResult">
         select t1.username ,t1.nickname ,t2.article_id ,t2.title ,t2.create_date ,t2.synopsis ,t4.subject_name ,t4.article_subject_id
         from uts_author t1

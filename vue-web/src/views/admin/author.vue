@@ -54,6 +54,21 @@
             </template>
             <template #append>搜索</template>
           </el-input>
+           <el-form ref="formRef" :model="form" label-width="120px">
+             <el-form-item label="用户状态" style="margin-bottom: 5px;">
+              <el-select v-model="value" placeholder="please select your zone" style="width:100%">
+                <el-option
+                v-for="item in options"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+              >
+              </el-option>
+              </el-select>
+            </el-form-item>
+           </el-form>
+          
+
         <el-table :data="roleList" ref="multipleTable" @selection-change="checkRole" max-height="800" border style="width: 100%;">
           <el-table-column type="selection" width="40" />
           <el-table-column prop="roleName" label="名称" />
@@ -75,7 +90,11 @@ export default {
       roleIdList: [],
       roleList:[],
       selectAuthorId:"",
-      roleForm:[]
+      roleForm:[],
+      options:[
+        {value:"使用"},{value:"禁用"}
+      ],
+      value:''
     };
   },
   watch: {

@@ -72,6 +72,9 @@ nav .dropdown-menu{
     padding: 0px 5px 0px 3px; 
     margin-left: 5px
 }
+.el-form-item__label{
+    text-align: left !important;
+}
 
 @media (max-width: 768px) {
     .pc{

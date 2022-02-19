@@ -6,31 +6,22 @@
           <img
             :src="item.coverUrl"
             class="figure-img img-fluid rounded"
-            style="width: 100%"
-            alt="..."
+            style="width:100%"
             @click="openVideo(item.videoId)"
           />
         </div>
-        <div class="col-md-9" style="position:relative;min-height: 80px;">
+        <div class="col-md-9">
           <a @click="openVideo(item.videoId)" class="article-title">
             <strong><p v-text="item.title"></p></strong>
           </a>
-          <div class="article-synopsis">{{ item.title }}</div>
+          <span style="padding: 0 5px;background: #e5e5e5;border-radius: 10px;">{{ item.createDate}}</span>&nbsp;&nbsp;
+          <span style="padding: 0 5px;background: #e5e5e5;border-radius: 10px;">播放量:1</span>&nbsp;&nbsp;
 
-          <span
-            style="
-              background: #efefef;
-              padding: 0px 5px;
-              border-radius: 10px;
-              color: #7d7d7d;position:absolute;bottom:0;left:0;margin-left:12px
-            "
-            >{{ item.createDate }}</span
-          >
-
-          <div class="btn-group float-end" style="position:absolute;bottom:0;right:0;margin-right:12px">
+          <div class="btn-group float-end">
             <button
               class="btn btn-outline-danger float-end"
               style="padding: 0px 5px 0px 3px; font-size: 13px;border-right: 0;"
+              @click="deleteVideo(item.videoId)"
             >
               删除
             </button>
@@ -78,14 +69,21 @@ export default {
         method: "get",
       }).then((response) => {
         if (response.data.list != undefined) {
-          this.articlePage = response.data;
-          this.vlist = this.vlist.concat(response.data.list);
+          this.vlist = response.data.list
         }
       });
     },
     openVideo(videoId) {
       this.$router.push({ name: "video_info", params: { id: videoId } });
     },
+    deleteVideo(videoId){
+      request({
+        url: "/api/video/" + videoId,
+        method: "delete",
+      }).then((response) => {
+        this.loadArticleByUsername(this.articlePage.nextPage)
+      });
+    }
   },
   mounted() {
     this.loadArticleByUsername(this.articlePage.nextPage);

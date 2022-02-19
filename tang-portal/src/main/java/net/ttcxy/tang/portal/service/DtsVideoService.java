@@ -3,11 +3,13 @@ package net.ttcxy.tang.portal.service;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import net.ttcxy.tang.portal.core.security.CurrentUtil;
+import net.ttcxy.tang.portal.entity.dto.DtsDataCount;
 import net.ttcxy.tang.portal.entity.dto.DtsVideoDto;
 import net.ttcxy.tang.portal.entity.model.DtsVideo;
 import net.ttcxy.tang.portal.entity.model.DtsVideoClass;
 import net.ttcxy.tang.portal.mapper.DtsVideoClassMapper;
 import net.ttcxy.tang.portal.mapper.DtsVideoMapper;
+import net.ttcxy.tang.portal.mapper.dao.DtsDataDao;
 import net.ttcxy.tang.portal.mapper.dao.DtsVideoDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,12 +27,13 @@ public class DtsVideoService {
     @Autowired
     private DtsVideoDao videoDao;
 
-
+    @Autowired
+    private DtsDataDao countDao;
 
     public int deleteById(String videoId) {
         DtsVideo video = new DtsVideo();
         video.setVideoId(videoId);
-        video.setState(1);
+        video.setState(4);
         return videoMapper.updateByPrimaryKeySelective(video);
     }
 
@@ -43,12 +46,14 @@ public class DtsVideoService {
     }
 
     @Autowired
-    private DtsVisitService visitService;
+    private DtsViewService visitService;
 
     public DtsVideoDto selectById(String videoId) {
         String id = CurrentUtil.id();
-        visitService.insertVisit(videoId, id);
-        return videoDao.selectById(videoId);
+        DtsVideoDto dtsVideoDto = videoDao.selectById(videoId);
+        DtsDataCount dataCount = countDao.selectDataStatCount(videoId);
+        dtsVideoDto.setDataCount(dataCount);
+        return dtsVideoDto;
     }
 
     public PageInfo<DtsVideoDto> select(Integer page,Integer size, String title,String videoClass) {

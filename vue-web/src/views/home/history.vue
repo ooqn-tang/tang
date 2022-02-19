@@ -1,27 +1,65 @@
 <template>
   <div class="row">
     <div class="col-md-9 mb-2">
-      <div class="card text-center">
+      <div class="card">
         <div class="card-header">
           <ul class="nav nav-tabs card-header-tabs">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="true" href="#">历史记录</a>
+              <a
+                class="nav-link"
+                :class="select == '' ? 'active' : ''"
+                aria-current="true"
+                href="#"
+                @click="selectTag('')"
+                >动态历史</a
+              >
             </li>
             <li class="nav-item">
-              <a class="nav-link" aria-current="true" href="#">视频</a>
+              <a
+                class="nav-link"
+                :class="select == 'video' ? 'active' : ''"
+                aria-current="true"
+                href="#"
+                @click="selectTag('video')"
+                >视频</a
+              >
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">文章</a>
+              <a
+                class="nav-link"
+                :class="select == 'article' ? 'active' : ''"
+                href="#"
+                @click="selectTag('article')"
+                >文章</a
+              >
             </li>
           </ul>
         </div>
-        <div class="card-body mb-2" style="">
-          <h5 class="card-title">Special title treatment</h5>
-          <p class="card-text">
-            With supporting text below as a natural lead-in to additional
-            content.
-          </p>
-          <a href="#" class="btn btn-primary">Go somewhere</a>
+        <div class="card-body" style="    padding: 0;">
+          <ul class="list-group article-list">
+            <li class="list-group-item" v-for="(item, index) in historyList" :key="index">
+            <div class="row">
+              <div class='col' v-if="item.type == 'wz'">
+                <a class="article-title" :href="'/article/'+item.dataId">
+                  <p>
+                    <strong v-text="item.title"></strong>
+                    <span style="float:right">视频</span>
+                  </p>
+                  <span>{{item.createDate}}</span>
+                </a>
+              </div>
+              <div class='col' v-if="item.type == 'sp'">
+                <a class="article-title" :href="'/video/'+item.dataId">
+                  <p>
+                    <strong v-text="item.title"></strong>
+                    <span style="float:right">视频</span>
+                  </p>
+                  <span>{{item.createDate}}</span>
+                </a>
+              </div>
+            </div>
+            </li>
+          </ul>
         </div>
       </div>
     </div>
@@ -60,24 +98,26 @@
 <script>
 import request from "src/utils/request";
 export default {
-  name: "history",
+  name: "dynamic",
   data() {
     return {
-      authorList: [],
+      historyList:[],
+      select:""
     };
   },
   methods: {
-    authorListArticleCount() {
+    selectTag(type){
+      this.select = type
       request({
-        url: "/api/author/authorListArticleCount",
-        method: "GET",
+        url: "/api/record",
+        method: "GET"
       }).then((response) => {
-        this.authorList = response.data.list;
+        this.historyList = response.data;
       });
-    },
+    }
   },
   mounted() {
-    this.authorListArticleCount();
+    this.selectTag("");
   },
 };
 </script>

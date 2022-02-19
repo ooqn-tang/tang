@@ -35,6 +35,8 @@
               <li><a class="dropdown-item" href="/article">📰文章</a></li>
               <li><a class="dropdown-item" href="/authors">👨‍🎓作者</a></li>
               <li><a class="dropdown-item" href="/subject">📒专题</a></li>
+              <li><a class="dropdown-item" href="/history">📒历史</a></li>
+              <li><a class="dropdown-item" href="/dynamic">📒动态</a></li>
             </ul>
           </li>
           <li class="nav-item float-start">
@@ -48,10 +50,10 @@
             <li class="nav-item" v-if="$store.state.username == ''">
               <router-link class="nav-link" to="/login">登录</router-link>
             </li>
-             <li class="nav-item">
+             <li class="nav-item pc">
               <router-link class="nav-link" to="/history">历史</router-link>
             </li>
-             <li class="nav-item">
+             <li class="nav-item pc">
               <router-link class="nav-link" to="/dynamic">动态</router-link>
             </li>
             <li class="nav-item dropdown">

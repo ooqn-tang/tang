@@ -40,7 +40,7 @@
 
         <div class="col-md-12 mb-2">
           <div class="card">
-            <div class="card-body" style="">
+            <div class="card-body" >
               <div class="row">
                 <div
                   class="col-md-3 mb-2"
@@ -48,10 +48,8 @@
                   :key="index"
                   @click="openVideo(item.videoId)"
                 >
-                  <figure class="figure" style="width:100%">
-                    <div style="height: 150px;width: 100%;" class="figure-img img-fluid rounded" :style="'background-color:red;background:url('+ item.coverUrl + ') no-repeat;background-size: 100%;' ">
-                      
-                    </div>
+                  <figure class="figure" style="width:100%" >
+                    <img :src="item.coverUrl" style="width:100%">
                     <p class="text-start">
                       {{ item.title }}
                     </p>
@@ -103,7 +101,7 @@ export default {
     return {
       selectTag: "",
       selectType: 1,
-      vlist: [{}, {}, {}, {}, {}, {}],
+      vlist: [],
       videoClassList: [
        
       ],

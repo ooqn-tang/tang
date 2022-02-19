@@ -38,13 +38,6 @@ public interface DtsArticleDao {
     DtsArticleDto selectArticleAllById(String id);
 
     /**
-     * 通过用户ID 查询喜欢泪飙
-     * @param username username
-     * @return 博客列表
-     */
-    List<DtsArticleDto> selectLikeArticles(String username);
-
-    /**
      * 通过用户名查询博客
      * @param username username
      * @return 博客列表
