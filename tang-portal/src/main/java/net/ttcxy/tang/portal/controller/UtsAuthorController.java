@@ -4,9 +4,8 @@ import cn.hutool.core.bean.BeanUtil;
 import com.github.pagehelper.PageInfo;
 import net.ttcxy.tang.portal.core.api.ApiException;
 import net.ttcxy.tang.portal.core.security.CurrentUtil;
-import net.ttcxy.tang.portal.entity.dto.CurrentAuthor;
 import net.ttcxy.tang.portal.entity.model.UtsAuthor;
-import net.ttcxy.tang.portal.entity.param.UtsAuthorUpdateParam;
+import net.ttcxy.tang.portal.entity.param.UtsAuthorParam;
 import net.ttcxy.tang.portal.service.UtsAuthorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -46,18 +45,12 @@ public class UtsAuthorController {
     }
 
     @PutMapping
-    public ResponseEntity<String> updateAuthor(@RequestBody UtsAuthorUpdateParam authorParam) {
-
+    public ResponseEntity<String> updateAuthor(@RequestBody UtsAuthorParam authorParam) {
         UtsAuthor author = BeanUtil.toBean(authorParam, UtsAuthor.class);
-
         String authorId = CurrentUtil.id();
-
         author.setAuthorId(authorId);
-
         int count = authorService.updateAuthorByName(author);
         if (count > 0) {
-            CurrentAuthor currentAuthor = CurrentUtil.author();
-            BeanUtil.copyProperties(currentAuthor, authorService.selectAuthorByName(currentAuthor.getUsername()));
             return ResponseEntity.ok("更新成功");
         }
         throw new ApiException();

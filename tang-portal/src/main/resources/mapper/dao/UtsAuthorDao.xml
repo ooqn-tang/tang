@@ -8,6 +8,7 @@
       <result column="nickname" jdbcType="VARCHAR" property="nickname" />
       <result column="password" jdbcType="VARCHAR" property="password" />
       <result column="signature" jdbcType="VARCHAR" property="signature" />
+      <result column="head_url" jdbcType="VARCHAR" property="headUrl" />
       <result column="mail" jdbcType="VARCHAR" property="mail" />
   </resultMap>
 
@@ -48,7 +49,7 @@
 
 
     <select id="selectAuthorByName" resultMap="AuthorMap">
-        select author_id,username,nickname,password,signature,mail,refresh_time
+        select author_id,username,nickname,password,signature,mail,refresh_time,head_url
         from uts_author
         where username = #{authorName}
     </select>

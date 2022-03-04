@@ -9,14 +9,13 @@ import com.github.pagehelper.PageInfo;
 import net.ttcxy.tang.portal.core.api.ApiException;
 import net.ttcxy.tang.portal.core.api.ResponseCode;
 import net.ttcxy.tang.portal.core.security.CurrentUtil;
-import net.ttcxy.tang.portal.entity.Credit;
 import net.ttcxy.tang.portal.entity.dto.CurrentAuthor;
 import net.ttcxy.tang.portal.entity.dto.DtsArticleDto;
 import net.ttcxy.tang.portal.entity.model.DtsArticle;
 import net.ttcxy.tang.portal.entity.param.DtsArticleParam;
+import net.ttcxy.tang.portal.service.CtsCoinService;
 import net.ttcxy.tang.portal.service.DtsArticleService;
 import net.ttcxy.tang.portal.service.DtsViewService;
-import net.ttcxy.tang.portal.service.UtsCreditService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,7 +32,7 @@ public class DtsArticleController {
     private DtsArticleService articleService;
 
     @Autowired
-    private UtsCreditService creditService;
+    private CtsCoinService coinService;
 
     @Autowired
     private DtsViewService viewService;
@@ -143,8 +142,9 @@ public class DtsArticleController {
         if (articleDto == null){
             throw new ApiException(ResponseCode.FAILED);
         }
-        // 每日金币
-        creditService.insert(Credit.BF);
+
+        // 每日使用获取金币
+        coinService.useCoin();
         // 记录
         CurrentAuthor author = CurrentUtil.author();
         if (author != null){

@@ -7,7 +7,7 @@ import java.io.InputStream;
 
 /**
  * 图片工具
- * @author huanglei
+ * @author LYJ
  */
 public class ImgUtil {
     public static boolean isNotImage(InputStream inputStream){

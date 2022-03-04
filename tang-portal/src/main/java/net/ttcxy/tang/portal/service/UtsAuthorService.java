@@ -20,7 +20,7 @@ import java.util.*;
 
 /**
  * 创作者服务
- * @author huanglei
+ * @author LYJ
  */
 @Service
 public class UtsAuthorService {
@@ -88,8 +88,12 @@ public class UtsAuthorService {
         return new PageInfo<>(utsAuthorDao.selectAuthorArticleCount());
     }
 
-    public List<UtsAuthor> select() {
-        return utsAuthorMapper.selectByExample(null);
+    public List<UtsAuthor> select(String queryData) {
+        UtsAuthorExample example = new UtsAuthorExample();
+        example.or().andMailLike("%"+queryData+"%");
+        example.or().andUsernameLike("%"+queryData+"%");
+        example.or().andNicknameLike("%"+queryData+"%");
+        return utsAuthorMapper.selectByExample(example);
     }
 
     public int update(UtsAuthor author) {

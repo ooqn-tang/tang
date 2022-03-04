@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.Date;
 
 /**
- * @author huanglei
+ * @author LYJ
  */
 @Data
 public class UtsResourceParam {

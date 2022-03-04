@@ -8,7 +8,7 @@ import javax.validation.constraints.Size;
 import java.util.List;
 
 /**
- * @author huanglei
+ * @author LYJ
  */
 @Data
 public class DtsArticleParam {

@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="net.ttcxy.tang.portal.mapper.PtsCreditMapper">
-  <resultMap id="BaseResultMap" type="net.ttcxy.tang.portal.entity.model.PtsCredit">
-    <result column="like_id" jdbcType="VARCHAR" property="likeId" />
-    <result column="author_id" jdbcType="VARCHAR" property="authorId" />
-    <result column="type" jdbcType="INTEGER" property="type" />
-    <result column="value" jdbcType="INTEGER" property="value" />
-    <result column="create_date" jdbcType="DATE" property="createDate" />
-    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+<mapper namespace="net.ttcxy.tang.portal.mapper.StsCodeMapper">
+  <resultMap id="BaseResultMap" type="net.ttcxy.tang.portal.entity.model.StsCode">
+    <id column="code_id" jdbcType="INTEGER" property="codeId" />
+    <result column="code_name" jdbcType="VARCHAR" property="codeName" />
+    <result column="code_remark" jdbcType="VARCHAR" property="codeRemark" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -68,15 +65,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    like_id, author_id, `type`, `value`, create_date, create_time
+    code_id, code_name, code_remark
   </sql>
-  <select id="selectByExample" parameterType="net.ttcxy.tang.portal.entity.model.PtsCreditExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="net.ttcxy.tang.portal.entity.model.StsCodeExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from pts_credit
+    from sts_code
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -84,89 +81,70 @@
       order by ${orderByClause}
     </if>
   </select>
-  <delete id="deleteByExample" parameterType="net.ttcxy.tang.portal.entity.model.PtsCreditExample">
-    delete from pts_credit
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sts_code
+    where code_id = #{codeId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from sts_code
+    where code_id = #{codeId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="net.ttcxy.tang.portal.entity.model.StsCodeExample">
+    delete from sts_code
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="net.ttcxy.tang.portal.entity.model.PtsCredit">
-    insert into pts_credit (like_id, author_id, `type`, 
-      `value`, create_date, create_time
+  <insert id="insert" parameterType="net.ttcxy.tang.portal.entity.model.StsCode">
+    insert into sts_code (code_id, code_name, code_remark
       )
-    values (#{likeId,jdbcType=VARCHAR}, #{authorId,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, 
-      #{value,jdbcType=INTEGER}, #{createDate,jdbcType=DATE}, #{createTime,jdbcType=TIMESTAMP}
+    values (#{codeId,jdbcType=INTEGER}, #{codeName,jdbcType=VARCHAR}, #{codeRemark,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="net.ttcxy.tang.portal.entity.model.PtsCredit">
-    insert into pts_credit
+  <insert id="insertSelective" parameterType="net.ttcxy.tang.portal.entity.model.StsCode">
+    insert into sts_code
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="likeId != null">
-        like_id,
+      <if test="codeId != null">
+        code_id,
       </if>
-      <if test="authorId != null">
-        author_id,
+      <if test="codeName != null">
+        code_name,
       </if>
-      <if test="type != null">
-        `type`,
-      </if>
-      <if test="value != null">
-        `value`,
-      </if>
-      <if test="createDate != null">
-        create_date,
-      </if>
-      <if test="createTime != null">
-        create_time,
+      <if test="codeRemark != null">
+        code_remark,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="likeId != null">
-        #{likeId,jdbcType=VARCHAR},
+      <if test="codeId != null">
+        #{codeId,jdbcType=INTEGER},
       </if>
-      <if test="authorId != null">
-        #{authorId,jdbcType=VARCHAR},
+      <if test="codeName != null">
+        #{codeName,jdbcType=VARCHAR},
       </if>
-      <if test="type != null">
-        #{type,jdbcType=INTEGER},
-      </if>
-      <if test="value != null">
-        #{value,jdbcType=INTEGER},
-      </if>
-      <if test="createDate != null">
-        #{createDate,jdbcType=DATE},
-      </if>
-      <if test="createTime != null">
-        #{createTime,jdbcType=TIMESTAMP},
+      <if test="codeRemark != null">
+        #{codeRemark,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="net.ttcxy.tang.portal.entity.model.PtsCreditExample" resultType="java.lang.Long">
-    select count(*) from pts_credit
+  <select id="countByExample" parameterType="net.ttcxy.tang.portal.entity.model.StsCodeExample" resultType="java.lang.Long">
+    select count(*) from sts_code
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update pts_credit
+    update sts_code
     <set>
-      <if test="record.likeId != null">
-        like_id = #{record.likeId,jdbcType=VARCHAR},
+      <if test="record.codeId != null">
+        code_id = #{record.codeId,jdbcType=INTEGER},
       </if>
-      <if test="record.authorId != null">
-        author_id = #{record.authorId,jdbcType=VARCHAR},
+      <if test="record.codeName != null">
+        code_name = #{record.codeName,jdbcType=VARCHAR},
       </if>
-      <if test="record.type != null">
-        `type` = #{record.type,jdbcType=INTEGER},
-      </if>
-      <if test="record.value != null">
-        `value` = #{record.value,jdbcType=INTEGER},
-      </if>
-      <if test="record.createDate != null">
-        create_date = #{record.createDate,jdbcType=DATE},
-      </if>
-      <if test="record.createTime != null">
-        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      <if test="record.codeRemark != null">
+        code_remark = #{record.codeRemark,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null">
@@ -174,15 +152,30 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update pts_credit
-    set like_id = #{record.likeId,jdbcType=VARCHAR},
-      author_id = #{record.authorId,jdbcType=VARCHAR},
-      `type` = #{record.type,jdbcType=INTEGER},
-      `value` = #{record.value,jdbcType=INTEGER},
-      create_date = #{record.createDate,jdbcType=DATE},
-      create_time = #{record.createTime,jdbcType=TIMESTAMP}
+    update sts_code
+    set code_id = #{record.codeId,jdbcType=INTEGER},
+      code_name = #{record.codeName,jdbcType=VARCHAR},
+      code_remark = #{record.codeRemark,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="net.ttcxy.tang.portal.entity.model.StsCode">
+    update sts_code
+    <set>
+      <if test="codeName != null">
+        code_name = #{codeName,jdbcType=VARCHAR},
+      </if>
+      <if test="codeRemark != null">
+        code_remark = #{codeRemark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where code_id = #{codeId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="net.ttcxy.tang.portal.entity.model.StsCode">
+    update sts_code
+    set code_name = #{codeName,jdbcType=VARCHAR},
+      code_remark = #{codeRemark,jdbcType=VARCHAR}
+    where code_id = #{codeId,jdbcType=INTEGER}
   </update>
 </mapper>

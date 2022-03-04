@@ -2,7 +2,7 @@ package net.ttcxy.tang.portal.entity.dto;
 
 /**
  * Controller层的日志封装类
- * @author huanglei
+ * @author LYJ
  */
 public class StsWebLogDto {
     /**

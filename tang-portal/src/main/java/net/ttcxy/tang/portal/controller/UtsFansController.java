@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 /**
  * 粉丝
  *
- * @author huanglei
+ * @author LYJ
  */
 @RestController
 @RequestMapping("api/fans")

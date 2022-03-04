@@ -14,6 +14,8 @@ public class UtsResource implements Serializable {
 
     private Date createTime;
 
+    private Integer state;
+
     private static final long serialVersionUID = 1L;
 
     public String getResourceId() {
@@ -56,6 +58,14 @@ public class UtsResource implements Serializable {
         this.createTime = createTime;
     }
 
+    public Integer getState() {
+        return state;
+    }
+
+    public void setState(Integer state) {
+        this.state = state;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -67,6 +77,7 @@ public class UtsResource implements Serializable {
         sb.append(", name=").append(name);
         sb.append(", type=").append(type);
         sb.append(", createTime=").append(createTime);
+        sb.append(", state=").append(state);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

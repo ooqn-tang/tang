@@ -8,7 +8,7 @@ public class DtsVideo implements Serializable {
 
     private String title;
 
-    private String describe;
+    private String synopsis;
 
     private String coverUrl;
 
@@ -21,6 +21,10 @@ public class DtsVideo implements Serializable {
     private Integer state;
 
     private String videoClassId;
+
+    private Integer checkId;
+
+    private String checkText;
 
     private static final long serialVersionUID = 1L;
 
@@ -40,12 +44,12 @@ public class DtsVideo implements Serializable {
         this.title = title;
     }
 
-    public String getDescribe() {
-        return describe;
+    public String getSynopsis() {
+        return synopsis;
     }
 
-    public void setDescribe(String describe) {
-        this.describe = describe;
+    public void setSynopsis(String synopsis) {
+        this.synopsis = synopsis;
     }
 
     public String getCoverUrl() {
@@ -96,6 +100,22 @@ public class DtsVideo implements Serializable {
         this.videoClassId = videoClassId;
     }
 
+    public Integer getCheckId() {
+        return checkId;
+    }
+
+    public void setCheckId(Integer checkId) {
+        this.checkId = checkId;
+    }
+
+    public String getCheckText() {
+        return checkText;
+    }
+
+    public void setCheckText(String checkText) {
+        this.checkText = checkText;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -104,13 +124,15 @@ public class DtsVideo implements Serializable {
         sb.append("Hash = ").append(hashCode());
         sb.append(", videoId=").append(videoId);
         sb.append(", title=").append(title);
-        sb.append(", describe=").append(describe);
+        sb.append(", synopsis=").append(synopsis);
         sb.append(", coverUrl=").append(coverUrl);
         sb.append(", authorId=").append(authorId);
         sb.append(", createDate=").append(createDate);
         sb.append(", videoUrl=").append(videoUrl);
         sb.append(", state=").append(state);
         sb.append(", videoClassId=").append(videoClassId);
+        sb.append(", checkId=").append(checkId);
+        sb.append(", checkText=").append(checkText);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

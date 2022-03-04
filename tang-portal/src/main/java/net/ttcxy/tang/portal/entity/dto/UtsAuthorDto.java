@@ -7,7 +7,7 @@ import net.ttcxy.tang.portal.entity.model.UtsAuthor;
 import java.util.Set;
 
 /**
- * @author huanglei
+ * @author LYJ
  */
 @Data
 @EqualsAndHashCode

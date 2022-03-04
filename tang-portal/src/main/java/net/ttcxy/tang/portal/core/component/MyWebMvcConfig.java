@@ -9,7 +9,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
  * 配置静态资源的路径
- * @author huanglei
+ * @author LYJ
  */
 @Configuration
 public class MyWebMvcConfig implements WebMvcConfigurer {

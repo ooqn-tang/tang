@@ -6,7 +6,7 @@ import java.util.List;
 
 /**
  * 博客
- * @author huanglei
+ * @author LYJ
  */
 public interface DtsArticleDao {
 

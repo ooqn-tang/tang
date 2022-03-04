@@ -1,13 +1,14 @@
 <template>
   <el-input
-    v-model="input1"
+    v-model="queryData"
     class="w-50 m-2"
     placeholder="Pick a date"
     style="width: 200px !important"
     :suffix-icon="Calendar"
   />
-  <el-button @click="resetDateFilter">搜索</el-button>
+  <el-button @click="loadResourceList">搜索</el-button>
   <el-button @click="dialogVisible = true">添加资源</el-button>
+  <el-button @click="refresh">刷新请求状态</el-button>
   <el-table
     ref="tableRef"
     row-key="name"
@@ -25,9 +26,17 @@
         <el-tag v-if="scope.row.type == 'MENU'" class="ml-2 mx-1" type="info">菜单</el-tag>
       </template> 
     </el-table-column>
+    <el-table-column label="状态" width="400">
+      <template #default="scope">
+        <el-tag
+          :type="scope.row.state == 8 ? 'success' : 'danger'"
+          disable-transitions
+          >{{ scope.row.state == 8 ? '系统中存在' : '系统中不存在的资源' }}</el-tag>
+      </template>
+    </el-table-column>
     <el-table-column prop="tag" label="" align="right">
       <template #default="scope">
-        <el-button size="small" @click="handleEdit(scope.$index, scope.row),dialogVisible = true">编辑</el-button>
+        <el-button size="small" @click="handleEdit(scope.row),dialogVisible = true">编辑</el-button>
         <el-button size="small" type="danger" @click="deleteResource(scope.row.resourceId)">删除</el-button>
       </template>
     </el-table-column>
@@ -37,6 +46,7 @@
     v-model="dialogVisible"
     title="Tips"
     width="60%"
+   
     :before-close="handleClose">
     <el-form ref="formRef" :model="formData" label-width="120px">
       <el-form-item label="资源名称">
@@ -76,12 +86,21 @@ export default {
     return {
       dialogVisible: false,
       resourceList: [],
-      formData: {}
+      formData: {},
+      queryData:""
     };
   },
   created() {},
   methods: {
-    handleEdit(index,row){
+    refresh(){
+      request({
+        url: "/api/admin/resource/refresh",
+        method: "GET",
+      }).then((response) => {
+        this.loadResourceList()
+      });
+    },
+    handleEdit(row){
       this.formData = row
     },
     handleClose() {
@@ -99,12 +118,12 @@ export default {
       request({
         url: "/api/admin/resource",
         method: "GET",
+        params:{queryData:this.queryData}
       }).then((response) => {
         this.resourceList = response.data;
       });
     },
     insertResource() {
-      alert(this.formData.resourceId == undefined)
       if(this.formData.resourceId == undefined){
         request({
           url: "/api/admin/resource",
@@ -154,10 +173,6 @@ export default {
           message: '取消删除',
         })
       })
-
-
-
-     
     },
     update() {
       request({

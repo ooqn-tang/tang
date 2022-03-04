@@ -34,7 +34,7 @@
               <router-link class="nav-link"  :class="routeName == 'author_collect'?'nav-link-active':''" :to="{name:'author_collect'}">收藏</router-link>
             </li>
             <li class="nav-item" v-if="thisUsername == loginUsername">
-              <router-link class="nav-link"  :class="routeName == 'author_credit'?'nav-link-active':''" :to="{name:'author_credit'}">资产</router-link>
+              <router-link class="nav-link"  :class="routeName == 'author_coin'?'nav-link-active':''" :to="{name:'author_coin'}">资产</router-link>
             </li>
             <li class="nav-item" v-if="thisUsername == loginUsername">
               <router-link class="nav-link" :class="routeName == 'author_setting'?'nav-link-active':''" :to="{name:'author_setting'}">设置</router-link>

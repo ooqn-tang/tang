@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.ttcxy.tang.portal.mapper.dao.CtsCoinDao">
+    <select id="todayCoin" resultType="java.lang.Double">
+        SELECT SUM(coin_value) FROM `cts_coin` where author_id = #{authorId} and create_date = DATE(NOW()) and type = 1
+    </select>
+
+    <select id="selectCoinValue" resultType="java.lang.Double">
+        SELECT SUM(coin_value) FROM `cts_coin` where author_id = #{authorId}
+    </select>
+</mapper>

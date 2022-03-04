@@ -16,30 +16,29 @@
         </el-input>
         <el-table
           :data="roleList"
-          @row-click="rowRoleClick"
           highlight-current-row
           border
           max-height="400"
           style="width: 100%"
         >
-          <el-table-column prop="roleName" label="角色名" />
+          <el-table-column label="角色名">
+            <template #default="scope">
+              <div v-if="scope.$index == editIndex">
+                <el-input v-model="scope.row.roleName" size="small" placeholder="请输入角色名" />
+              </div>
+              <div v-if="scope.$index != editIndex">
+                {{scope.row.roleName}}
+              </div>
+            </template>
+          </el-table-column>
           <el-table-column prop="roleValue" label="角色值" />
           <el-table-column prop="createTime" label="创建时间" />
-          <el-table-column label="操作" width="135">
+          <el-table-column label="操作" width="250">
             <template #default="scope">
-              <el-button
-                size="small"
-                @click="
-                  handleEdit(scope.$index, scope.row), (dialogVisible = true)
-                "
-                >编辑</el-button
-              >
-              <el-button
-                size="small"
-                type="danger"
-                @click="deleteResource(scope.row.resourceId)"
-                >删除</el-button
-              >
+              <el-button size="small" @click="editIndex = scope.$index" v-if="editIndex != scope.$index">编辑</el-button>
+              <el-button size="small" @click="editIndex = -1" v-if="editIndex == scope.$index">保存</el-button>
+              <el-button size="small" @click="(dialogVisible = true),rowRoleClick(scope.row)">权限资源编辑</el-button>
+              <el-button size="small" type="danger" @click="deleteResource(scope.row.resourceId)">删除</el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -47,10 +46,7 @@
     </el-col>
     <el-col :span="10">
       <div style="margin: 10px">
-        <el-input
-          placeholder="请输入角色名"
-          style="padding-bottom: 5px"
-        >
+        <el-input placeholder="请输入资源路径" style="padding-bottom: 5px" disabled>
           <template #prepend>
             <el-button @click="saveResourceRole">保存角色</el-button>
           </template>
@@ -61,13 +57,13 @@
           ref="multipleTable"
           @selection-change="checkResource"
           border
-           max-height="800"
+          max-height="800"
           style="width: 100%"
         >
           <!-- <el-table-column prop="resourceId" label="选择" width="180" /> -->
           <el-table-column type="selection" width="40" />
-          <el-table-column prop="name" label="名称" width="180" />
-          <el-table-column prop="path" label="路径" width="180" />
+          <el-table-column prop="name" label="名称" width="180"/>
+          <el-table-column prop="path" label="路径" width="180"/>
           <el-table-column prop="type" label="类型" />
         </el-table></div
     ></el-col>
@@ -86,10 +82,14 @@ export default {
       resourceList: null,
       resourceIdList: null,
       selectRoleId:"",
-      resourceForm:[]
+      resourceForm:[],
+      editIndex:-1
     };
   },
-   watch: {
+  computed:{
+   
+  },
+  watch: {
       resourceIdList: {
         handler() {
           this.$nextTick(() => {
@@ -102,7 +102,9 @@ export default {
         }
       },
   },
-  created() {},
+  created() {
+   
+  },
   methods: {
     checkResource(selection, row){
       this.resourceForm = selection
@@ -116,7 +118,7 @@ export default {
         alert("添加成功")
       });
     },
-    rowRoleClick(row, column, event) {
+    rowRoleClick(row) {
       this.selectRoleId = row.roleId
       this.selectResource(row);
     },

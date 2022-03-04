@@ -4,7 +4,7 @@ import org.springframework.http.HttpStatus;
 
 /**
  * 自定义API异常
- * @author huanglei
+ * @author LYJ
  */
 public class ApiException extends RuntimeException {
 

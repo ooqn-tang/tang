@@ -21,9 +21,14 @@ public class AdminResourceController {
     @Autowired
     private UtsResourceService resourceService;
 
+    @GetMapping("refresh")
+    public void refresh(){
+        resourceService.urls();
+    }
+
     @GetMapping
-    public ResponseEntity<List<UtsResource>> select(){
-        List<UtsResource> resourceList = resourceService.select();
+    public ResponseEntity<List<UtsResource>> loadResponseList(@RequestParam(value = "queryData",defaultValue = "")String queryData){
+        List<UtsResource> resourceList = resourceService.select(queryData);
         return ResponseEntity.ok(resourceList);
     }
 

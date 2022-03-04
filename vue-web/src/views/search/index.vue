@@ -1,35 +1,26 @@
 <template>
   <div class="row">
-    <div class="col-lg-12">
-      <div class="input-group mb-2">
-        <input type="text" class="form-control search-input" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="button-addon2">
-        <button class="btn btn-outline-secondary search-button" type="button" id="button-addon2">搜索</button>
-      </div>
-    </div>
     <div class="col-lg-8 move-p-lr-0">
-      <div class="card mb-2 move-b-lr-0">
-         <div class="card-body p-0">
-           <nav class="nav">
-              <a class="nav-link" :class="selectTag == 'Java'?'nav-link-active':''" @click="selectTagClick('Java')">博客</a>
-              <a class="nav-link" :class="selectTag == 'Python'?'nav-link-active':''" @click="selectTagClick('Python')">视频</a>
-              <a class="nav-link" :class="selectTag == '前端'?'nav-link-active':''" @click="selectTagClick('前端')">文件</a>
-              <a class="nav-link" :class="selectTag == '数据库'?'nav-link-active':''" @click="selectTagClick('数据库')">作者</a>
-              <a class="nav-link" :class="selectTag == '面试'?'nav-link-active':''" @click="selectTagClick('面试')">标签</a>
-              <a class="nav-link" :class="selectTag == '面试'?'nav-link-active':''" @click="selectTagClick('面试')">专辑</a>
-            </nav>
-         </div>
-       </div>
-
+      <div class="input-group mb-2 move-search">
+        <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">{{searchText}}</button>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="#" @click="searchText = '视频'">视频</a></li>
+          <li><a class="dropdown-item" href="#" @click="searchText = '作者'">作者</a></li>
+        </ul>
+        <input type="text" class="form-control search-input" v-model="form.wb" placeholder="请输入" aria-label="请输入" aria-describedby="button-addon2">
+        <button class="btn btn-outline-secondary search-button" type="button" id="button-addon2" @click="so">搜索</button>
+      </div>
        <ul class="list-group mb-2 move-b-lr-0">
-            <li class="list-group-item">
-              <a class="article-title">
-                <strong><p>啊手动阀</p></strong>
-                </a>
-              <div class="article-synopsis" style="color: #5f5a5a;">啊手动阀手动阀啊手动阀手动阀手动阀啊手动阀手动阀啊手动阀手动阀啊手动阀手动阀手动阀啊手动阀手动阀啊手动阀手动阀啊手动阀手动阀手动阀啊手动阀手动阀啊手动阀手动阀啊手动阀手动阀手动阀啊手动阀手动阀</div>
+            <li class="list-group-item" v-for="(item,index) in videoList" :key="index">
+              
+              <div class="article-synopsis" style="color: #5f5a5a;">
+                <img :src="item.coverUrl" style="max-width: 100%;">
+              </div>
+              <a class="article-title"><strong><p>{{item.title}}</p></strong></a>
               <div>
                 <span class="date-color" style="font-size: 16px;color: #5f5a5a;">2020.02.02</span>
                 <span > . <span style="font-size: 16px;color: #dc3545;">Java</span></span>
-                <a class="float-end">asdfasdf</a>
+                <a class="float-end">{{item.nickname}}</a>
               </div>
             </li>
             <li class="list-group-item">
@@ -67,6 +58,14 @@ export default {
   name: "search_index",
   data() {
     return {
+      searchText:"视频",
+      form:{
+
+      },
+      videoList:[],
+      videoData:{
+
+      }
     };
   },
   computed: {
@@ -75,7 +74,16 @@ export default {
   created() {
   },
   methods: {
-   
+   so(){
+    this.form.page = this.videoData.nextPage
+    request({
+      url: '/api/video/so',
+      method: 'GET',
+      params:this.form
+    }).then((response) => {
+      this.videoList = response.data.list
+    })
+   }
   },
   mounted(){
     

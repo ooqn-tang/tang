@@ -6,13 +6,15 @@ import './index.scss'
 import './permission'
 import notice from './components/notice.vue'
 import "highlight.js/styles/github.css"
-import naive from 'naive-ui'
+import VLoading from "element-plus/es/components/loading/index"
+
 
 router.beforeEach((to,from)=>{
     document.documentElement.scrollTop=0;
 })
 
 const app = createApp(App)
+
 
 function sleep(numberMillis) {
     var now = new Date();
@@ -24,6 +26,8 @@ function sleep(numberMillis) {
     }
 }
 
+import NPlayer from "@nplayer/vue";
+app.use(VLoading)
+app.use(NPlayer);
 app.component("notice", notice);//全局自定义组件
-app.use(naive)
 app.use(router).use(store).mount('#app')

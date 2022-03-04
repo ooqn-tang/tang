@@ -1,7 +1,7 @@
 <template>
   <div class="row">
-    <div class="col-md-9 mb-2">
-      <div class="card">
+    <div class="col-md-9 mb-2  move-p-lr-0">
+      <div class="card  move-b-lr-0">
         <div class="card-header">
           <ul class="nav nav-tabs card-header-tabs">
             <li class="nav-item">
@@ -39,22 +39,22 @@
           <ul class="list-group article-list">
             <li class="list-group-item" v-for="(item, index) in historyList" :key="index">
             <div class="row">
-              <div class='col' v-if="item.type == 'wz'">
-                <a class="article-title" :href="'/article/'+item.dataId">
+              <div class='col' >
+                <a class="article-title" :href="'/article/'+item.dataId" v-if="item.type == 'article'">
                   <p>
-                    <strong v-text="item.title"></strong>
-                    <span style="float:right">视频</span>
+                    <strong>📰{{item.title}}</strong>
                   </p>
-                  <span>{{item.createDate}}</span>
+                   <p>
+                    <img :src="item.headUrl" style="height: 24px;width:24px;border-radius: 15px;" onerror='this.src="https://avatars.githubusercontent.com/u/15867678?v=4"'>{{item.nickname}}<span style="float:right">{{item.createTime}}</span>
+                  </p>
                 </a>
-              </div>
-              <div class='col' v-if="item.type == 'sp'">
-                <a class="article-title" :href="'/video/'+item.dataId">
+                <a class="article-title" :href="'/video/'+item.dataId"  v-if="item.type == 'video'">
                   <p>
-                    <strong v-text="item.title"></strong>
-                    <span style="float:right">视频</span>
+                    <strong>📺{{item.title}}</strong>
                   </p>
-                  <span>{{item.createDate}}</span>
+                  <p>
+                    <img :src="item.headUrl" style="height: 24px;width:24px;border-radius: 15px;" onerror='this.src="https://avatars.githubusercontent.com/u/15867678?v=4"'> {{item.nickname}}<span style="float:right">{{item.createTime}}</span>
+                  </p>
                 </a>
               </div>
             </div>
@@ -109,10 +109,11 @@ export default {
     selectTag(type){
       this.select = type
       request({
-        url: "/api/record",
-        method: "GET"
+        url: "/api/view/list",
+        method: "GET",
+        params:{type:type}
       }).then((response) => {
-        this.historyList = response.data;
+        this.historyList = response.data.list;
       });
     }
   },

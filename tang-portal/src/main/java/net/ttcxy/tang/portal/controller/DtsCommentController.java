@@ -7,12 +7,11 @@ import com.github.pagehelper.PageInfo;
 import net.ttcxy.tang.portal.core.api.ApiException;
 import net.ttcxy.tang.portal.core.api.ResponseCode;
 import net.ttcxy.tang.portal.core.security.CurrentUtil;
-import net.ttcxy.tang.portal.entity.Credit;
 import net.ttcxy.tang.portal.entity.dto.DtsCommentDto;
 import net.ttcxy.tang.portal.entity.model.DtsComment;
 import net.ttcxy.tang.portal.entity.param.DtsCommentParam;
+import net.ttcxy.tang.portal.service.CtsCoinService;
 import net.ttcxy.tang.portal.service.DtsCommentService;
-import net.ttcxy.tang.portal.service.UtsCreditService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,7 +24,7 @@ public class DtsCommentController {
     private DtsCommentService commentService;
 
     @Autowired
-    private UtsCreditService utsCreditService;
+    private CtsCoinService ptsCreditService;
 
     @PostMapping
     public ResponseEntity<String> insert(@RequestBody DtsCommentParam commentParam){
@@ -36,7 +35,7 @@ public class DtsCommentController {
         comment.setCreateDate(DateUtil.date());
         int count = commentService.insert(comment);
         if (count > 0){
-            utsCreditService.insert(Credit.PL);
+            ptsCreditService.commentCoin();
             return ResponseEntity.ok(commentId);
         }
         throw new ApiException(ResponseCode.FAILED);

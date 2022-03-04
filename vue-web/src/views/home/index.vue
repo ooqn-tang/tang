@@ -24,6 +24,9 @@
           <li class="nav-item" >
             <router-link class="nav-link" to="/search">🔍搜索</router-link>
           </li>
+          <li class="nav-item" >
+            <router-link class="nav-link" to="/admin">管理系统</router-link>
+          </li>
         </ul>
 
 
@@ -129,7 +132,7 @@ export default {
 };
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 .m-r-5-px{
   margin-right: 5px 
 }
@@ -141,8 +144,6 @@ p{
 }
 
 body{
-    overflow-y: scroll;
+    overflow-y: scroll !important;
 }
-
-
 </style>

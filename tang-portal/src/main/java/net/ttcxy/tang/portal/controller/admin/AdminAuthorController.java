@@ -25,8 +25,8 @@ public class AdminAuthorController {
 
 
     @GetMapping
-    public ResponseEntity<List<UtsAuthor>> select(){
-        List<UtsAuthor> authorList = authorService.select();
+    public ResponseEntity<List<UtsAuthor>> select(@RequestParam(value = "queryData",defaultValue = "") String queryData){
+        List<UtsAuthor> authorList = authorService.select(queryData);
         return ResponseEntity.ok(authorList);
     }
 

@@ -2,6 +2,7 @@ package net.ttcxy.tang.portal.controller;
 
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.StrUtil;
+import io.swagger.annotations.Api;
 import net.ttcxy.tang.portal.core.api.ApiException;
 import net.ttcxy.tang.portal.core.api.ResponseCode;
 import org.apache.catalina.connector.ClientAbortException;
@@ -9,8 +10,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.awt.image.BufferedImage;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -20,11 +23,12 @@ import java.nio.file.Files;
 public class DtsFileController {
 
     @PostMapping("/upload")
-    public ResponseEntity<String> create(@RequestParam("file") MultipartFile file) throws IOException {
+    public ResponseEntity<String> create(@RequestParam("file") MultipartFile file,@RequestParam("type")String type) throws IOException {
         String fileName = file.getOriginalFilename();
         if (StrUtil.isBlank(fileName)){
             throw new ApiException(ResponseCode.VALIDATE_FAILED);
         }
+
         String[] split = fileName.split("\\.");
         if (split.length < 2){
             throw new ApiException(ResponseCode.VALIDATE_FAILED);
@@ -34,7 +38,19 @@ public class DtsFileController {
         String filePath = "D:\\obj\\" + objectId +"."+s;
         File dest = new File(filePath);
         Files.copy(file.getInputStream(), dest.toPath());
-        return ResponseEntity.ok(objectId + "."+s);
+
+        if (StrUtil.equals(type,"1")){
+            BufferedImage sourceImg = ImageIO.read(new FileInputStream(filePath));
+            System.out.println(sourceImg.getWidth()); // 源图宽度
+            System.out.println(sourceImg.getHeight()); // 源图高度
+            double i = (sourceImg.getWidth()+0.0) / sourceImg.getHeight();
+            if (i == 2){
+                return ResponseEntity.ok(objectId + "."+s);
+            }else{
+                throw new ApiException(ResponseCode.FAILED.getStatus(),"图片尺寸必须为2：1");
+            }
+        }
+        throw new ApiException(ResponseCode.FAILED);
     }
 
     @GetMapping("{fileName}")

@@ -13,18 +13,41 @@
         where t1.author_id = t2.author_id
         and t2.state = 1
         <if test="title != ''">
-            and t2.title like concat(#{title,jdbcType=VARCHAR},'%')
+            and t2.title like concat('%',#{title,jdbcType=VARCHAR},'%')
         </if>
         <if test="videoClass != ''">
             and t2.video_class_id = #{videoClass}
         </if>
-
     </select>
+
     <select id="selectByUsername" resultType="net.ttcxy.tang.portal.entity.dto.DtsVideoDto">
-        select *
+        select t1.*, t2.*,(select count(data_id) from (select data_id,author_id,create_date,count(*) from dts_view group by data_id,author_id,create_date) t where data_id = t2.video_id) view_count
         from uts_author t1 , dts_video t2
         where t1.author_id = t2.author_id
         and t2.state = 1
         and t1.username = #{username}
+    </select>
+    <select id="selectList" resultType="net.ttcxy.tang.portal.entity.dto.DtsVideoDto">
+        select * from dts_video t1
+        inner join uts_author t2 on t1.author_id = t2.author_id and nickname like concat('%',#{nickname,jdbcType=VARCHAR},'%')
+        <if test="state!=null and state !=''">
+        and state = #{state}
+        </if>
+        inner join sts_code t3 on t3.code_id = t1.state
+        <if test="date1!=null">
+        where t1.create_date between #{date1} and #{date2}
+        </if>
+    </select>
+    <select id="selectGz" resultType="net.ttcxy.tang.portal.entity.dto.DtsVideoDto">
+        select t2.*,t3.* from uts_fans t1
+        inner join dts_video t2 on t1.author_id = '1' and t1.be_author_id = t2.author_id and state = 1
+        inner join uts_author t3 on t3.author_id = t1.be_author_id order by t2.create_date desc
+    </select>
+    <select id="search" resultType="net.ttcxy.tang.portal.entity.dto.DtsVideoDto">
+        select *
+        from uts_author t1 , dts_video t2
+        where t1.author_id = t2.author_id
+        and t2.state = 1
+        and t2.title like concat('%',#{wb,jdbcType=VARCHAR},'%')
     </select>
 </mapper>

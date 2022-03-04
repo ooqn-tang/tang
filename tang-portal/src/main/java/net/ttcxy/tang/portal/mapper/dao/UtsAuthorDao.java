@@ -9,7 +9,7 @@ import java.util.Map;
 
 /**
  * 用户
- * @author huanglei
+ * @author LYJ
  */
 public interface UtsAuthorDao {
 

@@ -20,7 +20,7 @@ import java.util.Set;
 
 /**
  * 全局异常处理
- * @author huanglei
+ * @author LYJ
  */
 @ControllerAdvice
 public class GlobalExceptionHandler {
@@ -34,7 +34,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(AccessDeniedException.class)
     public ResponseEntity<String> errorHandler(AccessDeniedException ex, HttpServletResponse httpServletResponse) {
         logger.error(ex.getMessage(),ex);
-        return ResponseEntity.badRequest().body("验证异常:"+ex.getMessage());
+        return ResponseEntity.badRequest().body(ex.getMessage());
     }
 
     /**
@@ -44,7 +44,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(ApiException.class)
     public ResponseEntity<String> errorHandler(ApiException ex, HttpServletResponse httpServletResponse) {
         logger.error(ex.getMessage(),ex);
-        return ResponseEntity.badRequest().body("验证异常:"+ex.getMessage());
+        return ResponseEntity.status(ex.getStatus()).body(ex.getMessage());
     }
 
     /**
@@ -54,7 +54,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(ConstraintViolationException.class)
     public ResponseEntity<String> errorHandler(ConstraintViolationException ex, HttpServletResponse httpServletResponse) {
         Set<ConstraintViolation<?>> violations = ex.getConstraintViolations();
-        return ResponseEntity.badRequest().body("验证异常:"+violations.iterator().next().getMessage());
+        return ResponseEntity.badRequest().body(violations.iterator().next().getMessage());
     }
 
     /**
@@ -65,7 +65,7 @@ public class GlobalExceptionHandler {
     public ResponseEntity<String> errorHandler(MethodArgumentNotValidException ex, HttpServletResponse httpServletResponse) {
         logger.error(ex.getMessage(),ex);
         String result = ex.getBindingResult().getFieldErrors().get(0).getDefaultMessage();
-        return ResponseEntity.badRequest().body("验证异常:"+result);
+        return ResponseEntity.badRequest().body(result);
     }
     /**
      * Exception 参数校验统一异常处理
@@ -74,7 +74,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     public ResponseEntity<String> errorHandler(Exception ex, HttpServletResponse httpServletResponse) {
         logger.error(ex.getMessage(),ex);
-        return ResponseEntity.badRequest().body("验证异常:"+ex.getMessage());
+        return ResponseEntity.badRequest().body(ex.getMessage());
     }
     /**
      * Exception 参数校验统一异常处理
@@ -82,7 +82,7 @@ public class GlobalExceptionHandler {
     @ResponseBody
     @ExceptionHandler(ServletException.class)
     public ResponseEntity<?> errorHandler(ServletException ex, HttpServletResponse httpServletResponse, HttpServletRequest httpServletRequest) {
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("系统异常："+ex.getMessage());
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ex.getMessage());
     }
 
 }

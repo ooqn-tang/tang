@@ -93,7 +93,9 @@ export default {
           localStorage.setItem("author",JSON.stringify(tokenData.author))
           this.$router.push({path:"/author/"+tokenData.sub})
         }
-      })
+      }).catch(e => {
+        alert(e.data)
+      });
     },
     sendMail(){
       request({

@@ -3,7 +3,7 @@ package net.ttcxy.tang.portal.entity.dto;
 import java.util.Date;
 
 /**
- * @author huanglei
+ * @author LYJ
  */
 public class UtsFansDto {
 

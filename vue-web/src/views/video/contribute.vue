@@ -66,6 +66,7 @@ export default {
       let file = e.target.files[0];
       let param = new FormData(); //创建form对象
       param.append("file", file); //通过append向form对象添加数据
+      param.append("type","1")
       console.log(param.get("file")); //FormData私有类对象，访问不到，可以通过get判断值是否传进去
       request({
         url: "/api/file/upload",
@@ -74,13 +75,15 @@ export default {
         headers: { "Content-Type": "multipart/form-data" }
       }).then((response) => {
         this.formData.coverUrl = import.meta.env.VITE_BASE_API + "api/file/" + response.data
-        alert(this.formData.coverUrl)
+      }).catch((error) => {
+        alert(error.data)
       });
     },
     upload(e) {
       let file = e.target.files[0];
       let param = new FormData(); //创建form对象
       param.append("file", file); //通过append向form对象添加数据
+      param.append("type","2")
       console.log(param.get("file")); //FormData私有类对象，访问不到，可以通过get判断值是否传进去
       request({
         url: "/api/file/upload",

@@ -28,12 +28,7 @@ service.interceptors.request.use(
 //请求后拦截
 service.interceptors.response.use(
     response => {
-        if (response.status !== 200) {
-            alert(response.data)
-            return Promise.reject(new Error(res.message || "Error"));
-        } else {
-            return response;
-        }
+        return response;
     },
     error => {
         if (error.response.status === 401) {
@@ -49,9 +44,9 @@ service.interceptors.response.use(
             return Promise.reject(error);
         }
         if (error.response.status === 500) {
-            alert("系统异常")
-            return Promise.reject(error);
+            return Promise.reject(error.response);
         }
+        // 重新获取新TOKEN
         if (error.response.status === 666) {
             if (!isRefreshing){
                 isRefreshing = true
@@ -82,6 +77,7 @@ service.interceptors.response.use(
                 })
               }
         }
+        return Promise.reject(error.response);
 
     }
 );

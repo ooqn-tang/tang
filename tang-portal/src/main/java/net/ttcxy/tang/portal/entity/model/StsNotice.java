@@ -3,7 +3,7 @@ package net.ttcxy.tang.portal.entity.model;
 import java.io.Serializable;
 import java.util.Date;
 
-public class DtsNotice implements Serializable {
+public class StsNotice implements Serializable {
     private String noticeId;
 
     private String title;
@@ -13,6 +13,8 @@ public class DtsNotice implements Serializable {
     private Date createDate;
 
     private String description;
+
+    private Integer orderNum;
 
     private static final long serialVersionUID = 1L;
 
@@ -56,6 +58,14 @@ public class DtsNotice implements Serializable {
         this.description = description;
     }
 
+    public Integer getOrderNum() {
+        return orderNum;
+    }
+
+    public void setOrderNum(Integer orderNum) {
+        this.orderNum = orderNum;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -67,6 +77,7 @@ public class DtsNotice implements Serializable {
         sb.append(", url=").append(url);
         sb.append(", createDate=").append(createDate);
         sb.append(", description=").append(description);
+        sb.append(", orderNum=").append(orderNum);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

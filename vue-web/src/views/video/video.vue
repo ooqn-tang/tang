@@ -6,14 +6,14 @@
           <div class="card mb-2 move-b-lr-0">
             <div class="card-header">
               {{ video.title }}
-              <span class="float-end">{{ video.nickname }}</span>
+              <span class="float-end"><router-link v-if="video.username" :to="{name:'author_article',params:{username: video.username}}" class="float-end">{{video.nickname}}</router-link></span>
             </div>
             <div class="card-body" style="padding: 0; height: 600px;" id="videoBody">
               <video
                 ref="videoPlay"
                 controls
                 loop="loop"
-                style="width: 100%; height: 100%">
+                style="width: 100%; height: 100%;">
                 <source type="video/mp4" />
               </video>
             </div>
@@ -238,7 +238,14 @@ export default {
       this.tagName = name;
     },
     coin(){
-      
+      request({
+        url: "/api/coin/"+this.videoId,
+        method: "post"
+      }).then((response) => {
+        this.type.coin = true;
+      }).catch(e => {
+        console.log(e.message)
+      });
     },
     like(){
       if(this.type.like){
@@ -290,6 +297,14 @@ export default {
         method: "get"
       }).then((response) => {
         this.type.like = (response.data == 1)
+      });
+    },
+    loadCoin(){
+      request({
+        url: "/api/coin/"+this.videoId,
+        method: "get"
+      }).then((response) => {
+        this.type.coin = (response.data == 1)
       });
     },
     deleteComment(commentId,index){
@@ -364,6 +379,7 @@ export default {
     this.loadLike();
     this.loadComment();
     this.loadCollect();
+    this.loadCoin();
     let _this = this;
     window.onresize = function(){ // 定义窗口大小变更通知事件
       _this.screenWidth = document.documentElement.clientWidth; //窗口宽度

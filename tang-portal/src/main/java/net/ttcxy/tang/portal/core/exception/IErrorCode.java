@@ -2,7 +2,7 @@ package net.ttcxy.tang.portal.core.exception;
 
 /**
  * 封装API的错误码
- * @author huanglei
+ * @author LYJ
  */
 public interface IErrorCode {
     /**

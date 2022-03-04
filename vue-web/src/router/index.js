@@ -84,9 +84,9 @@ const routes = [
                     }
                     ,
                     {
-                        path: 'credit',
-                        name: 'author_credit',
-                        component: () => import('../views/author/credit.vue')
+                        path: 'coin',
+                        name: 'author_coin',
+                        component: () => import('../views/author/coin.vue')
                     }
                 ]
             },
@@ -121,20 +121,16 @@ const routes = [
         path: '/admin',
         name: 'admin',
         component: () => import('../views/admin/index.vue'),
+        redirect:"/admin/video",
         children:[
-            {
-                path:"",
-                name:"admin_video",
-                component: () => import('../views/admin/video.vue')
-            },
             {
                 path:"video",
                 name:"admin_video",
                 component: () => import('../views/admin/video.vue')
             },{
-                path:"article",
-                name:"admin_article",
-                component: () => import('../views/admin/article.vue')
+                path:"recommend",
+                name:"admin_recommend",
+                component: () => import('../views/admin/recommend.vue')
             },{
                 path:"author",
                 name:"admin_author",

@@ -4,13 +4,15 @@
   <resultMap id="BaseResultMap" type="net.ttcxy.tang.portal.entity.model.DtsVideo">
     <id column="video_id" jdbcType="VARCHAR" property="videoId" />
     <result column="title" jdbcType="VARCHAR" property="title" />
-    <result column="describe" jdbcType="VARCHAR" property="describe" />
+    <result column="synopsis" jdbcType="VARCHAR" property="synopsis" />
     <result column="cover_url" jdbcType="VARCHAR" property="coverUrl" />
     <result column="author_id" jdbcType="VARCHAR" property="authorId" />
     <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
     <result column="video_url" jdbcType="VARCHAR" property="videoUrl" />
     <result column="state" jdbcType="INTEGER" property="state" />
     <result column="video_class_id" jdbcType="VARCHAR" property="videoClassId" />
+    <result column="check_id" jdbcType="INTEGER" property="checkId" />
+    <result column="check_text" jdbcType="VARCHAR" property="checkText" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -71,8 +73,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    video_id, title, `describe`, cover_url, author_id, create_date, video_url, `state`, 
-    video_class_id
+    video_id, title, synopsis, cover_url, author_id, create_date, video_url, `state`, 
+    video_class_id, check_id, check_text
   </sql>
   <select id="selectByExample" parameterType="net.ttcxy.tang.portal.entity.model.DtsVideoExample" resultMap="BaseResultMap">
     select
@@ -105,14 +107,14 @@
     </if>
   </delete>
   <insert id="insert" parameterType="net.ttcxy.tang.portal.entity.model.DtsVideo">
-    insert into dts_video (video_id, title, `describe`, 
+    insert into dts_video (video_id, title, synopsis, 
       cover_url, author_id, create_date, 
-      video_url, `state`, video_class_id
-      )
-    values (#{videoId,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{describe,jdbcType=VARCHAR}, 
+      video_url, `state`, video_class_id, 
+      check_id, check_text)
+    values (#{videoId,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{synopsis,jdbcType=VARCHAR}, 
       #{coverUrl,jdbcType=VARCHAR}, #{authorId,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, 
-      #{videoUrl,jdbcType=VARCHAR}, #{state,jdbcType=INTEGER}, #{videoClassId,jdbcType=VARCHAR}
-      )
+      #{videoUrl,jdbcType=VARCHAR}, #{state,jdbcType=INTEGER}, #{videoClassId,jdbcType=VARCHAR}, 
+      #{checkId,jdbcType=INTEGER}, #{checkText,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="net.ttcxy.tang.portal.entity.model.DtsVideo">
     insert into dts_video
@@ -123,8 +125,8 @@
       <if test="title != null">
         title,
       </if>
-      <if test="describe != null">
-        `describe`,
+      <if test="synopsis != null">
+        synopsis,
       </if>
       <if test="coverUrl != null">
         cover_url,
@@ -144,6 +146,12 @@
       <if test="videoClassId != null">
         video_class_id,
       </if>
+      <if test="checkId != null">
+        check_id,
+      </if>
+      <if test="checkText != null">
+        check_text,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="videoId != null">
@@ -152,8 +160,8 @@
       <if test="title != null">
         #{title,jdbcType=VARCHAR},
       </if>
-      <if test="describe != null">
-        #{describe,jdbcType=VARCHAR},
+      <if test="synopsis != null">
+        #{synopsis,jdbcType=VARCHAR},
       </if>
       <if test="coverUrl != null">
         #{coverUrl,jdbcType=VARCHAR},
@@ -173,6 +181,12 @@
       <if test="videoClassId != null">
         #{videoClassId,jdbcType=VARCHAR},
       </if>
+      <if test="checkId != null">
+        #{checkId,jdbcType=INTEGER},
+      </if>
+      <if test="checkText != null">
+        #{checkText,jdbcType=VARCHAR},
+      </if>
     </trim>
   </insert>
   <select id="countByExample" parameterType="net.ttcxy.tang.portal.entity.model.DtsVideoExample" resultType="java.lang.Long">
@@ -190,8 +204,8 @@
       <if test="record.title != null">
         title = #{record.title,jdbcType=VARCHAR},
       </if>
-      <if test="record.describe != null">
-        `describe` = #{record.describe,jdbcType=VARCHAR},
+      <if test="record.synopsis != null">
+        synopsis = #{record.synopsis,jdbcType=VARCHAR},
       </if>
       <if test="record.coverUrl != null">
         cover_url = #{record.coverUrl,jdbcType=VARCHAR},
@@ -211,6 +225,12 @@
       <if test="record.videoClassId != null">
         video_class_id = #{record.videoClassId,jdbcType=VARCHAR},
       </if>
+      <if test="record.checkId != null">
+        check_id = #{record.checkId,jdbcType=INTEGER},
+      </if>
+      <if test="record.checkText != null">
+        check_text = #{record.checkText,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -220,13 +240,15 @@
     update dts_video
     set video_id = #{record.videoId,jdbcType=VARCHAR},
       title = #{record.title,jdbcType=VARCHAR},
-      `describe` = #{record.describe,jdbcType=VARCHAR},
+      synopsis = #{record.synopsis,jdbcType=VARCHAR},
       cover_url = #{record.coverUrl,jdbcType=VARCHAR},
       author_id = #{record.authorId,jdbcType=VARCHAR},
       create_date = #{record.createDate,jdbcType=TIMESTAMP},
       video_url = #{record.videoUrl,jdbcType=VARCHAR},
       `state` = #{record.state,jdbcType=INTEGER},
-      video_class_id = #{record.videoClassId,jdbcType=VARCHAR}
+      video_class_id = #{record.videoClassId,jdbcType=VARCHAR},
+      check_id = #{record.checkId,jdbcType=INTEGER},
+      check_text = #{record.checkText,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -237,8 +259,8 @@
       <if test="title != null">
         title = #{title,jdbcType=VARCHAR},
       </if>
-      <if test="describe != null">
-        `describe` = #{describe,jdbcType=VARCHAR},
+      <if test="synopsis != null">
+        synopsis = #{synopsis,jdbcType=VARCHAR},
       </if>
       <if test="coverUrl != null">
         cover_url = #{coverUrl,jdbcType=VARCHAR},
@@ -258,19 +280,27 @@
       <if test="videoClassId != null">
         video_class_id = #{videoClassId,jdbcType=VARCHAR},
       </if>
+      <if test="checkId != null">
+        check_id = #{checkId,jdbcType=INTEGER},
+      </if>
+      <if test="checkText != null">
+        check_text = #{checkText,jdbcType=VARCHAR},
+      </if>
     </set>
     where video_id = #{videoId,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="net.ttcxy.tang.portal.entity.model.DtsVideo">
     update dts_video
     set title = #{title,jdbcType=VARCHAR},
-      `describe` = #{describe,jdbcType=VARCHAR},
+      synopsis = #{synopsis,jdbcType=VARCHAR},
       cover_url = #{coverUrl,jdbcType=VARCHAR},
       author_id = #{authorId,jdbcType=VARCHAR},
       create_date = #{createDate,jdbcType=TIMESTAMP},
       video_url = #{videoUrl,jdbcType=VARCHAR},
       `state` = #{state,jdbcType=INTEGER},
-      video_class_id = #{videoClassId,jdbcType=VARCHAR}
+      video_class_id = #{videoClassId,jdbcType=VARCHAR},
+      check_id = #{checkId,jdbcType=INTEGER},
+      check_text = #{checkText,jdbcType=VARCHAR}
     where video_id = #{videoId,jdbcType=VARCHAR}
   </update>
 </mapper>

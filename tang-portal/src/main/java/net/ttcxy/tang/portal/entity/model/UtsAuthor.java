@@ -20,6 +20,8 @@ public class UtsAuthor implements Serializable {
 
     private Date refreshTime;
 
+    private String headUrl;
+
     private static final long serialVersionUID = 1L;
 
     public String getAuthorId() {
@@ -86,6 +88,14 @@ public class UtsAuthor implements Serializable {
         this.refreshTime = refreshTime;
     }
 
+    public String getHeadUrl() {
+        return headUrl;
+    }
+
+    public void setHeadUrl(String headUrl) {
+        this.headUrl = headUrl;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -100,6 +110,7 @@ public class UtsAuthor implements Serializable {
         sb.append(", signature=").append(signature);
         sb.append(", updateTime=").append(updateTime);
         sb.append(", refreshTime=").append(refreshTime);
+        sb.append(", headUrl=").append(headUrl);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

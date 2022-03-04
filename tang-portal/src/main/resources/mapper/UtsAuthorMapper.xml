@@ -10,6 +10,7 @@
     <result column="signature" jdbcType="VARCHAR" property="signature" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
     <result column="refresh_time" jdbcType="TIMESTAMP" property="refreshTime" />
+    <result column="head_url" jdbcType="VARCHAR" property="headUrl" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -70,7 +71,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    author_id, username, nickname, `password`, mail, signature, update_time, refresh_time
+    author_id, username, nickname, `password`, mail, signature, update_time, refresh_time, 
+    head_url
   </sql>
   <select id="selectByExample" parameterType="net.ttcxy.tang.portal.entity.model.UtsAuthorExample" resultMap="BaseResultMap">
     select
@@ -105,10 +107,12 @@
   <insert id="insert" parameterType="net.ttcxy.tang.portal.entity.model.UtsAuthor">
     insert into uts_author (author_id, username, nickname, 
       `password`, mail, signature, 
-      update_time, refresh_time)
+      update_time, refresh_time, head_url
+      )
     values (#{authorId,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR}, 
       #{password,jdbcType=VARCHAR}, #{mail,jdbcType=VARCHAR}, #{signature,jdbcType=VARCHAR}, 
-      #{updateTime,jdbcType=TIMESTAMP}, #{refreshTime,jdbcType=TIMESTAMP})
+      #{updateTime,jdbcType=TIMESTAMP}, #{refreshTime,jdbcType=TIMESTAMP}, #{headUrl,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="net.ttcxy.tang.portal.entity.model.UtsAuthor">
     insert into uts_author
@@ -137,6 +141,9 @@
       <if test="refreshTime != null">
         refresh_time,
       </if>
+      <if test="headUrl != null">
+        head_url,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="authorId != null">
@@ -162,6 +169,9 @@
       </if>
       <if test="refreshTime != null">
         #{refreshTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="headUrl != null">
+        #{headUrl,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -198,6 +208,9 @@
       <if test="record.refreshTime != null">
         refresh_time = #{record.refreshTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="record.headUrl != null">
+        head_url = #{record.headUrl,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -212,7 +225,8 @@
       mail = #{record.mail,jdbcType=VARCHAR},
       signature = #{record.signature,jdbcType=VARCHAR},
       update_time = #{record.updateTime,jdbcType=TIMESTAMP},
-      refresh_time = #{record.refreshTime,jdbcType=TIMESTAMP}
+      refresh_time = #{record.refreshTime,jdbcType=TIMESTAMP},
+      head_url = #{record.headUrl,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -241,6 +255,9 @@
       <if test="refreshTime != null">
         refresh_time = #{refreshTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="headUrl != null">
+        head_url = #{headUrl,jdbcType=VARCHAR},
+      </if>
     </set>
     where author_id = #{authorId,jdbcType=VARCHAR}
   </update>
@@ -252,7 +269,8 @@
       mail = #{mail,jdbcType=VARCHAR},
       signature = #{signature,jdbcType=VARCHAR},
       update_time = #{updateTime,jdbcType=TIMESTAMP},
-      refresh_time = #{refreshTime,jdbcType=TIMESTAMP}
+      refresh_time = #{refreshTime,jdbcType=TIMESTAMP},
+      head_url = #{headUrl,jdbcType=VARCHAR}
     where author_id = #{authorId,jdbcType=VARCHAR}
   </update>
 </mapper>

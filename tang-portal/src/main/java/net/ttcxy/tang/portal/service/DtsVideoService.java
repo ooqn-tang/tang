@@ -7,6 +7,7 @@ import net.ttcxy.tang.portal.entity.dto.DtsDataCount;
 import net.ttcxy.tang.portal.entity.dto.DtsVideoDto;
 import net.ttcxy.tang.portal.entity.model.DtsVideo;
 import net.ttcxy.tang.portal.entity.model.DtsVideoClass;
+import net.ttcxy.tang.portal.entity.param.DtsVideoParam;
 import net.ttcxy.tang.portal.mapper.DtsVideoClassMapper;
 import net.ttcxy.tang.portal.mapper.DtsVideoMapper;
 import net.ttcxy.tang.portal.mapper.dao.DtsDataDao;
@@ -30,6 +31,9 @@ public class DtsVideoService {
     @Autowired
     private DtsDataDao countDao;
 
+    @Autowired
+    private DtsVideoClassMapper videoClassMapper;
+
     public int deleteById(String videoId) {
         DtsVideo video = new DtsVideo();
         video.setVideoId(videoId);
@@ -39,6 +43,10 @@ public class DtsVideoService {
 
     public int update(DtsVideo dtsVideo) {
         return videoMapper.updateByPrimaryKey(dtsVideo);
+    }
+
+    public int updateSelective(DtsVideo dtsVideo) {
+        return videoMapper.updateByPrimaryKeySelective(dtsVideo);
     }
 
     public int insert(DtsVideo dtsVideo) {
@@ -72,10 +80,25 @@ public class DtsVideoService {
         return new PageInfo<>(videoDtoList);
     }
 
-    @Autowired
-    private DtsVideoClassMapper videoClassMapper;
-
     public List<DtsVideoClass> selectVideoClass() {
         return videoClassMapper.selectByExample(null);
+    }
+
+    public PageInfo<DtsVideoDto> selectList(DtsVideoParam videoParam) {
+        PageHelper.startPage(videoParam.getPage(),20);
+        List<DtsVideoDto> dtsVideoDtos = videoDao.selectList(videoParam);
+        return new PageInfo<>(dtsVideoDtos);
+    }
+
+    public PageInfo<DtsVideoDto> selectGz(Integer page, Integer size,String authorId) {
+        PageHelper.startPage(page,12);
+        List<DtsVideoDto> videoDtoList = videoDao.selectGz(authorId);
+        return new PageInfo<>(videoDtoList);
+    }
+
+    public PageInfo<DtsVideoDto> search(String wb,Integer page) {
+        PageHelper.startPage(page,24);
+        List<DtsVideoDto> videoDtoList = videoDao.search(wb);
+        return new PageInfo<>(videoDtoList);
     }
 }

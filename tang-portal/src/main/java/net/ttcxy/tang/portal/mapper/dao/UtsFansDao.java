@@ -7,7 +7,7 @@ import java.util.List;
 
 /**
  * 粉丝
- * @author huanglei
+ * @author LYJ
  */
 public interface UtsFansDao {
 

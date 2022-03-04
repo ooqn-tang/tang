@@ -7,13 +7,12 @@ import com.github.pagehelper.PageInfo;
 import net.ttcxy.tang.portal.core.api.ApiException;
 import net.ttcxy.tang.portal.core.api.ResponseCode;
 import net.ttcxy.tang.portal.core.security.CurrentUtil;
-import net.ttcxy.tang.portal.entity.Credit;
 import net.ttcxy.tang.portal.entity.dto.CurrentAuthor;
 import net.ttcxy.tang.portal.entity.dto.DtsVideoDto;
 import net.ttcxy.tang.portal.entity.model.DtsVideo;
 import net.ttcxy.tang.portal.entity.model.DtsVideoClass;
 import net.ttcxy.tang.portal.entity.param.VideoParam;
-import net.ttcxy.tang.portal.service.UtsCreditService;
+import net.ttcxy.tang.portal.service.CtsCoinService;
 import net.ttcxy.tang.portal.service.DtsVideoService;
 import net.ttcxy.tang.portal.service.DtsViewService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +33,7 @@ public class DtsVideoController {
     private DtsViewService viewService;
 
     @Autowired
-    private UtsCreditService creditService;
+    private CtsCoinService coinService;
 
 
     @GetMapping("{videoId}/author")
@@ -51,7 +50,8 @@ public class DtsVideoController {
             viewService.insertView(videoId,author.getUtsAuthor().getAuthorId());
         }
         DtsVideoDto videoDto = videoService.selectById(videoId);
-        creditService.insert(Credit.BF);
+        // 每日使用获取金币
+        coinService.useCoin();
         return ResponseEntity.ok(videoDto);
     }
 
@@ -67,10 +67,24 @@ public class DtsVideoController {
     @GetMapping
     public ResponseEntity< PageInfo<DtsVideoDto>> select(
             @RequestParam(value = "page",defaultValue = "0")Integer page,
-            @RequestParam(value = "size",defaultValue = "10")Integer size,
+            @RequestParam(value = "size",defaultValue = "12")Integer size,
             @RequestParam(value = "videoClass",defaultValue = "")String videoClass,
             @RequestParam(value = "title",defaultValue = "")String title){
-        PageInfo<DtsVideoDto> select = videoService.select(page, size, title,videoClass);
+        PageInfo<DtsVideoDto> select;
+        if (videoClass.equals("gz")){
+            select = videoService.selectGz(page, size, CurrentUtil.id());
+        }else{
+            select = videoService.select(page, size, title, videoClass);
+        }
+        return ResponseEntity.ok(select);
+
+    }
+
+    @GetMapping("so")
+    public ResponseEntity<PageInfo<DtsVideoDto>> search(
+            @RequestParam(value = "page",defaultValue = "0")Integer page,
+            @RequestParam("wb") String wb){
+        PageInfo<DtsVideoDto> select = videoService.search(wb,page);
         return ResponseEntity.ok(select);
     }
 
@@ -85,7 +99,7 @@ public class DtsVideoController {
         dtsVideo.setAuthorId(authorId);
         dtsVideo.setVideoId(videoId);
         dtsVideo.setCreateDate(DateUtil.date());
-        dtsVideo.setState(2);
+        dtsVideo.setState(3);
         int count = videoService.insert(dtsVideo);
         if (count > 0){
             return ResponseEntity.ok(videoId);
@@ -96,7 +110,7 @@ public class DtsVideoController {
     @PutMapping
     public ResponseEntity<String> update(@RequestBody VideoParam video){
             DtsVideo dtsVideo = BeanUtil.toBean(video, DtsVideo.class);
-        dtsVideo.setState(1);
+        dtsVideo.setState(2);
         int count = videoService.update(dtsVideo);
         if (count > 0){
             return ResponseEntity.ok("执行成功");

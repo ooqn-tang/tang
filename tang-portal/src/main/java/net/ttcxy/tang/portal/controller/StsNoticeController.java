@@ -1,6 +1,6 @@
 package net.ttcxy.tang.portal.controller;
 
-import net.ttcxy.tang.portal.entity.model.DtsNotice;
+import net.ttcxy.tang.portal.entity.model.StsNotice;
 import net.ttcxy.tang.portal.service.StsNoticeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +18,7 @@ public class StsNoticeController {
     private StsNoticeService noticeService;
 
     @GetMapping("list")
-    public ResponseEntity<List<DtsNotice>> loadAdv() {
+    public ResponseEntity<List<StsNotice>> loadAdv() {
         return ResponseEntity.ok(noticeService.selectAllNotice());
     }
 }

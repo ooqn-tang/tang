@@ -4,7 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * @author huanglei
+ * @author LYJ
  */
 public class UtsResourceDto {
 

@@ -1,7 +1,7 @@
 <template>
   <div class="row">
-    <div class="col-md-9 mb-2">
-      <div class="card">
+    <div class="col-md-9 mb-2 move-p-lr-0">
+      <div class="card move-b-lr-0">
         <div class="card-header">
           <ul class="nav nav-tabs card-header-tabs">
             <li class="nav-item">
@@ -48,11 +48,11 @@
               </div>
               <div :class="item.coverUrl!='' ? 'col-md-9' : 'col'" >
                 <a class="article-title" v-if="item.type == 'video'" :href="'/video/'+item.id">
-                  <strong><p v-text="'视频 . ' + item.title"></p></strong>
+                  <strong><p v-text="'📺' + item.title"></p></strong>
                 </a>
                 
                 <a class="article-title" v-if="item.type == 'article'" :href="'/article/'+item.id">
-                  <strong><p v-text="'文章 . ' + item.title"></p></strong>
+                  <strong><p v-text="'📰' + item.title"></p></strong>
                 </a>
               <div class="article-synopsis">{{ item.title }}</div>
               <p v-if="item.subjectName != null">

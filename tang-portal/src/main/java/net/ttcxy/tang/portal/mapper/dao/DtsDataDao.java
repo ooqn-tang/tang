@@ -6,4 +6,6 @@ public interface DtsDataDao {
     DtsDataCount selectDataStatCount(String data);
 
     Integer selectDataType(String dataId);
+
+    String selectDataAuthorId(String dataId);
 }

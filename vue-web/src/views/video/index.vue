@@ -11,26 +11,18 @@
                     <a
                       class="nav-link"
                       :class="selectTag == 'gz' ? 'nav-link-active' : ''"
-                      @click="selectTagClick('')"
-                      >关注</a
-                    >
+                      @click="selectTagClick('gz')">关注</a>
                     <a
                       class="nav-link"
                       :class="selectTag == '' ? 'nav-link-active' : ''"
-                      @click="selectTagClick('')"
-                      >最新</a
-                    >
+                      @click="selectTagClick('')">最新</a>
 
                     <a
                       class="nav-link"
                       v-for="(item, index) in videoClassList"
                       @click="selectTagClick(item.value)"
                       :key="index"
-                      :class="
-                        selectTag == item.value ? 'nav-link-active' : ''
-                      "
-                      >{{ item.name }}</a
-                    >
+                      :class="selectTag == item.value ? 'nav-link-active' : ''">{{ item.name }}</a>
                   </nav>
                 </div>
               </div>
@@ -38,8 +30,8 @@
           </div>
         </div>
 
-        <div class="col-md-12 mb-2">
-          <div class="card">
+        <div class="col-md-12 mb-2 move-p-lr-0">
+          <div class="card move-b-lr-0">
             <div class="card-body" >
               <div class="row">
                 <div
@@ -50,10 +42,14 @@
                 >
                   <figure class="figure" style="width:100%" >
                     <img :src="item.coverUrl" style="width:100%">
-                    <p class="text-start">
+                    <p class="text-start" style="overflow: hidden;text-overflow:ellipsis;white-space: nowrap;">
                       {{ item.title }}
                     </p>
+                    <p><img :src="item.headUrl" style="border-radius: 10px;height: 20px;width: 20px;">&nbsp;&nbsp;{{item.nickname}}&nbsp;&nbsp;{{item.createDate}}</p>
                   </figure>
+                </div>
+                <div class="d-grid gap-2">
+                  <button class="btn btn-outline-secondary" type="button" @click="loadVideoList(videoData.nextPage,selectTag)" v-if="videoData.nextPage > 0">获取更多视频</button>
                 </div>
               </div>
             </div>
@@ -68,23 +64,13 @@
       <div class="card mb-2 move-b-lr-0">
         <div class="card-body">
           <p>
-            <a
-              href="https://ttcxy.net/post/0b0d396713a54e2fbf714478d740e53e"
-              target="_blank"
-              >关于</a
-            >
+            <a href="https://ttcxy.net/post/0b0d396713a54e2fbf714478d740e53e" target="_blank">关于</a>
           </p>
           <p>
-            <a
-              href="https://ttcxy.net/post/98b255d539f743e193e398bfa9b97cfd"
-              target="_blank"
-              >友情链接</a
-            >
+            <a href="https://ttcxy.net/post/98b255d539f743e193e398bfa9b97cfd" target="_blank">友情链接</a>
           </p>
           <p>
-            <a href="http://beian.miit.gov.cn" target="_blank"
-              >湘ICP备20009234号</a
-            >
+            <a href="http://beian.miit.gov.cn" target="_blank">湘ICP备20009234号</a>
           </p>
           <a href="/map" class="hidden">地图</a>
         </div>
@@ -123,7 +109,7 @@ export default {
         method: "get",
         params:{"page":page,"videoClass":videoClass}
       }).then((response) => {
-        this.vlist = response.data.list;
+        this.vlist = this.vlist.concat(response.data.list)
         this.videoData = response.data
       });
     },

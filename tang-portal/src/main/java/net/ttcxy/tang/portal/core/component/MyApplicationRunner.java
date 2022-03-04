@@ -24,7 +24,7 @@ import java.util.*;
 /**
  *
  * 项目启动后执行这个方法
- * @author huanglei
+ * @author LYJ
  */
 @Component
 public class MyApplicationRunner implements ApplicationRunner {
@@ -44,39 +44,13 @@ public class MyApplicationRunner implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) {
         mkStaticLocations();
-        //urls();
     }
 
     @Autowired
     private UtsResourceService resourceService;
 
 
-    public void urls() {
-        RequestMappingHandlerMapping mapping = applicationContext
-                .getBean(RequestMappingHandlerMapping.class);
-        // 获取url与类和方法的对应信息
-        Map<RequestMappingInfo, HandlerMethod> map = mapping.getHandlerMethods();
-        for (Map.Entry<RequestMappingInfo, HandlerMethod> entryInfo : map.entrySet()) {
-            Set<String> patterns = entryInfo.getKey().getPatternsCondition().getPatterns();
-            for (String url : patterns) {
-                Set<RequestMethod> methods = entryInfo.getKey().getMethodsCondition().getMethods();
-                for (RequestMethod method : methods) {
-                    try {
-                        String urlStr = url.replaceAll("\\{[^}]*}", "*");
-                        UtsResource utsResource = new UtsResource();
-                        utsResource.setResourceId(IdUtil.objectId());
-                        utsResource.setType(method.name());
-                        utsResource.setName(urlStr);
-                        utsResource.setPath(urlStr);
-                        utsResource.setCreateTime(new Date());
-                        resourceService.insert(utsResource);
-                    }catch (Exception e){
-                        System.out.println("数据已经存在");
-                    }
-                }
-            }
-        }
-    }
+
 
     public static void main(String[] args) {
         System.out.println("/post/{a}/{dsf}".replaceAll("\\{[^}]*}","*"));
