@@ -6,7 +6,7 @@
           <div class="card mb-2 move-b-lr-0">
             <div class="card-header">
               {{ video.title }}
-              <span class="float-end"><router-link v-if="video.username" :to="{name:'author_article',params:{username: video.username}}" class="float-end">{{video.nickname}}</router-link></span>
+              <span class="float-end"><router-link v-if="video.username" :to="{name:'author_article',params:{username: video.username}}" class="float-end">{{video.nickname}}<span style="color: red;padding-left: 5px;font-weight: 800;">L{{video.grade}}</span></router-link></span>
             </div>
             <div class="card-body" style="padding: 0; height: 600px;" id="videoBody">
               <video
@@ -200,6 +200,7 @@ export default {
   data() {
     return {
       loginUsername: this.$store.state.username,
+      isLogin:this.$store.state.username != null && this.$store.state.username != '' && this.$store.state.username != undefined,
       videoId: this.$route.params.id,
       screenWidth: document.documentElement.clientWidth,
       video: {
@@ -238,6 +239,7 @@ export default {
       this.tagName = name;
     },
     coin(){
+      if(this.isLogin)
       request({
         url: "/api/coin/"+this.videoId,
         method: "post"
@@ -248,6 +250,7 @@ export default {
       });
     },
     like(){
+      if(this.isLogin)
       if(this.type.like){
         request({
           url: "/api/like/"+this.videoId,
@@ -267,6 +270,7 @@ export default {
       }
     },
     collect(){
+      if(this.isLogin)
       if(this.type.collect){
         request({
           url: "/api/collect/"+this.videoId,
@@ -284,6 +288,7 @@ export default {
       }
     },
     loadCollect(){
+      if(this.isLogin)
       request({
         url: "/api/collect/"+this.videoId,
         method: "GET",
@@ -292,6 +297,7 @@ export default {
       });
     },
     loadLike(){
+      if(this.isLogin)
       request({
         url: "/api/like/"+this.videoId,
         method: "get"
@@ -300,6 +306,7 @@ export default {
       });
     },
     loadCoin(){
+      if(this.isLogin)
       request({
         url: "/api/coin/"+this.videoId,
         method: "get"
@@ -324,6 +331,11 @@ export default {
       });
     },
     comment(text) {
+      if(!this.isLogin){
+        alert("需要登录")
+        return        
+      }
+
       this.commentForm.text = text
       this.commentForm.dataId = this.videoId;
       if ("" == this.commentForm.text || undefined == this.commentForm.text) {

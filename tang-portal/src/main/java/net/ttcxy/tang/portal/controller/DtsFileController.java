@@ -41,6 +41,9 @@ public class DtsFileController {
 
         if (StrUtil.equals(type,"1")){
             BufferedImage sourceImg = ImageIO.read(new FileInputStream(filePath));
+            if (sourceImg == null){
+                throw new ApiException(ResponseCode.FAILED.getStatus(),"请上传PNG格式");
+            }
             System.out.println(sourceImg.getWidth()); // 源图宽度
             System.out.println(sourceImg.getHeight()); // 源图高度
             double i = (sourceImg.getWidth()+0.0) / sourceImg.getHeight();
@@ -49,6 +52,9 @@ public class DtsFileController {
             }else{
                 throw new ApiException(ResponseCode.FAILED.getStatus(),"图片尺寸必须为2：1");
             }
+        }
+        if (StrUtil.equals(type,"2")){
+            return ResponseEntity.ok(objectId + "."+s);
         }
         throw new ApiException(ResponseCode.FAILED);
     }

@@ -45,7 +45,8 @@
                     <p class="text-start" style="overflow: hidden;text-overflow:ellipsis;white-space: nowrap;">
                       {{ item.title }}
                     </p>
-                    <p><img :src="item.headUrl" style="border-radius: 10px;height: 20px;width: 20px;">&nbsp;&nbsp;{{item.nickname}}&nbsp;&nbsp;{{item.createDate}}</p>
+                    <p><img :src="item.headUrl" style="border-radius: 10px;height: 20px;width: 20px;">&nbsp;&nbsp;
+                    <router-link v-if="item.username" :to="{name:'author_article',params:{username: item.username}}">{{item.nickname}}</router-link>&nbsp;&nbsp;{{item.createDate}}</p>
                   </figure>
                 </div>
                 <div class="d-grid gap-2">
@@ -70,7 +71,7 @@
             <a href="https://ttcxy.net/post/98b255d539f743e193e398bfa9b97cfd" target="_blank">友情链接</a>
           </p>
           <p>
-            <a href="http://beian.miit.gov.cn" target="_blank">湘ICP备20009234号</a>
+            <a href="http://beian.miit.gov.cn" target="_blank">湘ICP备2022001964号-1</a>
           </p>
           <a href="/map" class="hidden">地图</a>
         </div>

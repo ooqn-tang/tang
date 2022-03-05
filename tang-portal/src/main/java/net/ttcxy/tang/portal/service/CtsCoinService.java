@@ -110,7 +110,7 @@ public class CtsCoinService {
             coin.setCreateTime(DateUtil.date());
             coin.setCreateDate(DateUtil.date());
             coinMapper.insertSelective(coin);
-        }catch (DuplicateKeyException ignored){}
+        }catch (DuplicateKeyException | ApiException ignored){}
     }
 
     // 评论获取金币
@@ -151,9 +151,12 @@ public class CtsCoinService {
     }
 
     public Double todayCoin(){
-        Double num = coinDao.todayCoin(CurrentUtil.id());
-        return num == null?0:num;
-
+        try{
+            Double num = coinDao.todayCoin(CurrentUtil.id());
+            return num == null?0:num;
+        }catch (ApiException exception){
+            return 0.0;
+        }
     }
 
     public Long selectAuthorData(String dataId, String authorId) {

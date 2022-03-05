@@ -85,7 +85,6 @@ export default {
     }
   },
   methods: {
-    
       loadArticleAllInfo(articleId){
         request({
           url: '/api/article/load/'+articleId+"/all",

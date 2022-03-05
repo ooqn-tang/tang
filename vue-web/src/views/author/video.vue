@@ -21,7 +21,7 @@
             <button
               class="btn btn-outline-danger float-end"
               style="padding: 0px 5px 0px 3px; font-size: 13px;border-right: 0;"
-              @click="deleteVideo(item.videoId)"
+              @click="deleteVideo(item.videoId,index)"
             >
               删除
             </button>
@@ -37,8 +37,8 @@
         </div>
       </div>
     </li>
-    <li class="list-group-item">
-      <a>获取</a>
+    <li class="list-group-item" v-if="articlePage.nextPage != 0">
+      <a @click="nextPage()">获取</a>
     </li>
   </ul>
 </template>
@@ -63,30 +63,38 @@ export default {
     };
   },
   methods: {
+     nextPage(){
+       this.articlePage.nextPage += 1
+      this.loadArticleByUsername(this.articlePage.nextPage);
+    },
     loadArticleByUsername() {
       request({
         url: "/api/video/username/" + this.$route.params.username,
         method: "get",
+        params:{page:this.articlePage.nextPage}
       }).then((response) => {
         if (response.data.list != undefined) {
-          this.vlist = response.data.list
+           this.vlist = this.vlist.concat(response.data.list)
+           this.articlePage = response.data
         }
       });
     },
     openVideo(videoId) {
       this.$router.push({ name: "video_info", params: { id: videoId } });
     },
-    deleteVideo(videoId){
-      request({
-        url: "/api/video/" + videoId,
-        method: "delete",
-      }).then((response) => {
-        this.loadArticleByUsername(this.articlePage.nextPage)
-      });
+    deleteVideo(videoId,index){
+      if(confirm("确认删除？")){
+        request({
+          url: "/api/video/" + videoId,
+          method: "delete",
+        }).then((response) => {
+          this.vlist.splice(index,1)
+        });
+      }
     }
   },
   mounted() {
-    this.loadArticleByUsername(this.articlePage.nextPage);
+    this.loadArticleByUsername();
   },
 };
 </script>

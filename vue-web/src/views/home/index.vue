@@ -24,8 +24,8 @@
           <li class="nav-item" >
             <router-link class="nav-link" to="/search">🔍搜索</router-link>
           </li>
-          <li class="nav-item" >
-            <router-link class="nav-link" to="/admin">管理系统</router-link>
+          <li class="nav-item" v-if="isAdmin">
+            <router-link class="nav-link" to="/admin">🧙‍♂️管理</router-link>
           </li>
         </ul>
 
@@ -38,8 +38,8 @@
               <li><a class="dropdown-item" href="/article">📰文章</a></li>
               <li><a class="dropdown-item" href="/authors">👨‍🎓作者</a></li>
               <li><a class="dropdown-item" href="/subject">📒专题</a></li>
-              <li><a class="dropdown-item" href="/history">📒历史</a></li>
-              <li><a class="dropdown-item" href="/dynamic">📒动态</a></li>
+              <li><a class="dropdown-item" href="/history" v-if="isLogin">📒历史</a></li>
+              <li><a class="dropdown-item" href="/dynamic" v-if="isLogin">📒动态</a></li>
             </ul>
           </li>
           <li class="nav-item float-start">
@@ -50,16 +50,16 @@
 
         <form class="d-flex d-md-inline">
           <ul class="navbar-nav me-auto">
-            <li class="nav-item" v-if="$store.state.username == ''">
+            <li class="nav-item" v-if="!isLogin">
               <router-link class="nav-link" to="/login">登录</router-link>
             </li>
-             <li class="nav-item pc">
+             <li class="nav-item pc" v-if="isLogin">
               <router-link class="nav-link" to="/history">历史</router-link>
             </li>
-             <li class="nav-item pc">
+             <li class="nav-item pc" v-if="isLogin">
               <router-link class="nav-link" to="/dynamic">动态</router-link>
             </li>
-            <li class="nav-item dropdown">
+            <li class="nav-item dropdown" v-if="isLogin">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 投稿
               </a>
@@ -68,7 +68,7 @@
                 <li><a class="dropdown-item" href="#"  @click="createArticle()">文章</a></li>
               </ul>
             </li>
-            <li class="nav-item" v-if="$store.state.username != ''">
+            <li class="nav-item" v-if="isLogin">
               <a class="nav-link" :href="'/author/' + $store.state.username">我的</a>
             </li>
           </ul>
@@ -87,7 +87,9 @@ export default {
   name: "home",
   data() {
     return {
-      title:"菜单"
+      title:"菜单",
+      isAdmin:this.$store.state.roles.indexOf("ROLE_ADMIN") > -1,
+      isLogin:this.$store.state.username != null && this.$store.state.username != '' && this.$store.state.username != undefined
     };
   },
   computed: {

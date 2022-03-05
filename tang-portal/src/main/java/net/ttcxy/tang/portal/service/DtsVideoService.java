@@ -57,7 +57,6 @@ public class DtsVideoService {
     private DtsViewService visitService;
 
     public DtsVideoDto selectById(String videoId) {
-        String id = CurrentUtil.id();
         DtsVideoDto dtsVideoDto = videoDao.selectById(videoId);
         DtsDataCount dataCount = countDao.selectDataStatCount(videoId);
         dtsVideoDto.setDataCount(dataCount);

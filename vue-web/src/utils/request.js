@@ -32,7 +32,7 @@ service.interceptors.response.use(
     },
     error => {
         if (error.response.status === 401) {
-            alert("需要登录")
+            location.href = '/login'
             return Promise.reject(error);
         }
         if (error.response.status === 403) {

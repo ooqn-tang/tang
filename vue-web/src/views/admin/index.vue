@@ -1,7 +1,7 @@
 <template>
   <div style="background-color: #3a94f1;padding:10px">
     <span style="padding: 10px;color:white;font-weight: bold;font-size:26px">视频管理</span>
-    <span style="color:white;font-weight: bold;font-size:26px;float:right;padding-left:20px">退出登录</span>
+    <span style="color:white;font-weight: bold;font-size:26px;float:right;padding-left:20px" @click="logout">退出登录</span>
     <span style="color:white;font-weight: bold;font-size:26px;float:right">{{author.nickname}}</span>
   </div>
 
@@ -56,6 +56,12 @@ export default {
   },
   created() {},
   methods: {
+    logout() {
+      localStorage.removeItem("jwt");
+      localStorage.removeItem("author");
+      this.$store.state.username = "";
+      window.location.href = "/";
+    },
     selectAuthor(username){
       request({
         url: '/api/author/' + username,
