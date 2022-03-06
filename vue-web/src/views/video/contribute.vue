@@ -15,14 +15,18 @@
             <option v-for="(item,index) in videoClassList" :key="index" :value="item.value">{{item.name}}</option>
           </select>
         </div>
-         <div class="mb-3">
+        <div class="mb-3" v-if="!formData.coverUrl">
+          <div class="d-grid gap-2">
+            <button class="btn btn-primary" type="button" onclick="document.getElementById('imageInput').click()">上传封面</button>
+          </div>
+        </div>
+         <div class="mb-3" v-if="formData.coverUrl">
             <label for="formFileDisabled" class="form-label">封面</label>
             <div class="form-control">
               <img :src="formData.coverUrl" class=" img-thumbnail" style="height: 150px;" alt="..." onclick="document.getElementById('imageInput').click()">
             </div>
-            
-            <input type="file" style="display: none;    " id="imageInput" @change="uploadImage">
         </div>
+        <input type="file" style="display: none;    " id="imageInput" @change="uploadImage">
         <div class="mb-3">
             <label for="formFileDisabled" class="form-label">文件</label>
             <input class="form-control" type="file" id="formFileDisabled" @change="upload">
@@ -44,7 +48,7 @@ export default {
     return {
       fans: 2,
       loginUsername: this.$store.state.username,
-      articleId: this.$route.params.id,
+      videoId: this.$route.params.id,
       loading: true,
       recommendList: null,
       commentList: [],
@@ -101,6 +105,7 @@ export default {
         data:this.formData
       }).then((response) => {
         this.formData.videoUrl = import.meta.env.VITE_BASE_API + "api/file/" + response.data
+        this.$router.push("/video/"+this.videoId)
       });
     },
     loadVideoClassList(){

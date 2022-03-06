@@ -71,6 +71,7 @@ export default {
       let file = e.target.files[0];
       let param = new FormData(); //创建form对象
       param.append("file", file); //通过append向form对象添加数据
+      param.append("type", "2"); //通过append向form对象添加数据
       console.log(param.get("file")); //FormData私有类对象，访问不到，可以通过get判断值是否传进去
       request({
         url: "/api/file/upload",
@@ -94,6 +95,7 @@ export default {
         method: "PUT",
         data: this.author,
       }).then((response) => {
+        alert("保存成功")
         this.selectAuthorLoad();
       });
     },

@@ -38,11 +38,10 @@
                   class="col-md-3 mb-2"
                   v-for="(item, index) in vlist"
                   :key="index"
-                  @click="openVideo(item.videoId)"
                 >
                   <figure class="figure" style="width:100%" >
-                    <img :src="item.coverUrl" style="width:100%">
-                    <p class="text-start" style="overflow: hidden;text-overflow:ellipsis;white-space: nowrap;">
+                    <img :src="item.coverUrl" style="width:100%"  @click="openVideo(item.videoId)">
+                    <p class="text-start" style="overflow: hidden;text-overflow:ellipsis;white-space: nowrap;"  @click="openVideo(item.videoId)">
                       {{ item.title }}
                     </p>
                     <p><img :src="item.headUrl" style="border-radius: 10px;height: 20px;width: 20px;">&nbsp;&nbsp;
@@ -59,6 +58,9 @@
       </div>
     </div>
     <div class="col-md-3 mb-2 move-p-lr-0">
+      <div class="list-group mb-2 move-b-lr-0">
+        <ranking></ranking>
+      </div>
       <div class="list-group mb-2 move-b-lr-0">
         <notice></notice>
       </div>

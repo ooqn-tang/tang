@@ -8,4 +8,10 @@
     <select id="selectCoinValue" resultType="java.lang.Double">
         SELECT SUM(coin_value) FROM `cts_coin` where author_id = #{authorId}
     </select>
+    <select id="selectAuthorCoin" resultType="com.alibaba.fastjson.JSONObject">
+        select author_id,count(coin_value) coin
+        from cts_coin
+        where type = '1'
+        group by author_id
+    </select>
 </mapper>

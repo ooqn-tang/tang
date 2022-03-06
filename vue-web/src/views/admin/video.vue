@@ -1,4 +1,4 @@
-<template>
+2<template>
   <el-row>
     <el-col :span="8" style="padding: 10px">
       <el-form ref="formRef" :model="form" label-width="120px">
@@ -151,7 +151,6 @@ export default {
       videoData: {},
       ckVideo: {},
       checkForm:{
-
         checkText:"",
         checkId:""
       },
@@ -206,7 +205,10 @@ export default {
         method: "delete",
         data:this.checkForm
       }).then((response) => {
-        alert(JSON.stringify(response.data));
+        ElMessage({type: 'success', message: response.data})
+        this.checkDialogVisible = false
+        this.videoDialogVisible = false
+        this.ckVideo = {}
       });
     },
     loadVideoClassList() {

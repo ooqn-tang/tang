@@ -46,7 +46,7 @@
     </el-col>
     <el-col :span="10">
       <div style="margin: 10px">
-        <el-input placeholder="请输入资源路径" style="padding-bottom: 5px" disabled>
+        <el-input placeholder="" style="padding-bottom: 5px" disabled>
           <template #prepend>
             <el-button @click="saveResourceRole">保存角色</el-button>
           </template>

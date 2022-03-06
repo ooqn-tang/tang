@@ -51,7 +51,7 @@
                     :class="tagName == 'pl' ? 'active' : ''"
                     @click="st('pl')"
                     href="#"
-                    >评论（10W+）</a
+                    >评论（{{video.dataCount.comment}}）</a
                   >
                 </li>
               </ul>
@@ -82,7 +82,6 @@
                   <span style="color:red" v-if="item.username == loginUsername" @click="deleteComment(item.commentId,index)">删除</span>
                   <br />
                   <span style="color: #939393">2020.10.10</span>
-                  <span style="color: #939393">&nbsp;&nbsp;&nbsp;赞(1)</span>
                   <span
                     @click="
                       (plinput = index),
@@ -164,6 +163,9 @@
         </div>
         <div class="col-lg-4 move-p-lr-0">
           <div class="list-group mb-2 move-b-lr-0">
+            <ranking></ranking>
+          </div>
+          <div class="list-group mb-2 move-b-lr-0">
             <notice></notice>
           </div>
           <div class="card move-b-lr-0">
@@ -244,6 +246,7 @@ export default {
         url: "/api/coin/"+this.videoId,
         method: "post"
       }).then((response) => {
+        this.video.dataCount.coin += 1
         this.type.coin = true;
       }).catch(e => {
         console.log(e.message)

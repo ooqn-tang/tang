@@ -38,7 +38,7 @@
       </div>
     </li>
     <li class="list-group-item" v-if="articlePage.nextPage != 0">
-      <a @click="nextPage()">获取</a>
+      <a @click="nextPage()">{{huoqu}}</a>
     </li>
   </ul>
 </template>
@@ -60,6 +60,7 @@ export default {
         subjectId: "",
       },
       subjectList: [],
+      huoqu:"获取中..."
     };
   },
   methods: {
@@ -68,6 +69,7 @@ export default {
       this.loadArticleByUsername(this.articlePage.nextPage);
     },
     loadArticleByUsername() {
+      this.huoqu = '获取中...'
       request({
         url: "/api/video/username/" + this.$route.params.username,
         method: "get",
@@ -77,6 +79,7 @@ export default {
            this.vlist = this.vlist.concat(response.data.list)
            this.articlePage = response.data
         }
+        this.huoqu = '获取'
       });
     },
     openVideo(videoId) {

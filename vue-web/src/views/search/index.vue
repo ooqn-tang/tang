@@ -2,11 +2,6 @@
   <div class="row">
     <div class="col-lg-8 move-p-lr-0">
       <div class="input-group mb-2 move-search">
-        <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">{{searchText}}</button>
-        <ul class="dropdown-menu">
-          <li><a class="dropdown-item" href="#" @click="searchText = '视频'">视频</a></li>
-          <li><a class="dropdown-item" href="#" @click="searchText = '作者'">作者</a></li>
-        </ul>
         <input type="text" class="form-control search-input" v-model="form.wb" placeholder="请输入" aria-label="请输入" aria-describedby="button-addon2">
         <button class="btn btn-outline-secondary search-button" type="button" id="button-addon2" @click="so">搜索</button>
       </div>
@@ -22,9 +17,6 @@
                 <span > . <span style="font-size: 16px;color: #dc3545;">Java</span></span>
                 <a class="float-end">{{item.nickname}}</a>
               </div>
-            </li>
-            <li class="list-group-item">
-              <a>加载中...</a>
             </li>
        </ul>
     </div>

@@ -59,7 +59,10 @@
              <li class="nav-item pc" v-if="isLogin">
               <router-link class="nav-link" to="/dynamic">动态</router-link>
             </li>
-            <li class="nav-item dropdown" v-if="isLogin">
+            <li class="nav-item pc" v-if="isLogin">
+              <a class="nav-link" @click="createVideo()">投稿</a>
+            </li>
+            <!-- <li class="nav-item dropdown" v-if="isLogin">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 投稿
               </a>
@@ -67,7 +70,7 @@
                 <li><a class="dropdown-item" href="#"  @click="createVideo()">视频</a></li>
                 <li><a class="dropdown-item" href="#"  @click="createArticle()">文章</a></li>
               </ul>
-            </li>
+            </li> -->
             <li class="nav-item" v-if="isLogin">
               <a class="nav-link" :href="'/author/' + $store.state.username">我的</a>
             </li>

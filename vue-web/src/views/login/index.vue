@@ -117,6 +117,8 @@ export default {
         data:this.loginData
     }).then((response) => {
         alert(response.data)
+      }).catch((error) => {
+        alert(error.data)
       })
     }
   },

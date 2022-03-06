@@ -1,5 +1,6 @@
 package net.ttcxy.tang.portal.service;
 
+import cn.hutool.core.date.DateUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import net.ttcxy.tang.portal.core.security.CurrentUtil;
@@ -98,6 +99,12 @@ public class DtsVideoService {
     public PageInfo<DtsVideoDto> search(String wb,Integer page) {
         PageHelper.startPage(page,24);
         List<DtsVideoDto> videoDtoList = videoDao.search(wb);
+        return new PageInfo<>(videoDtoList);
+    }
+
+    public PageInfo<DtsVideoDto> ranking() {
+        PageHelper.startPage(1,10);
+        List<DtsVideoDto> videoDtoList = videoDao.ranking(DateUtil.lastWeek(),DateUtil.date());
         return new PageInfo<>(videoDtoList);
     }
 }

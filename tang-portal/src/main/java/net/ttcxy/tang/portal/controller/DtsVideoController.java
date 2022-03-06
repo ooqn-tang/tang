@@ -88,6 +88,14 @@ public class DtsVideoController {
         return ResponseEntity.ok(select);
     }
 
+    @GetMapping("ranking")
+    public ResponseEntity<List<DtsVideoDto>> ranking(){
+        PageInfo<DtsVideoDto> select = videoService.ranking();
+        return ResponseEntity.ok(select.getList());
+    }
+
+
+
     /**
      * 创建一个有ID的空数据，保存时直接更新
      */

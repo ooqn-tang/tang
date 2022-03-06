@@ -33,7 +33,7 @@
     </el-col>
     <el-col :span="8">
       <div style="margin:10px;">
-        <el-input v-model="input2" placeholder="请输入角色名" disabled  style="padding-bottom: 5px;">
+        <el-input v-model="input2" placeholder="" disabled  style="padding-bottom: 5px;">
             <template #prepend>
               <el-button @click="saveAuthorRole">保存权限</el-button>
             </template>

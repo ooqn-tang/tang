@@ -15,8 +15,8 @@
         </a>
       </div>
     </li>   
-    <li class="list-group-item">
-      <a @click="nextPage()">获取</a>
+    <li class="list-group-item" v-if="!this.articlePage.isLastPage">
+      <a @click="nextPage()">{{huoqu}}</a>
     </li> 
   </ul>
 </template>
@@ -30,12 +30,13 @@ export default {
       articlePage:{
         nextPage:1
       },
-      articleList:[]
-      
+      articleList:[],
+      huoqu:"获取中..."
     };
   },
   methods: {
     collectList(pageNum){
+      this.huoqu = '获取中...'
       request({
         url: '/api/collect/list',
         method: 'GET',
@@ -43,6 +44,7 @@ export default {
       }).then((response) => {
         this.articlePage = response.data
         this.articleList = this.articleList.concat(response.data.list)
+        this.huoqu = '获取'
       })
     },
     nextPage(){

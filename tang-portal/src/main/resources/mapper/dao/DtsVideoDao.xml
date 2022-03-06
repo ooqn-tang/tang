@@ -44,7 +44,7 @@
     </select>
     <select id="selectGz" resultType="net.ttcxy.tang.portal.entity.dto.DtsVideoDto">
         select t2.*,t3.* from uts_fans t1
-        inner join dts_video t2 on t1.author_id = '1' and t1.be_author_id = t2.author_id and state = 1
+        inner join dts_video t2 on t1.author_id = #{authorId} and t1.be_author_id = t2.author_id and state = 1
         inner join uts_author t3 on t3.author_id = t1.be_author_id order by t2.create_date desc
     </select>
     <select id="search" resultType="net.ttcxy.tang.portal.entity.dto.DtsVideoDto">
@@ -54,5 +54,13 @@
         and t2.state = 1
         and t2.title like concat('%',#{wb,jdbcType=VARCHAR},'%')
         order by t2.create_date desc
+    </select>
+    <select id="ranking" resultType="net.ttcxy.tang.portal.entity.dto.DtsVideoDto">
+        select * from (
+        select t2.video_id,t2.title,count(1) c from dts_view t1,dts_video t2
+        where t1.data_id = t2.video_id
+        and t1.create_date between #{date1} and #{date2}
+        group by t2.video_id,t2.title
+        ) t order by c desc
     </select>
 </mapper>

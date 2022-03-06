@@ -11,6 +11,7 @@ import net.ttcxy.tang.portal.entity.model.*;
 import net.ttcxy.tang.portal.entity.param.UtsRoleParam;
 import net.ttcxy.tang.portal.mapper.UtsAuthorMapper;
 import net.ttcxy.tang.portal.mapper.UtsAuthorRoleMapper;
+import net.ttcxy.tang.portal.mapper.UtsResourceRoleMapper;
 import net.ttcxy.tang.portal.mapper.dao.UtsAuthorDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
@@ -50,10 +51,18 @@ public class UtsAuthorService {
     }
 
     public int insertAuthor(UtsAuthor author) throws DuplicateKeyException {
-        author.setAuthorId(IdUtil.objectId());
+        String objectId = IdUtil.objectId();
+        author.setAuthorId(objectId);
         String username = getUsername();
         author.setNickname(username);
         author.setUsername(username);
+
+        UtsAuthorRole authorRole = new UtsAuthorRole();
+        authorRole.setAuthorRoleId(IdUtil.objectId());
+        authorRole.setAuthorId(objectId);
+        authorRole.setRoleId("2");
+        authorRole.setCreateTime(DateUtil.date());
+        authorRoleMapper.insert(authorRole);
         return utsAuthorMapper.insertSelective(author);
     }
 

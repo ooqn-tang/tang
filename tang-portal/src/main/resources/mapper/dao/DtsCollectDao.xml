@@ -10,7 +10,7 @@
         union
         select video_id data_id,title,author_id,create_date,synopsis from dts_video
         ) t2 on t1.data_id = t2.data_id
-        inner join uts_author t3 on t1.author_id = t3.author_id and t3.username = #{username}
+        inner join uts_author t3 on t3.username = #{username} and t1.author_id = t3.author_id
         order by t2.create_date desc
     </select>
 </mapper>
