@@ -16,6 +16,7 @@ import net.ttcxy.tang.portal.mapper.dao.DtsVideoDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -106,5 +107,14 @@ public class DtsVideoService {
         PageHelper.startPage(1,10);
         List<DtsVideoDto> videoDtoList = videoDao.ranking(DateUtil.lastWeek(),DateUtil.date());
         return new PageInfo<>(videoDtoList);
+    }
+
+    public List<DtsVideoDto> rand() {
+        List<DtsVideoDto> videoDtoList = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            DtsVideoDto rand = videoDao.rand();
+            videoDtoList.add(rand);
+        }
+        return videoDtoList;
     }
 }

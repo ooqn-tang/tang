@@ -95,6 +95,11 @@ public class DtsVideoController {
     }
 
 
+    @GetMapping("rand")
+    public ResponseEntity<List<DtsVideoDto>> rand(){
+        List<DtsVideoDto> select = videoService.rand();
+        return ResponseEntity.ok(select);
+    }
 
     /**
      * 创建一个有ID的空数据，保存时直接更新

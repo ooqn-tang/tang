@@ -6,9 +6,6 @@ import net.ttcxy.tang.portal.entity.model.UtsAuthor;
 
 import java.util.Set;
 
-/**
- * @author LYJ
- */
 @Data
 @EqualsAndHashCode
 public class UtsAuthorDto  {

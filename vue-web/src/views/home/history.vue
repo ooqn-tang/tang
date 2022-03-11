@@ -14,7 +14,7 @@
                 >动态历史</a
               >
             </li>
-            <li class="nav-item">
+            <!-- <li class="nav-item">
               <a
                 class="nav-link"
                 :class="select == 'video' ? 'active' : ''"
@@ -23,8 +23,8 @@
                 @click="selectTag('video')"
                 >视频</a
               >
-            </li>
-            <li class="nav-item">
+            </li> -->
+            <!-- <li class="nav-item">
               <a
                 class="nav-link"
                 :class="select == 'article' ? 'active' : ''"
@@ -32,7 +32,7 @@
                 @click="selectTag('article')"
                 >文章</a
               >
-            </li>
+            </li> -->
           </ul>
         </div>
         <div class="card-body" style="    padding: 0;">

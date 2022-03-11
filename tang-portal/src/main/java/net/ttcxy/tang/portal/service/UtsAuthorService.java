@@ -21,7 +21,6 @@ import java.util.*;
 
 /**
  * 创作者服务
- * @author LYJ
  */
 @Service
 public class UtsAuthorService {

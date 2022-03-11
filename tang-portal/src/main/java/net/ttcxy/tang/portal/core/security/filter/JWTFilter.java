@@ -4,6 +4,7 @@ import lombok.extern.java.Log;
 import net.ttcxy.tang.portal.core.security.jwt.TokenProvider;
 import net.ttcxy.tang.portal.entity.dto.CurrentAuthor;
 import net.ttcxy.tang.portal.service.UtsAuthorService;
+import net.ttcxy.tang.portal.service.UtsRoleService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
@@ -31,7 +32,6 @@ public class JWTFilter extends GenericFilterBean {
     private final TokenProvider tokenProvider;
 
     private final UtsAuthorService authorService;
-
 
     public JWTFilter(TokenProvider tokenProvider,UtsAuthorService authorService) {
         this.tokenProvider = tokenProvider;

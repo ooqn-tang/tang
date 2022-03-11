@@ -14,7 +14,7 @@
                 </router-link>
               </p>
               <p class="card-text text-truncate">简介：{{item.signature}}</p>
-              <p class="card-text text-truncate">文章数：{{item.count}}</p>
+              <!-- <p class="card-text text-truncate">文章数：{{item.count}}</p> -->
             </div>
           </div>
         </div>

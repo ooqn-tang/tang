@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
 
 /**
  * 统一日志处理切面
- * @author LYJ
  */
 @Aspect
 @Component

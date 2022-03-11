@@ -8,7 +8,6 @@ import javax.validation.constraints.Size;
 
 /**
  * 注册参数
- * @author LYJ
  */
 @Data
 public class UtsRegisterParam {

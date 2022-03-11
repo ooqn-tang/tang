@@ -2,7 +2,6 @@ package net.ttcxy.tang.portal.util;
 
 /**
  * String util pro 对String操作的其他方法
- * @author LYJ
  */
 public class TextUtil {
 

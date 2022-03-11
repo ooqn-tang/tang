@@ -18,9 +18,9 @@ public class DtsArticle implements Serializable {
 
     private String synopsis;
 
-    private String text;
+    private String text1;
 
-    private String markdown;
+    private String markdown1;
 
     private static final long serialVersionUID = 1L;
 
@@ -80,20 +80,20 @@ public class DtsArticle implements Serializable {
         this.synopsis = synopsis;
     }
 
-    public String getText() {
-        return text;
+    public String getText1() {
+        return text1;
     }
 
-    public void setText(String text) {
-        this.text = text;
+    public void setText1(String text1) {
+        this.text1 = text1;
     }
 
-    public String getMarkdown() {
-        return markdown;
+    public String getMarkdown1() {
+        return markdown1;
     }
 
-    public void setMarkdown(String markdown) {
-        this.markdown = markdown;
+    public void setMarkdown1(String markdown1) {
+        this.markdown1 = markdown1;
     }
 
     @Override
@@ -109,8 +109,8 @@ public class DtsArticle implements Serializable {
         sb.append(", updateDate=").append(updateDate);
         sb.append(", state=").append(state);
         sb.append(", synopsis=").append(synopsis);
-        sb.append(", text=").append(text);
-        sb.append(", markdown=").append(markdown);
+        sb.append(", text1=").append(text1);
+        sb.append(", markdown1=").append(markdown1);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

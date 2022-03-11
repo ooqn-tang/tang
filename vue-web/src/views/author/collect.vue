@@ -18,6 +18,9 @@
     <li class="list-group-item" v-if="!this.articlePage.isLastPage">
       <a @click="nextPage()">{{huoqu}}</a>
     </li> 
+    <li class="list-group-item" v-if="articleList.length == 0">
+      没有数据
+    </li>
   </ul>
 </template>
 

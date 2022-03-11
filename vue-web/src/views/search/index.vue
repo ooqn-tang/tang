@@ -52,7 +52,7 @@ export default {
     return {
       searchText:"视频",
       form:{
-
+        wb:""
       },
       videoList:[],
       videoData:{
@@ -78,7 +78,7 @@ export default {
    }
   },
   mounted(){
-    
+    this.so()
   }
 };
 </script>

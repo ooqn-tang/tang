@@ -3,9 +3,6 @@ package net.ttcxy.tang.portal.entity.dto;
 import java.util.Date;
 import java.util.List;
 
-/**
- * @author LYJ
- */
 public class UtsResourceDto {
 
     private Integer id;

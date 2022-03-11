@@ -40,6 +40,9 @@
     <li class="list-group-item" v-if="articlePage.nextPage != 0">
       <a @click="nextPage()">{{huoqu}}</a>
     </li>
+    <li class="list-group-item" v-if="vlist.length == 0">
+      没有数据
+    </li>
   </ul>
 </template>
 

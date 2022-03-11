@@ -44,8 +44,10 @@
                     <p class="text-start" style="overflow: hidden;text-overflow:ellipsis;white-space: nowrap;"  @click="openVideo(item.videoId)">
                       {{ item.title }}
                     </p>
-                    <p><img :src="item.headUrl" style="border-radius: 10px;height: 20px;width: 20px;">&nbsp;&nbsp;
-                    <router-link v-if="item.username" :to="{name:'author_article',params:{username: item.username}}">{{item.nickname}}</router-link>&nbsp;&nbsp;{{item.createDate}}</p>
+                    <p style="font-size:10px">
+                      <!-- <img :src="item.headUrl" style="border-radius: 10px;height: 20px;width: 20px;">&nbsp;&nbsp; -->
+                    <router-link  v-if="item.username" :to="{name:'author_video',params:{username: item.username}}">{{item.nickname}}</router-link><span style="float:right">{{item.createDate}}</span></p>
+                    
                   </figure>
                 </div>
                 <div class="d-grid gap-2">

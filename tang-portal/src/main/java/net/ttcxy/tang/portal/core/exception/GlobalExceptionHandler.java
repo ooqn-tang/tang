@@ -20,7 +20,6 @@ import java.util.Set;
 
 /**
  * 全局异常处理
- * @author LYJ
  */
 @ControllerAdvice
 public class GlobalExceptionHandler {

@@ -10,7 +10,6 @@ import java.util.List;
 
 /**
  * Article模型类
- * @author LYJ
  */
 @Data
 public class DtsArticleDto {

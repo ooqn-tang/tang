@@ -2,9 +2,6 @@ package net.ttcxy.tang.portal.entity.dto;
 
 import java.util.Date;
 
-/**
- * @author LYJ
- */
 public class UtsFansDto {
 
     private String fansId;

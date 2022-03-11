@@ -18,8 +18,6 @@ import java.util.concurrent.ExecutorService;
 
 /**
  * 博客服务
- *
- * @author LYJ
  */
 @Service
 public class DtsArticleService {

@@ -24,7 +24,6 @@ import java.util.*;
 /**
  *
  * 项目启动后执行这个方法
- * @author LYJ
  */
 @Component
 public class MyApplicationRunner implements ApplicationRunner {

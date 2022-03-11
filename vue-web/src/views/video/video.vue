@@ -9,13 +9,14 @@
               <span class="float-end"><router-link v-if="video.username" :to="{name:'author_article',params:{username: video.username}}" class="float-end">{{video.nickname}}<span style="color: red;padding-left: 5px;font-weight: 800;">L{{video.grade}}</span></router-link></span>
             </div>
             <div class="card-body" style="padding: 0; height: 600px;" id="videoBody">
-              <video
+              <!-- <video
                 ref="videoPlay"
                 controls
                 loop="loop"
                 style="width: 100%; height: 100%;">
                 <source type="video/mp4" />
-              </video>
+              </video> -->
+              <div ref="videoRef" style="    height: 100%;" />
             </div>
             <div class="card-footer">
               <div class="row">
@@ -128,40 +129,21 @@
                   </div>
                 </li>
               </ul>
-              
-            </div>
-          </div>
-          <div class="card mb-2 move-b-lr-0">
-            <div class="card-body">
-              <a class="article-title">八点零点零点附近扩大飞机啊撒旦解放</a>
-              <div>
-                <span>2020.05.27</span>
-                <a class="float-end">匿名</a>
-              </div>
-            </div>
-          </div>
-          <div class="card mb-2 move-b-lr-0">
-            <div class="card-body">
-              <a class="article-title">i俄日额u我i的上空的飞机饿哦五日为ur</a>
-              <div>
-                <span>2020.05.27</span>
-                <a class="float-end">匿名</a>
-              </div>
-            </div>
-          </div>
-          <div class="card mb-2 move-b-lr-0">
-            <div class="card-body">
-              <a class="article-title"
-                >啊卡萨丁积分卡的肌肤健康的房间扩大解放</a
-              >
-              <div>
-                <span>2020.05.27</span>
-                <a class="float-end">匿名</a>
-              </div>
             </div>
           </div>
         </div>
         <div class="col-lg-4 move-p-lr-0">
+          <ul class="list-group mb-2 move-b-lr-0">
+            <li class="list-group-item active">推荐视频<span class="float-end">🎇</span></li>
+            <li v-for="(item,index) in randList" :key="index"  class="list-group-item move-b-lr-0 m-active">
+              <img :src="item.coverUrl" style="width:100px;float:left;width:40%"   @click="openVideo(item.videoId)"> 
+              <div style="padding-left: 10px;float:left;position:relative;height:100%"   @click="openVideo(item.videoId)">
+                <span>{{item.nickname}}</span>
+                <br>
+                {{item.title}}
+              </div>
+            </li>
+          </ul>
           <div class="list-group mb-2 move-b-lr-0">
             <ranking></ranking>
           </div>
@@ -197,6 +179,7 @@
 <script>
 import "highlight.js/styles/github.css";
 import request from "src/utils/request";
+import Dplayer from 'dplayer';
 export default {
   name: "video_info",
   data() {
@@ -204,6 +187,7 @@ export default {
       loginUsername: this.$store.state.username,
       isLogin:this.$store.state.username != null && this.$store.state.username != '' && this.$store.state.username != undefined,
       videoId: this.$route.params.id,
+      randList:[],
       screenWidth: document.documentElement.clientWidth,
       video: {
         dataCount:{}
@@ -237,6 +221,9 @@ export default {
     this.loadVideo();
   },
   methods: {
+    openVideo(videoId) {
+      location.href = '/video/'+videoId
+    },
     st(name) {
       this.tagName = name;
     },
@@ -271,6 +258,14 @@ export default {
           this.video.dataCount.like += 1
         });
       }
+    },
+    rand(){
+      request({
+        url: "/api/video/rand",
+        method: "get",
+      }).then((response) => {
+        this.randList = response.data
+      });
     },
     collect(){
       if(this.isLogin)
@@ -385,12 +380,27 @@ export default {
         method: "get",
       }).then((response) => {
         this.video = response.data;
-        this.$refs.videoPlay.src = response.data.videoUrl;
-        this.$refs.videoPlay.play();
+        //this.$refs.videoPlay.src = response.data.videoUrl;
+        //this.$refs.videoPlay.play();
+        new Dplayer({          //初始化视频对象
+          container:this.$refs.videoRef,   //指定视频容器节点
+          danmaku: {
+            id: this.videoId,//必填，视频id, 用于下面api请求时使用
+            api: import.meta.env.VITE_BASE_API + 'api/danmaku/',//必填，叫后台提供
+           //可选，额外的弹幕,这里是引用了B站具体视频中的弹幕，把aid,cid替换就行
+            token:localStorage.getItem("jwt"),
+            bottom: '15%',
+            unlimited: true,
+          },
+          video:{
+            url:response.data.videoUrl
+          }
+        })
       });
     },
   },
   mounted() {
+    this.rand();
     this.loadLike();
     this.loadComment();
     this.loadCollect();
@@ -403,8 +413,14 @@ export default {
 };
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 .mr-10{
   margin-right: 10px;
+}
+.dplayer-comment-setting-type label span{
+  width:50px !important;
+}
+.dplayer-comment-setting-type{
+  display: none;
 }
 </style>

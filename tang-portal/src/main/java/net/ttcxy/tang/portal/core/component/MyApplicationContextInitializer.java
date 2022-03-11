@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 
 /**
  * 项目启动前调用我
- * @author LYJ
  */
 @Component
 public class MyApplicationContextInitializer implements ApplicationContextInitializer<ConfigurableApplicationContext> {

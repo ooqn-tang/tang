@@ -20,6 +20,9 @@ html,body{
     overflow-x: hidden;
     -webkit-tap-highlight-color: transparent;
 }
+.m-active:hover{
+    background: rgb(224, 224, 224);
+}
 p{
     margin-bottom: 0px;
 }

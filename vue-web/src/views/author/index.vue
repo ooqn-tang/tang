@@ -16,17 +16,17 @@
     </div>
     <div class="col-md-8 col-md-pull-4 mb-2 move-p-lr-0">
       <div class="card move-b-lr-0">
-        <div class="card-header">
+        <div class="card-header" v-if="thisUsername == loginUsername">
           <ul class="nav justify-content-center">
             <li class="nav-item">
               <router-link class="nav-link" :class="routeName == 'author_video'?'nav-link-active':''" :to="{name:'author_video'}">视频</router-link>
             </li>
-            <li class="nav-item">
+            <!-- <li class="nav-item">
               <router-link class="nav-link" :class="routeName == 'author_article'?'nav-link-active':''" :to="{name:'author_article'}">文章</router-link>
-            </li>
-            <li class="nav-item">
+            </li> -->
+            <!-- <li class="nav-item">
               <router-link class="nav-link" :class="routeName == 'author_subject'?'nav-link-active':''" :to="{name:'author_subject'}">专栏</router-link>
-            </li>
+            </li> -->
             <li class="nav-item" v-if="thisUsername == loginUsername">
               <router-link class="nav-link"  :class="routeName == 'author_subscribe'?'nav-link-active':''" :to="{name:'author_subscribe'}">订阅</router-link>
             </li>

@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * 链接所有请求，搜集日志
- * @author LYJ
  */
 @Component
 public class MyNetWorldLogHandlerInterceptor implements HandlerInterceptor {

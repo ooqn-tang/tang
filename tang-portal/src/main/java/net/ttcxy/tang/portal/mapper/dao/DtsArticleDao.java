@@ -6,7 +6,6 @@ import java.util.List;
 
 /**
  * 博客
- * @author LYJ
  */
 public interface DtsArticleDao {
 

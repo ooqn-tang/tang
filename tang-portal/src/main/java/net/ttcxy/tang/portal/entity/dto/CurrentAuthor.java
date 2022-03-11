@@ -10,7 +10,6 @@ import java.util.*;
 
 /**
  * 用户返回值
- * @author LYJ
  */
 public class CurrentAuthor implements UserDetails {
 

@@ -114,4 +114,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private JWTConfig securityConfigurerAdapter() {
         return new JWTConfig(tokenProvider, authorService);
     }
+
+    public static void main(String[] args) {
+        System.out.println(new BCryptPasswordEncoder().encode("123456789"));
+    }
 }

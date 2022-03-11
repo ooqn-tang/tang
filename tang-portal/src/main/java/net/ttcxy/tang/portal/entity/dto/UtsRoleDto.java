@@ -9,7 +9,6 @@ import java.util.Objects;
 
 /**
  * 角色
- * @author LYJ
  */
 @Data
 public class UtsRoleDto implements GrantedAuthority {

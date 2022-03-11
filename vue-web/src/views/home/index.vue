@@ -12,15 +12,15 @@
           <li class="nav-item">
             <a class="nav-link" href="/video">📺视频</a>
           </li>
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a class="nav-link" href="/article">📰文章</a>
-          </li>
+          </li> -->
           <li class="nav-item">
             <router-link class="nav-link" to="/authors">👨‍🎓作者</router-link>
           </li>
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <router-link class="nav-link" to="/subject">📒专题</router-link>
-          </li>
+          </li> -->
           <li class="nav-item" >
             <router-link class="nav-link" to="/search">🔍搜索</router-link>
           </li>
@@ -35,9 +35,9 @@
             <a class="nav-link dropdown-toggle" href="#" id="dropdown03" data-bs-toggle="dropdown" aria-expanded="false">{{title}}</a>
             <ul class="dropdown-menu" aria-labelledby="dropdown03">
               <li><a class="dropdown-item" href="/video">📺视频</a></li>
-              <li><a class="dropdown-item" href="/article">📰文章</a></li>
+              <!-- <li><a class="dropdown-item" href="/article">📰文章</a></li> -->
               <li><a class="dropdown-item" href="/authors">👨‍🎓作者</a></li>
-              <li><a class="dropdown-item" href="/subject">📒专题</a></li>
+              <!-- <li><a class="dropdown-item" href="/subject">📒专题</a></li> -->
               <li><a class="dropdown-item" href="/history" v-if="isLogin">📒历史</a></li>
               <li><a class="dropdown-item" href="/dynamic" v-if="isLogin">📒动态</a></li>
             </ul>

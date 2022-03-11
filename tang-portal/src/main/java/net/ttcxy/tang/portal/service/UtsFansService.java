@@ -15,7 +15,6 @@ import org.springframework.stereotype.Service;
 
 /**
  * 粉丝相关服务
- * @author LYJ
  */
 @Service
 public class UtsFansService {

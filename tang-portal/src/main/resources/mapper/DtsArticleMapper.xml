@@ -11,8 +11,8 @@
     <result column="synopsis" jdbcType="VARCHAR" property="synopsis" />
   </resultMap>
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="net.ttcxy.tang.portal.entity.model.DtsArticle">
-    <result column="text" jdbcType="LONGVARCHAR" property="text" />
-    <result column="markdown" jdbcType="LONGVARCHAR" property="markdown" />
+    <result column="text1" jdbcType="LONGVARCHAR" property="text1" />
+    <result column="markdown1" jdbcType="LONGVARCHAR" property="markdown1" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -76,7 +76,7 @@
     article_id, title, author_id, create_date, update_date, `state`, synopsis
   </sql>
   <sql id="Blob_Column_List">
-    `text`, markdown
+    text1, markdown1
   </sql>
   <select id="selectByExampleWithBLOBs" parameterType="net.ttcxy.tang.portal.entity.model.DtsArticleExample" resultMap="ResultMapWithBLOBs">
     select
@@ -129,11 +129,11 @@
   <insert id="insert" parameterType="net.ttcxy.tang.portal.entity.model.DtsArticle">
     insert into dts_article (article_id, title, author_id, 
       create_date, update_date, `state`, 
-      synopsis, `text`, markdown
+      synopsis, text1, markdown1
       )
     values (#{articleId,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{authorId,jdbcType=VARCHAR}, 
       #{createDate,jdbcType=TIMESTAMP}, #{updateDate,jdbcType=TIMESTAMP}, #{state,jdbcType=INTEGER}, 
-      #{synopsis,jdbcType=VARCHAR}, #{text,jdbcType=LONGVARCHAR}, #{markdown,jdbcType=LONGVARCHAR}
+      #{synopsis,jdbcType=VARCHAR}, #{text1,jdbcType=LONGVARCHAR}, #{markdown1,jdbcType=LONGVARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="net.ttcxy.tang.portal.entity.model.DtsArticle">
@@ -160,11 +160,11 @@
       <if test="synopsis != null">
         synopsis,
       </if>
-      <if test="text != null">
-        `text`,
+      <if test="text1 != null">
+        text1,
       </if>
-      <if test="markdown != null">
-        markdown,
+      <if test="markdown1 != null">
+        markdown1,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -189,11 +189,11 @@
       <if test="synopsis != null">
         #{synopsis,jdbcType=VARCHAR},
       </if>
-      <if test="text != null">
-        #{text,jdbcType=LONGVARCHAR},
+      <if test="text1 != null">
+        #{text1,jdbcType=LONGVARCHAR},
       </if>
-      <if test="markdown != null">
-        #{markdown,jdbcType=LONGVARCHAR},
+      <if test="markdown1 != null">
+        #{markdown1,jdbcType=LONGVARCHAR},
       </if>
     </trim>
   </insert>
@@ -227,11 +227,11 @@
       <if test="record.synopsis != null">
         synopsis = #{record.synopsis,jdbcType=VARCHAR},
       </if>
-      <if test="record.text != null">
-        `text` = #{record.text,jdbcType=LONGVARCHAR},
+      <if test="record.text1 != null">
+        text1 = #{record.text1,jdbcType=LONGVARCHAR},
       </if>
-      <if test="record.markdown != null">
-        markdown = #{record.markdown,jdbcType=LONGVARCHAR},
+      <if test="record.markdown1 != null">
+        markdown1 = #{record.markdown1,jdbcType=LONGVARCHAR},
       </if>
     </set>
     <if test="_parameter != null">
@@ -247,8 +247,8 @@
       update_date = #{record.updateDate,jdbcType=TIMESTAMP},
       `state` = #{record.state,jdbcType=INTEGER},
       synopsis = #{record.synopsis,jdbcType=VARCHAR},
-      `text` = #{record.text,jdbcType=LONGVARCHAR},
-      markdown = #{record.markdown,jdbcType=LONGVARCHAR}
+      text1 = #{record.text1,jdbcType=LONGVARCHAR},
+      markdown1 = #{record.markdown1,jdbcType=LONGVARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -287,11 +287,11 @@
       <if test="synopsis != null">
         synopsis = #{synopsis,jdbcType=VARCHAR},
       </if>
-      <if test="text != null">
-        `text` = #{text,jdbcType=LONGVARCHAR},
+      <if test="text1 != null">
+        text1 = #{text1,jdbcType=LONGVARCHAR},
       </if>
-      <if test="markdown != null">
-        markdown = #{markdown,jdbcType=LONGVARCHAR},
+      <if test="markdown1 != null">
+        markdown1 = #{markdown1,jdbcType=LONGVARCHAR},
       </if>
     </set>
     where article_id = #{articleId,jdbcType=VARCHAR}
@@ -304,8 +304,8 @@
       update_date = #{updateDate,jdbcType=TIMESTAMP},
       `state` = #{state,jdbcType=INTEGER},
       synopsis = #{synopsis,jdbcType=VARCHAR},
-      `text` = #{text,jdbcType=LONGVARCHAR},
-      markdown = #{markdown,jdbcType=LONGVARCHAR}
+      text1 = #{text1,jdbcType=LONGVARCHAR},
+      markdown1 = #{markdown1,jdbcType=LONGVARCHAR}
     where article_id = #{articleId,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="net.ttcxy.tang.portal.entity.model.DtsArticle">

@@ -13,7 +13,6 @@ import java.util.List;
 
 /**
  * 广告
- * @author LYJ
  */
 @Service
 public class StsNoticeService {

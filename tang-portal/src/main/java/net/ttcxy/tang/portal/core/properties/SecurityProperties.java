@@ -4,9 +4,6 @@ import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
-/**
- * @author LYJ
- */
 @ConfigurationProperties(prefix = "tang.security")
 @Component
 @Data

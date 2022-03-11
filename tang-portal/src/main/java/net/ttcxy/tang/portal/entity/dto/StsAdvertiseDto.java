@@ -3,7 +3,6 @@ package net.ttcxy.tang.portal.entity.dto;
 
 /**
  * 广告实体类
- * @author LYJ
  */
 public class StsAdvertiseDto {
 

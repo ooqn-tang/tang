@@ -3,19 +3,20 @@ package net.ttcxy.tang.portal.mapper.dao;
 
 import net.ttcxy.tang.portal.entity.model.UtsAuthor;
 import net.ttcxy.tang.portal.entity.model.UtsRole;
+import org.apache.ibatis.annotations.MapKey;
 
 import java.util.List;
 import java.util.Map;
 
 /**
  * 用户
- * @author LYJ
  */
 public interface UtsAuthorDao {
 
     /**
      * 查询用户博客数
      */
+    @MapKey("username")
     List<Map<String,String>> selectAuthorArticleCount();
 
     /**

@@ -13,9 +13,8 @@
   </resultMap>
 
     <select id="selectAuthorArticleCount" resultType="Map">
-        select username,nickname,signature,count(*) count
-        from dts_article t1,uts_author t2
-        where t1.author_id = t2.author_id group by username,nickname
+        select username,nickname,signature
+        from uts_author t2
     </select>
 
     <select id="selectMailIsTrue" resultType="integer">

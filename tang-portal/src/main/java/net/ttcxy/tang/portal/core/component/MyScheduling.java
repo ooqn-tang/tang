@@ -19,7 +19,6 @@ import java.util.Map;
 
 /**
  * 定时器
- * @author LYJ
  */
 @Component
 @EnableScheduling
