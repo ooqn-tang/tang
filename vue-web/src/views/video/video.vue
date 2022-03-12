@@ -134,10 +134,12 @@
         </div>
         <div class="col-lg-4 move-p-lr-0">
           <ul class="list-group mb-2 move-b-lr-0">
-            <li class="list-group-item active">推荐视频<span class="float-end">🎇</span></li>
+            <li class="list-group-item active">推荐视频
+             
+              </li>
             <li v-for="(item,index) in randList" :key="index"  class="list-group-item move-b-lr-0 m-active">
               <img :src="item.coverUrl" style="width:100px;float:left;width:40%"   @click="openVideo(item.videoId)"> 
-              <div style="padding-left: 10px;float:left;position:relative;height:100%"   @click="openVideo(item.videoId)">
+              <div style="padding-left: 10px;float:left;position:relative;width:50%;height:100%"   @click="openVideo(item.videoId)">
                 <span>{{item.nickname}}</span>
                 <br>
                 {{item.title}}
@@ -216,6 +218,9 @@ export default {
     'screenWidth':function(val){
       var oIframe = document.getElementById("videoBody");
     },
+    '$route':function(to,from){
+      this.videoId = to.params.id
+    }
   },
   created() {
     this.loadVideo();
@@ -259,12 +264,15 @@ export default {
         });
       }
     },
-    rand(){
+    rand(num){
       request({
         url: "/api/video/rand",
         method: "get",
+        params:{
+          num:num
+        }
       }).then((response) => {
-        this.randList = response.data
+        this.randList = this.randList.concat(response.data)
       });
     },
     collect(){
@@ -382,8 +390,9 @@ export default {
         this.video = response.data;
         //this.$refs.videoPlay.src = response.data.videoUrl;
         //this.$refs.videoPlay.play();
-        new Dplayer({          //初始化视频对象
+        let dp = new Dplayer({          //初始化视频对象
           container:this.$refs.videoRef,   //指定视频容器节点
+          autoplay:true,
           danmaku: {
             id: this.videoId,//必填，视频id, 用于下面api请求时使用
             api: import.meta.env.VITE_BASE_API + 'api/danmaku/',//必填，叫后台提供
@@ -396,11 +405,20 @@ export default {
             url:response.data.videoUrl
           }
         })
+
+        let _this = this;
+
+        dp.on('ended',function(){
+          _this.$router.push("/video/"+_this.randList[0]['videoId'])
+          _this.randList.splice(0,1)
+          _this.loadVideo()
+          _this.rand(1)
+        })
       });
     },
   },
   mounted() {
-    this.rand();
+    this.rand(10);
     this.loadLike();
     this.loadComment();
     this.loadCollect();
@@ -421,6 +439,13 @@ export default {
   width:50px !important;
 }
 .dplayer-comment-setting-type{
+  display: none;
+}
+.form-check-input:checked {
+    background-color: hsl(320, 100%, 50%);
+    border-color: hsl(320, 100%, 50%);
+}
+.dplayer-notice{
   display: none;
 }
 </style>

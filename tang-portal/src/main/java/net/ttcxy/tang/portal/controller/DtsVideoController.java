@@ -96,8 +96,8 @@ public class DtsVideoController {
 
 
     @GetMapping("rand")
-    public ResponseEntity<List<DtsVideoDto>> rand(){
-        List<DtsVideoDto> select = videoService.rand();
+    public ResponseEntity<List<DtsVideoDto>> rand(@RequestParam("num")Integer num){
+        List<DtsVideoDto> select = videoService.rand(num);
         return ResponseEntity.ok(select);
     }
 

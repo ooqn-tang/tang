@@ -109,9 +109,9 @@ public class DtsVideoService {
         return new PageInfo<>(videoDtoList);
     }
 
-    public List<DtsVideoDto> rand() {
+    public List<DtsVideoDto> rand(Integer num) {
         List<DtsVideoDto> videoDtoList = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < num; i++) {
             DtsVideoDto rand = videoDao.rand();
             videoDtoList.add(rand);
         }
