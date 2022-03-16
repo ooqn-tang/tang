@@ -9,4 +9,6 @@ public interface DtsCommentDao {
     List<DtsCommentDto> select(@Param("dataId") String dataId);
 
     List<DtsCommentDto> selectLower(@Param("commentId") String commentId);
+
+    List<DtsCommentDto> selectAll(@Param("state") String state);
 }

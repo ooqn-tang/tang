@@ -4,6 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import net.ttcxy.tang.portal.entity.dto.DtsCommentDto;
 import net.ttcxy.tang.portal.entity.model.DtsComment;
+import net.ttcxy.tang.portal.entity.model.DtsCommentExample;
 import net.ttcxy.tang.portal.mapper.DtsCommentMapper;
 import net.ttcxy.tang.portal.mapper.dao.DtsCommentDao;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,5 +40,18 @@ public class DtsCommentService {
         PageHelper.startPage(page, 30);
         List<DtsCommentDto> commentDtoList = commentDao.selectLower(commentId);
         return new PageInfo<>(commentDtoList);
+    }
+
+    public PageInfo<DtsCommentDto> selectAll(String state ,Integer page) {
+        PageHelper.startPage(page, 30);
+        List<DtsCommentDto> commentDtoList = commentDao.selectAll(state);
+        return new PageInfo<>(commentDtoList);
+    }
+
+    public Integer updateState(String commentId,Integer state){
+        DtsComment comment = new DtsComment();
+        comment.setCommentId(commentId);
+        comment.setState(state);
+        return commentMapper.updateByPrimaryKeySelective(comment);
     }
 }

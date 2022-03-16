@@ -16,6 +16,8 @@ public class DtsComment implements Serializable {
 
     private Date createDate;
 
+    private Integer state;
+
     private static final long serialVersionUID = 1L;
 
     public String getCommentId() {
@@ -66,6 +68,14 @@ public class DtsComment implements Serializable {
         this.createDate = createDate;
     }
 
+    public Integer getState() {
+        return state;
+    }
+
+    public void setState(Integer state) {
+        this.state = state;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -78,6 +88,7 @@ public class DtsComment implements Serializable {
         sb.append(", authorId=").append(authorId);
         sb.append(", text=").append(text);
         sb.append(", createDate=").append(createDate);
+        sb.append(", state=").append(state);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

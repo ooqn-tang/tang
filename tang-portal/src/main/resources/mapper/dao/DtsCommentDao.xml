@@ -11,4 +11,13 @@
         from dts_comment t1
         inner join uts_author t2 on parent_comment_id = #{commentId} and t1.author_id = t2.author_id
     </select>
+    <select id="selectAll" resultType="net.ttcxy.tang.portal.entity.dto.DtsCommentDto">
+        select *
+        from dts_comment t1 , uts_author t2 , sts_code t3
+        where t1.author_id = t2.author_id and t1.state = t3.code_id
+        <if test="state != ''">
+            and t1.state = #{state}
+        </if>
+        order by create_date desc
+    </select>
 </mapper>

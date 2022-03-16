@@ -8,6 +8,7 @@
     <result column="author_id" jdbcType="VARCHAR" property="authorId" />
     <result column="text" jdbcType="VARCHAR" property="text" />
     <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="state" jdbcType="INTEGER" property="state" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -68,7 +69,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    comment_id, data_id, parent_comment_id, author_id, `text`, create_date
+    comment_id, data_id, parent_comment_id, author_id, `text`, create_date, `state`
   </sql>
   <select id="selectByExample" parameterType="net.ttcxy.tang.portal.entity.model.DtsCommentExample" resultMap="BaseResultMap">
     select
@@ -102,11 +103,11 @@
   </delete>
   <insert id="insert" parameterType="net.ttcxy.tang.portal.entity.model.DtsComment">
     insert into dts_comment (comment_id, data_id, parent_comment_id, 
-      author_id, `text`, create_date
-      )
+      author_id, `text`, create_date, 
+      `state`)
     values (#{commentId,jdbcType=VARCHAR}, #{dataId,jdbcType=VARCHAR}, #{parentCommentId,jdbcType=VARCHAR}, 
-      #{authorId,jdbcType=VARCHAR}, #{text,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}
-      )
+      #{authorId,jdbcType=VARCHAR}, #{text,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, 
+      #{state,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="net.ttcxy.tang.portal.entity.model.DtsComment">
     insert into dts_comment
@@ -129,6 +130,9 @@
       <if test="createDate != null">
         create_date,
       </if>
+      <if test="state != null">
+        `state`,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="commentId != null">
@@ -148,6 +152,9 @@
       </if>
       <if test="createDate != null">
         #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -178,6 +185,9 @@
       <if test="record.createDate != null">
         create_date = #{record.createDate,jdbcType=TIMESTAMP},
       </if>
+      <if test="record.state != null">
+        `state` = #{record.state,jdbcType=INTEGER},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -190,7 +200,8 @@
       parent_comment_id = #{record.parentCommentId,jdbcType=VARCHAR},
       author_id = #{record.authorId,jdbcType=VARCHAR},
       `text` = #{record.text,jdbcType=VARCHAR},
-      create_date = #{record.createDate,jdbcType=TIMESTAMP}
+      create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      `state` = #{record.state,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -213,6 +224,9 @@
       <if test="createDate != null">
         create_date = #{createDate,jdbcType=TIMESTAMP},
       </if>
+      <if test="state != null">
+        `state` = #{state,jdbcType=INTEGER},
+      </if>
     </set>
     where comment_id = #{commentId,jdbcType=VARCHAR}
   </update>
@@ -222,7 +236,8 @@
       parent_comment_id = #{parentCommentId,jdbcType=VARCHAR},
       author_id = #{authorId,jdbcType=VARCHAR},
       `text` = #{text,jdbcType=VARCHAR},
-      create_date = #{createDate,jdbcType=TIMESTAMP}
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      `state` = #{state,jdbcType=INTEGER}
     where comment_id = #{commentId,jdbcType=VARCHAR}
   </update>
 </mapper>

@@ -21,6 +21,7 @@
     "nplayer": "^1.0.10",
     "sass": "^1.43.5",
     "vue": "^3.2.22",
+    "vue-avatar-cropper": "^6.0.9",
     "vue-cropper": "^1.0.2",
     "vue-router": "^4.0.12",
     "vuex": "^4.0.2"

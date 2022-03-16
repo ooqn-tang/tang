@@ -67,12 +67,7 @@
         <notice></notice>
       </div>
       <div class="card mb-2 move-b-lr-0">
-        <div class="card-header" @click="zz = true">
-        赞助
-        </div>
-        <div class="card-body" v-if="zz">
-          <img src="/kittens.jpg" style="width:100%">
-        </div>
+        <info></info>
       </div>
     </div>
   </div>

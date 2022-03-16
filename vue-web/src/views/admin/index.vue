@@ -1,6 +1,6 @@
 <template>
   <div style="background-color: #3a94f1;padding:10px">
-    <span style="padding: 10px;color:white;font-weight: bold;font-size:26px">视频管理</span>
+    <span style="padding: 10px;color:white;font-weight: bold;font-size:26px">冬瓜视频管理系统</span>
     <span style="color:white;font-weight: bold;font-size:26px;float:right;padding-left:20px" @click="logout">退出登录</span>
     <span style="color:white;font-weight: bold;font-size:26px;float:right">{{author.nickname}}</span>
   </div>
@@ -8,6 +8,9 @@
 <el-menu :default-active="routeName" style="width: 150px;float:left;height: calc(100% - 60px);" @close="handleClose">
     <el-menu-item index="admin_video" @click="$router.push({name:'admin_video'})">
       <template #title>视频管理</template>
+    </el-menu-item>
+    <el-menu-item index="admin_comment" @click="$router.push({name:'admin_comment'})">
+      <template #title>评论管理</template>
     </el-menu-item>
     <el-menu-item index="admin_recommend" @click="$router.push({name:'admin_recommend'})">
       <template #title>推荐内容</template>
@@ -22,7 +25,7 @@
       <template #title>资源管理</template>
     </el-menu-item>
     <el-menu-item index="6" @click="$router.push({path:'/'})">
-      <template #title>关闭</template>
+      <template #title>客户系统</template>
     </el-menu-item>
     
   </el-menu>
@@ -81,5 +84,8 @@ export default {
 .el-menu .is-active{
   font-weight: bold;
   font-size: 18px;
+}
+body{
+  overflow-y: hidden !important;
 }
 </style>

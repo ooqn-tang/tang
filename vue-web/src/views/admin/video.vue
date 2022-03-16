@@ -73,7 +73,7 @@
         <el-table-column label="状态" prop="codeName" />
         <el-table-column label="操作" width="145">
           <template #default="scope">
-            <el-button size="small" @click="openVideo(scope.row)" type="primary" v-if="scope.row.state == '2'">审查</el-button>
+            <el-button size="small" @click="openVideo(scope.row),ckIndex = scope.$index" type="primary" v-if="scope.row.state == '2'">审查</el-button>
             <el-button size="small" @click="openVideo(scope.row)" type="primary" v-if="scope.row.state == '1'">查看</el-button>
             <el-popconfirm
               confirm-button-text="确认"
@@ -139,6 +139,7 @@ export default {
       checkDialogVisible: false,
       videoDialogVisible: false,
       routeName: this.$route.name,
+      ckIndex:-1,
       videoBfq:null,
       classList: [],
       form: {
@@ -195,7 +196,11 @@ export default {
         method: "post",
         data:this.checkForm
       }).then((response) => {
-        alert(JSON.stringify(response.data));
+        ElMessage({type: 'success', message: response.data})
+        this.checkDialogVisible = false
+        this.videoDialogVisible = false
+        this.ckVideo = {}
+        this.videoData.list.splice(this.ckIndex, 1)
       });
     },
     unPass(){
@@ -209,6 +214,7 @@ export default {
         this.checkDialogVisible = false
         this.videoDialogVisible = false
         this.ckVideo = {}
+        this.videoData.list.splice(this.ckIndex, 1)
       });
     },
     loadVideoClassList() {

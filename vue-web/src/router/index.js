@@ -128,6 +128,10 @@ const routes = [
                 name:"admin_video",
                 component: () => import('../views/admin/video.vue')
             },{
+                path:"comment",
+                name:"admin_comment",
+                component: () => import('../views/admin/comment.vue')
+            },{
                 path:"recommend",
                 name:"admin_recommend",
                 component: () => import('../views/admin/recommend.vue')

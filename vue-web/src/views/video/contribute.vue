@@ -15,15 +15,14 @@
             <option v-for="(item,index) in videoClassList" :key="index" :value="item.value">{{item.name}}</option>
           </select>
         </div>
-        <div class="mb-3" v-if="!formData.coverUrl">
-          <div class="d-grid gap-2">
-            <button class="btn btn-primary" type="button" onclick="document.getElementById('imageInput').click()">上传封面</button>
-          </div>
-        </div>
-         <div class="mb-3" v-if="formData.coverUrl">
+        
+         <div class="mb-3">
             <label for="formFileDisabled" class="form-label">封面</label>
-            <div class="form-control">
+            <div class="form-control"  v-if="formData.coverUrl">
               <img :src="formData.coverUrl" class=" img-thumbnail" style="height: 150px;" alt="..." onclick="document.getElementById('imageInput').click()">
+            </div>
+            <div class="mb-3" v-if="!formData.coverUrl">
+              <button class="btn btn-primary" style="width:100%" type="button" onclick="document.getElementById('imageInput').click()">上传封面</button>
             </div>
         </div>
         <input type="file" style="display: none;    " id="imageInput" @change="uploadImage">
@@ -32,9 +31,6 @@
             <input class="form-control" type="file" id="formFileDisabled" @change="upload">
         </div>
         <button type="submit" class="btn btn-primary" @click="save">投稿</button>
-    </div>
-    <div class="col-md-4 pb-5">
-       
     </div>
   </div>
 </template>

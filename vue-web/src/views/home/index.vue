@@ -1,7 +1,7 @@
 <template>
   <nav class="navbar navbar-expand navbar navbar-expand-lg navbar-light bg-light t-b-b-1 mb-2" id="top">
     <div class="container-fluid">
-      <a class="navbar-brand pc" href="/" style='margin-right: 0px;'>哔哩哔哩</a>
+      <a class="navbar-brand pc" href="/" style='margin-right: 0px;'>冬瓜视频</a>
       <a class="navbar-brand yd" href="/" style='margin-right: 0px;'>🙃</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -10,29 +10,29 @@
       <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
         <ul class="navbar-nav me-auto mb-lg-0 pc">
           <li class="nav-item">
-            <a class="nav-link" href="/video">📺视频</a>
+            <a class="nav-link active" href="/video">📺视频</a>
           </li>
           <!-- <li class="nav-item">
             <a class="nav-link" href="/article">📰文章</a>
           </li> -->
           <li class="nav-item">
-            <router-link class="nav-link" to="/authors">👨‍🎓作者</router-link>
+            <router-link class="nav-link active" to="/authors">👨‍🎓用户</router-link>
           </li>
           <!-- <li class="nav-item">
             <router-link class="nav-link" to="/subject">📒专题</router-link>
           </li> -->
           <li class="nav-item" >
-            <router-link class="nav-link" to="/search">🔍搜索</router-link>
+            <router-link class="nav-link active" to="/search">🔍搜索</router-link>
           </li>
           <li class="nav-item" v-if="isAdmin">
-            <router-link class="nav-link" to="/admin">🧙‍♂️管理</router-link>
+            <a class="nav-link active" href="/admin">🧙‍♂️管理</a>
           </li>
         </ul>
 
 
         <ul class="navbar-nav me-auto mb-lg-0 yd">
           <li class="nav-item dropdown float-start">
-            <a class="nav-link dropdown-toggle" href="#" id="dropdown03" data-bs-toggle="dropdown" aria-expanded="false">{{title}}</a>
+            <a class="nav-link active dropdown-toggle" href="#" id="dropdown03" data-bs-toggle="dropdown" aria-expanded="false">{{title}}</a>
             <ul class="dropdown-menu" aria-labelledby="dropdown03">
               <li><a class="dropdown-item" href="/video">📺视频</a></li>
               <!-- <li><a class="dropdown-item" href="/article">📰文章</a></li> -->
@@ -51,16 +51,16 @@
         <form class="d-flex d-md-inline">
           <ul class="navbar-nav me-auto">
             <li class="nav-item" v-if="!isLogin">
-              <router-link class="nav-link" to="/login">登录</router-link>
+              <router-link class="nav-link active" to="/login">登录</router-link>
             </li>
              <li class="nav-item pc" v-if="isLogin">
-              <router-link class="nav-link" to="/history">历史</router-link>
+              <router-link class="nav-link active" to="/history">历史</router-link>
             </li>
              <li class="nav-item pc" v-if="isLogin">
-              <router-link class="nav-link" to="/dynamic">动态</router-link>
+              <router-link class="nav-link active" to="/dynamic">动态</router-link>
             </li>
             <li class="nav-item pc" v-if="isLogin">
-              <a class="nav-link" @click="createVideo()">投稿</a>
+              <a class="nav-link active" @click="createVideo()">投稿</a>
             </li>
             <!-- <li class="nav-item dropdown" v-if="isLogin">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -72,7 +72,7 @@
               </ul>
             </li> -->
             <li class="nav-item" v-if="isLogin">
-              <a class="nav-link" :href="'/author/' + $store.state.username">我的</a>
+              <a class="nav-link active" :href="'/author/' + $store.state.username">我的</a>
             </li>
           </ul>
         </form>

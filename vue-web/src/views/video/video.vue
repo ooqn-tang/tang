@@ -25,6 +25,7 @@
                   <div class="badge text-wrap mr-10" :class="type.like?'bg-primary':'bg-secondary'" @click="like()">点赞({{video.dataCount.like}})</div>
                   <div class="badge text-wrap mr-10" :class="type.coin?'bg-primary':'bg-secondary'" @click="coin()">投币({{video.dataCount.coin}})</div>
                   <div class="badge text-wrap mr-10" :class="type.collect?'bg-primary':'bg-secondary'" @click="collect()">收藏</div>
+                  <button type="button" class="btn btn-outline-dark btn-sm float-end" @click="fx">分享</button>
                 </div>
               </div>
             </div>
@@ -152,25 +153,8 @@
           <div class="list-group mb-2 move-b-lr-0">
             <notice></notice>
           </div>
-          <div class="card move-b-lr-0">
-            <div class="card-body">
-              <p>
-                <a href="/post/0b0d396713a54e2fbf714478d740e53e" target="_blank"
-                  >关于</a
-                >
-              </p>
-              <p>
-                <a href="/post/98b255d539f743e193e398bfa9b97cfd" target="_blank"
-                  >友情链接</a
-                >
-              </p>
-              <p>
-                <a href="http://beian.miit.gov.cn" target="_blank"
-                  >湘ICP备20009234号</a
-                >
-              </p>
-              <p><a href="/map" class="hidden">地图</a></p>
-            </div>
+          <div class="card mb-2 move-b-lr-0">
+            <info></info>
           </div>
         </div>
       </div>
@@ -226,6 +210,10 @@ export default {
     this.loadVideo();
   },
   methods: {
+    fx(){
+      navigator.clipboard.writeText(window.location.href)
+      alert("复制分享链接成功")
+    },
     openVideo(videoId) {
       location.href = '/video/'+videoId
     },
