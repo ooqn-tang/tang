@@ -64,8 +64,8 @@
 </template>
 
 <script>
+import { ElMessage } from "element-plus";
 import request from "src/utils/request";
-import { ElMessage } from 'element-plus'
 export default {
   name: "admin_recommend",
   data() {

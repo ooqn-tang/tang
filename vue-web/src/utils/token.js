@@ -8,11 +8,9 @@ export function setToken(data) {
     localStorage.setItem("authorData",JSON.stringify(tokenData.author))
 }
 
-export function removeToken() {
-    let tokenData = jwt_decode(data)
-    localStorage.removeItem("jwt",data)
-    localStorage.removeItem("authorData",JSON.stringify(tokenData.author))
-    this.$store.state.username = ""
-    this.$store.state.roles = []
-    window.location.href = "/"
+export function removeToken(store) {
+    localStorage.removeItem("jwt")
+    localStorage.removeItem("authorData")
+    store.state.username = ""
+    store.state.roles = []
 }

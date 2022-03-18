@@ -62,7 +62,7 @@
     </el-col>
     <el-col :span="16" style="padding: 10px">
       <!-- 视频列表 -->
-      <el-table :data="videoData.list" style="width: 100%" border>
+      <el-table v-loading="loading" :data="videoData.list" style="width: 100%" border>
         <el-table-column label="标题">
           <template #default="scope">
             <span @click="openVideo(scope.row)">{{ scope.row.title }}</span>
@@ -73,14 +73,26 @@
         <el-table-column label="状态" prop="codeName" />
         <el-table-column label="操作" width="145">
           <template #default="scope">
-            <el-button size="small" @click="openVideo(scope.row),ckIndex = scope.$index" type="primary" v-if="scope.row.state == '2'">审查</el-button>
-            <el-button size="small" @click="openVideo(scope.row)" type="primary" v-if="scope.row.state == '1'">查看</el-button>
+            <el-button
+              size="small"
+              @click="openVideo(scope.row, scope.$index)"
+              type="primary"
+              v-if="scope.row.state == '2'"
+              >审查</el-button
+            >
+            <el-button
+              size="small"
+              @click="openVideo(scope.row, scope.$index)"
+              type="primary"
+              v-if="scope.row.state == '1'"
+              >查看</el-button
+            >
             <el-popconfirm
               confirm-button-text="确认"
               cancel-button-text="取消"
               :icon="InfoFilled"
               icon-color="red"
-              @confirm="confirmDelete(index,scope.row)"
+              @confirm="confirmDelete(scope.$index, scope.row)"
               title="是否确认删除?"
             >
               <template #reference>
@@ -90,13 +102,24 @@
           </template>
         </el-table-column>
       </el-table>
-      <br>
-      <el-pagination background layout="prev, pager, next" v-model:currentPage="form.page" :page-count="videoData.pages" @current-change="handleCurrentChange" style="text-align: center;"></el-pagination>
+      <br />
+      <el-pagination
+        background
+        layout="prev, pager, next"
+        v-model:currentPage="form.page"
+        :page-count="videoData.pages"
+        @current-change="handleCurrentChange"
+        style="text-align: center"
+      ></el-pagination>
       <!-- 不通过原因 -->
       <el-dialog v-model="checkDialogVisible" title="不通过原因" width="30%">
         <el-form ref="formRef" label-width="120px">
           <el-form-item label="不通过原因">
-            <el-select v-model="checkForm.checkId" placeholder="please select your zone" style="width: 100%">
+            <el-select
+              v-model="ckForm.checkId"
+              placeholder="please select your zone"
+              style="width: 100%"
+            >
               <el-option value="6" label="政治敏感"></el-option>
               <el-option value="7" label="违法内容"></el-option>
               <el-option value="8" label="商业广告"></el-option>
@@ -104,24 +127,48 @@
             </el-select>
           </el-form-item>
           <el-form-item label="备注">
-            <el-input v-model="checkForm.checkText"></el-input>
+            <el-input v-model="ckForm.checkText"></el-input>
           </el-form-item>
         </el-form>
         <template #footer>
           <span class="dialog-footer">
             <el-button @click="checkDialogVisible = false">取消</el-button>
-            <el-button type="primary" @click="unPass">确认不通过</el-button>
+            <el-button type="primary" @click="pass('5')">确认不通过</el-button>
           </span>
         </template>
       </el-dialog>
       <!-- 查看视频 -->
-      <el-dialog v-model="videoDialogVisible" title="视频播放" width="90%" :before-close="closeVideo">
-        <video id="videoPlay" ref="videoPlay" controls :src="ckVideo.videoUrl" loop="loop" style="width: 100%; height: 500px; background: black"></video>
+      <el-dialog
+        v-model="videoDialogVisible"
+        title="视频播放"
+        width="90%"
+        :before-close="closeVideo"
+      >
+        <video
+          id="videoPlay"
+          ref="videoPlay"
+          controls
+          :src="ckVideo.videoUrl"
+          loop="loop"
+          style="width: 100%; height: 500px; background: black"
+        ></video>
         <template #footer>
           <span class="dialog-footer">
-            <el-button @click="videoDialogVisible = false,closeVideo()">关闭</el-button>
-            <el-button type="primary" @click="videoDialogVisible = false,pass()" v-if="ckVideo.state == '2'">通过</el-button>
-            <el-button type="primary" @click="checkDialogVisible = true" v-if="ckVideo.state == '2'">不予以通过</el-button>
+            <el-button @click="(videoDialogVisible = false), closeVideo()"
+              >关闭</el-button
+            >
+            <el-button
+              type="primary"
+              @click="(videoDialogVisible = false), pass('1')"
+              v-if="ckVideo.state == '2'"
+              >通过</el-button
+            >
+            <el-button
+              type="primary"
+              @click="checkDialogVisible = true"
+              v-if="ckVideo.state == '2'"
+              >不予以通过</el-button
+            >
           </span>
         </template>
       </el-dialog>
@@ -130,30 +177,33 @@
 </template>
 
 <script>
+import { ElMessage } from "element-plus";
 import request from "src/utils/request";
-import { ElMessage } from 'element-plus'
 export default {
   name: "admin_video",
   data() {
     return {
+      loading:true,
       checkDialogVisible: false,
       videoDialogVisible: false,
       routeName: this.$route.name,
-      ckIndex:-1,
-      videoBfq:null,
+      videoBfq: null,
       classList: [],
       form: {
         nickname: "",
         region: "",
         name: "",
         state: "2",
-        page:1,
+        page: 1,
       },
       videoData: {},
+      ckIndex: -1,
       ckVideo: {},
-      checkForm:{
-        checkText:"",
-        checkId:""
+      ckForm: {
+        dataId:"",
+        checkId:'',
+        checkText:'',
+        state:''
       },
       stateOptions: [
         {
@@ -177,44 +227,28 @@ export default {
   },
   created() {},
   methods: {
-    handleCurrentChange(number){
-      this.loadVideoList()
+    handleCurrentChange(number) {
+      this.loadVideoList();
     },
-    confirmDelete(index,video) {
-      request({
-        url: "/api/admin/video/" + video.videoId,
-        method: "delete",
-      }).then((response) => {
-        this.videoData.list.splice(index, 1)
-        ElMessage({type: 'success', message: '删除成功'})
-      });
+    confirmDelete(index, video) {
+      this.ckVideo = video
+      this.pass(index,"4");
     },
-    pass() {
-      this.checkForm.dataId = this.ckVideo.videoId
-       request({
-        url: "/api/admin/video/pass",
-        method: "post",
-        data:this.checkForm
-      }).then((response) => {
-        ElMessage({type: 'success', message: response.data})
-        this.checkDialogVisible = false
-        this.videoDialogVisible = false
-        this.ckVideo = {}
-        this.videoData.list.splice(this.ckIndex, 1)
-      });
-    },
-    unPass(){
-      this.checkForm.dataId = this.ckVideo.videoId
+    pass(index,state) {
+      this.ckForm.state = state
+      this.ckForm.dataId = this.ckVideo.videoId
       request({
         url: "/api/admin/video/pass",
-        method: "delete",
-        data:this.checkForm
+        method: "put",
+        data: this.ckForm,
       }).then((response) => {
-        ElMessage({type: 'success', message: response.data})
-        this.checkDialogVisible = false
-        this.videoDialogVisible = false
-        this.ckVideo = {}
-        this.videoData.list.splice(this.ckIndex, 1)
+        alert("")
+        ElMessage({ type: "success", message: "执行成功" });
+        this.checkDialogVisible = false;
+        this.videoDialogVisible = false;
+        this.ckVideo = {};
+        this.ckForm = {};
+        this.videoData.list.splice(index, 1);
       });
     },
     loadVideoClassList() {
@@ -240,21 +274,22 @@ export default {
         region: "",
         name: "",
         state: "2",
-        page:1,
+        page: 1,
       };
     },
-    openVideo(video) {
+    openVideo(video, index) {
       this.videoDialogVisible = true;
+      this.ckIndex = index
       this.ckVideo = video;
       let _this = this;
       this.$nextTick(function () {
         _this.$refs.videoPlay.play();
       });
     },
-    closeVideo(){
-      this.ckVideo = {}
+    closeVideo() {
+      this.ckVideo = {};
       this.videoDialogVisible = false;
-    }
+    },
   },
   mounted() {
     this.loadVideoClassList();

@@ -27,20 +27,13 @@
     <el-menu-item index="6" @click="$router.push({path:'/'})">
       <template #title>客户系统</template>
     </el-menu-item>
-    
   </el-menu>
-
   <div style="padding:10px;width: calc(100% - 150px);float:right;overflow-y: scroll;height: calc(100% - 60px);">
     <router-view/>
   </div>
-  
- 
-  
 </template>
 
 <script>
-import "element-plus/dist/index.css";
-import { ElButton } from "element-plus";
 import request from "src/utils/request";
 export default {
   name: "admin_recommend",
@@ -51,7 +44,6 @@ export default {
       author:{}
     };
   },
-  components: { ElButton },
   watch: {
     $route(to, from) {
       this.routeName = this.$route.name;

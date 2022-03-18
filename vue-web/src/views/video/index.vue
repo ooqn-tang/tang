@@ -67,7 +67,7 @@
         <notice></notice>
       </div>
       <div class="card mb-2 move-b-lr-0">
-        <info></info>
+         <info></info>
       </div>
     </div>
   </div>

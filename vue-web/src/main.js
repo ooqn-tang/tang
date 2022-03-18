@@ -6,7 +6,8 @@ import './index.scss'
 import './permission'
 import notice from './components/notice.vue'
 import "highlight.js/styles/github.css"
-import VLoading from "element-plus/es/components/loading/index"
+import ElementPlus from 'element-plus'
+import "element-plus/dist/index.css";
 
 
 router.beforeEach((to,from)=>{
@@ -27,7 +28,7 @@ function sleep(numberMillis) {
 }
 
 import NPlayer from "@nplayer/vue";
-app.use(VLoading)
 app.use(NPlayer);
+app.use(ElementPlus)
 app.component("notice", notice);//全局自定义组件
 app.use(router).use(store).mount('#app')

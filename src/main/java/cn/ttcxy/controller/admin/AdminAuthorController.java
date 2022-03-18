@@ -24,7 +24,6 @@ public class AdminAuthorController extends BaseController {
     @Autowired
     private UtsRoleService roleService;
 
-
     @GetMapping
     public ResponseEntity<List<UtsAuthor>> select(@RequestParam(value = "queryData",defaultValue = "") String queryData){
         List<UtsAuthor> authorList = authorService.select(queryData);

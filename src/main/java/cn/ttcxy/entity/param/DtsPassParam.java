@@ -11,4 +11,6 @@ public class DtsPassParam {
 
     private String checkText;
 
+    private String state;
+
 }

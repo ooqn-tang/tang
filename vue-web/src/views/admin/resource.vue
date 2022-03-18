@@ -78,8 +78,8 @@
 </template>
 
 <script>
+import { ElMessage,ElMessageBox } from "element-plus";
 import request from "src/utils/request";
-import { ElMessageBox, ElMessage } from 'element-plus'
 export default {
   name: "admin_resource",
   data() {

@@ -60,6 +60,4 @@ public class AdminNoticeController extends BaseController {
         return ResponseEntity.ok(noticeService.selectAllNotice());
     }
 
-
-
 }

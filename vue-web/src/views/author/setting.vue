@@ -85,7 +85,8 @@ export default {
       });
     },
     logout() {
-      removeToken()
+      removeToken(this.$store)
+      window.location.href='/' 
     },
     save() {
       request({
