@@ -9,7 +9,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import cn.ttcxy.core.api.ApiException;
 import cn.ttcxy.core.api.ResponseCode;
-import cn.ttcxy.core.security.jwt.TokenProvider;
+import cn.ttcxy.core.security.JwtProvider;
 import cn.ttcxy.entity.dto.CurrentAuthor;
 import cn.ttcxy.entity.model.UtsAuthor;
 import cn.ttcxy.entity.param.UtsLoginParam;
@@ -37,7 +37,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/api")
-public class UtsLoginController {
+public class UtsLoginController extends BaseController{
 
     public static Cache<String, String> fifoCache = CacheUtil.newTimedCache(6000);
 
@@ -45,7 +45,7 @@ public class UtsLoginController {
     private UtsAuthorService authorService;
 
     @Autowired
-    private TokenProvider tokenProvider;
+    private JwtProvider jwtProvider;
 
     @Autowired
     private UtsUserDetailsService utsUserDetailsService;
@@ -65,7 +65,7 @@ public class UtsLoginController {
         boolean rememberMe = loginParam.getRememberMe() != null && loginParam.getRememberMe();
 
         if (authentication.getPrincipal() instanceof UserDetails){
-            String jwt = tokenProvider.createToken(authentication.getPrincipal(), rememberMe);
+            String jwt = jwtProvider.createToken(authentication.getPrincipal(), rememberMe);
             return new ResponseEntity<>(new JwtToken(jwt), HttpStatus.OK);
         }
         throw new ApiException(ResponseCode.FAILED);
@@ -75,11 +75,11 @@ public class UtsLoginController {
     @PostMapping("/refresh")
     public ResponseEntity<JwtToken> refresh(@RequestBody JSONObject jsonObject) {
         String jwt = jsonObject.getString("jwt");
-        if (StringUtils.hasText(jwt) && tokenProvider.validateToken(jwt)) {
-            Authentication authentication = tokenProvider.getAuthentication(jwt);
+        if (StringUtils.hasText(jwt) && jwtProvider.validateToken(jwt)) {
+            Authentication authentication = jwtProvider.getAuthentication(jwt);
             CurrentAuthor oldCurrentAuthor = (CurrentAuthor) authentication.getPrincipal();
             CurrentAuthor currentAuthor = (CurrentAuthor)utsUserDetailsService.loadUserByUsername(oldCurrentAuthor.getUsername());
-            String newJwt = tokenProvider.createToken(currentAuthor, true);
+            String newJwt = jwtProvider.createToken(currentAuthor, true);
             return new ResponseEntity<>(new JwtToken(newJwt), HttpStatus.OK);
         }
         throw new ApiException("无效token");

@@ -1,4 +1,4 @@
-package cn.ttcxy.core.security.config;
+package cn.ttcxy.core.security;
 
 import cn.ttcxy.mapper.dao.UtsResourceDao;
 import org.springframework.beans.factory.annotation.Autowired;

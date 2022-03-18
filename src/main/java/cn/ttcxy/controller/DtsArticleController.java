@@ -5,17 +5,15 @@ import cn.hutool.core.date.DateTime;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.StrUtil;
-import com.github.pagehelper.PageInfo;
 import cn.ttcxy.core.api.ApiException;
 import cn.ttcxy.core.api.ResponseCode;
-import cn.ttcxy.core.security.CurrentUtil;
-import cn.ttcxy.entity.dto.CurrentAuthor;
 import cn.ttcxy.entity.dto.DtsArticleDto;
 import cn.ttcxy.entity.model.DtsArticle;
 import cn.ttcxy.entity.param.DtsArticleParam;
 import cn.ttcxy.service.CtsCoinService;
 import cn.ttcxy.service.DtsArticleService;
 import cn.ttcxy.service.DtsViewService;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,7 +24,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api/article")
-public class DtsArticleController {
+public class DtsArticleController extends BaseController{
 
     @Autowired
     private DtsArticleService articleService;
@@ -73,7 +71,7 @@ public class DtsArticleController {
             throw new ApiException(ResponseCode.VALIDATE_FAILED);
         }
         String articleAuthorId = article.getAuthorId();
-        String currentAuthorId = CurrentUtil.id();
+        String currentAuthorId = authorId();
         int count;
 
         if(StrUtil.equals(currentAuthorId,articleAuthorId)){
@@ -92,7 +90,7 @@ public class DtsArticleController {
     public ResponseEntity<String> create(){
 
         DateTime dateTime = new DateTime();
-        String authorId = CurrentUtil.id();
+        String authorId = authorId();
 
         DtsArticle article = new DtsArticle();
         article.setArticleId(IdUtil.objectId());
@@ -121,11 +119,11 @@ public class DtsArticleController {
         }
         String thisArticleUsername = articleDto.getUsername();
 
-        String username = CurrentUtil.name();
+        String username = authorName();
         if (StrUtil.equals(username,thisArticleUsername)){
             DateTime date = DateUtil.date();
             article.setUpdateDate(date);
-            int count = articleService.updateArticle(article,subjectId,tagIdList);
+            int count = articleService.updateArticle(article,subjectId,tagIdList,authorId());
             if (count > 0){
                 return ResponseEntity.ok(article.getArticleId());
             }
@@ -144,11 +142,10 @@ public class DtsArticleController {
         }
 
         // 每日使用获取金币
-        coinService.useCoin();
+        coinService.useCoin(authorId());
         // 记录
-        CurrentAuthor author = CurrentUtil.author();
-        if (author != null){
-            viewService.insertView(articleId,author.getAuthor().getAuthorId());
+        if (isLogin()){
+            viewService.insertView(articleId,authorId());
         }
 
         return ResponseEntity.ok(articleDto);

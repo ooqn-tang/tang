@@ -1,8 +1,7 @@
-package cn.ttcxy.core.security.jwt;
+package cn.ttcxy.core.security;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.ttcxy.entity.dto.CurrentAuthor;
-import cn.ttcxy.entity.model.UtsAuthor;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
@@ -22,9 +21,9 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @Component
-public class TokenProvider implements InitializingBean {
+public class JwtProvider implements InitializingBean {
 
-    private final Logger log = LoggerFactory.getLogger(TokenProvider.class);
+    private final Logger log = LoggerFactory.getLogger(JwtProvider.class);
 
     private static final String AUTHORITIES_KEY = "authorities";
     private static final String AUTHOR_KEY = "author";
@@ -36,7 +35,7 @@ public class TokenProvider implements InitializingBean {
 
     private Key key;
 
-    public TokenProvider(
+    public JwtProvider(
             @Value("${jwt.base64-secret}") String base64Secret,
             @Value("${jwt.token-validity-in-seconds}") long tokenValidityInSeconds,
             @Value("${jwt.token-validity-in-seconds-for-remember-me}") long tokenValidityInSecondsForRememberMe) {

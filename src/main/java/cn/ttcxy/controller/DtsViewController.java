@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/view")
-public class DtsViewController {
+public class DtsViewController extends BaseController {
 
     @Autowired
     private DtsViewService viewService;

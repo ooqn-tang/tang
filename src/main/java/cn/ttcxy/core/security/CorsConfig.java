@@ -1,4 +1,4 @@
-package cn.ttcxy.core.security.config;
+package cn.ttcxy.core.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

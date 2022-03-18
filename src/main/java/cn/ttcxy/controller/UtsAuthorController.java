@@ -1,12 +1,11 @@
 package cn.ttcxy.controller;
 
 import cn.hutool.core.bean.BeanUtil;
-import com.github.pagehelper.PageInfo;
 import cn.ttcxy.core.api.ApiException;
-import cn.ttcxy.core.security.CurrentUtil;
 import cn.ttcxy.entity.model.UtsAuthor;
 import cn.ttcxy.entity.param.UtsAuthorParam;
 import cn.ttcxy.service.UtsAuthorService;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -18,7 +17,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("api/author")
 @Validated
-public class UtsAuthorController {
+public class UtsAuthorController extends BaseController {
 
     @Autowired
     private UtsAuthorService authorService;
@@ -34,20 +33,10 @@ public class UtsAuthorController {
         return ResponseEntity.ok(mapPageInfo);
     }
 
-
-    @GetMapping("isLogin")
-    public ResponseEntity<Boolean> isLogin() {
-        String authorId = CurrentUtil.id();
-        if (authorId == null) {
-            return ResponseEntity.ok(false);
-        }
-        return ResponseEntity.ok(true);
-    }
-
     @PutMapping
     public ResponseEntity<String> updateAuthor(@RequestBody UtsAuthorParam authorParam) {
         UtsAuthor author = BeanUtil.toBean(authorParam, UtsAuthor.class);
-        String authorId = CurrentUtil.id();
+        String authorId = authorId();
         author.setAuthorId(authorId);
         int count = authorService.updateAuthorByName(author);
         if (count > 0) {

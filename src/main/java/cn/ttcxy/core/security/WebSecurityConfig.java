@@ -1,9 +1,6 @@
-package cn.ttcxy.core.security.config;
+package cn.ttcxy.core.security;
 
 import cn.ttcxy.service.UtsAuthorService;
-import cn.ttcxy.core.security.jwt.JwtAccessDeniedHandler;
-import cn.ttcxy.core.security.jwt.JwtAuthenticationEntryPoint;
-import cn.ttcxy.core.security.jwt.TokenProvider;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -21,20 +18,20 @@ import org.springframework.web.filter.CorsFilter;
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final TokenProvider tokenProvider;
+    private final JwtProvider jwtProvider;
     private final CorsFilter corsFilter;
     private final JwtAuthenticationEntryPoint authenticationErrorHandler;
     private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
     private final UtsAuthorService authorService;
 
     public WebSecurityConfig(
-            TokenProvider tokenProvider,
+            JwtProvider jwtProvider,
             CorsFilter corsFilter,
             JwtAuthenticationEntryPoint authenticationErrorHandler,
             JwtAccessDeniedHandler jwtAccessDeniedHandler,
             UtsAuthorService authorService
     ) {
-        this.tokenProvider = tokenProvider;
+        this.jwtProvider = jwtProvider;
         this.corsFilter = corsFilter;
         this.authenticationErrorHandler = authenticationErrorHandler;
         this.jwtAccessDeniedHandler = jwtAccessDeniedHandler;
@@ -111,8 +108,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .apply(securityConfigurerAdapter());
     }
 
-    private JWTConfig securityConfigurerAdapter() {
-        return new JWTConfig(tokenProvider, authorService);
+    private JwtConfig securityConfigurerAdapter() {
+        return new JwtConfig(jwtProvider, authorService);
     }
 
     public static void main(String[] args) {

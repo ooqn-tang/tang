@@ -3,22 +3,21 @@ package cn.ttcxy.controller;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.IdUtil;
-import com.github.pagehelper.PageInfo;
 import cn.ttcxy.core.api.ApiException;
 import cn.ttcxy.core.api.ResponseCode;
-import cn.ttcxy.core.security.CurrentUtil;
 import cn.ttcxy.entity.dto.DtsCommentDto;
 import cn.ttcxy.entity.model.DtsComment;
 import cn.ttcxy.entity.param.DtsCommentParam;
 import cn.ttcxy.service.CtsCoinService;
 import cn.ttcxy.service.DtsCommentService;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("api/comment")
-public class DtsCommentController {
+public class DtsCommentController extends BaseController{
 
     @Autowired
     private DtsCommentService commentService;
@@ -30,12 +29,12 @@ public class DtsCommentController {
     public ResponseEntity<String> insert(@RequestBody DtsCommentParam commentParam){
         DtsComment comment = BeanUtil.toBean(commentParam, DtsComment.class);
         String commentId = IdUtil.objectId();
-        comment.setAuthorId(CurrentUtil.id());
+        comment.setAuthorId(authorId());
         comment.setCommentId(commentId);
         comment.setCreateDate(DateUtil.date());
         int count = commentService.insert(comment);
         if (count > 0){
-            ptsCreditService.commentCoin();
+            ptsCreditService.commentCoin(authorId());
             return ResponseEntity.ok(commentId);
         }
         throw new ApiException(ResponseCode.FAILED);

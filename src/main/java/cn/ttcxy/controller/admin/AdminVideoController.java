@@ -1,6 +1,7 @@
 package cn.ttcxy.controller.admin;
 
 import cn.hutool.core.bean.BeanUtil;
+import cn.ttcxy.controller.BaseController;
 import com.github.pagehelper.PageInfo;
 import cn.ttcxy.core.api.ApiException;
 import cn.ttcxy.core.api.ResponseCode;
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("api/admin/video")
-public class AdminVideoController {
+public class AdminVideoController extends BaseController {
 
     @Autowired
     private DtsVideoService videoService;

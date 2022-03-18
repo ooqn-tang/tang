@@ -1,6 +1,7 @@
 package cn.ttcxy.controller.admin;
 
 import cn.hutool.core.bean.BeanUtil;
+import cn.ttcxy.controller.BaseController;
 import cn.ttcxy.core.api.ApiException;
 import cn.ttcxy.core.api.ResponseCode;
 import cn.ttcxy.entity.model.UtsAuthor;
@@ -15,7 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api/admin/author")
-public class AdminAuthorController {
+public class AdminAuthorController extends BaseController {
 
     @Autowired
     private UtsAuthorService authorService;

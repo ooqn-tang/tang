@@ -2,6 +2,7 @@ package cn.ttcxy.controller.admin;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.date.DateUtil;
+import cn.ttcxy.controller.BaseController;
 import com.alibaba.fastjson.JSONArray;
 import cn.ttcxy.core.api.ApiException;
 import cn.ttcxy.core.api.ResponseCode;
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("api/admin/notice")
-public class AdminNoticeController {
+public class AdminNoticeController extends BaseController {
 
     @Autowired
     private StsNoticeService noticeService;

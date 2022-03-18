@@ -2,15 +2,14 @@ package cn.ttcxy.service;
 
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.IdUtil;
-import com.github.pagehelper.PageInfo;
 import cn.ttcxy.core.api.ApiException;
 import cn.ttcxy.core.api.ResponseCode;
-import cn.ttcxy.core.security.CurrentUtil;
 import cn.ttcxy.entity.model.CtsCoin;
 import cn.ttcxy.entity.model.CtsCoinExample;
 import cn.ttcxy.mapper.CtsCoinMapper;
 import cn.ttcxy.mapper.dao.CtsCoinDao;
 import cn.ttcxy.mapper.dao.DtsDataDao;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
@@ -61,12 +60,12 @@ public class CtsCoinService {
      * @param dataId 给予的内容
      * @param authorId 消费硬币的用户ID
      */
-    public void giveCoin(String dataId,String authorId){
+    public void giveCoin(String dataId,String authorId,String currentAuthorId){
         if (selectAuthorCoin(authorId) < 1){
             throw new ApiException(ResponseCode.VALIDATE_FAILED.getStatus(),"积分不足");
         }
 
-        int count = selectCount(dataId, CurrentUtil.id());
+        int count = selectCount(dataId, currentAuthorId);
         if (count > 0){
             return;
         }
@@ -86,7 +85,7 @@ public class CtsCoinService {
         CtsCoin coin2 = new CtsCoin();
         coin2.setCoinId(IdUtil.objectId());
         coin2.setCoinValue(-1.0);
-        coin2.setAuthorId(CurrentUtil.id());
+        coin2.setAuthorId(currentAuthorId);
         coin2.setDataId(dataId);
         coin2.setType(3);
         coin2.setCreateTime(DateUtil.date());
@@ -96,8 +95,8 @@ public class CtsCoinService {
     }
 
     // 使用获取金币
-    public void useCoin(){
-        if (todayCoin() > 10){
+    public void useCoin(String currentAuthorId){
+        if (todayCoin(currentAuthorId) > 10){
             return;
         }
         try{
@@ -105,7 +104,7 @@ public class CtsCoinService {
             coin.setCoinId(IdUtil.objectId());
             coin.setCoinValue(1.0);
             coin.setCause("每日使用获取金币");
-            coin.setAuthorId(CurrentUtil.id());
+            coin.setAuthorId(currentAuthorId);
             coin.setType(1);
             coin.setCreateTime(DateUtil.date());
             coin.setCreateDate(DateUtil.date());
@@ -114,8 +113,8 @@ public class CtsCoinService {
     }
 
     // 评论获取金币
-    public void commentCoin(){
-        if (todayCoin() > 10){
+    public void commentCoin(String currentAuthorId){
+        if (todayCoin(currentAuthorId) > 10){
             return;
         }
         try{
@@ -123,7 +122,7 @@ public class CtsCoinService {
             coin.setCoinId(IdUtil.objectId());
             coin.setCoinValue(1.0);
             coin.setCause("评论获取金币");
-            coin.setAuthorId(CurrentUtil.id());
+            coin.setAuthorId(currentAuthorId);
             coin.setType(1);
             coin.setCreateTime(DateUtil.date());
             coin.setCreateDate(DateUtil.date());
@@ -132,8 +131,8 @@ public class CtsCoinService {
     }
 
     // 点赞获取金币
-    public void likeCoin(){
-        if (todayCoin() > 10){
+    public void likeCoin(String currentAuthorId){
+        if (todayCoin(currentAuthorId) > 10){
             return;
         }
         // 每日使用获取金币
@@ -142,7 +141,7 @@ public class CtsCoinService {
             coin.setCoinId(IdUtil.objectId());
             coin.setCoinValue(1.0);
             coin.setCause("点赞获取金币");
-            coin.setAuthorId(CurrentUtil.id());
+            coin.setAuthorId(currentAuthorId);
             coin.setType(1);
             coin.setCreateTime(DateUtil.date());
             coin.setCreateDate(DateUtil.date());
@@ -150,9 +149,9 @@ public class CtsCoinService {
         }catch (DuplicateKeyException ignored){}
     }
 
-    public Double todayCoin(){
+    public Double todayCoin(String currentAuthorId){
         try{
-            Double num = coinDao.todayCoin(CurrentUtil.id());
+            Double num = coinDao.todayCoin(currentAuthorId);
             return num == null?0:num;
         }catch (ApiException exception){
             return 0.0;

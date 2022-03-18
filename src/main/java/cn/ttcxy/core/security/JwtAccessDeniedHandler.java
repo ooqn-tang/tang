@@ -1,4 +1,4 @@
-package cn.ttcxy.core.security.jwt;
+package cn.ttcxy.core.security;
 
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.web.access.AccessDeniedHandler;

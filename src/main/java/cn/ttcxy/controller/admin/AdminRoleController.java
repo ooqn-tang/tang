@@ -2,6 +2,7 @@ package cn.ttcxy.controller.admin;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.IdUtil;
+import cn.ttcxy.controller.BaseController;
 import cn.ttcxy.core.api.ApiException;
 import cn.ttcxy.core.api.ResponseCode;
 import cn.ttcxy.entity.model.UtsResource;
@@ -18,7 +19,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api/admin/role")
-public class AdminRoleController {
+public class AdminRoleController extends BaseController {
 
     @Autowired
     private UtsRoleService roleService;

@@ -1,17 +1,16 @@
 package cn.ttcxy.controller;
 
-import com.github.pagehelper.PageInfo;
-import cn.ttcxy.core.security.CurrentUtil;
 import cn.ttcxy.entity.model.CtsCoin;
 import cn.ttcxy.service.CtsCoinService;
 import cn.ttcxy.service.DtsDataService;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("api/coin")
-public class CtsCoinController {
+public class CtsCoinController extends BaseController{
 
     @Autowired
     private CtsCoinService coinService;
@@ -22,21 +21,21 @@ public class CtsCoinController {
 
     @GetMapping("{dataId}")
     public ResponseEntity<Long> selectById(@PathVariable("dataId") String dataId){
-        String currentId = CurrentUtil.id();
+        String currentId = authorId();
         Long count = coinService.selectAuthorData(dataId,currentId);
         return ResponseEntity.ok(count);
     }
 
     @GetMapping
     public ResponseEntity<Double> select(){
-        String currentId = CurrentUtil.id();
+        String currentId = authorId();
         Double likeValue = coinService.selectCoinValue(currentId);
         return ResponseEntity.ok(likeValue);
     }
 
     @GetMapping("list")
     public ResponseEntity<PageInfo<CtsCoin>> selectList(){
-        String currentId = CurrentUtil.id();
+        String currentId = authorId();
         PageInfo<CtsCoin> coinList = coinService.selectCoinList(currentId);
         return ResponseEntity.ok(coinList);
     }
@@ -48,6 +47,6 @@ public class CtsCoinController {
     @PostMapping("{dataId}")
     public void giveCoin(@PathVariable("dataId") String dataId){
         String authorId = dataService.selectDataAuthorId(dataId);
-        coinService.giveCoin(dataId,authorId);
+        coinService.giveCoin(dataId,authorId,authorId());
     }
 }

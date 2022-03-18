@@ -4,7 +4,6 @@ import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.IdUtil;
 import cn.ttcxy.core.api.ApiException;
 import cn.ttcxy.core.api.ResponseCode;
-import cn.ttcxy.core.security.CurrentUtil;
 import cn.ttcxy.entity.model.DtsLike;
 import cn.ttcxy.service.DtsLikeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("api/like")
-public class DtsLikeController {
+public class DtsLikeController extends BaseController{
 
     @Autowired
     private DtsLikeService likeService;
@@ -26,7 +25,7 @@ public class DtsLikeController {
         DtsLike praise = new DtsLike();
         praise.setLikeId(IdUtil.objectId());
         praise.setDataId(dataId);
-        praise.setAuthorId(CurrentUtil.id());
+        praise.setAuthorId(authorId());
         praise.setCreateTime(DateUtil.date());
         int count = likeService.insert(praise);
         if (count > 0){
@@ -40,7 +39,7 @@ public class DtsLikeController {
      */
     @DeleteMapping("{dataId}")
     public ResponseEntity<String> unlike(@PathVariable("dataId")String dataId){
-        int count = likeService.delete(CurrentUtil.id(),dataId);
+        int count = likeService.delete(authorId(),dataId);
         if (count > 0){
             return ResponseEntity.ok(ResponseCode.SUCCESS.getMessage());
         }
@@ -49,6 +48,6 @@ public class DtsLikeController {
 
     @GetMapping("{dataId}")
     public ResponseEntity<Integer> select(@PathVariable("dataId")String dataId){
-        return ResponseEntity.ok(likeService.select(CurrentUtil.id(),dataId));
+        return ResponseEntity.ok(likeService.select(authorId(),dataId));
     }
 }

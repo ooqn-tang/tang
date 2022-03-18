@@ -19,7 +19,7 @@ import java.nio.file.Files;
 
 @RestController
 @RequestMapping("api/file")
-public class DtsFileController {
+public class DtsFileController extends BaseController {
 
     @PostMapping("/upload")
     public ResponseEntity<String> create(@RequestParam("file") MultipartFile file,@RequestParam("type")String type) throws IOException {

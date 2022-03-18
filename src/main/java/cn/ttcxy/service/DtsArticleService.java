@@ -61,7 +61,7 @@ public class DtsArticleService {
         return articleMapper.insertSelective(article);
     }
 
-    public int updateArticle(DtsArticle article, String subjectId, List<String> tagIdList) {
+    public int updateArticle(DtsArticle article, String subjectId, List<String> tagIdList,String authorId) {
         DtsArticleTagRelation articleTagRelation = new DtsArticleTagRelation();
         int i = articleMapper.updateByPrimaryKeySelective(article);
 
@@ -80,7 +80,7 @@ public class DtsArticleService {
         articleSubjectService.deleteArticleSubjectArticleId(article.getArticleId());
 
         if (i > 0 && StrUtil.isNotBlank(subjectId)) {
-            articleSubjectService.insertArticleToSubject(article.getArticleId(), subjectId);
+            articleSubjectService.insertArticleToSubject(article.getArticleId(), subjectId,authorId);
         }
 
         return i;

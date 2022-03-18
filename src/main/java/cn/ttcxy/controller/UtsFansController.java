@@ -1,14 +1,13 @@
 package cn.ttcxy.controller;
 
-import com.github.pagehelper.PageInfo;
 import cn.ttcxy.core.api.ApiException;
 import cn.ttcxy.core.api.ResponseCode;
-import cn.ttcxy.core.security.CurrentUtil;
 import cn.ttcxy.entity.dto.UtsFansDto;
 import cn.ttcxy.entity.model.UtsAuthor;
 import cn.ttcxy.entity.model.UtsFans;
 import cn.ttcxy.service.UtsAuthorService;
 import cn.ttcxy.service.UtsFansService;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @RequestMapping("api/fans")
-public class UtsFansController {
+public class UtsFansController extends BaseController {
 
 
     @Autowired
@@ -29,7 +28,7 @@ public class UtsFansController {
 
     @GetMapping("username/{username}")
     public ResponseEntity<Integer> selectByUsername(@PathVariable("username") String username) {
-        String authorId = CurrentUtil.id();
+        String authorId = authorId();
         UtsAuthor utsAuthor = utsAuthorService.selectAuthorByName(username);
         if (utsAuthor != null) {
             Integer count = fansService.isFans(authorId, utsAuthor.getAuthorId());
@@ -40,14 +39,14 @@ public class UtsFansController {
 
     @GetMapping("list")
     public ResponseEntity<PageInfo<UtsFansDto>> selectList() {
-        String authorId = CurrentUtil.id();
+        String authorId = authorId();
         PageInfo<UtsFansDto> authorDtoPageInfo = fansService.selectFansList(authorId);
         return ResponseEntity.ok(authorDtoPageInfo);
     }
 
     @PostMapping("{fansName}")
     public ResponseEntity<Integer> insert(@PathVariable("fansName") String fansName) {
-        String authorId = CurrentUtil.id();
+        String authorId = authorId();
 
         UtsAuthor utsAuthor = utsAuthorService.selectAuthorByName(fansName);
         if (utsAuthor == null) {
@@ -66,7 +65,7 @@ public class UtsFansController {
 
     @DeleteMapping("{fansName}")
     public ResponseEntity<Integer> delete(@PathVariable("fansName") String fansName) {
-        String authorId = CurrentUtil.id();
+        String authorId = authorId();
 
         int count = fansService.deleteFans(fansName, authorId);
         if (count > 0) {

@@ -2,6 +2,7 @@ package cn.ttcxy.controller.admin;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.IdUtil;
+import cn.ttcxy.controller.BaseController;
 import cn.ttcxy.core.api.ApiException;
 import cn.ttcxy.core.api.ResponseCode;
 import cn.ttcxy.entity.model.UtsResource;
@@ -16,7 +17,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api/admin/resource")
-public class AdminResourceController {
+public class AdminResourceController extends BaseController {
 
     @Autowired
     private UtsResourceService resourceService;

@@ -1,9 +1,8 @@
-package cn.ttcxy.core.security.filter;
+package cn.ttcxy.core.security;
 
 import cn.ttcxy.entity.dto.CurrentAuthor;
 import cn.ttcxy.service.UtsAuthorService;
 import lombok.extern.java.Log;
-import cn.ttcxy.core.security.jwt.TokenProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
@@ -22,18 +21,18 @@ import java.io.IOException;
 import java.util.Date;
 
 @Log
-public class JWTFilter extends GenericFilterBean {
+public class JwtFilter extends GenericFilterBean {
 
-    private static final Logger LOG = LoggerFactory.getLogger(JWTFilter.class);
+    private static final Logger LOG = LoggerFactory.getLogger(JwtFilter.class);
 
     public static final String AUTHORIZATION_HEADER = "Authorization";
 
-    private final TokenProvider tokenProvider;
+    private final JwtProvider jwtProvider;
 
     private final UtsAuthorService authorService;
 
-    public JWTFilter(TokenProvider tokenProvider,UtsAuthorService authorService) {
-        this.tokenProvider = tokenProvider;
+    public JwtFilter(JwtProvider jwtProvider, UtsAuthorService authorService) {
+        this.jwtProvider = jwtProvider;
         this.authorService = authorService;
     }
     private final AntPathMatcher antPathMatcher = new AntPathMatcher();
@@ -44,8 +43,8 @@ public class JWTFilter extends GenericFilterBean {
         String jwt = resolveToken(httpServletRequest);
         String requestURI = httpServletRequest.getRequestURI();
 
-        if (StringUtils.hasText(jwt) && tokenProvider.validateToken(jwt)&&!antPathMatcher.match("/api/refresh",requestURI)) {
-            Authentication authentication = tokenProvider.getAuthentication(jwt);
+        if (StringUtils.hasText(jwt) && jwtProvider.validateToken(jwt)&&!antPathMatcher.match("/api/refresh",requestURI)) {
+            Authentication authentication = jwtProvider.getAuthentication(jwt);
             CurrentAuthor currentAuthor = (CurrentAuthor) authentication.getPrincipal();
             Date date = authorService.nowTime(currentAuthor.getUsername(), currentAuthor.getRoles());
             if (date != null && date.getTime() != currentAuthor.getRefreshTime()){

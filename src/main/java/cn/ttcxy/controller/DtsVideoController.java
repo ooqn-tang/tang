@@ -3,11 +3,8 @@ package cn.ttcxy.controller;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.IdUtil;
-import com.github.pagehelper.PageInfo;
 import cn.ttcxy.core.api.ApiException;
 import cn.ttcxy.core.api.ResponseCode;
-import cn.ttcxy.core.security.CurrentUtil;
-import cn.ttcxy.entity.dto.CurrentAuthor;
 import cn.ttcxy.entity.dto.DtsVideoDto;
 import cn.ttcxy.entity.model.DtsVideo;
 import cn.ttcxy.entity.model.DtsVideoClass;
@@ -15,6 +12,7 @@ import cn.ttcxy.entity.param.VideoParam;
 import cn.ttcxy.service.CtsCoinService;
 import cn.ttcxy.service.DtsVideoService;
 import cn.ttcxy.service.DtsViewService;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +21,7 @@ import java.util.List;
 
 @RequestMapping("api/video")
 @RestController
-public class DtsVideoController {
+public class DtsVideoController extends BaseController{
 
 
     @Autowired
@@ -45,13 +43,12 @@ public class DtsVideoController {
     @GetMapping("{videoId}")
     public ResponseEntity<DtsVideoDto> select(@PathVariable("videoId") String videoId){
         // 记录
-        CurrentAuthor author = CurrentUtil.author();
-        if (author != null){
-            viewService.insertView(videoId,author.getAuthor().getAuthorId());
+        if (isLogin()){
+            viewService.insertView(videoId,authorId());
         }
         DtsVideoDto videoDto = videoService.selectById(videoId);
         // 每日使用获取金币
-        coinService.useCoin();
+        coinService.useCoin(authorId());
         return ResponseEntity.ok(videoDto);
     }
 
@@ -72,7 +69,7 @@ public class DtsVideoController {
             @RequestParam(value = "title",defaultValue = "")String title){
         PageInfo<DtsVideoDto> select;
         if (videoClass.equals("gz")){
-            select = videoService.selectGz(page, size, CurrentUtil.id());
+            select = videoService.selectGz(page, size, authorId());
         }else{
             select = videoService.select(page, size, title, videoClass);
         }
@@ -106,7 +103,7 @@ public class DtsVideoController {
      */
     @PostMapping
     public ResponseEntity<String> create(){
-        String authorId = CurrentUtil.id();
+        String authorId = authorId();
         String videoId = IdUtil.objectId();
         DtsVideo dtsVideo = new DtsVideo();
         dtsVideo.setAuthorId(authorId);

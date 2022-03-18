@@ -1,4 +1,4 @@
-package cn.ttcxy.core.properties;
+package cn.ttcxy.core.security;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

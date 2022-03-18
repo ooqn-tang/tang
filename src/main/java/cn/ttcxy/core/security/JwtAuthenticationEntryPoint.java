@@ -1,4 +1,4 @@
-package cn.ttcxy.core.security.jwt;
+package cn.ttcxy.core.security;
 
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;

@@ -18,7 +18,7 @@ import java.util.List;
 @RestController
 @RequestMapping("api/tag")
 @Validated
-public class DtsTagController {
+public class DtsTagController extends BaseController {
 
     @Autowired
     private DtsArticleTagService articleTagService;

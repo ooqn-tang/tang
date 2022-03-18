@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 @Aspect
 @Component
 @Order(1)
-public class ControllerAspect {
+public class MyControllerAspect {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 

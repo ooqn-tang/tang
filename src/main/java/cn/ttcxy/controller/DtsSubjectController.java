@@ -1,14 +1,13 @@
 package cn.ttcxy.controller;
 
 import cn.hutool.core.bean.BeanUtil;
-import com.github.pagehelper.PageInfo;
 import cn.ttcxy.core.api.ApiException;
 import cn.ttcxy.core.api.ResponseCode;
-import cn.ttcxy.core.security.CurrentUtil;
 import cn.ttcxy.entity.dto.DtsArticleSubjectDto;
 import cn.ttcxy.entity.model.DtsArticleSubject;
 import cn.ttcxy.entity.param.DtsSubjectParam;
 import cn.ttcxy.service.DtsArticleSubjectService;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -17,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("api/subject")
 @Validated
-public class DtsSubjectController {
+public class DtsSubjectController extends BaseController{
 
     @Autowired
     private DtsArticleSubjectService articleSubjectService;
@@ -61,7 +60,7 @@ public class DtsSubjectController {
     public ResponseEntity<String> insertSubject(@RequestBody DtsSubjectParam subjectParam) {
 
         DtsArticleSubject subjectDto = BeanUtil.toBean(subjectParam, DtsArticleSubject.class);
-        String authorId = CurrentUtil.id();
+        String authorId = authorId();
         subjectDto.setAuthorId(authorId);
         Integer count = articleSubjectService.insertSubject(subjectDto);
         if (count > 0) {
@@ -86,7 +85,7 @@ public class DtsSubjectController {
             @RequestParam(value = "articleId") String articleId,
             @RequestParam(value = "subjectId") String subjectId) {
 
-        Integer count = articleSubjectService.insertArticleToSubject(articleId, subjectId);
+        Integer count = articleSubjectService.insertArticleToSubject(articleId, subjectId,authorId());
         if (count > 0) {
             return ResponseEntity.ok("处理成功");
         }
@@ -98,7 +97,7 @@ public class DtsSubjectController {
             @RequestParam(value = "articleId") String articleId,
             @RequestParam(value = "subjectId") String subjectId) {
 
-        Integer count = articleSubjectService.updateArticleToSubject(articleId, subjectId);
+        Integer count = articleSubjectService.updateArticleToSubject(articleId, subjectId,authorId());
         if (count > 0) {
             return ResponseEntity.ok("处理成功");
         }

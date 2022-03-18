@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api/notice")
-public class StsNoticeController {
+public class StsNoticeController extends BaseController {
 
     @Autowired
     private StsNoticeService noticeService;

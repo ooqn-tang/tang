@@ -4,19 +4,18 @@ import cn.hutool.core.date.DateTime;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.StrUtil;
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
 import cn.ttcxy.core.api.ApiException;
-import cn.ttcxy.core.security.CurrentUtil;
-import cn.ttcxy.mapper.DtsArticleMapper;
-import cn.ttcxy.mapper.DtsArticleSubjectMapper;
-import cn.ttcxy.mapper.DtsArticleSubjectRelationMapper;
-import cn.ttcxy.mapper.dao.DtsArticleSubjectDao;
 import cn.ttcxy.entity.dto.DtsArticleSubjectDto;
 import cn.ttcxy.entity.model.DtsArticle;
 import cn.ttcxy.entity.model.DtsArticleSubject;
 import cn.ttcxy.entity.model.DtsArticleSubjectRelation;
 import cn.ttcxy.entity.model.DtsArticleSubjectRelationExample;
+import cn.ttcxy.mapper.DtsArticleMapper;
+import cn.ttcxy.mapper.DtsArticleSubjectMapper;
+import cn.ttcxy.mapper.DtsArticleSubjectRelationMapper;
+import cn.ttcxy.mapper.dao.DtsArticleSubjectDao;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -75,12 +74,12 @@ public class DtsArticleSubjectService {
     }
 
     
-    public Integer insertArticleToSubject(String articleId, String subjectId) {
+    public Integer insertArticleToSubject(String articleId, String subjectId,String authorId) {
         DtsArticleSubject articleSubject = articleSubjectMapper.selectByPrimaryKey(subjectId);
         DtsArticle article = articleMapper.selectByPrimaryKey(articleId);
 
         if (StrUtil.equals(article.getAuthorId(),articleSubject.getAuthorId()) &&
-                StrUtil.equals(article.getAuthorId(), CurrentUtil.id())){
+                StrUtil.equals(article.getAuthorId(), authorId)){
             DtsArticleSubjectRelation articleSubjectRelation = new DtsArticleSubjectRelation();
             articleSubjectRelation.setArticleSubjectRelationId(IdUtil.objectId());
             articleSubjectRelation.setArticleId(articleId);
@@ -93,12 +92,12 @@ public class DtsArticleSubjectService {
     }
 
     
-    public Integer updateArticleToSubject(String articleId, String subjectId) {
+    public Integer updateArticleToSubject(String articleId, String subjectId, String authorId) {
         DtsArticleSubject articleSubject = articleSubjectMapper.selectByPrimaryKey(subjectId);
         DtsArticle article = articleMapper.selectByPrimaryKey(articleId);
 
         if (StrUtil.equals(article.getAuthorId(),articleSubject.getAuthorId()) &&
-                StrUtil.equals(article.getAuthorId(),CurrentUtil.id())){
+                StrUtil.equals(article.getAuthorId(),authorId)){
             DtsArticleSubjectRelation articleSubjectRelation = new DtsArticleSubjectRelation();
             articleSubjectRelation.setArticleId(articleId);
             articleSubjectRelation.setArticleSubjectId(subjectId);
