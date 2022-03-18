@@ -54,6 +54,7 @@
 
 <script>
 import request from "src/utils/request";
+import {removeToken} from "src/utils/token";
 export default {
   name: "author_setting",
   data() {
@@ -84,10 +85,7 @@ export default {
       });
     },
     logout() {
-      localStorage.removeItem("jwt");
-      localStorage.removeItem("author");
-      this.$store.state.username = "";
-      window.location.href = "/";
+      removeToken()
     },
     save() {
       request({

@@ -88,23 +88,14 @@ export default {
         data:this.loginData
     }).then((response) => {
         if(response.status === 200){
-          let tokenData = jwt_decode(response.data.jwt)
+          let authorData = jwt_decode(response.data.jwt)
           localStorage.setItem("jwt",response.data.jwt)
-          localStorage.setItem("author",JSON.stringify(tokenData.author))
-          this.$router.push({path:"/author/"+tokenData.sub})
+          localStorage.setItem("authorData",JSON.stringify(authorData))
+          this.$router.push({path:"/author/"+authorData.sub})
         }
       }).catch(e => {
         alert(e.data)
       });
-    },
-    sendMail(){
-      request({
-        url: '/api/mail-verify',
-        method: 'post',
-        params:{mail:this.loginData.username}
-    }).then((response) => {
-        alert(response.data.message)
-      })
     },
     register(){
       if(this.loginData.password !== this.loginData.password1){
@@ -123,8 +114,8 @@ export default {
     }
   },
   mounted(){
-    localStorage.removeItem("token")
-    localStorage.removeItem("author")
+    localStorage.removeItem("jwt")
+    localStorage.removeItem("authorData")
   }
 };
 </script>

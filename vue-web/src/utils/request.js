@@ -17,6 +17,9 @@ const service = axios.create({
 //请求前拦截
 service.interceptors.request.use(
     config => {
+        if('/api/authenticate' == config.url){
+            return config;
+        }
         config.headers.Authorization = localStorage.getItem("jwt")
         return config;
     },
@@ -59,7 +62,7 @@ service.interceptors.response.use(
                 }).catch(err => {
                     //跳到登录页
                     localStorage.removeItem("jwt")
-                    localStorage.removeItem("author")
+                    localStorage.removeItem("authorData")
                     this.$store.state.username = ""
                     window.location.href = "/"
                     return Promise.reject(err)
@@ -78,7 +81,6 @@ service.interceptors.response.use(
               }
         }
         return Promise.reject(error.response);
-
     }
 );
 
