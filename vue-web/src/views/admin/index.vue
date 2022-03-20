@@ -1,8 +1,12 @@
 <template>
   <div style="background-color: #3a94f1;padding:10px">
-    <span style="padding: 10px;color:white;font-weight: bold;font-size:26px">冬瓜视频管理系统</span>
-    <span style="color:white;font-weight: bold;font-size:26px;float:right;padding-left:20px" @click="logout">退出登录</span>
-    <span style="color:white;font-weight: bold;font-size:26px;float:right">{{author.nickname}}</span>
+    <span style="padding: 10px;color:white;font-weight: bold;font-size:20px">冬瓜管理系统</span>
+    
+    <span style="float:right;color:white;font-weight: bold;font-size:20px;">
+      <span>{{$store.state.author.nickname}}</span>
+      &nbsp;
+      <span @click="logout">退出</span>
+    </span>
   </div>
 
 <el-menu :default-active="routeName" style="width: 150px;float:left;height: calc(100% - 60px);" @close="handleClose">
@@ -31,17 +35,17 @@
   <div style="padding:10px;width: calc(100% - 150px);float:right;overflow-y: scroll;height: calc(100% - 60px);">
     <router-view/>
   </div>
+  
 </template>
 
 <script>
-import request from "src/utils/request";
+import request from "utils/request";
 export default {
   name: "admin_recommend",
   data() {
     return {
       routeName: this.$route.name,
-      activeIndex: this.$route.name,
-      author:{}
+      activeIndex: this.$route.name
     };
   },
   watch: {
@@ -56,18 +60,10 @@ export default {
       localStorage.removeItem("author");
       this.$store.state.username = "";
       window.location.href = "/";
-    },
-    selectAuthor(username){
-      request({
-        url: '/api/author/' + username,
-        method: 'GET'
-      }).then((response) => {
-        this.author = response.data
-      })
-    },
+    }
   },
   mounted() {
-    this.selectAuthor(this.$store.state.username)
+    
   },
 };
 </script>

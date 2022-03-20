@@ -1,7 +1,7 @@
 2<template>
   <el-row>
     <el-col style="padding: 10px">
-      <el-form :inline="true" class="demo-form-inline">
+      <el-form :inline="true" class="demo-form-inline"  >
         <el-form-item label="状态">
           <el-select v-model="form.state" placeholder="请选择">
             <el-option label="已通过" value="1"></el-option>
@@ -11,13 +11,13 @@
           </el-select>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="loadCommentList()">查询</el-button>
+          <el-button type="primary" @click="loadCommentList()" >查询</el-button>
         </el-form-item>
       </el-form>
     </el-col>
     <el-col style="padding: 10px">
       <!-- 视频列表 -->
-      <el-table :data="commentData.list" style="width: 100%" border>
+      <el-table v-loading="loading" :data="commentData.list" style="width: 100%" border>
         <el-table-column type="expand" label="开">
           <template #default="props">
             <div style="padding:10px">
@@ -55,11 +55,12 @@
 
 <script>
 import { ElMessage } from "element-plus";
-import request from "src/utils/request";
+import request from "utils/request";
 export default {
   name: "admin_comment",
   data() {
     return {
+      loading:true,
       commentData:{
         page:""
       },
@@ -97,11 +98,13 @@ export default {
       });
     },
     loadCommentList() {
+      this.loading = true
       request({
         url: "/api/admin/comment/list",
         method: "get",
         params: this.form,
       }).then((response) => {
+        this.loading = false
         this.commentData = response.data;
       });
     },
@@ -115,3 +118,8 @@ export default {
   },
 };
 </script>
+<style scoped>
+.el-form-item{
+  margin-bottom: 0px;
+}
+</style>

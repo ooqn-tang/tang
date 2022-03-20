@@ -37,7 +37,7 @@
 
 <script>
 import "highlight.js/styles/github.css";
-import request from "src/utils/request";
+import request from "utils/request";
 export default {
   name: "video_contribute",
   data() {
@@ -123,16 +123,6 @@ export default {
     },
     isLike() {
      
-    },
-    sleep(sm) {
-      var now = new Date();
-      var exitTime = now.getTime() + sm;
-      while (true) {
-        now = new Date();
-        if (now.getTime() > exitTime) {
-          return;
-        }
-      }
     },
     loadArticleInfo() {
       

@@ -123,24 +123,7 @@
             <notice></notice>
           </div>
           <div class="card move-b-lr-0">
-            <div class="card-body">
-              <p>
-                <a href="/post/0b0d396713a54e2fbf714478d740e53e" target="_blank"
-                  >关于</a
-                >
-              </p>
-              <p>
-                <a href="/post/98b255d539f743e193e398bfa9b97cfd" target="_blank"
-                  >友情链接</a
-                >
-              </p>
-              <p>
-                <a href="http://beian.miit.gov.cn" target="_blank"
-                  >湘ICP备20009234号</a
-                >
-              </p>
-              <p><a href="/map" class="hidden">地图</a></p>
-            </div>
+            <info></info>
           </div>
         </div>
       </div>
@@ -179,7 +162,7 @@
 
 <script>
 import "highlight.js/styles/github.css";
-import request from "src/utils/request";
+import request from "utils/request";
 export default {
   name: "article_info",
   data() {
@@ -253,16 +236,6 @@ export default {
       }).then((response) => {
         this.collect = response.data;
       });
-    },
-    sleep(sm) {
-      var now = new Date();
-      var exitTime = now.getTime() + sm;
-      while (true) {
-        now = new Date();
-        if (now.getTime() > exitTime) {
-          return;
-        }
-      }
     },
     loadArticleInfo() {
       request({

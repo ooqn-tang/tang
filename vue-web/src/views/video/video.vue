@@ -5,23 +5,20 @@
         <div class="col-lg-8 move-p-lr-0">
           <div class="card mb-2 move-b-lr-0">
             <div class="card-header">
-              {{ video.title }}
-              <span class="float-end"><router-link v-if="video.username" :to="{name:'author_article',params:{username: video.username}}" class="float-end">{{video.nickname}}<span style="color: red;padding-left: 5px;font-weight: 800;">L{{video.grade}}</span></router-link></span>
+              <span>{{ video.title }}</span>
+              <span class="float-end">
+                <router-link v-if="video.username" :to="{name:'author_article',params:{username: video.username}}" class="float-end">
+                  <span>{{video.nickname}}</span>
+                  <span style="color: red;padding-left: 5px;font-weight: 800;">L{{video.grade}}</span>
+                </router-link></span>
             </div>
             <div class="card-body" style="padding: 0; height: 600px;" id="videoBody">
-              <!-- <video
-                ref="videoPlay"
-                controls
-                loop="loop"
-                style="width: 100%; height: 100%;">
-                <source type="video/mp4" />
-              </video> -->
-              <div ref="videoRef" style="    height: 100%;" />
+              <div ref="videoRef" style="height: 100%;" />
             </div>
             <div class="card-footer">
               <div class="row">
                 <div class="col" style="line-height: 31px">
-                  <div class="badge bg-primary text-wrap mr-10" style="margin-right: 10px;">播放量：{{video.dataCount.view}}</div>
+                  <div class="badge bg-primary text-wrap mr-10">播放量：{{video.dataCount.view}}</div>
                   <div class="badge text-wrap mr-10" :class="type.like?'bg-primary':'bg-secondary'" @click="like()">点赞({{video.dataCount.like}})</div>
                   <div class="badge text-wrap mr-10" :class="type.coin?'bg-primary':'bg-secondary'" @click="coin()">投币({{video.dataCount.coin}})</div>
                   <div class="badge text-wrap mr-10" :class="type.collect?'bg-primary':'bg-secondary'" @click="collect()">收藏</div>
@@ -30,31 +27,14 @@
               </div>
             </div>
           </div>
-         
-          <div
-            class="card mb-2 move-b-lr-0"
-            style=""
-          >
+          <div class="card mb-2 move-b-lr-0">
             <div class="card-body" >
                <ul class="nav nav-pills mb-2">
                 <li class="nav-item">
-                  <a
-                    class="nav-link"
-                    :class="tagName == 'jj' ? 'active' : ''"
-                    @click="st('jj')"
-                    aria-current="page"
-                    href="#"
-                    >简介</a
-                  >
+                  <a class="nav-link" :class="tagName == 'jj' ? 'active' : ''" @click="st('jj')" aria-current="page" href="#">简介</a>
                 </li>
                 <li class="nav-item">
-                  <a
-                    class="nav-link"
-                    :class="tagName == 'pl' ? 'active' : ''"
-                    @click="st('pl')"
-                    href="#"
-                    >评论（{{video.dataCount.comment}}）</a
-                  >
+                  <a class="nav-link" :class="tagName == 'pl' ? 'active' : ''" @click="st('pl')" href="#">评论（{{video.dataCount.comment}}）</a>
                 </li>
               </ul>
               <div v-if="tagName == 'jj'">
@@ -164,7 +144,7 @@
 
 <script>
 import "highlight.js/styles/github.css";
-import request from "src/utils/request";
+import request from "utils/request";
 import Dplayer from 'dplayer';
 export default {
   name: "video_info",
@@ -420,9 +400,7 @@ export default {
 </script>
 
 <style lang="scss">
-.mr-10{
-  margin-right: 10px;
-}
+
 .dplayer-comment-setting-type label span{
   width:50px !important;
 }

@@ -1,6 +1,6 @@
 import axios from 'axios'
-import {refresh} from 'src/api/test'
-import {setToken} from 'src/utils/token'
+import {refresh} from 'apis/test'
+import {setToken} from 'utils/token'
 
 axios.defaults.withCredentials = true;
 

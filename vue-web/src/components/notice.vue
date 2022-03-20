@@ -4,7 +4,7 @@
 </template>
 
 <script>
-import request from 'src/utils/request'
+import request from 'utils/request'
 export default {
   name: 'notice',
   data() {
@@ -17,12 +17,12 @@ export default {
   },
   methods: {
     loadNotice(){
-        request({
-          url: '/api/notice/list',
-          method: 'GET'
-        }).then((response) => {
-            this.advList = response.data
-        })
+      request({
+        url: '/api/notice/list',
+        method: 'GET'
+      }).then((response) => {
+          this.advList = response.data
+      })
     }
   },
   mounted(){

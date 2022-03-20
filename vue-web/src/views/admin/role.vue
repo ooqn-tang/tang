@@ -53,29 +53,30 @@
           <template #append>搜索</template>
         </el-input>
         <el-table
+          v-loading="loading"
           :data="resourceList"
           ref="multipleTable"
           @selection-change="checkResource"
           border
           max-height="800"
-          style="width: 100%"
-        >
-          <!-- <el-table-column prop="resourceId" label="选择" width="180" /> -->
+          style="width: 100%">
           <el-table-column type="selection" width="40" />
           <el-table-column prop="name" label="名称" width="180"/>
           <el-table-column prop="path" label="路径" width="180"/>
           <el-table-column prop="type" label="类型" />
-        </el-table></div
-    ></el-col>
+        </el-table>
+      </div>
+    </el-col>
   </el-row>
 </template>
 
 <script>
-import request from "src/utils/request";
+import request from "utils/request";
 export default {
   name: "admin_role",
   data() {
     return {
+      loading:false,
       routeName: this.$route.name,
       formInline: { user: "" },
       roleList: [],
@@ -123,10 +124,12 @@ export default {
       this.selectResource(row);
     },
     selectRole() {
+      this.loading = true
       request({
         url: "/api/admin/role",
         method: "GET",
       }).then((response) => {
+        this.loading = false
         this.roleList = response.data;
       });
     },

@@ -65,7 +65,7 @@
 
 <script>
 import { ElMessage } from "element-plus";
-import request from "src/utils/request";
+import request from "utils/request";
 export default {
   name: "admin_recommend",
   data() {

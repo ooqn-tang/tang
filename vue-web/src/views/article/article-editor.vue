@@ -42,7 +42,7 @@
 import marked from 'marked'
 import hljs from "highlight.js"
 import 'highlight.js/styles/github.css'
-import request from 'src/utils/request'
+import request from 'utils/request'
 marked.setOptions({
   renderer: new marked.Renderer(),
    highlight: function(code) {

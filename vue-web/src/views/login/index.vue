@@ -64,7 +64,7 @@
 
 <script>
 import jwt_decode from "jwt-decode"
-import request from 'src/utils/request'
+import request from 'utils/request'
 export default {
   name: "login",
   data() {

@@ -41,7 +41,7 @@ public class DtsCommentService {
     }
 
     public PageInfo<DtsCommentDto> selectAll(String state ,Integer page) {
-        PageHelper.startPage(page, 30);
+        PageHelper.startPage(page, 15);
         List<DtsCommentDto> commentDtoList = commentDao.selectAll(state);
         return new PageInfo<>(commentDtoList);
     }

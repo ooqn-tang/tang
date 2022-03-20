@@ -10,9 +10,10 @@
           <div>简介：<span>{{author.signature}}</span></div>
         </div>
       </div>
-      <div class="list-group mb-2  d-md-inline d-none">
+      <div class="list-group mb-2 d-md-inline d-none">
         <notice></notice>
       </div>
+      
     </div>
     <div class="col-md-8 col-md-pull-4 mb-2 move-p-lr-0">
       <div class="card move-b-lr-0">
@@ -21,12 +22,12 @@
             <li class="nav-item">
               <router-link class="nav-link" :class="routeName == 'author_video'?'nav-link-active':''" :to="{name:'author_video'}">视频</router-link>
             </li>
-            <!-- <li class="nav-item">
+            <li class="nav-item">
               <router-link class="nav-link" :class="routeName == 'author_article'?'nav-link-active':''" :to="{name:'author_article'}">文章</router-link>
-            </li> -->
-            <!-- <li class="nav-item">
+            </li>
+            <li class="nav-item">
               <router-link class="nav-link" :class="routeName == 'author_subject'?'nav-link-active':''" :to="{name:'author_subject'}">专栏</router-link>
-            </li> -->
+            </li>
             <li class="nav-item" v-if="thisUsername == loginUsername">
               <router-link class="nav-link"  :class="routeName == 'author_subscribe'?'nav-link-active':''" :to="{name:'author_subscribe'}">订阅</router-link>
             </li>
@@ -50,7 +51,7 @@
 </template>
 
 <script>
-import request from 'src/utils/request'
+import request from 'utils/request'
 export default {
   name: "author_index",
   data() {
@@ -129,5 +130,9 @@ export default {
 <style lang="scss">
 body{
     overflow-y: scroll;
+}
+.nav-link{
+  padding-left: 6px;
+  padding-right: 6px;
 }
 </style>

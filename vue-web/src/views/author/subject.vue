@@ -42,7 +42,7 @@
 </template>
 
 <script>
-import request from 'src/utils/request'
+import request from 'utils/request'
 export default {
   name: "author_subject",
   data() {

@@ -7,9 +7,11 @@ router.beforeEach((to, from, next) => {
     if (authorData != null) {
         store.state.username = authorData.sub
         store.state.roles = authorData.authorities.split(',')
+        store.state.author = authorData.author.author
     } else {
         store.state.username = ""
         store.state.roles = []
+        store.state.author = {}
     }
     next()
 });

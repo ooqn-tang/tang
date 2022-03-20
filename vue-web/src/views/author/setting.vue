@@ -53,8 +53,8 @@
 </template>
 
 <script>
-import request from "src/utils/request";
-import {removeToken} from "src/utils/token";
+import request from "utils/request";
+import {removeToken} from "utils/token";
 export default {
   name: "author_setting",
   data() {
@@ -63,6 +63,7 @@ export default {
         username: "",
         nickname: "",
         mail: "",
+        headUrl:'https://avatars.githubusercontent.com/u/15867678?v=4'
       }
     };
   },

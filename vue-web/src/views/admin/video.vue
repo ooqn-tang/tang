@@ -1,4 +1,4 @@
-2<template>
+<template>
   <el-row>
     <el-col :span="8" style="padding: 10px">
       <el-form ref="formRef" :model="form" label-width="120px">
@@ -112,7 +112,7 @@
         style="text-align: center"
       ></el-pagination>
       <!-- 不通过原因 -->
-      <el-dialog v-model="checkDialogVisible" title="不通过原因" width="30%">
+      <el-dialog v-model="checkDialogVisible" title="不通过原因" width="30%" >
         <el-form ref="formRef" label-width="120px">
           <el-form-item label="不通过原因">
             <el-select
@@ -178,7 +178,7 @@
 
 <script>
 import { ElMessage } from "element-plus";
-import request from "src/utils/request";
+import request from "utils/request";
 export default {
   name: "admin_video",
   data() {
@@ -227,6 +227,9 @@ export default {
   },
   created() {},
   methods: {
+    handleClose(){
+      
+    },
     handleCurrentChange(number) {
       this.loadVideoList();
     },
@@ -260,12 +263,14 @@ export default {
       });
     },
     loadVideoList() {
+      this.loading = true
       request({
         url: "/api/admin/video/list",
         method: "get",
         params: this.form,
       }).then((response) => {
         this.videoData = response.data;
+        this.loading = false
       });
     },
     reset() {

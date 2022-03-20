@@ -14,51 +14,35 @@
                 >动态</a
               >
             </li>
-            <!-- <li class="nav-item">
-              <a
-                class="nav-link"
-                :class="select == 'video' ? 'active' : ''"
-                aria-current="true"
-                href="#"
-                @click="selectTag('video')"
-                >视频</a
-              >
-            </li> -->
-            <!-- <li class="nav-item">
-              <a
-                class="nav-link"
-                :class="select == 'article' ? 'active' : ''"
-                href="#"
-                @click="selectTag('article')"
-                >文章</a
-              >
-            </li> -->
           </ul>
         </div>
-        <div class="card-body" style="    padding: 0;">
+        <div class="card-body" style="padding: 0">
           <ul class="list-group article-list">
             <li
               class="list-group-item"
               v-for="(item, index) in dynamicList"
               :key="index"
             >
-            <div class="row">
-              <div class="col-md-3" v-if="item.coverUrl!=''">
-                <img :src="item.coverUrl" style="width: 100%;">
+              <div class="row">
+                <div :class="item.coverUrl != '' ? 'col-md-9' : 'col'">
+                  <a
+                    class="article-title"
+                    v-if="item.type == 'video'"
+                    :href="'/video/' + item.id"
+                  >
+                    <strong><p v-text="'📺' + item.title"></p></strong>
+                  </a>
+                  <a
+                    class="article-title"
+                    v-if="item.type == 'article'"
+                    :href="'/article/' + item.id"
+                  >
+                    <strong><p v-text="'📰' + item.title"></p></strong>
+                  </a>
+                  <div class="article-synopsis">{{ item.title }}</div>
+                  <p v-if="item.subjectName != null"></p>
+                </div>
               </div>
-              <div :class="item.coverUrl!='' ? 'col-md-9' : 'col'" >
-                <a class="article-title" v-if="item.type == 'video'" :href="'/video/'+item.id">
-                  <strong><p v-text="'📺' + item.title"></p></strong>
-                </a>
-                
-                <a class="article-title" v-if="item.type == 'article'" :href="'/article/'+item.id">
-                  <strong><p v-text="'📰' + item.title"></p></strong>
-                </a>
-              <div class="article-synopsis">{{ item.title }}</div>
-              <p v-if="item.subjectName != null">
-              </p>
-              </div>
-            </div>
             </li>
           </ul>
         </div>
@@ -69,56 +53,35 @@
         <notice></notice>
       </div>
       <div class="card mb-2 move-b-lr-0">
-        <div class="card-body">
-          <p>
-            <a
-              href="https://ttcxy.net/post/0b0d396713a54e2fbf714478d740e53e"
-              target="_blank"
-              >关于</a
-            >
-          </p>
-          <p>
-            <a
-              href="https://ttcxy.net/post/98b255d539f743e193e398bfa9b97cfd"
-              target="_blank"
-              >友情链接</a
-            >
-          </p>
-          <p>
-            <a href="http://beian.miit.gov.cn" target="_blank"
-              >湘ICP备20009234号</a
-            >
-          </p>
-          <a href="/map" class="hidden">地图</a>
-        </div>
+        <info></info>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import request from "src/utils/request";
+import request from "utils/request";
 export default {
   name: "dynamic",
   data() {
     return {
       authorList: [],
       select: "",
-      vList:[{},{},{},{},{}],
-      dynamicList:[]
+      vList: [{}, {}, {}, {}, {}],
+      dynamicList: [],
     };
   },
   methods: {
-      selectTag(type){
-        this.select = type
-        request({
-          url: "/api/dynamic",
-          method: "GET",
-          params:{"type":type}
-        }).then((response) => {
-          this.dynamicList = response.data;
-        });
-      },
+    selectTag(type) {
+      this.select = type;
+      request({
+        url: "/api/dynamic",
+        method: "GET",
+        params: { type: type },
+      }).then((response) => {
+        this.dynamicList = response.data;
+      });
+    },
     authorListArticleCount() {
       request({
         url: "/api/author/authorListArticleCount",
