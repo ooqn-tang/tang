@@ -16,6 +16,4 @@
     <select id="selectNoticeMaxOrder" resultType="Integer">
         select order_num from sts_notice order by order_num desc limit 1
     </select>
-
-
 </mapper>

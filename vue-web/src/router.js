@@ -73,12 +73,6 @@ const routes = [
                         name: 'author_collect',
                         component: () => import('views/author/collect.vue')
                     }
-                    ,
-                    {
-                        path: 'coin',
-                        name: 'author_coin',
-                        component: () => import('views/author/coin.vue')
-                    }
                 ]
             },
             {

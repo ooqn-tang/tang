@@ -1,11 +1,8 @@
 package cn.ttcxy.core.component;
 
 import cn.ttcxy.entity.model.StsNotice;
-import cn.ttcxy.entity.model.UtsAuthor;
 import cn.ttcxy.mapper.UtsAuthorMapper;
-import cn.ttcxy.mapper.dao.CtsCoinDao;
 import cn.ttcxy.service.StsNoticeService;
-import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -21,9 +18,6 @@ import java.util.List;
 @Component
 @EnableScheduling
 public class MyScheduling {
-
-    @Autowired
-    private CtsCoinDao coinDao;
 
     @Autowired
     private UtsAuthorMapper authorMapper;
@@ -57,20 +51,5 @@ public class MyScheduling {
     @Scheduled(fixedDelay = 1000 * 60 * 10)
     public void a(){
 
-    }
-
-
-    @Scheduled(cron = "0 0 23 * * ?")
-    public void b(){
-        List<JSONObject> maps = coinDao.selectAuthorCoin();
-        for (JSONObject map : maps) {
-            UtsAuthor author = new UtsAuthor();
-            author.setAuthorId(map.getString("author_id"));
-            Integer coin = map.getInteger("coin");
-            if (coin!=null&&coin > 0){
-                author.setGrade(coin/10);
-                authorMapper.updateByPrimaryKeySelective(author);
-            }
-        }
     }
 }

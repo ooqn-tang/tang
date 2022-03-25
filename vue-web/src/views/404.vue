@@ -1,10 +1,14 @@
 <template>
 
- <table style="width:100%;height:100%">
-   <tr>
-     <td style="text-align: center;"> <a href="/">页面不存在，点击返回首页</a></td>
-   </tr>
- </table>
+ <div class="common-layout">
+    <el-container>
+      <el-header style="">Header</el-header>
+      <el-container>
+        <el-aside width="200px">Aside</el-aside>
+        <el-main>Main</el-main>
+      </el-container>
+    </el-container>
+  </div>
 </template>
 <script>
 export default {

@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.List;
 
 public interface DtsVideoDao {
+
     DtsVideoDto selectById(@Param("videoId") String videoId);
 
     List<DtsVideoDto> select(@Param("title") String title,@Param("videoClass") String videoClass);

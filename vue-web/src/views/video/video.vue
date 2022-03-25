@@ -20,7 +20,6 @@
                 <div class="col" style="line-height: 31px">
                   <div class="badge bg-primary text-wrap mr-10">播放量：{{video.dataCount.view}}</div>
                   <div class="badge text-wrap mr-10" :class="type.like?'bg-primary':'bg-secondary'" @click="like()">点赞({{video.dataCount.like}})</div>
-                  <div class="badge text-wrap mr-10" :class="type.coin?'bg-primary':'bg-secondary'" @click="coin()">投币({{video.dataCount.coin}})</div>
                   <div class="badge text-wrap mr-10" :class="type.collect?'bg-primary':'bg-secondary'" @click="collect()">收藏</div>
                   <button type="button" class="btn btn-outline-dark btn-sm float-end" @click="fx">分享</button>
                 </div>
@@ -171,7 +170,6 @@ export default {
       commentForm: {},
       type:{
         like:false,
-        coin:false,
         collect:false,
 
       }
@@ -199,18 +197,6 @@ export default {
     },
     st(name) {
       this.tagName = name;
-    },
-    coin(){
-      if(this.isLogin)
-      request({
-        url: "/api/coin/"+this.videoId,
-        method: "post"
-      }).then((response) => {
-        this.video.dataCount.coin += 1
-        this.type.coin = true;
-      }).catch(e => {
-        console.log(e.message)
-      });
     },
     like(){
       if(this.isLogin)
@@ -277,15 +263,6 @@ export default {
         method: "get"
       }).then((response) => {
         this.type.like = (response.data == 1)
-      });
-    },
-    loadCoin(){
-      if(this.isLogin)
-      request({
-        url: "/api/coin/"+this.videoId,
-        method: "get"
-      }).then((response) => {
-        this.type.coin = (response.data == 1)
       });
     },
     deleteComment(commentId,index){
@@ -390,7 +367,6 @@ export default {
     this.loadLike();
     this.loadComment();
     this.loadCollect();
-    this.loadCoin();
     let _this = this;
     window.onresize = function(){ // 定义窗口大小变更通知事件
       _this.screenWidth = document.documentElement.clientWidth; //窗口宽度

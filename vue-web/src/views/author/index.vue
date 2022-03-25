@@ -20,10 +20,10 @@
         <div class="card-header" v-if="thisUsername == loginUsername">
           <ul class="nav justify-content-center">
             <li class="nav-item">
-              <router-link class="nav-link" :class="routeName == 'author_video'?'nav-link-active':''" :to="{name:'author_video'}">视频</router-link>
+              <router-link class="nav-link" :class="routeName == 'author_article'?'nav-link-active':''" :to="{name:'author_article'}">文章</router-link>
             </li>
             <li class="nav-item">
-              <router-link class="nav-link" :class="routeName == 'author_article'?'nav-link-active':''" :to="{name:'author_article'}">文章</router-link>
+              <router-link class="nav-link" :class="routeName == 'author_video'?'nav-link-active':''" :to="{name:'author_video'}">视频</router-link>
             </li>
             <li class="nav-item">
               <router-link class="nav-link" :class="routeName == 'author_subject'?'nav-link-active':''" :to="{name:'author_subject'}">专栏</router-link>
@@ -33,9 +33,6 @@
             </li>
             <li class="nav-item" v-if="thisUsername == loginUsername">
               <router-link class="nav-link"  :class="routeName == 'author_collect'?'nav-link-active':''" :to="{name:'author_collect'}">收藏</router-link>
-            </li>
-            <li class="nav-item" v-if="thisUsername == loginUsername">
-              <router-link class="nav-link"  :class="routeName == 'author_coin'?'nav-link-active':''" :to="{name:'author_coin'}">资产</router-link>
             </li>
             <li class="nav-item" v-if="thisUsername == loginUsername">
               <router-link class="nav-link" :class="routeName == 'author_setting'?'nav-link-active':''" :to="{name:'author_setting'}">设置</router-link>

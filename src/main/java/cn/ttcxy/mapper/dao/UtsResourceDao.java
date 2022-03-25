@@ -2,13 +2,16 @@ package cn.ttcxy.mapper.dao;
 
 import cn.ttcxy.entity.dto.UtsRoleResourceDto;
 import cn.ttcxy.entity.model.UtsResource;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
 public interface UtsResourceDao {
+
     List<UtsRoleResourceDto> selectAll();
 
-    List<UtsResource> loadResourceUrlByRoleValue(String roleValue);
+    List<UtsResource> loadResourceUrlByRoleValue(@Param("roleValue") String roleValue);
 
-    List<String> selectByRoleId(String roleId);
+    List<String> selectByRoleId(@Param("roleId") String roleId);
+
 }

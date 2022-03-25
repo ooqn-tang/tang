@@ -9,7 +9,6 @@ import cn.ttcxy.entity.dto.DtsVideoDto;
 import cn.ttcxy.entity.model.DtsVideo;
 import cn.ttcxy.entity.model.DtsVideoClass;
 import cn.ttcxy.entity.param.VideoParam;
-import cn.ttcxy.service.CtsCoinService;
 import cn.ttcxy.service.DtsVideoService;
 import cn.ttcxy.service.DtsViewService;
 import com.github.pagehelper.PageInfo;
@@ -30,10 +29,6 @@ public class DtsVideoController extends BaseController{
     @Autowired
     private DtsViewService viewService;
 
-    @Autowired
-    private CtsCoinService coinService;
-
-
     @GetMapping("{videoId}/author")
     public ResponseEntity<DtsVideo> selectCreateInfo(@PathVariable("videoId") String videoId){
         DtsVideo dtsVideo = videoService.selectByIdCreateInfo(videoId);
@@ -42,13 +37,10 @@ public class DtsVideoController extends BaseController{
 
     @GetMapping("{videoId}")
     public ResponseEntity<DtsVideoDto> select(@PathVariable("videoId") String videoId){
-        // 记录
         if (isLogin()){
             viewService.insertView(videoId,authorId());
         }
         DtsVideoDto videoDto = videoService.selectById(videoId);
-        // 每日使用获取金币
-        coinService.useCoin(authorId());
         return ResponseEntity.ok(videoDto);
     }
 

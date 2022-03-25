@@ -10,7 +10,6 @@ import cn.ttcxy.core.api.ResponseCode;
 import cn.ttcxy.entity.dto.DtsArticleDto;
 import cn.ttcxy.entity.model.DtsArticle;
 import cn.ttcxy.entity.param.DtsArticleParam;
-import cn.ttcxy.service.CtsCoinService;
 import cn.ttcxy.service.DtsArticleService;
 import cn.ttcxy.service.DtsViewService;
 import com.github.pagehelper.PageInfo;
@@ -28,9 +27,6 @@ public class DtsArticleController extends BaseController{
 
     @Autowired
     private DtsArticleService articleService;
-
-    @Autowired
-    private CtsCoinService coinService;
 
     @Autowired
     private DtsViewService viewService;
@@ -141,9 +137,6 @@ public class DtsArticleController extends BaseController{
             throw new ApiException(ResponseCode.FAILED);
         }
 
-        // 每日使用获取金币
-        coinService.useCoin(authorId());
-        // 记录
         if (isLogin()){
             viewService.insertView(articleId,authorId());
         }
