@@ -9,6 +9,8 @@ public interface DtsArticleDao {
 
     List<DtsArticleDto> selectArticleList(@Param("tagName") String tagName);
 
+    List<DtsArticleDto> selectArticleListSmall();
+
     List<DtsArticleDto> search(@Param("title") String title);
 
     DtsArticleDto selectArticleById(@Param("id") String id);

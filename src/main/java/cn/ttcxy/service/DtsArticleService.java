@@ -47,6 +47,13 @@ public class DtsArticleService {
         return new PageInfo<>(articleDao.selectArticleList(tagName));
     }
 
+    public PageInfo<DtsArticleDto> selectArticleListSmall(Integer page, Integer size) {
+        PageHelper.startPage(page, size);
+        return new PageInfo<>(articleDao.selectArticleListSmall());
+    }
+
+
+
     public PageInfo<DtsArticleDto> search(String title, Integer page, Integer pageSize) {
         PageHelper.startPage(page, pageSize);
         return new PageInfo<>(articleDao.search(title));

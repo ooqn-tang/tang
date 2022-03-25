@@ -25,7 +25,7 @@ public class PageController {
 
     @GetMapping
     public String toIndex(@RequestParam(value = "page", defaultValue = "1") Integer page, Model model) {
-        PageInfo<DtsArticleDto> dtsArticleDtoPageInfo = articleService.selectArticleList("", page, 50);
+        PageInfo<DtsArticleDto> dtsArticleDtoPageInfo = articleService.selectArticleListSmall(page, 50);
         model.addAttribute("articlePage", dtsArticleDtoPageInfo);
         return "articles";
     }

@@ -52,6 +52,13 @@
         order by t2.create_date desc
     </select>
 
+    <select id="selectArticleListSmall" resultType="cn.ttcxy.entity.dto.DtsArticleDto">
+        select t2.article_id ,t2.title ,t2.create_date
+        from dts_article t2
+        where t2.state = 1
+        order by t2.create_date desc
+    </select>
+
     <select id="selectArticleList" resultMap="ArticleTagResult">
         select t1.username ,t1.nickname ,t2.article_id ,t2.title ,t2.create_date ,t2.synopsis
         from uts_author t1
@@ -72,5 +79,6 @@
     <select id="selectArticleList1000" resultMap="ArticleResult">
         select article_id,title from dts_article limit 1000
     </select>
+
 
 </mapper>

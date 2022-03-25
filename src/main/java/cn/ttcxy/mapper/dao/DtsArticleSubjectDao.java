@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface DtsArticleSubjectDao {
 
-    DtsArticleSubjectDto selectSubjectById(@Param("subjectId") String subjectId);
+    DtsArticleSubjectDto selectSubjectById(@Param("articleSubjectId") String subjectId);
 
     List<DtsArticle> selectSubjectArticleListById(@Param("articleSubjectId") String articleSubjectId);
 
