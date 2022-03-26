@@ -54,9 +54,6 @@ public class DtsVideoService {
         return videoMapper.insert(dtsVideo);
     }
 
-    @Autowired
-    private DtsViewService visitService;
-
     public DtsVideoDto selectById(String videoId) {
         DtsVideoDto dtsVideoDto = videoDao.selectById(videoId);
         DtsDataCount dataCount = countDao.selectDataStatCount(videoId);

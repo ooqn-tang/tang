@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping
-public class PageController {
+public class StsPageController {
 
     @Autowired
     private DtsArticleService articleService;

@@ -1,7 +1,7 @@
 <template>
   <nav class="navbar navbar-expand navbar navbar-expand-lg navbar-light bg-light t-b-b-1 mb-2" id="top">
     <div class="container-fluid">
-      <a class="navbar-brand pc" href="/" style='margin-right: 0px;'>冬瓜视频</a>
+      <a class="navbar-brand pc" href="/" style='margin-right: 0px;'>堂堂程序员</a>
       <a class="navbar-brand yd" href="/" style='margin-right: 0px;'>🙃</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -10,10 +10,10 @@
       <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
         <ul class="navbar-nav me-auto mb-lg-0 pc">
           <li class="nav-item">
-            <a class="nav-link active" href="/video">📺视频</a>
+            <a class="nav-link active" href="/article">📰文章</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" href="/article">📰文章</a>
+            <a class="nav-link active" href="/video">📺视频</a>
           </li>
           <li class="nav-item">
             <router-link class="nav-link active" to="/authors">👨‍🎓用户</router-link>
@@ -32,8 +32,8 @@
           <li class="nav-item dropdown float-start">
             <a class="nav-link active dropdown-toggle" href="#" data-bs-toggle="dropdown">{{title}}</a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="/video">📺视频</a></li>
               <li><a class="dropdown-item" href="/article">📰文章</a></li>
+              <li><a class="dropdown-item" href="/video">📺视频</a></li>
               <li><a class="dropdown-item" href="/authors">👨‍🎓作者</a></li>
               <li><a class="dropdown-item" href="/subject">📒专题</a></li>
               <li><a class="dropdown-item" href="/dynamic" v-if="isLogin">📒动态</a></li>

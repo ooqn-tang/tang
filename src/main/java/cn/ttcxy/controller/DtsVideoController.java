@@ -10,7 +10,6 @@ import cn.ttcxy.entity.model.DtsVideo;
 import cn.ttcxy.entity.model.DtsVideoClass;
 import cn.ttcxy.entity.param.VideoParam;
 import cn.ttcxy.service.DtsVideoService;
-import cn.ttcxy.service.DtsViewService;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -22,12 +21,8 @@ import java.util.List;
 @RestController
 public class DtsVideoController extends BaseController{
 
-
     @Autowired
     private DtsVideoService videoService;
-
-    @Autowired
-    private DtsViewService viewService;
 
     @GetMapping("{videoId}/author")
     public ResponseEntity<DtsVideo> selectCreateInfo(@PathVariable("videoId") String videoId){
@@ -37,9 +32,6 @@ public class DtsVideoController extends BaseController{
 
     @GetMapping("{videoId}")
     public ResponseEntity<DtsVideoDto> select(@PathVariable("videoId") String videoId){
-        if (isLogin()){
-            viewService.insertView(videoId,authorId());
-        }
         DtsVideoDto videoDto = videoService.selectById(videoId);
         return ResponseEntity.ok(videoDto);
     }

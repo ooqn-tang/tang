@@ -5,6 +5,7 @@ import cn.hutool.core.util.StrUtil;
 import cn.ttcxy.core.api.ApiException;
 import cn.ttcxy.core.api.ResponseCode;
 import org.apache.catalina.connector.ClientAbortException;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -21,6 +22,9 @@ import java.nio.file.Files;
 @RequestMapping("api/file")
 public class DtsFileController extends BaseController {
 
+    @Value("${tang-file}")
+    private String tangFile;
+
     @PostMapping("/upload")
     public ResponseEntity<String> create(@RequestParam("file") MultipartFile file,@RequestParam("type")String type) throws IOException {
         String fileName = file.getOriginalFilename();
@@ -34,12 +38,11 @@ public class DtsFileController extends BaseController {
         }
         String s = split[split.length - 1];
         String objectId = IdUtil.objectId();
-        String filePath = "D:\\obj\\" + objectId +"."+s;
-        File dest = new File(filePath);
+        File dest = new File(tangFile + File.separator + objectId +"."+s);
         Files.copy(file.getInputStream(), dest.toPath());
 
         if (StrUtil.equals(type,"1")){
-            BufferedImage sourceImg = ImageIO.read(new FileInputStream(filePath));
+            BufferedImage sourceImg = ImageIO.read(new FileInputStream(tangFile + File.separator + objectId +"."+s));
             if (sourceImg == null){
                 throw new ApiException(ResponseCode.FAILED.getStatus(),"请上传PNG格式");
             }
@@ -65,7 +68,7 @@ public class DtsFileController extends BaseController {
             response.reset();
             //获取响应的输出流
             OutputStream outputStream = response.getOutputStream();
-            File file = new File("D:\\obj\\" + fileName);
+            File file = new File(tangFile + File.separator + fileName);
             if (file.exists()) {
                 //创建随机读取文件对象
                 RandomAccessFile targetFile = new RandomAccessFile(file, "r");

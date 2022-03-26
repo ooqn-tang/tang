@@ -9,7 +9,7 @@ const routes = [
             {
                 path: '/',
                 name: 'main',
-                component: () => import('views/video/index.vue')
+                component: () => import('views/article/index.vue')
             },
             {
                 path: 'dynamic',

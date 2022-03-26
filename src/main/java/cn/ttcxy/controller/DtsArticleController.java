@@ -11,7 +11,6 @@ import cn.ttcxy.entity.dto.DtsArticleDto;
 import cn.ttcxy.entity.model.DtsArticle;
 import cn.ttcxy.entity.param.DtsArticleParam;
 import cn.ttcxy.service.DtsArticleService;
-import cn.ttcxy.service.DtsViewService;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,9 +26,6 @@ public class DtsArticleController extends BaseController{
 
     @Autowired
     private DtsArticleService articleService;
-
-    @Autowired
-    private DtsViewService viewService;
 
     @GetMapping("search")
     public ResponseEntity<PageInfo<DtsArticleDto>> searchArticleList(
@@ -136,11 +132,6 @@ public class DtsArticleController extends BaseController{
         if (articleDto == null){
             throw new ApiException(ResponseCode.FAILED);
         }
-
-        if (isLogin()){
-            viewService.insertView(articleId,authorId());
-        }
-
         return ResponseEntity.ok(articleDto);
     }
 
