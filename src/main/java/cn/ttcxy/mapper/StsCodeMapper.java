@@ -1,8 +1,8 @@
 package cn.ttcxy.mapper;
 
-import java.util.List;
 import cn.ttcxy.entity.model.StsCode;
 import cn.ttcxy.entity.model.StsCodeExample;
+import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface StsCodeMapper {
@@ -12,19 +12,19 @@ public interface StsCodeMapper {
 
     int deleteByPrimaryKey(Integer codeId);
 
-    int insert(StsCode record);
+    int insert(StsCode row);
 
-    int insertSelective(StsCode record);
+    int insertSelective(StsCode row);
 
     List<StsCode> selectByExample(StsCodeExample example);
 
     StsCode selectByPrimaryKey(Integer codeId);
 
-    int updateByExampleSelective(@Param("record") StsCode record, @Param("example") StsCodeExample example);
+    int updateByExampleSelective(@Param("row") StsCode row, @Param("example") StsCodeExample example);
 
-    int updateByExample(@Param("record") StsCode record, @Param("example") StsCodeExample example);
+    int updateByExample(@Param("row") StsCode row, @Param("example") StsCodeExample example);
 
-    int updateByPrimaryKeySelective(StsCode record);
+    int updateByPrimaryKeySelective(StsCode row);
 
-    int updateByPrimaryKey(StsCode record);
+    int updateByPrimaryKey(StsCode row);
 }

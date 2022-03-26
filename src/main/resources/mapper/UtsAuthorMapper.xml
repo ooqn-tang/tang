@@ -191,54 +191,54 @@
   <update id="updateByExampleSelective" parameterType="map">
     update uts_author
     <set>
-      <if test="record.authorId != null">
-        author_id = #{record.authorId,jdbcType=VARCHAR},
+      <if test="row.authorId != null">
+        author_id = #{row.authorId,jdbcType=VARCHAR},
       </if>
-      <if test="record.username != null">
-        username = #{record.username,jdbcType=VARCHAR},
+      <if test="row.username != null">
+        username = #{row.username,jdbcType=VARCHAR},
       </if>
-      <if test="record.nickname != null">
-        nickname = #{record.nickname,jdbcType=VARCHAR},
+      <if test="row.nickname != null">
+        nickname = #{row.nickname,jdbcType=VARCHAR},
       </if>
-      <if test="record.password != null">
-        `password` = #{record.password,jdbcType=VARCHAR},
+      <if test="row.password != null">
+        `password` = #{row.password,jdbcType=VARCHAR},
       </if>
-      <if test="record.mail != null">
-        mail = #{record.mail,jdbcType=VARCHAR},
+      <if test="row.mail != null">
+        mail = #{row.mail,jdbcType=VARCHAR},
       </if>
-      <if test="record.signature != null">
-        signature = #{record.signature,jdbcType=VARCHAR},
+      <if test="row.signature != null">
+        signature = #{row.signature,jdbcType=VARCHAR},
       </if>
-      <if test="record.updateTime != null">
-        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      <if test="row.updateTime != null">
+        update_time = #{row.updateTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="record.refreshTime != null">
-        refresh_time = #{record.refreshTime,jdbcType=TIMESTAMP},
+      <if test="row.refreshTime != null">
+        refresh_time = #{row.refreshTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="record.headUrl != null">
-        head_url = #{record.headUrl,jdbcType=VARCHAR},
+      <if test="row.headUrl != null">
+        head_url = #{row.headUrl,jdbcType=VARCHAR},
       </if>
-      <if test="record.grade != null">
-        grade = #{record.grade,jdbcType=INTEGER},
+      <if test="row.grade != null">
+        grade = #{row.grade,jdbcType=INTEGER},
       </if>
     </set>
-    <if test="_parameter != null">
+    <if test="example != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
     update uts_author
-    set author_id = #{record.authorId,jdbcType=VARCHAR},
-      username = #{record.username,jdbcType=VARCHAR},
-      nickname = #{record.nickname,jdbcType=VARCHAR},
-      `password` = #{record.password,jdbcType=VARCHAR},
-      mail = #{record.mail,jdbcType=VARCHAR},
-      signature = #{record.signature,jdbcType=VARCHAR},
-      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
-      refresh_time = #{record.refreshTime,jdbcType=TIMESTAMP},
-      head_url = #{record.headUrl,jdbcType=VARCHAR},
-      grade = #{record.grade,jdbcType=INTEGER}
-    <if test="_parameter != null">
+    set author_id = #{row.authorId,jdbcType=VARCHAR},
+      username = #{row.username,jdbcType=VARCHAR},
+      nickname = #{row.nickname,jdbcType=VARCHAR},
+      `password` = #{row.password,jdbcType=VARCHAR},
+      mail = #{row.mail,jdbcType=VARCHAR},
+      signature = #{row.signature,jdbcType=VARCHAR},
+      update_time = #{row.updateTime,jdbcType=TIMESTAMP},
+      refresh_time = #{row.refreshTime,jdbcType=TIMESTAMP},
+      head_url = #{row.headUrl,jdbcType=VARCHAR},
+      grade = #{row.grade,jdbcType=INTEGER}
+    <if test="example != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>

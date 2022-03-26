@@ -15,25 +15,21 @@
         <result column="subject_name" property="subjectName"/>
     </resultMap>
 
-    <resultMap id="ArticleTagResult" type="cn.ttcxy.entity.dto.DtsArticleDto" extends="ArticleResult">
-        <association property="tagList" column="{articleId = article_id}" select="cn.ttcxy.mapper.dao.DtsArticleTagDao.selectByArticleId"/>
-    </resultMap>
-
-    <select id="search" resultMap="ArticleTagResult">
+    <select id="search" resultMap="ArticleResult">
         select t1.username ,t1.nickname ,t2.article_id,t2.title  ,t2.create_date ,t2.synopsis
         from uts_author t1
         inner join dts_article t2 on t1.author_id = t2.author_id and t2.state = 1 and t2.title like concat('%',#{title},'%')
         order by t2.create_date desc
     </select>
 
-    <select id="selectArticleById" resultMap="ArticleTagResult">
+    <select id="selectArticleById" resultMap="ArticleResult">
         select t2.username ,t2.nickname ,t1.article_id ,t1.title ,t1.create_date ,t1.synopsis ,t3.text
         from dts_article t1
         inner join uts_author t2 on t1.article_id = #{id} and t1.author_id = t2.author_id
         left join dts_article_content t3 on t1.article_id = t3.article_id
     </select>
 
-    <select id="selectArticleAllById" resultMap="ArticleTagResult">
+    <select id="selectArticleAllById" resultMap="ArticleResult">
         select t2.username ,t2.nickname ,t1.article_id ,t1.title ,t1.create_date ,t1.synopsis ,t3.text ,t3.markdown ,dbs.article_subject_id
         from dts_article t1
         inner join uts_author t2 on t1.article_id = #{id} and t1.author_id = t2.author_id
@@ -42,7 +38,7 @@
         left join dts_article_subject dbs on dbsr.article_subject_id = dbs.article_subject_id
     </select>
 
-    <select id="selectArticleListByUsername" resultMap="ArticleTagResult">
+    <select id="selectArticleListByUsername" resultMap="ArticleResult">
         select t1.username ,t1.nickname ,t2.article_id ,t2.title ,t2.create_date ,t2.synopsis ,t4.subject_name ,t4.article_subject_id
         from uts_author t1
         inner join dts_article t2 on t1.author_id = t2.author_id and t1.username = #{username}
@@ -59,18 +55,11 @@
         order by t2.create_date desc
     </select>
 
-    <select id="selectArticleList" resultMap="ArticleTagResult">
+    <select id="selectArticleList" resultMap="ArticleResult">
         select t1.username ,t1.nickname ,t2.article_id ,t2.title ,t2.create_date ,t2.synopsis
         from uts_author t1
         inner join dts_article t2 on t1.author_id = t2.author_id
-        <if test="tagName != ''">
-            inner join dts_article_tag_relation t3 on t3.article_id = t2.article_id
-            inner join dts_article_tag t4 on t4.article_tag_id = t3.article_tag_id
-        </if>
         <where>
-            <if test="tagName != ''">
-                upper(t4.tag_name) = upper(#{tagName})
-            </if>
             and t2.state = 1
         </where>
         order by t2.create_date desc

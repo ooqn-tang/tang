@@ -1,8 +1,8 @@
 package cn.ttcxy.mapper;
 
-import java.util.List;
 import cn.ttcxy.entity.model.UtsResource;
 import cn.ttcxy.entity.model.UtsResourceExample;
+import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface UtsResourceMapper {
@@ -12,19 +12,19 @@ public interface UtsResourceMapper {
 
     int deleteByPrimaryKey(String resourceId);
 
-    int insert(UtsResource record);
+    int insert(UtsResource row);
 
-    int insertSelective(UtsResource record);
+    int insertSelective(UtsResource row);
 
     List<UtsResource> selectByExample(UtsResourceExample example);
 
     UtsResource selectByPrimaryKey(String resourceId);
 
-    int updateByExampleSelective(@Param("record") UtsResource record, @Param("example") UtsResourceExample example);
+    int updateByExampleSelective(@Param("row") UtsResource row, @Param("example") UtsResourceExample example);
 
-    int updateByExample(@Param("record") UtsResource record, @Param("example") UtsResourceExample example);
+    int updateByExample(@Param("row") UtsResource row, @Param("example") UtsResourceExample example);
 
-    int updateByPrimaryKeySelective(UtsResource record);
+    int updateByPrimaryKeySelective(UtsResource row);
 
-    int updateByPrimaryKey(UtsResource record);
+    int updateByPrimaryKey(UtsResource row);
 }

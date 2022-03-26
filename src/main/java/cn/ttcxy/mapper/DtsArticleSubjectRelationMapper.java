@@ -1,8 +1,8 @@
 package cn.ttcxy.mapper;
 
-import java.util.List;
 import cn.ttcxy.entity.model.DtsArticleSubjectRelation;
 import cn.ttcxy.entity.model.DtsArticleSubjectRelationExample;
+import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface DtsArticleSubjectRelationMapper {
@@ -12,19 +12,19 @@ public interface DtsArticleSubjectRelationMapper {
 
     int deleteByPrimaryKey(String articleSubjectRelationId);
 
-    int insert(DtsArticleSubjectRelation record);
+    int insert(DtsArticleSubjectRelation row);
 
-    int insertSelective(DtsArticleSubjectRelation record);
+    int insertSelective(DtsArticleSubjectRelation row);
 
     List<DtsArticleSubjectRelation> selectByExample(DtsArticleSubjectRelationExample example);
 
     DtsArticleSubjectRelation selectByPrimaryKey(String articleSubjectRelationId);
 
-    int updateByExampleSelective(@Param("record") DtsArticleSubjectRelation record, @Param("example") DtsArticleSubjectRelationExample example);
+    int updateByExampleSelective(@Param("row") DtsArticleSubjectRelation row, @Param("example") DtsArticleSubjectRelationExample example);
 
-    int updateByExample(@Param("record") DtsArticleSubjectRelation record, @Param("example") DtsArticleSubjectRelationExample example);
+    int updateByExample(@Param("row") DtsArticleSubjectRelation row, @Param("example") DtsArticleSubjectRelationExample example);
 
-    int updateByPrimaryKeySelective(DtsArticleSubjectRelation record);
+    int updateByPrimaryKeySelective(DtsArticleSubjectRelation row);
 
-    int updateByPrimaryKey(DtsArticleSubjectRelation record);
+    int updateByPrimaryKey(DtsArticleSubjectRelation row);
 }

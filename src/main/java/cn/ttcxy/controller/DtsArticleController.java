@@ -38,8 +38,8 @@ public class DtsArticleController extends BaseController{
     @GetMapping("list")
     public ResponseEntity<PageInfo<DtsArticleDto>> selectArticleList(
             @RequestParam(value = "page" ,defaultValue = "1")Integer page,
-            @RequestParam(value = "tag",defaultValue = "")String tagName){
-        PageInfo<DtsArticleDto> articleList = articleService.selectArticleList(tagName,page, 10);
+            @RequestParam(value = "tag",defaultValue = "")String tag){
+        PageInfo<DtsArticleDto> articleList = articleService.selectArticleList(tag,page, 10);
         return ResponseEntity.ok(articleList);
     }
 
@@ -122,9 +122,6 @@ public class DtsArticleController extends BaseController{
         }
         throw new ApiException(ResponseCode.FORBIDDEN);
     }
-
-
-
 
     @GetMapping("load/{articleId}")
     public ResponseEntity<DtsArticleDto> load(@PathVariable(name="articleId") String articleId){

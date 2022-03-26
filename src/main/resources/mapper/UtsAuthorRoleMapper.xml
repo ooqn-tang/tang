@@ -144,30 +144,30 @@
   <update id="updateByExampleSelective" parameterType="map">
     update uts_author_role
     <set>
-      <if test="record.authorRoleId != null">
-        author_role_id = #{record.authorRoleId,jdbcType=VARCHAR},
+      <if test="row.authorRoleId != null">
+        author_role_id = #{row.authorRoleId,jdbcType=VARCHAR},
       </if>
-      <if test="record.authorId != null">
-        author_id = #{record.authorId,jdbcType=VARCHAR},
+      <if test="row.authorId != null">
+        author_id = #{row.authorId,jdbcType=VARCHAR},
       </if>
-      <if test="record.roleId != null">
-        role_id = #{record.roleId,jdbcType=VARCHAR},
+      <if test="row.roleId != null">
+        role_id = #{row.roleId,jdbcType=VARCHAR},
       </if>
-      <if test="record.createTime != null">
-        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      <if test="row.createTime != null">
+        create_time = #{row.createTime,jdbcType=TIMESTAMP},
       </if>
     </set>
-    <if test="_parameter != null">
+    <if test="example != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
     update uts_author_role
-    set author_role_id = #{record.authorRoleId,jdbcType=VARCHAR},
-      author_id = #{record.authorId,jdbcType=VARCHAR},
-      role_id = #{record.roleId,jdbcType=VARCHAR},
-      create_time = #{record.createTime,jdbcType=TIMESTAMP}
-    <if test="_parameter != null">
+    set author_role_id = #{row.authorRoleId,jdbcType=VARCHAR},
+      author_id = #{row.authorId,jdbcType=VARCHAR},
+      role_id = #{row.roleId,jdbcType=VARCHAR},
+      create_time = #{row.createTime,jdbcType=TIMESTAMP}
+    <if test="example != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>

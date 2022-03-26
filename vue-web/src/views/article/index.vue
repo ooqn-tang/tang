@@ -62,7 +62,7 @@ export default {
     return {
       selectTag:'',
       selectType:1,
-      allTag:[],
+      allTag:[{'tagName':"java"}],
       articlePage:{
         nextPage:1
       },
@@ -71,12 +71,7 @@ export default {
     }
   },
   created(){
-    request({
-          url: '/api/tag/all',
-          method: 'GET'
-        }).then((response) => {
-          this.allTag = response.data;
-        })
+   
   },
   methods: {
     selectTagClick(tagName){

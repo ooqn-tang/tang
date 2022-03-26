@@ -1,8 +1,8 @@
 package cn.ttcxy.mapper;
 
-import java.util.List;
 import cn.ttcxy.entity.model.DtsMessage;
 import cn.ttcxy.entity.model.DtsMessageExample;
+import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface DtsMessageMapper {
@@ -12,19 +12,19 @@ public interface DtsMessageMapper {
 
     int deleteByPrimaryKey(String messageId);
 
-    int insert(DtsMessage record);
+    int insert(DtsMessage row);
 
-    int insertSelective(DtsMessage record);
+    int insertSelective(DtsMessage row);
 
     List<DtsMessage> selectByExample(DtsMessageExample example);
 
     DtsMessage selectByPrimaryKey(String messageId);
 
-    int updateByExampleSelective(@Param("record") DtsMessage record, @Param("example") DtsMessageExample example);
+    int updateByExampleSelective(@Param("row") DtsMessage row, @Param("example") DtsMessageExample example);
 
-    int updateByExample(@Param("record") DtsMessage record, @Param("example") DtsMessageExample example);
+    int updateByExample(@Param("row") DtsMessage row, @Param("example") DtsMessageExample example);
 
-    int updateByPrimaryKeySelective(DtsMessage record);
+    int updateByPrimaryKeySelective(DtsMessage row);
 
-    int updateByPrimaryKey(DtsMessage record);
+    int updateByPrimaryKey(DtsMessage row);
 }

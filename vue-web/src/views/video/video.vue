@@ -127,9 +127,6 @@
             </li>
           </ul>
           <div class="list-group mb-2 move-b-lr-0">
-            <ranking></ranking>
-          </div>
-          <div class="list-group mb-2 move-b-lr-0">
             <notice></notice>
           </div>
           <div class="card mb-2 move-b-lr-0">

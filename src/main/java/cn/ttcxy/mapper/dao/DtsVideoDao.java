@@ -21,8 +21,6 @@ public interface DtsVideoDao {
 
     List<DtsVideoDto> search(@Param("wb") String wb);
 
-    List<DtsVideoDto> ranking(@Param("date1")Date date1,@Param("date2")Date date2);
-
     DtsVideoDto rand();
 
 }

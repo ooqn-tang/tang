@@ -1,8 +1,8 @@
 package cn.ttcxy.mapper;
 
-import java.util.List;
 import cn.ttcxy.entity.model.DtsArticleContent;
 import cn.ttcxy.entity.model.DtsArticleContentExample;
+import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface DtsArticleContentMapper {
@@ -12,9 +12,9 @@ public interface DtsArticleContentMapper {
 
     int deleteByPrimaryKey(String articleId);
 
-    int insert(DtsArticleContent record);
+    int insert(DtsArticleContent row);
 
-    int insertSelective(DtsArticleContent record);
+    int insertSelective(DtsArticleContent row);
 
     List<DtsArticleContent> selectByExampleWithBLOBs(DtsArticleContentExample example);
 
@@ -22,13 +22,13 @@ public interface DtsArticleContentMapper {
 
     DtsArticleContent selectByPrimaryKey(String articleId);
 
-    int updateByExampleSelective(@Param("record") DtsArticleContent record, @Param("example") DtsArticleContentExample example);
+    int updateByExampleSelective(@Param("row") DtsArticleContent row, @Param("example") DtsArticleContentExample example);
 
-    int updateByExampleWithBLOBs(@Param("record") DtsArticleContent record, @Param("example") DtsArticleContentExample example);
+    int updateByExampleWithBLOBs(@Param("row") DtsArticleContent row, @Param("example") DtsArticleContentExample example);
 
-    int updateByExample(@Param("record") DtsArticleContent record, @Param("example") DtsArticleContentExample example);
+    int updateByExample(@Param("row") DtsArticleContent row, @Param("example") DtsArticleContentExample example);
 
-    int updateByPrimaryKeySelective(DtsArticleContent record);
+    int updateByPrimaryKeySelective(DtsArticleContent row);
 
-    int updateByPrimaryKeyWithBLOBs(DtsArticleContent record);
+    int updateByPrimaryKeyWithBLOBs(DtsArticleContent row);
 }

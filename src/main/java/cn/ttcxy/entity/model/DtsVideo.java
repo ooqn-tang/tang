@@ -20,8 +20,6 @@ public class DtsVideo implements Serializable {
 
     private Integer state;
 
-    private String videoClassId;
-
     private Integer checkId;
 
     private String checkText;
@@ -92,14 +90,6 @@ public class DtsVideo implements Serializable {
         this.state = state;
     }
 
-    public String getVideoClassId() {
-        return videoClassId;
-    }
-
-    public void setVideoClassId(String videoClassId) {
-        this.videoClassId = videoClassId;
-    }
-
     public Integer getCheckId() {
         return checkId;
     }
@@ -130,7 +120,6 @@ public class DtsVideo implements Serializable {
         sb.append(", createDate=").append(createDate);
         sb.append(", videoUrl=").append(videoUrl);
         sb.append(", state=").append(state);
-        sb.append(", videoClassId=").append(videoClassId);
         sb.append(", checkId=").append(checkId);
         sb.append(", checkText=").append(checkText);
         sb.append(", serialVersionUID=").append(serialVersionUID);

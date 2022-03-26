@@ -144,30 +144,30 @@
   <update id="updateByExampleSelective" parameterType="map">
     update sts_config
     <set>
-      <if test="record.configId != null">
-        config_id = #{record.configId,jdbcType=VARCHAR},
+      <if test="row.configId != null">
+        config_id = #{row.configId,jdbcType=VARCHAR},
       </if>
-      <if test="record.configName != null">
-        config_name = #{record.configName,jdbcType=VARCHAR},
+      <if test="row.configName != null">
+        config_name = #{row.configName,jdbcType=VARCHAR},
       </if>
-      <if test="record.data != null">
-        `data` = #{record.data,jdbcType=VARCHAR},
+      <if test="row.data != null">
+        `data` = #{row.data,jdbcType=VARCHAR},
       </if>
-      <if test="record.createDate != null">
-        create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      <if test="row.createDate != null">
+        create_date = #{row.createDate,jdbcType=TIMESTAMP},
       </if>
     </set>
-    <if test="_parameter != null">
+    <if test="example != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
     update sts_config
-    set config_id = #{record.configId,jdbcType=VARCHAR},
-      config_name = #{record.configName,jdbcType=VARCHAR},
-      `data` = #{record.data,jdbcType=VARCHAR},
-      create_date = #{record.createDate,jdbcType=TIMESTAMP}
-    <if test="_parameter != null">
+    set config_id = #{row.configId,jdbcType=VARCHAR},
+      config_name = #{row.configName,jdbcType=VARCHAR},
+      `data` = #{row.data,jdbcType=VARCHAR},
+      create_date = #{row.createDate,jdbcType=TIMESTAMP}
+    <if test="example != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>

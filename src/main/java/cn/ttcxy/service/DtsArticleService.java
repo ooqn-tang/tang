@@ -9,10 +9,8 @@ import cn.ttcxy.entity.model.DtsArticleTagRelationExample;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import cn.ttcxy.mapper.DtsArticleMapper;
-import cn.ttcxy.mapper.DtsArticleTagRelationMapper;
 import cn.ttcxy.mapper.dao.DtsArticleDao;
 import cn.ttcxy.entity.dto.DtsArticleDto;
-import cn.ttcxy.entity.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,10 +32,6 @@ public class DtsArticleService {
 
     @Autowired
     private DtsArticleMapper articleMapper;
-
-    @Autowired
-    private DtsArticleTagRelationMapper articleTagRelationMapper;
-
 
     @Autowired
     private DtsArticleSubjectService articleSubjectService;
@@ -75,13 +69,10 @@ public class DtsArticleService {
         DtsArticleTagRelationExample articleTagRelationExample = new DtsArticleTagRelationExample();
         articleTagRelationExample.createCriteria().andArticleIdEqualTo(article.getArticleId());
 
-        articleTagRelationMapper.deleteByExample(articleTagRelationExample);
-
         for (String tagId : tagIdList) {
             articleTagRelation.setArticleTagRelationId(IdUtil.objectId());
             articleTagRelation.setArticleId(article.getArticleId());
             articleTagRelation.setArticleTagId(tagId);
-            articleTagRelationMapper.insert(articleTagRelation);
         }
 
         articleSubjectService.deleteArticleSubjectArticleId(article.getArticleId());

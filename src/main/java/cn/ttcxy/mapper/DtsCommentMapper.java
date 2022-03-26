@@ -1,8 +1,8 @@
 package cn.ttcxy.mapper;
 
-import java.util.List;
 import cn.ttcxy.entity.model.DtsComment;
 import cn.ttcxy.entity.model.DtsCommentExample;
+import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface DtsCommentMapper {
@@ -12,19 +12,19 @@ public interface DtsCommentMapper {
 
     int deleteByPrimaryKey(String commentId);
 
-    int insert(DtsComment record);
+    int insert(DtsComment row);
 
-    int insertSelective(DtsComment record);
+    int insertSelective(DtsComment row);
 
     List<DtsComment> selectByExample(DtsCommentExample example);
 
     DtsComment selectByPrimaryKey(String commentId);
 
-    int updateByExampleSelective(@Param("record") DtsComment record, @Param("example") DtsCommentExample example);
+    int updateByExampleSelective(@Param("row") DtsComment row, @Param("example") DtsCommentExample example);
 
-    int updateByExample(@Param("record") DtsComment record, @Param("example") DtsCommentExample example);
+    int updateByExample(@Param("row") DtsComment row, @Param("example") DtsCommentExample example);
 
-    int updateByPrimaryKeySelective(DtsComment record);
+    int updateByPrimaryKeySelective(DtsComment row);
 
-    int updateByPrimaryKey(DtsComment record);
+    int updateByPrimaryKey(DtsComment row);
 }

@@ -1,8 +1,8 @@
 package cn.ttcxy.mapper;
 
-import java.util.List;
 import cn.ttcxy.entity.model.UtsAuthor;
 import cn.ttcxy.entity.model.UtsAuthorExample;
+import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface UtsAuthorMapper {
@@ -12,19 +12,19 @@ public interface UtsAuthorMapper {
 
     int deleteByPrimaryKey(String authorId);
 
-    int insert(UtsAuthor record);
+    int insert(UtsAuthor row);
 
-    int insertSelective(UtsAuthor record);
+    int insertSelective(UtsAuthor row);
 
     List<UtsAuthor> selectByExample(UtsAuthorExample example);
 
     UtsAuthor selectByPrimaryKey(String authorId);
 
-    int updateByExampleSelective(@Param("record") UtsAuthor record, @Param("example") UtsAuthorExample example);
+    int updateByExampleSelective(@Param("row") UtsAuthor row, @Param("example") UtsAuthorExample example);
 
-    int updateByExample(@Param("record") UtsAuthor record, @Param("example") UtsAuthorExample example);
+    int updateByExample(@Param("row") UtsAuthor row, @Param("example") UtsAuthorExample example);
 
-    int updateByPrimaryKeySelective(UtsAuthor record);
+    int updateByPrimaryKeySelective(UtsAuthor row);
 
-    int updateByPrimaryKey(UtsAuthor record);
+    int updateByPrimaryKey(UtsAuthor row);
 }

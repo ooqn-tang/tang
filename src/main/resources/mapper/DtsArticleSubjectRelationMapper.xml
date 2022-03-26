@@ -144,30 +144,30 @@
   <update id="updateByExampleSelective" parameterType="map">
     update dts_article_subject_relation
     <set>
-      <if test="record.articleSubjectRelationId != null">
-        article_subject_relation_id = #{record.articleSubjectRelationId,jdbcType=VARCHAR},
+      <if test="row.articleSubjectRelationId != null">
+        article_subject_relation_id = #{row.articleSubjectRelationId,jdbcType=VARCHAR},
       </if>
-      <if test="record.articleSubjectId != null">
-        article_subject_id = #{record.articleSubjectId,jdbcType=VARCHAR},
+      <if test="row.articleSubjectId != null">
+        article_subject_id = #{row.articleSubjectId,jdbcType=VARCHAR},
       </if>
-      <if test="record.articleId != null">
-        article_id = #{record.articleId,jdbcType=VARCHAR},
+      <if test="row.articleId != null">
+        article_id = #{row.articleId,jdbcType=VARCHAR},
       </if>
-      <if test="record.createDate != null">
-        create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      <if test="row.createDate != null">
+        create_date = #{row.createDate,jdbcType=TIMESTAMP},
       </if>
     </set>
-    <if test="_parameter != null">
+    <if test="example != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
     update dts_article_subject_relation
-    set article_subject_relation_id = #{record.articleSubjectRelationId,jdbcType=VARCHAR},
-      article_subject_id = #{record.articleSubjectId,jdbcType=VARCHAR},
-      article_id = #{record.articleId,jdbcType=VARCHAR},
-      create_date = #{record.createDate,jdbcType=TIMESTAMP}
-    <if test="_parameter != null">
+    set article_subject_relation_id = #{row.articleSubjectRelationId,jdbcType=VARCHAR},
+      article_subject_id = #{row.articleSubjectId,jdbcType=VARCHAR},
+      article_id = #{row.articleId,jdbcType=VARCHAR},
+      create_date = #{row.createDate,jdbcType=TIMESTAMP}
+    <if test="example != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>

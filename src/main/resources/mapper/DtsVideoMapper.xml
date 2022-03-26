@@ -10,7 +10,6 @@
     <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
     <result column="video_url" jdbcType="VARCHAR" property="videoUrl" />
     <result column="state" jdbcType="INTEGER" property="state" />
-    <result column="video_class_id" jdbcType="VARCHAR" property="videoClassId" />
     <result column="check_id" jdbcType="INTEGER" property="checkId" />
     <result column="check_text" jdbcType="VARCHAR" property="checkText" />
   </resultMap>
@@ -74,7 +73,7 @@
   </sql>
   <sql id="Base_Column_List">
     video_id, title, synopsis, cover_url, author_id, create_date, video_url, `state`, 
-    video_class_id, check_id, check_text
+    check_id, check_text
   </sql>
   <select id="selectByExample" parameterType="cn.ttcxy.entity.model.DtsVideoExample" resultMap="BaseResultMap">
     select
@@ -109,12 +108,12 @@
   <insert id="insert" parameterType="cn.ttcxy.entity.model.DtsVideo">
     insert into dts_video (video_id, title, synopsis, 
       cover_url, author_id, create_date, 
-      video_url, `state`, video_class_id, 
-      check_id, check_text)
+      video_url, `state`, check_id, 
+      check_text)
     values (#{videoId,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{synopsis,jdbcType=VARCHAR}, 
       #{coverUrl,jdbcType=VARCHAR}, #{authorId,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, 
-      #{videoUrl,jdbcType=VARCHAR}, #{state,jdbcType=INTEGER}, #{videoClassId,jdbcType=VARCHAR}, 
-      #{checkId,jdbcType=INTEGER}, #{checkText,jdbcType=VARCHAR})
+      #{videoUrl,jdbcType=VARCHAR}, #{state,jdbcType=INTEGER}, #{checkId,jdbcType=INTEGER}, 
+      #{checkText,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="cn.ttcxy.entity.model.DtsVideo">
     insert into dts_video
@@ -142,9 +141,6 @@
       </if>
       <if test="state != null">
         `state`,
-      </if>
-      <if test="videoClassId != null">
-        video_class_id,
       </if>
       <if test="checkId != null">
         check_id,
@@ -178,9 +174,6 @@
       <if test="state != null">
         #{state,jdbcType=INTEGER},
       </if>
-      <if test="videoClassId != null">
-        #{videoClassId,jdbcType=VARCHAR},
-      </if>
       <if test="checkId != null">
         #{checkId,jdbcType=INTEGER},
       </if>
@@ -198,58 +191,54 @@
   <update id="updateByExampleSelective" parameterType="map">
     update dts_video
     <set>
-      <if test="record.videoId != null">
-        video_id = #{record.videoId,jdbcType=VARCHAR},
+      <if test="row.videoId != null">
+        video_id = #{row.videoId,jdbcType=VARCHAR},
       </if>
-      <if test="record.title != null">
-        title = #{record.title,jdbcType=VARCHAR},
+      <if test="row.title != null">
+        title = #{row.title,jdbcType=VARCHAR},
       </if>
-      <if test="record.synopsis != null">
-        synopsis = #{record.synopsis,jdbcType=VARCHAR},
+      <if test="row.synopsis != null">
+        synopsis = #{row.synopsis,jdbcType=VARCHAR},
       </if>
-      <if test="record.coverUrl != null">
-        cover_url = #{record.coverUrl,jdbcType=VARCHAR},
+      <if test="row.coverUrl != null">
+        cover_url = #{row.coverUrl,jdbcType=VARCHAR},
       </if>
-      <if test="record.authorId != null">
-        author_id = #{record.authorId,jdbcType=VARCHAR},
+      <if test="row.authorId != null">
+        author_id = #{row.authorId,jdbcType=VARCHAR},
       </if>
-      <if test="record.createDate != null">
-        create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      <if test="row.createDate != null">
+        create_date = #{row.createDate,jdbcType=TIMESTAMP},
       </if>
-      <if test="record.videoUrl != null">
-        video_url = #{record.videoUrl,jdbcType=VARCHAR},
+      <if test="row.videoUrl != null">
+        video_url = #{row.videoUrl,jdbcType=VARCHAR},
       </if>
-      <if test="record.state != null">
-        `state` = #{record.state,jdbcType=INTEGER},
+      <if test="row.state != null">
+        `state` = #{row.state,jdbcType=INTEGER},
       </if>
-      <if test="record.videoClassId != null">
-        video_class_id = #{record.videoClassId,jdbcType=VARCHAR},
+      <if test="row.checkId != null">
+        check_id = #{row.checkId,jdbcType=INTEGER},
       </if>
-      <if test="record.checkId != null">
-        check_id = #{record.checkId,jdbcType=INTEGER},
-      </if>
-      <if test="record.checkText != null">
-        check_text = #{record.checkText,jdbcType=VARCHAR},
+      <if test="row.checkText != null">
+        check_text = #{row.checkText,jdbcType=VARCHAR},
       </if>
     </set>
-    <if test="_parameter != null">
+    <if test="example != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
     update dts_video
-    set video_id = #{record.videoId,jdbcType=VARCHAR},
-      title = #{record.title,jdbcType=VARCHAR},
-      synopsis = #{record.synopsis,jdbcType=VARCHAR},
-      cover_url = #{record.coverUrl,jdbcType=VARCHAR},
-      author_id = #{record.authorId,jdbcType=VARCHAR},
-      create_date = #{record.createDate,jdbcType=TIMESTAMP},
-      video_url = #{record.videoUrl,jdbcType=VARCHAR},
-      `state` = #{record.state,jdbcType=INTEGER},
-      video_class_id = #{record.videoClassId,jdbcType=VARCHAR},
-      check_id = #{record.checkId,jdbcType=INTEGER},
-      check_text = #{record.checkText,jdbcType=VARCHAR}
-    <if test="_parameter != null">
+    set video_id = #{row.videoId,jdbcType=VARCHAR},
+      title = #{row.title,jdbcType=VARCHAR},
+      synopsis = #{row.synopsis,jdbcType=VARCHAR},
+      cover_url = #{row.coverUrl,jdbcType=VARCHAR},
+      author_id = #{row.authorId,jdbcType=VARCHAR},
+      create_date = #{row.createDate,jdbcType=TIMESTAMP},
+      video_url = #{row.videoUrl,jdbcType=VARCHAR},
+      `state` = #{row.state,jdbcType=INTEGER},
+      check_id = #{row.checkId,jdbcType=INTEGER},
+      check_text = #{row.checkText,jdbcType=VARCHAR}
+    <if test="example != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
@@ -277,9 +266,6 @@
       <if test="state != null">
         `state` = #{state,jdbcType=INTEGER},
       </if>
-      <if test="videoClassId != null">
-        video_class_id = #{videoClassId,jdbcType=VARCHAR},
-      </if>
       <if test="checkId != null">
         check_id = #{checkId,jdbcType=INTEGER},
       </if>
@@ -298,7 +284,6 @@
       create_date = #{createDate,jdbcType=TIMESTAMP},
       video_url = #{videoUrl,jdbcType=VARCHAR},
       `state` = #{state,jdbcType=INTEGER},
-      video_class_id = #{videoClassId,jdbcType=VARCHAR},
       check_id = #{checkId,jdbcType=INTEGER},
       check_text = #{checkText,jdbcType=VARCHAR}
     where video_id = #{videoId,jdbcType=VARCHAR}

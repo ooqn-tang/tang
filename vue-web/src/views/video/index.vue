@@ -19,7 +19,15 @@
 
                     <a
                       class="nav-link"
-                      v-for="(item, index) in videoClassList"
+                      v-for="(item, index) in [
+                      {'name':'视频1','value':'视频1'},
+                      {'name':'视频2','value':'视频2'},
+                      {'name':'视频3','value':'视频3'},
+                      {'name':'视频4','value':'视频4'},
+                      {'name':'视频5','value':'视频5'},
+                      {'name':'视频6','value':'视频6'},
+                      {'name':'视频7','value':'视频7'},
+                      {'name':'视频8','value':'视频8'}]"
                       @click="selectTagClick(item.value)"
                       :key="index"
                       :class="selectTag == item.value ? 'nav-link-active' : ''">{{ item.name }}</a>
@@ -60,9 +68,6 @@
       </div>
     </div>
     <div class="col-md-3 mb-2 move-p-lr-0">
-      <div class="list-group mb-2 move-b-lr-0">
-        <ranking></ranking>
-      </div>
       <div class="list-group mb-2 move-b-lr-0">
         <notice></notice>
       </div>
@@ -108,14 +113,6 @@ export default {
         this.videoData = response.data
       });
     },
-    loadVideoClassList(){
-      request({
-        url: "/api/video/class",
-        method: "get"
-      }).then((response) => {
-        this.videoClassList = response.data
-      });
-    },
     selectTagClick(value){
       this.selectTag = value
       this.vlist = []
@@ -125,7 +122,6 @@ export default {
   },
   mounted() {
     this.loadVideoList();
-    this.loadVideoClassList();
   },
 };
 </script>

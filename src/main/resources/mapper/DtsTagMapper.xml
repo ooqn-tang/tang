@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.ttcxy.mapper.DtsVideoClassMapper">
-  <resultMap id="BaseResultMap" type="cn.ttcxy.entity.model.DtsVideoClass">
-    <id column="video_class_id" jdbcType="VARCHAR" property="videoClassId" />
+<mapper namespace="cn.ttcxy.mapper.DtsTagMapper">
+  <resultMap id="BaseResultMap" type="cn.ttcxy.entity.model.DtsTag">
+    <id column="tag_id" jdbcType="VARCHAR" property="tagId" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="value" jdbcType="VARCHAR" property="value" />
-    <result column="order_num" jdbcType="VARCHAR" property="orderNum" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -66,15 +66,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    video_class_id, `name`, `value`, order_num
+    tag_id, `name`, `value`, create_time
   </sql>
-  <select id="selectByExample" parameterType="cn.ttcxy.entity.model.DtsVideoClassExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="cn.ttcxy.entity.model.DtsTagExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from dts_video_class
+    from dts_tag
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -85,30 +85,30 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from dts_video_class
-    where video_class_id = #{videoClassId,jdbcType=VARCHAR}
+    from dts_tag
+    where tag_id = #{tagId,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-    delete from dts_video_class
-    where video_class_id = #{videoClassId,jdbcType=VARCHAR}
+    delete from dts_tag
+    where tag_id = #{tagId,jdbcType=VARCHAR}
   </delete>
-  <delete id="deleteByExample" parameterType="cn.ttcxy.entity.model.DtsVideoClassExample">
-    delete from dts_video_class
+  <delete id="deleteByExample" parameterType="cn.ttcxy.entity.model.DtsTagExample">
+    delete from dts_tag
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="cn.ttcxy.entity.model.DtsVideoClass">
-    insert into dts_video_class (video_class_id, `name`, `value`, 
-      order_num)
-    values (#{videoClassId,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{value,jdbcType=VARCHAR}, 
-      #{orderNum,jdbcType=VARCHAR})
+  <insert id="insert" parameterType="cn.ttcxy.entity.model.DtsTag">
+    insert into dts_tag (tag_id, `name`, `value`, 
+      create_time)
+    values (#{tagId,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{value,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="cn.ttcxy.entity.model.DtsVideoClass">
-    insert into dts_video_class
+  <insert id="insertSelective" parameterType="cn.ttcxy.entity.model.DtsTag">
+    insert into dts_tag
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="videoClassId != null">
-        video_class_id,
+      <if test="tagId != null">
+        tag_id,
       </if>
       <if test="name != null">
         `name`,
@@ -116,13 +116,13 @@
       <if test="value != null">
         `value`,
       </if>
-      <if test="orderNum != null">
-        order_num,
+      <if test="createTime != null">
+        create_time,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="videoClassId != null">
-        #{videoClassId,jdbcType=VARCHAR},
+      <if test="tagId != null">
+        #{tagId,jdbcType=VARCHAR},
       </if>
       <if test="name != null">
         #{name,jdbcType=VARCHAR},
@@ -130,49 +130,49 @@
       <if test="value != null">
         #{value,jdbcType=VARCHAR},
       </if>
-      <if test="orderNum != null">
-        #{orderNum,jdbcType=VARCHAR},
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="cn.ttcxy.entity.model.DtsVideoClassExample" resultType="java.lang.Long">
-    select count(*) from dts_video_class
+  <select id="countByExample" parameterType="cn.ttcxy.entity.model.DtsTagExample" resultType="java.lang.Long">
+    select count(*) from dts_tag
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update dts_video_class
+    update dts_tag
     <set>
-      <if test="record.videoClassId != null">
-        video_class_id = #{record.videoClassId,jdbcType=VARCHAR},
+      <if test="row.tagId != null">
+        tag_id = #{row.tagId,jdbcType=VARCHAR},
       </if>
-      <if test="record.name != null">
-        `name` = #{record.name,jdbcType=VARCHAR},
+      <if test="row.name != null">
+        `name` = #{row.name,jdbcType=VARCHAR},
       </if>
-      <if test="record.value != null">
-        `value` = #{record.value,jdbcType=VARCHAR},
+      <if test="row.value != null">
+        `value` = #{row.value,jdbcType=VARCHAR},
       </if>
-      <if test="record.orderNum != null">
-        order_num = #{record.orderNum,jdbcType=VARCHAR},
+      <if test="row.createTime != null">
+        create_time = #{row.createTime,jdbcType=TIMESTAMP},
       </if>
     </set>
-    <if test="_parameter != null">
+    <if test="example != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update dts_video_class
-    set video_class_id = #{record.videoClassId,jdbcType=VARCHAR},
-      `name` = #{record.name,jdbcType=VARCHAR},
-      `value` = #{record.value,jdbcType=VARCHAR},
-      order_num = #{record.orderNum,jdbcType=VARCHAR}
-    <if test="_parameter != null">
+    update dts_tag
+    set tag_id = #{row.tagId,jdbcType=VARCHAR},
+      `name` = #{row.name,jdbcType=VARCHAR},
+      `value` = #{row.value,jdbcType=VARCHAR},
+      create_time = #{row.createTime,jdbcType=TIMESTAMP}
+    <if test="example != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="cn.ttcxy.entity.model.DtsVideoClass">
-    update dts_video_class
+  <update id="updateByPrimaryKeySelective" parameterType="cn.ttcxy.entity.model.DtsTag">
+    update dts_tag
     <set>
       <if test="name != null">
         `name` = #{name,jdbcType=VARCHAR},
@@ -180,17 +180,17 @@
       <if test="value != null">
         `value` = #{value,jdbcType=VARCHAR},
       </if>
-      <if test="orderNum != null">
-        order_num = #{orderNum,jdbcType=VARCHAR},
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
     </set>
-    where video_class_id = #{videoClassId,jdbcType=VARCHAR}
+    where tag_id = #{tagId,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="cn.ttcxy.entity.model.DtsVideoClass">
-    update dts_video_class
+  <update id="updateByPrimaryKey" parameterType="cn.ttcxy.entity.model.DtsTag">
+    update dts_tag
     set `name` = #{name,jdbcType=VARCHAR},
       `value` = #{value,jdbcType=VARCHAR},
-      order_num = #{orderNum,jdbcType=VARCHAR}
-    where video_class_id = #{videoClassId,jdbcType=VARCHAR}
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where tag_id = #{tagId,jdbcType=VARCHAR}
   </update>
 </mapper>

@@ -1,17 +1,14 @@
 package cn.ttcxy.service;
 
-import cn.hutool.core.date.DateUtil;
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
 import cn.ttcxy.entity.dto.DtsDataCount;
 import cn.ttcxy.entity.dto.DtsVideoDto;
 import cn.ttcxy.entity.model.DtsVideo;
-import cn.ttcxy.entity.model.DtsVideoClass;
 import cn.ttcxy.entity.param.DtsVideoParam;
-import cn.ttcxy.mapper.DtsVideoClassMapper;
 import cn.ttcxy.mapper.DtsVideoMapper;
 import cn.ttcxy.mapper.dao.DtsDataDao;
 import cn.ttcxy.mapper.dao.DtsVideoDao;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,19 +18,14 @@ import java.util.List;
 @Service
 public class DtsVideoService {
 
-    // 单表操作
     @Autowired
     private DtsVideoMapper videoMapper;
 
-    // 多表
     @Autowired
     private DtsVideoDao videoDao;
 
     @Autowired
     private DtsDataDao countDao;
-
-    @Autowired
-    private DtsVideoClassMapper videoClassMapper;
 
     public int deleteById(String videoId) {
         DtsVideo video = new DtsVideo();
@@ -77,10 +69,6 @@ public class DtsVideoService {
         return new PageInfo<>(videoDtoList);
     }
 
-    public List<DtsVideoClass> selectVideoClass() {
-        return videoClassMapper.selectByExample(null);
-    }
-
     public PageInfo<DtsVideoDto> selectList(DtsVideoParam videoParam) {
         PageHelper.startPage(videoParam.getPage(),20);
         List<DtsVideoDto> dtsVideoDtos = videoDao.selectList(videoParam);
@@ -96,12 +84,6 @@ public class DtsVideoService {
     public PageInfo<DtsVideoDto> search(String wb,Integer page) {
         PageHelper.startPage(page,24);
         List<DtsVideoDto> videoDtoList = videoDao.search(wb);
-        return new PageInfo<>(videoDtoList);
-    }
-
-    public PageInfo<DtsVideoDto> ranking() {
-        PageHelper.startPage(1,10);
-        List<DtsVideoDto> videoDtoList = videoDao.ranking(DateUtil.lastWeek(),DateUtil.date());
         return new PageInfo<>(videoDtoList);
     }
 

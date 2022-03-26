@@ -1,8 +1,8 @@
 package cn.ttcxy.mapper;
 
-import java.util.List;
 import cn.ttcxy.entity.model.DtsCollect;
 import cn.ttcxy.entity.model.DtsCollectExample;
+import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface DtsCollectMapper {
@@ -12,19 +12,19 @@ public interface DtsCollectMapper {
 
     int deleteByPrimaryKey(String collectId);
 
-    int insert(DtsCollect record);
+    int insert(DtsCollect row);
 
-    int insertSelective(DtsCollect record);
+    int insertSelective(DtsCollect row);
 
     List<DtsCollect> selectByExample(DtsCollectExample example);
 
     DtsCollect selectByPrimaryKey(String collectId);
 
-    int updateByExampleSelective(@Param("record") DtsCollect record, @Param("example") DtsCollectExample example);
+    int updateByExampleSelective(@Param("row") DtsCollect row, @Param("example") DtsCollectExample example);
 
-    int updateByExample(@Param("record") DtsCollect record, @Param("example") DtsCollectExample example);
+    int updateByExample(@Param("row") DtsCollect row, @Param("example") DtsCollectExample example);
 
-    int updateByPrimaryKeySelective(DtsCollect record);
+    int updateByPrimaryKeySelective(DtsCollect row);
 
-    int updateByPrimaryKey(DtsCollect record);
+    int updateByPrimaryKey(DtsCollect row);
 }

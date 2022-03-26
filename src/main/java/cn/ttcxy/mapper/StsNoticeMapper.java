@@ -1,8 +1,8 @@
 package cn.ttcxy.mapper;
 
-import java.util.List;
 import cn.ttcxy.entity.model.StsNotice;
 import cn.ttcxy.entity.model.StsNoticeExample;
+import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface StsNoticeMapper {
@@ -12,19 +12,19 @@ public interface StsNoticeMapper {
 
     int deleteByPrimaryKey(String noticeId);
 
-    int insert(StsNotice record);
+    int insert(StsNotice row);
 
-    int insertSelective(StsNotice record);
+    int insertSelective(StsNotice row);
 
     List<StsNotice> selectByExample(StsNoticeExample example);
 
     StsNotice selectByPrimaryKey(String noticeId);
 
-    int updateByExampleSelective(@Param("record") StsNotice record, @Param("example") StsNoticeExample example);
+    int updateByExampleSelective(@Param("row") StsNotice row, @Param("example") StsNoticeExample example);
 
-    int updateByExample(@Param("record") StsNotice record, @Param("example") StsNoticeExample example);
+    int updateByExample(@Param("row") StsNotice row, @Param("example") StsNoticeExample example);
 
-    int updateByPrimaryKeySelective(StsNotice record);
+    int updateByPrimaryKeySelective(StsNotice row);
 
-    int updateByPrimaryKey(StsNotice record);
+    int updateByPrimaryKey(StsNotice row);
 }

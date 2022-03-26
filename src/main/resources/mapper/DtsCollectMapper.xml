@@ -151,34 +151,34 @@
   <update id="updateByExampleSelective" parameterType="map">
     update dts_collect
     <set>
-      <if test="record.collectId != null">
-        collect_id = #{record.collectId,jdbcType=VARCHAR},
+      <if test="row.collectId != null">
+        collect_id = #{row.collectId,jdbcType=VARCHAR},
       </if>
-      <if test="record.authorId != null">
-        author_id = #{record.authorId,jdbcType=VARCHAR},
+      <if test="row.authorId != null">
+        author_id = #{row.authorId,jdbcType=VARCHAR},
       </if>
-      <if test="record.dataId != null">
-        data_id = #{record.dataId,jdbcType=VARCHAR},
+      <if test="row.dataId != null">
+        data_id = #{row.dataId,jdbcType=VARCHAR},
       </if>
-      <if test="record.createDate != null">
-        create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      <if test="row.createDate != null">
+        create_date = #{row.createDate,jdbcType=TIMESTAMP},
       </if>
-      <if test="record.type != null">
-        `type` = #{record.type,jdbcType=INTEGER},
+      <if test="row.type != null">
+        `type` = #{row.type,jdbcType=INTEGER},
       </if>
     </set>
-    <if test="_parameter != null">
+    <if test="example != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
     update dts_collect
-    set collect_id = #{record.collectId,jdbcType=VARCHAR},
-      author_id = #{record.authorId,jdbcType=VARCHAR},
-      data_id = #{record.dataId,jdbcType=VARCHAR},
-      create_date = #{record.createDate,jdbcType=TIMESTAMP},
-      `type` = #{record.type,jdbcType=INTEGER}
-    <if test="_parameter != null">
+    set collect_id = #{row.collectId,jdbcType=VARCHAR},
+      author_id = #{row.authorId,jdbcType=VARCHAR},
+      data_id = #{row.dataId,jdbcType=VARCHAR},
+      create_date = #{row.createDate,jdbcType=TIMESTAMP},
+      `type` = #{row.type,jdbcType=INTEGER}
+    <if test="example != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>

@@ -5,8 +5,6 @@
     <select id="selectDataStatCount" resultType="cn.ttcxy.entity.dto.DtsDataCount">
         select
         (select count(data_id) from dts_like where data_id = t11.data_id) 'like',
-        (select count(data_id) from cts_coin where data_id = t11.data_id) 'coin',
-        (select count(data_id) from (select data_id,author_id,create_date,count(*) from dts_view group by data_id,author_id,create_date) t where data_id = t11.data_id) 'view',
         (select count(data_id) from dts_comment where data_id = t11.data_id) 'comment'
         from (
         select article_id data_id from dts_article where article_id = #{dataId}

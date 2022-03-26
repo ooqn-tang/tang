@@ -1,8 +1,8 @@
 package cn.ttcxy.mapper;
 
-import java.util.List;
 import cn.ttcxy.entity.model.DtsLike;
 import cn.ttcxy.entity.model.DtsLikeExample;
+import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface DtsLikeMapper {
@@ -12,19 +12,19 @@ public interface DtsLikeMapper {
 
     int deleteByPrimaryKey(String likeId);
 
-    int insert(DtsLike record);
+    int insert(DtsLike row);
 
-    int insertSelective(DtsLike record);
+    int insertSelective(DtsLike row);
 
     List<DtsLike> selectByExample(DtsLikeExample example);
 
     DtsLike selectByPrimaryKey(String likeId);
 
-    int updateByExampleSelective(@Param("record") DtsLike record, @Param("example") DtsLikeExample example);
+    int updateByExampleSelective(@Param("row") DtsLike row, @Param("example") DtsLikeExample example);
 
-    int updateByExample(@Param("record") DtsLike record, @Param("example") DtsLikeExample example);
+    int updateByExample(@Param("row") DtsLike row, @Param("example") DtsLikeExample example);
 
-    int updateByPrimaryKeySelective(DtsLike record);
+    int updateByPrimaryKeySelective(DtsLike row);
 
-    int updateByPrimaryKey(DtsLike record);
+    int updateByPrimaryKey(DtsLike row);
 }

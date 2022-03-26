@@ -168,42 +168,42 @@
   <update id="updateByExampleSelective" parameterType="map">
     update dts_article_subject
     <set>
-      <if test="record.articleSubjectId != null">
-        article_subject_id = #{record.articleSubjectId,jdbcType=VARCHAR},
+      <if test="row.articleSubjectId != null">
+        article_subject_id = #{row.articleSubjectId,jdbcType=VARCHAR},
       </if>
-      <if test="record.subjectName != null">
-        subject_name = #{record.subjectName,jdbcType=VARCHAR},
+      <if test="row.subjectName != null">
+        subject_name = #{row.subjectName,jdbcType=VARCHAR},
       </if>
-      <if test="record.authorId != null">
-        author_id = #{record.authorId,jdbcType=VARCHAR},
+      <if test="row.authorId != null">
+        author_id = #{row.authorId,jdbcType=VARCHAR},
       </if>
-      <if test="record.orderNum != null">
-        order_num = #{record.orderNum,jdbcType=INTEGER},
+      <if test="row.orderNum != null">
+        order_num = #{row.orderNum,jdbcType=INTEGER},
       </if>
-      <if test="record.createDate != null">
-        create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      <if test="row.createDate != null">
+        create_date = #{row.createDate,jdbcType=TIMESTAMP},
       </if>
-      <if test="record.updateDate != null">
-        update_date = #{record.updateDate,jdbcType=TIMESTAMP},
+      <if test="row.updateDate != null">
+        update_date = #{row.updateDate,jdbcType=TIMESTAMP},
       </if>
-      <if test="record.synopsis != null">
-        synopsis = #{record.synopsis,jdbcType=VARCHAR},
+      <if test="row.synopsis != null">
+        synopsis = #{row.synopsis,jdbcType=VARCHAR},
       </if>
     </set>
-    <if test="_parameter != null">
+    <if test="example != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
     update dts_article_subject
-    set article_subject_id = #{record.articleSubjectId,jdbcType=VARCHAR},
-      subject_name = #{record.subjectName,jdbcType=VARCHAR},
-      author_id = #{record.authorId,jdbcType=VARCHAR},
-      order_num = #{record.orderNum,jdbcType=INTEGER},
-      create_date = #{record.createDate,jdbcType=TIMESTAMP},
-      update_date = #{record.updateDate,jdbcType=TIMESTAMP},
-      synopsis = #{record.synopsis,jdbcType=VARCHAR}
-    <if test="_parameter != null">
+    set article_subject_id = #{row.articleSubjectId,jdbcType=VARCHAR},
+      subject_name = #{row.subjectName,jdbcType=VARCHAR},
+      author_id = #{row.authorId,jdbcType=VARCHAR},
+      order_num = #{row.orderNum,jdbcType=INTEGER},
+      create_date = #{row.createDate,jdbcType=TIMESTAMP},
+      update_date = #{row.updateDate,jdbcType=TIMESTAMP},
+      synopsis = #{row.synopsis,jdbcType=VARCHAR}
+    <if test="example != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>

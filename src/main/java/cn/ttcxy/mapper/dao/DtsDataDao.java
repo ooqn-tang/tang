@@ -5,7 +5,7 @@ import org.apache.ibatis.annotations.Param;
 
 public interface DtsDataDao {
 
-    DtsDataCount selectDataStatCount(@Param("data") String data);
+    DtsDataCount selectDataStatCount(@Param("dataId") String dataId);
 
     Integer selectDataType(@Param("dataId") String dataId);
 

@@ -1,8 +1,8 @@
 package cn.ttcxy.mapper;
 
-import java.util.List;
 import cn.ttcxy.entity.model.StsConfig;
 import cn.ttcxy.entity.model.StsConfigExample;
+import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface StsConfigMapper {
@@ -12,19 +12,19 @@ public interface StsConfigMapper {
 
     int deleteByPrimaryKey(String configId);
 
-    int insert(StsConfig record);
+    int insert(StsConfig row);
 
-    int insertSelective(StsConfig record);
+    int insertSelective(StsConfig row);
 
     List<StsConfig> selectByExample(StsConfigExample example);
 
     StsConfig selectByPrimaryKey(String configId);
 
-    int updateByExampleSelective(@Param("record") StsConfig record, @Param("example") StsConfigExample example);
+    int updateByExampleSelective(@Param("row") StsConfig row, @Param("example") StsConfigExample example);
 
-    int updateByExample(@Param("record") StsConfig record, @Param("example") StsConfigExample example);
+    int updateByExample(@Param("row") StsConfig row, @Param("example") StsConfigExample example);
 
-    int updateByPrimaryKeySelective(StsConfig record);
+    int updateByPrimaryKeySelective(StsConfig row);
 
-    int updateByPrimaryKey(StsConfig record);
+    int updateByPrimaryKey(StsConfig row);
 }

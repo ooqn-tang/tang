@@ -69,13 +69,6 @@ public class DtsVideoController extends BaseController{
         return ResponseEntity.ok(select);
     }
 
-    @GetMapping("ranking")
-    public ResponseEntity<List<DtsVideoDto>> ranking(){
-        PageInfo<DtsVideoDto> select = videoService.ranking();
-        return ResponseEntity.ok(select.getList());
-    }
-
-
     @GetMapping("rand")
     public ResponseEntity<List<DtsVideoDto>> rand(@RequestParam("num")Integer num){
         List<DtsVideoDto> select = videoService.rand(num);
@@ -119,11 +112,5 @@ public class DtsVideoController extends BaseController{
             return ResponseEntity.ok("执行成功");
         }
         throw new ApiException(ResponseCode.FAILED);
-    }
-
-    @GetMapping("class")
-    public ResponseEntity<List<DtsVideoClass>> selectVideoClass(){
-        List<DtsVideoClass> videoClassList = videoService.selectVideoClass();
-        return ResponseEntity.ok(videoClassList);
     }
 }

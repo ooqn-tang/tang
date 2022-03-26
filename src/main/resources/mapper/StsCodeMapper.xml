@@ -137,26 +137,26 @@
   <update id="updateByExampleSelective" parameterType="map">
     update sts_code
     <set>
-      <if test="record.codeId != null">
-        code_id = #{record.codeId,jdbcType=INTEGER},
+      <if test="row.codeId != null">
+        code_id = #{row.codeId,jdbcType=INTEGER},
       </if>
-      <if test="record.codeName != null">
-        code_name = #{record.codeName,jdbcType=VARCHAR},
+      <if test="row.codeName != null">
+        code_name = #{row.codeName,jdbcType=VARCHAR},
       </if>
-      <if test="record.codeRemark != null">
-        code_remark = #{record.codeRemark,jdbcType=VARCHAR},
+      <if test="row.codeRemark != null">
+        code_remark = #{row.codeRemark,jdbcType=VARCHAR},
       </if>
     </set>
-    <if test="_parameter != null">
+    <if test="example != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
     update sts_code
-    set code_id = #{record.codeId,jdbcType=INTEGER},
-      code_name = #{record.codeName,jdbcType=VARCHAR},
-      code_remark = #{record.codeRemark,jdbcType=VARCHAR}
-    <if test="_parameter != null">
+    set code_id = #{row.codeId,jdbcType=INTEGER},
+      code_name = #{row.codeName,jdbcType=VARCHAR},
+      code_remark = #{row.codeRemark,jdbcType=VARCHAR}
+    <if test="example != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>

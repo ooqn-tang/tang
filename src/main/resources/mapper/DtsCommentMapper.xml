@@ -167,42 +167,42 @@
   <update id="updateByExampleSelective" parameterType="map">
     update dts_comment
     <set>
-      <if test="record.commentId != null">
-        comment_id = #{record.commentId,jdbcType=VARCHAR},
+      <if test="row.commentId != null">
+        comment_id = #{row.commentId,jdbcType=VARCHAR},
       </if>
-      <if test="record.dataId != null">
-        data_id = #{record.dataId,jdbcType=VARCHAR},
+      <if test="row.dataId != null">
+        data_id = #{row.dataId,jdbcType=VARCHAR},
       </if>
-      <if test="record.parentCommentId != null">
-        parent_comment_id = #{record.parentCommentId,jdbcType=VARCHAR},
+      <if test="row.parentCommentId != null">
+        parent_comment_id = #{row.parentCommentId,jdbcType=VARCHAR},
       </if>
-      <if test="record.authorId != null">
-        author_id = #{record.authorId,jdbcType=VARCHAR},
+      <if test="row.authorId != null">
+        author_id = #{row.authorId,jdbcType=VARCHAR},
       </if>
-      <if test="record.text != null">
-        `text` = #{record.text,jdbcType=VARCHAR},
+      <if test="row.text != null">
+        `text` = #{row.text,jdbcType=VARCHAR},
       </if>
-      <if test="record.createDate != null">
-        create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      <if test="row.createDate != null">
+        create_date = #{row.createDate,jdbcType=TIMESTAMP},
       </if>
-      <if test="record.state != null">
-        `state` = #{record.state,jdbcType=INTEGER},
+      <if test="row.state != null">
+        `state` = #{row.state,jdbcType=INTEGER},
       </if>
     </set>
-    <if test="_parameter != null">
+    <if test="example != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
     update dts_comment
-    set comment_id = #{record.commentId,jdbcType=VARCHAR},
-      data_id = #{record.dataId,jdbcType=VARCHAR},
-      parent_comment_id = #{record.parentCommentId,jdbcType=VARCHAR},
-      author_id = #{record.authorId,jdbcType=VARCHAR},
-      `text` = #{record.text,jdbcType=VARCHAR},
-      create_date = #{record.createDate,jdbcType=TIMESTAMP},
-      `state` = #{record.state,jdbcType=INTEGER}
-    <if test="_parameter != null">
+    set comment_id = #{row.commentId,jdbcType=VARCHAR},
+      data_id = #{row.dataId,jdbcType=VARCHAR},
+      parent_comment_id = #{row.parentCommentId,jdbcType=VARCHAR},
+      author_id = #{row.authorId,jdbcType=VARCHAR},
+      `text` = #{row.text,jdbcType=VARCHAR},
+      create_date = #{row.createDate,jdbcType=TIMESTAMP},
+      `state` = #{row.state,jdbcType=INTEGER}
+    <if test="example != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>

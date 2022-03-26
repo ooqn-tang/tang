@@ -160,33 +160,33 @@
   <update id="updateByExampleSelective" parameterType="map">
     update dts_article_content
     <set>
-      <if test="record.articleId != null">
-        article_id = #{record.articleId,jdbcType=VARCHAR},
+      <if test="row.articleId != null">
+        article_id = #{row.articleId,jdbcType=VARCHAR},
       </if>
-      <if test="record.text != null">
-        `text` = #{record.text,jdbcType=LONGVARCHAR},
+      <if test="row.text != null">
+        `text` = #{row.text,jdbcType=LONGVARCHAR},
       </if>
-      <if test="record.markdown != null">
-        markdown = #{record.markdown,jdbcType=LONGVARCHAR},
+      <if test="row.markdown != null">
+        markdown = #{row.markdown,jdbcType=LONGVARCHAR},
       </if>
     </set>
-    <if test="_parameter != null">
+    <if test="example != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
   <update id="updateByExampleWithBLOBs" parameterType="map">
     update dts_article_content
-    set article_id = #{record.articleId,jdbcType=VARCHAR},
-      `text` = #{record.text,jdbcType=LONGVARCHAR},
-      markdown = #{record.markdown,jdbcType=LONGVARCHAR}
-    <if test="_parameter != null">
+    set article_id = #{row.articleId,jdbcType=VARCHAR},
+      `text` = #{row.text,jdbcType=LONGVARCHAR},
+      markdown = #{row.markdown,jdbcType=LONGVARCHAR}
+    <if test="example != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
     update dts_article_content
-    set article_id = #{record.articleId,jdbcType=VARCHAR}
-    <if test="_parameter != null">
+    set article_id = #{row.articleId,jdbcType=VARCHAR}
+    <if test="example != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>

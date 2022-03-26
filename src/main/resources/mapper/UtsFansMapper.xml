@@ -144,30 +144,30 @@
   <update id="updateByExampleSelective" parameterType="map">
     update uts_fans
     <set>
-      <if test="record.fansId != null">
-        fans_id = #{record.fansId,jdbcType=VARCHAR},
+      <if test="row.fansId != null">
+        fans_id = #{row.fansId,jdbcType=VARCHAR},
       </if>
-      <if test="record.beAuthorId != null">
-        be_author_id = #{record.beAuthorId,jdbcType=VARCHAR},
+      <if test="row.beAuthorId != null">
+        be_author_id = #{row.beAuthorId,jdbcType=VARCHAR},
       </if>
-      <if test="record.authorId != null">
-        author_id = #{record.authorId,jdbcType=VARCHAR},
+      <if test="row.authorId != null">
+        author_id = #{row.authorId,jdbcType=VARCHAR},
       </if>
-      <if test="record.createDate != null">
-        create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      <if test="row.createDate != null">
+        create_date = #{row.createDate,jdbcType=TIMESTAMP},
       </if>
     </set>
-    <if test="_parameter != null">
+    <if test="example != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
     update uts_fans
-    set fans_id = #{record.fansId,jdbcType=VARCHAR},
-      be_author_id = #{record.beAuthorId,jdbcType=VARCHAR},
-      author_id = #{record.authorId,jdbcType=VARCHAR},
-      create_date = #{record.createDate,jdbcType=TIMESTAMP}
-    <if test="_parameter != null">
+    set fans_id = #{row.fansId,jdbcType=VARCHAR},
+      be_author_id = #{row.beAuthorId,jdbcType=VARCHAR},
+      author_id = #{row.authorId,jdbcType=VARCHAR},
+      create_date = #{row.createDate,jdbcType=TIMESTAMP}
+    <if test="example != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>

@@ -150,38 +150,38 @@
   <update id="updateByExampleSelective" parameterType="map">
     update dts_danmaku
     <set>
-      <if test="record.danmakuId != null">
-        danmaku_id = #{record.danmakuId,jdbcType=VARCHAR},
+      <if test="row.danmakuId != null">
+        danmaku_id = #{row.danmakuId,jdbcType=VARCHAR},
       </if>
-      <if test="record.time != null">
-        `time` = #{record.time,jdbcType=INTEGER},
+      <if test="row.time != null">
+        `time` = #{row.time,jdbcType=INTEGER},
       </if>
-      <if test="record.color != null">
-        color = #{record.color,jdbcType=INTEGER},
+      <if test="row.color != null">
+        color = #{row.color,jdbcType=INTEGER},
       </if>
-      <if test="record.text != null">
-        `text` = #{record.text,jdbcType=VARCHAR},
+      <if test="row.text != null">
+        `text` = #{row.text,jdbcType=VARCHAR},
       </if>
-      <if test="record.authorId != null">
-        author_id = #{record.authorId,jdbcType=VARCHAR},
+      <if test="row.authorId != null">
+        author_id = #{row.authorId,jdbcType=VARCHAR},
       </if>
-      <if test="record.videoId != null">
-        video_id = #{record.videoId,jdbcType=VARCHAR},
+      <if test="row.videoId != null">
+        video_id = #{row.videoId,jdbcType=VARCHAR},
       </if>
     </set>
-    <if test="_parameter != null">
+    <if test="example != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
     update dts_danmaku
-    set danmaku_id = #{record.danmakuId,jdbcType=VARCHAR},
-      `time` = #{record.time,jdbcType=INTEGER},
-      color = #{record.color,jdbcType=INTEGER},
-      `text` = #{record.text,jdbcType=VARCHAR},
-      author_id = #{record.authorId,jdbcType=VARCHAR},
-      video_id = #{record.videoId,jdbcType=VARCHAR}
-    <if test="_parameter != null">
+    set danmaku_id = #{row.danmakuId,jdbcType=VARCHAR},
+      `time` = #{row.time,jdbcType=INTEGER},
+      color = #{row.color,jdbcType=INTEGER},
+      `text` = #{row.text,jdbcType=VARCHAR},
+      author_id = #{row.authorId,jdbcType=VARCHAR},
+      video_id = #{row.videoId,jdbcType=VARCHAR}
+    <if test="example != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>

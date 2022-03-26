@@ -144,30 +144,30 @@
   <update id="updateByExampleSelective" parameterType="map">
     update dts_like
     <set>
-      <if test="record.likeId != null">
-        like_id = #{record.likeId,jdbcType=VARCHAR},
+      <if test="row.likeId != null">
+        like_id = #{row.likeId,jdbcType=VARCHAR},
       </if>
-      <if test="record.dataId != null">
-        data_id = #{record.dataId,jdbcType=VARCHAR},
+      <if test="row.dataId != null">
+        data_id = #{row.dataId,jdbcType=VARCHAR},
       </if>
-      <if test="record.authorId != null">
-        author_id = #{record.authorId,jdbcType=VARCHAR},
+      <if test="row.authorId != null">
+        author_id = #{row.authorId,jdbcType=VARCHAR},
       </if>
-      <if test="record.createTime != null">
-        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      <if test="row.createTime != null">
+        create_time = #{row.createTime,jdbcType=TIMESTAMP},
       </if>
     </set>
-    <if test="_parameter != null">
+    <if test="example != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
     update dts_like
-    set like_id = #{record.likeId,jdbcType=VARCHAR},
-      data_id = #{record.dataId,jdbcType=VARCHAR},
-      author_id = #{record.authorId,jdbcType=VARCHAR},
-      create_time = #{record.createTime,jdbcType=TIMESTAMP}
-    <if test="_parameter != null">
+    set like_id = #{row.likeId,jdbcType=VARCHAR},
+      data_id = #{row.dataId,jdbcType=VARCHAR},
+      author_id = #{row.authorId,jdbcType=VARCHAR},
+      create_time = #{row.createTime,jdbcType=TIMESTAMP}
+    <if test="example != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
