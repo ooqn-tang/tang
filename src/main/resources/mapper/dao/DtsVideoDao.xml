@@ -9,9 +9,12 @@
     </select>
     <select id="select" resultType="cn.ttcxy.entity.dto.DtsVideoDto">
         select *
-        from uts_author t1 , dts_video t2
-        where t1.author_id = t2.author_id
-        and t2.state = 1
+        from uts_author t1
+        inner join dts_video t2 on t1.author_id = t2.author_id
+        <if test="classId!=''">
+            and t2.class_id = #{classId}
+        </if>
+        where t2.state = 1
         <if test="title != ''">
             and t2.title like concat('%',#{title,jdbcType=VARCHAR},'%')
         </if>

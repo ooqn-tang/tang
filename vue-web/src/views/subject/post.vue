@@ -5,18 +5,21 @@
         <div class="card-body">
           <h4>{{subjectData.subjectName}}</h4>
           <span>{{subjectData.synopsis}}</span>
+          <hr>
+          <div>
+            <router-link :to="'/author/'+subjectData.username">{{subjectData.nickname}}</router-link>
+            <span class="float-end">{{subjectData.createDate}}</span>
+          </div>
         </div>
       </div>
       <ul class="list-group  mb-2 move-b-lr-0">
         <li class="list-group-item move-b-lr-0" v-for="(item,index) in subjectData.articleList" :key="index">
           <router-link :to="{name: 'article_info', params: {id: item.articleId}}" class="article-title">
             <strong><p v-text="item.title"></p></strong>
-            </router-link>
+          </router-link>
           <div class="article-synopsis" style="color: #5f5a5a;">{{item.synopsis}}</div>
           <div>
             <span class="date-color">{{item.createDate}}</span>
-            <span v-for="(item,index) in item.tagList" :key="index" > . <span style="font-size: 10px;color: #a2a2a2;">{{item.tagName}}</span></span>
-            <router-link :to="{name:'author_article',params:{username:item.username}}" class="float-end">{{item.nickname}}</router-link>
           </div>
         </li>
       </ul>

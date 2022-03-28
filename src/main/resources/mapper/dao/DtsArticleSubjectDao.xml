@@ -27,8 +27,8 @@
 
     <select id="selectSubjectArticleListById" resultMap="ArticleMap">
         select t1.article_id,t1.title,t1.create_date,t1.synopsis
-        from dts_article t1 , dts_article_subject_relation t3
-        where t3.article_id = t1.article_id  and t3.article_subject_id = #{articleSubjectId}
+        from dts_article t1
+        where t1.subject_id = #{articleSubjectId}
     </select>
     <select id="selectSubjectList" resultMap="SubjectBase">
         select *
@@ -48,8 +48,8 @@
         where t2.subject_name like concat('%',#{name},'%')
     </select>
     <select id="selectSubjectIdByArticleId" resultType="java.lang.String">
-        select t1.article_subject_id
-        from dts_article_subject_relation t1
+        select t1.subject_id
+        from dts_article t1
         where t1.article_id = #{articleId}
     </select>
 </mapper>

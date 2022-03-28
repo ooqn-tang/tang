@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface DtsArticleDao {
 
-    List<DtsArticleDto> selectArticleList(@Param("tagName") String tagName);
+    List<DtsArticleDto> selectArticleList(@Param("classId") String classId);
 
     List<DtsArticleDto> selectArticleListSmall();
 

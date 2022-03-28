@@ -10,27 +10,19 @@
                   <nav class="nav">
                     <a
                       class="nav-link"
-                      :class="selectTag == 'gz' ? 'nav-link-active' : ''"
-                      @click="selectTagClick('gz')">关注</a>
+                      :class="selectClassId == 'gz' ? 'nav-link-active' : ''"
+                      @click="selectClassClick('gz')">关注</a>
                     <a
                       class="nav-link"
-                      :class="selectTag == '' ? 'nav-link-active' : ''"
-                      @click="selectTagClick('')">最新</a>
+                      :class="selectClassId == '' ? 'nav-link-active' : ''"
+                      @click="selectClassClick('')">最新</a>
 
                     <a
                       class="nav-link"
-                      v-for="(item, index) in [
-                      {'name':'视频1','value':'视频1'},
-                      {'name':'视频2','value':'视频2'},
-                      {'name':'视频3','value':'视频3'},
-                      {'name':'视频4','value':'视频4'},
-                      {'name':'视频5','value':'视频5'},
-                      {'name':'视频6','value':'视频6'},
-                      {'name':'视频7','value':'视频7'},
-                      {'name':'视频8','value':'视频8'}]"
-                      @click="selectTagClick(item.value)"
+                      v-for="(item, index) in videoClassList"
+                      @click="selectClassClick(item.classId)"
                       :key="index"
-                      :class="selectTag == item.value ? 'nav-link-active' : ''">{{ item.name }}</a>
+                      :class="selectClassId == item.classId ? 'nav-link-active' : ''">{{ item.className }}</a>
                   </nav>
                 </div>
               </div>
@@ -85,12 +77,10 @@ export default {
   data() {
     return {
       zz:false,
-      selectTag: "",
+      selectClassId: "",
       selectType: 1,
       vlist: [],
-      videoClassList: [
-       
-      ],
+      videoTagList: [],
       videoData: {
         
       },
@@ -98,30 +88,38 @@ export default {
       isLoding: true,
     };
   },
-  created() {},
+  created() {
+    request({
+        url: "/api/class",
+        method: "get",
+        params:{"type":"video"}
+      }).then((response) => {
+        this.videoClassList = response.data
+      });
+  },
   methods: {
     openVideo(videoId) {
       this.$router.push({ name: "video_info", params: { id: videoId } });
     },
-    loadVideoList(page,videoClass) {
+    loadVideoList(page,classId) {
       request({
         url: "/api/video",
         method: "get",
-        params:{"page":page,"videoClass":videoClass}
+        params:{"page":page,"classId":classId}
       }).then((response) => {
         this.vlist = this.vlist.concat(response.data.list)
         this.videoData = response.data
       });
     },
-    selectTagClick(value){
-      this.selectTag = value
+    selectClassClick(value){
+      this.selectClassId = value
       this.vlist = []
       this.videoData.nextPage = 1
-      this.loadVideoList(this.videoData.nextPage,this.selectTag)
+      this.loadVideoList(this.videoData.nextPage,this.selectClassId)
     }
   },
   mounted() {
-    this.loadVideoList();
+    this.loadVideoList(1,this.selectClassId);
   },
 };
 </script>

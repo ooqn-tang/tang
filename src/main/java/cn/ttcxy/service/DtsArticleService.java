@@ -1,20 +1,20 @@
 package cn.ttcxy.service;
 
 import cn.hutool.core.thread.ThreadUtil;
-import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.StrUtil;
-import cn.ttcxy.entity.model.DtsArticle;
-import cn.ttcxy.entity.model.DtsArticleTagRelation;
-import cn.ttcxy.entity.model.DtsArticleTagRelationExample;
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
+import cn.ttcxy.entity.dto.DtsArticleDto;
+import cn.ttcxy.entity.model.*;
+import cn.ttcxy.mapper.DtsArticleContentMapper;
 import cn.ttcxy.mapper.DtsArticleMapper;
 import cn.ttcxy.mapper.dao.DtsArticleDao;
-import cn.ttcxy.entity.dto.DtsArticleDto;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 import java.util.concurrent.ExecutorService;
 
 /**
@@ -36,9 +36,9 @@ public class DtsArticleService {
     @Autowired
     private DtsArticleSubjectService articleSubjectService;
 
-    public PageInfo<DtsArticleDto> selectArticleList(String tagName, Integer page, Integer size) {
+    public PageInfo<DtsArticleDto> selectArticleList(String classId, Integer page, Integer size) {
         PageHelper.startPage(page, size);
-        return new PageInfo<>(articleDao.selectArticleList(tagName));
+        return new PageInfo<>(articleDao.selectArticleList(classId));
     }
 
     public PageInfo<DtsArticleDto> selectArticleListSmall(Integer page, Integer size) {
@@ -62,26 +62,27 @@ public class DtsArticleService {
         return articleMapper.insertSelective(article);
     }
 
-    public int updateArticle(DtsArticle article, String subjectId, List<String> tagIdList,String authorId) {
-        DtsArticleTagRelation articleTagRelation = new DtsArticleTagRelation();
+    public int updateArticle(DtsArticle article, DtsArticleContent articleContent, String subjectId) {
         int i = articleMapper.updateByPrimaryKeySelective(article);
-
-        DtsArticleTagRelationExample articleTagRelationExample = new DtsArticleTagRelationExample();
-        articleTagRelationExample.createCriteria().andArticleIdEqualTo(article.getArticleId());
-
-        for (String tagId : tagIdList) {
-            articleTagRelation.setArticleTagRelationId(IdUtil.objectId());
-            articleTagRelation.setArticleId(article.getArticleId());
-            articleTagRelation.setArticleTagId(tagId);
+        String articleId = article.getArticleId();
+        int count = articleContentCount(articleId);
+        if (count > 0){
+            articleContentMapper.updateByPrimaryKeySelective(articleContent);
+        }else{
+            articleContentMapper.insert(articleContent);
         }
-
-        articleSubjectService.deleteArticleSubjectArticleId(article.getArticleId());
-
-        if (i > 0 && StrUtil.isNotBlank(subjectId)) {
-            articleSubjectService.insertArticleToSubject(article.getArticleId(), subjectId,authorId);
-        }
-
         return i;
+    }
+
+    @Autowired
+    private DtsArticleContentMapper articleContentMapper;
+
+    public int articleContentCount(String articleId){
+        DtsArticleContent articleContent = articleContentMapper.selectByPrimaryKey(articleId);
+        if (articleContent == null){
+            return 0;
+        }
+        return 1;
     }
 
     public int deleteArticle(String id) {
@@ -116,5 +117,12 @@ public class DtsArticleService {
             set.add(dtsArticleDto);
         }
         return set;
+    }
+
+    public int updateSubject(String articleId, String subjectId) {
+        DtsArticle article = new DtsArticle();
+        article.setArticleId(articleId);
+        article.setSubjectId(subjectId);
+        return articleMapper.updateByPrimaryKeySelective(article);
     }
 }

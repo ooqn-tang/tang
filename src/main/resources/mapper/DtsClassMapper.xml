@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.ttcxy.mapper.DtsTagMapper">
-  <resultMap id="BaseResultMap" type="cn.ttcxy.entity.model.DtsTag">
-    <id column="tag_id" jdbcType="VARCHAR" property="tagId" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="value" jdbcType="VARCHAR" property="value" />
+<mapper namespace="cn.ttcxy.mapper.DtsClassMapper">
+  <resultMap id="BaseResultMap" type="cn.ttcxy.entity.model.DtsClass">
+    <id column="class_id" jdbcType="VARCHAR" property="classId" />
+    <result column="class_name" jdbcType="VARCHAR" property="className" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -66,15 +66,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    tag_id, `name`, `value`, create_time
+    class_id, class_name, create_time, `type`
   </sql>
-  <select id="selectByExample" parameterType="cn.ttcxy.entity.model.DtsTagExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="cn.ttcxy.entity.model.DtsClassExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from dts_tag
+    from dts_class
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -85,76 +85,76 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from dts_tag
-    where tag_id = #{tagId,jdbcType=VARCHAR}
+    from dts_class
+    where class_id = #{classId,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-    delete from dts_tag
-    where tag_id = #{tagId,jdbcType=VARCHAR}
+    delete from dts_class
+    where class_id = #{classId,jdbcType=VARCHAR}
   </delete>
-  <delete id="deleteByExample" parameterType="cn.ttcxy.entity.model.DtsTagExample">
-    delete from dts_tag
+  <delete id="deleteByExample" parameterType="cn.ttcxy.entity.model.DtsClassExample">
+    delete from dts_class
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="cn.ttcxy.entity.model.DtsTag">
-    insert into dts_tag (tag_id, `name`, `value`, 
-      create_time)
-    values (#{tagId,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{value,jdbcType=VARCHAR}, 
-      #{createTime,jdbcType=TIMESTAMP})
+  <insert id="insert" parameterType="cn.ttcxy.entity.model.DtsClass">
+    insert into dts_class (class_id, class_name, create_time, 
+      `type`)
+    values (#{classId,jdbcType=VARCHAR}, #{className,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{type,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="cn.ttcxy.entity.model.DtsTag">
-    insert into dts_tag
+  <insert id="insertSelective" parameterType="cn.ttcxy.entity.model.DtsClass">
+    insert into dts_class
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="tagId != null">
-        tag_id,
+      <if test="classId != null">
+        class_id,
       </if>
-      <if test="name != null">
-        `name`,
-      </if>
-      <if test="value != null">
-        `value`,
+      <if test="className != null">
+        class_name,
       </if>
       <if test="createTime != null">
         create_time,
       </if>
+      <if test="type != null">
+        `type`,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="tagId != null">
-        #{tagId,jdbcType=VARCHAR},
+      <if test="classId != null">
+        #{classId,jdbcType=VARCHAR},
       </if>
-      <if test="name != null">
-        #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="value != null">
-        #{value,jdbcType=VARCHAR},
+      <if test="className != null">
+        #{className,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="cn.ttcxy.entity.model.DtsTagExample" resultType="java.lang.Long">
-    select count(*) from dts_tag
+  <select id="countByExample" parameterType="cn.ttcxy.entity.model.DtsClassExample" resultType="java.lang.Long">
+    select count(*) from dts_class
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update dts_tag
+    update dts_class
     <set>
-      <if test="row.tagId != null">
-        tag_id = #{row.tagId,jdbcType=VARCHAR},
+      <if test="row.classId != null">
+        class_id = #{row.classId,jdbcType=VARCHAR},
       </if>
-      <if test="row.name != null">
-        `name` = #{row.name,jdbcType=VARCHAR},
-      </if>
-      <if test="row.value != null">
-        `value` = #{row.value,jdbcType=VARCHAR},
+      <if test="row.className != null">
+        class_name = #{row.className,jdbcType=VARCHAR},
       </if>
       <if test="row.createTime != null">
         create_time = #{row.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="row.type != null">
+        `type` = #{row.type,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="example != null">
@@ -162,35 +162,35 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update dts_tag
-    set tag_id = #{row.tagId,jdbcType=VARCHAR},
-      `name` = #{row.name,jdbcType=VARCHAR},
-      `value` = #{row.value,jdbcType=VARCHAR},
-      create_time = #{row.createTime,jdbcType=TIMESTAMP}
+    update dts_class
+    set class_id = #{row.classId,jdbcType=VARCHAR},
+      class_name = #{row.className,jdbcType=VARCHAR},
+      create_time = #{row.createTime,jdbcType=TIMESTAMP},
+      `type` = #{row.type,jdbcType=VARCHAR}
     <if test="example != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="cn.ttcxy.entity.model.DtsTag">
-    update dts_tag
+  <update id="updateByPrimaryKeySelective" parameterType="cn.ttcxy.entity.model.DtsClass">
+    update dts_class
     <set>
-      <if test="name != null">
-        `name` = #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="value != null">
-        `value` = #{value,jdbcType=VARCHAR},
+      <if test="className != null">
+        class_name = #{className,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null">
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="type != null">
+        `type` = #{type,jdbcType=VARCHAR},
+      </if>
     </set>
-    where tag_id = #{tagId,jdbcType=VARCHAR}
+    where class_id = #{classId,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="cn.ttcxy.entity.model.DtsTag">
-    update dts_tag
-    set `name` = #{name,jdbcType=VARCHAR},
-      `value` = #{value,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=TIMESTAMP}
-    where tag_id = #{tagId,jdbcType=VARCHAR}
+  <update id="updateByPrimaryKey" parameterType="cn.ttcxy.entity.model.DtsClass">
+    update dts_class
+    set class_name = #{className,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      `type` = #{type,jdbcType=VARCHAR}
+    where class_id = #{classId,jdbcType=VARCHAR}
   </update>
 </mapper>

@@ -16,14 +16,16 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <div class="form-check form-check-inline" v-for="(item,index) in authorTagList" :key="index" style="margin-bottom: 10px;">
-          <input class="form-check-input" type="checkbox" v-model="selectTagIdList" :id="index" :value="item.articleTagId">
-          <label class="form-check-label" :for="index">{{item.tagName}}</label>
-        </div>
-        <div>
+        <div class="mb-3">
           <select class="form-select" v-model="articleData.subjectId">
             <option value="">请选择专辑</option>
             <option v-for="(item,index) in subjectList" :key="index" :value="item.articleSubjectId">{{item.subjectName}}</option>
+          </select>
+        </div>
+        <div>
+          <select class="form-select" v-model="articleData.classId">
+            <option value="">请选择分类</option>
+            <option v-for="(item,index) in classList" :key="index" :value="item.classId">{{item.className}}</option>
           </select>
         </div>
       </div>
@@ -60,16 +62,13 @@ export default {
   data() {
     return {
       thisArticleId:this.$route.params.id,
-      selectTagIdList:[],
       articleData:{
       },
       articleSubjectId:"",
-      tagName:"",
+      classId:"", 
       subjectList:[],
-      subjectMap:{},
-      tagList:[],
-      tagMap:{},
-      authorTagList:[],
+      classList:[],
+      subjectMap:{}
     };
   },
   watch :{
@@ -81,7 +80,7 @@ export default {
         }
         
       },
-      deep:true //true 深度监听
+      deep:true
     }
   },
   methods: {
@@ -91,43 +90,36 @@ export default {
           method: 'GET',
         }).then((response) => {
           this.articleData = response.data
-          let tList = response.data.tagList
-          for(let v in tList){
-            this.selectTagIdList.push(tList[v].articleTagId)
-          }
           this.articleData.subjectId = (this.articleData.subjectId == null ? "" : this.articleData.subjectId)
+          this.articleData.classId = (this.articleData.classId == null ? "" : this.articleData.classId)
         })
       },
       saveArticle(){
-        this.articleData.tagIdList = this.selectTagIdList
         request({
           url: '/api/article',
           method: 'PUT',
           data:this.articleData
         }).then((response) => {
-          window.location.href = "/article/" + response.data
+          window.location.href = "/article/"+articleData.articleId
         })
       },
-      loadSubjectList(){
+      loadSubject(){
         request({
           url: '/api/subject/username',
           method: 'GET',
           params:{"username":this.$store.state.username}
         }).then((response) => {
           this.subjectList = response.data.list
-          let li = response.data.list
-          for(let item in response.data.list){
-            this.subjectMap[li[item]["subjectName"]] = li[item]["articleSubjectId"]
-          }
         })
       },
-      loadAllTagList(){
+      loadAllClassList(){
         request({
-          url: '/api/tag/all',
-          method: 'GET'
+          url: "/api/class",
+          method: "get",
+          params:{"type":"article"}
         }).then((response) => {
-          this.authorTagList = response.data;
-        })
+          this.classList = response.data
+        });
       },
       changeFlag(flag) {
         this.flag = flag
@@ -143,8 +135,8 @@ export default {
         }
       }
   },mounted(){
-    this.loadSubjectList()
-    this.loadAllTagList()
+    this.loadSubject()
+    this.loadAllClassList()
     this.loadArticleAllInfo(this.thisArticleId)
   }
 };

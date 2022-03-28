@@ -24,6 +24,8 @@ public class DtsVideo implements Serializable {
 
     private String checkText;
 
+    private String classId;
+
     private static final long serialVersionUID = 1L;
 
     public String getVideoId() {
@@ -106,6 +108,14 @@ public class DtsVideo implements Serializable {
         this.checkText = checkText;
     }
 
+    public String getClassId() {
+        return classId;
+    }
+
+    public void setClassId(String classId) {
+        this.classId = classId;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -122,6 +132,7 @@ public class DtsVideo implements Serializable {
         sb.append(", state=").append(state);
         sb.append(", checkId=").append(checkId);
         sb.append(", checkText=").append(checkText);
+        sb.append(", classId=").append(classId);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

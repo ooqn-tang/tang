@@ -12,6 +12,7 @@
     <result column="state" jdbcType="INTEGER" property="state" />
     <result column="check_id" jdbcType="INTEGER" property="checkId" />
     <result column="check_text" jdbcType="VARCHAR" property="checkText" />
+    <result column="class_id" jdbcType="VARCHAR" property="classId" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -73,7 +74,7 @@
   </sql>
   <sql id="Base_Column_List">
     video_id, title, synopsis, cover_url, author_id, create_date, video_url, `state`, 
-    check_id, check_text
+    check_id, check_text, class_id
   </sql>
   <select id="selectByExample" parameterType="cn.ttcxy.entity.model.DtsVideoExample" resultMap="BaseResultMap">
     select
@@ -109,11 +110,11 @@
     insert into dts_video (video_id, title, synopsis, 
       cover_url, author_id, create_date, 
       video_url, `state`, check_id, 
-      check_text)
+      check_text, class_id)
     values (#{videoId,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{synopsis,jdbcType=VARCHAR}, 
       #{coverUrl,jdbcType=VARCHAR}, #{authorId,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, 
       #{videoUrl,jdbcType=VARCHAR}, #{state,jdbcType=INTEGER}, #{checkId,jdbcType=INTEGER}, 
-      #{checkText,jdbcType=VARCHAR})
+      #{checkText,jdbcType=VARCHAR}, #{classId,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="cn.ttcxy.entity.model.DtsVideo">
     insert into dts_video
@@ -148,6 +149,9 @@
       <if test="checkText != null">
         check_text,
       </if>
+      <if test="classId != null">
+        class_id,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="videoId != null">
@@ -179,6 +183,9 @@
       </if>
       <if test="checkText != null">
         #{checkText,jdbcType=VARCHAR},
+      </if>
+      <if test="classId != null">
+        #{classId,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -221,6 +228,9 @@
       <if test="row.checkText != null">
         check_text = #{row.checkText,jdbcType=VARCHAR},
       </if>
+      <if test="row.classId != null">
+        class_id = #{row.classId,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="example != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -237,7 +247,8 @@
       video_url = #{row.videoUrl,jdbcType=VARCHAR},
       `state` = #{row.state,jdbcType=INTEGER},
       check_id = #{row.checkId,jdbcType=INTEGER},
-      check_text = #{row.checkText,jdbcType=VARCHAR}
+      check_text = #{row.checkText,jdbcType=VARCHAR},
+      class_id = #{row.classId,jdbcType=VARCHAR}
     <if test="example != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -272,6 +283,9 @@
       <if test="checkText != null">
         check_text = #{checkText,jdbcType=VARCHAR},
       </if>
+      <if test="classId != null">
+        class_id = #{classId,jdbcType=VARCHAR},
+      </if>
     </set>
     where video_id = #{videoId,jdbcType=VARCHAR}
   </update>
@@ -285,7 +299,8 @@
       video_url = #{videoUrl,jdbcType=VARCHAR},
       `state` = #{state,jdbcType=INTEGER},
       check_id = #{checkId,jdbcType=INTEGER},
-      check_text = #{checkText,jdbcType=VARCHAR}
+      check_text = #{checkText,jdbcType=VARCHAR},
+      class_id = #{classId,jdbcType=VARCHAR}
     where video_id = #{videoId,jdbcType=VARCHAR}
   </update>
 </mapper>

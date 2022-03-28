@@ -4,8 +4,8 @@
        <div class="card mb-2 move-b-lr-0">
          <div class="card-body p-0">
            <nav class="nav">
-              <a class="nav-link" :class="selectTag == ''?'nav-link-active':''" @click="selectTagClick('')">全部</a>
-              <a class="nav-link" v-for="(item,index) in allTag" @click="selectTagClick(item.tagName)" :key="index" :class="selectTag == item.tagName?'nav-link-active':''">{{item.tagName}}</a>
+              <a class="nav-link" :class="selectClassId == ''?'nav-link-active':''" @click="selectClassClick('')">全部</a>
+              <a class="nav-link" v-for="(item,index) in classList" @click="selectClassClick(item.classId)" :key="index" :class="selectClassId == item.classId?'nav-link-active':''">{{item.className}}</a>
             </nav>
          </div>
        </div>
@@ -60,9 +60,9 @@ export default {
   name: "article",
   data() {
     return {
-      selectTag:'',
+      selectClassId:'',
       selectType:1,
-      allTag:[{'tagName':"java"}],
+      classList:[],
       articlePage:{
         nextPage:1
       },
@@ -71,25 +71,31 @@ export default {
     }
   },
   created(){
-   
+    request({
+      url: "/api/class",
+      method: "get",
+      params:{"type":"article"}
+    }).then((response) => {
+      this.classList = response.data
+    });
   },
   methods: {
-    selectTagClick(tagName){
-      this.selectTag = tagName
+    selectClassClick(classId){
+      this.selectClassId = classId
       this.articleList = []
       this.articlePage.nextPage = 1
-      this.loadArticle(this.articlePage.nextPage,this.selectTag)
+      this.loadArticle(this.articlePage.nextPage,classId)
     },
-    loadArticle(nextPage,tagName){
+    loadArticle(nextPage,classId){
       this.isLoding = true
       request({
         url: '/api/article/list',
         method: 'get',
-        params:{page:nextPage,tag:tagName}
+        params:{page:nextPage,classId:classId}
       }).then((response) => {
         this.articlePage = response.data
-        this.articleList = this.articleList.concat(response.data.list)
         this.isLoding = false
+        this.articleList = this.articleList.concat(response.data.list)
       })
     },
     next(){

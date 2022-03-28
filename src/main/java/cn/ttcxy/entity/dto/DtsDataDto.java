@@ -1,10 +1,8 @@
 package cn.ttcxy.entity.dto;
 
-import cn.ttcxy.entity.model.DtsArticleTag;
 import lombok.Data;
 
 import java.util.Date;
-import java.util.List;
 
 /**
  * Article模型类
@@ -46,7 +44,5 @@ public class DtsDataDto {
 
     private String type;
 
-    // 标签列表
-    private List<DtsArticleTag> tagList;
 
 }

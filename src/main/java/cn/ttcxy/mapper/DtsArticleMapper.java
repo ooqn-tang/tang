@@ -16,21 +16,15 @@ public interface DtsArticleMapper {
 
     int insertSelective(DtsArticle row);
 
-    List<DtsArticle> selectByExampleWithBLOBs(DtsArticleExample example);
-
     List<DtsArticle> selectByExample(DtsArticleExample example);
 
     DtsArticle selectByPrimaryKey(String articleId);
 
     int updateByExampleSelective(@Param("row") DtsArticle row, @Param("example") DtsArticleExample example);
 
-    int updateByExampleWithBLOBs(@Param("row") DtsArticle row, @Param("example") DtsArticleExample example);
-
     int updateByExample(@Param("row") DtsArticle row, @Param("example") DtsArticleExample example);
 
     int updateByPrimaryKeySelective(DtsArticle row);
-
-    int updateByPrimaryKeyWithBLOBs(DtsArticle row);
 
     int updateByPrimaryKey(DtsArticle row);
 }

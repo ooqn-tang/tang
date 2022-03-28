@@ -49,13 +49,13 @@ public class DtsVideoController extends BaseController{
     public ResponseEntity< PageInfo<DtsVideoDto>> select(
             @RequestParam(value = "page",defaultValue = "0")Integer page,
             @RequestParam(value = "size",defaultValue = "12")Integer size,
-            @RequestParam(value = "videoClass",defaultValue = "")String videoClass,
+            @RequestParam(value = "classId",defaultValue = "")String classId,
             @RequestParam(value = "title",defaultValue = "")String title){
         PageInfo<DtsVideoDto> select;
-        if (videoClass.equals("gz")){
+        if (classId.equals("gz")){
             select = videoService.selectGz(page, size, authorId());
         }else{
-            select = videoService.select(page, size, title, videoClass);
+            select = videoService.select(page, size, title, classId);
         }
         return ResponseEntity.ok(select);
 
@@ -96,7 +96,7 @@ public class DtsVideoController extends BaseController{
 
     @PutMapping
     public ResponseEntity<String> update(@RequestBody VideoParam video){
-            DtsVideo dtsVideo = BeanUtil.toBean(video, DtsVideo.class);
+        DtsVideo dtsVideo = BeanUtil.toBean(video, DtsVideo.class);
         dtsVideo.setState(2);
         int count = videoService.update(dtsVideo);
         if (count > 0){

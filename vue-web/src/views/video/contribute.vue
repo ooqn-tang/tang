@@ -11,8 +11,8 @@
         </div>
         <div class="mb-3">
           <label for="inputPassword" class="col-sm-2 col-form-label">分类</label>
-           <select class="form-select" aria-label="Default select example" v-model="formData.videoClassId">
-            <option v-for="(item,index) in videoClassList" :key="index" :value="item.value">{{item.name}}</option>
+           <select class="form-select" aria-label="Default select example" v-model="formData.classId">
+            <option v-for="(item,index) in videoClassList" :key="index" :value="item.classId">{{item.className}}</option>
           </select>
         </div>
         
@@ -106,8 +106,9 @@ export default {
     },
     loadVideoClassList(){
       request({
-        url: "/api/video/class",
-        method: "get"
+        url: "/api/class",
+        method: "get",
+        params: {"type":"video"}
       }).then((response) => {
         this.videoClassList = response.data
       });

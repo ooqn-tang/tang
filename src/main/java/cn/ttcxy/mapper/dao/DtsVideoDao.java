@@ -11,7 +11,7 @@ public interface DtsVideoDao {
 
     DtsVideoDto selectById(@Param("videoId") String videoId);
 
-    List<DtsVideoDto> select(@Param("title") String title,@Param("videoClass") String videoClass);
+    List<DtsVideoDto> select(@Param("title") String title,@Param("classId") String classId);
 
     List<DtsVideoDto> selectByUsername(@Param("username") String username);
 

@@ -53,9 +53,9 @@ public class DtsVideoService {
         return dtsVideoDto;
     }
 
-    public PageInfo<DtsVideoDto> select(Integer page,Integer size, String title,String videoClass) {
+    public PageInfo<DtsVideoDto> select(Integer page,Integer size, String title,String classId) {
         PageHelper.startPage(page,size);
-        List<DtsVideoDto> videoDtoList = videoDao.select(title,videoClass);
+        List<DtsVideoDto> videoDtoList = videoDao.select(title,classId);
         return new PageInfo<>(videoDtoList);
     }
 

@@ -159,7 +159,7 @@
             >
             <el-button
               type="primary"
-              @click="(videoDialogVisible = false), pass('1')"
+              @click="(videoDialogVisible = false),form.state = '1', pass('1',form.state)"
               v-if="ckVideo.state == '2'"
               >通过</el-button
             >

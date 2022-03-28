@@ -9,6 +9,7 @@ import cn.ttcxy.core.api.ApiException;
 import cn.ttcxy.core.api.ResponseCode;
 import cn.ttcxy.entity.dto.DtsArticleDto;
 import cn.ttcxy.entity.model.DtsArticle;
+import cn.ttcxy.entity.model.DtsArticleContent;
 import cn.ttcxy.entity.param.DtsArticleParam;
 import cn.ttcxy.service.DtsArticleService;
 import com.github.pagehelper.PageInfo;
@@ -38,8 +39,8 @@ public class DtsArticleController extends BaseController{
     @GetMapping("list")
     public ResponseEntity<PageInfo<DtsArticleDto>> selectArticleList(
             @RequestParam(value = "page" ,defaultValue = "1")Integer page,
-            @RequestParam(value = "tag",defaultValue = "")String tag){
-        PageInfo<DtsArticleDto> articleList = articleService.selectArticleList(tag,page, 10);
+            @RequestParam(value = "classId",defaultValue = "")String classId){
+        PageInfo<DtsArticleDto> articleList = articleService.selectArticleList(classId,page, 10);
         return ResponseEntity.ok(articleList);
     }
 
@@ -101,24 +102,16 @@ public class DtsArticleController extends BaseController{
     public ResponseEntity<String> update(@RequestBody @Validated DtsArticleParam articleParam){
         DtsArticle article = BeanUtil.toBean(articleParam, DtsArticle.class);
         article.setState(1);
-
-        List<String> tagIdList = articleParam.getTagIdList();
         String subjectId = articleParam.getSubjectId();
-        // 当前博客信息
-        DtsArticleDto articleDto = articleService.selectArticleById(article.getArticleId());
-        if (articleDto == null){
-            throw new ApiException(ResponseCode.FAILED);
-        }
-        String thisArticleUsername = articleDto.getUsername();
 
-        String username = authorName();
-        if (StrUtil.equals(username,thisArticleUsername)){
-            DateTime date = DateUtil.date();
-            article.setUpdateDate(date);
-            int count = articleService.updateArticle(article,subjectId,tagIdList,authorId());
-            if (count > 0){
-                return ResponseEntity.ok(article.getArticleId());
-            }
+        DtsArticleContent articleContent = new DtsArticleContent();
+        articleContent.setArticleId(article.getArticleId());
+        articleContent.setMarkdown(articleParam.getMarkdown());
+        articleContent.setText(articleParam.getText());
+
+        int count  = articleService.updateArticle(article,articleContent,subjectId);
+        if (count > 0){
+            return ResponseEntity.ok(ResponseCode.SUCCESS.getMessage());
         }
         throw new ApiException(ResponseCode.FORBIDDEN);
     }

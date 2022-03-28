@@ -43,13 +43,13 @@ const routes = [
                 children:[
                     {
                         path: '',
-                        name: 'author_video',
-                        component: () => import('views/author/video.vue')
-                    },
-                    {
-                        path: 'article',
                         name: 'author_article',
                         component: () => import('views/author/article.vue')
+                    },
+                    {
+                        path: 'video',
+                        name: 'author_video',
+                        component: () => import('views/author/video.vue')
                     },
                     {
                         path: 'setting',

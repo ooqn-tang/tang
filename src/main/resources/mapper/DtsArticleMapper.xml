@@ -9,10 +9,9 @@
     <result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
     <result column="state" jdbcType="INTEGER" property="state" />
     <result column="synopsis" jdbcType="VARCHAR" property="synopsis" />
-  </resultMap>
-  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="cn.ttcxy.entity.model.DtsArticle">
-    <result column="text1" jdbcType="LONGVARCHAR" property="text1" />
-    <result column="markdown1" jdbcType="LONGVARCHAR" property="markdown1" />
+    <result column="class_id" jdbcType="VARCHAR" property="classId" />
+    <result column="subject_id" jdbcType="VARCHAR" property="subjectId" />
+    <result column="order" jdbcType="INTEGER" property="order" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -73,27 +72,9 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    article_id, title, author_id, create_date, update_date, `state`, synopsis
+    article_id, title, author_id, create_date, update_date, `state`, synopsis, class_id, 
+    subject_id, `order`
   </sql>
-  <sql id="Blob_Column_List">
-    text1, markdown1
-  </sql>
-  <select id="selectByExampleWithBLOBs" parameterType="cn.ttcxy.entity.model.DtsArticleExample" resultMap="ResultMapWithBLOBs">
-    select
-    <if test="distinct">
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
-    from dts_article
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null">
-      order by ${orderByClause}
-    </if>
-  </select>
   <select id="selectByExample" parameterType="cn.ttcxy.entity.model.DtsArticleExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
@@ -108,11 +89,9 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
     from dts_article
     where article_id = #{articleId,jdbcType=VARCHAR}
   </select>
@@ -129,12 +108,12 @@
   <insert id="insert" parameterType="cn.ttcxy.entity.model.DtsArticle">
     insert into dts_article (article_id, title, author_id, 
       create_date, update_date, `state`, 
-      synopsis, text1, markdown1
-      )
+      synopsis, class_id, subject_id, 
+      `order`)
     values (#{articleId,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{authorId,jdbcType=VARCHAR}, 
       #{createDate,jdbcType=TIMESTAMP}, #{updateDate,jdbcType=TIMESTAMP}, #{state,jdbcType=INTEGER}, 
-      #{synopsis,jdbcType=VARCHAR}, #{text1,jdbcType=LONGVARCHAR}, #{markdown1,jdbcType=LONGVARCHAR}
-      )
+      #{synopsis,jdbcType=VARCHAR}, #{classId,jdbcType=VARCHAR}, #{subjectId,jdbcType=VARCHAR}, 
+      #{order,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="cn.ttcxy.entity.model.DtsArticle">
     insert into dts_article
@@ -160,11 +139,14 @@
       <if test="synopsis != null">
         synopsis,
       </if>
-      <if test="text1 != null">
-        text1,
+      <if test="classId != null">
+        class_id,
       </if>
-      <if test="markdown1 != null">
-        markdown1,
+      <if test="subjectId != null">
+        subject_id,
+      </if>
+      <if test="order != null">
+        `order`,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -189,11 +171,14 @@
       <if test="synopsis != null">
         #{synopsis,jdbcType=VARCHAR},
       </if>
-      <if test="text1 != null">
-        #{text1,jdbcType=LONGVARCHAR},
+      <if test="classId != null">
+        #{classId,jdbcType=VARCHAR},
       </if>
-      <if test="markdown1 != null">
-        #{markdown1,jdbcType=LONGVARCHAR},
+      <if test="subjectId != null">
+        #{subjectId,jdbcType=VARCHAR},
+      </if>
+      <if test="order != null">
+        #{order,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -227,28 +212,16 @@
       <if test="row.synopsis != null">
         synopsis = #{row.synopsis,jdbcType=VARCHAR},
       </if>
-      <if test="row.text1 != null">
-        text1 = #{row.text1,jdbcType=LONGVARCHAR},
+      <if test="row.classId != null">
+        class_id = #{row.classId,jdbcType=VARCHAR},
       </if>
-      <if test="row.markdown1 != null">
-        markdown1 = #{row.markdown1,jdbcType=LONGVARCHAR},
+      <if test="row.subjectId != null">
+        subject_id = #{row.subjectId,jdbcType=VARCHAR},
+      </if>
+      <if test="row.order != null">
+        `order` = #{row.order,jdbcType=INTEGER},
       </if>
     </set>
-    <if test="example != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExampleWithBLOBs" parameterType="map">
-    update dts_article
-    set article_id = #{row.articleId,jdbcType=VARCHAR},
-      title = #{row.title,jdbcType=VARCHAR},
-      author_id = #{row.authorId,jdbcType=VARCHAR},
-      create_date = #{row.createDate,jdbcType=TIMESTAMP},
-      update_date = #{row.updateDate,jdbcType=TIMESTAMP},
-      `state` = #{row.state,jdbcType=INTEGER},
-      synopsis = #{row.synopsis,jdbcType=VARCHAR},
-      text1 = #{row.text1,jdbcType=LONGVARCHAR},
-      markdown1 = #{row.markdown1,jdbcType=LONGVARCHAR}
     <if test="example != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -261,7 +234,10 @@
       create_date = #{row.createDate,jdbcType=TIMESTAMP},
       update_date = #{row.updateDate,jdbcType=TIMESTAMP},
       `state` = #{row.state,jdbcType=INTEGER},
-      synopsis = #{row.synopsis,jdbcType=VARCHAR}
+      synopsis = #{row.synopsis,jdbcType=VARCHAR},
+      class_id = #{row.classId,jdbcType=VARCHAR},
+      subject_id = #{row.subjectId,jdbcType=VARCHAR},
+      `order` = #{row.order,jdbcType=INTEGER}
     <if test="example != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -287,25 +263,16 @@
       <if test="synopsis != null">
         synopsis = #{synopsis,jdbcType=VARCHAR},
       </if>
-      <if test="text1 != null">
-        text1 = #{text1,jdbcType=LONGVARCHAR},
+      <if test="classId != null">
+        class_id = #{classId,jdbcType=VARCHAR},
       </if>
-      <if test="markdown1 != null">
-        markdown1 = #{markdown1,jdbcType=LONGVARCHAR},
+      <if test="subjectId != null">
+        subject_id = #{subjectId,jdbcType=VARCHAR},
+      </if>
+      <if test="order != null">
+        `order` = #{order,jdbcType=INTEGER},
       </if>
     </set>
-    where article_id = #{articleId,jdbcType=VARCHAR}
-  </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="cn.ttcxy.entity.model.DtsArticle">
-    update dts_article
-    set title = #{title,jdbcType=VARCHAR},
-      author_id = #{authorId,jdbcType=VARCHAR},
-      create_date = #{createDate,jdbcType=TIMESTAMP},
-      update_date = #{updateDate,jdbcType=TIMESTAMP},
-      `state` = #{state,jdbcType=INTEGER},
-      synopsis = #{synopsis,jdbcType=VARCHAR},
-      text1 = #{text1,jdbcType=LONGVARCHAR},
-      markdown1 = #{markdown1,jdbcType=LONGVARCHAR}
     where article_id = #{articleId,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="cn.ttcxy.entity.model.DtsArticle">
@@ -315,7 +282,10 @@
       create_date = #{createDate,jdbcType=TIMESTAMP},
       update_date = #{updateDate,jdbcType=TIMESTAMP},
       `state` = #{state,jdbcType=INTEGER},
-      synopsis = #{synopsis,jdbcType=VARCHAR}
+      synopsis = #{synopsis,jdbcType=VARCHAR},
+      class_id = #{classId,jdbcType=VARCHAR},
+      subject_id = #{subjectId,jdbcType=VARCHAR},
+      `order` = #{order,jdbcType=INTEGER}
     where article_id = #{articleId,jdbcType=VARCHAR}
   </update>
 </mapper>

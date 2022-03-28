@@ -21,6 +21,6 @@ public class VideoParam {
 
     private String videoUrl;
 
-    private String videoClassId;
+    private String classId;
 
 }

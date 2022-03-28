@@ -39,7 +39,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" ref="close">关闭</button>
-        <button type="button" class="btn btn-primary" @click="saveArticleToSubject">保存</button>
+        <button type="button" class="btn btn-primary" @click="updateArticleToSubject">保存</button>
       </div>
     </div>
   </div>
@@ -117,13 +117,6 @@ export default {
         }
         this.$refs.close.click()
       })
-    },
-    saveArticleToSubject(){
-      if(this.thisItem.subjectId == null){
-        this.insertArticleToSubject()
-      }else{
-        this.updateArticleToSubject()
-      }
     },
     deleteArticle(articleId,index){
       request({

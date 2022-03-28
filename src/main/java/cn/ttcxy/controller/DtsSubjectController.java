@@ -6,6 +6,7 @@ import cn.ttcxy.core.api.ResponseCode;
 import cn.ttcxy.entity.dto.DtsArticleSubjectDto;
 import cn.ttcxy.entity.model.DtsArticleSubject;
 import cn.ttcxy.entity.param.DtsSubjectParam;
+import cn.ttcxy.service.DtsArticleService;
 import cn.ttcxy.service.DtsArticleSubjectService;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -80,24 +81,15 @@ public class DtsSubjectController extends BaseController{
         throw new ApiException(ResponseCode.FAILED);
     }
 
-    @PostMapping("article")
+    @Autowired
+    DtsArticleService articleService;
+
+    @PutMapping("article")
     public ResponseEntity<String> insertArticleToSubject(
             @RequestParam(value = "articleId") String articleId,
             @RequestParam(value = "subjectId") String subjectId) {
 
-        Integer count = articleSubjectService.insertArticleToSubject(articleId, subjectId,authorId());
-        if (count > 0) {
-            return ResponseEntity.ok("处理成功");
-        }
-        throw new ApiException(ResponseCode.FAILED);
-    }
-
-    @PutMapping("article")
-    public ResponseEntity<String> updateArticleToSubject(
-            @RequestParam(value = "articleId") String articleId,
-            @RequestParam(value = "subjectId") String subjectId) {
-
-        Integer count = articleSubjectService.updateArticleToSubject(articleId, subjectId,authorId());
+        int count = articleService.updateSubject(articleId,subjectId);
         if (count > 0) {
             return ResponseEntity.ok("处理成功");
         }
