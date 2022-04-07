@@ -15,8 +15,6 @@
             <strong><p v-text="item.title"></p></strong>
           </a>
           <span style="padding: 0 5px;background: #e5e5e5;border-radius: 10px;">{{ item.createDate}}</span>&nbsp;&nbsp;
-          <span style="padding: 0 5px;background: #e5e5e5;border-radius: 10px;">播放量:{{item.viewCount}}</span>&nbsp;&nbsp;
-
           <div class="btn-group float-end">
             <button
               class="btn btn-outline-danger float-end"

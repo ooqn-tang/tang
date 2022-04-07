@@ -159,9 +159,6 @@ public class UtsAuthorService {
         return dateSet;
     }
 
-    /**
-     * 生成用户名
-     */
     private String getUsername(){
         while(true){
             String name = RandomUtil.randomNumbers(8);

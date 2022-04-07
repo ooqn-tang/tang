@@ -69,7 +69,6 @@ public class UtsLoginController extends BaseController{
             return new ResponseEntity<>(new JwtToken(jwt), HttpStatus.OK);
         }
         throw new ApiException(ResponseCode.FAILED);
-
     }
 
     @PostMapping("/refresh")

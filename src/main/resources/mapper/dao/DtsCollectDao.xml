@@ -2,15 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.ttcxy.mapper.dao.DtsCollectDao">
     <select id="selectCollect" resultType="cn.ttcxy.entity.dto.DtsDataDto">
-        SELECT
-        t3.username ,t3.nickname ,t2.data_id ,t2.title ,t2.create_date ,t2.synopsis,t1.type
-        FROM `dts_collect` t1
-        inner join (
-        select article_id data_id,title,author_id,create_date,synopsis from dts_article
+        select * from
+        dts_collect t1,
+        (select article_id data_id,title,author_id,create_date,synopsis from dts_article where author_id = (select author_id from uts_author where username = #{username})
         union
-        select video_id data_id,title,author_id,create_date,synopsis from dts_video
-        ) t2 on t1.data_id = t2.data_id
-        inner join uts_author t3 on t3.username = #{username} and t1.author_id = t3.author_id
-        order by t2.create_date desc
+        select video_id data_id,title,author_id,create_date,synopsis from dts_video where author_id = (select author_id from uts_author where username = #{username})
+        ) t2
+        where t1.data_id = t2.data_id order by t1.create_date desc
     </select>
 </mapper>

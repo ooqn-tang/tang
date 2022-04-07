@@ -100,7 +100,7 @@ export default {
           method: 'PUT',
           data:this.articleData
         }).then((response) => {
-          window.location.href = "/article/"+articleData.articleId
+          window.location.href = "/article/"+this.articleData.articleId
         })
       },
       loadSubject(){

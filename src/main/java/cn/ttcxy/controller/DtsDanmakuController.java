@@ -35,8 +35,8 @@ public class DtsDanmakuController extends BaseController {
             json.put("authorId",author.getAuthor().getAuthorId());
             danmakuService.insert(json);
         }
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("code","0");
-        return jsonObject;
+        JSONObject object = new JSONObject();
+        object.put("code","0");
+        return object;
     }
 }

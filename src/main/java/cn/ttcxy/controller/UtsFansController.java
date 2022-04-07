@@ -19,17 +19,16 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("api/fans")
 public class UtsFansController extends BaseController {
 
-
     @Autowired
     private UtsFansService fansService;
 
     @Autowired
-    private UtsAuthorService utsAuthorService;
+    private UtsAuthorService authorService;
 
     @GetMapping("username/{username}")
     public ResponseEntity<Integer> selectByUsername(@PathVariable("username") String username) {
         String authorId = authorId();
-        UtsAuthor utsAuthor = utsAuthorService.selectAuthorByName(username);
+        UtsAuthor utsAuthor = authorService.selectAuthorByName(username);
         if (utsAuthor != null) {
             Integer count = fansService.isFans(authorId, utsAuthor.getAuthorId());
             return ResponseEntity.ok(count);
@@ -48,7 +47,7 @@ public class UtsFansController extends BaseController {
     public ResponseEntity<Integer> insert(@PathVariable("fansName") String fansName) {
         String authorId = authorId();
 
-        UtsAuthor utsAuthor = utsAuthorService.selectAuthorByName(fansName);
+        UtsAuthor utsAuthor = authorService.selectAuthorByName(fansName);
         if (utsAuthor == null) {
             throw new ApiException(ResponseCode.VALIDATE_FAILED);
         }

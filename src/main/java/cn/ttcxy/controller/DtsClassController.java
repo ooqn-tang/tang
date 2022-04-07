@@ -19,7 +19,7 @@ public class DtsClassController extends BaseController {
     private DtsClassService classService;
 
     @GetMapping
-    public ResponseEntity<List<DtsClass>> selectClass(@RequestParam("type") String type){
+    public ResponseEntity<List<DtsClass>> select(@RequestParam("type") String type){
         List<DtsClass> classList = classService.selectClass(type);
         return ResponseEntity.ok(classList);
     }

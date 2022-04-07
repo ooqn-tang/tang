@@ -62,7 +62,7 @@ public class DtsArticleService {
         return articleMapper.insertSelective(article);
     }
 
-    public int updateArticle(DtsArticle article, DtsArticleContent articleContent, String subjectId) {
+    public int updateArticle(DtsArticle article, DtsArticleContent articleContent) {
         int i = articleMapper.updateByPrimaryKeySelective(article);
         String articleId = article.getArticleId();
         int count = articleContentCount(articleId);
@@ -85,8 +85,12 @@ public class DtsArticleService {
         return 1;
     }
 
-    public int deleteArticle(String id) {
-        return articleMapper.deleteByPrimaryKey(id);
+    public int deleteArticle(String articleId, String authorId) {
+        DtsArticleExample articleExample = new DtsArticleExample();
+        articleExample.createCriteria()
+                .andArticleIdEqualTo(articleId)
+                .andAuthorIdEqualTo(articleId);
+        return articleMapper.deleteByExample(articleExample);
     }
 
 
@@ -124,5 +128,13 @@ public class DtsArticleService {
         article.setArticleId(articleId);
         article.setSubjectId(subjectId);
         return articleMapper.updateByPrimaryKeySelective(article);
+    }
+
+    public String authorId(String articleId) {
+        DtsArticle article = articleMapper.selectByPrimaryKey(articleId);
+        if (article != null){
+            return article.getArticleId();
+        }
+        return null;
     }
 }

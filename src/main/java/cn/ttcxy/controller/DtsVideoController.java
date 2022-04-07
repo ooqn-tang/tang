@@ -3,6 +3,7 @@ package cn.ttcxy.controller;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.IdUtil;
+import cn.hutool.core.util.StrUtil;
 import cn.ttcxy.core.api.ApiException;
 import cn.ttcxy.core.api.ResponseCode;
 import cn.ttcxy.entity.dto.DtsVideoDto;
@@ -95,21 +96,27 @@ public class DtsVideoController extends BaseController{
     }
 
     @PutMapping
-    public ResponseEntity<String> update(@RequestBody VideoParam video){
-        DtsVideo dtsVideo = BeanUtil.toBean(video, DtsVideo.class);
-        dtsVideo.setState(2);
-        int count = videoService.update(dtsVideo);
-        if (count > 0){
-            return ResponseEntity.ok("执行成功");
+    public ResponseEntity<String> update(@RequestBody VideoParam videoParam){
+        DtsVideo video = BeanUtil.toBean(videoParam, DtsVideo.class);
+        String authorId = videoService.authorId(video.getVideoId());
+        if (StrUtil.equals(authorId,authorId())){
+            video.setState(2);
+            int count = videoService.update(video);
+            if (count > 0){
+                return ResponseEntity.ok("执行成功");
+            }
         }
         throw new ApiException(ResponseCode.FAILED);
     }
 
     @DeleteMapping("{videoId}")
     public ResponseEntity<String> delete(@PathVariable("videoId")String videoId){
-        int count = videoService.deleteById(videoId);
-        if (count > 0){
-            return ResponseEntity.ok("执行成功");
+        String authorId = videoService.authorId(videoId);
+        if (StrUtil.equals(authorId,authorId())){
+            int count = videoService.deleteById(videoId);
+            if (count > 0){
+                return ResponseEntity.ok("执行成功");
+            }
         }
         throw new ApiException(ResponseCode.FAILED);
     }

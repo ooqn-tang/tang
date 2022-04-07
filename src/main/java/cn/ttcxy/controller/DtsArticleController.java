@@ -28,19 +28,11 @@ public class DtsArticleController extends BaseController{
     @Autowired
     private DtsArticleService articleService;
 
-    @GetMapping("search")
-    public ResponseEntity<PageInfo<DtsArticleDto>> searchArticleList(
-            @RequestParam(value = "page" ,defaultValue = "1")Integer page,
-            @RequestParam(value = "title" ,defaultValue = "")String title){
-        PageInfo<DtsArticleDto> articleList = articleService.search(title, page, 10);
-        return ResponseEntity.ok(articleList);
-    }
-
     @GetMapping("list")
     public ResponseEntity<PageInfo<DtsArticleDto>> selectArticleList(
             @RequestParam(value = "page" ,defaultValue = "1")Integer page,
             @RequestParam(value = "classId",defaultValue = "")String classId){
-        PageInfo<DtsArticleDto> articleList = articleService.selectArticleList(classId,page, 10);
+        PageInfo<DtsArticleDto> articleList = articleService.selectArticleList(classId, page, 10);
         return ResponseEntity.ok(articleList);
     }
 
@@ -57,34 +49,10 @@ public class DtsArticleController extends BaseController{
         return ResponseEntity.ok(articleService.selectArticleListRandom());
     }
 
-    @DeleteMapping("{articleId}")
-    public ResponseEntity<String> delete(@PathVariable("articleId") String articleId){
-        DtsArticle article = articleService.selectByPrimaryId(articleId);
-        if (article == null){
-            throw new ApiException(ResponseCode.VALIDATE_FAILED);
-        }
-        String articleAuthorId = article.getAuthorId();
-        String currentAuthorId = authorId();
-        int count;
-
-        if(StrUtil.equals(currentAuthorId,articleAuthorId)){
-            count = articleService.deleteArticle(articleId);
-            if(count > 0){
-                return ResponseEntity.ok("处理成功");
-            }
-        }else{
-            throw new ApiException("不能删除别入的文章");
-        }
-        throw new ApiException(HttpStatus.ACCEPTED);
-
-    }
-
     @PostMapping
     public ResponseEntity<String> create(){
-
         DateTime dateTime = new DateTime();
         String authorId = authorId();
-
         DtsArticle article = new DtsArticle();
         article.setArticleId(IdUtil.objectId());
         article.setCreateDate(dateTime);
@@ -95,34 +63,46 @@ public class DtsArticleController extends BaseController{
             return ResponseEntity.ok(article.getArticleId());
         }
         throw new ApiException(HttpStatus.ACCEPTED);
+    }
 
+    @DeleteMapping("{articleId}")
+    public ResponseEntity<String> delete(@PathVariable("articleId") String articleId){
+        String authorId = articleService.authorId(articleId);
+        if (StrUtil.equals(authorId,authorId())){
+            int count = articleService.deleteArticle(articleId, authorId());
+            if(count > 0){
+                return ResponseEntity.ok("处理成功");
+            }
+        }
+        throw new ApiException(HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @PutMapping
-    public ResponseEntity<String> update(@RequestBody @Validated DtsArticleParam articleParam){
+    public ResponseEntity<String> update(@RequestBody DtsArticleParam articleParam){
         DtsArticle article = BeanUtil.toBean(articleParam, DtsArticle.class);
-        article.setState(1);
-        String subjectId = articleParam.getSubjectId();
-
-        DtsArticleContent articleContent = new DtsArticleContent();
-        articleContent.setArticleId(article.getArticleId());
-        articleContent.setMarkdown(articleParam.getMarkdown());
-        articleContent.setText(articleParam.getText());
-
-        int count  = articleService.updateArticle(article,articleContent,subjectId);
-        if (count > 0){
-            return ResponseEntity.ok(ResponseCode.SUCCESS.getMessage());
+        String articleId = article.getArticleId();
+        String authorId= articleService.authorId(articleId);
+        if (StrUtil.equals(authorId, authorId())){
+            article.setState(1);
+            DtsArticleContent articleContent = new DtsArticleContent();
+            articleContent.setArticleId(article.getArticleId());
+            articleContent.setMarkdown(articleParam.getMarkdown());
+            articleContent.setText(articleParam.getText());
+            int count  = articleService.updateArticle(article,articleContent);
+            if (count > 0){
+                return ResponseEntity.ok(ResponseCode.SUCCESS.getMessage());
+            }
         }
         throw new ApiException(ResponseCode.FORBIDDEN);
     }
 
     @GetMapping("load/{articleId}")
     public ResponseEntity<DtsArticleDto> load(@PathVariable(name="articleId") String articleId){
-        DtsArticleDto articleDto = articleService.selectArticleById(articleId);
-        if (articleDto == null){
+        DtsArticleDto article = articleService.selectArticleById(articleId);
+        if (article == null){
             throw new ApiException(ResponseCode.FAILED);
         }
-        return ResponseEntity.ok(articleDto);
+        return ResponseEntity.ok(article);
     }
 
     @GetMapping("load/{articleId}/all")

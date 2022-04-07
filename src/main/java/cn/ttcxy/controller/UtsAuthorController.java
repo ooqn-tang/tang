@@ -22,19 +22,17 @@ public class UtsAuthorController extends BaseController {
     @Autowired
     private UtsAuthorService authorService;
 
-
     @Autowired
     private HttpSession httpSession;
 
     @GetMapping("authorListArticleCount")
-    public ResponseEntity<PageInfo<Map<String, String>>> select(
+    public ResponseEntity<?> select(
             @RequestParam(value = "page", defaultValue = "1") Integer page) {
-        PageInfo<Map<String, String>> mapPageInfo = authorService.selectAuthorArticleCount(page, 100);
-        return ResponseEntity.ok(mapPageInfo);
+        return ResponseEntity.ok(authorService.selectAuthorArticleCount(page, 100));
     }
 
     @PutMapping
-    public ResponseEntity<String> updateAuthor(@RequestBody UtsAuthorParam authorParam) {
+    public ResponseEntity<?> update(@RequestBody UtsAuthorParam authorParam) {
         UtsAuthor author = BeanUtil.toBean(authorParam, UtsAuthor.class);
         String authorId = authorId();
         author.setAuthorId(authorId);
@@ -47,14 +45,14 @@ public class UtsAuthorController extends BaseController {
 
 
     @GetMapping("{username}")
-    public ResponseEntity<UtsAuthor> authorByUsername(@PathVariable(value = "username") String username) {
+    public ResponseEntity<?> authorByUsername(@PathVariable(value = "username") String username) {
         UtsAuthor utsAuthor = authorService.selectAuthorByName(username);
         utsAuthor.setPassword(null);
         return ResponseEntity.ok(utsAuthor);
     }
 
     @GetMapping("list")
-    public ResponseEntity<PageInfo<UtsAuthor>> authorList(@RequestParam(value = "page", defaultValue = "1") Integer page) {
+    public ResponseEntity<?> authorList(@RequestParam(value = "page", defaultValue = "1") Integer page) {
         return ResponseEntity.ok(authorService.authorList(page, 10));
     }
 }

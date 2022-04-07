@@ -15,7 +15,7 @@ public class DtsCollectController extends BaseController{
     private DtsCollectService collectService;
 
     @GetMapping("{dataId}")
-    public ResponseEntity<Long> getCollect(@PathVariable("dataId") String dataId){
+    public ResponseEntity<Long> collect(@PathVariable("dataId") String dataId){
         String authorId = authorId();
         return ResponseEntity.ok(collectService.select(authorId,dataId));
     }

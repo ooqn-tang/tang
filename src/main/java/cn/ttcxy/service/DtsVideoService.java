@@ -95,4 +95,9 @@ public class DtsVideoService {
         }
         return videoDtoList;
     }
+
+    public String authorId(String videoId){
+        DtsVideo dtsVideo = videoMapper.selectByPrimaryKey(videoId);
+        return dtsVideo.getAuthorId();
+    }
 }

@@ -42,6 +42,8 @@ public class DtsArticleDto {
     // 专题ID
     private String subjectId;
 
+    private String classId;
+
     private String type;
 
 }

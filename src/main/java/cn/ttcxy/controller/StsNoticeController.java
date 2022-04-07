@@ -18,7 +18,7 @@ public class StsNoticeController extends BaseController {
     private StsNoticeService noticeService;
 
     @GetMapping("list")
-    public ResponseEntity<List<StsNotice>> loadAdv() {
+    public ResponseEntity<List<StsNotice>> select() {
         return ResponseEntity.ok(noticeService.selectAllNotice());
     }
 }

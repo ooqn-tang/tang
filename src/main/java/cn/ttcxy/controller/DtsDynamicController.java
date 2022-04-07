@@ -21,12 +21,12 @@ import java.util.List;
 public class DtsDynamicController extends BaseController {
 
     @Autowired
-    private DtsDynamicService dtsDynamicService;
+    private DtsDynamicService dynamicService;
 
     @GetMapping
     public ResponseEntity<List<UtsDynamicDto>> dynamic(@RequestParam(value = "type", defaultValue = "") String type) {
         if (StrUtil.equalsAny(type,"","video","article")){
-            return ResponseEntity.ok(dtsDynamicService.authorDynamicList(authorName(),type));
+            return ResponseEntity.ok(dynamicService.authorDynamicList(authorName(),type));
         }
         throw new ApiException(ResponseCode.FAILED);
     }

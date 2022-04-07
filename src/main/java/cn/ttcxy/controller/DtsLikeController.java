@@ -17,9 +17,6 @@ public class DtsLikeController extends BaseController{
     @Autowired
     private DtsLikeService likeService;
 
-    /**
-     * 喜欢
-     */
     @PostMapping("{dataId}")
     public ResponseEntity<String> like(@PathVariable("dataId")String dataId){
         DtsLike praise = new DtsLike();
@@ -34,9 +31,6 @@ public class DtsLikeController extends BaseController{
         throw new ApiException(ResponseCode.FAILED);
     }
 
-    /**
-     * 取消喜欢
-     */
     @DeleteMapping("{dataId}")
     public ResponseEntity<String> unlike(@PathVariable("dataId")String dataId){
         int count = likeService.delete(authorId(),dataId);

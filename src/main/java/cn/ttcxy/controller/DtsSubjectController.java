@@ -22,6 +22,9 @@ public class DtsSubjectController extends BaseController{
     @Autowired
     private DtsArticleSubjectService articleSubjectService;
 
+    @Autowired
+    private DtsArticleService articleService;
+
     @GetMapping("username")
     public ResponseEntity<PageInfo<DtsArticleSubjectDto>> selectSubjectArticleListByUsername(
             @RequestParam(value = "username", defaultValue = "0") String username) {
@@ -81,8 +84,6 @@ public class DtsSubjectController extends BaseController{
         throw new ApiException(ResponseCode.FAILED);
     }
 
-    @Autowired
-    DtsArticleService articleService;
 
     @PutMapping("article")
     public ResponseEntity<String> insertArticleToSubject(

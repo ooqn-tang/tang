@@ -18,7 +18,6 @@
             <div class="card-footer">
               <div class="row">
                 <div class="col" style="line-height: 31px">
-                  <div class="badge bg-primary text-wrap mr-10">播放量：{{video.dataCount.view}}</div>
                   <div class="badge text-wrap mr-10" :class="type.like?'bg-primary':'bg-secondary'" @click="like()">点赞({{video.dataCount.like}})</div>
                   <div class="badge text-wrap mr-10" :class="type.collect?'bg-primary':'bg-secondary'" @click="collect()">收藏</div>
                   <button type="button" class="btn btn-outline-dark btn-sm float-end" @click="fx">分享</button>
