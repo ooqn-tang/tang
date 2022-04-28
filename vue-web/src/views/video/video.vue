@@ -61,7 +61,7 @@
                   <strong>{{ item.nickname }}：</strong>{{ item.text }}
                   <span style="color:red" v-if="item.username == loginUsername" @click="deleteComment(item.commentId,index)">删除</span>
                   <br />
-                  <span style="color: #939393">2020.10.10</span>
+                  <span style="color: #939393">{{item}}</span>
                   <span
                     @click="
                       (plinput = index),

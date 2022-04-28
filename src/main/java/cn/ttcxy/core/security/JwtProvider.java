@@ -17,7 +17,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import java.security.Key;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Date;
 import java.util.stream.Collectors;
 
 @Component
@@ -27,7 +29,6 @@ public class JwtProvider implements InitializingBean {
 
     private static final String AUTHORITIES_KEY = "authorities";
     private static final String AUTHOR_KEY = "author";
-    private static final String ROLE_KEY = "role";
 
     private final String base64Secret;
     private final long tokenValidityInMilliseconds;

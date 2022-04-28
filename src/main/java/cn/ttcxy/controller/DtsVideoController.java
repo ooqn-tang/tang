@@ -8,7 +8,6 @@ import cn.ttcxy.core.api.ApiException;
 import cn.ttcxy.core.api.ResponseCode;
 import cn.ttcxy.entity.dto.DtsVideoDto;
 import cn.ttcxy.entity.model.DtsVideo;
-import cn.ttcxy.entity.model.DtsVideoClass;
 import cn.ttcxy.entity.param.VideoParam;
 import cn.ttcxy.service.DtsVideoService;
 import com.github.pagehelper.PageInfo;

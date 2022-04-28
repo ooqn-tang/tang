@@ -2,7 +2,6 @@ package cn.ttcxy.controller.admin;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.ttcxy.controller.BaseController;
-import com.github.pagehelper.PageInfo;
 import cn.ttcxy.core.api.ApiException;
 import cn.ttcxy.core.api.ResponseCode;
 import cn.ttcxy.entity.dto.DtsVideoDto;
@@ -10,6 +9,7 @@ import cn.ttcxy.entity.model.DtsVideo;
 import cn.ttcxy.entity.param.DtsPassParam;
 import cn.ttcxy.entity.param.DtsVideoParam;
 import cn.ttcxy.service.DtsVideoService;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

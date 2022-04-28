@@ -1,9 +1,10 @@
 package cn.ttcxy.mapper;
 
-import java.util.List;
 import cn.ttcxy.entity.model.DtsContent;
 import cn.ttcxy.entity.model.DtsContentExample;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface DtsContentMapper {
     long countByExample(DtsContentExample example);

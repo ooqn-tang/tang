@@ -4,7 +4,7 @@
     <select id="select" resultType="cn.ttcxy.entity.dto.DtsCommentDto">
         select *,(select count(comment_id) from dts_comment where parent_comment_id = t1.comment_id) comment_count
         from dts_comment t1
-        inner join uts_author t2 on data_id = #{dataId} and t1.author_id = t2.author_id
+        inner join uts_author t2 on data_id = #{dataId} and t1.author_id = t2.author_id and t1.state != '4'
     </select>
     <select id="selectLower" resultType="cn.ttcxy.entity.dto.DtsCommentDto">
         select *

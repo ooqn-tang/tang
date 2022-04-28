@@ -4,7 +4,6 @@ import cn.ttcxy.entity.dto.DtsVideoDto;
 import cn.ttcxy.entity.param.DtsVideoParam;
 import org.apache.ibatis.annotations.Param;
 
-import java.util.Date;
 import java.util.List;
 
 public interface DtsVideoDao {

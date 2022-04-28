@@ -1,9 +1,10 @@
 package cn.ttcxy.mapper;
 
-import java.util.List;
 import cn.ttcxy.entity.model.PersistentLogins;
 import cn.ttcxy.entity.model.PersistentLoginsExample;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface PersistentLoginsMapper {
     long countByExample(PersistentLoginsExample example);

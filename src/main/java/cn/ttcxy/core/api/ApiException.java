@@ -23,12 +23,12 @@ public class ApiException extends RuntimeException {
         this.message = message;
     }
 
-    public ApiException(org.springframework.http.HttpStatus status) {
+    public ApiException(HttpStatus status) {
         this.status = status.value();
         this.message = status.getReasonPhrase();
     }
 
-    public ApiException(org.springframework.http.HttpStatus status,String message) {
+    public ApiException(HttpStatus status, String message) {
         this.status = status.value();
         this.message = message;
     }

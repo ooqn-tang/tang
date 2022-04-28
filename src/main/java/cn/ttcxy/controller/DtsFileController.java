@@ -78,7 +78,7 @@ public class DtsFileController extends BaseController {
                 if (rangeString != null) {//如果rangeString不为空，证明是播放视频发来的请求
                     long range = Long.parseLong(rangeString.substring(rangeString.indexOf("=") + 1, rangeString.indexOf("-")));
                     //设置内容类型
-                    response.setHeader("Content-Type", "video/mp4");
+                    response.setHeader("Content-Type", "img/png");
                     //设置此次相应返回的数据长度
                     response.setHeader("Content-Length", String.valueOf(fileLength - range));
                     //设置此次相应返回的数据范围
@@ -116,6 +116,7 @@ public class DtsFileController extends BaseController {
         }
 
     }
+
 
     public static String downloadFile(HttpServletResponse response, String fileName) {
         response.setContentType("video/mp4");

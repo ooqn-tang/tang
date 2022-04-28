@@ -35,7 +35,7 @@ public class DtsVideoService {
     }
 
     public int update(DtsVideo dtsVideo) {
-        return videoMapper.updateByPrimaryKey(dtsVideo);
+        return videoMapper.updateByPrimaryKeySelective(dtsVideo);
     }
 
     public int updateSelective(DtsVideo dtsVideo) {

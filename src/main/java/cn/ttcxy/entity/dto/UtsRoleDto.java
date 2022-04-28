@@ -1,7 +1,6 @@
 package cn.ttcxy.entity.dto;
 
 import lombok.Data;
-import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.core.GrantedAuthority;
 
 import java.util.Date;

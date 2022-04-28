@@ -5,14 +5,12 @@ import cn.ttcxy.core.api.ApiException;
 import cn.ttcxy.entity.model.UtsAuthor;
 import cn.ttcxy.entity.param.UtsAuthorParam;
 import cn.ttcxy.service.UtsAuthorService;
-import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
-import java.util.Map;
 
 @RestController
 @RequestMapping("api/author")
