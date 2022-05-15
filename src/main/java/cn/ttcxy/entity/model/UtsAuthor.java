@@ -22,8 +22,6 @@ public class UtsAuthor implements Serializable {
 
     private String headUrl;
 
-    private Integer grade;
-
     private static final long serialVersionUID = 1L;
 
     public String getAuthorId() {
@@ -98,14 +96,6 @@ public class UtsAuthor implements Serializable {
         this.headUrl = headUrl;
     }
 
-    public Integer getGrade() {
-        return grade;
-    }
-
-    public void setGrade(Integer grade) {
-        this.grade = grade;
-    }
-
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -121,7 +111,6 @@ public class UtsAuthor implements Serializable {
         sb.append(", updateTime=").append(updateTime);
         sb.append(", refreshTime=").append(refreshTime);
         sb.append(", headUrl=").append(headUrl);
-        sb.append(", grade=").append(grade);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

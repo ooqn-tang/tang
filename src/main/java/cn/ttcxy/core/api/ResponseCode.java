@@ -29,11 +29,12 @@ public enum ResponseCode {
      * 请刷新JWT
      */
     REFRESH(666, "请刷新JWT");
+
     private final int status;
+
     private final String message;
 
     ResponseCode(int status, String message) {
-
         this.status = status;
         this.message = message;
     }

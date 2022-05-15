@@ -24,8 +24,7 @@
           </a>
           <div>
             <span class="date-color" style="font-size: 16px; color: #5f5a5a">2020.02.02</span>
-            <span> . <span style="font-size: 16px; color: #dc3545">Java</span></span>
-            <a class="float-end">{{ item.nickname }}</a>
+            <a href="#" class=" float-end">{{ item.nickname }}</a>
           </div>
         </li>
       </ul>

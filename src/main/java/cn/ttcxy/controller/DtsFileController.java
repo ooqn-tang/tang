@@ -4,6 +4,11 @@ import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.ttcxy.core.api.ApiException;
 import cn.ttcxy.core.api.ResponseCode;
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.WriterException;
+import com.google.zxing.client.j2se.MatrixToImageWriter;
+import com.google.zxing.common.BitMatrix;
+import com.google.zxing.qrcode.QRCodeWriter;
 import org.apache.catalina.connector.ClientAbortException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
@@ -146,6 +151,45 @@ public class DtsFileController extends BaseController {
             }
         }
         return "success";
+    }
+
+
+    @GetMapping("download/{fileName}")
+    public void download(@PathVariable("fileName") String fileName,HttpServletRequest request,  HttpServletResponse response) throws IOException {
+        try{
+            //获取响应的输出流
+            OutputStream outputStream = response.getOutputStream();
+            //设置内容类型
+            response.setHeader("Content-Type", "img/png");
+            //返回码需要为206，而不是200
+            response.setStatus(HttpServletResponse.SC_PARTIAL_CONTENT);
+            byte[] qrCodeImage = getQRCodeImage("12121212", 100, 100);
+            outputStream.write(getQRCodeImage("12121212",100,100), 0, qrCodeImage.length);
+            outputStream.flush();
+            outputStream.close();
+        }catch (Exception ignored){
+
+        }
+
+    }
+
+
+    /**
+     * 生成二维码，返回字节流
+     *
+     * @param text   二维码需要包含的信息
+     * @param width  二维码宽度
+     * @param height 二维码高度
+     * @return
+     * @throws WriterException
+     * @throws IOException
+     */
+    public static byte[] getQRCodeImage(String text, int width, int height) throws WriterException, IOException {
+        QRCodeWriter qrCodeWriter = new QRCodeWriter();
+        BitMatrix bitMatrix = qrCodeWriter.encode(text, BarcodeFormat.QR_CODE, width, height);
+        ByteArrayOutputStream pngOutputStream = new ByteArrayOutputStream();
+        MatrixToImageWriter.writeToStream(bitMatrix, "PNG", pngOutputStream);
+        return pngOutputStream.toByteArray();
     }
 
 }

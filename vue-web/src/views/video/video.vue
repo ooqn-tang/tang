@@ -9,11 +9,10 @@
               <span class="float-end">
                 <router-link v-if="video.username" :to="{name:'author_article',params:{username: video.username}}" class="float-end">
                   <span>{{video.nickname}}</span>
-                  <span style="color: red;padding-left: 5px;font-weight: 800;">L{{video.grade}}</span>
                 </router-link></span>
             </div>
             <div class="card-body" style="padding: 0; height: 600px;" id="videoBody">
-              <div ref="videoRef" style="height: 100%;" />
+              <video style="height: 100%;width:100%;background: black;" ref="videoPlay" controls></video>
             </div>
             <div class="card-footer">
               <div class="row">
@@ -329,32 +328,8 @@ export default {
         method: "get",
       }).then((response) => {
         this.video = response.data;
-        //this.$refs.videoPlay.src = response.data.videoUrl;
-        //this.$refs.videoPlay.play();
-        let dp = new Dplayer({          //初始化视频对象
-          container:this.$refs.videoRef,   //指定视频容器节点
-          autoplay:true,
-          danmaku: {
-            id: this.videoId,//必填，视频id, 用于下面api请求时使用
-            api: import.meta.env.VITE_BASE_API + 'api/danmaku/',//必填，叫后台提供
-           //可选，额外的弹幕,这里是引用了B站具体视频中的弹幕，把aid,cid替换就行
-            token:localStorage.getItem("jwt"),
-            bottom: '15%',
-            unlimited: true,
-          },
-          video:{
-            url:response.data.videoUrl
-          }
-        })
-
-        let _this = this;
-
-        dp.on('ended',function(){
-          _this.$router.push("/video/"+_this.randList[0]['videoId'])
-          _this.randList.splice(0,1)
-          _this.loadVideo()
-          _this.rand(1)
-        })
+        this.$refs.videoPlay.src = response.data.videoUrl;
+        this.$refs.videoPlay.play();
       });
     },
   },
@@ -364,7 +339,8 @@ export default {
     this.loadComment();
     this.loadCollect();
     let _this = this;
-    window.onresize = function(){ // 定义窗口大小变更通知事件
+    window.onresize = function(){ 
+      // 定义窗口大小变更通知事件
       _this.screenWidth = document.documentElement.clientWidth; //窗口宽度
     };
   },

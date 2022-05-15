@@ -35,7 +35,9 @@ public class JwtFilter extends GenericFilterBean {
         this.jwtProvider = jwtProvider;
         this.authorService = authorService;
     }
+
     private final AntPathMatcher antPathMatcher = new AntPathMatcher();
+
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest httpServletRequest = (HttpServletRequest) request;
@@ -43,7 +45,7 @@ public class JwtFilter extends GenericFilterBean {
         String jwt = resolveToken(httpServletRequest);
         String requestURI = httpServletRequest.getRequestURI();
 
-        if (StringUtils.hasText(jwt) && jwtProvider.validateToken(jwt)&&!antPathMatcher.match("/api/refresh",requestURI)) {
+        if (StringUtils.hasText(jwt) && jwtProvider.validateToken(jwt) && !antPathMatcher.match("/api/refresh",requestURI)) {
             Authentication authentication = jwtProvider.getAuthentication(jwt);
             CurrentAuthor currentAuthor = (CurrentAuthor) authentication.getPrincipal();
             Date date = authorService.nowTime(currentAuthor.getUsername(), currentAuthor.getRoles());

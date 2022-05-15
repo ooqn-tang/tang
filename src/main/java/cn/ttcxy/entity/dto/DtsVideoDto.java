@@ -43,6 +43,4 @@ public class DtsVideoDto {
 
     private DtsDataCount dataCount;
 
-    private String grade;
-
 }

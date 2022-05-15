@@ -11,7 +11,6 @@
         <span style="background: #efefef;padding: 0px 5px;border-radius: 10px;color: #7d7d7d;">{{item.createDate}}</span>
         
         <div class="btn-group float-end">
-          <!-- <button class="btn btn-outline-dark float-end" style="padding: 0px 5px 0px 3px;font-size: 13px;" disabled>编辑</button> -->
           <button class="btn btn-outline-danger float-end" style="padding: 0px 5px 0px 3px;font-size: 13px;" v-if="isThisUser" @click="deleteArticle(item.articleId,index)">删除</button>
           <router-link class="btn btn-outline-danger float-end" style="padding: 0px 5px 0px 3px;font-size: 13px;" v-if="isThisUser"  target="_blank"  :to="{name: 'article-editor', params: { id: item.articleId }}" >修改</router-link>
           <button class="btn btn-outline-success float-end" style="padding: 0px 5px 0px 3px;font-size: 13px;" v-if="item.subjectId == null && isThisUser" data-bs-toggle="modal" data-bs-target="#exampleModal"  @click="subjectFrom.articleId = item.articleId , thisItem = item">添加到专辑</button>

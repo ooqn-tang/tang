@@ -36,19 +36,19 @@
     </select>
 
     <select id="selectAuthorByMailAll" resultMap="AuthorMap">
-        select author_id,username,nickname,password,signature,mail,grade
+        select author_id,username,nickname,password,signature,mail
         from uts_author
         where mail = #{mail}
     </select>
 
     <select id="selectAuthor" resultMap="AuthorMap">
-        select author_id,username,nickname,password,signature,mail,grade
+        select author_id,username,nickname,password,signature,mail
         from uts_author
     </select>
 
 
     <select id="selectAuthorByName" resultMap="AuthorMap">
-        select author_id,username,nickname,password,signature,mail,refresh_time,head_url,grade
+        select author_id,username,nickname,password,signature,mail,refresh_time,head_url
         from uts_author
         where username = #{authorName}
     </select>

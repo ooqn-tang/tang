@@ -1,14 +1,8 @@
 <template>
 
- <div class="common-layout">
-    <el-container>
-      <el-header style="">Header</el-header>
-      <el-container>
-        <el-aside width="200px">Aside</el-aside>
-        <el-main>Main</el-main>
-      </el-container>
-    </el-container>
-  </div>
+ <div style="text-align: center;">404</div>
+ <div style="text-align: center;"><a style="text-align: center;" href="/">首页</a></div>
+ 
 </template>
 <script>
 export default {

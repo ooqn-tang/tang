@@ -714,66 +714,6 @@ public class UtsAuthorExample {
             addCriterion("head_url not between", value1, value2, "headUrl");
             return (Criteria) this;
         }
-
-        public Criteria andGradeIsNull() {
-            addCriterion("grade is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andGradeIsNotNull() {
-            addCriterion("grade is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andGradeEqualTo(Integer value) {
-            addCriterion("grade =", value, "grade");
-            return (Criteria) this;
-        }
-
-        public Criteria andGradeNotEqualTo(Integer value) {
-            addCriterion("grade <>", value, "grade");
-            return (Criteria) this;
-        }
-
-        public Criteria andGradeGreaterThan(Integer value) {
-            addCriterion("grade >", value, "grade");
-            return (Criteria) this;
-        }
-
-        public Criteria andGradeGreaterThanOrEqualTo(Integer value) {
-            addCriterion("grade >=", value, "grade");
-            return (Criteria) this;
-        }
-
-        public Criteria andGradeLessThan(Integer value) {
-            addCriterion("grade <", value, "grade");
-            return (Criteria) this;
-        }
-
-        public Criteria andGradeLessThanOrEqualTo(Integer value) {
-            addCriterion("grade <=", value, "grade");
-            return (Criteria) this;
-        }
-
-        public Criteria andGradeIn(List<Integer> values) {
-            addCriterion("grade in", values, "grade");
-            return (Criteria) this;
-        }
-
-        public Criteria andGradeNotIn(List<Integer> values) {
-            addCriterion("grade not in", values, "grade");
-            return (Criteria) this;
-        }
-
-        public Criteria andGradeBetween(Integer value1, Integer value2) {
-            addCriterion("grade between", value1, value2, "grade");
-            return (Criteria) this;
-        }
-
-        public Criteria andGradeNotBetween(Integer value1, Integer value2) {
-            addCriterion("grade not between", value1, value2, "grade");
-            return (Criteria) this;
-        }
     }
 
     public static class Criteria extends GeneratedCriteria {

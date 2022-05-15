@@ -3,7 +3,7 @@
     <div class="col-md-9 mb-2 move-p-lr-0">
       <div class="card move-b-lr-0">
         <div class="card-header">
-          <ul class="nav nav-tabs card-header-tabs">
+          <ul class="nav nav-tabs card-header-tabs float-start">
             <li class="nav-item">
               <a
                 class="nav-link"
@@ -13,8 +13,10 @@
                 @click="selectTag('')"
                 >动态</a
               >
+              
             </li>
           </ul>
+          <button type="button" class="btn btn-outline-secondary float-end  btn-sm">清空</button>
         </div>
         <div class="card-body" style="padding: 0">
           <ul class="list-group article-list">

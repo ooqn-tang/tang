@@ -3,7 +3,7 @@
     <div class="col-md-4 col-md-push-8 move-p-lr-0">
       <div class="card mb-2 move-b-lr-0">
         <div class="card-body ">
-          <strong>{{author.nickname}}<span style="color: red;padding-left: 5px;font-weight: 800;">L{{author.grade}}</span></strong>
+          <strong>{{author.nickname}}</strong>
           <button v-if="fans == 2" class="btn btn-outline-warning float-end" style="padding: 0px 5px 0px 3px;font-size: 13px;" @click="fansClick(author.username)">订阅</button>
           <button v-if="fans == 1" class="btn btn-outline-warning float-end" style="padding: 0px 5px 0px 3px;font-size: 13px;" @click="fansClick(author.username)">取消订阅</button>
           <hr />
