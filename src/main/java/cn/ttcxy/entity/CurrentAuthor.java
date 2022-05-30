@@ -1,5 +1,6 @@
-package cn.ttcxy.entity.dto;
+package cn.ttcxy.entity;
 
+import cn.ttcxy.entity.TangGrantedAuthority;
 import cn.ttcxy.entity.model.UtsAuthor;
 import cn.ttcxy.entity.model.UtsRole;
 import com.fasterxml.jackson.annotation.JsonIgnore;

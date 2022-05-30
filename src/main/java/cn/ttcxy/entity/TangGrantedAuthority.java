@@ -1,4 +1,4 @@
-package cn.ttcxy.entity.dto;
+package cn.ttcxy.entity;
 
 import cn.ttcxy.entity.model.UtsRole;
 import org.springframework.security.core.GrantedAuthority;

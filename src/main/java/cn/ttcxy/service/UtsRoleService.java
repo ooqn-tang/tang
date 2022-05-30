@@ -23,7 +23,7 @@ public class UtsRoleService {
     @Autowired
     private UtsResourceRoleMapper resourceRoleMapper;
 
-    public List<UtsRole> selectRoleList(String authorId){
+    public List<UtsRole> roleList(String authorId){
         return roleDao.selectRoleListByAuthorId(authorId);
     }
 

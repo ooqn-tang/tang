@@ -1,7 +1,5 @@
 package cn.ttcxy.entity;
 
-import cn.ttcxy.entity.dto.CurrentAuthor;
-
 public class TokenEntity {
     private String authorities;
     private CurrentAuthor author;

@@ -1,7 +1,7 @@
 package cn.ttcxy.controller;
 
 import cn.ttcxy.core.security.JwtProvider;
-import cn.ttcxy.entity.dto.CurrentAuthor;
+import cn.ttcxy.entity.CurrentAuthor;
 import cn.ttcxy.service.DtsDanmakuService;
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;

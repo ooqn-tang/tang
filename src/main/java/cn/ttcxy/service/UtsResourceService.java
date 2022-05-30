@@ -78,7 +78,7 @@ public class UtsResourceService {
         resourceMapper.updateByExampleSelective(resource,example);
 
         for (Map.Entry<RequestMappingInfo, HandlerMethod> entryInfo : map.entrySet()) {
-            Set<String> patterns = entryInfo.getKey().getPatternsCondition().getPatterns();
+            Set<String> patterns = entryInfo.getKey().getPatternsCondition().  getPatterns();
             for (String url : patterns) {
                 Set<RequestMethod> methods = entryInfo.getKey().getMethodsCondition().getMethods();
                 for (RequestMethod method : methods) {

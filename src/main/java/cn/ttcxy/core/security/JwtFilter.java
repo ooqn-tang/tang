@@ -1,6 +1,6 @@
 package cn.ttcxy.core.security;
 
-import cn.ttcxy.entity.dto.CurrentAuthor;
+import cn.ttcxy.entity.CurrentAuthor;
 import cn.ttcxy.service.UtsAuthorService;
 import lombok.extern.java.Log;
 import org.slf4j.Logger;

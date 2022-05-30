@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 @ConfigurationProperties(prefix = "tang.security")
 @Component
 @Data
-public class SecurityProperties {
+public class MySecurityProperties {
 
     private boolean securitySession = true;
 

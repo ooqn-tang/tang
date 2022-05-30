@@ -8,7 +8,7 @@ import cn.hutool.core.util.StrUtil;
 import cn.ttcxy.core.api.ApiException;
 import cn.ttcxy.core.api.ResponseCode;
 import cn.ttcxy.core.security.JwtProvider;
-import cn.ttcxy.entity.dto.CurrentAuthor;
+import cn.ttcxy.entity.CurrentAuthor;
 import cn.ttcxy.entity.model.UtsAuthor;
 import cn.ttcxy.entity.param.UtsLoginParam;
 import cn.ttcxy.entity.param.UtsRePasswordParam;

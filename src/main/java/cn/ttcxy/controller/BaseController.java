@@ -2,7 +2,7 @@ package cn.ttcxy.controller;
 
 import cn.ttcxy.core.api.ApiException;
 import cn.ttcxy.core.api.ResponseCode;
-import cn.ttcxy.entity.dto.CurrentAuthor;
+import cn.ttcxy.entity.CurrentAuthor;
 import cn.ttcxy.entity.model.UtsAuthor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;

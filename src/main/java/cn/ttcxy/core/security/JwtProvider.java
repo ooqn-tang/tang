@@ -1,7 +1,7 @@
 package cn.ttcxy.core.security;
 
 import cn.hutool.core.bean.BeanUtil;
-import cn.ttcxy.entity.dto.CurrentAuthor;
+import cn.ttcxy.entity.CurrentAuthor;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
