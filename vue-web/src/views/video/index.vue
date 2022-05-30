@@ -89,15 +89,18 @@ export default {
     };
   },
   created() {
-    request({
+    
+  },
+  methods: {
+    loadClass(){
+      request({
         url: "/api/class",
         method: "get",
         params:{"type":"video"}
       }).then((response) => {
         this.videoClassList = response.data
       });
-  },
-  methods: {
+    },
     openVideo(videoId) {
       this.$router.push({ name: "video_info", params: { id: videoId } });
     },
@@ -120,6 +123,7 @@ export default {
   },
   mounted() {
     this.loadVideoList(1,this.selectClassId);
+    this.loadClass()
   },
 };
 </script>

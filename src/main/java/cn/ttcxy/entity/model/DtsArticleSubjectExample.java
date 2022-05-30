@@ -105,73 +105,73 @@ public class DtsArticleSubjectExample {
             criteria.add(new Criterion(condition, value1, value2));
         }
 
-        public Criteria andArticleSubjectIdIsNull() {
-            addCriterion("article_subject_id is null");
+        public Criteria andSubjectIdIsNull() {
+            addCriterion("subject_id is null");
             return (Criteria) this;
         }
 
-        public Criteria andArticleSubjectIdIsNotNull() {
-            addCriterion("article_subject_id is not null");
+        public Criteria andSubjectIdIsNotNull() {
+            addCriterion("subject_id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andArticleSubjectIdEqualTo(String value) {
-            addCriterion("article_subject_id =", value, "articleSubjectId");
+        public Criteria andSubjectIdEqualTo(String value) {
+            addCriterion("subject_id =", value, "subjectId");
             return (Criteria) this;
         }
 
-        public Criteria andArticleSubjectIdNotEqualTo(String value) {
-            addCriterion("article_subject_id <>", value, "articleSubjectId");
+        public Criteria andSubjectIdNotEqualTo(String value) {
+            addCriterion("subject_id <>", value, "subjectId");
             return (Criteria) this;
         }
 
-        public Criteria andArticleSubjectIdGreaterThan(String value) {
-            addCriterion("article_subject_id >", value, "articleSubjectId");
+        public Criteria andSubjectIdGreaterThan(String value) {
+            addCriterion("subject_id >", value, "subjectId");
             return (Criteria) this;
         }
 
-        public Criteria andArticleSubjectIdGreaterThanOrEqualTo(String value) {
-            addCriterion("article_subject_id >=", value, "articleSubjectId");
+        public Criteria andSubjectIdGreaterThanOrEqualTo(String value) {
+            addCriterion("subject_id >=", value, "subjectId");
             return (Criteria) this;
         }
 
-        public Criteria andArticleSubjectIdLessThan(String value) {
-            addCriterion("article_subject_id <", value, "articleSubjectId");
+        public Criteria andSubjectIdLessThan(String value) {
+            addCriterion("subject_id <", value, "subjectId");
             return (Criteria) this;
         }
 
-        public Criteria andArticleSubjectIdLessThanOrEqualTo(String value) {
-            addCriterion("article_subject_id <=", value, "articleSubjectId");
+        public Criteria andSubjectIdLessThanOrEqualTo(String value) {
+            addCriterion("subject_id <=", value, "subjectId");
             return (Criteria) this;
         }
 
-        public Criteria andArticleSubjectIdLike(String value) {
-            addCriterion("article_subject_id like", value, "articleSubjectId");
+        public Criteria andSubjectIdLike(String value) {
+            addCriterion("subject_id like", value, "subjectId");
             return (Criteria) this;
         }
 
-        public Criteria andArticleSubjectIdNotLike(String value) {
-            addCriterion("article_subject_id not like", value, "articleSubjectId");
+        public Criteria andSubjectIdNotLike(String value) {
+            addCriterion("subject_id not like", value, "subjectId");
             return (Criteria) this;
         }
 
-        public Criteria andArticleSubjectIdIn(List<String> values) {
-            addCriterion("article_subject_id in", values, "articleSubjectId");
+        public Criteria andSubjectIdIn(List<String> values) {
+            addCriterion("subject_id in", values, "subjectId");
             return (Criteria) this;
         }
 
-        public Criteria andArticleSubjectIdNotIn(List<String> values) {
-            addCriterion("article_subject_id not in", values, "articleSubjectId");
+        public Criteria andSubjectIdNotIn(List<String> values) {
+            addCriterion("subject_id not in", values, "subjectId");
             return (Criteria) this;
         }
 
-        public Criteria andArticleSubjectIdBetween(String value1, String value2) {
-            addCriterion("article_subject_id between", value1, value2, "articleSubjectId");
+        public Criteria andSubjectIdBetween(String value1, String value2) {
+            addCriterion("subject_id between", value1, value2, "subjectId");
             return (Criteria) this;
         }
 
-        public Criteria andArticleSubjectIdNotBetween(String value1, String value2) {
-            addCriterion("article_subject_id not between", value1, value2, "articleSubjectId");
+        public Criteria andSubjectIdNotBetween(String value1, String value2) {
+            addCriterion("subject_id not between", value1, value2, "subjectId");
             return (Criteria) this;
         }
 

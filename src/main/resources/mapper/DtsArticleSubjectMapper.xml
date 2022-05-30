@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.ttcxy.mapper.DtsArticleSubjectMapper">
   <resultMap id="BaseResultMap" type="cn.ttcxy.entity.model.DtsArticleSubject">
-    <id column="article_subject_id" jdbcType="VARCHAR" property="articleSubjectId" />
+    <id column="subject_id" jdbcType="VARCHAR" property="subjectId" />
     <result column="subject_name" jdbcType="VARCHAR" property="subjectName" />
     <result column="author_id" jdbcType="VARCHAR" property="authorId" />
     <result column="order_num" jdbcType="INTEGER" property="orderNum" />
@@ -69,8 +69,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    article_subject_id, subject_name, author_id, order_num, create_date, update_date, 
-    synopsis
+    subject_id, subject_name, author_id, order_num, create_date, update_date, synopsis
   </sql>
   <select id="selectByExample" parameterType="cn.ttcxy.entity.model.DtsArticleSubjectExample" resultMap="BaseResultMap">
     select
@@ -90,11 +89,11 @@
     select 
     <include refid="Base_Column_List" />
     from dts_article_subject
-    where article_subject_id = #{articleSubjectId,jdbcType=VARCHAR}
+    where subject_id = #{subjectId,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from dts_article_subject
-    where article_subject_id = #{articleSubjectId,jdbcType=VARCHAR}
+    where subject_id = #{subjectId,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="cn.ttcxy.entity.model.DtsArticleSubjectExample">
     delete from dts_article_subject
@@ -103,18 +102,18 @@
     </if>
   </delete>
   <insert id="insert" parameterType="cn.ttcxy.entity.model.DtsArticleSubject">
-    insert into dts_article_subject (article_subject_id, subject_name, author_id, 
+    insert into dts_article_subject (subject_id, subject_name, author_id, 
       order_num, create_date, update_date, 
       synopsis)
-    values (#{articleSubjectId,jdbcType=VARCHAR}, #{subjectName,jdbcType=VARCHAR}, #{authorId,jdbcType=VARCHAR}, 
+    values (#{subjectId,jdbcType=VARCHAR}, #{subjectName,jdbcType=VARCHAR}, #{authorId,jdbcType=VARCHAR}, 
       #{orderNum,jdbcType=INTEGER}, #{createDate,jdbcType=TIMESTAMP}, #{updateDate,jdbcType=TIMESTAMP}, 
       #{synopsis,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="cn.ttcxy.entity.model.DtsArticleSubject">
     insert into dts_article_subject
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="articleSubjectId != null">
-        article_subject_id,
+      <if test="subjectId != null">
+        subject_id,
       </if>
       <if test="subjectName != null">
         subject_name,
@@ -136,8 +135,8 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="articleSubjectId != null">
-        #{articleSubjectId,jdbcType=VARCHAR},
+      <if test="subjectId != null">
+        #{subjectId,jdbcType=VARCHAR},
       </if>
       <if test="subjectName != null">
         #{subjectName,jdbcType=VARCHAR},
@@ -168,8 +167,8 @@
   <update id="updateByExampleSelective" parameterType="map">
     update dts_article_subject
     <set>
-      <if test="row.articleSubjectId != null">
-        article_subject_id = #{row.articleSubjectId,jdbcType=VARCHAR},
+      <if test="row.subjectId != null">
+        subject_id = #{row.subjectId,jdbcType=VARCHAR},
       </if>
       <if test="row.subjectName != null">
         subject_name = #{row.subjectName,jdbcType=VARCHAR},
@@ -196,7 +195,7 @@
   </update>
   <update id="updateByExample" parameterType="map">
     update dts_article_subject
-    set article_subject_id = #{row.articleSubjectId,jdbcType=VARCHAR},
+    set subject_id = #{row.subjectId,jdbcType=VARCHAR},
       subject_name = #{row.subjectName,jdbcType=VARCHAR},
       author_id = #{row.authorId,jdbcType=VARCHAR},
       order_num = #{row.orderNum,jdbcType=INTEGER},
@@ -229,7 +228,7 @@
         synopsis = #{synopsis,jdbcType=VARCHAR},
       </if>
     </set>
-    where article_subject_id = #{articleSubjectId,jdbcType=VARCHAR}
+    where subject_id = #{subjectId,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="cn.ttcxy.entity.model.DtsArticleSubject">
     update dts_article_subject
@@ -239,6 +238,6 @@
       create_date = #{createDate,jdbcType=TIMESTAMP},
       update_date = #{updateDate,jdbcType=TIMESTAMP},
       synopsis = #{synopsis,jdbcType=VARCHAR}
-    where article_subject_id = #{articleSubjectId,jdbcType=VARCHAR}
+    where subject_id = #{subjectId,jdbcType=VARCHAR}
   </update>
 </mapper>

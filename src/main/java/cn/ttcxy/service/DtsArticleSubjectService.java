@@ -52,7 +52,7 @@ public class DtsArticleSubjectService {
     }
 
     public Integer insertSubject(DtsArticleSubject subject) {
-        subject.setArticleSubjectId(IdUtil.objectId());
+        subject.setSubjectId(IdUtil.objectId());
         DateTime date = DateUtil.date();
         subject.setCreateDate(date);
         subject.setUpdateDate(date);

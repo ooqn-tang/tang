@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.ttcxy.mapper.dao.DtsVideoDao">
+
     <select id="selectById" resultType="cn.ttcxy.entity.dto.DtsVideoDto">
         select *
         from dts_video t1
         inner join uts_author t2 on t1.author_id = t2.author_id and t1.video_id = #{videoId}
         order by t1.create_date desc
     </select>
+
     <select id="select" resultType="cn.ttcxy.entity.dto.DtsVideoDto">
         select *
         from uts_author t1
@@ -29,6 +31,7 @@
         and t1.username = #{username}
         order by t2.create_date desc
     </select>
+
     <select id="selectList" resultType="cn.ttcxy.entity.dto.DtsVideoDto">
         select * from dts_video t1
         inner join uts_author t2 on t1.author_id = t2.author_id and nickname like concat('%',#{nickname,jdbcType=VARCHAR},'%')
@@ -41,11 +44,13 @@
         </if>
         order by t1.create_date desc
     </select>
+
     <select id="selectGz" resultType="cn.ttcxy.entity.dto.DtsVideoDto">
         select t2.*,t3.* from uts_fans t1
         inner join dts_video t2 on t1.author_id = #{authorId} and t1.be_author_id = t2.author_id and state = 1
         inner join uts_author t3 on t3.author_id = t1.be_author_id order by t2.create_date desc
     </select>
+
     <select id="search" resultType="cn.ttcxy.entity.dto.DtsVideoDto">
         select *
         from uts_author t1 , dts_video t2
@@ -54,10 +59,12 @@
         and t2.title like concat('%',#{wb,jdbcType=VARCHAR},'%')
         order by t2.create_date desc
     </select>
+
     <select id="rand" resultType="cn.ttcxy.entity.dto.DtsVideoDto">
         select *
         from dts_video t1,uts_author t2
         where t1.author_id = t2.author_id and t1.state = '1'
         order by rand() limit 1;
     </select>
+
 </mapper>

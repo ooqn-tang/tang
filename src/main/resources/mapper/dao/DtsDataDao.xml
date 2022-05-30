@@ -12,6 +12,7 @@
         select video_id data_id from dts_video where video_id = #{dataId}
         ) t11
     </select>
+
     <select id="selectDataType" resultType="java.lang.Integer">
         select
         type
@@ -21,6 +22,7 @@
         select video_id data_id,'2' type from dts_video where video_id = #{dataId}
         ) t11
     </select>
+
     <select id="selectDataAuthorId" resultType="java.lang.String">
         select
         author_id
@@ -30,4 +32,5 @@
         select author_id from dts_video where video_id = #{dataId}
         ) t11
     </select>
+
 </mapper>

@@ -9,7 +9,7 @@ import java.util.List;
 @Data
 public class DtsArticleSubjectDto {
 
-    private String articleSubjectId;
+    private String subjectId;
 
     // 专题名
     private String subjectName;

@@ -19,7 +19,7 @@
         <div class="mb-3">
           <select class="form-select" v-model="articleData.subjectId">
             <option value="">请选择专辑</option>
-            <option v-for="(item,index) in subjectList" :key="index" :value="item.articleSubjectId">{{item.subjectName}}</option>
+            <option v-for="(item,index) in subjectList" :key="index" :value="item.subjectId">{{item.subjectName}}</option>
           </select>
         </div>
         <div>
@@ -64,7 +64,7 @@ export default {
       thisArticleId:this.$route.params.id,
       articleData:{
       },
-      articleSubjectId:"",
+      subjectId:"",
       classId:"", 
       subjectList:[],
       classList:[],

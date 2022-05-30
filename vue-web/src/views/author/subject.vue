@@ -1,10 +1,10 @@
 <template>
   <ul class="list-group article-list">
     <li class="list-group-item" v-for="(item,index) in subjectList" :key="index">
-      <router-link :to="{name:'subject_info',params:{subject_id:item.articleSubjectId}}">
+      <router-link :to="{name:'subject_info',params:{subject_id:item.subjectId}}">
         <strong v-text="item.subjectName"></strong>
       </router-link>
-      <span class="float-end" data-bs-toggle="modal" data-bs-target="#exampleModal" v-if="isThisUser" @click="updateClick(item.articleSubjectId,item.subjectName,item.synopsis)">编辑</span>
+      <span class="float-end" data-bs-toggle="modal" data-bs-target="#exampleModal" v-if="isThisUser" @click="updateClick(item.subjectId,item.subjectName,item.synopsis)">编辑</span>
       <div>
         {{item.synopsis}}
       </div>
@@ -52,7 +52,7 @@ export default {
       isThisUser: this.$route.params.username == this.$store.state.username,
       subjectList:[],
       dataFrom:{
-        articleSubjectId:"",
+        subjectId:"",
         subjectName:"",
         synopsis:""
       }
@@ -78,8 +78,8 @@ export default {
         })
       }
     },
-    updateClick(articleSubjectId,subjectName,synopsis){
-      this.dataFrom.articleSubjectId = articleSubjectId;
+    updateClick(subjectId,subjectName,synopsis){
+      this.dataFrom.subjectId = subjectId;
       this.dataFrom.subjectName = subjectName;
       this.dataFrom.synopsis = synopsis;
       this.saveType = 'update'

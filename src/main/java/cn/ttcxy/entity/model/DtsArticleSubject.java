@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class DtsArticleSubject implements Serializable {
-    private String articleSubjectId;
+    private String subjectId;
 
     private String subjectName;
 
@@ -20,12 +20,12 @@ public class DtsArticleSubject implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    public String getArticleSubjectId() {
-        return articleSubjectId;
+    public String getSubjectId() {
+        return subjectId;
     }
 
-    public void setArticleSubjectId(String articleSubjectId) {
-        this.articleSubjectId = articleSubjectId;
+    public void setSubjectId(String subjectId) {
+        this.subjectId = subjectId;
     }
 
     public String getSubjectName() {
@@ -82,7 +82,7 @@ public class DtsArticleSubject implements Serializable {
         sb.append(getClass().getSimpleName());
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
-        sb.append(", articleSubjectId=").append(articleSubjectId);
+        sb.append(", subjectId=").append(subjectId);
         sb.append(", subjectName=").append(subjectName);
         sb.append(", authorId=").append(authorId);
         sb.append(", orderNum=").append(orderNum);

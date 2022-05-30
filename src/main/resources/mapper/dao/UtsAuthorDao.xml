@@ -2,16 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.ttcxy.mapper.dao.UtsAuthorDao">
 
-  <resultMap id="AuthorMap" type="cn.ttcxy.entity.model.UtsAuthor">
-      <id column="author_id" jdbcType="VARCHAR" property="authorId" />
-      <result column="username" jdbcType="VARCHAR" property="username" />
-      <result column="nickname" jdbcType="VARCHAR" property="nickname" />
-      <result column="password" jdbcType="VARCHAR" property="password" />
-      <result column="signature" jdbcType="VARCHAR" property="signature" />
-      <result column="head_url" jdbcType="VARCHAR" property="headUrl" />
-      <result column="mail" jdbcType="VARCHAR" property="mail" />
-  </resultMap>
-
     <select id="selectAuthorArticleCount" resultType="Map">
         select username,nickname,signature
         from uts_author t2
@@ -35,21 +25,21 @@
         where nickname = #{nickname}
     </select>
 
-    <select id="selectAuthorByMailAll" resultMap="AuthorMap">
+    <select id="selectAuthorByMailAll" resultType="cn.ttcxy.entity.model.UtsAuthor">
         select author_id,username,nickname,password,signature,mail
         from uts_author
         where mail = #{mail}
     </select>
 
-    <select id="selectAuthor" resultMap="AuthorMap">
+    <select id="selectAuthor" resultType="cn.ttcxy.entity.model.UtsAuthor">
         select author_id,username,nickname,password,signature,mail
         from uts_author
     </select>
 
-
-    <select id="selectAuthorByName" resultMap="AuthorMap">
+    <select id="selectAuthorByName" resultType="cn.ttcxy.entity.model.UtsAuthor">
         select author_id,username,nickname,password,signature,mail,refresh_time,head_url
         from uts_author
         where username = #{authorName}
     </select>
+
 </mapper>

@@ -10,7 +10,7 @@ public interface DtsArticleSubjectMapper {
 
     int deleteByExample(DtsArticleSubjectExample example);
 
-    int deleteByPrimaryKey(String articleSubjectId);
+    int deleteByPrimaryKey(String subjectId);
 
     int insert(DtsArticleSubject row);
 
@@ -18,7 +18,7 @@ public interface DtsArticleSubjectMapper {
 
     List<DtsArticleSubject> selectByExample(DtsArticleSubjectExample example);
 
-    DtsArticleSubject selectByPrimaryKey(String articleSubjectId);
+    DtsArticleSubject selectByPrimaryKey(String subjectId);
 
     int updateByExampleSelective(@Param("row") DtsArticleSubject row, @Param("example") DtsArticleSubjectExample example);
 
