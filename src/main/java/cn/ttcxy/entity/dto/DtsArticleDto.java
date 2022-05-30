@@ -44,6 +44,8 @@ public class DtsArticleDto {
 
     private String classId;
 
+    private String className;
+
     private String type;
 
 }

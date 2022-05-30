@@ -48,13 +48,15 @@
                       name: 'author_article',
                       params: { username: article.username },
                     }"
-                    >{{ article.nickname }}</router-link
-                  >
+                    >{{ article.nickname }}
+                    </router-link>
+                </strong>
+                <strong class="classColor" v-if="article.className != null">
+                  .
+                  {{ article.className }}
                 </strong>
                 .
-                <span style="color: rgb(180, 180, 180)">{{
-                  article.createDate
-                }}</span>
+                <span style="color: rgb(180, 180, 180)">{{article.createDate}}</span>
                 <button
                   v-if="fans == 2"
                   class="btn btn-outline-warning float-end t-b-m-1"
@@ -76,19 +78,6 @@
               <div class="markdown-body" v-html="article.text"></div>
             </div>
             <div class="card-body" v-if="loading">加载中...</div>
-          </div>
-          <div class="card mb-2 move-b-lr-0">
-            <div class="card-body">
-              <span style="font-size: 16px; color: rgb(0 0 0); font-weight: 600"
-                >标签：</span
-              >
-              <span
-                v-for="(item, index) in article.tagList"
-                :key="index"
-                style="font-size: 16px; color: rgb(220, 53, 69)"
-                >&nbsp;{{ item.tagName }}&nbsp;</span
-              >
-            </div>
           </div>
           <div class="card mb-2 move-b-lr-0">
             <div class="card-body">
@@ -288,5 +277,8 @@ export default {
 };
 </script>
 
-<style scoped lang="scss">
+<style>
+  .classColor{
+    color: #ff5c5c;
+  }
 </style>

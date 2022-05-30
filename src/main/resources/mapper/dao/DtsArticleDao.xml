@@ -10,10 +10,11 @@
     </select>
 
     <select id="selectArticleById" resultType="cn.ttcxy.entity.dto.DtsArticleDto">
-        select t2.username ,t2.nickname ,t1.article_id ,t1.title ,t1.create_date ,t1.synopsis ,t3.text
+        select t2.username ,t2.nickname ,t1.article_id ,t1.title ,t1.create_date ,t1.synopsis ,t3.text ,t4.class_name
         from dts_article t1
         inner join uts_author t2 on t1.article_id = #{id} and t1.author_id = t2.author_id
         left join dts_article_content t3 on t1.article_id = t3.article_id
+        left join dts_class t4 on t1.class_id = t4.class_id
     </select>
 
     <select id="selectArticleAllById" resultType="cn.ttcxy.entity.dto.DtsArticleDto">

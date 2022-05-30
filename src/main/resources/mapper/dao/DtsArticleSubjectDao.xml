@@ -11,7 +11,7 @@
     <select id="selectSubjectArticleListById" resultType="cn.ttcxy.entity.model.DtsArticle">
         select t1.article_id,t1.title,t1.create_date,t1.synopsis
         from dts_article t1
-        where t1.subject_id = #{articleSubjectId}
+        where t1.subject_id = #{subjectId}
     </select>
 
     <select id="selectSubjectList" resultType="cn.ttcxy.entity.dto.DtsArticleSubjectDto">

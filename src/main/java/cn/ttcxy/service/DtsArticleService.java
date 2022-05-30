@@ -134,7 +134,7 @@ public class DtsArticleService {
     public String authorId(String articleId) {
         DtsArticle article = articleMapper.selectByPrimaryKey(articleId);
         if (article != null){
-            return article.getArticleId();
+            return article.getAuthorId();
         }
         return null;
     }
