@@ -2,6 +2,7 @@ package cn.ttcxy.controller;
 
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.StrUtil;
+import cn.ttcxy.core.BaseController;
 import cn.ttcxy.core.api.ApiException;
 import cn.ttcxy.core.api.ResponseCode;
 import com.google.zxing.BarcodeFormat;
@@ -130,7 +131,7 @@ public class DtsFileController extends BaseController {
         OutputStream os;
         try {
             os = response.getOutputStream();
-            bis =new BufferedInputStream(new FileInputStream(new File("D:\\obj\\" + fileName)));
+            bis =new BufferedInputStream(new FileInputStream("D:\\obj\\" + fileName));
             int i = bis.read(buff);
             while (i != -1) {
                 os.write(buff,0, buff.length);
@@ -180,9 +181,6 @@ public class DtsFileController extends BaseController {
      * @param text   二维码需要包含的信息
      * @param width  二维码宽度
      * @param height 二维码高度
-     * @return
-     * @throws WriterException
-     * @throws IOException
      */
     public static byte[] getQRCodeImage(String text, int width, int height) throws WriterException, IOException {
         QRCodeWriter qrCodeWriter = new QRCodeWriter();

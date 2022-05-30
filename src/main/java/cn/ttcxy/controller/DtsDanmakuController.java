@@ -1,5 +1,6 @@
 package cn.ttcxy.controller;
 
+import cn.ttcxy.core.BaseController;
 import cn.ttcxy.core.security.JwtProvider;
 import cn.ttcxy.entity.CurrentAuthor;
 import cn.ttcxy.service.DtsDanmakuService;

@@ -3,6 +3,7 @@ package cn.ttcxy.controller;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.IdUtil;
+import cn.ttcxy.core.BaseController;
 import cn.ttcxy.core.api.ApiException;
 import cn.ttcxy.core.api.ResponseCode;
 import cn.ttcxy.entity.dto.DtsCommentDto;
@@ -16,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("api/comment")
-public class DtsCommentController extends BaseController{
+public class DtsCommentController extends BaseController {
 
     @Autowired
     private DtsCommentService commentService;

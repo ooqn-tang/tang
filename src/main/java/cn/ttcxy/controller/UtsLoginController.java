@@ -5,6 +5,7 @@ import cn.hutool.cache.CacheUtil;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.lang.Validator;
 import cn.hutool.core.util.StrUtil;
+import cn.ttcxy.core.BaseController;
 import cn.ttcxy.core.api.ApiException;
 import cn.ttcxy.core.api.ResponseCode;
 import cn.ttcxy.core.security.JwtProvider;
@@ -37,7 +38,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/api")
-public class UtsLoginController extends BaseController{
+public class UtsLoginController extends BaseController {
 
     public static Cache<String, String> fifoCache = CacheUtil.newTimedCache(6000);
 

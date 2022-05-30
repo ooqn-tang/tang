@@ -2,6 +2,7 @@ package cn.ttcxy.controller;
 
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.IdUtil;
+import cn.ttcxy.core.BaseController;
 import cn.ttcxy.core.api.ApiException;
 import cn.ttcxy.core.api.ResponseCode;
 import cn.ttcxy.entity.model.DtsLike;
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("api/like")
-public class DtsLikeController extends BaseController{
+public class DtsLikeController extends BaseController {
 
     @Autowired
     private DtsLikeService likeService;

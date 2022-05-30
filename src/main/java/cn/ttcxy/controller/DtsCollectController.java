@@ -1,5 +1,6 @@
 package cn.ttcxy.controller;
 
+import cn.ttcxy.core.BaseController;
 import cn.ttcxy.entity.dto.DtsDataDto;
 import cn.ttcxy.service.DtsCollectService;
 import com.github.pagehelper.PageInfo;
@@ -9,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("api/collect")
-public class DtsCollectController extends BaseController{
+public class DtsCollectController extends BaseController {
 
     @Autowired
     private DtsCollectService collectService;

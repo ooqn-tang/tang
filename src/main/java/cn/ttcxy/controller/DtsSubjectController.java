@@ -1,6 +1,7 @@
 package cn.ttcxy.controller;
 
 import cn.hutool.core.bean.BeanUtil;
+import cn.ttcxy.core.BaseController;
 import cn.ttcxy.core.api.ApiException;
 import cn.ttcxy.core.api.ResponseCode;
 import cn.ttcxy.entity.dto.DtsArticleSubjectDto;
@@ -17,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("api/subject")
 @Validated
-public class DtsSubjectController extends BaseController{
+public class DtsSubjectController extends BaseController {
 
     @Autowired
     private DtsArticleSubjectService articleSubjectService;

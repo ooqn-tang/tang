@@ -4,6 +4,7 @@ import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.date.DateTime;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.StrUtil;
+import cn.ttcxy.core.BaseController;
 import cn.ttcxy.core.api.ApiException;
 import cn.ttcxy.core.api.ResponseCode;
 import cn.ttcxy.entity.dto.DtsArticleDto;
@@ -21,7 +22,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api/article")
-public class DtsArticleController extends BaseController{
+public class DtsArticleController extends BaseController {
 
     @Autowired
     private DtsArticleService articleService;

@@ -1,4 +1,4 @@
-package cn.ttcxy.controller;
+package cn.ttcxy.core;
 
 import cn.ttcxy.core.api.ApiException;
 import cn.ttcxy.core.api.ResponseCode;
