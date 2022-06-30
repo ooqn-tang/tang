@@ -106,7 +106,7 @@ public class DtsVideoController extends BaseController {
                 return ResponseEntity.ok("执行成功");
             }
         }
-        throw new ApiException(ResponseCode.FAILED);
+        throw new ApiException();
     }
 
     @DeleteMapping("{videoId}")
@@ -118,6 +118,6 @@ public class DtsVideoController extends BaseController {
                 return ResponseEntity.ok("执行成功");
             }
         }
-        throw new ApiException(ResponseCode.FAILED);
+        throw new ApiException();
     }
 }

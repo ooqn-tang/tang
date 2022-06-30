@@ -33,7 +33,7 @@ public class DtsCommentController extends BaseController {
         if (count > 0){
             return ResponseEntity.ok(commentId);
         }
-        throw new ApiException(ResponseCode.FAILED);
+        throw new ApiException();
     }
 
     @DeleteMapping("{commentId}")
@@ -42,7 +42,7 @@ public class DtsCommentController extends BaseController {
         if (count > 0){
             return ResponseEntity.ok("删除成功");
         }
-        throw new ApiException(ResponseCode.FAILED);
+        throw new ApiException();
     }
 
     @GetMapping("{dataId}")

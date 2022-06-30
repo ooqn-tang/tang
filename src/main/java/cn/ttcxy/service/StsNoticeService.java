@@ -2,6 +2,7 @@ package cn.ttcxy.service;
 
 import cn.hutool.core.util.IdUtil;
 import cn.ttcxy.entity.model.StsNotice;
+import cn.ttcxy.entity.param.StsNoticeParam;
 import cn.ttcxy.mapper.StsNoticeMapper;
 import cn.ttcxy.mapper.dao.StsNoticeDao;
 import com.alibaba.fastjson.JSONArray;
@@ -54,10 +55,10 @@ public class StsNoticeService {
     }
 
 
-    public void updateNoticeOrder(JSONArray noticeList) {
-        for (int i = 0; i < noticeList.size(); i++) {
-            JSONObject jsonObject = noticeList.getJSONObject(i);
-            String id = jsonObject.getString("noticeId");
+    public void updateNoticeOrder(StsNoticeParam[] noticeList) {
+        for (int i = 0; i < noticeList.length; i++) {
+            StsNoticeParam stsNoticeParam = noticeList[i];
+            String id = stsNoticeParam.getNoticeId();
             StsNotice notice = new StsNotice();
             notice.setNoticeId(id);
             notice.setOrderNum(i);

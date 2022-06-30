@@ -29,6 +29,6 @@ public class DtsDynamicController extends BaseController {
         if (StrUtil.equalsAny(type,"","video","article")){
             return ResponseEntity.ok(dynamicService.authorDynamicList(authorName(),type));
         }
-        throw new ApiException(ResponseCode.FAILED);
+        throw new ApiException();
     }
 }

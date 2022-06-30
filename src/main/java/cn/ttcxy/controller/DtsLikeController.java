@@ -29,7 +29,7 @@ public class DtsLikeController extends BaseController {
         if (count > 0){
             return ResponseEntity.ok(ResponseCode.SUCCESS.getMessage());
         }
-        throw new ApiException(ResponseCode.FAILED);
+        throw new ApiException();
     }
 
     @DeleteMapping("{dataId}")
@@ -38,7 +38,7 @@ public class DtsLikeController extends BaseController {
         if (count > 0){
             return ResponseEntity.ok(ResponseCode.SUCCESS.getMessage());
         }
-        throw new ApiException(ResponseCode.FAILED);
+        throw new ApiException();
     }
 
     @GetMapping("{dataId}")

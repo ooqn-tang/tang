@@ -71,7 +71,7 @@ public class DtsSubjectController extends BaseController {
         if (count > 0) {
             return ResponseEntity.ok("处理成功");
         }
-        throw new ApiException(ResponseCode.FAILED);
+        throw new ApiException();
     }
 
     @PutMapping
@@ -82,7 +82,7 @@ public class DtsSubjectController extends BaseController {
         if (count > 0) {
             return ResponseEntity.ok("处理成功");
         }
-        throw new ApiException(ResponseCode.FAILED);
+        throw new ApiException();
     }
 
 
@@ -95,7 +95,7 @@ public class DtsSubjectController extends BaseController {
         if (count > 0) {
             return ResponseEntity.ok("处理成功");
         }
-        throw new ApiException(ResponseCode.FAILED);
+        throw new ApiException();
     }
 
     @GetMapping("article/{articleId}")

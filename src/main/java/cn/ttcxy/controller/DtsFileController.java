@@ -64,7 +64,7 @@ public class DtsFileController extends BaseController {
         if (StrUtil.equals(type,"2")){
             return ResponseEntity.ok(objectId + "."+s);
         }
-        throw new ApiException(ResponseCode.FAILED);
+        throw new ApiException();
     }
 
     @GetMapping("{fileName}")

@@ -35,9 +35,9 @@ public class AdminAuthorController extends BaseController {
         UtsAuthor author = BeanUtil.toBean(authorParam, UtsAuthor.class);
         int count = authorService.insertAuthor(author);
         if (count > 0){
-            return ResponseEntity.ok("添加成功");
+            return ResponseEntity.ok(ResponseCode.SUCCESS.getMessage());
         }
-        throw new ApiException(ResponseCode.FAILED);
+        throw new ApiException();
     }
 
     @PutMapping
@@ -45,18 +45,18 @@ public class AdminAuthorController extends BaseController {
         UtsAuthor author = BeanUtil.toBean(authorParam, UtsAuthor.class);
         int count = authorService.update(author);
         if (count > 0){
-            return ResponseEntity.ok("添加成功");
+            return ResponseEntity.ok(ResponseCode.SUCCESS.getMessage());
         }
-        throw new ApiException(ResponseCode.FAILED);
+        throw new ApiException();
     }
 
     @DeleteMapping("{authorId}")
     public ResponseEntity<String> delete(@PathVariable("authorId") String authorId){
         int count = authorService.delete(authorId);
         if (count > 0){
-            return ResponseEntity.ok("删除成功");
+            return ResponseEntity.ok(ResponseCode.SUCCESS.getMessage());
         }
-        throw new ApiException(ResponseCode.FAILED);
+        throw new ApiException();
     }
 
 }

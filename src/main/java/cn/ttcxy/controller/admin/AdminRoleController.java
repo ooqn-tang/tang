@@ -24,6 +24,9 @@ public class AdminRoleController extends BaseController {
     @Autowired
     private UtsRoleService roleService;
 
+    @Autowired
+    private UtsAuthorService authorService;
+
     @GetMapping
     public ResponseEntity<List<UtsRole>> select(){
         List<UtsRole> roleList = roleService.select();
@@ -37,9 +40,9 @@ public class AdminRoleController extends BaseController {
         role.setCreateTime(new Date());
         int count = roleService.insert(role);
         if (count > 0){
-            return ResponseEntity.ok("添加成功");
+            return ResponseEntity.ok(ResponseCode.SUCCESS.getMessage());
         }
-        throw new ApiException(ResponseCode.FAILED);
+        throw new ApiException();
     }
 
     @PutMapping
@@ -47,9 +50,9 @@ public class AdminRoleController extends BaseController {
         UtsRole role = BeanUtil.toBean(roleParam, UtsRole.class);
         int count = roleService.update(role);
         if (count > 0){
-            return ResponseEntity.ok("添加成功");
+            return ResponseEntity.ok(ResponseCode.SUCCESS.getMessage());
         }
-        throw new ApiException(ResponseCode.FAILED);
+        throw new ApiException();
     }
 
     @GetMapping("{roleId}")
@@ -62,15 +65,15 @@ public class AdminRoleController extends BaseController {
     public ResponseEntity<String> delete(@PathVariable("roleId") String roleId){
         int count = roleService.delete(roleId);
         if (count > 0){
-            return ResponseEntity.ok("删除成功");
+            return ResponseEntity.ok(ResponseCode.SUCCESS.getMessage());
         }
-        throw new ApiException(ResponseCode.FAILED);
+        throw new ApiException();
     }
 
     @PostMapping("resource/{roleId}")
     public ResponseEntity<String> insertResource(@PathVariable("roleId")String roleId,@RequestBody List<UtsResource> resourceList){
         roleService.insertResource(roleId,resourceList);
-        return ResponseEntity.ok("添加成功");
+        return ResponseEntity.ok(ResponseCode.SUCCESS.getMessage());
     }
 
     @GetMapping("author/{authorId}")
@@ -79,13 +82,10 @@ public class AdminRoleController extends BaseController {
         return ResponseEntity.ok(roleList);
     }
 
-    @Autowired
-    private UtsAuthorService authorService;
-
     @PostMapping("author/{authorId}")
     public ResponseEntity<String> insertRoleOnAuthor(@PathVariable("authorId")String authorId, @RequestBody List<UtsRoleParam> roleParams){
         authorService.insertRole(authorId,roleParams);
-        return ResponseEntity.ok("添加成功");
+        return ResponseEntity.ok(ResponseCode.SUCCESS.getMessage());
     }
 
 }

@@ -8,14 +8,14 @@
         <el-form-item label="视频分类">
           <el-select
             v-model="form.videoClassId"
-            placeholder="please select your zone"
+            placeholder="视频分类"
             style="width: 100%"
           >
             <el-option
               v-for="(item, index) in classList"
               :key="index"
-              :value="item.value"
-              :label="item.name"
+              :value="item.classId"
+              :label="item.className"
             ></el-option>
           </el-select>
         </el-form-item>
@@ -24,7 +24,7 @@
             <el-date-picker
               v-model="form.date1"
               type="date"
-              placeholder="Pick a date"
+              placeholder="开始时间"
               style="width: 100%"
             ></el-date-picker>
           </el-col>
@@ -35,7 +35,7 @@
             <el-date-picker
               v-model="form.date2"
               type="date"
-              placeholder="Pick a date"
+              placeholder="结束时间"
               style="width: 100%"
             ></el-date-picker>
           </el-col>
@@ -109,7 +109,7 @@
         v-model:currentPage="form.page"
         :page-count="videoData.pages"
         @current-change="handleCurrentChange"
-        style="text-align: center"
+        style="text-align: center;padding:0px"
       ></el-pagination>
       <!-- 不通过原因 -->
       <el-dialog v-model="checkDialogVisible" title="不通过原因" width="30%" >
@@ -256,8 +256,11 @@ export default {
     },
     loadVideoClassList() {
       request({
-        url: "/api/video/class",
+        url: "/api/class",
         method: "get",
+        params:{
+          type:"video"
+        }
       }).then((response) => {
         this.classList = response.data;
       });

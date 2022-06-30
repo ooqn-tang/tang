@@ -29,16 +29,16 @@ public class AdminVideoController extends BaseController {
         if (count > 0){
             return ResponseEntity.ok(ResponseCode.SUCCESS.getMessage());
         }
-        throw new ApiException(ResponseCode.FAILED);
+        throw new ApiException();
     }
 
     @DeleteMapping("{videoId}")
     public ResponseEntity<String> delete(@PathVariable("videoId")String videoId){
         int count = videoService.deleteById(videoId);
         if (count > 0){
-            return ResponseEntity.ok("执行成功");
+            return ResponseEntity.ok(ResponseCode.SUCCESS.getMessage());
         }
-        throw new ApiException(ResponseCode.FAILED);
+        throw new ApiException();
     }
 
     @GetMapping("list")

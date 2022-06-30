@@ -69,7 +69,7 @@ public class UtsLoginController extends BaseController {
             String jwt = jwtProvider.createToken(authentication.getPrincipal(), rememberMe);
             return new ResponseEntity<>(new JwtToken(jwt), HttpStatus.OK);
         }
-        throw new ApiException(ResponseCode.FAILED);
+        throw new ApiException();
     }
 
     @PostMapping("/refresh")
@@ -101,7 +101,7 @@ public class UtsLoginController extends BaseController {
             if (count > 0) {
                 return ResponseEntity.ok("注册成功");
             }
-            throw new ApiException(ResponseCode.FAILED);
+            throw new ApiException();
         } else {
             throw new ApiException("请输入邮箱号");
         }

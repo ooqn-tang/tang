@@ -104,6 +104,7 @@ export default {
       });
     },
     updateOrder(){
+      console.log(this.noticeList)
        request({
         url: "/api/admin/notice/order",
         method: "PUT",

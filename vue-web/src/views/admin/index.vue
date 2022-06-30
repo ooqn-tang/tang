@@ -9,7 +9,7 @@
     </span>
   </div>
 
-<el-menu :default-active="routeName" style="width: 150px;float:left;height: calc(100% - 60px);" @close="handleClose">
+<el-menu :default-active="routeName" style="width: 150px;float:left;height: calc(100% - 50px);" @close="handleClose">
     <el-menu-item index="admin_video" @click="$router.push({name:'admin_video'})">
       <template #title>视频管理</template>
     </el-menu-item>
@@ -32,7 +32,7 @@
       <template #title>客户系统</template>
     </el-menu-item>
   </el-menu>
-  <div style="padding:10px;width: calc(100% - 150px);float:right;overflow-y: scroll;height: calc(100% - 60px);">
+  <div style="padding:10px;width: calc(100% - 150px);float:right;overflow-y: scroll;height: calc(100% - 50px);">
     <router-view/>
   </div>
   

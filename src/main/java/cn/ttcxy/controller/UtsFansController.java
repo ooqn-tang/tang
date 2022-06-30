@@ -60,7 +60,7 @@ public class UtsFansController extends BaseController {
         if (count > 0) {
             return ResponseEntity.ok(count);
         }
-        throw new ApiException(ResponseCode.FAILED);
+        throw new ApiException();
     }
 
     @DeleteMapping("{fansName}")
@@ -71,6 +71,6 @@ public class UtsFansController extends BaseController {
         if (count > 0) {
             return ResponseEntity.ok(count);
         }
-        throw new ApiException(ResponseCode.FAILED);
+        throw new ApiException();
     }
 }

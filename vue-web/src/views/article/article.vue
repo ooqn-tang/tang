@@ -79,33 +79,6 @@
             </div>
             <div class="card-body" v-if="loading">加载中...</div>
           </div>
-          <div class="card mb-2 move-b-lr-0">
-            <div class="card-body">
-              <a class="article-title">八点零点零点附近扩大飞机啊撒旦解放</a>
-              <div>
-                <span>2020.05.27</span>
-                <a class="float-end">匿名</a>
-              </div>
-            </div>
-          </div>
-          <div class="card mb-2 move-b-lr-0">
-            <div class="card-body">
-              <a class="article-title">i俄日额u我i的上空的飞机饿哦五日为ur</a>
-              <div>
-                <span>2020.05.27</span>
-                <a class="float-end">匿名</a>
-              </div>
-            </div>
-          </div>
-          <div class="card mb-2 move-b-lr-0">
-            <div class="card-body">
-              <a class="article-title">啊卡萨丁积分卡的肌肤健康的房间扩大解放</a>
-              <div>
-                <span>2020.05.27</span>
-                <a class="float-end">匿名</a>
-              </div>
-            </div>
-          </div>
         </div>
         <div class="col-lg-4 move-p-lr-0">
           <div class="list-group mb-2 move-b-lr-0">

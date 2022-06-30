@@ -13,6 +13,7 @@ public class ApiException extends RuntimeException {
 
     public ApiException() {
         this.status = ResponseCode.FAILED.getStatus();
+        this.message = ResponseCode.FAILED.getMessage();
     }
 
     public ApiException(ResponseCode responseCode) {

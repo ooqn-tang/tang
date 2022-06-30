@@ -99,7 +99,7 @@ public class DtsArticleController extends BaseController {
     public ResponseEntity<DtsArticleDto> load(@PathVariable(name="articleId") String articleId){
         DtsArticleDto article = articleService.selectArticleById(articleId);
         if (article == null){
-            throw new ApiException(ResponseCode.FAILED);
+            throw new ApiException();
         }
         return ResponseEntity.ok(article);
     }
@@ -108,7 +108,7 @@ public class DtsArticleController extends BaseController {
     public ResponseEntity<DtsArticleDto> loadAll(@PathVariable(name = "articleId") String articleId){
         DtsArticleDto articleDto = articleService.selectArticleAllById(articleId);
         if (articleDto == null){
-            throw new ApiException(ResponseCode.FAILED);
+            throw new ApiException();
         }
         return ResponseEntity.ok(articleDto);
     }

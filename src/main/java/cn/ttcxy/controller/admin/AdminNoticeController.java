@@ -28,7 +28,7 @@ public class AdminNoticeController extends BaseController {
         if (count > 0){
             return ResponseEntity.ok(ResponseCode.SUCCESS.getMessage());
         }
-        throw new ApiException(ResponseCode.FAILED);
+        throw new ApiException();
     }
 
     @PutMapping
@@ -38,11 +38,11 @@ public class AdminNoticeController extends BaseController {
         if (count > 0){
             return ResponseEntity.ok(ResponseCode.SUCCESS.getMessage());
         }
-        throw new ApiException(ResponseCode.FAILED);
+        throw new ApiException();
     }
 
     @PutMapping("order")
-    public void updateOrder(@RequestBody JSONArray noticeList){
+    public void updateOrder(@RequestBody StsNoticeParam[] noticeList){
         noticeService.updateNoticeOrder(noticeList);
     }
 
@@ -52,7 +52,7 @@ public class AdminNoticeController extends BaseController {
         if (i > 0){
             return ResponseEntity.ok(ResponseCode.SUCCESS.getMessage());
         }
-        throw new ApiException(ResponseCode.FAILED);
+        throw new ApiException();
     }
 
     @GetMapping

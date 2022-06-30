@@ -40,9 +40,9 @@ public class AdminResourceController extends BaseController {
         resource.setCreateTime(new Date());
         int count = resourceService.insert(resource);
         if (count > 0){
-            return ResponseEntity.ok("添加成功");
+            return ResponseEntity.ok(ResponseCode.SUCCESS.getMessage());
         }
-        throw new ApiException(ResponseCode.FAILED);
+        throw new ApiException();
     }
 
     @PutMapping
@@ -50,9 +50,9 @@ public class AdminResourceController extends BaseController {
         UtsResource resource = BeanUtil.toBean(resourceParam, UtsResource.class);
         int count = resourceService.update(resource);
         if (count > 0){
-            return ResponseEntity.ok("添加成功");
+            return ResponseEntity.ok(ResponseCode.SUCCESS.getMessage());
         }
-        throw new ApiException(ResponseCode.FAILED);
+        throw new ApiException();
     }
 
     @GetMapping("{resourceId}")
@@ -65,9 +65,9 @@ public class AdminResourceController extends BaseController {
     public ResponseEntity<String> delete(@PathVariable("resourceId") String resourceId){
         int count = resourceService.delete(resourceId);
         if (count > 0){
-            return ResponseEntity.ok("删除成功");
+            return ResponseEntity.ok(ResponseCode.SUCCESS.getMessage());
         }
-        throw new ApiException(ResponseCode.FAILED);
+        throw new ApiException();
     }
 
     @GetMapping("role/{roleId}")
