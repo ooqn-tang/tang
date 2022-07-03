@@ -6,6 +6,9 @@ import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
+/**
+ * 资源
+ */
 public interface UtsResourceDao {
 
     List<UtsRoleResourceDto> selectAll();

@@ -6,6 +6,9 @@ import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
+/**
+ * 文章专辑
+ */
 public interface DtsArticleSubjectDao {
 
     DtsArticleSubjectDto selectSubjectById(@Param("subjectId") String subjectId);

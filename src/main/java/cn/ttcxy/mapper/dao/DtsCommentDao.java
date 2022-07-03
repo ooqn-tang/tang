@@ -5,6 +5,9 @@ import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
+/**
+ * 评论
+ */
 public interface DtsCommentDao {
 
     List<DtsCommentDto> select(@Param("dataId") String dataId);

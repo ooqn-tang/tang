@@ -5,6 +5,9 @@ import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
+/**
+ * 收藏
+ */
 public interface DtsCollectDao {
 
     List<DtsDataDto> selectCollect(@Param("username") String username);

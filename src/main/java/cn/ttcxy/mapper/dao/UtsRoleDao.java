@@ -5,6 +5,9 @@ import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
+/**
+ * 角色
+ */
 public interface UtsRoleDao {
 
     List<UtsRole> selectRoleListByAuthorId(@Param("authorId") String authorId);

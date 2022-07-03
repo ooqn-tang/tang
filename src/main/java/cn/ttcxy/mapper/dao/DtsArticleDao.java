@@ -5,6 +5,9 @@ import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
+/**
+ * 文章
+ */
 public interface DtsArticleDao {
 
     List<DtsArticleDto> selectArticleList(@Param("classId") String classId);

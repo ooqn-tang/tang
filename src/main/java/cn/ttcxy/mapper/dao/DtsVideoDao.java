@@ -6,6 +6,9 @@ import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
+/**
+ * 视频
+ */
 public interface DtsVideoDao {
 
     DtsVideoDto selectById(@Param("videoId") String videoId);
