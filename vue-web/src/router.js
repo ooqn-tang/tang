@@ -99,6 +99,11 @@ const routes = [
                 path: '/search',
                 name: 'search_index',
                 component: () => import('views/search/index.vue')
+            },
+            {
+                path: '/article-editor2/:id',
+                name: 'article-editor2',
+                component: () => import('views/article/article-editor2.vue')
             }
         ]
     },
