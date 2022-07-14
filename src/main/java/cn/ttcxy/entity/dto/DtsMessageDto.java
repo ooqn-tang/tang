@@ -1,9 +1,9 @@
-package cn.ttcxy.entity.model;
+package cn.ttcxy.entity.dto;
 
 import java.io.Serializable;
 import java.util.Date;
 
-public class DtsMessage implements Serializable {
+public class DtsMessageDto implements Serializable {
     private String messageId;
 
     private String authorId;
@@ -14,7 +14,17 @@ public class DtsMessage implements Serializable {
 
     private String url;
 
+    private String nickname;
+
     private static final long serialVersionUID = 1L;
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
 
     public String getMessageId() {
         return messageId;

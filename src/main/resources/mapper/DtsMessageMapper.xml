@@ -6,6 +6,7 @@
     <result column="author_id" jdbcType="VARCHAR" property="authorId" />
     <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
     <result column="message" jdbcType="VARCHAR" property="message" />
+    <result column="url" jdbcType="VARCHAR" property="url" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -66,7 +67,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    message_id, author_id, create_date, message
+    message_id, author_id, create_date, message, url
   </sql>
   <select id="selectByExample" parameterType="cn.ttcxy.entity.model.DtsMessageExample" resultMap="BaseResultMap">
     select
@@ -100,9 +101,9 @@
   </delete>
   <insert id="insert" parameterType="cn.ttcxy.entity.model.DtsMessage">
     insert into dts_message (message_id, author_id, create_date, 
-      message)
+      message, url)
     values (#{messageId,jdbcType=VARCHAR}, #{authorId,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, 
-      #{message,jdbcType=VARCHAR})
+      #{message,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="cn.ttcxy.entity.model.DtsMessage">
     insert into dts_message
@@ -119,6 +120,9 @@
       <if test="message != null">
         message,
       </if>
+      <if test="url != null">
+        url,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="messageId != null">
@@ -132,6 +136,9 @@
       </if>
       <if test="message != null">
         #{message,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null">
+        #{url,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -156,6 +163,9 @@
       <if test="row.message != null">
         message = #{row.message,jdbcType=VARCHAR},
       </if>
+      <if test="row.url != null">
+        url = #{row.url,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="example != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -166,7 +176,8 @@
     set message_id = #{row.messageId,jdbcType=VARCHAR},
       author_id = #{row.authorId,jdbcType=VARCHAR},
       create_date = #{row.createDate,jdbcType=TIMESTAMP},
-      message = #{row.message,jdbcType=VARCHAR}
+      message = #{row.message,jdbcType=VARCHAR},
+      url = #{row.url,jdbcType=VARCHAR}
     <if test="example != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -183,6 +194,9 @@
       <if test="message != null">
         message = #{message,jdbcType=VARCHAR},
       </if>
+      <if test="url != null">
+        url = #{url,jdbcType=VARCHAR},
+      </if>
     </set>
     where message_id = #{messageId,jdbcType=VARCHAR}
   </update>
@@ -190,7 +204,8 @@
     update dts_message
     set author_id = #{authorId,jdbcType=VARCHAR},
       create_date = #{createDate,jdbcType=TIMESTAMP},
-      message = #{message,jdbcType=VARCHAR}
+      message = #{message,jdbcType=VARCHAR},
+      url = #{url,jdbcType=VARCHAR}
     where message_id = #{messageId,jdbcType=VARCHAR}
   </update>
 </mapper>

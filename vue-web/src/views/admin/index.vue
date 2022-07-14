@@ -10,6 +10,9 @@
   </div>
 
 <el-menu :default-active="routeName" style="width: 150px;float:left;height: calc(100% - 50px);" @close="handleClose">
+    <el-menu-item index="admin_article" @click="$router.push({name:'admin_video'})">
+      <template #title>文章管理</template>
+    </el-menu-item>
     <el-menu-item index="admin_video" @click="$router.push({name:'admin_video'})">
       <template #title>视频管理</template>
     </el-menu-item>
@@ -18,6 +21,9 @@
     </el-menu-item>
     <el-menu-item index="admin_recommend" @click="$router.push({name:'admin_recommend'})">
       <template #title>推荐内容</template>
+    </el-menu-item>
+    <el-menu-item index="admin_class" @click="$router.push({name:'admin_video'})">
+      <template #title>标签分类</template>
     </el-menu-item>
     <el-menu-item index="admin_author"  @click="$router.push({name:'admin_author'})">
       <template #title>用户管理</template>

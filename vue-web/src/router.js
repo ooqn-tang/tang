@@ -12,9 +12,9 @@ const routes = [
                 component: () => import('views/article/index.vue')
             },
             {
-                path: 'dynamic',
-                name: 'dynamic',
-                component: () => import('views/home/dynamic.vue')
+                path: 'message',
+                name: 'message',
+                component: () => import('views/home/message.vue')
             },
             {
                 path: '/article',

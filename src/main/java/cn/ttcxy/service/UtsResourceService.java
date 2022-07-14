@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
+import org.springframework.web.util.pattern.PathPattern;
 
 import java.util.Date;
 import java.util.List;
@@ -78,8 +79,10 @@ public class UtsResourceService {
         resourceMapper.updateByExampleSelective(resource,example);
 
         for (Map.Entry<RequestMappingInfo, HandlerMethod> entryInfo : map.entrySet()) {
-            Set<String> patterns = entryInfo.getKey().getPatternsCondition().  getPatterns();
-            for (String url : patterns) {
+            assert entryInfo.getKey().getPathPatternsCondition() != null;
+            Set<PathPattern> patterns = entryInfo.getKey().getPathPatternsCondition().getPatterns();
+            for (PathPattern pathPattern : patterns) {
+                String url = pathPattern.getPatternString();
                 Set<RequestMethod> methods = entryInfo.getKey().getMethodsCondition().getMethods();
                 for (RequestMethod method : methods) {
                     String urlStr = url.replaceAll("\\{[^}]*}", "*");
