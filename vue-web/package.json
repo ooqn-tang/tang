@@ -7,10 +7,7 @@
     "serve": "vite preview"
   },
   "dependencies": {
-    "@nplayer/danmaku": "^1.0.10",
     "@nplayer/vue": "^1.0.10",
-    "@tinymce/tinymce-vue": "^4.0.7",
-    "@toast-ui/editor": "^2.5.4",
     "@varlet/ui": "^1.23.10",
     "axios": "^0.24.0",
     "cropperjs": "^1.5.12",
@@ -18,10 +15,8 @@
     "element-plus": "^2.1.4",
     "jwt-decode": "^3.1.2",
     "marked": "^2.0.3",
-    "mavon-editor": "^3.0.0-beta",
     "nplayer": "^1.0.10",
     "sass": "^1.43.5",
-    "tinymce": "^6.1.0",
     "vue": "^3.2.22",
     "vue-avatar-cropper": "^6.0.9",
     "vue-cropper": "^1.0.2",
