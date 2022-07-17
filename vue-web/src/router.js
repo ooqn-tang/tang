@@ -99,11 +99,6 @@ const routes = [
                 path: '/search',
                 name: 'search_index',
                 component: () => import('views/search/index.vue')
-            },
-            {
-                path: '/article-editor2/:id',
-                name: 'article-editor2',
-                component: () => import('views/article/article-editor2.vue')
             }
         ]
     },
@@ -137,6 +132,14 @@ const routes = [
                 path:"resource",
                 name:"admin_resource",
                 component: () => import('views/admin/resource.vue')
+            },{
+                path:"class",
+                name:"admin_class",
+                component: () => import('views/admin/class.vue')
+            },{
+                path:"article",
+                name:"admin_article",
+                component: () => import('views/admin/article.vue')
             }
         ]
     },
