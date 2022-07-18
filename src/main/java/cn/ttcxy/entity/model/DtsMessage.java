@@ -6,13 +6,17 @@ import java.util.Date;
 public class DtsMessage implements Serializable {
     private String messageId;
 
-    private String authorId;
+    private String issuer;
+
+    private String recipient;
 
     private Date createDate;
 
     private String message;
 
     private String url;
+
+    private String dataId;
 
     private static final long serialVersionUID = 1L;
 
@@ -24,12 +28,20 @@ public class DtsMessage implements Serializable {
         this.messageId = messageId;
     }
 
-    public String getAuthorId() {
-        return authorId;
+    public String getIssuer() {
+        return issuer;
     }
 
-    public void setAuthorId(String authorId) {
-        this.authorId = authorId;
+    public void setIssuer(String issuer) {
+        this.issuer = issuer;
+    }
+
+    public String getRecipient() {
+        return recipient;
+    }
+
+    public void setRecipient(String recipient) {
+        this.recipient = recipient;
     }
 
     public Date getCreateDate() {
@@ -56,6 +68,14 @@ public class DtsMessage implements Serializable {
         this.url = url;
     }
 
+    public String getDataId() {
+        return dataId;
+    }
+
+    public void setDataId(String dataId) {
+        this.dataId = dataId;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -63,10 +83,12 @@ public class DtsMessage implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", messageId=").append(messageId);
-        sb.append(", authorId=").append(authorId);
+        sb.append(", issuer=").append(issuer);
+        sb.append(", recipient=").append(recipient);
         sb.append(", createDate=").append(createDate);
         sb.append(", message=").append(message);
         sb.append(", url=").append(url);
+        sb.append(", dataId=").append(dataId);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

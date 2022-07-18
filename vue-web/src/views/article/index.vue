@@ -10,19 +10,6 @@
          </div>
        </div>
       <div class="card move-b-lr-0">
-        <div class="card-header">
-          <ul class="nav nav-tabs card-header-tabs">
-            <li class="nav-item">
-              <a class="nav-link" :class="selectType == 1?'active':''" @click="selectType = 1">文章</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link disabled">精选</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link disabled">专栏</a>
-            </li>
-          </ul>
-        </div>
         <div class="card-body article-list p-0">
           <ul class="list-group ">
             <li class="list-group-item " v-for="(item,index) in articleList" :key="index">

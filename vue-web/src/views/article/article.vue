@@ -18,7 +18,7 @@
       <div class="card mb-2" v-if="recommendList == null">
         <div class="card-body">
           <div class="spinner-border" role="status">
-            <span class="visually-hidden">Loading...</span>
+            <span class="visually-hidden">{{dataText}}</span>
           </div>
         </div>
       </div>
@@ -77,7 +77,7 @@
               </h3>
               <div class="markdown-body" v-html="article.text"></div>
             </div>
-            <div class="card-body" v-if="loading">加载中...</div>
+            <div class="card-body" v-if="loading">{{dataText}}</div>
           </div>
         </div>
         <div class="col-lg-4 move-p-lr-0">
@@ -141,6 +141,7 @@ export default {
       articleList: [],
       showSubject: false,
       collect: 0,
+      dataText: '加载中...'
     };
   },
   components: {},
@@ -208,7 +209,11 @@ export default {
         if (this.$store.state.username != "") {
           this.isFans();
         }
-        this.loading = false;
+        if(response.data == ''){
+          this.dataText = "文章不存在"
+        }else{
+          this.loading = false;
+        }
       });
     },
     selectSubjectArticleList() {

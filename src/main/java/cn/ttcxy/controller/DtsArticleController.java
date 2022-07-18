@@ -87,6 +87,7 @@ public class DtsArticleController extends BaseController {
             articleContent.setArticleId(article.getArticleId());
             articleContent.setMarkdown(articleParam.getMarkdown());
             articleContent.setText(articleParam.getText());
+            article.setAuthorId(authorId);
             int count  = articleService.updateArticle(article,articleContent);
             if (count > 0){
                 return ResponseEntity.ok(ResponseCode.SUCCESS.getMessage());
@@ -99,7 +100,7 @@ public class DtsArticleController extends BaseController {
     public ResponseEntity<DtsArticleDto> load(@PathVariable(name="articleId") String articleId){
         DtsArticleDto article = articleService.selectArticleById(articleId);
         if (article == null){
-            throw new ApiException();
+            return ResponseEntity.ok(null);
         }
         return ResponseEntity.ok(article);
     }

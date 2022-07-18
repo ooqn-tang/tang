@@ -101,7 +101,7 @@ public class DtsVideoController extends BaseController {
         String authorId = videoService.authorId(video.getVideoId());
         if (StrUtil.equals(authorId,authorId())){
             video.setState(2);
-            int count = videoService.update(video);
+            int count = videoService.updateSelective(video);
             if (count > 0){
                 return ResponseEntity.ok("执行成功");
             }

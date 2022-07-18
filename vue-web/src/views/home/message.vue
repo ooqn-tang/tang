@@ -25,7 +25,11 @@
             >
               <div class="row">
                 <div class="col">
-                    <strong><a v-text="item.nickname"></a> : </strong><a v-text="item.message"></a>
+                  <strong>
+                    <router-link :to="{ name: 'author_article', params: { username: item.username }}">{{ item.nickname }}</router-link>  : 
+                  </strong>
+                  <a target="_blank" :href="item.url" v-text="item.message"></a>
+                  <span class="float-end">{{item.createDate}}</span>
                 </div>
               </div>
             </li>

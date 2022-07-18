@@ -3,12 +3,12 @@
 <mapper namespace="cn.ttcxy.mapper.dao.DtsMessageDao">
 
     <select id="selectAuthorMessage" resultType="cn.ttcxy.entity.dto.DtsMessageDto">
-        select message,url,create_date,(select nickname from uts_author where author_id = t1.author_id) nickname
+        select message,url,create_date,(select username from uts_author where author_id = t1.`issuer`) username,(select nickname from uts_author where author_id = t1.`issuer`) nickname
         from dts_message t1
-        where author_id in (
+        where `issuer` in (
         select be_author_id from uts_fans where author_id = #{authorId}
         union
         select '1f76e6d37d34428e82a35074e38ba311'
-        )
+        ) or recipient = #{authorId} order by create_date desc limit 50
     </select>
 </mapper>

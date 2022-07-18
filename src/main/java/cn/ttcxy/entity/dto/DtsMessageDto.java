@@ -12,11 +12,21 @@ public class DtsMessageDto implements Serializable {
 
     private String message;
 
+    private String username;
+
     private String url;
 
     private String nickname;
 
     private static final long serialVersionUID = 1L;
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
     public String getNickname() {
         return nickname;

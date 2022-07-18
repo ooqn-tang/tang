@@ -1,10 +1,10 @@
 package cn.ttcxy.service;
 
+import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.thread.ThreadUtil;
+import cn.hutool.core.util.IdUtil;
 import cn.ttcxy.entity.dto.DtsArticleDto;
-import cn.ttcxy.entity.model.DtsArticle;
-import cn.ttcxy.entity.model.DtsArticleContent;
-import cn.ttcxy.entity.model.DtsArticleExample;
+import cn.ttcxy.entity.model.*;
 import cn.ttcxy.mapper.DtsArticleContentMapper;
 import cn.ttcxy.mapper.DtsArticleMapper;
 import cn.ttcxy.mapper.dao.DtsArticleDao;
@@ -33,6 +33,9 @@ public class DtsArticleService {
 
     @Autowired
     private DtsArticleMapper articleMapper;
+
+    @Autowired
+    private DtsMessageService messageService;
 
     @Autowired
     private DtsArticleSubjectService articleSubjectService;
@@ -72,6 +75,9 @@ public class DtsArticleService {
         }else{
             articleContentMapper.insert(articleContent);
         }
+        if (article.getState() == 1){
+            messageService.insertMessage(articleId,article.getTitle(),"/article/"+articleId,article.getAuthorId(),null);
+        }
         return i;
     }
 
@@ -90,7 +96,7 @@ public class DtsArticleService {
         DtsArticleExample articleExample = new DtsArticleExample();
         articleExample.createCriteria()
                 .andArticleIdEqualTo(articleId)
-                .andAuthorIdEqualTo(articleId);
+                .andAuthorIdEqualTo(authorId);
         return articleMapper.deleteByExample(articleExample);
     }
 

@@ -27,6 +27,9 @@ public class DtsVideoService {
     @Autowired
     private DtsDataDao countDao;
 
+    @Autowired
+    DtsMessageService messageService;
+
     public int deleteById(String videoId) {
         DtsVideo video = new DtsVideo();
         video.setVideoId(videoId);
@@ -34,11 +37,8 @@ public class DtsVideoService {
         return videoMapper.updateByPrimaryKeySelective(video);
     }
 
-    public int update(DtsVideo dtsVideo) {
-        return videoMapper.updateByPrimaryKeySelective(dtsVideo);
-    }
-
     public int updateSelective(DtsVideo dtsVideo) {
+        messageService.insertMessage(dtsVideo.getVideoId(),dtsVideo.getTitle(),"/video/"+dtsVideo.getVideoId(),dtsVideo.getAuthorId(),null);
         return videoMapper.updateByPrimaryKeySelective(dtsVideo);
     }
 
