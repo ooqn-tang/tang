@@ -107,7 +107,7 @@
         <a disabled class="btn btn-outline-primary btn-sm mini-but">举报</a>
         <a
           class="btn btn-outline-primary btn-sm mini-but"
-          :href="'https://ttcxy.cn/post/' + articleId"
+          :href="'https://ttcxy.cn/article/' + articleId"
           >阅读模式</a
         >
         <router-link
