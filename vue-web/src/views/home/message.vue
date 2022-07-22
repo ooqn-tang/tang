@@ -2,20 +2,6 @@
   <div class="row">
     <div class="col-md-9 mb-2 move-p-lr-0">
       <div class="card move-b-lr-0">
-        <div class="card-header">
-          <ul class="nav nav-tabs card-header-tabs float-start">
-            <li class="nav-item">
-              <a
-                class="nav-link"
-                :class="select == '' ? 'active' : ''"
-                aria-current="true"
-                href="#"
-                @click="selectTag('')"
-                >动态</a
-              >
-            </li>
-          </ul>
-        </div>
         <div class="card-body" style="padding: 0">
           <ul class="list-group article-list">
             <li
@@ -25,11 +11,9 @@
             >
               <div class="row">
                 <div class="col">
-                  <strong>
-                    <router-link :to="{ name: 'author_article', params: { username: item.username }}">{{ item.nickname }}</router-link>  : 
-                  </strong>
-                  <a target="_blank" :href="item.url" v-text="item.message"></a>
-                  <span class="float-end">{{item.createDate}}</span>
+                  <a target="_blank" :href="item.url">{{ item.nickname }}{{item.title}}</a><span class="float-end">{{item.createDate}}</span>
+                  <br/>
+                  {{item.text}}
                 </div>
               </div>
             </li>

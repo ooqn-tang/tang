@@ -45,7 +45,7 @@
           class="btn btn-outline-danger float-end blog-btn"
           v-if="isThisUser"
           target="_blank"
-          :to="{ name: 'article-editor', params: { id: item.articleId } }"
+          :to="{ name: 'article-editor-md', params: { id: item.articleId } }"
           >修改</router-link
         >
         <button

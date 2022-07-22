@@ -95,7 +95,6 @@
     </div>
   </div>
 </template>
-
 <script>
 import marked from "marked";
 import hljs from "highlight.js";
@@ -114,7 +113,7 @@ marked.setOptions({
   smartypants: false,
 });
 export default {
-  name: "article-editor",
+  name: "article-editor-md",
   data() {
     return {
       thisArticleId: this.$route.params.id,

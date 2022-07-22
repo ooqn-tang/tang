@@ -1,6 +1,8 @@
 package cn.ttcxy.service;
 
+import cn.hutool.core.util.StrUtil;
 import cn.ttcxy.entity.dto.DtsCommentDto;
+import cn.ttcxy.entity.dto.DtsVideoDto;
 import cn.ttcxy.entity.model.DtsComment;
 import cn.ttcxy.mapper.DtsCommentMapper;
 import cn.ttcxy.mapper.dao.DtsCommentDao;
@@ -20,7 +22,30 @@ public class DtsCommentService {
     @Autowired
     private DtsCommentDao commentDao;
 
+    @Autowired
+    private DtsVideoService videoService;
+
+    @Autowired
+    private DtsMessageService messageService;
+
     public int insert(DtsComment comment) {
+        String dataId = comment.getDataId();
+        DtsVideoDto dtsVideoDto = videoService.selectById(dataId);
+        String url = comment.getType()+"/"+dataId+"?commentId="+comment.getCommentId();
+        String parentCommentId = comment.getParentCommentId();
+        String title = "";
+        String beAuthorId = "";
+        if (StrUtil.isNotBlank(parentCommentId)){
+            List<DtsCommentDto> select = commentDao.selectLower(parentCommentId);
+            if (select.size() > 0){
+                title = " 回复了你的评论 " + select.get(0).getText();
+                beAuthorId = select.get(0).getAuthorId();
+            }
+        }else{
+            title = " 评论了你的作品 "+dtsVideoDto.getTitle();
+            beAuthorId = dtsVideoDto.getAuthorId();
+        }
+        messageService.insertMessage(dataId,title,comment.getText(),url,comment.getAuthorId(),beAuthorId,"one");
         return commentMapper.insertSelective(comment);
     }
 

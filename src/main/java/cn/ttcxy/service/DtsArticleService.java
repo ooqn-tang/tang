@@ -75,9 +75,6 @@ public class DtsArticleService {
         }else{
             articleContentMapper.insert(articleContent);
         }
-        if (article.getState() == 1){
-            messageService.insertMessage(articleId,article.getTitle(),"/article/"+articleId,article.getAuthorId(),null);
-        }
         return i;
     }
 

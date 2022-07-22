@@ -144,9 +144,14 @@ const routes = [
         ]
     },
     {
-        path: '/article-editor/:id',
-        name: 'article-editor',
-        component: () => import('views/article/article-editor.vue')
+        path: '/article-editor-md/:id',
+        name: 'article-editor-md',
+        component: () => import('views/article/article-editor-md.vue')
+    },
+    {
+        path: '/article-editor-h5/:id',
+        name: 'article-editor-h5',
+        component: () => import('views/article/article-editor-h5.vue')
     },
     {
         path: '/login',

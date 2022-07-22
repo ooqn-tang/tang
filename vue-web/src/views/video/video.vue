@@ -59,8 +59,6 @@
                 >
                   <strong>{{ item.nickname }}：</strong>{{ item.text }}
                   <span style="color:red" v-if="item.username == loginUsername" @click="deleteComment(item.commentId,index)">删除</span>
-                  <br />
-                  <span style="color: #939393">{{item}}</span>
                   <span
                     @click="
                       (plinput = index),
@@ -75,7 +73,7 @@
                       <span
                         @click="(plinput = index), (commentForm.parentCommentId = item.commentId), (text2 += '@' + item1.nickname + ' ')"
                         style="color: #939393"
-                        >&nbsp;&nbsp;@</span>
+                        >&nbsp;&nbsp;@&nbsp;&nbsp;</span>
                         <span style="color:red" v-if="item1.username == loginUsername" @click="deleteLowerComment(item1.commentId,index1,index)">删除</span>
                     </li>
                   </ul>
@@ -112,9 +110,7 @@
         </div>
         <div class="col-lg-4 move-p-lr-0">
           <ul class="list-group mb-2 move-b-lr-0">
-            <li class="list-group-item active">推荐视频
-             
-              </li>
+            <li class="list-group-item active">推荐视频</li>
             <li v-for="(item,index) in randList" :key="index"  class="list-group-item move-b-lr-0 m-active">
               <img :src="item.coverUrl" style="width:100px;float:left;width:40%"   @click="openVideo(item.videoId)"> 
               <div style="padding-left: 10px;float:left;position:relative;width:50%;height:100%"   @click="openVideo(item.videoId)">
@@ -162,7 +158,9 @@ export default {
         { text: "1212", zpl: [{ text: "123123" }] },
       ],
       thisIndex: -1,
-      commentForm: {},
+      commentForm: {
+        type:"video"
+      },
       type:{
         like:false,
         collect:false,

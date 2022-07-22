@@ -48,6 +48,9 @@
             <li class="nav-item" v-if="!isLogin">
               <router-link class="nav-link active" to="/login">登录</router-link>
             </li>
+             <li class="nav-item pc" v-if="isLogin">
+              <router-link class="nav-link active" to="/message">动态</router-link>
+            </li>
             <li class="nav-item pc" v-if="isLogin">
               <router-link class="nav-link active" to="/message">消息</router-link>
             </li>
@@ -103,7 +106,7 @@ export default {
         url: '/api/article',
         method: 'POST'
       }).then((response) => {
-        let routeData = this.$router.resolve({name:"article-editor",params:{id:response.data}});
+        let routeData = this.$router.resolve({name:"article-editor-md",params:{id:response.data}});
         window.open(routeData.href, '_blank');
         this.$refs.close.click()
       })

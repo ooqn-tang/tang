@@ -17,6 +17,8 @@ public class DtsCommentParam {
 
     private Integer state;
 
+    private String type;
+
     private List<String> atAuthorId;
 
 }

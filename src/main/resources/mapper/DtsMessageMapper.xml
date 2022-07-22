@@ -3,12 +3,12 @@
 <mapper namespace="cn.ttcxy.mapper.DtsMessageMapper">
   <resultMap id="BaseResultMap" type="cn.ttcxy.entity.model.DtsMessage">
     <id column="message_id" jdbcType="VARCHAR" property="messageId" />
-    <result column="issuer" jdbcType="VARCHAR" property="issuer" />
-    <result column="recipient" jdbcType="VARCHAR" property="recipient" />
+    <result column="author_id" jdbcType="VARCHAR" property="authorId" />
+    <result column="recipient_author_id" jdbcType="VARCHAR" property="recipientAuthorId" />
     <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
-    <result column="message" jdbcType="VARCHAR" property="message" />
+    <result column="text" jdbcType="VARCHAR" property="text" />
     <result column="url" jdbcType="VARCHAR" property="url" />
-    <result column="data_id" jdbcType="VARCHAR" property="dataId" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -69,7 +69,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    message_id, issuer, recipient, create_date, message, url, data_id
+    message_id, author_id, recipient_author_id, create_date, `text`, url, title
   </sql>
   <select id="selectByExample" parameterType="cn.ttcxy.entity.model.DtsMessageExample" resultMap="BaseResultMap">
     select
@@ -102,12 +102,12 @@
     </if>
   </delete>
   <insert id="insert" parameterType="cn.ttcxy.entity.model.DtsMessage">
-    insert into dts_message (message_id, issuer, recipient, 
-      create_date, message, url, 
-      data_id)
-    values (#{messageId,jdbcType=VARCHAR}, #{issuer,jdbcType=VARCHAR}, #{recipient,jdbcType=VARCHAR}, 
-      #{createDate,jdbcType=TIMESTAMP}, #{message,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, 
-      #{dataId,jdbcType=VARCHAR})
+    insert into dts_message (message_id, author_id, recipient_author_id, 
+      create_date, `text`, url, 
+      title)
+    values (#{messageId,jdbcType=VARCHAR}, #{authorId,jdbcType=VARCHAR}, #{recipientAuthorId,jdbcType=VARCHAR}, 
+      #{createDate,jdbcType=TIMESTAMP}, #{text,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, 
+      #{title,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="cn.ttcxy.entity.model.DtsMessage">
     insert into dts_message
@@ -115,46 +115,46 @@
       <if test="messageId != null">
         message_id,
       </if>
-      <if test="issuer != null">
-        issuer,
+      <if test="authorId != null">
+        author_id,
       </if>
-      <if test="recipient != null">
-        recipient,
+      <if test="recipientAuthorId != null">
+        recipient_author_id,
       </if>
       <if test="createDate != null">
         create_date,
       </if>
-      <if test="message != null">
-        message,
+      <if test="text != null">
+        `text`,
       </if>
       <if test="url != null">
         url,
       </if>
-      <if test="dataId != null">
-        data_id,
+      <if test="title != null">
+        title,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="messageId != null">
         #{messageId,jdbcType=VARCHAR},
       </if>
-      <if test="issuer != null">
-        #{issuer,jdbcType=VARCHAR},
+      <if test="authorId != null">
+        #{authorId,jdbcType=VARCHAR},
       </if>
-      <if test="recipient != null">
-        #{recipient,jdbcType=VARCHAR},
+      <if test="recipientAuthorId != null">
+        #{recipientAuthorId,jdbcType=VARCHAR},
       </if>
       <if test="createDate != null">
         #{createDate,jdbcType=TIMESTAMP},
       </if>
-      <if test="message != null">
-        #{message,jdbcType=VARCHAR},
+      <if test="text != null">
+        #{text,jdbcType=VARCHAR},
       </if>
       <if test="url != null">
         #{url,jdbcType=VARCHAR},
       </if>
-      <if test="dataId != null">
-        #{dataId,jdbcType=VARCHAR},
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -170,23 +170,23 @@
       <if test="row.messageId != null">
         message_id = #{row.messageId,jdbcType=VARCHAR},
       </if>
-      <if test="row.issuer != null">
-        issuer = #{row.issuer,jdbcType=VARCHAR},
+      <if test="row.authorId != null">
+        author_id = #{row.authorId,jdbcType=VARCHAR},
       </if>
-      <if test="row.recipient != null">
-        recipient = #{row.recipient,jdbcType=VARCHAR},
+      <if test="row.recipientAuthorId != null">
+        recipient_author_id = #{row.recipientAuthorId,jdbcType=VARCHAR},
       </if>
       <if test="row.createDate != null">
         create_date = #{row.createDate,jdbcType=TIMESTAMP},
       </if>
-      <if test="row.message != null">
-        message = #{row.message,jdbcType=VARCHAR},
+      <if test="row.text != null">
+        `text` = #{row.text,jdbcType=VARCHAR},
       </if>
       <if test="row.url != null">
         url = #{row.url,jdbcType=VARCHAR},
       </if>
-      <if test="row.dataId != null">
-        data_id = #{row.dataId,jdbcType=VARCHAR},
+      <if test="row.title != null">
+        title = #{row.title,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="example != null">
@@ -196,12 +196,12 @@
   <update id="updateByExample" parameterType="map">
     update dts_message
     set message_id = #{row.messageId,jdbcType=VARCHAR},
-      issuer = #{row.issuer,jdbcType=VARCHAR},
-      recipient = #{row.recipient,jdbcType=VARCHAR},
+      author_id = #{row.authorId,jdbcType=VARCHAR},
+      recipient_author_id = #{row.recipientAuthorId,jdbcType=VARCHAR},
       create_date = #{row.createDate,jdbcType=TIMESTAMP},
-      message = #{row.message,jdbcType=VARCHAR},
+      `text` = #{row.text,jdbcType=VARCHAR},
       url = #{row.url,jdbcType=VARCHAR},
-      data_id = #{row.dataId,jdbcType=VARCHAR}
+      title = #{row.title,jdbcType=VARCHAR}
     <if test="example != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -209,35 +209,35 @@
   <update id="updateByPrimaryKeySelective" parameterType="cn.ttcxy.entity.model.DtsMessage">
     update dts_message
     <set>
-      <if test="issuer != null">
-        issuer = #{issuer,jdbcType=VARCHAR},
+      <if test="authorId != null">
+        author_id = #{authorId,jdbcType=VARCHAR},
       </if>
-      <if test="recipient != null">
-        recipient = #{recipient,jdbcType=VARCHAR},
+      <if test="recipientAuthorId != null">
+        recipient_author_id = #{recipientAuthorId,jdbcType=VARCHAR},
       </if>
       <if test="createDate != null">
         create_date = #{createDate,jdbcType=TIMESTAMP},
       </if>
-      <if test="message != null">
-        message = #{message,jdbcType=VARCHAR},
+      <if test="text != null">
+        `text` = #{text,jdbcType=VARCHAR},
       </if>
       <if test="url != null">
         url = #{url,jdbcType=VARCHAR},
       </if>
-      <if test="dataId != null">
-        data_id = #{dataId,jdbcType=VARCHAR},
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
       </if>
     </set>
     where message_id = #{messageId,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="cn.ttcxy.entity.model.DtsMessage">
     update dts_message
-    set issuer = #{issuer,jdbcType=VARCHAR},
-      recipient = #{recipient,jdbcType=VARCHAR},
+    set author_id = #{authorId,jdbcType=VARCHAR},
+      recipient_author_id = #{recipientAuthorId,jdbcType=VARCHAR},
       create_date = #{createDate,jdbcType=TIMESTAMP},
-      message = #{message,jdbcType=VARCHAR},
+      `text` = #{text,jdbcType=VARCHAR},
       url = #{url,jdbcType=VARCHAR},
-      data_id = #{dataId,jdbcType=VARCHAR}
+      title = #{title,jdbcType=VARCHAR}
     where message_id = #{messageId,jdbcType=VARCHAR}
   </update>
 </mapper>

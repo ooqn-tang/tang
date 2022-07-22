@@ -18,6 +18,8 @@ public class DtsComment implements Serializable {
 
     private Integer state;
 
+    private String type;
+
     private static final long serialVersionUID = 1L;
 
     public String getCommentId() {
@@ -76,6 +78,14 @@ public class DtsComment implements Serializable {
         this.state = state;
     }
 
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -89,6 +99,7 @@ public class DtsComment implements Serializable {
         sb.append(", text=").append(text);
         sb.append(", createDate=").append(createDate);
         sb.append(", state=").append(state);
+        sb.append(", type=").append(type);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

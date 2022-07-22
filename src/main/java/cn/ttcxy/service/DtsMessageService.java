@@ -16,35 +16,19 @@ public class DtsMessageService {
     @Autowired
     private DtsMessageMapper messageMapper;
 
-    public void insert(DtsMessage message) {
-        messageMapper.insertSelective(message);
-    }
-
-    public boolean isData(String dataId){
-        DtsMessageExample messageExample = new DtsMessageExample();
-        messageExample.createCriteria().andDataIdEqualTo(dataId);
-
-        List<DtsMessage> dtsMessages = messageMapper.selectByExample(messageExample);
-        return dtsMessages.size() > 0;
-    }
-
     public void update(DtsMessageExample messageExample,DtsMessage message){
         messageMapper.updateByExampleSelective(message,messageExample);
     }
 
-    public void insertMessage(String dataId,String text,String url,String issuer,String recipient){
+    public void insertMessage(String dataId,String title,String text,String url,String authorId,String recipientAuthorId,String type){
         DtsMessage message = new DtsMessage();
-        message.setMessage(text);
+        message.setTitle(title);
+        message.setText(text);
         message.setMessageId(IdUtil.objectId());
         message.setCreateDate(DateUtil.date());
-        message.setIssuer(issuer);
         message.setUrl(url);
-        if (isData(dataId)){
-            DtsMessageExample messageExample = new DtsMessageExample();
-            messageExample.createCriteria().andDataIdEqualTo(dataId);
-            update(messageExample,message);
-        }else{
-            insert(message);
-        }
+        message.setAuthorId(authorId);
+        message.setRecipientAuthorId(recipientAuthorId);
+        messageMapper.insertSelective(message);
     }
 }

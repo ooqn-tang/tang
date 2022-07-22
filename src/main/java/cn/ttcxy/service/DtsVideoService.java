@@ -38,7 +38,6 @@ public class DtsVideoService {
     }
 
     public int updateSelective(DtsVideo dtsVideo) {
-        messageService.insertMessage(dtsVideo.getVideoId(),dtsVideo.getTitle(),"/video/"+dtsVideo.getVideoId(),dtsVideo.getAuthorId(),null);
         return videoMapper.updateByPrimaryKeySelective(dtsVideo);
     }
 

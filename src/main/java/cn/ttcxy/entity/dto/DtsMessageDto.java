@@ -10,7 +10,9 @@ public class DtsMessageDto implements Serializable {
 
     private Date createDate;
 
-    private String message;
+    private String text;
+
+    private String title;
 
     private String username;
 
@@ -19,6 +21,22 @@ public class DtsMessageDto implements Serializable {
     private String nickname;
 
     private static final long serialVersionUID = 1L;
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
     public String getUsername() {
         return username;
@@ -60,14 +78,6 @@ public class DtsMessageDto implements Serializable {
         this.createDate = createDate;
     }
 
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
     public String getUrl() {
         return url;
     }
@@ -78,17 +88,15 @@ public class DtsMessageDto implements Serializable {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(getClass().getSimpleName());
-        sb.append(" [");
-        sb.append("Hash = ").append(hashCode());
-        sb.append(", messageId=").append(messageId);
-        sb.append(", authorId=").append(authorId);
-        sb.append(", createDate=").append(createDate);
-        sb.append(", message=").append(message);
-        sb.append(", url=").append(url);
-        sb.append(", serialVersionUID=").append(serialVersionUID);
-        sb.append("]");
-        return sb.toString();
+        return "DtsMessageDto{" +
+                "messageId='" + messageId + '\'' +
+                ", authorId='" + authorId + '\'' +
+                ", createDate=" + createDate +
+                ", text='" + text + '\'' +
+                ", title='" + title + '\'' +
+                ", username='" + username + '\'' +
+                ", url='" + url + '\'' +
+                ", nickname='" + nickname + '\'' +
+                '}';
     }
 }

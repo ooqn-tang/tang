@@ -1,14 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.ttcxy.mapper.dao.DtsMessageDao">
-
     <select id="selectAuthorMessage" resultType="cn.ttcxy.entity.dto.DtsMessageDto">
-        select message,url,create_date,(select username from uts_author where author_id = t1.`issuer`) username,(select nickname from uts_author where author_id = t1.`issuer`) nickname
-        from dts_message t1
-        where `issuer` in (
-        select be_author_id from uts_fans where author_id = #{authorId}
-        union
-        select '1f76e6d37d34428e82a35074e38ba311'
-        ) or recipient = #{authorId} order by create_date desc limit 50
+        select t1.*,(select nickname from uts_author where author_id = t1.author_id) nickname
+        from dts_message t1 where recipient_author_id = #{authorId} order by create_date desc
     </select>
 </mapper>

@@ -6,17 +6,17 @@ import java.util.Date;
 public class DtsMessage implements Serializable {
     private String messageId;
 
-    private String issuer;
+    private String authorId;
 
-    private String recipient;
+    private String recipientAuthorId;
 
     private Date createDate;
 
-    private String message;
+    private String text;
 
     private String url;
 
-    private String dataId;
+    private String title;
 
     private static final long serialVersionUID = 1L;
 
@@ -28,20 +28,20 @@ public class DtsMessage implements Serializable {
         this.messageId = messageId;
     }
 
-    public String getIssuer() {
-        return issuer;
+    public String getAuthorId() {
+        return authorId;
     }
 
-    public void setIssuer(String issuer) {
-        this.issuer = issuer;
+    public void setAuthorId(String authorId) {
+        this.authorId = authorId;
     }
 
-    public String getRecipient() {
-        return recipient;
+    public String getRecipientAuthorId() {
+        return recipientAuthorId;
     }
 
-    public void setRecipient(String recipient) {
-        this.recipient = recipient;
+    public void setRecipientAuthorId(String recipientAuthorId) {
+        this.recipientAuthorId = recipientAuthorId;
     }
 
     public Date getCreateDate() {
@@ -52,12 +52,12 @@ public class DtsMessage implements Serializable {
         this.createDate = createDate;
     }
 
-    public String getMessage() {
-        return message;
+    public String getText() {
+        return text;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setText(String text) {
+        this.text = text;
     }
 
     public String getUrl() {
@@ -68,12 +68,12 @@ public class DtsMessage implements Serializable {
         this.url = url;
     }
 
-    public String getDataId() {
-        return dataId;
+    public String getTitle() {
+        return title;
     }
 
-    public void setDataId(String dataId) {
-        this.dataId = dataId;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     @Override
@@ -83,12 +83,12 @@ public class DtsMessage implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", messageId=").append(messageId);
-        sb.append(", issuer=").append(issuer);
-        sb.append(", recipient=").append(recipient);
+        sb.append(", authorId=").append(authorId);
+        sb.append(", recipientAuthorId=").append(recipientAuthorId);
         sb.append(", createDate=").append(createDate);
-        sb.append(", message=").append(message);
+        sb.append(", text=").append(text);
         sb.append(", url=").append(url);
-        sb.append(", dataId=").append(dataId);
+        sb.append(", title=").append(title);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

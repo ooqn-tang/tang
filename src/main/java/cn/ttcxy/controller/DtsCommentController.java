@@ -29,6 +29,7 @@ public class DtsCommentController extends BaseController {
         comment.setAuthorId(authorId());
         comment.setCommentId(commentId);
         comment.setCreateDate(DateUtil.date());
+        comment.setState(1);
         int count = commentService.insert(comment);
         if (count > 0){
             return ResponseEntity.ok(commentId);

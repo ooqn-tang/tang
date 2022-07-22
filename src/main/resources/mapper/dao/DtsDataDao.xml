@@ -5,7 +5,7 @@
     <select id="selectDataStatCount" resultType="cn.ttcxy.entity.dto.DtsDataCount">
         select
         (select count(data_id) from dts_like where data_id = t11.data_id) 'like',
-        (select count(data_id) from dts_comment where data_id = t11.data_id) 'comment'
+        (select count(data_id) from dts_comment where data_id = t11.data_id and state = 1) 'comment'
         from (
         select article_id data_id from dts_article where article_id = #{dataId}
         union all

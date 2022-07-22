@@ -175,143 +175,143 @@ public class DtsMessageExample {
             return (Criteria) this;
         }
 
-        public Criteria andIssuerIsNull() {
-            addCriterion("issuer is null");
+        public Criteria andAuthorIdIsNull() {
+            addCriterion("author_id is null");
             return (Criteria) this;
         }
 
-        public Criteria andIssuerIsNotNull() {
-            addCriterion("issuer is not null");
+        public Criteria andAuthorIdIsNotNull() {
+            addCriterion("author_id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andIssuerEqualTo(String value) {
-            addCriterion("issuer =", value, "issuer");
+        public Criteria andAuthorIdEqualTo(String value) {
+            addCriterion("author_id =", value, "authorId");
             return (Criteria) this;
         }
 
-        public Criteria andIssuerNotEqualTo(String value) {
-            addCriterion("issuer <>", value, "issuer");
+        public Criteria andAuthorIdNotEqualTo(String value) {
+            addCriterion("author_id <>", value, "authorId");
             return (Criteria) this;
         }
 
-        public Criteria andIssuerGreaterThan(String value) {
-            addCriterion("issuer >", value, "issuer");
+        public Criteria andAuthorIdGreaterThan(String value) {
+            addCriterion("author_id >", value, "authorId");
             return (Criteria) this;
         }
 
-        public Criteria andIssuerGreaterThanOrEqualTo(String value) {
-            addCriterion("issuer >=", value, "issuer");
+        public Criteria andAuthorIdGreaterThanOrEqualTo(String value) {
+            addCriterion("author_id >=", value, "authorId");
             return (Criteria) this;
         }
 
-        public Criteria andIssuerLessThan(String value) {
-            addCriterion("issuer <", value, "issuer");
+        public Criteria andAuthorIdLessThan(String value) {
+            addCriterion("author_id <", value, "authorId");
             return (Criteria) this;
         }
 
-        public Criteria andIssuerLessThanOrEqualTo(String value) {
-            addCriterion("issuer <=", value, "issuer");
+        public Criteria andAuthorIdLessThanOrEqualTo(String value) {
+            addCriterion("author_id <=", value, "authorId");
             return (Criteria) this;
         }
 
-        public Criteria andIssuerLike(String value) {
-            addCriterion("issuer like", value, "issuer");
+        public Criteria andAuthorIdLike(String value) {
+            addCriterion("author_id like", value, "authorId");
             return (Criteria) this;
         }
 
-        public Criteria andIssuerNotLike(String value) {
-            addCriterion("issuer not like", value, "issuer");
+        public Criteria andAuthorIdNotLike(String value) {
+            addCriterion("author_id not like", value, "authorId");
             return (Criteria) this;
         }
 
-        public Criteria andIssuerIn(List<String> values) {
-            addCriterion("issuer in", values, "issuer");
+        public Criteria andAuthorIdIn(List<String> values) {
+            addCriterion("author_id in", values, "authorId");
             return (Criteria) this;
         }
 
-        public Criteria andIssuerNotIn(List<String> values) {
-            addCriterion("issuer not in", values, "issuer");
+        public Criteria andAuthorIdNotIn(List<String> values) {
+            addCriterion("author_id not in", values, "authorId");
             return (Criteria) this;
         }
 
-        public Criteria andIssuerBetween(String value1, String value2) {
-            addCriterion("issuer between", value1, value2, "issuer");
+        public Criteria andAuthorIdBetween(String value1, String value2) {
+            addCriterion("author_id between", value1, value2, "authorId");
             return (Criteria) this;
         }
 
-        public Criteria andIssuerNotBetween(String value1, String value2) {
-            addCriterion("issuer not between", value1, value2, "issuer");
+        public Criteria andAuthorIdNotBetween(String value1, String value2) {
+            addCriterion("author_id not between", value1, value2, "authorId");
             return (Criteria) this;
         }
 
-        public Criteria andRecipientIsNull() {
-            addCriterion("recipient is null");
+        public Criteria andRecipientAuthorIdIsNull() {
+            addCriterion("recipient_author_id is null");
             return (Criteria) this;
         }
 
-        public Criteria andRecipientIsNotNull() {
-            addCriterion("recipient is not null");
+        public Criteria andRecipientAuthorIdIsNotNull() {
+            addCriterion("recipient_author_id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andRecipientEqualTo(String value) {
-            addCriterion("recipient =", value, "recipient");
+        public Criteria andRecipientAuthorIdEqualTo(String value) {
+            addCriterion("recipient_author_id =", value, "recipientAuthorId");
             return (Criteria) this;
         }
 
-        public Criteria andRecipientNotEqualTo(String value) {
-            addCriterion("recipient <>", value, "recipient");
+        public Criteria andRecipientAuthorIdNotEqualTo(String value) {
+            addCriterion("recipient_author_id <>", value, "recipientAuthorId");
             return (Criteria) this;
         }
 
-        public Criteria andRecipientGreaterThan(String value) {
-            addCriterion("recipient >", value, "recipient");
+        public Criteria andRecipientAuthorIdGreaterThan(String value) {
+            addCriterion("recipient_author_id >", value, "recipientAuthorId");
             return (Criteria) this;
         }
 
-        public Criteria andRecipientGreaterThanOrEqualTo(String value) {
-            addCriterion("recipient >=", value, "recipient");
+        public Criteria andRecipientAuthorIdGreaterThanOrEqualTo(String value) {
+            addCriterion("recipient_author_id >=", value, "recipientAuthorId");
             return (Criteria) this;
         }
 
-        public Criteria andRecipientLessThan(String value) {
-            addCriterion("recipient <", value, "recipient");
+        public Criteria andRecipientAuthorIdLessThan(String value) {
+            addCriterion("recipient_author_id <", value, "recipientAuthorId");
             return (Criteria) this;
         }
 
-        public Criteria andRecipientLessThanOrEqualTo(String value) {
-            addCriterion("recipient <=", value, "recipient");
+        public Criteria andRecipientAuthorIdLessThanOrEqualTo(String value) {
+            addCriterion("recipient_author_id <=", value, "recipientAuthorId");
             return (Criteria) this;
         }
 
-        public Criteria andRecipientLike(String value) {
-            addCriterion("recipient like", value, "recipient");
+        public Criteria andRecipientAuthorIdLike(String value) {
+            addCriterion("recipient_author_id like", value, "recipientAuthorId");
             return (Criteria) this;
         }
 
-        public Criteria andRecipientNotLike(String value) {
-            addCriterion("recipient not like", value, "recipient");
+        public Criteria andRecipientAuthorIdNotLike(String value) {
+            addCriterion("recipient_author_id not like", value, "recipientAuthorId");
             return (Criteria) this;
         }
 
-        public Criteria andRecipientIn(List<String> values) {
-            addCriterion("recipient in", values, "recipient");
+        public Criteria andRecipientAuthorIdIn(List<String> values) {
+            addCriterion("recipient_author_id in", values, "recipientAuthorId");
             return (Criteria) this;
         }
 
-        public Criteria andRecipientNotIn(List<String> values) {
-            addCriterion("recipient not in", values, "recipient");
+        public Criteria andRecipientAuthorIdNotIn(List<String> values) {
+            addCriterion("recipient_author_id not in", values, "recipientAuthorId");
             return (Criteria) this;
         }
 
-        public Criteria andRecipientBetween(String value1, String value2) {
-            addCriterion("recipient between", value1, value2, "recipient");
+        public Criteria andRecipientAuthorIdBetween(String value1, String value2) {
+            addCriterion("recipient_author_id between", value1, value2, "recipientAuthorId");
             return (Criteria) this;
         }
 
-        public Criteria andRecipientNotBetween(String value1, String value2) {
-            addCriterion("recipient not between", value1, value2, "recipient");
+        public Criteria andRecipientAuthorIdNotBetween(String value1, String value2) {
+            addCriterion("recipient_author_id not between", value1, value2, "recipientAuthorId");
             return (Criteria) this;
         }
 
@@ -375,73 +375,73 @@ public class DtsMessageExample {
             return (Criteria) this;
         }
 
-        public Criteria andMessageIsNull() {
-            addCriterion("message is null");
+        public Criteria andTextIsNull() {
+            addCriterion("`text` is null");
             return (Criteria) this;
         }
 
-        public Criteria andMessageIsNotNull() {
-            addCriterion("message is not null");
+        public Criteria andTextIsNotNull() {
+            addCriterion("`text` is not null");
             return (Criteria) this;
         }
 
-        public Criteria andMessageEqualTo(String value) {
-            addCriterion("message =", value, "message");
+        public Criteria andTextEqualTo(String value) {
+            addCriterion("`text` =", value, "text");
             return (Criteria) this;
         }
 
-        public Criteria andMessageNotEqualTo(String value) {
-            addCriterion("message <>", value, "message");
+        public Criteria andTextNotEqualTo(String value) {
+            addCriterion("`text` <>", value, "text");
             return (Criteria) this;
         }
 
-        public Criteria andMessageGreaterThan(String value) {
-            addCriterion("message >", value, "message");
+        public Criteria andTextGreaterThan(String value) {
+            addCriterion("`text` >", value, "text");
             return (Criteria) this;
         }
 
-        public Criteria andMessageGreaterThanOrEqualTo(String value) {
-            addCriterion("message >=", value, "message");
+        public Criteria andTextGreaterThanOrEqualTo(String value) {
+            addCriterion("`text` >=", value, "text");
             return (Criteria) this;
         }
 
-        public Criteria andMessageLessThan(String value) {
-            addCriterion("message <", value, "message");
+        public Criteria andTextLessThan(String value) {
+            addCriterion("`text` <", value, "text");
             return (Criteria) this;
         }
 
-        public Criteria andMessageLessThanOrEqualTo(String value) {
-            addCriterion("message <=", value, "message");
+        public Criteria andTextLessThanOrEqualTo(String value) {
+            addCriterion("`text` <=", value, "text");
             return (Criteria) this;
         }
 
-        public Criteria andMessageLike(String value) {
-            addCriterion("message like", value, "message");
+        public Criteria andTextLike(String value) {
+            addCriterion("`text` like", value, "text");
             return (Criteria) this;
         }
 
-        public Criteria andMessageNotLike(String value) {
-            addCriterion("message not like", value, "message");
+        public Criteria andTextNotLike(String value) {
+            addCriterion("`text` not like", value, "text");
             return (Criteria) this;
         }
 
-        public Criteria andMessageIn(List<String> values) {
-            addCriterion("message in", values, "message");
+        public Criteria andTextIn(List<String> values) {
+            addCriterion("`text` in", values, "text");
             return (Criteria) this;
         }
 
-        public Criteria andMessageNotIn(List<String> values) {
-            addCriterion("message not in", values, "message");
+        public Criteria andTextNotIn(List<String> values) {
+            addCriterion("`text` not in", values, "text");
             return (Criteria) this;
         }
 
-        public Criteria andMessageBetween(String value1, String value2) {
-            addCriterion("message between", value1, value2, "message");
+        public Criteria andTextBetween(String value1, String value2) {
+            addCriterion("`text` between", value1, value2, "text");
             return (Criteria) this;
         }
 
-        public Criteria andMessageNotBetween(String value1, String value2) {
-            addCriterion("message not between", value1, value2, "message");
+        public Criteria andTextNotBetween(String value1, String value2) {
+            addCriterion("`text` not between", value1, value2, "text");
             return (Criteria) this;
         }
 
@@ -515,73 +515,73 @@ public class DtsMessageExample {
             return (Criteria) this;
         }
 
-        public Criteria andDataIdIsNull() {
-            addCriterion("data_id is null");
+        public Criteria andTitleIsNull() {
+            addCriterion("title is null");
             return (Criteria) this;
         }
 
-        public Criteria andDataIdIsNotNull() {
-            addCriterion("data_id is not null");
+        public Criteria andTitleIsNotNull() {
+            addCriterion("title is not null");
             return (Criteria) this;
         }
 
-        public Criteria andDataIdEqualTo(String value) {
-            addCriterion("data_id =", value, "dataId");
+        public Criteria andTitleEqualTo(String value) {
+            addCriterion("title =", value, "title");
             return (Criteria) this;
         }
 
-        public Criteria andDataIdNotEqualTo(String value) {
-            addCriterion("data_id <>", value, "dataId");
+        public Criteria andTitleNotEqualTo(String value) {
+            addCriterion("title <>", value, "title");
             return (Criteria) this;
         }
 
-        public Criteria andDataIdGreaterThan(String value) {
-            addCriterion("data_id >", value, "dataId");
+        public Criteria andTitleGreaterThan(String value) {
+            addCriterion("title >", value, "title");
             return (Criteria) this;
         }
 
-        public Criteria andDataIdGreaterThanOrEqualTo(String value) {
-            addCriterion("data_id >=", value, "dataId");
+        public Criteria andTitleGreaterThanOrEqualTo(String value) {
+            addCriterion("title >=", value, "title");
             return (Criteria) this;
         }
 
-        public Criteria andDataIdLessThan(String value) {
-            addCriterion("data_id <", value, "dataId");
+        public Criteria andTitleLessThan(String value) {
+            addCriterion("title <", value, "title");
             return (Criteria) this;
         }
 
-        public Criteria andDataIdLessThanOrEqualTo(String value) {
-            addCriterion("data_id <=", value, "dataId");
+        public Criteria andTitleLessThanOrEqualTo(String value) {
+            addCriterion("title <=", value, "title");
             return (Criteria) this;
         }
 
-        public Criteria andDataIdLike(String value) {
-            addCriterion("data_id like", value, "dataId");
+        public Criteria andTitleLike(String value) {
+            addCriterion("title like", value, "title");
             return (Criteria) this;
         }
 
-        public Criteria andDataIdNotLike(String value) {
-            addCriterion("data_id not like", value, "dataId");
+        public Criteria andTitleNotLike(String value) {
+            addCriterion("title not like", value, "title");
             return (Criteria) this;
         }
 
-        public Criteria andDataIdIn(List<String> values) {
-            addCriterion("data_id in", values, "dataId");
+        public Criteria andTitleIn(List<String> values) {
+            addCriterion("title in", values, "title");
             return (Criteria) this;
         }
 
-        public Criteria andDataIdNotIn(List<String> values) {
-            addCriterion("data_id not in", values, "dataId");
+        public Criteria andTitleNotIn(List<String> values) {
+            addCriterion("title not in", values, "title");
             return (Criteria) this;
         }
 
-        public Criteria andDataIdBetween(String value1, String value2) {
-            addCriterion("data_id between", value1, value2, "dataId");
+        public Criteria andTitleBetween(String value1, String value2) {
+            addCriterion("title between", value1, value2, "title");
             return (Criteria) this;
         }
 
-        public Criteria andDataIdNotBetween(String value1, String value2) {
-            addCriterion("data_id not between", value1, value2, "dataId");
+        public Criteria andTitleNotBetween(String value1, String value2) {
+            addCriterion("title not between", value1, value2, "title");
             return (Criteria) this;
         }
     }
