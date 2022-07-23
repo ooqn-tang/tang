@@ -49,7 +49,7 @@
               <router-link class="nav-link active" to="/login">登录</router-link>
             </li>
              <li class="nav-item pc" v-if="isLogin">
-              <router-link class="nav-link active" to="/message">动态</router-link>
+              <router-link class="nav-link active" to="/dynamic">动态</router-link>
             </li>
             <li class="nav-item pc" v-if="isLogin">
               <router-link class="nav-link active" to="/message">消息</router-link>

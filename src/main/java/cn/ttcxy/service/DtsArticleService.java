@@ -65,7 +65,8 @@ public class DtsArticleService {
     public int insertArticle(DtsArticle article) {
         return articleMapper.insertSelective(article);
     }
-
+    @Autowired
+    private DtsDynamicService dynamicService;
     public int updateArticle(DtsArticle article, DtsArticleContent articleContent) {
         int i = articleMapper.updateByPrimaryKeySelective(article);
         String articleId = article.getArticleId();
@@ -75,6 +76,10 @@ public class DtsArticleService {
         }else{
             articleContentMapper.insert(articleContent);
         }
+        DtsDynamic dynamic = new DtsDynamic();
+        dynamic.setText(article.getTitle());
+        dynamic.setAuthorId(article.getAuthorId());
+        dynamicService.insert(dynamic);
         return i;
     }
 
