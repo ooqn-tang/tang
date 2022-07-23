@@ -1,8 +1,6 @@
 package cn.ttcxy.service;
 
-import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.thread.ThreadUtil;
-import cn.hutool.core.util.IdUtil;
 import cn.ttcxy.entity.dto.DtsArticleDto;
 import cn.ttcxy.entity.model.*;
 import cn.ttcxy.mapper.DtsArticleContentMapper;
@@ -40,6 +38,9 @@ public class DtsArticleService {
     @Autowired
     private DtsArticleSubjectService articleSubjectService;
 
+    @Autowired
+    private DtsEssayService dynamicService;
+
     public PageInfo<DtsArticleDto> selectArticleList(String classId, Integer page, Integer size) {
         PageHelper.startPage(page, size);
         return new PageInfo<>(articleDao.selectArticleList(classId));
@@ -49,8 +50,6 @@ public class DtsArticleService {
         PageHelper.startPage(page, size);
         return new PageInfo<>(articleDao.selectArticleListSmall());
     }
-
-
 
     public PageInfo<DtsArticleDto> search(String title, Integer page, Integer pageSize) {
         PageHelper.startPage(page, pageSize);
@@ -65,8 +64,7 @@ public class DtsArticleService {
     public int insertArticle(DtsArticle article) {
         return articleMapper.insertSelective(article);
     }
-    @Autowired
-    private DtsDynamicService dynamicService;
+
     public int updateArticle(DtsArticle article, DtsArticleContent articleContent) {
         int i = articleMapper.updateByPrimaryKeySelective(article);
         String articleId = article.getArticleId();
@@ -76,9 +74,10 @@ public class DtsArticleService {
         }else{
             articleContentMapper.insert(articleContent);
         }
-        DtsDynamic dynamic = new DtsDynamic();
+        DtsEssay dynamic = new DtsEssay();
         dynamic.setText(article.getTitle());
         dynamic.setAuthorId(article.getAuthorId());
+        dynamic.setUrl("/article/"+article.getArticleId());
         dynamicService.insert(dynamic);
         return i;
     }

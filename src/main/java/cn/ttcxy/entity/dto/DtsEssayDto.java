@@ -5,9 +5,9 @@ import lombok.Data;
 import java.util.Date;
 
 @Data
-public class DtsDynamicDto {
+public class DtsEssayDto {
 
-    private String dynamicId;
+    private String essayId;
 
     private String authorId;
 

@@ -22,9 +22,10 @@
             >
               <div class="row">
                 <div class="col">
-                  <a target="_blank" :href="item.url">{{ item.nickname }}{{item.title}}</a><span class="float-end">{{item.createDate}}</span>
-                  <br/>
-                  {{item.text}}
+                  <p>
+                    <a target="_blank" :href="'/author/'+item.username">{{ item.nickname }}{{item.title}}</a><span class="float-end">{{item.createTime}}</span>
+                  </p>
+                  {{item.text}}  <a target="_blank" v-if="item.url != null" :href="item.url">网页链接</a>
                 </div>
               </div>
             </li>

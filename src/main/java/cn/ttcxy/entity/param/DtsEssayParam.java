@@ -1,4 +1,4 @@
 package cn.ttcxy.entity.param;
 
-public class DtsDynamicParam {
+public class DtsEssayParam {
 }

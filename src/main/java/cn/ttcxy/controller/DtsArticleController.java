@@ -10,10 +10,9 @@ import cn.ttcxy.core.api.ResponseCode;
 import cn.ttcxy.entity.dto.DtsArticleDto;
 import cn.ttcxy.entity.model.DtsArticle;
 import cn.ttcxy.entity.model.DtsArticleContent;
-import cn.ttcxy.entity.model.DtsDynamic;
 import cn.ttcxy.entity.param.DtsArticleParam;
 import cn.ttcxy.service.DtsArticleService;
-import cn.ttcxy.service.DtsDynamicService;
+import cn.ttcxy.service.DtsEssayService;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -30,7 +29,7 @@ public class DtsArticleController extends BaseController {
     private DtsArticleService articleService;
 
     @Autowired
-    private DtsDynamicService dynamicService;
+    private DtsEssayService essayService;
 
     @GetMapping("list")
     public ResponseEntity<PageInfo<DtsArticleDto>> selectArticleList(
