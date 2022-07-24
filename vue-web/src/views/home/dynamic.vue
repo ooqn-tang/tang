@@ -77,7 +77,7 @@ export default {
     },
     loadDynamic() {
       request({
-        url: "/api/dynamic",
+        url: "/api/essay",
         params:{"type":this.select},
         method: "GET",
       }).then((response) => {

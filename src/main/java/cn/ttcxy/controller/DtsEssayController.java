@@ -23,7 +23,7 @@ public class DtsEssayController extends BaseController {
     }
 
     @GetMapping
-    public ResponseEntity<?> select(@RequestParam(value = "type")String type){
+    public ResponseEntity<?> select(@RequestParam(value = "type",required = false)String type){
         return ResponseEntity.ok(essayService.select(authorId(),type));
     }
 

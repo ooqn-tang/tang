@@ -33,7 +33,13 @@
               v-for="(item, index) in essayList"
               :key="index"
             >
-              是的是的
+              <p>{{item.nickname}}<span class="float-end">{{item.createTime}}</span></p>
+              {{item.text}}
+             <br>
+                <div class="badge text-wrap mr-10 bg-secondary">评论(0)</div>
+              <div class="badge text-wrap mr-10 bg-primary">牛逼(0)</div>
+              <div class="badge text-wrap mr-10 bg-primary">垃圾(0)</div>
+              
             </li>
           </ul>
         </div>
@@ -67,14 +73,16 @@ export default {
     },
     loadEssay() {
       request({
-        url: "/api/dynamic",
+        url: "/api/essay",
         method: "get",
       }).then((response) => {
        this.essayList = response.data
       });
     },
   },
-  mounted() {},
+  mounted() {
+    this.loadEssay()
+  },
 };
 </script>
 
