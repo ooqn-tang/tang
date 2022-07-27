@@ -159,11 +159,6 @@ const routes = [
         component: () => import('views/article/article-editor-md.vue')
     },
     {
-        path: '/article-editor-h5/:id',
-        name: 'article-editor-h5',
-        component: () => import('views/article/article-editor-h5.vue')
-    },
-    {
         path: '/login',
         name: 'login',
         component: () => import('views/login/index.vue')

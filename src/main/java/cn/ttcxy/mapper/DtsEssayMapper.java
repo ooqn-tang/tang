@@ -1,28 +1,28 @@
 package cn.ttcxy.mapper;
 
 import cn.ttcxy.entity.model.DtsEssay;
-import cn.ttcxy.entity.model.DtsDynamicExample;
+import cn.ttcxy.entity.model.DtsEssayExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface DtsEssayMapper {
-    long countByExample(DtsDynamicExample example);
+    long countByExample(DtsEssayExample example);
 
-    int deleteByExample(DtsDynamicExample example);
+    int deleteByExample(DtsEssayExample example);
 
-    int deleteByPrimaryKey(String dynamicId);
+    int deleteByPrimaryKey(String essayId);
 
     int insert(DtsEssay row);
 
     int insertSelective(DtsEssay row);
 
-    List<DtsEssay> selectByExample(DtsDynamicExample example);
+    List<DtsEssay> selectByExample(DtsEssayExample example);
 
-    DtsEssay selectByPrimaryKey(String dynamicId);
+    DtsEssay selectByPrimaryKey(String essayId);
 
-    int updateByExampleSelective(@Param("row") DtsEssay row, @Param("example") DtsDynamicExample example);
+    int updateByExampleSelective(@Param("row") DtsEssay row, @Param("example") DtsEssayExample example);
 
-    int updateByExample(@Param("row") DtsEssay row, @Param("example") DtsDynamicExample example);
+    int updateByExample(@Param("row") DtsEssay row, @Param("example") DtsEssayExample example);
 
     int updateByPrimaryKeySelective(DtsEssay row);
 
