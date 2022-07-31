@@ -10,7 +10,6 @@ import cn.ttcxy.service.UtsAuthorService;
 import cn.ttcxy.service.UtsFansService;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -27,25 +26,23 @@ public class UtsFansController extends BaseController {
     private UtsAuthorService authorService;
 
     @GetMapping("username/{username}")
-    public ResponseEntity<Integer> selectByUsername(@PathVariable("username") String username) {
+    public Integer selectByUsername(@PathVariable("username") String username) {
         String authorId = authorId();
         UtsAuthor utsAuthor = authorService.selectAuthorByName(username);
         if (utsAuthor != null) {
-            Integer count = fansService.isFans(authorId, utsAuthor.getAuthorId());
-            return ResponseEntity.ok(count);
+            return fansService.isFans(authorId, utsAuthor.getAuthorId());
         }
         throw new ApiException();
     }
 
     @GetMapping("list")
-    public ResponseEntity<PageInfo<UtsFansDto>> selectList() {
+    public PageInfo<UtsFansDto> selectList() {
         String authorId = authorId();
-        PageInfo<UtsFansDto> authorDtoPageInfo = fansService.selectFansList(authorId);
-        return ResponseEntity.ok(authorDtoPageInfo);
+        return fansService.selectFansList(authorId);
     }
 
     @PostMapping("{fansName}")
-    public ResponseEntity<Integer> insert(@PathVariable("fansName") String fansName) {
+    public Integer insert(@PathVariable("fansName") String fansName) {
         String authorId = authorId();
 
         UtsAuthor utsAuthor = authorService.selectAuthorByName(fansName);
@@ -58,18 +55,18 @@ public class UtsFansController extends BaseController {
         fans.setBeAuthorId(utsAuthor.getAuthorId());
         int count = fansService.insertFans(fans);
         if (count > 0) {
-            return ResponseEntity.ok(count);
+            return count;
         }
         throw new ApiException();
     }
 
     @DeleteMapping("{fansName}")
-    public ResponseEntity<Integer> delete(@PathVariable("fansName") String fansName) {
+    public Integer delete(@PathVariable("fansName") String fansName) {
         String authorId = authorId();
 
         int count = fansService.deleteFans(fansName, authorId);
         if (count > 0) {
-            return ResponseEntity.ok(count);
+            return count;
         }
         throw new ApiException();
     }

@@ -9,7 +9,6 @@ import cn.ttcxy.entity.param.UtsAuthorParam;
 import cn.ttcxy.service.UtsAuthorService;
 import cn.ttcxy.service.UtsRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,36 +24,35 @@ public class AdminAuthorController extends BaseController {
     private UtsRoleService roleService;
 
     @GetMapping
-    public ResponseEntity<List<UtsAuthor>> select(@RequestParam(value = "queryData",defaultValue = "") String queryData){
-        List<UtsAuthor> authorList = authorService.select(queryData);
-        return ResponseEntity.ok(authorList);
+    public List<UtsAuthor> select(@RequestParam(value = "queryData",defaultValue = "") String queryData){
+        return authorService.select(queryData);
     }
 
     @PostMapping
-    public ResponseEntity<String> insert(@RequestBody UtsAuthorParam authorParam){
+    public String insert(@RequestBody UtsAuthorParam authorParam){
         UtsAuthor author = BeanUtil.toBean(authorParam, UtsAuthor.class);
         int count = authorService.insertAuthor(author);
         if (count > 0){
-            return ResponseEntity.ok(ResponseCode.SUCCESS.getMessage());
+            return ResponseCode.SUCCESS.getMessage();
         }
         throw new ApiException();
     }
 
     @PutMapping
-    public ResponseEntity<String> update(@RequestBody UtsAuthorParam authorParam){
+    public String update(@RequestBody UtsAuthorParam authorParam){
         UtsAuthor author = BeanUtil.toBean(authorParam, UtsAuthor.class);
         int count = authorService.update(author);
         if (count > 0){
-            return ResponseEntity.ok(ResponseCode.SUCCESS.getMessage());
+            return ResponseCode.SUCCESS.getMessage();
         }
         throw new ApiException();
     }
 
     @DeleteMapping("{authorId}")
-    public ResponseEntity<String> delete(@PathVariable("authorId") String authorId){
+    public String delete(@PathVariable("authorId") String authorId){
         int count = authorService.delete(authorId);
         if (count > 0){
-            return ResponseEntity.ok(ResponseCode.SUCCESS.getMessage());
+            return ResponseCode.SUCCESS.getMessage();
         }
         throw new ApiException();
     }

@@ -5,7 +5,6 @@ import cn.ttcxy.entity.dto.DtsDataDto;
 import cn.ttcxy.service.DtsCollectService;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -16,26 +15,26 @@ public class DtsCollectController extends BaseController {
     private DtsCollectService collectService;
 
     @GetMapping("{dataId}")
-    public ResponseEntity<Long> collect(@PathVariable("dataId") String dataId){
+    public Long collect(@PathVariable("dataId") String dataId){
         String authorId = authorId();
-        return ResponseEntity.ok(collectService.select(authorId,dataId));
+        return collectService.select(authorId,dataId);
     }
 
     @GetMapping("list")
-    public ResponseEntity<PageInfo<DtsDataDto>> list(@RequestParam(value = "page",defaultValue = "1") Integer page){
+    public PageInfo<DtsDataDto> list(@RequestParam(value = "page",defaultValue = "1") Integer page){
         String username = authorName();
-        return ResponseEntity.ok(collectService.selectCollect(username, page, 10));
+        return collectService.selectCollect(username, page, 10);
     }
 
     @PostMapping("{dataId}")
-    public ResponseEntity<Integer> insert(@PathVariable("dataId") String dataId){
+    public Integer insert(@PathVariable("dataId") String dataId){
         String authorId = authorId();
-        return ResponseEntity.ok(collectService.insert(authorId,dataId));
+        return collectService.insert(authorId,dataId);
     }
 
     @DeleteMapping("{dataId}")
-    public ResponseEntity<Integer> delete(@PathVariable("dataId") String dataId){
+    public Integer delete(@PathVariable("dataId") String dataId){
         String authorId = authorId();
-        return ResponseEntity.ok(collectService.unCollect(authorId,dataId));
+        return collectService.unCollect(authorId,dataId);
     }
 }

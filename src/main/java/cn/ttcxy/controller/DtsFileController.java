@@ -12,7 +12,6 @@ import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
 import org.apache.catalina.connector.ClientAbortException;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -32,7 +31,7 @@ public class DtsFileController extends BaseController {
     private String tangFile;
 
     @PostMapping("/upload")
-    public ResponseEntity<String> create(@RequestParam("file") MultipartFile file,@RequestParam("type")String type) throws IOException {
+    public String create(@RequestParam("file") MultipartFile file,@RequestParam("type")String type) throws IOException {
         String fileName = file.getOriginalFilename();
         if (StrUtil.isBlank(fileName)){
             throw new ApiException(ResponseCode.VALIDATE_FAILED);
@@ -56,13 +55,13 @@ public class DtsFileController extends BaseController {
             System.out.println(sourceImg.getHeight()); // 源图高度
             double i = (sourceImg.getWidth()+0.0) / sourceImg.getHeight();
             if (i == 2){
-                return ResponseEntity.ok(objectId + "."+s);
+                return objectId + "."+s;
             }else{
                 throw new ApiException(ResponseCode.FAILED.getStatus(),"图片尺寸必须为2：1");
             }
         }
         if (StrUtil.equals(type,"2")){
-            return ResponseEntity.ok(objectId + "."+s);
+            return objectId + "."+s;
         }
         throw new ApiException();
     }
@@ -78,7 +77,7 @@ public class DtsFileController extends BaseController {
             if (file.exists()) {
                 //创建随机读取文件对象
                 RandomAccessFile targetFile = new RandomAccessFile(file, "r");
-                long fileLength = targetFile.length();
+                long fileLength = file.length();
                 //获取从那个字节开始读取文件
                 String rangeString = request.getHeader("Range");
                 if (rangeString != null) {//如果rangeString不为空，证明是播放视频发来的请求

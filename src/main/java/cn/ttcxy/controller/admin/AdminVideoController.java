@@ -11,7 +11,6 @@ import cn.ttcxy.entity.param.DtsVideoParam;
 import cn.ttcxy.service.DtsVideoService;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -22,28 +21,27 @@ public class AdminVideoController extends BaseController {
     private DtsVideoService videoService;
 
     @PutMapping("pass")
-    public ResponseEntity<String> pass(@RequestBody DtsPassParam pass){
+    public String pass(@RequestBody DtsPassParam pass){
         DtsVideo video = BeanUtil.toBean(pass,DtsVideo.class);
         video.setVideoId(pass.getDataId());
         int count = videoService.updateSelective(video);
         if (count > 0){
-            return ResponseEntity.ok(ResponseCode.SUCCESS.getMessage());
+            return ResponseCode.SUCCESS.getMessage();
         }
         throw new ApiException();
     }
 
     @DeleteMapping("{videoId}")
-    public ResponseEntity<String> delete(@PathVariable("videoId")String videoId){
+    public String delete(@PathVariable("videoId")String videoId){
         int count = videoService.deleteById(videoId);
         if (count > 0){
-            return ResponseEntity.ok(ResponseCode.SUCCESS.getMessage());
+            return ResponseCode.SUCCESS.getMessage();
         }
         throw new ApiException();
     }
 
     @GetMapping("list")
-    public ResponseEntity<PageInfo<DtsVideoDto>> selectList(DtsVideoParam videoParam){
-        PageInfo<DtsVideoDto> videoPage =  videoService.selectList(videoParam);
-        return ResponseEntity.ok(videoPage);
+    public PageInfo<DtsVideoDto> selectList(DtsVideoParam videoParam){
+        return videoService.selectList(videoParam);
     }
 }

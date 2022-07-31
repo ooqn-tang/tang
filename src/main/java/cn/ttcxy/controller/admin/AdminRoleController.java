@@ -11,7 +11,6 @@ import cn.ttcxy.entity.param.UtsRoleParam;
 import cn.ttcxy.service.UtsAuthorService;
 import cn.ttcxy.service.UtsRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
@@ -28,64 +27,61 @@ public class AdminRoleController extends BaseController {
     private UtsAuthorService authorService;
 
     @GetMapping
-    public ResponseEntity<List<UtsRole>> select(){
-        List<UtsRole> roleList = roleService.select();
-        return ResponseEntity.ok(roleList);
+    public List<UtsRole> select(){
+        return roleService.select();
     }
 
     @PostMapping
-    public ResponseEntity<String> insert(@RequestBody UtsRoleParam roleParam){
+    public String insert(@RequestBody UtsRoleParam roleParam){
         UtsRole role = BeanUtil.toBean(roleParam, UtsRole.class);
         role.setRoleId(IdUtil.objectId());
         role.setCreateTime(new Date());
         int count = roleService.insert(role);
         if (count > 0){
-            return ResponseEntity.ok(ResponseCode.SUCCESS.getMessage());
+            return ResponseCode.SUCCESS.getMessage();
         }
         throw new ApiException();
     }
 
     @PutMapping
-    public ResponseEntity<String> update(@RequestBody UtsRoleParam roleParam){
+    public String update(@RequestBody UtsRoleParam roleParam){
         UtsRole role = BeanUtil.toBean(roleParam, UtsRole.class);
         int count = roleService.update(role);
         if (count > 0){
-            return ResponseEntity.ok(ResponseCode.SUCCESS.getMessage());
+            return ResponseCode.SUCCESS.getMessage();
         }
         throw new ApiException();
     }
 
     @GetMapping("{roleId}")
-    public ResponseEntity<UtsRole> select(@PathVariable("roleId") String roleId){
-        UtsRole role = roleService.selectById(roleId);
-        return ResponseEntity.ok(role);
+    public UtsRole select(@PathVariable("roleId") String roleId){
+        return roleService.selectById(roleId);
     }
 
     @DeleteMapping("{roleId}")
-    public ResponseEntity<String> delete(@PathVariable("roleId") String roleId){
+    public String delete(@PathVariable("roleId") String roleId){
         int count = roleService.delete(roleId);
         if (count > 0){
-            return ResponseEntity.ok(ResponseCode.SUCCESS.getMessage());
+            return ResponseCode.SUCCESS.getMessage();
         }
         throw new ApiException();
     }
 
     @PostMapping("resource/{roleId}")
-    public ResponseEntity<String> insertResource(@PathVariable("roleId")String roleId,@RequestBody List<UtsResource> resourceList){
+    public String insertResource(@PathVariable("roleId")String roleId,@RequestBody List<UtsResource> resourceList){
         roleService.insertResource(roleId,resourceList);
-        return ResponseEntity.ok(ResponseCode.SUCCESS.getMessage());
+        return ResponseCode.SUCCESS.getMessage();
     }
 
     @GetMapping("author/{authorId}")
-    public ResponseEntity<List<String>> selectAuthorIdList(@PathVariable("authorId")String authorId){
-        List<String> roleList = roleService.selectRoleIdList(authorId);
-        return ResponseEntity.ok(roleList);
+    public List<String> selectAuthorIdList(@PathVariable("authorId")String authorId){
+        return roleService.selectRoleIdList(authorId);
     }
 
     @PostMapping("author/{authorId}")
-    public ResponseEntity<String> insertRoleOnAuthor(@PathVariable("authorId")String authorId, @RequestBody List<UtsRoleParam> roleParams){
+    public String insertRoleOnAuthor(@PathVariable("authorId")String authorId, @RequestBody List<UtsRoleParam> roleParams){
         authorService.insertRole(authorId,roleParams);
-        return ResponseEntity.ok(ResponseCode.SUCCESS.getMessage());
+        return ResponseCode.SUCCESS.getMessage();
     }
 
 }

@@ -6,12 +6,13 @@ import cn.ttcxy.core.api.ApiException;
 import cn.ttcxy.entity.model.UtsAuthor;
 import cn.ttcxy.entity.param.UtsAuthorParam;
 import cn.ttcxy.service.UtsAuthorService;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.Map;
 
 @RestController
 @RequestMapping("api/author")
@@ -25,33 +26,33 @@ public class UtsAuthorController extends BaseController {
     private HttpSession httpSession;
 
     @GetMapping("authorListArticleCount")
-    public ResponseEntity<?> select(
+    public PageInfo<Map<String, String>> select(
             @RequestParam(value = "page", defaultValue = "1") Integer page) {
-        return ResponseEntity.ok(authorService.selectAuthorArticleCount(page, 100));
+        return authorService.selectAuthorArticleCount(page, 100);
     }
 
     @PutMapping
-    public ResponseEntity<?> update(@RequestBody UtsAuthorParam authorParam) {
+    public String update(@RequestBody UtsAuthorParam authorParam) {
         UtsAuthor author = BeanUtil.toBean(authorParam, UtsAuthor.class);
         String authorId = authorId();
         author.setAuthorId(authorId);
         int count = authorService.updateAuthorByName(author);
         if (count > 0) {
-            return ResponseEntity.ok("更新成功");
+            return "更新成功";
         }
         throw new ApiException();
     }
 
 
     @GetMapping("{username}")
-    public ResponseEntity<?> authorByUsername(@PathVariable(value = "username") String username) {
+    public UtsAuthor authorByUsername(@PathVariable(value = "username") String username) {
         UtsAuthor utsAuthor = authorService.selectAuthorByName(username);
         utsAuthor.setPassword(null);
-        return ResponseEntity.ok(utsAuthor);
+        return utsAuthor;
     }
 
     @GetMapping("list")
-    public ResponseEntity<?> authorList(@RequestParam(value = "page", defaultValue = "1") Integer page) {
-        return ResponseEntity.ok(authorService.authorList(page, 10));
+    public PageInfo<UtsAuthor> authorList(@RequestParam(value = "page", defaultValue = "1") Integer page) {
+        return authorService.authorList(page, 10);
     }
 }

@@ -7,7 +7,6 @@ import cn.ttcxy.entity.model.DtsEssay;
 import cn.ttcxy.entity.param.DtsEssayParam;
 import cn.ttcxy.service.DtsEssayService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -33,12 +32,12 @@ public class DtsEssayController extends BaseController {
     }
 
     @GetMapping("essay")
-    public ResponseEntity<?> selectEssay(@RequestParam(value = "type")String type){
-        return ResponseEntity.ok(essayService.selectEssay(authorId(),type));
+    public Object selectEssay(@RequestParam(value = "type")String type){
+        return essayService.selectEssay(authorId(),type);
     }
 
     @DeleteMapping("{essayId}")
-    public ResponseEntity<?> delete(@PathVariable("essayId") String essayId){
-        return ResponseEntity.ok(essayService.delete(essayId));
+    public Integer delete(@PathVariable("essayId") String essayId){
+        return essayService.delete(essayId);
     }
 }

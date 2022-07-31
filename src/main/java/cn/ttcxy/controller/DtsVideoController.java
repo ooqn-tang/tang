@@ -6,14 +6,12 @@ import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.ttcxy.core.BaseController;
 import cn.ttcxy.core.api.ApiException;
-import cn.ttcxy.core.api.ResponseCode;
 import cn.ttcxy.entity.dto.DtsVideoDto;
 import cn.ttcxy.entity.model.DtsVideo;
 import cn.ttcxy.entity.param.VideoParam;
 import cn.ttcxy.service.DtsVideoService;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,28 +24,25 @@ public class DtsVideoController extends BaseController {
     private DtsVideoService videoService;
 
     @GetMapping("{videoId}/author")
-    public ResponseEntity<DtsVideo> selectCreateInfo(@PathVariable("videoId") String videoId){
-        DtsVideo dtsVideo = videoService.selectByIdCreateInfo(videoId);
-        return ResponseEntity.ok(dtsVideo);
+    public DtsVideo selectCreateInfo(@PathVariable("videoId") String videoId){
+        return videoService.selectByIdCreateInfo(videoId);
     }
 
     @GetMapping("{videoId}")
-    public ResponseEntity<DtsVideoDto> select(@PathVariable("videoId") String videoId){
-        DtsVideoDto videoDto = videoService.selectById(videoId);
-        return ResponseEntity.ok(videoDto);
+    public DtsVideoDto select(@PathVariable("videoId") String videoId){
+        return videoService.selectById(videoId);
     }
 
     @GetMapping("username/{authorId}")
-    public ResponseEntity<PageInfo<DtsVideoDto>> selectByUsername(
+    public PageInfo<DtsVideoDto> selectByUsername(
             @RequestParam(value = "page",defaultValue = "0")Integer page,
             @RequestParam(value = "size",defaultValue = "10")Integer size,
             @PathVariable("authorId") String authorId){
-        PageInfo<DtsVideoDto> select = videoService.selectByUsername(authorId,page,size);
-        return ResponseEntity.ok(select);
+        return videoService.selectByUsername(authorId,page,size);
     }
 
     @GetMapping
-    public ResponseEntity< PageInfo<DtsVideoDto>> select(
+    public PageInfo<DtsVideoDto> select(
             @RequestParam(value = "page",defaultValue = "0")Integer page,
             @RequestParam(value = "size",defaultValue = "12")Integer size,
             @RequestParam(value = "classId",defaultValue = "")String classId,
@@ -58,29 +53,27 @@ public class DtsVideoController extends BaseController {
         }else{
             select = videoService.select(page, size, title, classId);
         }
-        return ResponseEntity.ok(select);
+        return select;
 
     }
 
     @GetMapping("so")
-    public ResponseEntity<PageInfo<DtsVideoDto>> search(
+    public PageInfo<DtsVideoDto> search(
             @RequestParam(value = "page",defaultValue = "0")Integer page,
             @RequestParam("wb") String wb){
-        PageInfo<DtsVideoDto> select = videoService.search(wb,page);
-        return ResponseEntity.ok(select);
+        return videoService.search(wb,page);
     }
 
     @GetMapping("rand")
-    public ResponseEntity<List<DtsVideoDto>> rand(@RequestParam("num")Integer num){
-        List<DtsVideoDto> select = videoService.rand(num);
-        return ResponseEntity.ok(select);
+    public List<DtsVideoDto> rand(@RequestParam("num")Integer num){
+        return videoService.rand(num);
     }
 
     /**
      * 创建一个有ID的空数据，保存时直接更新
      */
     @PostMapping
-    public ResponseEntity<String> create(){
+    public String create(){
         String authorId = authorId();
         String videoId = IdUtil.objectId();
         DtsVideo dtsVideo = new DtsVideo();
@@ -90,32 +83,32 @@ public class DtsVideoController extends BaseController {
         dtsVideo.setState(3);
         int count = videoService.insert(dtsVideo);
         if (count > 0){
-            return ResponseEntity.ok(videoId);
+            return videoId;
         }
         return null;
     }
 
     @PutMapping
-    public ResponseEntity<String> update(@RequestBody VideoParam videoParam){
+    public String update(@RequestBody VideoParam videoParam){
         DtsVideo video = BeanUtil.toBean(videoParam, DtsVideo.class);
         String authorId = videoService.authorId(video.getVideoId());
         if (StrUtil.equals(authorId,authorId())){
             video.setState(2);
             int count = videoService.updateSelective(video);
             if (count > 0){
-                return ResponseEntity.ok("执行成功");
+                return "执行成功";
             }
         }
         throw new ApiException();
     }
 
     @DeleteMapping("{videoId}")
-    public ResponseEntity<String> delete(@PathVariable("videoId")String videoId){
+    public String delete(@PathVariable("videoId")String videoId){
         String authorId = videoService.authorId(videoId);
         if (StrUtil.equals(authorId,authorId())){
             int count = videoService.deleteById(videoId);
             if (count > 0){
-                return ResponseEntity.ok("执行成功");
+                return "执行成功";
             }
         }
         throw new ApiException();

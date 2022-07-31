@@ -8,10 +8,10 @@ import cn.ttcxy.core.api.ResponseCode;
 import cn.ttcxy.entity.model.StsNotice;
 import cn.ttcxy.entity.param.StsNoticeParam;
 import cn.ttcxy.service.StsNoticeService;
-import com.alibaba.fastjson.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("api/admin/notice")
@@ -21,22 +21,22 @@ public class AdminNoticeController extends BaseController {
     private StsNoticeService noticeService;
 
     @PostMapping
-    public ResponseEntity<String> insert(@RequestBody StsNoticeParam noticeParam){
+    public String insert(@RequestBody StsNoticeParam noticeParam){
         StsNotice notice = BeanUtil.toBean(noticeParam, StsNotice.class);
         int count = noticeService.insertNotice(notice);
         notice.setCreateDate(DateUtil.date());
         if (count > 0){
-            return ResponseEntity.ok(ResponseCode.SUCCESS.getMessage());
+            return ResponseCode.SUCCESS.getMessage();
         }
         throw new ApiException();
     }
 
     @PutMapping
-    public ResponseEntity<String> update(@RequestBody StsNoticeParam noticeParam){
+    public String update(@RequestBody StsNoticeParam noticeParam){
         StsNotice notice = BeanUtil.toBean(noticeParam, StsNotice.class);
         int count = noticeService.updateNotice(notice);
         if (count > 0){
-            return ResponseEntity.ok(ResponseCode.SUCCESS.getMessage());
+            return ResponseCode.SUCCESS.getMessage();
         }
         throw new ApiException();
     }
@@ -47,17 +47,17 @@ public class AdminNoticeController extends BaseController {
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity<String> delete(@PathVariable("id")String id){
+    public String delete(@PathVariable("id")String id){
         int i = noticeService.deleteNotice(id);
         if (i > 0){
-            return ResponseEntity.ok(ResponseCode.SUCCESS.getMessage());
+            return ResponseCode.SUCCESS.getMessage();
         }
         throw new ApiException();
     }
 
     @GetMapping
-    public ResponseEntity<?> select(){
-        return ResponseEntity.ok(noticeService.selectAllNotice());
+    public List<StsNotice> select(){
+        return noticeService.selectAllNotice();
     }
 
 }

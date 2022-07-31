@@ -81,7 +81,7 @@ public class DtsArticleController extends BaseController {
     }
 
     @PutMapping
-    public ResponseEntity<String> update(@RequestBody DtsArticleParam articleParam){
+    public String update(@RequestBody DtsArticleParam articleParam){
         DtsArticle article = BeanUtil.toBean(articleParam, DtsArticle.class);
         String articleId = article.getArticleId();
         String authorId= articleService.authorId(articleId);
@@ -94,27 +94,23 @@ public class DtsArticleController extends BaseController {
             article.setAuthorId(authorId);
             int count  = articleService.updateArticle(article,articleContent);
             if (count > 0){
-                return ResponseEntity.ok(ResponseCode.SUCCESS.getMessage());
+                return ResponseCode.SUCCESS.getMessage();
             }
         }
         throw new ApiException(ResponseCode.FORBIDDEN);
     }
 
     @GetMapping("load/{articleId}")
-    public ResponseEntity<DtsArticleDto> load(@PathVariable(name="articleId") String articleId){
-        DtsArticleDto article = articleService.selectArticleById(articleId);
-        if (article == null){
-            return ResponseEntity.ok(null);
-        }
-        return ResponseEntity.ok(article);
+    public DtsArticleDto load(@PathVariable(name="articleId") String articleId){
+        return articleService.selectArticleById(articleId);
     }
 
     @GetMapping("load/{articleId}/all")
-    public ResponseEntity<DtsArticleDto> loadAll(@PathVariable(name = "articleId") String articleId){
+    public DtsArticleDto loadAll(@PathVariable(name = "articleId") String articleId){
         DtsArticleDto articleDto = articleService.selectArticleAllById(articleId);
         if (articleDto == null){
             throw new ApiException();
         }
-        return ResponseEntity.ok(articleDto);
+        return articleDto;
     }
 }

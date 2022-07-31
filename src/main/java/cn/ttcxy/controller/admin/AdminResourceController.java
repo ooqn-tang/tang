@@ -9,7 +9,6 @@ import cn.ttcxy.entity.model.UtsResource;
 import cn.ttcxy.entity.param.UtsResourceParam;
 import cn.ttcxy.service.UtsResourceService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
@@ -28,52 +27,49 @@ public class AdminResourceController extends BaseController {
     }
 
     @GetMapping
-    public ResponseEntity<List<UtsResource>> loadResponseList(@RequestParam(value = "queryData",defaultValue = "")String queryData){
-        List<UtsResource> resourceList = resourceService.select(queryData);
-        return ResponseEntity.ok(resourceList);
+    public List<UtsResource> loadResponseList(@RequestParam(value = "queryData",defaultValue = "")String queryData){
+        return resourceService.select(queryData);
     }
 
     @PostMapping
-    public ResponseEntity<String> insert(@RequestBody UtsResourceParam resourceParam){
+    public String insert(@RequestBody UtsResourceParam resourceParam){
         UtsResource resource = BeanUtil.toBean(resourceParam, UtsResource.class);
         resource.setResourceId(IdUtil.objectId());
         resource.setCreateTime(new Date());
         int count = resourceService.insert(resource);
         if (count > 0){
-            return ResponseEntity.ok(ResponseCode.SUCCESS.getMessage());
+            return ResponseCode.SUCCESS.getMessage();
         }
         throw new ApiException();
     }
 
     @PutMapping
-    public ResponseEntity<String> update(@RequestBody UtsResourceParam resourceParam){
+    public String update(@RequestBody UtsResourceParam resourceParam){
         UtsResource resource = BeanUtil.toBean(resourceParam, UtsResource.class);
         int count = resourceService.update(resource);
         if (count > 0){
-            return ResponseEntity.ok(ResponseCode.SUCCESS.getMessage());
+            return ResponseCode.SUCCESS.getMessage();
         }
         throw new ApiException();
     }
 
     @GetMapping("{resourceId}")
-    public ResponseEntity<UtsResource> select(@PathVariable("resourceId") String resourceId){
-        UtsResource resource = resourceService.selectById(resourceId);
-        return ResponseEntity.ok(resource);
+    public UtsResource select(@PathVariable("resourceId") String resourceId){
+        return resourceService.selectById(resourceId);
     }
 
     @DeleteMapping("{resourceId}")
-    public ResponseEntity<String> delete(@PathVariable("resourceId") String resourceId){
+    public String delete(@PathVariable("resourceId") String resourceId){
         int count = resourceService.delete(resourceId);
         if (count > 0){
-            return ResponseEntity.ok(ResponseCode.SUCCESS.getMessage());
+            return ResponseCode.SUCCESS.getMessage();
         }
         throw new ApiException();
     }
 
     @GetMapping("role/{roleId}")
-    public ResponseEntity<List<String>> selectIdByRole(@PathVariable("roleId") String roleId){
-        List<String> resourceList = resourceService.selectByRoleId(roleId);
-        return ResponseEntity.ok(resourceList);
+    public List<String> selectIdByRole(@PathVariable("roleId") String roleId){
+        return resourceService.selectByRoleId(roleId);
     }
 
 }

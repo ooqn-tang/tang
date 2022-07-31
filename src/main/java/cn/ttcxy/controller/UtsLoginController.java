@@ -7,7 +7,6 @@ import cn.hutool.core.lang.Validator;
 import cn.hutool.core.util.StrUtil;
 import cn.ttcxy.core.BaseController;
 import cn.ttcxy.core.api.ApiException;
-import cn.ttcxy.core.api.ResponseCode;
 import cn.ttcxy.core.security.JwtProvider;
 import cn.ttcxy.entity.CurrentAuthor;
 import cn.ttcxy.entity.model.UtsAuthor;
@@ -19,8 +18,6 @@ import cn.ttcxy.service.UtsUserDetailsService;
 import com.alibaba.fastjson.JSONObject;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
@@ -55,7 +52,7 @@ public class UtsLoginController extends BaseController {
     private AuthenticationManagerBuilder authenticationManagerBuilder;
 
     @PostMapping("/authenticate")
-    public ResponseEntity<JwtToken> authorize(@RequestBody UtsLoginParam loginParam) {
+    public JwtToken authorize(@RequestBody UtsLoginParam loginParam) {
 
         UsernamePasswordAuthenticationToken authenticationToken =
                 new UsernamePasswordAuthenticationToken(loginParam.getUsername(), loginParam.getPassword());
@@ -67,26 +64,26 @@ public class UtsLoginController extends BaseController {
 
         if (authentication.getPrincipal() instanceof UserDetails){
             String jwt = jwtProvider.createToken(authentication.getPrincipal(), rememberMe);
-            return new ResponseEntity<>(new JwtToken(jwt), HttpStatus.OK);
+            return new JwtToken(jwt);
         }
         throw new ApiException();
     }
 
     @PostMapping("/refresh")
-    public ResponseEntity<JwtToken> refresh(@RequestBody JSONObject jsonObject) {
+    public JwtToken refresh(@RequestBody JSONObject jsonObject) {
         String jwt = jsonObject.getString("jwt");
         if (StringUtils.hasText(jwt) && jwtProvider.validateToken(jwt)) {
             Authentication authentication = jwtProvider.getAuthentication(jwt);
             CurrentAuthor oldCurrentAuthor = (CurrentAuthor) authentication.getPrincipal();
             CurrentAuthor currentAuthor = (CurrentAuthor)utsUserDetailsService.loadUserByUsername(oldCurrentAuthor.getUsername());
             String newJwt = jwtProvider.createToken(currentAuthor, true);
-            return new ResponseEntity<>(new JwtToken(newJwt), HttpStatus.OK);
+            return new JwtToken(newJwt);
         }
         throw new ApiException("无效token");
     }
 
     @PostMapping("register")
-    public ResponseEntity<?> register(@RequestBody UtsRegisterParam param) {
+    public String register(@RequestBody UtsRegisterParam param) {
         String mail = param.getMail();
         if (Validator.isEmail(mail)) {
             Boolean isTrue = authorService.selectMailIsTrue(mail);
@@ -99,7 +96,7 @@ public class UtsLoginController extends BaseController {
             author.setMail(mail);
             int count = authorService.insertAuthor(author);
             if (count > 0) {
-                return ResponseEntity.ok("注册成功");
+                return "注册成功";
             }
             throw new ApiException();
         } else {
@@ -108,7 +105,7 @@ public class UtsLoginController extends BaseController {
     }
 
     @PostMapping("password")
-    public ResponseEntity<String> updatePassword(@RequestBody UtsRePasswordParam param) {
+    public String updatePassword(@RequestBody UtsRePasswordParam param) {
         String mail = param.getMail();
         Boolean isTrue = authorService.selectMailIsTrue(mail);
         if (!isTrue) {
@@ -124,7 +121,7 @@ public class UtsLoginController extends BaseController {
             author.setPassword(new BCryptPasswordEncoder().encode(password));
             int count = authorService.updateAuthorByName(author);
             if (count > 0) {
-                return ResponseEntity.ok("修改成功");
+                return "修改成功";
             }
         }
         throw new ApiException();

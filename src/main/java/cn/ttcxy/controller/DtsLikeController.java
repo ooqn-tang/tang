@@ -8,7 +8,6 @@ import cn.ttcxy.core.api.ResponseCode;
 import cn.ttcxy.entity.model.DtsLike;
 import cn.ttcxy.service.DtsLikeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -19,7 +18,7 @@ public class DtsLikeController extends BaseController {
     private DtsLikeService likeService;
 
     @PostMapping("{dataId}")
-    public ResponseEntity<String> like(@PathVariable("dataId")String dataId){
+    public String like(@PathVariable("dataId")String dataId){
         DtsLike praise = new DtsLike();
         praise.setLikeId(IdUtil.objectId());
         praise.setDataId(dataId);
@@ -27,22 +26,22 @@ public class DtsLikeController extends BaseController {
         praise.setCreateTime(DateUtil.date());
         int count = likeService.insert(praise);
         if (count > 0){
-            return ResponseEntity.ok(ResponseCode.SUCCESS.getMessage());
+            return ResponseCode.SUCCESS.getMessage();
         }
         throw new ApiException();
     }
 
     @DeleteMapping("{dataId}")
-    public ResponseEntity<String> unlike(@PathVariable("dataId")String dataId){
+    public String unlike(@PathVariable("dataId")String dataId){
         int count = likeService.delete(authorId(),dataId);
         if (count > 0){
-            return ResponseEntity.ok(ResponseCode.SUCCESS.getMessage());
+            return ResponseCode.SUCCESS.getMessage();
         }
         throw new ApiException();
     }
 
     @GetMapping("{dataId}")
-    public ResponseEntity<Integer> select(@PathVariable("dataId")String dataId){
-        return ResponseEntity.ok(likeService.select(authorId(),dataId));
+    public Integer select(@PathVariable("dataId")String dataId){
+        return likeService.select(authorId(),dataId);
     }
 }
