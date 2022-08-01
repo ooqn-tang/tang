@@ -39,7 +39,8 @@ public class DtsEssayController extends BaseController {
     }
 
     @GetMapping
-    public PageInfo<DtsEssayDto> select(@RequestParam(value = "type",required = false)String type,@RequestParam(defaultValue = "0")Integer page){
+    public PageInfo<DtsEssayDto> select(@RequestParam(value = "type",required = false)String type,
+                                        @RequestParam(defaultValue = "0")Integer page){
         if (type == null){
             return essayService.selectDynamic(authorId(),page);
         }
