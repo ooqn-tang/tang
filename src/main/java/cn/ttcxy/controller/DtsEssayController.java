@@ -2,10 +2,14 @@ package cn.ttcxy.controller;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.ttcxy.core.BaseController;
+import cn.ttcxy.core.api.ApiException;
+import cn.ttcxy.entity.dto.DtsCommentDto;
 import cn.ttcxy.entity.dto.DtsEssayDto;
 import cn.ttcxy.entity.model.DtsEssay;
+import cn.ttcxy.entity.model.UtsAuthor;
 import cn.ttcxy.entity.param.DtsEssayParam;
 import cn.ttcxy.service.DtsEssayService;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,21 +23,27 @@ public class DtsEssayController extends BaseController {
     private DtsEssayService essayService;
 
     @PostMapping
-    public Integer insert(@RequestBody DtsEssayParam essayParam){
+    public DtsEssayDto insert(@RequestBody DtsEssayParam essayParam){
         DtsEssay essay = BeanUtil.toBean(essayParam, DtsEssay.class);
         essay.setAuthorId(authorId());
         essay.setType("essay");
-        return essayService.insert(essay);
+        Integer insert = essayService.insert(essay);
+        if (insert > 0){
+            DtsEssayDto dtsEssayDto = BeanUtil.toBean(essay, DtsEssayDto.class);
+            UtsAuthor author = author();
+            dtsEssayDto.setUsername(author.getUsername());
+            dtsEssayDto.setNickname(author.getNickname());
+            return dtsEssayDto;
+        }
+        throw new ApiException("添加失败");
     }
 
     @GetMapping
-    public List<DtsEssayDto> select(@RequestParam(value = "type",required = false)String type){
-        return essayService.select(authorId(),type);
-    }
-
-    @GetMapping("essay")
-    public Object selectEssay(@RequestParam(value = "type")String type){
-        return essayService.selectEssay(authorId(),type);
+    public PageInfo<DtsEssayDto> select(@RequestParam(value = "type",required = false)String type,@RequestParam(defaultValue = "0")Integer page){
+        if (type == null){
+            return essayService.selectDynamic(authorId(),page);
+        }
+        return essayService.select(authorId(),type,page);
     }
 
     @DeleteMapping("{essayId}")

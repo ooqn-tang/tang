@@ -1,18 +1,7 @@
 <template>
   <div class="row">
     <div class="col-md-9 mb-2 move-p-lr-0">
-      <ul class="nav nav-tabs">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">动态</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">视频</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">文章</a>
-        </li>
-      </ul>
-      <div class="card move-b-lr-0" style="border-top: 0;border-radius: 0px;">
+      <div class="card move-b-lr-0">
         <div class="card-body" style="padding:0px">
           <ul class="list-group article-list">
             <li
@@ -47,12 +36,12 @@
 <script>
 import request from "utils/request";
 export default {
-  name: "message",
+  name: "dynamic",
   data() {
     return {
       authorList: [],
       select: "",
-      vList: [{}, {}, {}, {}, {}],
+      vList: [],
       dynamicList: [],
     };
   },
@@ -78,10 +67,9 @@ export default {
     loadDynamic() {
       request({
         url: "/api/essay",
-        params:{"type":this.select},
         method: "GET",
       }).then((response) => {
-        this.dynamicList = response.data;
+        this.dynamicList = response.data.list;
       });
     },
   },

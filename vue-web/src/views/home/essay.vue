@@ -4,7 +4,6 @@
       <div class="card mb-2 move-b-lr-0">
         <div class="card-body p-0">
             <a class="t-nav-link" :class="select == 'new' ? 'nav-link-active' : ''" @click="clickSelect('new')">最新</a>
-            <a class="t-nav-link" :class="select == 'random' ? 'nav-link-active' : ''" @click="clickSelect('random')">随机</a>
             <a class="t-nav-link float-end" data-bs-toggle="modal" data-bs-target="#exampleModal">发布</a>
         </div>
       </div>
@@ -12,12 +11,11 @@
         <div class="card-body article-list p-0">
           <ul class="list-group">
             <li class="list-group-item" v-for="(item, index) in essayList" :key="index">
-              <p>{{item.nickname}}<span class="float-end">{{item.createTime}}</span></p>
+              <p>
+                <router-link :to="{name:'author_article',params:{username : item.username}}">{{item.nickname}}</router-link>
+                <span class="float-end">{{item.createTime}}</span>
+              </p>
               {{item.text}}
-              <br>
-              <div class="badge text-wrap mr-10 bg-secondary">评论(0)</div>
-              <div class="badge text-wrap mr-10 bg-secondary">牛逼(0)</div>
-              <div class="badge text-wrap mr-10 bg-secondary">垃圾(0)</div>
             </li>
           </ul>
         </div>
@@ -70,7 +68,7 @@ export default {
   data() {
     return {
       select: "new",
-      essayList: [{}],
+      essayList: [],
       essay:{}
     };
   },
@@ -85,7 +83,7 @@ export default {
         method: "get",
         params:{type:'essay'}
       }).then((response) => {
-       this.essayList = response.data
+       this.essayList = response.data.list
       });
     },
     insertEssay(){
@@ -95,6 +93,8 @@ export default {
         data:this.essay
       }).then((response) => {
        this.$refs.close.click();
+       this.essayList.unshift(response.data)
+       this.essay = {}
       });
     }
   },

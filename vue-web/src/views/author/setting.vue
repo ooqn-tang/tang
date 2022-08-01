@@ -1,14 +1,5 @@
 <template>
-  <div style="margin: 10px">
-    <div class="row mb-3">
-      <label class="col-sm-2 col-form-label">头像</label>
-      <div class="col-sm-10">
-        <div class="form-control">
-          <img :src="author.headUrl" onerror='this.src="https://avatars.githubusercontent.com/u/15867678?v=4"' class=" img-thumbnail" style="height: 150px;width:150px" onclick="document.getElementById('imageInput').click()">
-          <input type="file" style="display: none;" id="imageInput" @change="uploadImage">
-        </div>
-      </div>
-    </div>
+  <div class="m-3">
     <div class="row mb-3">
       <label class="col-sm-2 col-form-label">用户名</label>
       <div class="col-sm-10">
@@ -18,12 +9,7 @@
     <div class="row mb-3">
       <label class="col-sm-2 col-form-label" disabled>邮箱</label>
       <div class="col-sm-10">
-        <input
-          type="text"
-          class="form-control"
-          disabled
-          v-model="author.mail"
-        />
+        <input type="text" class="form-control" disabled v-model="author.mail"/>
       </div>
     </div>
     <div class="row mb-3">
@@ -35,19 +21,12 @@
     <div class="row mb-3">
       <label class="col-sm-2 col-form-label">签名</label>
       <div class="col-sm-10">
-        <input
-          class="form-control"
-          id="inputPassword3"
-          v-model="author.signature"
-        />
+        <input class="form-control" id="inputPassword3" v-model="author.signature"/>
       </div>
     </div>
-
     <div>
       <button class="btn btn-primary" @click="save">保存信息</button>
-      <button class="btn btn-primary float-end" @click="logout">
-        退出登录
-      </button>
+      <button class="btn btn-primary float-end" @click="logout">退出登录</button>
     </div>
   </div>
 </template>

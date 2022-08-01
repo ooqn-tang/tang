@@ -6,6 +6,8 @@ import cn.ttcxy.mapper.dao.DtsEssayDao;
 import cn.ttcxy.entity.dto.DtsEssayDto;
 import cn.ttcxy.entity.model.DtsEssay;
 import cn.ttcxy.mapper.DtsEssayMapper;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,11 +33,13 @@ public class DtsEssayService {
         return essayMapper.deleteByPrimaryKey(authorId);
     }
 
-    public List<DtsEssayDto> select(String authorId, String type){
-        return essayDao.select(authorId,type);
+    public PageInfo<DtsEssayDto> select(String authorId, String type, Integer page){
+        PageHelper.startPage(page, 30);
+        return new PageInfo<>(essayDao.select(authorId,type));
     }
 
-    public Object selectEssay(String authorId, String type) {
-        return essayDao.select(authorId,type);
+    public PageInfo<DtsEssayDto> selectDynamic(String authorId, Integer page){
+        PageHelper.startPage(page, 30);
+        return new PageInfo<>(essayDao.selectDynamic(authorId));
     }
 }
