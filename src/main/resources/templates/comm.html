@@ -44,12 +44,7 @@
 <div th:fragment="recommend">
     <div class="list-group">
         <a href="#" class="list-group-item active move-b-lr-0">推荐内容</a>
-        <a class="list-group-item move-b-lr-0">
-            List header
-        </a>
-        <a class="list-group-item move-b-lr-0">
-            List header
-        </a>
+        <a class="list-group-item move-b-lr-0" th:each="item : ${notice}" th:text="${item.title}" th:href="${item.url}"></a>
     </div>
 </div>
 

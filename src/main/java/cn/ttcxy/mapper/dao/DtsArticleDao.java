@@ -12,6 +12,8 @@ public interface DtsArticleDao {
 
     List<DtsArticleDto> selectArticleList(@Param("classId") String classId);
 
+    List<DtsArticleDto> selectGzArticleList(@Param("authorId")String authorId);
+
     List<DtsArticleDto> selectArticleListSmall();
 
     List<DtsArticleDto> search(@Param("title") String title);

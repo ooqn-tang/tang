@@ -49,18 +49,14 @@
             <li class="nav-item" v-if="!isLogin">
               <router-link class="nav-link active" to="/login">登录</router-link>
             </li>
-             <li class="nav-item pc" v-if="isLogin">
-              <router-link class="nav-link active" to="/dynamic">动态</router-link>
-            </li>
             <li class="nav-item pc" v-if="isLogin">
               <router-link class="nav-link active" to="/message">消息</router-link>
             </li>
             <li class="nav-item dropdown" v-if="isLogin">
               <a class="nav-link active dropdown-toggle" href="#" data-bs-toggle="dropdown">投稿</a>
               <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#"  @click="createVideo()">📺视频</a></li>
-                <li><a class="dropdown-item" href="#"  @click="createArticle()">📰文章</a></li>
-                <li><a class="dropdown-item" href="#">📝短文</a></li>
+                <li><a class="dropdown-item" href="#" @click="createVideo()">📺视频</a></li>
+                <li><a class="dropdown-item" href="#" @click="createArticle()">📰文章</a></li>
               </ul>
             </li>
             <li class="nav-item" v-if="isLogin">

@@ -33,13 +33,8 @@ public class DtsEssayService {
         return essayMapper.deleteByPrimaryKey(authorId);
     }
 
-    public PageInfo<DtsEssayDto> select(String authorId, String type, Integer page){
+    public PageInfo<DtsEssayDto> select(Integer page){
         PageHelper.startPage(page, 30);
-        return new PageInfo<>(essayDao.select(authorId,type));
-    }
-
-    public PageInfo<DtsEssayDto> selectDynamic(String authorId, Integer page){
-        PageHelper.startPage(page, 30);
-        return new PageInfo<>(essayDao.selectDynamic(authorId));
+        return new PageInfo<>(essayDao.select());
     }
 }

@@ -8,6 +8,7 @@ import cn.ttcxy.core.BaseController;
 import cn.ttcxy.core.api.ApiException;
 import cn.ttcxy.core.api.ResponseCode;
 import cn.ttcxy.entity.dto.DtsArticleDto;
+import cn.ttcxy.entity.dto.DtsVideoDto;
 import cn.ttcxy.entity.model.DtsArticle;
 import cn.ttcxy.entity.model.DtsArticleContent;
 import cn.ttcxy.entity.param.DtsArticleParam;
@@ -32,11 +33,17 @@ public class DtsArticleController extends BaseController {
     private DtsEssayService essayService;
 
     @GetMapping("list")
-    public ResponseEntity<PageInfo<DtsArticleDto>> selectArticleList(
+    public PageInfo<DtsArticleDto> selectArticleList(
             @RequestParam(value = "page" ,defaultValue = "1")Integer page,
             @RequestParam(value = "classId",defaultValue = "")String classId){
-        PageInfo<DtsArticleDto> articleList = articleService.selectArticleList(classId, page, 10);
-        return ResponseEntity.ok(articleList);
+        PageInfo<DtsArticleDto> articleList;
+        if(StrUtil.equals("gz",classId)){
+            articleList = articleService.selectGzArticleList(classId, page, authorId());
+        }else{
+            articleList = articleService.selectArticleList(classId, page, 10);
+        }
+
+        return articleList;
     }
 
     @GetMapping("list/{username}")
@@ -112,5 +119,12 @@ public class DtsArticleController extends BaseController {
             throw new ApiException();
         }
         return articleDto;
+    }
+
+    @GetMapping("so")
+    public PageInfo<?> search(
+            @RequestParam(value = "page",defaultValue = "0")Integer page,
+            @RequestParam("wb") String wb){
+        return articleService.search(wb,page,10);
     }
 }

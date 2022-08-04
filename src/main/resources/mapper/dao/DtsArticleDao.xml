@@ -53,6 +53,12 @@
         order by t2.create_date desc
     </select>
 
+    <select id="selectGzArticleList" resultType="cn.ttcxy.entity.dto.DtsArticleDto">
+        select t2.*,t3.* from uts_fans t1
+        inner join dts_article t2 on t1.author_id = #{authorId} and t1.be_author_id = t2.author_id and state = 1
+        inner join uts_author t3 on t3.author_id = t1.be_author_id order by t2.create_date desc
+    </select>
+
     <select id="selectArticleList1000" resultType="cn.ttcxy.entity.dto.DtsArticleDto">
         select article_id,title from dts_article limit 1000
     </select>

@@ -5,7 +5,5 @@ import cn.ttcxy.entity.dto.DtsEssayDto;
 import java.util.List;
 
 public interface DtsEssayDao {
-    List<DtsEssayDto> select(String authorId, String type);
-
-    List<DtsEssayDto> selectDynamic(String authorId);
+    List<DtsEssayDto> select();
 }

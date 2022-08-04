@@ -18,7 +18,7 @@
                 <div class="panel-body">
                     <ul class="blog-list">
                         <li th:each="item : ${subjects.list}">
-                            <a th:href="'/subject/' + ${item.articleSubjectId}" th:text="${item.subjectName}"></a>
+                            <a th:href="'/subject/' + ${item.subjectId}" th:text="${item.subjectName}"></a>
                             <span th:text="${#dates.format(item.createDate, 'yyyy-MM-dd')}" class="blog-time"></span>
                             <p th:text="${item.synopsis}"></p>
                             <hr style="border:2px double #e8e8e8"/>

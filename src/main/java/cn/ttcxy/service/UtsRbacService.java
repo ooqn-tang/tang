@@ -20,7 +20,6 @@ public class UtsRbacService {
     private UtsResourceService utsResourceService;
 
     public boolean hasPermission(HttpServletRequest request, Authentication authentication){
-        boolean hasPermission = false;
         Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
         for (GrantedAuthority authority : authorities) {
             String role = authority.getAuthority();

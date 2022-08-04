@@ -4,6 +4,7 @@ import cn.ttcxy.entity.dto.DtsArticleDto;
 import cn.ttcxy.entity.dto.DtsArticleSubjectDto;
 import cn.ttcxy.service.DtsArticleService;
 import cn.ttcxy.service.DtsArticleSubjectService;
+import cn.ttcxy.service.StsNoticeService;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,10 +24,14 @@ public class StsPageController {
     @Autowired
     private DtsArticleSubjectService articleSubjectService;
 
+    @Autowired
+    private StsNoticeService noticeService;
+
     @GetMapping
     public String toIndex(@RequestParam(value = "page", defaultValue = "1") Integer page, Model model) {
         PageInfo<DtsArticleDto> dtsArticleDtoPageInfo = articleService.selectArticleListSmall(page, 50);
         model.addAttribute("articlePage", dtsArticleDtoPageInfo);
+        model.addAttribute("notice", noticeService.selectAllNotice());
         return "articles";
     }
 
@@ -36,6 +41,7 @@ public class StsPageController {
         model.addAttribute("article", articleDto);
         String subjectId = articleSubjectService.selectSubjectIdByArticleId(id);
         model.addAttribute("subject", articleSubjectService.selectSubjectArticleListById(subjectId));
+        model.addAttribute("notice", noticeService.selectAllNotice());
         return "article";
     }
 

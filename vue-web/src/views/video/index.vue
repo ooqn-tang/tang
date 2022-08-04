@@ -8,21 +8,9 @@
               <div class="card mb-2 move-b-lr-0">
                 <div class="card-body p-0">
                   <nav class="nav">
-                    <a
-                      class="nav-link"
-                      :class="selectClassId == 'gz' ? 'nav-link-active' : ''"
-                      @click="selectClassClick('gz')">关注</a>
-                    <a
-                      class="nav-link"
-                      :class="selectClassId == '' ? 'nav-link-active' : ''"
-                      @click="selectClassClick('')">最新</a>
-
-                    <a
-                      class="nav-link"
-                      v-for="(item, index) in videoClassList"
-                      @click="selectClassClick(item.classId)"
-                      :key="index"
-                      :class="selectClassId == item.classId ? 'nav-link-active' : ''">{{ item.className }}</a>
+                    <a class="nav-link" :class="selectClassId == 'gz' ? 'nav-link-active' : ''" @click="selectClassClick('gz')">关注</a>
+                    <a class="nav-link" :class="selectClassId == '' ? 'nav-link-active' : ''" @click="selectClassClick('')">最新</a>
+                    <a class="nav-link" v-for="(item, index) in videoClassList" @click="selectClassClick(item.classId)" :key="index" :class="selectClassId == item.classId ? 'nav-link-active' : ''">{{ item.className }}</a>
                   </nav>
                 </div>
               </div>

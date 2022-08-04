@@ -145,4 +145,9 @@ public class DtsArticleService {
         }
         return null;
     }
+
+    public PageInfo<DtsArticleDto> selectGzArticleList(String classId, Integer page,String authorId) {
+        PageHelper.startPage(page, 10);
+        return new PageInfo<>(articleDao.selectGzArticleList(authorId));
+    }
 }
