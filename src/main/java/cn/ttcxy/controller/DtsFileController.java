@@ -2,7 +2,6 @@ package cn.ttcxy.controller;
 
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.StrUtil;
-import cn.ttcxy.core.BaseController;
 import cn.ttcxy.core.exception.ApiException;
 import cn.ttcxy.core.api.ResponseCode;
 import com.google.zxing.BarcodeFormat;

@@ -1,7 +1,6 @@
 package cn.ttcxy.controller;
 
 import cn.hutool.core.bean.BeanUtil;
-import cn.ttcxy.core.BaseController;
 import cn.ttcxy.core.exception.ApiException;
 import cn.ttcxy.entity.model.UtsAuthor;
 import cn.ttcxy.entity.param.UtsAuthorParam;
@@ -25,10 +24,10 @@ public class UtsAuthorController extends BaseController {
     @Autowired
     private HttpSession httpSession;
 
-    @GetMapping("authorListArticleCount")
-    public PageInfo<Map<String, String>> select(
+    @GetMapping("selectAuthor")
+    public PageInfo<UtsAuthor> select(
             @RequestParam(value = "page", defaultValue = "1") Integer page) {
-        return authorService.selectAuthorArticleCount(page, 100);
+        return authorService.selectAuthor(page, 100);
     }
 
     @PutMapping
@@ -53,6 +52,6 @@ public class UtsAuthorController extends BaseController {
 
     @GetMapping("list")
     public PageInfo<UtsAuthor> authorList(@RequestParam(value = "page", defaultValue = "1") Integer page) {
-        return authorService.authorList(page, 10);
+        return authorService.selectAuthor(page, 10);
     }
 }

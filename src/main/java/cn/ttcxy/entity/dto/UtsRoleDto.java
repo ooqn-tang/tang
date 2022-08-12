@@ -13,66 +13,20 @@ import java.util.Objects;
 @Data
 public class UtsRoleDto implements GrantedAuthority {
 
-    static final long serialVersionUID = 1L;
+    private String roleId;
 
-    private String id;
+    private String roleName;
 
-    private String name;
-
-    private String value;
+    private String roleValue;
 
     private Date createTime;
 
-    public UtsRoleDto(){
+    private Date updateTime;
 
-    }
-    public UtsRoleDto(String value){
-        this.value = value;
-    }
-
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getValue() {
-        return value;
-    }
-
-    public void setValue(String value) {
-        this.value = value;
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
+    private Date refreshTime;
     @Override
     public String getAuthority() {
-        return "ROLE_" + value;
+        return roleValue;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(getId(), getName(), getValue(), getCreateTime());
-    }
 }

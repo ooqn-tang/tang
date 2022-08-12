@@ -1,7 +1,7 @@
 package cn.ttcxy.controller.admin;
 
 import cn.hutool.core.bean.BeanUtil;
-import cn.ttcxy.core.BaseController;
+import cn.ttcxy.controller.BaseController;
 import cn.ttcxy.core.exception.ApiException;
 import cn.ttcxy.core.api.ResponseCode;
 import cn.ttcxy.entity.dto.DtsVideoDto;

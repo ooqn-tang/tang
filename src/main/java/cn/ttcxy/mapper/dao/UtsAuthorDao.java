@@ -13,18 +13,4 @@ import java.util.Map;
  */
 public interface UtsAuthorDao {
 
-    @MapKey("username")
-    List<Map<String,String>> selectAuthorArticleCount();
-
-    int selectMailIsTrue(String mail);
-
-    int selectUsernameIsTrue(String username);
-
-    UtsAuthor selectAuthorByName(String authorName);
-
-    int selectNicknameIsTrue(String nickname);
-
-    UtsAuthor selectAuthorByMailAll(String mail);
-
-    List<UtsAuthor> selectAuthor();
 }

@@ -4,6 +4,7 @@ import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.RandomUtil;
+import cn.ttcxy.entity.dto.UtsRoleDto;
 import cn.ttcxy.entity.model.*;
 import cn.ttcxy.entity.param.UtsRoleParam;
 import cn.ttcxy.mapper.UtsAuthorMapper;
@@ -40,11 +41,23 @@ public class UtsAuthorService {
     private static final Map<String,Date> roleNameTime = new HashMap<>();
 
     public UtsAuthor selectAuthorByName(String username) {
-        return authorDao.selectAuthorByName(username);
+        UtsAuthorExample authorExample = new UtsAuthorExample();
+        authorExample.createCriteria().andUsernameEqualTo(username);
+        List<UtsAuthor> utsAuthors = utsAuthorMapper.selectByExample(authorExample);
+        if (utsAuthors.size() > 0){
+            return utsAuthors.get(0);
+        }
+        return null;
     }
 
     public UtsAuthor selectAuthorByMail(String mail) {
-        return authorDao.selectAuthorByMailAll(mail);
+        UtsAuthorExample authorExample = new UtsAuthorExample();
+        authorExample.createCriteria().andMailEqualTo(mail);
+        List<UtsAuthor> utsAuthors = utsAuthorMapper.selectByExample(authorExample);
+        if (utsAuthors.size() > 0){
+            return utsAuthors.get(0);
+        }
+        return null;
     }
 
     public int insertAuthor(UtsAuthor author) throws DuplicateKeyException {
@@ -70,28 +83,27 @@ public class UtsAuthorService {
     }
 
     public Boolean selectUsernameIsTrue(String username) {
-        int count = authorDao.selectUsernameIsTrue(username);
-        return count > 0;
+        UtsAuthorExample authorExample = new UtsAuthorExample();
+        authorExample.createCriteria().andUsernameEqualTo(username);
+        return utsAuthorMapper.countByExample(authorExample) > 0;
     }
 
     public Boolean selectNicknameIsTrue(String nickname) {
-        int count = authorDao.selectNicknameIsTrue(nickname);
-        return count > 0;
+        UtsAuthorExample authorExample = new UtsAuthorExample();
+        authorExample.createCriteria().andNicknameEqualTo(nickname);
+        return utsAuthorMapper.countByExample(authorExample) > 0;
     }
 
-    public Boolean selectMailIsTrue(String username) {
-        int count = authorDao.selectMailIsTrue(username);
-        return count > 0;
+    public Boolean selectMailIsTrue(String mail) {
+        UtsAuthorExample authorExample = new UtsAuthorExample();
+        authorExample.createCriteria().andMailEqualTo(mail);
+        return utsAuthorMapper.countByExample(authorExample) > 0;
     }
 
-    public PageInfo<UtsAuthor> authorList(Integer page, Integer size){
+    public PageInfo<UtsAuthor> selectAuthor(Integer page, Integer size) {
         PageHelper.startPage(page, size);
-        return new PageInfo<>(authorDao.selectAuthor());
-    }
-
-    public PageInfo<Map<String,String>> selectAuthorArticleCount(Integer page, Integer size) {
-        PageHelper.startPage(page, size);
-        return new PageInfo<>(authorDao.selectAuthorArticleCount());
+        UtsAuthorExample example = new UtsAuthorExample();
+        return new PageInfo<>(utsAuthorMapper.selectByExample(null));
     }
 
     public List<UtsAuthor> select(String queryData) {
@@ -124,7 +136,7 @@ public class UtsAuthorService {
         }
     }
 
-    public Date nowTime(String username, List<UtsRole> roleList) {
+    public Date nowTime(String username, List<UtsRoleDto> roleList) {
         Set<Date> dateSet = new TreeSet<>();
         Date usernameTime = getUsernameTime(username);
         if (usernameTime!=null){
@@ -138,17 +150,17 @@ public class UtsAuthorService {
     private Date getUsernameTime(String username){
         Date date = usernameTime.get(username);
         if (ObjectUtil.isEmpty(date)){
-            UtsAuthor author = authorDao.selectAuthorByName(username);
+            UtsAuthor author = selectAuthorByName(username);
             date = author.getRefreshTime();
             usernameTime.put(username,date);
         }
         return date;
     }
 
-    private Set<Date> getRoleNameTime(List<UtsRole> roleList){
+    private Set<Date> getRoleNameTime(List<UtsRoleDto> roleList){
         Set<Date> dateSet = new TreeSet<>();
-        for (UtsRole role : roleList) {
-            List<UtsRole> roles = roleService.selectByName(role.getRoleName());
+        for (UtsRoleDto role : roleList) {
+            List<UtsRole> roles = roleService.selectByName(role.getRoleValue());
             for (UtsRole r : roles) {
                 Date refreshTime = r.getRefreshTime();
                 if (!ObjectUtil.isEmpty(refreshTime)){

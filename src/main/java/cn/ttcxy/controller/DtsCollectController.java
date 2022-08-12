@@ -1,6 +1,5 @@
 package cn.ttcxy.controller;
 
-import cn.ttcxy.core.BaseController;
 import cn.ttcxy.entity.dto.DtsDataDto;
 import cn.ttcxy.service.DtsCollectService;
 import com.github.pagehelper.PageInfo;

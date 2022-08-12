@@ -4,7 +4,6 @@ import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.date.DateTime;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.StrUtil;
-import cn.ttcxy.core.BaseController;
 import cn.ttcxy.core.exception.ApiException;
 import cn.ttcxy.core.api.ResponseCode;
 import cn.ttcxy.entity.dto.DtsArticleDto;
@@ -78,7 +77,7 @@ public class DtsArticleController extends BaseController {
     public ResponseEntity<String> delete(@PathVariable("articleId") String articleId){
         String authorId = articleService.authorId(articleId);
         if (StrUtil.equals(authorId,authorId())){
-            int count = articleService.deleteArticle(articleId, authorId());
+            int count = articleService.deleteByArticleIdAndAuthorId(articleId, authorId());
             if(count > 0){
                 return ResponseEntity.ok("处理成功");
             }

@@ -1,6 +1,6 @@
 package cn.ttcxy.controller.admin;
 
-import cn.ttcxy.core.BaseController;
+import cn.ttcxy.controller.BaseController;
 import cn.ttcxy.entity.dto.DtsCommentDto;
 import cn.ttcxy.entity.param.DtsCommentParam;
 import cn.ttcxy.service.DtsCommentService;

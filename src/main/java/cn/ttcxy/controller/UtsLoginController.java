@@ -5,7 +5,6 @@ import cn.hutool.cache.CacheUtil;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.lang.Validator;
 import cn.hutool.core.util.StrUtil;
-import cn.ttcxy.core.BaseController;
 import cn.ttcxy.core.exception.ApiException;
 import cn.ttcxy.core.security.JwtProvider;
 import cn.ttcxy.entity.CurrentAuthor;

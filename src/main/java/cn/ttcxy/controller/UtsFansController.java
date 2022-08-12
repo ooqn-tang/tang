@@ -1,6 +1,5 @@
 package cn.ttcxy.controller;
 
-import cn.ttcxy.core.BaseController;
 import cn.ttcxy.core.exception.ApiException;
 import cn.ttcxy.core.api.ResponseCode;
 import cn.ttcxy.entity.dto.UtsFansDto;

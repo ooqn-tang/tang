@@ -28,6 +28,9 @@ public class UtsFansService {
     @Autowired
     private UtsAuthorDao utsAuthorDao;
 
+    @Autowired
+    private UtsAuthorService authorService;
+
     
     public PageInfo<UtsFansDto> selectFansList(String authorId){
         return new PageInfo<>(fansDao.selectFansList(authorId));
@@ -42,7 +45,7 @@ public class UtsFansService {
 
     
     public int deleteFans(String fansName,String authorId){
-        UtsAuthor author = utsAuthorDao.selectAuthorByName(fansName);
+        UtsAuthor author = authorService.selectAuthorByName(fansName);
         if (author != null){
             UtsFansExample fansExample = new UtsFansExample();
             fansExample.createCriteria()

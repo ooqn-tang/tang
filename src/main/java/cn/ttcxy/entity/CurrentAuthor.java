@@ -1,6 +1,6 @@
 package cn.ttcxy.entity;
 
-import cn.ttcxy.entity.TangGrantedAuthority;
+import cn.ttcxy.entity.dto.UtsRoleDto;
 import cn.ttcxy.entity.model.UtsAuthor;
 import cn.ttcxy.entity.model.UtsRole;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -16,29 +16,17 @@ public class CurrentAuthor implements UserDetails {
 
     private UtsAuthor author = new UtsAuthor();
 
-    private List<UtsRole> roles = new ArrayList<>();
-
-    private long refreshTime;
+    private List<UtsRoleDto> roles = new ArrayList<>();
 
     @Override
     @JsonIgnore
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        Set<TangGrantedAuthority> set = new HashSet<>();
-        for (UtsRole role : roles) {
-            set.add(new TangGrantedAuthority(role));
-        }
-        return set;
+        return roles;
     }
 
     public long getRefreshTime() {
-        return refreshTime;
+        return author.getRefreshTime().getTime();
     }
-
-    public void setRefreshTime(long refreshTime) {
-        this.refreshTime = refreshTime;
-    }
-
-
 
     @Override
     public boolean isAccountNonExpired() {
@@ -79,11 +67,11 @@ public class CurrentAuthor implements UserDetails {
         this.author = author;
     }
 
-    public List<UtsRole> getRoles() {
+    public List<UtsRoleDto> getRoles() {
         return roles;
     }
 
-    public void setRoles(List<UtsRole> roles) {
+    public void setRoles(List<UtsRoleDto> roles) {
         this.roles = roles;
     }
 }

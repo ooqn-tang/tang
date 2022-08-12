@@ -41,6 +41,9 @@ public class DtsArticleService {
     @Autowired
     private DtsEssayService dynamicService;
 
+    @Autowired
+    private DtsArticleContentMapper articleContentMapper;
+
     public PageInfo<DtsArticleDto> selectArticleList(String classId, Integer page, Integer size) {
         PageHelper.startPage(page, size);
         return new PageInfo<>(articleDao.selectArticleList(classId));
@@ -82,9 +85,6 @@ public class DtsArticleService {
         return i;
     }
 
-    @Autowired
-    private DtsArticleContentMapper articleContentMapper;
-
     public int articleContentCount(String articleId){
         DtsArticleContent articleContent = articleContentMapper.selectByPrimaryKey(articleId);
         if (articleContent == null){
@@ -93,11 +93,9 @@ public class DtsArticleService {
         return 1;
     }
 
-    public int deleteArticle(String articleId, String authorId) {
+    public int deleteByArticleIdAndAuthorId(String articleId, String authorId) {
         DtsArticleExample articleExample = new DtsArticleExample();
-        articleExample.createCriteria()
-                .andArticleIdEqualTo(articleId)
-                .andAuthorIdEqualTo(authorId);
+        articleExample.createCriteria().andArticleIdEqualTo(articleId).andAuthorIdEqualTo(authorId);
         return articleMapper.deleteByExample(articleExample);
     }
 
@@ -114,7 +112,7 @@ public class DtsArticleService {
         return articleMapper.selectByPrimaryKey(id);
     }
 
-    public DtsArticle selectByPrimaryId(String id) {
+    public DtsArticle selectById(String id) {
         return articleMapper.selectByPrimaryKey(id);
     }
 

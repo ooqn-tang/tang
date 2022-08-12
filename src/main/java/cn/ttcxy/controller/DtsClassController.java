@@ -1,6 +1,5 @@
 package cn.ttcxy.controller;
 
-import cn.ttcxy.core.BaseController;
 import cn.ttcxy.entity.model.DtsClass;
 import cn.ttcxy.service.DtsClassService;
 import org.springframework.beans.factory.annotation.Autowired;

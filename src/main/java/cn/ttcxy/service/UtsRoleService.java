@@ -1,6 +1,7 @@
 package cn.ttcxy.service;
 
 import cn.hutool.core.util.IdUtil;
+import cn.ttcxy.entity.dto.UtsRoleDto;
 import cn.ttcxy.entity.model.*;
 import cn.ttcxy.mapper.UtsResourceRoleMapper;
 import cn.ttcxy.mapper.UtsRoleMapper;
@@ -23,7 +24,7 @@ public class UtsRoleService {
     @Autowired
     private UtsResourceRoleMapper resourceRoleMapper;
 
-    public List<UtsRole> roleList(String authorId){
+    public List<UtsRoleDto> roleList(String authorId){
         return roleDao.selectRoleListByAuthorId(authorId);
     }
 

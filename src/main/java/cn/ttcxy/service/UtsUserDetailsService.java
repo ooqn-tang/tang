@@ -4,6 +4,7 @@ package cn.ttcxy.service;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.lang.Validator;
 import cn.ttcxy.entity.CurrentAuthor;
+import cn.ttcxy.entity.dto.UtsRoleDto;
 import cn.ttcxy.entity.model.UtsAuthor;
 import cn.ttcxy.entity.model.UtsRole;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,9 +38,8 @@ public class UtsUserDetailsService implements UserDetailsService {
         if (author != null){
             CurrentAuthor currentAuthor = new CurrentAuthor();
             currentAuthor.setAuthor(author);
-            List<UtsRole> utsRoles = utsRoleService.roleList(author.getAuthorId());
+            List<UtsRoleDto> utsRoles = utsRoleService.roleList(author.getAuthorId());
             currentAuthor.setRoles(utsRoles);
-            currentAuthor.setRefreshTime(utsAuthorService.nowTime(author.getUsername(),currentAuthor.getRoles()).getTime());
             return BeanUtil.toBean(currentAuthor,CurrentAuthor.class);
         }
 

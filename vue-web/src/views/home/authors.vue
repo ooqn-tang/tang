@@ -40,9 +40,9 @@ export default {
     };
   },
   methods: {
-    authorListArticleCount(){
+    selectAuthor(){
       request({
-        url: '/api/author/authorListArticleCount',
+        url: '/api/author/selectAuthor',
         method: 'GET'
       }).then((response) => {
         this.authorList = response.data.list
@@ -50,7 +50,7 @@ export default {
     }
   },
   mounted() {
-    this.authorListArticleCount()
+    this.selectAuthor()
   },
 };
 </script>

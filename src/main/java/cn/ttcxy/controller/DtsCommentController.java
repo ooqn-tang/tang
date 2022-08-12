@@ -3,7 +3,6 @@ package cn.ttcxy.controller;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.IdUtil;
-import cn.ttcxy.core.BaseController;
 import cn.ttcxy.core.exception.ApiException;
 import cn.ttcxy.entity.dto.DtsCommentDto;
 import cn.ttcxy.entity.model.DtsComment;

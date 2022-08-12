@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="cn.ttcxy.mapper.dao.UtsRoleDao">
-    <select id="selectRoleListByAuthorId" resultType="cn.ttcxy.entity.model.UtsRole">
+    <select id="selectRoleListByAuthorId" resultType="cn.ttcxy.entity.dto.UtsRoleDto">
         select *
         from uts_author_role t1,uts_role t2
         where t1.role_id = t2.role_id and author_id = #{authorId}

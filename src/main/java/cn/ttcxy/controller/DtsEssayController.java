@@ -1,7 +1,6 @@
 package cn.ttcxy.controller;
 
 import cn.hutool.core.bean.BeanUtil;
-import cn.ttcxy.core.BaseController;
 import cn.ttcxy.core.exception.ApiException;
 import cn.ttcxy.entity.dto.DtsEssayDto;
 import cn.ttcxy.entity.model.DtsEssay;

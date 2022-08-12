@@ -2,44 +2,5 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.ttcxy.mapper.dao.UtsAuthorDao">
 
-    <select id="selectAuthorArticleCount" resultType="Map">
-        select username,nickname,signature
-        from uts_author t2
-    </select>
-
-    <select id="selectMailIsTrue" resultType="integer">
-        select count(1)
-        from uts_author
-        where mail = #{mail}
-    </select>
-
-    <select id="selectUsernameIsTrue" resultType="integer">
-        select count(1)
-        from uts_author
-        where username = #{authorName}
-    </select>
-
-    <select id="selectNicknameIsTrue" resultType="integer">
-        select count(1)
-        from uts_author
-        where nickname = #{nickname}
-    </select>
-
-    <select id="selectAuthorByMailAll" resultType="cn.ttcxy.entity.model.UtsAuthor">
-        select author_id,username,nickname,password,signature,mail
-        from uts_author
-        where mail = #{mail}
-    </select>
-
-    <select id="selectAuthor" resultType="cn.ttcxy.entity.model.UtsAuthor">
-        select author_id,username,nickname,password,signature,mail
-        from uts_author
-    </select>
-
-    <select id="selectAuthorByName" resultType="cn.ttcxy.entity.model.UtsAuthor">
-        select author_id,username,nickname,password,signature,mail,refresh_time,head_url
-        from uts_author
-        where username = #{authorName}
-    </select>
 
 </mapper>
