@@ -11,16 +11,16 @@ import java.util.List;
  */
 public interface DtsArticleSubjectDao {
 
-    DtsArticleSubjectDto selectSubjectById(@Param("subjectId") String subjectId);
+    DtsArticleSubjectDto selectSubjectById(String subjectId);
 
-    List<DtsArticle> selectSubjectArticleListById(@Param("subjectId") String subjectId);
+    List<DtsArticle> selectSubjectArticleListById(String subjectId);
 
     List<DtsArticleSubjectDto> selectSubjectList();
 
-    List<DtsArticleSubjectDto> selectSubjectListByUsername(@Param("username") String username);
+    List<DtsArticleSubjectDto> selectSubjectListByUsername( String username);
 
-    List<DtsArticleSubjectDto> selectSubjectListBySubjectName(@Param("name") String name);
+    List<DtsArticleSubjectDto> selectSubjectListBySubjectName(String name);
 
-    String selectSubjectIdByArticleId(@Param("articleId") String articleId);
+    String selectSubjectIdByArticleId(String articleId);
 
 }

@@ -10,8 +10,8 @@ import java.util.List;
  */
 public interface UtsRoleDao {
 
-    List<UtsRole> selectRoleListByAuthorId(@Param("authorId") String authorId);
+    List<UtsRole> selectRoleListByAuthorId(String authorId);
 
-    List<String> selectRoleIdList(@Param("authorId") String authorId);
+    List<String> selectRoleIdList(String authorId);
 
 }

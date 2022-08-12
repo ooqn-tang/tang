@@ -2,7 +2,7 @@ package cn.ttcxy.controller;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.ttcxy.core.BaseController;
-import cn.ttcxy.core.api.ApiException;
+import cn.ttcxy.core.exception.ApiException;
 import cn.ttcxy.entity.model.UtsAuthor;
 import cn.ttcxy.entity.param.UtsAuthorParam;
 import cn.ttcxy.service.UtsAuthorService;

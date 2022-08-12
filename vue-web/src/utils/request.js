@@ -20,7 +20,7 @@ service.interceptors.request.use(
         if('/api/authenticate' == config.url){
             return config;
         }
-        config.headers.Authorization = localStorage.getItem("jwt")
+        config.headers.Token = localStorage.getItem("jwt")
         return config;
     },
     error => {
@@ -54,10 +54,10 @@ service.interceptors.response.use(
             if (!isRefreshing){
                 isRefreshing = true
                 //调用刷新token的接口
-                return refresh({'jwt':localStorage.getItem("jwt")}).then(res => {
-                    setToken(res.jwt)
-                    error.response.headers.Authorization = res.jwt
-                    requests.forEach((cb) => cb(res.jwt))
+                return refresh({'jwt':localStorage.getItem("jwt")}).then(data => {
+                    setToken(data)
+                    error.response.headers.Token = data
+                    requests.forEach((cb) => cb(data))
                     return service(error.response.config)
                 }).catch(err => {
                     //跳到登录页
@@ -74,7 +74,7 @@ service.interceptors.response.use(
                 return new Promise(resolve => {
                   // 用函数形式将 resolve 存入，等待刷新后再执行
                   requests.push(jwt => {
-                    error.response.headers.Authorization = jwt
+                    error.response.headers.Token = jwt
                     resolve(service(error.response.config))
                   })
                 })

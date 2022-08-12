@@ -1,114 +1,78 @@
 package cn.ttcxy.core.security;
 
+import cn.ttcxy.entity.propertie.TangProperties;
 import cn.ttcxy.service.UtsAuthorService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.AuthenticationEntryPoint;
+import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.filter.CorsFilter;
 
-@EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
-public class MySecurityConfig extends WebSecurityConfigurerAdapter {
+import javax.servlet.http.HttpServletResponse;
 
-    private final JwtProvider jwtProvider;
-    private final CorsFilter corsFilter;
-    private final JwtAuthenticationEntryPoint authenticationErrorHandler;
-    private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
-    private final UtsAuthorService authorService;
+@Configuration
+public class MySecurityConfig {
 
-    public MySecurityConfig(
-            JwtProvider jwtProvider,
-            CorsFilter corsFilter,
-            JwtAuthenticationEntryPoint authenticationErrorHandler,
-            JwtAccessDeniedHandler jwtAccessDeniedHandler,
-            UtsAuthorService authorService
-    ) {
-        this.jwtProvider = jwtProvider;
-        this.corsFilter = corsFilter;
-        this.authenticationErrorHandler = authenticationErrorHandler;
-        this.jwtAccessDeniedHandler = jwtAccessDeniedHandler;
-        this.authorService = authorService;
+    @Autowired
+    private TangProperties tangProperties;
+
+    @Bean
+    public WebSecurityCustomizer webSecurityCustomizer() {
+        return (web) -> web.ignoring()
+                .antMatchers(HttpMethod.OPTIONS, "/**")
+                .antMatchers(tangProperties.getOpenUrl().split(","));
     }
 
-    // Configure BCrypt password encoder =====================================================================
+    @Bean
+    SecurityFilterChain httpSecurity(HttpSecurity http) throws Exception {
+        http
+                .addFilterBefore(jwtFilter(), UsernamePasswordAuthenticationFilter.class)
+                .sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
+                .authorizeRequests()
+                .anyRequest().access("@utsRbacService.hasPermission(request,authentication)")
+                .and()
+                .csrf().disable();
+
+        return http.build();
+    }
+
+    @Bean
+    AuthenticationEntryPoint MyAuthenticationEntryPoint() {
+        return (request, response, authException) -> {
+            response.sendError(HttpServletResponse.SC_FORBIDDEN, authException.getMessage());
+        };
+    }
+
+    @Bean
+    AccessDeniedHandler MyAccessDeniedHandler() {
+        return (request, response, accessDeniedException) -> {
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, accessDeniedException.getMessage());
+        };
+    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
-    // Configure paths and requests that should be ignored by Spring Security ================================
-
-    @Override
-    public void configure(WebSecurity web) {
-        web.ignoring()
-                .antMatchers(HttpMethod.OPTIONS, "/**")
-
-                .antMatchers(
-                        "/",
-                        "/*.html",
-                        "/src/main/resources/favicon.ico",
-                        "/**/*.html",
-                        "/**/*.css",
-                        "/**/*.js",
-                        "/h2-console/**",
-                        "/swagger-ui/**",
-                        "/swagger-resources/**",
-                        "/swagger-resources",
-                        "/v3/api-docs",
-                        "/**/*.jpg",
-                        "/**/*.*"
-                );
-    }
-
-    // Configure security settings ===========================================================================
-
-    @Override
-    protected void configure(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity
-                // we don't need CSRF because our token is invulnerable
-                .addFilterBefore(corsFilter, UsernamePasswordAuthenticationFilter.class)
-
-                .exceptionHandling()
-                .authenticationEntryPoint(authenticationErrorHandler)
-                .accessDeniedHandler(jwtAccessDeniedHandler)
-
-                // enable
-                .and()
-                .headers()
-                .frameOptions()
-                .sameOrigin()
-
-                // 关闭SESSION
-                .and()
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
-                .authorizeRequests()
-                .antMatchers("/api/authenticate","/api/refresh").permitAll()
-                .antMatchers("/api/register").permitAll()
-                .antMatchers("/api/activate").permitAll()
-                .antMatchers("/api/account/reset-password/init").permitAll()
-                .antMatchers("/api/account/reset-password/finish").permitAll()
-                .and()
-                .authorizeRequests()
-                .anyRequest().access("@utsRbacService.hasPermission(request,authentication)")
-                .and()
-                .apply(securityConfigurerAdapter())
-                .and()
-                .csrf().disable();
-    }
-
-    private JwtConfig securityConfigurerAdapter() {
-        return new JwtConfig(jwtProvider, authorService);
+    @Bean
+    JwtFilter jwtFilter() {
+        return new JwtFilter();
     }
 
 }

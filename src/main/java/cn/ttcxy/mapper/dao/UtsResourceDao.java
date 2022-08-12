@@ -13,8 +13,8 @@ public interface UtsResourceDao {
 
     List<UtsRoleResourceDto> selectAll();
 
-    List<UtsResource> loadResourceUrlByRoleValue(@Param("roleValue") String roleValue);
+    List<UtsResource> loadResourceUrlByRoleValue(String roleValue);
 
-    List<String> selectByRoleId(@Param("roleId") String roleId);
+    List<String> selectByRoleId(String roleId);
 
 }

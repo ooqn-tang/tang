@@ -5,7 +5,7 @@ import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.ttcxy.core.BaseController;
-import cn.ttcxy.core.api.ApiException;
+import cn.ttcxy.core.exception.ApiException;
 import cn.ttcxy.entity.dto.DtsVideoDto;
 import cn.ttcxy.entity.model.DtsVideo;
 import cn.ttcxy.entity.param.VideoParam;

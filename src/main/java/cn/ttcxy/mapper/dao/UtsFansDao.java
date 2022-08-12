@@ -16,7 +16,7 @@ public interface UtsFansDao {
 
     int deleteFans(UtsFansDto utsFansDto);
 
-    List<UtsFansDto> selectFansList(@Param("authorId") String userId);
+    List<UtsFansDto> selectFansList(String userId);
 
-    Integer isFans(@Param("authorId") String authorId, @Param("beAuthorId") String beAuthorId);
+    Integer isFans(String authorId, String beAuthorId);
 }

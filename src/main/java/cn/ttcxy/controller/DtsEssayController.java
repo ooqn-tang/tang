@@ -2,8 +2,7 @@ package cn.ttcxy.controller;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.ttcxy.core.BaseController;
-import cn.ttcxy.core.api.ApiException;
-import cn.ttcxy.entity.dto.DtsCommentDto;
+import cn.ttcxy.core.exception.ApiException;
 import cn.ttcxy.entity.dto.DtsEssayDto;
 import cn.ttcxy.entity.model.DtsEssay;
 import cn.ttcxy.entity.model.UtsAuthor;
@@ -12,8 +11,6 @@ import cn.ttcxy.service.DtsEssayService;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("api/essay")

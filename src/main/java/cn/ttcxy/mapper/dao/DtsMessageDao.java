@@ -10,6 +10,6 @@ import java.util.List;
  */
 public interface DtsMessageDao {
 
-    List<DtsMessageDto> selectAuthorMessage(@Param("authorId") String authorId);
+    List<DtsMessageDto> selectAuthorMessage(String authorId);
 
 }

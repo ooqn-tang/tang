@@ -1,6 +1,5 @@
 package cn.ttcxy.core.exception;
 
-import cn.ttcxy.core.api.ApiException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;

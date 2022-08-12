@@ -88,8 +88,8 @@ export default {
         data:this.loginData
     }).then((response) => {
         if(response.status === 200){
-          let authorData = jwt_decode(response.data.jwt)
-          localStorage.setItem("jwt",response.data.jwt)
+          let authorData = jwt_decode(response.data)
+          localStorage.setItem("jwt",response.data)
           localStorage.setItem("authorData",JSON.stringify(authorData))
           this.$router.push({path:"/author/"+authorData.sub})
         }

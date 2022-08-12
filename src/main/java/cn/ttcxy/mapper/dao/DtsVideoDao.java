@@ -11,17 +11,17 @@ import java.util.List;
  */
 public interface DtsVideoDao {
 
-    DtsVideoDto selectById(@Param("videoId") String videoId);
+    DtsVideoDto selectById(String videoId);
 
-    List<DtsVideoDto> select(@Param("title") String title,@Param("classId") String classId);
+    List<DtsVideoDto> select(String title,String classId);
 
-    List<DtsVideoDto> selectByUsername(@Param("username") String username);
+    List<DtsVideoDto> selectByUsername(String username);
 
     List<DtsVideoDto> selectList(DtsVideoParam videoParam);
 
-    List<DtsVideoDto> selectGz(@Param("authorId")String authorId);
+    List<DtsVideoDto> selectGz(String authorId);
 
-    List<DtsVideoDto> search(@Param("wb") String wb);
+    List<DtsVideoDto> search(String wb);
 
     DtsVideoDto rand();
 

@@ -10,10 +10,10 @@ import java.util.List;
  */
 public interface DtsCommentDao {
 
-    List<DtsCommentDto> select(@Param("dataId") String dataId);
+    List<DtsCommentDto> select(String dataId);
 
-    List<DtsCommentDto> selectLower(@Param("commentId") String commentId);
+    List<DtsCommentDto> selectLower(String commentId);
 
-    List<DtsCommentDto> selectAll(@Param("state") String state);
+    List<DtsCommentDto> selectAll(String state);
 
 }

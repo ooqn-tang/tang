@@ -6,7 +6,7 @@ router.beforeEach((to, from, next) => {
     let authorData = JSON.parse(localStorage.getItem("authorData"))
     if (authorData != null) {
         store.state.username = authorData.sub
-        store.state.roles = authorData.authorities.split(',')
+        store.state.roles = authorData.roles.split(',')
         store.state.author = authorData.author.author
     } else {
         store.state.username = ""

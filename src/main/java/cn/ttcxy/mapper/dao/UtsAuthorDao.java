@@ -16,15 +16,15 @@ public interface UtsAuthorDao {
     @MapKey("username")
     List<Map<String,String>> selectAuthorArticleCount();
 
-    int selectMailIsTrue(@Param("mail") String mail);
+    int selectMailIsTrue(String mail);
 
-    int selectUsernameIsTrue(@Param("username") String username);
+    int selectUsernameIsTrue(String username);
 
-    UtsAuthor selectAuthorByName(@Param("authorName") String authorName);
+    UtsAuthor selectAuthorByName(String authorName);
 
-    int selectNicknameIsTrue(@Param("nickname") String nickname);
+    int selectNicknameIsTrue(String nickname);
 
-    UtsAuthor selectAuthorByMailAll(@Param("mail") String mail);
+    UtsAuthor selectAuthorByMailAll(String mail);
 
     List<UtsAuthor> selectAuthor();
 }

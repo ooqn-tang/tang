@@ -3,7 +3,7 @@ package cn.ttcxy.controller.admin;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.IdUtil;
 import cn.ttcxy.core.BaseController;
-import cn.ttcxy.core.api.ApiException;
+import cn.ttcxy.core.exception.ApiException;
 import cn.ttcxy.core.api.ResponseCode;
 import cn.ttcxy.entity.model.UtsResource;
 import cn.ttcxy.entity.param.UtsResourceParam;

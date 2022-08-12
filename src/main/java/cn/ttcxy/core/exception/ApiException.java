@@ -1,5 +1,6 @@
-package cn.ttcxy.core.api;
+package cn.ttcxy.core.exception;
 
+import cn.ttcxy.core.api.ResponseCode;
 import org.springframework.http.HttpStatus;
 
 /**

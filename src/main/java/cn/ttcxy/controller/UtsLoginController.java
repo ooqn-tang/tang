@@ -6,7 +6,7 @@ import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.lang.Validator;
 import cn.hutool.core.util.StrUtil;
 import cn.ttcxy.core.BaseController;
-import cn.ttcxy.core.api.ApiException;
+import cn.ttcxy.core.exception.ApiException;
 import cn.ttcxy.core.security.JwtProvider;
 import cn.ttcxy.entity.CurrentAuthor;
 import cn.ttcxy.entity.model.UtsAuthor;
@@ -16,7 +16,6 @@ import cn.ttcxy.entity.param.UtsRegisterParam;
 import cn.ttcxy.service.UtsAuthorService;
 import cn.ttcxy.service.UtsUserDetailsService;
 import com.alibaba.fastjson.JSONObject;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -52,32 +51,26 @@ public class UtsLoginController extends BaseController {
     private AuthenticationManagerBuilder authenticationManagerBuilder;
 
     @PostMapping("/authenticate")
-    public JwtToken authorize(@RequestBody UtsLoginParam loginParam) {
-
+    public String authorize(@RequestBody UtsLoginParam loginParam) {
         UsernamePasswordAuthenticationToken authenticationToken =
                 new UsernamePasswordAuthenticationToken(loginParam.getUsername(), loginParam.getPassword());
-
         Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
         SecurityContextHolder.getContext().setAuthentication(authentication);
-
         boolean rememberMe = loginParam.getRememberMe() != null && loginParam.getRememberMe();
-
         if (authentication.getPrincipal() instanceof UserDetails){
-            String jwt = jwtProvider.createToken(authentication.getPrincipal(), rememberMe);
-            return new JwtToken(jwt);
+            return jwtProvider.createToken(authentication.getPrincipal(), rememberMe);
         }
         throw new ApiException();
     }
 
     @PostMapping("/refresh")
-    public JwtToken refresh(@RequestBody JSONObject jsonObject) {
+    public String refresh(@RequestBody JSONObject jsonObject) {
         String jwt = jsonObject.getString("jwt");
         if (StringUtils.hasText(jwt) && jwtProvider.validateToken(jwt)) {
             Authentication authentication = jwtProvider.getAuthentication(jwt);
             CurrentAuthor oldCurrentAuthor = (CurrentAuthor) authentication.getPrincipal();
             CurrentAuthor currentAuthor = (CurrentAuthor)utsUserDetailsService.loadUserByUsername(oldCurrentAuthor.getUsername());
-            String newJwt = jwtProvider.createToken(currentAuthor, true);
-            return new JwtToken(newJwt);
+            return jwtProvider.createToken(currentAuthor, true);
         }
         throw new ApiException("无效token");
     }
@@ -125,26 +118,5 @@ public class UtsLoginController extends BaseController {
             }
         }
         throw new ApiException();
-    }
-
-    /**
-     * JWT Authentication.
-     */
-    static class JwtToken {
-
-        private String jwt;
-
-        JwtToken(String jwtToken) {
-            this.jwt = jwtToken;
-        }
-
-        @JsonProperty("jwt")
-        String getJwt() {
-            return jwt;
-        }
-
-        void setJwt(String jwt) {
-            this.jwt = jwt;
-        }
     }
 }

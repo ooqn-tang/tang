@@ -1,10 +1,12 @@
 package cn.ttcxy.core.security;
 
 import cn.ttcxy.entity.CurrentAuthor;
+import cn.ttcxy.entity.propertie.TangProperties;
 import cn.ttcxy.service.UtsAuthorService;
 import lombok.extern.java.Log;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.AntPathMatcher;
@@ -25,16 +27,14 @@ public class JwtFilter extends GenericFilterBean {
 
     private static final Logger LOG = LoggerFactory.getLogger(JwtFilter.class);
 
-    public static final String AUTHORIZATION_HEADER = "Authorization";
+    @Autowired
+    private JwtProvider jwtProvider;
 
-    private final JwtProvider jwtProvider;
+    @Autowired
+    private UtsAuthorService authorService;
 
-    private final UtsAuthorService authorService;
-
-    public JwtFilter(JwtProvider jwtProvider, UtsAuthorService authorService) {
-        this.jwtProvider = jwtProvider;
-        this.authorService = authorService;
-    }
+    @Autowired
+    private TangProperties tangProperties;
 
     private final AntPathMatcher antPathMatcher = new AntPathMatcher();
 
@@ -66,7 +66,7 @@ public class JwtFilter extends GenericFilterBean {
 
 
     private String resolveToken(HttpServletRequest request) {
-        String bearerToken = request.getHeader(AUTHORIZATION_HEADER);
+        String bearerToken = request.getHeader(tangProperties.getTokenKey());
         if (StringUtils.hasText(bearerToken)) {
             return bearerToken;
         }

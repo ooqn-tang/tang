@@ -10,6 +10,6 @@ import java.util.List;
  */
 public interface DtsCollectDao {
 
-    List<DtsDataDto> selectCollect(@Param("username") String username);
+    List<DtsDataDto> selectCollect(String username);
 
 }

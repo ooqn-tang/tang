@@ -1,6 +1,6 @@
 package cn.ttcxy.core;
 
-import cn.ttcxy.core.api.ApiException;
+import cn.ttcxy.core.exception.ApiException;
 import cn.ttcxy.core.api.ResponseCode;
 import cn.ttcxy.entity.CurrentAuthor;
 import cn.ttcxy.entity.model.UtsAuthor;

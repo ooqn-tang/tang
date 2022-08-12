@@ -2,13 +2,15 @@ package cn.ttcxy.core.security;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.ttcxy.entity.CurrentAuthor;
+import cn.ttcxy.entity.propertie.TangProperties;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import lombok.extern.java.Log;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -22,32 +24,18 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.stream.Collectors;
 
+@Log
 @Component
 public class JwtProvider implements InitializingBean {
 
-    private final Logger log = LoggerFactory.getLogger(JwtProvider.class);
-
-    private static final String AUTHORITIES_KEY = "authorities";
-    private static final String AUTHOR_KEY = "author";
-
-    private final String base64Secret;
-    private final long tokenValidityInMilliseconds;
-    private final long tokenValidityInMillisecondsForRememberMe;
+    @Autowired
+    private TangProperties tangProperties;
 
     private Key key;
 
-    public JwtProvider(
-            @Value("${jwt.base64-secret}") String base64Secret,
-            @Value("${jwt.token-validity-in-seconds}") long tokenValidityInSeconds,
-            @Value("${jwt.token-validity-in-seconds-for-remember-me}") long tokenValidityInSecondsForRememberMe) {
-        this.base64Secret = base64Secret;
-        this.tokenValidityInMilliseconds = tokenValidityInSeconds * 1000;
-        this.tokenValidityInMillisecondsForRememberMe = tokenValidityInSecondsForRememberMe * 1000;
-    }
-
     @Override
     public void afterPropertiesSet() {
-        byte[] keyBytes = Decoders.BASE64.decode(base64Secret);
+        byte[] keyBytes = Decoders.BASE64.decode(tangProperties.getJwt().getBase64Secret());
         this.key = Keys.hmacShaKeyFor(keyBytes);
     }
 
@@ -59,9 +47,9 @@ public class JwtProvider implements InitializingBean {
         long now = (new Date()).getTime();
         Date validity;
         if (rememberMe) {
-            validity = new Date(now + this.tokenValidityInMillisecondsForRememberMe);
+            validity = new Date(now + tangProperties.getJwt().getTokenValidityInSecondsForRememberMe());
         } else {
-            validity = new Date(now + this.tokenValidityInMilliseconds);
+            validity = new Date(now + tangProperties.getJwt().getTokenValidityInSeconds());
         }
 
         StringBuilder stringBuilder = new StringBuilder();
@@ -75,8 +63,8 @@ public class JwtProvider implements InitializingBean {
 
         return Jwts.builder()
                 .setSubject(currentAuthor.getUsername())
-                .claim(AUTHORITIES_KEY, stringBuilder)
-                .claim(AUTHOR_KEY, currentAuthor)
+                .claim(tangProperties.getAuthoritiesKey(), stringBuilder)
+                .claim(tangProperties.getAuthorKey(), currentAuthor)
                 .signWith(key, SignatureAlgorithm.HS512)
                 .setExpiration(validity)
                 .compact();
@@ -90,11 +78,11 @@ public class JwtProvider implements InitializingBean {
                 .getBody();
 
         Collection<? extends GrantedAuthority> authorities = Arrays
-                .stream(claims.get(AUTHORITIES_KEY).toString().split(","))
+                .stream(claims.get(tangProperties.getAuthoritiesKey()).toString().split(","))
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
 
-        CurrentAuthor principal = BeanUtil.toBean(claims.get(AUTHOR_KEY),CurrentAuthor.class);
+        CurrentAuthor principal = BeanUtil.toBean(claims.get(tangProperties.getAuthorKey()),CurrentAuthor.class);
 
         return new UsernamePasswordAuthenticationToken(principal, token, authorities);
     }
