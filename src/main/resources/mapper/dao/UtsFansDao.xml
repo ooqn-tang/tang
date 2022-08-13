@@ -25,16 +25,4 @@
         and be_author_id = #{beAuthorId}
     </select>
 
-    <insert id="insertFans" parameterType="cn.ttcxy.entity.dto.UtsFansDto">
-        insert into uts_fans (id,user_id,follower,create_date)
-        values (#{id},#{userId},#{follower},#{createDate})
-    </insert>
-
-   <delete id="deleteFans" parameterType="cn.ttcxy.entity.dto.UtsFansDto">
-       delete
-       from uts_fans
-       where user_id = #{userId}
-       and follower = #{follower}
-   </delete>
-
 </mapper>

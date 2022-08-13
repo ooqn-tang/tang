@@ -12,10 +12,6 @@ public interface UtsFansDao {
 
     int selectFans(UtsFansDto utsFansDto);
 
-    int insertFans(UtsFansDto utsFansDto);
-
-    int deleteFans(UtsFansDto utsFansDto);
-
     List<UtsFansDto> selectFansList(String userId);
 
     Integer isFans(String authorId, String beAuthorId);
