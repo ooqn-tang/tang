@@ -1,8 +1,8 @@
 package cn.ttcxy.controller;
 
-import cn.ttcxy.core.exception.ApiException;
 import cn.ttcxy.core.api.ResponseCode;
-import cn.ttcxy.entity.CurrentAuthor;
+import cn.ttcxy.core.exception.ApiException;
+import cn.ttcxy.entity.dto.UtsAuthorDto;
 import cn.ttcxy.entity.model.UtsAuthor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -21,7 +21,7 @@ public class BaseController {
     public UtsAuthor author(){
         final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication.getPrincipal() instanceof UserDetails) {
-            return ((CurrentAuthor) authentication.getPrincipal()).getAuthor();
+            return ((UtsAuthorDto) authentication.getPrincipal()).getAuthor();
         }
         throw new ApiException(ResponseCode.UNAUTHORIZED);
     }

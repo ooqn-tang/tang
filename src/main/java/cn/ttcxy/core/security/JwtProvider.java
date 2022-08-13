@@ -1,14 +1,12 @@
 package cn.ttcxy.core.security;
 
 import cn.hutool.core.bean.BeanUtil;
-import cn.ttcxy.entity.CurrentAuthor;
+import cn.ttcxy.entity.dto.UtsAuthorDto;
 import cn.ttcxy.entity.propertie.TangProperties;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import lombok.extern.java.Log;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -42,7 +40,7 @@ public class JwtProvider implements InitializingBean {
     public String createToken(Object details, boolean rememberMe) {
         UserDetails userDetails = (UserDetails) details;
         Collection<? extends GrantedAuthority> authorities = userDetails.getAuthorities();
-        CurrentAuthor currentAuthor = (CurrentAuthor) userDetails;
+        UtsAuthorDto authorDto = (UtsAuthorDto) userDetails;
 
         long now = (new Date()).getTime();
         Date validity;
@@ -62,9 +60,9 @@ public class JwtProvider implements InitializingBean {
         }
 
         return Jwts.builder()
-                .setSubject(currentAuthor.getUsername())
+                .setSubject(authorDto.getUsername())
                 .claim(tangProperties.getAuthoritiesKey(), stringBuilder)
-                .claim(tangProperties.getAuthorKey(), currentAuthor)
+                .claim(tangProperties.getAuthorKey(), authorDto)
                 .signWith(key, SignatureAlgorithm.HS512)
                 .setExpiration(validity)
                 .compact();
@@ -82,7 +80,7 @@ public class JwtProvider implements InitializingBean {
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
 
-        CurrentAuthor principal = BeanUtil.toBean(claims.get(tangProperties.getAuthorKey()),CurrentAuthor.class);
+        UtsAuthorDto principal = BeanUtil.toBean(claims.get(tangProperties.getAuthorKey()), UtsAuthorDto.class);
 
         return new UsernamePasswordAuthenticationToken(principal, token, authorities);
     }

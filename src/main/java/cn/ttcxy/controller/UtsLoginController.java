@@ -7,7 +7,7 @@ import cn.hutool.core.lang.Validator;
 import cn.hutool.core.util.StrUtil;
 import cn.ttcxy.core.exception.ApiException;
 import cn.ttcxy.core.security.JwtProvider;
-import cn.ttcxy.entity.CurrentAuthor;
+import cn.ttcxy.entity.dto.UtsAuthorDto;
 import cn.ttcxy.entity.model.UtsAuthor;
 import cn.ttcxy.entity.param.UtsLoginParam;
 import cn.ttcxy.entity.param.UtsRePasswordParam;
@@ -67,9 +67,9 @@ public class UtsLoginController extends BaseController {
         String jwt = jsonObject.getString("jwt");
         if (StringUtils.hasText(jwt) && jwtProvider.validateToken(jwt)) {
             Authentication authentication = jwtProvider.getAuthentication(jwt);
-            CurrentAuthor oldCurrentAuthor = (CurrentAuthor) authentication.getPrincipal();
-            CurrentAuthor currentAuthor = (CurrentAuthor)utsUserDetailsService.loadUserByUsername(oldCurrentAuthor.getUsername());
-            return jwtProvider.createToken(currentAuthor, true);
+            UtsAuthorDto oldAuthorDto = (UtsAuthorDto) authentication.getPrincipal();
+            UtsAuthorDto authorDto = (UtsAuthorDto)utsUserDetailsService.loadUserByUsername(oldAuthorDto.getUsername());
+            return jwtProvider.createToken(authorDto, true);
         }
         throw new ApiException("无效token");
     }

@@ -3,15 +3,57 @@ package cn.ttcxy.entity.dto;
 import cn.ttcxy.entity.model.UtsAuthor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 
 @Data
 @EqualsAndHashCode
-public class UtsAuthorDto  {
+public class UtsAuthorDto implements UserDetails {
 
-    private UtsAuthor utsAuthor;
+    private UtsAuthor author;
 
-    private Set<UtsRoleDto> utsRoleDto;
+    private List<UtsRoleDto> roleList;
 
+    public long getRefreshTime(){
+        return author.getRefreshTime().getTime();
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return roleList;
+    }
+
+    @Override
+    public String getPassword() {
+        return author.getPassword();
+    }
+
+    @Override
+    public String getUsername() {
+        return author.getUsername();
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 }

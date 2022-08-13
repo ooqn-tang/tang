@@ -3,10 +3,9 @@ package cn.ttcxy.service;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.lang.Validator;
-import cn.ttcxy.entity.CurrentAuthor;
+import cn.ttcxy.entity.dto.UtsAuthorDto;
 import cn.ttcxy.entity.dto.UtsRoleDto;
 import cn.ttcxy.entity.model.UtsAuthor;
-import cn.ttcxy.entity.model.UtsRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -36,11 +35,11 @@ public class UtsUserDetailsService implements UserDetailsService {
         }
 
         if (author != null){
-            CurrentAuthor currentAuthor = new CurrentAuthor();
-            currentAuthor.setAuthor(author);
+            UtsAuthorDto authorDto = new UtsAuthorDto();
+            authorDto.setAuthor(author);
             List<UtsRoleDto> utsRoles = utsRoleService.roleList(author.getAuthorId());
-            currentAuthor.setRoles(utsRoles);
-            return BeanUtil.toBean(currentAuthor,CurrentAuthor.class);
+            authorDto.setRoleList(utsRoles);
+            return BeanUtil.toBean(authorDto,UtsAuthorDto.class);
         }
 
         throw new UsernameNotFoundException("输入的用户名或密码不正确");

@@ -1,6 +1,6 @@
 package cn.ttcxy.core.security;
 
-import cn.ttcxy.entity.CurrentAuthor;
+import cn.ttcxy.entity.dto.UtsAuthorDto;
 import cn.ttcxy.entity.propertie.TangProperties;
 import cn.ttcxy.service.UtsAuthorService;
 import lombok.extern.java.Log;
@@ -22,7 +22,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Date;
 
-@Log
 public class JwtFilter extends GenericFilterBean {
 
     private static final Logger LOG = LoggerFactory.getLogger(JwtFilter.class);
@@ -47,9 +46,9 @@ public class JwtFilter extends GenericFilterBean {
 
         if (StringUtils.hasText(jwt) && jwtProvider.validateToken(jwt) && !antPathMatcher.match("/api/refresh",requestURI)) {
             Authentication authentication = jwtProvider.getAuthentication(jwt);
-            CurrentAuthor currentAuthor = (CurrentAuthor) authentication.getPrincipal();
-            Date date = authorService.nowTime(currentAuthor.getUsername(), currentAuthor.getRoles());
-            if (date != null && date.getTime() != currentAuthor.getRefreshTime()){
+            UtsAuthorDto authorDto = (UtsAuthorDto) authentication.getPrincipal();
+            Date date = authorService.nowTime(authorDto.getUsername(), authorDto.getRoleList());
+            if (date != null && date.getTime() != authorDto.getRefreshTime()){
                 httpServletResponse.setStatus(666);
                 httpServletResponse.getWriter().print("JWT权限刷新了");
                 return;
