@@ -19,6 +19,7 @@ import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.csrf.CsrfFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
@@ -42,6 +43,10 @@ public class MySecurityConfig {
     SecurityFilterChain httpSecurity(HttpSecurity http) throws Exception {
         http
                 .addFilterBefore(jwtFilter(), UsernamePasswordAuthenticationFilter.class)
+                .exceptionHandling()
+                .authenticationEntryPoint(MyAuthenticationEntryPoint())
+                .accessDeniedHandler(MyAccessDeniedHandler())
+                .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
@@ -55,16 +60,12 @@ public class MySecurityConfig {
 
     @Bean
     AuthenticationEntryPoint MyAuthenticationEntryPoint() {
-        return (request, response, authException) -> {
-            response.sendError(HttpServletResponse.SC_FORBIDDEN, authException.getMessage());
-        };
+        return (request, response, authException) -> response.sendError(HttpServletResponse.SC_FORBIDDEN, authException.getMessage());
     }
 
     @Bean
     AccessDeniedHandler MyAccessDeniedHandler() {
-        return (request, response, accessDeniedException) -> {
-            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, accessDeniedException.getMessage());
-        };
+        return (request, response, accessDeniedException) -> response.sendError(HttpServletResponse.SC_UNAUTHORIZED, accessDeniedException.getMessage());
     }
 
     @Bean
