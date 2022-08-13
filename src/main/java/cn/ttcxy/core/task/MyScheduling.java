@@ -1,4 +1,4 @@
-package cn.ttcxy.core;
+package cn.ttcxy.core.task;
 
 import cn.ttcxy.entity.model.StsNotice;
 import cn.ttcxy.mapper.UtsAuthorMapper;
