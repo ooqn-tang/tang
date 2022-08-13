@@ -5,7 +5,9 @@ import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.IdUtil;
 import cn.ttcxy.entity.dto.DtsArticleSubjectDto;
 import cn.ttcxy.entity.model.DtsArticle;
+import cn.ttcxy.entity.model.DtsArticleExample;
 import cn.ttcxy.entity.model.DtsArticleSubject;
+import cn.ttcxy.entity.model.DtsArticleSubjectExample;
 import cn.ttcxy.mapper.DtsArticleMapper;
 import cn.ttcxy.mapper.DtsArticleSubjectMapper;
 import cn.ttcxy.mapper.dao.DtsArticleSubjectDao;
@@ -33,7 +35,11 @@ public class DtsArticleSubjectService {
 
     public DtsArticleSubjectDto selectSubjectArticleListById(String subjectId) {
         DtsArticleSubjectDto dtsArticleSubjectDto = articleSubjectDao.selectSubjectById(subjectId);
-        List<DtsArticle> dtsArticles = articleSubjectDao.selectSubjectArticleListById(subjectId);
+
+        DtsArticleExample articleExample = new DtsArticleExample();
+        articleExample.createCriteria().andSubjectIdEqualTo(subjectId);
+        List<DtsArticle> dtsArticles = articleMapper.selectByExample(articleExample);
+
         if (dtsArticleSubjectDto == null){
             return null;
         }
@@ -70,7 +76,7 @@ public class DtsArticleSubjectService {
     }
 
     public String selectSubjectIdByArticleId(String articleId) {
-        return articleSubjectDao.selectSubjectIdByArticleId(articleId);
+        return articleMapper.selectByPrimaryKey(articleId).getSubjectId();
     }
 
     public DtsArticleSubject subjectById(String subjectId) {

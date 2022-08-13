@@ -8,12 +8,6 @@
         inner join uts_author t2 on t2.author_id  = t1.author_id and t1.subject_id = #{subjectId}
     </select>
 
-    <select id="selectSubjectArticleListById" resultType="cn.ttcxy.entity.model.DtsArticle">
-        select t1.article_id,t1.title,t1.create_date,t1.synopsis
-        from dts_article t1
-        where t1.subject_id = #{subjectId}
-    </select>
-
     <select id="selectSubjectList" resultType="cn.ttcxy.entity.dto.DtsArticleSubjectDto">
         select *
         from dts_article_subject t1
@@ -32,12 +26,6 @@
         from dts_article_subject t1
         left join uts_author t2 on t1.author_id = t2.author_id
         where t2.subject_name like concat('%',#{name},'%')
-    </select>
-
-    <select id="selectSubjectIdByArticleId" resultType="java.lang.String">
-        select t1.subject_id
-        from dts_article t1
-        where t1.article_id = #{articleId}
     </select>
 
 </mapper>

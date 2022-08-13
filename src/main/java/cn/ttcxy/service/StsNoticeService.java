@@ -2,6 +2,7 @@ package cn.ttcxy.service;
 
 import cn.hutool.core.util.IdUtil;
 import cn.ttcxy.entity.model.StsNotice;
+import cn.ttcxy.entity.model.StsNoticeExample;
 import cn.ttcxy.entity.param.StsNoticeParam;
 import cn.ttcxy.mapper.StsNoticeMapper;
 import cn.ttcxy.mapper.dao.StsNoticeDao;
@@ -27,7 +28,9 @@ public class StsNoticeService {
 
     
     public List<StsNotice> selectAllNotice() {
-        return noticeDao.selectNoticeAll();
+        StsNoticeExample noticeExample = new StsNoticeExample();
+        noticeExample.setOrderByClause("order_num");
+        return noticeMapper.selectByExample(noticeExample);
     }
 
     
@@ -39,6 +42,7 @@ public class StsNoticeService {
     public int insertNotice(StsNotice notice) {
         String id = IdUtil.objectId();
         notice.setNoticeId(id);
+
         Integer integer = noticeDao.selectNoticeMaxOrder();
         notice.setOrderNum(integer+1);
         return noticeMapper.insertSelective(notice);

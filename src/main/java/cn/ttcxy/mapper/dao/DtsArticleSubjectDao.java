@@ -13,14 +13,10 @@ public interface DtsArticleSubjectDao {
 
     DtsArticleSubjectDto selectSubjectById(String subjectId);
 
-    List<DtsArticle> selectSubjectArticleListById(String subjectId);
-
     List<DtsArticleSubjectDto> selectSubjectList();
 
     List<DtsArticleSubjectDto> selectSubjectListByUsername( String username);
 
     List<DtsArticleSubjectDto> selectSubjectListBySubjectName(String name);
-
-    String selectSubjectIdByArticleId(String articleId);
 
 }

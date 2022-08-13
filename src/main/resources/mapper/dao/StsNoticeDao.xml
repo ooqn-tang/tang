@@ -2,11 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.ttcxy.mapper.dao.StsNoticeDao">
 
-    <select id="selectNoticeAll" resultType="cn.ttcxy.entity.model.StsNotice">
-        select notice_id,title,url,create_date,description
-        from sts_notice order by order_num
-    </select>
-
     <select id="selectNoticeMaxOrder" resultType="Integer">
         select order_num from sts_notice order by order_num desc limit 1
     </select>
