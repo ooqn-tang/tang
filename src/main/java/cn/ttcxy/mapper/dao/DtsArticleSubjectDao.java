@@ -1,10 +1,8 @@
 package cn.ttcxy.mapper.dao;
 
-import cn.ttcxy.entity.dto.DtsArticleSubjectDto;
-import cn.ttcxy.entity.model.DtsArticle;
-import org.apache.ibatis.annotations.Param;
-
 import java.util.List;
+
+import cn.ttcxy.entity.dto.DtsArticleSubjectDto;
 
 /**
  * 文章专辑

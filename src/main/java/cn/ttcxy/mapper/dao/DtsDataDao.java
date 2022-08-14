@@ -1,7 +1,6 @@
 package cn.ttcxy.mapper.dao;
 
 import cn.ttcxy.entity.dto.DtsDataCount;
-import org.apache.ibatis.annotations.Param;
 
 /**
  * 同时获取视频，博客

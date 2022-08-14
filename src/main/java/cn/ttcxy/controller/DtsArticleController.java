@@ -1,24 +1,33 @@
 package cn.ttcxy.controller;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.github.pagehelper.PageInfo;
+
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.date.DateTime;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.StrUtil;
-import cn.ttcxy.core.exception.ApiException;
 import cn.ttcxy.core.api.ResponseCode;
+import cn.ttcxy.core.exception.ApiException;
 import cn.ttcxy.entity.dto.DtsArticleDto;
 import cn.ttcxy.entity.model.DtsArticle;
 import cn.ttcxy.entity.model.DtsArticleContent;
 import cn.ttcxy.entity.param.DtsArticleParam;
 import cn.ttcxy.service.DtsArticleService;
-import cn.ttcxy.service.DtsEssayService;
-import com.github.pagehelper.PageInfo;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("api/article")
@@ -26,9 +35,6 @@ public class DtsArticleController extends BaseController {
 
     @Autowired
     private DtsArticleService articleService;
-
-    @Autowired
-    private DtsEssayService essayService;
 
     @GetMapping("list")
     public PageInfo<DtsArticleDto> selectArticleList(

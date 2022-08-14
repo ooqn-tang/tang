@@ -1,17 +1,22 @@
 package cn.ttcxy.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.github.pagehelper.PageInfo;
+
 import cn.hutool.core.bean.BeanUtil;
 import cn.ttcxy.core.exception.ApiException;
 import cn.ttcxy.entity.model.UtsAuthor;
 import cn.ttcxy.entity.param.UtsAuthorParam;
 import cn.ttcxy.service.UtsAuthorService;
-import com.github.pagehelper.PageInfo;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
-
-import javax.servlet.http.HttpSession;
-import java.util.Map;
 
 @RestController
 @RequestMapping("api/author")
@@ -20,9 +25,6 @@ public class UtsAuthorController extends BaseController {
 
     @Autowired
     private UtsAuthorService authorService;
-
-    @Autowired
-    private HttpSession httpSession;
 
     @GetMapping("selectAuthor")
     public PageInfo<UtsAuthor> select(

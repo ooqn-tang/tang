@@ -1,10 +1,9 @@
 package cn.ttcxy.mapper.dao;
 
+import java.util.List;
+
 import cn.ttcxy.entity.dto.UtsRoleResourceDto;
 import cn.ttcxy.entity.model.UtsResource;
-import org.apache.ibatis.annotations.Param;
-
-import java.util.List;
 
 /**
  * 资源

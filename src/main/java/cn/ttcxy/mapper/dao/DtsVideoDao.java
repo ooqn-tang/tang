@@ -1,10 +1,9 @@
 package cn.ttcxy.mapper.dao;
 
+import java.util.List;
+
 import cn.ttcxy.entity.dto.DtsVideoDto;
 import cn.ttcxy.entity.param.DtsVideoParam;
-import org.apache.ibatis.annotations.Param;
-
-import java.util.List;
 
 /**
  * 视频

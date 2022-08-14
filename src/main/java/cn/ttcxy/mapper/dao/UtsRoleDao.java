@@ -1,10 +1,8 @@
 package cn.ttcxy.mapper.dao;
 
-import cn.ttcxy.entity.dto.UtsRoleDto;
-import cn.ttcxy.entity.model.UtsRole;
-import org.apache.ibatis.annotations.Param;
-
 import java.util.List;
+
+import cn.ttcxy.entity.dto.UtsRoleDto;
 
 /**
  * 角色

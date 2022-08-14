@@ -1,17 +1,17 @@
 package cn.ttcxy.service;
 
-import cn.hutool.core.date.DateUtil;
-import cn.hutool.core.util.IdUtil;
-import cn.ttcxy.mapper.dao.DtsEssayDao;
-import cn.ttcxy.entity.dto.DtsEssayDto;
-import cn.ttcxy.entity.model.DtsEssay;
-import cn.ttcxy.mapper.DtsEssayMapper;
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+
+import cn.hutool.core.date.DateUtil;
+import cn.hutool.core.util.IdUtil;
+import cn.ttcxy.entity.dto.DtsEssayDto;
+import cn.ttcxy.entity.model.DtsEssay;
+import cn.ttcxy.mapper.DtsEssayMapper;
+import cn.ttcxy.mapper.dao.DtsEssayDao;
 
 @Service
 public class DtsEssayService {
