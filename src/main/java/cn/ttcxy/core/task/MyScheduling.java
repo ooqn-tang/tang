@@ -1,16 +1,17 @@
 package cn.ttcxy.core.task;
 
-import cn.ttcxy.entity.model.StsNotice;
-import cn.ttcxy.mapper.UtsAuthorMapper;
-import cn.ttcxy.service.StsNoticeService;
+import java.util.List;
+
+import javax.servlet.ServletContext;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.WebApplicationContext;
 
-import javax.servlet.ServletContext;
-import java.util.List;
+import cn.ttcxy.entity.model.StsNotice;
+import cn.ttcxy.service.StsNoticeService;
 
 /**
  * 定时器
@@ -18,9 +19,6 @@ import java.util.List;
 @Component
 @EnableScheduling
 public class MyScheduling {
-
-    @Autowired
-    private UtsAuthorMapper authorMapper;
 
     @Autowired
     private StsNoticeService stsNoticeService;

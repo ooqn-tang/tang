@@ -1,9 +1,15 @@
 package cn.ttcxy.core.security;
 
-import cn.ttcxy.entity.dto.UtsAuthorDto;
-import cn.ttcxy.entity.propertie.TangProperties;
-import cn.ttcxy.service.UtsAuthorService;
-import lombok.extern.java.Log;
+import java.io.IOException;
+import java.util.Date;
+
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,14 +19,9 @@ import org.springframework.util.AntPathMatcher;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.GenericFilterBean;
 
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.util.Date;
+import cn.ttcxy.entity.dto.UtsAuthorDto;
+import cn.ttcxy.entity.propertie.TangProperties;
+import cn.ttcxy.service.UtsAuthorService;
 
 public class JwtFilter extends GenericFilterBean {
 

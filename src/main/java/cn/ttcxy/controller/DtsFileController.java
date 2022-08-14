@@ -75,37 +75,38 @@ public class DtsFileController extends BaseController {
             File file = new File(tangFile + File.separator + fileName);
             if (file.exists()) {
                 //创建随机读取文件对象
-                RandomAccessFile targetFile = new RandomAccessFile(file, "r");
-                long fileLength = file.length();
-                //获取从那个字节开始读取文件
-                String rangeString = request.getHeader("Range");
-                if (rangeString != null) {//如果rangeString不为空，证明是播放视频发来的请求
-                    long range = Long.parseLong(rangeString.substring(rangeString.indexOf("=") + 1, rangeString.indexOf("-")));
-                    //设置内容类型
-                    response.setHeader("Content-Type", "img/png");
-                    //设置此次相应返回的数据长度
-                    response.setHeader("Content-Length", String.valueOf(fileLength - range));
-                    //设置此次相应返回的数据范围
-                    response.setHeader("Content-Range", "bytes "+range+"-"+(fileLength-1)+"/"+fileLength);
-                    //返回码需要为206，而不是200
-                    response.setStatus(HttpServletResponse.SC_PARTIAL_CONTENT);
-                    //设定文件读取开始位置（以字节为单位）
-                    targetFile.seek(range);
-                }else {
-                    //设置响应头，把文件名字设置好
-                    response.setHeader("Content-Disposition", "attachment; filename=caiwei.mp4" );
-                    //设置文件长度
-                    response.setHeader("Content-Length", String.valueOf(fileLength));
-                    //解决编码问题
-                    response.setHeader("Content-Type","application/octet-stream");
+                try (RandomAccessFile targetFile = new RandomAccessFile(file, "r")) {
+                    long fileLength = file.length();
+                    //获取从那个字节开始读取文件
+                    String rangeString = request.getHeader("Range");
+                    if (rangeString != null) {//如果rangeString不为空，证明是播放视频发来的请求
+                        long range = Long.parseLong(rangeString.substring(rangeString.indexOf("=") + 1, rangeString.indexOf("-")));
+                        //设置内容类型
+                        response.setHeader("Content-Type", "img/png");
+                        //设置此次相应返回的数据长度
+                        response.setHeader("Content-Length", String.valueOf(fileLength - range));
+                        //设置此次相应返回的数据范围
+                        response.setHeader("Content-Range", "bytes "+range+"-"+(fileLength-1)+"/"+fileLength);
+                        //返回码需要为206，而不是200
+                        response.setStatus(HttpServletResponse.SC_PARTIAL_CONTENT);
+                        //设定文件读取开始位置（以字节为单位）
+                        targetFile.seek(range);
+                    }else {
+                        //设置响应头，把文件名字设置好
+                        response.setHeader("Content-Disposition", "attachment; filename=caiwei.mp4" );
+                        //设置文件长度
+                        response.setHeader("Content-Length", String.valueOf(fileLength));
+                        //解决编码问题
+                        response.setHeader("Content-Type","application/octet-stream");
 
-                }
-                byte[] cache = new byte[1024 * 300];
-                int flag;
-                while ((flag = targetFile.read(cache))!=-1){
-                    try{
-                        outputStream.write(cache, 0, flag);
-                    }catch (ClientAbortException ignored){}
+                    }
+                    byte[] cache = new byte[1024 * 300];
+                    int flag;
+                    while ((flag = targetFile.read(cache))!=-1){
+                        try{
+                            outputStream.write(cache, 0, flag);
+                        }catch (ClientAbortException ignored){}
+                    }
                 }
             }else{
                 String message = "file:"+fileName+" not exists";

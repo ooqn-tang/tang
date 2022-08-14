@@ -1,13 +1,11 @@
 package cn.ttcxy;
 
-import cn.hutool.db.nosql.redis.RedisDS;
-import cn.hutool.setting.Setting;
-import cn.ttcxy.mapper.dao.DtsArticleDao;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.io.File;
+import cn.hutool.db.nosql.redis.RedisDS;
+import cn.ttcxy.mapper.dao.DtsArticleDao;
 
 @SpringBootTest
 class TangApplicationTests {

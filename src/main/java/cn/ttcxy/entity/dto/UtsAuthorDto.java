@@ -1,14 +1,14 @@
 package cn.ttcxy.entity.dto;
 
-import cn.ttcxy.entity.model.UtsAuthor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import java.util.Collection;
+import java.util.List;
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Set;
+import cn.ttcxy.entity.model.UtsAuthor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
 @EqualsAndHashCode

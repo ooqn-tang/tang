@@ -1,28 +1,29 @@
 package cn.ttcxy.service;
 
-import cn.hutool.core.thread.ThreadUtil;
-import cn.ttcxy.entity.dto.DtsArticleDto;
-import cn.ttcxy.entity.model.*;
-import cn.ttcxy.mapper.DtsArticleContentMapper;
-import cn.ttcxy.mapper.DtsArticleMapper;
-import cn.ttcxy.mapper.dao.DtsArticleDao;
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.concurrent.ExecutorService;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+
+import cn.ttcxy.entity.dto.DtsArticleDto;
+import cn.ttcxy.entity.model.DtsArticle;
+import cn.ttcxy.entity.model.DtsArticleContent;
+import cn.ttcxy.entity.model.DtsArticleExample;
+import cn.ttcxy.entity.model.DtsEssay;
+import cn.ttcxy.mapper.DtsArticleContentMapper;
+import cn.ttcxy.mapper.DtsArticleMapper;
+import cn.ttcxy.mapper.dao.DtsArticleDao;
 
 /**
  * 博客服务
  */
 @Service
 public class DtsArticleService {
-
-    private static final ExecutorService executorService = ThreadUtil.newExecutor(50);
 
     private static List<DtsArticleDto> cache = new ArrayList<>();
 
@@ -31,12 +32,6 @@ public class DtsArticleService {
 
     @Autowired
     private DtsArticleMapper articleMapper;
-
-    @Autowired
-    private DtsMessageService messageService;
-
-    @Autowired
-    private DtsArticleSubjectService articleSubjectService;
 
     @Autowired
     private DtsEssayService dynamicService;

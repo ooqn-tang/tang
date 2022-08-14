@@ -1,31 +1,38 @@
 package cn.ttcxy.service;
 
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
+import org.springframework.stereotype.Service;
+
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.RandomUtil;
 import cn.ttcxy.entity.dto.UtsRoleDto;
-import cn.ttcxy.entity.model.*;
+import cn.ttcxy.entity.model.UtsAuthor;
+import cn.ttcxy.entity.model.UtsAuthorExample;
+import cn.ttcxy.entity.model.UtsAuthorRole;
+import cn.ttcxy.entity.model.UtsAuthorRoleExample;
+import cn.ttcxy.entity.model.UtsRole;
 import cn.ttcxy.entity.param.UtsRoleParam;
 import cn.ttcxy.mapper.UtsAuthorMapper;
 import cn.ttcxy.mapper.UtsAuthorRoleMapper;
-import cn.ttcxy.mapper.dao.UtsAuthorDao;
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DuplicateKeyException;
-import org.springframework.stereotype.Service;
-
-import java.util.*;
 
 /**
  * 创作者服务
  */
 @Service
 public class UtsAuthorService {
-
-    @Autowired
-    private UtsAuthorDao authorDao;
 
     @Autowired
     private UtsAuthorMapper utsAuthorMapper;
@@ -37,8 +44,6 @@ public class UtsAuthorService {
     private UtsRoleService roleService;
 
     private static final Map<String,Date> usernameTime = new HashMap<>();
-
-    private static final Map<String,Date> roleNameTime = new HashMap<>();
 
     public UtsAuthor selectAuthorByName(String username) {
         UtsAuthorExample authorExample = new UtsAuthorExample();
@@ -102,7 +107,6 @@ public class UtsAuthorService {
 
     public PageInfo<UtsAuthor> selectAuthor(Integer page, Integer size) {
         PageHelper.startPage(page, size);
-        UtsAuthorExample example = new UtsAuthorExample();
         return new PageInfo<>(utsAuthorMapper.selectByExample(null));
     }
 

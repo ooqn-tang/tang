@@ -1,11 +1,10 @@
 package cn.ttcxy.entity.dto;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import java.util.Date;
+
 import org.springframework.security.core.GrantedAuthority;
 
-import java.util.Date;
-import java.util.Objects;
+import lombok.Data;
 
 /**
  * 角色

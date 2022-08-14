@@ -23,6 +23,4 @@ public class DtsEssayDto {
 
     private String username;
 
-    private static final long serialVersionUID = 1L;
-
 }

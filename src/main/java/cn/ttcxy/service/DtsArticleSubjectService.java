@@ -1,5 +1,13 @@
 package cn.ttcxy.service;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+
 import cn.hutool.core.date.DateTime;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.IdUtil;
@@ -7,16 +15,9 @@ import cn.ttcxy.entity.dto.DtsArticleSubjectDto;
 import cn.ttcxy.entity.model.DtsArticle;
 import cn.ttcxy.entity.model.DtsArticleExample;
 import cn.ttcxy.entity.model.DtsArticleSubject;
-import cn.ttcxy.entity.model.DtsArticleSubjectExample;
 import cn.ttcxy.mapper.DtsArticleMapper;
 import cn.ttcxy.mapper.DtsArticleSubjectMapper;
 import cn.ttcxy.mapper.dao.DtsArticleSubjectDao;
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class DtsArticleSubjectService {
@@ -29,9 +30,6 @@ public class DtsArticleSubjectService {
 
     @Autowired
     private DtsArticleMapper articleMapper;
-
-    @Autowired
-    private DtsArticleService articleService;
 
     public DtsArticleSubjectDto selectSubjectArticleListById(String subjectId) {
         DtsArticleSubjectDto dtsArticleSubjectDto = articleSubjectDao.selectSubjectById(subjectId);
