@@ -1,5 +1,10 @@
 package cn.ttcxy.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.github.pagehelper.PageInfo;
+
 import cn.hutool.core.date.DateTime;
 import cn.hutool.core.util.IdUtil;
 import cn.ttcxy.entity.dto.UtsFansDto;
@@ -7,11 +12,7 @@ import cn.ttcxy.entity.model.UtsAuthor;
 import cn.ttcxy.entity.model.UtsFans;
 import cn.ttcxy.entity.model.UtsFansExample;
 import cn.ttcxy.mapper.UtsFansMapper;
-import cn.ttcxy.mapper.dao.UtsAuthorDao;
 import cn.ttcxy.mapper.dao.UtsFansDao;
-import com.github.pagehelper.PageInfo;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 /**
  * 粉丝相关服务
@@ -24,9 +25,6 @@ public class UtsFansService {
 
     @Autowired
     private UtsFansMapper fansMapper;
-
-    @Autowired
-    private UtsAuthorDao utsAuthorDao;
 
     @Autowired
     private UtsAuthorService authorService;
