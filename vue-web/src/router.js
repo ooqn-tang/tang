@@ -161,7 +161,12 @@ const routes = [
     {
         path: '/login',
         name: 'login',
-        component: () => import('views/login/index.vue')
+        component: () => import('views/home/login.vue')
+    },
+    {
+        path: '/register',
+        name: 'register',
+        component: () => import('views/home/register.vue')
     },
     {
         path: '/:catchAll(.*)',
