@@ -15,14 +15,12 @@ class TangApplicationTests {
 
 	@Test
 	void contextLoads() {
-		System.out.println(dtsArticleDao.selectArticleById(""));
+		dtsArticleDao.selectArticleById("");
 	}
 
 	public static void main(String[] args) {
 		RedisDS redisDS = RedisDS.create();
-
 		redisDS.setStr("test","asdfasdf");
-
 		System.out.println(redisDS.getStr("test"));
 	}
 }

@@ -20,6 +20,8 @@ import java.security.Key;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Log
@@ -58,6 +60,7 @@ public class JwtProvider implements InitializingBean {
         if (stringBuilder.length() > 0){
             stringBuilder.deleteCharAt(stringBuilder.length() - 1);
         }
+        
 
         return Jwts.builder()
                 .setSubject(authorDto.getUsername())
