@@ -9,11 +9,7 @@
           placeholder="请输入"
           aria-label="请输入"
           aria-describedby="button-addon2"/>
-        <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">搜索</button>
-        <ul class="dropdown-menu dropdown-menu-end">
-          <li><a class="dropdown-item" href="#" @click="form.type = 'video' , so()">视频</a></li>
-          <li><a class="dropdown-item" href="#" @click="form.type = 'article' , so()">文章</a></li>
-        </ul>
+        <button class="btn btn-outline-secondary" type="button" data-bs-toggle="dropdown" aria-expanded="false" @click="form.type = 'article' , so()">搜索</button>
       </div>
       <ul class="list-group mb-2 move-b-lr-0" v-if="form.type == 'video'">
         <li  class="list-group-item move-b-lr-0" v-for="(item, index) in dataList" :key="index">
@@ -59,7 +55,7 @@ export default {
       searchText: "视频",
       form: {
         wb: "",
-        type: "video"
+        type: "article"
       },
       dataList: [],
       videoData: {},

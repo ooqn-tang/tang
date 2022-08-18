@@ -6,7 +6,6 @@
            <nav class="nav">
               <a class="nav-link" :class="selectClassId == 'gz' ? 'nav-link-active' : ''" @click="selectClassClick('gz')">关注</a>
               <a class="nav-link" :class="selectClassId == ''?'nav-link-active':''" @click="selectClassClick('')">最新</a>
-              <a class="nav-link" v-for="(item,index) in classList" @click="selectClassClick(item.classId)" :key="index" :class="selectClassId == item.classId?'nav-link-active':''">{{item.className}}</a>
             </nav>
          </div>
        </div>
@@ -50,7 +49,6 @@ export default {
     return {
       selectClassId:'',
       selectType:1,
-      classList:[],
       articlePage:{
         nextPage:1
       },
@@ -59,13 +57,7 @@ export default {
     }
   },
   created(){
-    request({
-      url: "/api/class",
-      method: "get",
-      params:{"type":"article"}
-    }).then((response) => {
-      this.classList = response.data
-    });
+   
   },
   methods: {
     selectClassClick(classId){

@@ -1,4 +1,5 @@
 <template>
+<div style="height:100%">
   <div class="head">
     <input
       type="text"
@@ -65,18 +66,6 @@
               </option>
             </select>
           </div>
-          <div>
-            <select class="form-select" v-model="articleData.classId">
-              <option value="">请选择分类</option>
-              <option
-                v-for="(item, index) in classList"
-                :key="index"
-                :value="item.classId"
-              >
-                {{ item.className }}
-              </option>
-            </select>
-          </div>
         </div>
         <div class="modal-footer">
           <button
@@ -93,6 +82,7 @@
         </div>
       </div>
     </div>
+  </div>
   </div>
 </template>
 <script>
@@ -121,7 +111,6 @@ export default {
       subjectId: "",
       classId: "",
       subjectList: [],
-      classList: [],
       subjectMap: {},
     };
   },
@@ -174,15 +163,6 @@ export default {
         this.subjectList = response.data.list;
       });
     },
-    loadAllClassList() {
-      request({
-        url: "/api/class",
-        method: "get",
-        params: { type: "article" },
-      }).then((response) => {
-        this.classList = response.data;
-      });
-    },
     changeFlag(flag) {
       this.flag = flag;
     },
@@ -199,7 +179,6 @@ export default {
   },
   mounted() {
     this.loadSubject();
-    this.loadAllClassList();
     this.loadArticleAllInfo(this.thisArticleId);
   },
 };

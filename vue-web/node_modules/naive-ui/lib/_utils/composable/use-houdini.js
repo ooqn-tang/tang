@@ -1,0 +1,32 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.useHoudini = void 0;
+let houdiniRegistered = false;
+function useHoudini() {
+    if (typeof window === 'undefined')
+        return;
+    if (!window.CSS)
+        return;
+    if (!houdiniRegistered) {
+        houdiniRegistered = true;
+        if ('registerProperty' in (window === null || window === void 0 ? void 0 : window.CSS)) {
+            try {
+                ;
+                CSS.registerProperty({
+                    name: '--n-color-start',
+                    syntax: '<color>',
+                    inherits: false,
+                    initialValue: '#0000'
+                });
+                CSS.registerProperty({
+                    name: '--n-color-end',
+                    syntax: '<color>',
+                    inherits: false,
+                    initialValue: '#0000'
+                });
+            }
+            catch (e) { }
+        }
+    }
+}
+exports.useHoudini = useHoudini;

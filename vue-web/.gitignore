@@ -1,0 +1,6 @@
+/target/
+/.idea/
+/vue-web/.vscode/
+/vue-web/node_modules/
+/vue-web/dist/
+/.vscode/

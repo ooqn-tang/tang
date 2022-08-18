@@ -13,10 +13,10 @@
             <a class="nav-link active" href="/article">📰文章</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" href="/video">📺视频</a>
+            <router-link class="nav-link active" to="/essay">📝短文</router-link>
           </li>
           <li class="nav-item">
-            <router-link class="nav-link active" to="/essay">📝短文</router-link>
+            <router-link class="nav-link active" to="/authors">👨‍🎓作者</router-link>
           </li>
           <li class="nav-item">
             <router-link class="nav-link active" to="/subject">📒专题</router-link>
@@ -33,9 +33,8 @@
             <a class="nav-link active dropdown-toggle" href="#" data-bs-toggle="dropdown">{{title}}</a>
             <ul class="dropdown-menu">
               <li><a class="dropdown-item" href="/article">📰文章</a></li>
-              <li><a class="dropdown-item" href="/video">📺视频</a></li>
-              <li><a class="dropdown-item" href="/essay">短文</a></li>
-              <!-- <li><a class="dropdown-item" href="/authors">👨‍🎓作者</a></li> -->
+              <li><a class="dropdown-item" href="/essay">📝短文</a></li>
+              <li><a class="dropdown-item" href="/authors">👨‍🎓作者</a></li>
               <li><a class="dropdown-item" href="/subject">📒专题</a></li>
               <li><a class="dropdown-item" href="/dynamic" v-if="isLogin">📒动态</a></li>
             </ul>
@@ -52,12 +51,9 @@
             <li class="nav-item pc" v-if="isLogin">
               <router-link class="nav-link active" to="/message">消息</router-link>
             </li>
-            <li class="nav-item dropdown" v-if="isLogin">
-              <a class="nav-link active dropdown-toggle" href="#" data-bs-toggle="dropdown">投稿</a>
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#" @click="createVideo()">📺视频</a></li>
-                <li><a class="dropdown-item" href="#" @click="createArticle()">📰文章</a></li>
-              </ul>
+            
+            <li class="nav-item pc" v-if="isLogin">
+              <a class="nav-link active" @click="createArticle()">投稿</a>
             </li>
             <li class="nav-item" v-if="isLogin">
               <a class="nav-link active" :href="'/author/' + $store.state.username">我的</a>

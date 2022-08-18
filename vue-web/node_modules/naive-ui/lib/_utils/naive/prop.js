@@ -1,0 +1,29 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.smallerSize = exports.largerSize = void 0;
+function largerSize(size) {
+    switch (size) {
+        case 'tiny':
+            return 'small';
+        case 'small':
+            return 'medium';
+        case 'medium':
+            return 'large';
+        case 'large':
+            return 'huge';
+    }
+}
+exports.largerSize = largerSize;
+function smallerSize(size) {
+    switch (size) {
+        case 'small':
+            return 'tiny';
+        case 'medium':
+            return 'small';
+        case 'large':
+            return 'medium';
+        case 'huge':
+            return 'large';
+    }
+}
+exports.smallerSize = smallerSize;
