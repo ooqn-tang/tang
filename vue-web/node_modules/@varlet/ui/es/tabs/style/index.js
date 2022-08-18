@@ -1,5 +1,0 @@
-import '../../styles/common.css'
-import '../../styles/elevation.css'
-import '../../sticky/sticky.css'
-import '../tabs.css'
-import '../TabsSfc.css'

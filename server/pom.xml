@@ -118,7 +118,6 @@
 			<artifactId>javase</artifactId>
 			<version>3.5.0</version>
 		</dependency>
-		<!-- redis-->
 		<dependency>
 			<groupId>redis.clients</groupId>
 			<artifactId>jedis</artifactId>

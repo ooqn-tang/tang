@@ -1,8 +1,0 @@
-import '../../styles/common.css'
-import '../../menu/menu.css'
-import '../../cell/cell.css'
-import '../../input/input.css'
-import '../../ripple/ripple.css'
-import '../../icon/icon.css'
-import '../pagination.css'
-import '../PaginationSfc.css'

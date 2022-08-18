@@ -1,5 +1,0 @@
-import '../../styles/common.css'
-import '../../icon/icon.css'
-import '../../form-details/formDetails.css'
-import '../input.css'
-import '../InputSfc.css'

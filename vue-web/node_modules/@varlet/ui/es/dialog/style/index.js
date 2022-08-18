@@ -1,5 +1,0 @@
-import '../../styles/common.css'
-import '../../popup/popup.css'
-import '../../button/button.css'
-import '../dialog.css'
-import '../DialogSfc.css'
