@@ -32,21 +32,6 @@ const routes = [
                 component: () => import('views/article/index.vue')
             },
             {
-                path: '/video',
-                name: 'video',
-                component: () => import('views/video/index.vue')
-            },
-            {
-                path: 'video/:id',
-                name: 'video_info',
-                component: () => import('views/video/video.vue')
-            },
-            {
-                path: 'video/:id/contribute',
-                name: 'video_contribute',
-                component: () => import('views/video/contribute.vue')
-            },
-            {
                 path: '/author/:username',
                 name:'author_index',
                 component: () => import('views/author/index.vue'),
@@ -55,11 +40,6 @@ const routes = [
                         path: '',
                         name: 'author_article',
                         component: () => import('views/author/article.vue')
-                    },
-                    {
-                        path: 'video',
-                        name: 'author_video',
-                        component: () => import('views/author/video.vue')
                     },
                     {
                         path: 'setting',
@@ -116,13 +96,9 @@ const routes = [
         path: '/admin',
         name: 'admin',
         component: () => import('views/admin/index.vue'),
-        redirect:"/admin/video",
+        redirect:"/admin/comment",
         children:[
             {
-                path:"video",
-                name:"admin_video",
-                component: () => import('views/admin/video.vue')
-            },{
                 path:"comment",
                 name:"admin_comment",
                 component: () => import('views/admin/comment.vue')
