@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.ttcxy.mapper.dao.DtsEssayDao">
+    <select id="select" resultType="cn.ttcxy.entity.dto.DtsEssayDto">
+        select t1.essay_id,t1.text,t1.url,t1.create_time,t1.cover_url,t2.username,t2.nickname
+        from dts_essay t1, uts_author t2
+        where t1.author_id = t2.author_id
+        order by create_time desc
+    </select>
+</mapper>
