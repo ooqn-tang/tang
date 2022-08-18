@@ -1,0 +1,1 @@
+import{_ as e}from"./index.2f223259.js";import"./vendor.69c4f9d0.js";const s={name:"admin_class",data(){return{}},created(){},methods:{},mounted(){}};function _(a,t,r,c,d,n){return" class "}var u=e(s,[["render",_],["__scopeId","data-v-350e4098"]]);export{u as default};

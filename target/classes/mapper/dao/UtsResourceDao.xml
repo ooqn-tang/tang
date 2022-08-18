@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.ttcxy.mapper.dao.UtsResourceDao">
+    <resultMap type="cn.ttcxy.entity.dto.UtsRoleResourceDto" id="res">
+        <id column="path" property="path"/>
+        <association property="roleSet" javaType="cn.ttcxy.entity.model.UtsRole">
+            <id column="role_value" property="roleValue"/>
+        </association>
+    </resultMap>
+    <select id="selectAll" resultMap="res">
+        select path,name
+        from uts_resource t1, uts_resource_role t2 ,uts_role t3
+        where t1.resource_id = t2.resource_id and t3.role_id = t2.role_id
+    </select>
+    <select id="loadResourceUrlByRoleValue" resultType="cn.ttcxy.entity.model.UtsResource">
+        select path,type
+        from uts_resource t1, uts_resource_role t2 ,uts_role t3
+        where t1.resource_id = t2.resource_id and t3.role_id = t2.role_id and t3.role_value = #{roleValue}
+    </select>
+    <select id="selectByRoleId" resultType="java.lang.String">
+        SELECT t1.resource_id
+        FROM `uts_resource` t1 , `uts_resource_role` t2
+        where t1.resource_id = t2.resource_id and t2.role_id = #{roleId}
+    </select>
+</mapper>
