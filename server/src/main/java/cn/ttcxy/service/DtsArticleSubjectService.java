@@ -37,7 +37,6 @@ public class DtsArticleSubjectService {
         DtsArticleExample articleExample = new DtsArticleExample();
         articleExample.createCriteria().andSubjectIdEqualTo(subjectId);
         List<DtsArticle> dtsArticles = articleMapper.selectByExample(articleExample);
-
         if (dtsArticleSubjectDto == null){
             return null;
         }

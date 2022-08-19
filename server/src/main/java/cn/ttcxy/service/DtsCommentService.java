@@ -22,9 +22,6 @@ public class DtsCommentService {
     @Autowired
     private DtsCommentDao commentDao;
 
-    @Autowired
-    private DtsMessageService messageService;
-
     public int insert(DtsComment comment) {
         return commentMapper.insertSelective(comment);
     }
