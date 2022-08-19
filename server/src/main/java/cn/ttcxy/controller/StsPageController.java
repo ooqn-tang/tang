@@ -40,7 +40,12 @@ public class StsPageController {
         DtsArticleDto articleDto = articleService.selectArticleById(id);
         model.addAttribute("article", articleDto);
         String subjectId = articleSubjectService.selectSubjectIdByArticleId(id);
-        model.addAttribute("subject", articleSubjectService.selectSubjectArticleListById(subjectId));
+        
+        if(subjectId!=null){
+            DtsArticleSubjectDto selectSubjectArticleListById = articleSubjectService.selectSubjectArticleListById(subjectId);
+            model.addAttribute("subject", selectSubjectArticleListById);
+        }
+       
         model.addAttribute("notice", noticeService.selectAllNotice());
         return "article";
     }
