@@ -2,6 +2,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch ImgUtil",
+            "request": "launch",
+            "mainClass": "cn.ttcxy.util.ImgUtil",
+            "projectName": "tang"
+        },
+        {
+            "type": "java",
             "name": "Spring Boot-TangApplication<tang>",
             "request": "launch",
             "cwd": "${workspaceFolder}",
