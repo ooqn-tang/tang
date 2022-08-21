@@ -9,7 +9,7 @@
 		<relativePath/>
 	</parent>
 	<groupId>cn.ttcxy</groupId>
-	<artifactId>tang</artifactId>
+	<artifactId>tang-server</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>tang-server</name>
 	<description>Tang project for Spring Boot</description>
