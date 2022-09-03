@@ -10,7 +10,7 @@ spring:
   main:
     allow-circular-references: true
   jackson:
-    default-property-inclusion: non_null
+    default-property-inclusion: non-null
     date-format: yyyy.MM.dd
     time-zone: GMT+8
     locale: zh_CN

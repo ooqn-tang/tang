@@ -146,6 +146,10 @@ export default {
       });
     },
     saveArticle() {
+      if(this.articleData.title == undefined || this.articleData.title == ""){
+        alert("请输入标题！")
+        return;
+      }
       request({
         url: "/api/article",
         method: "PUT",

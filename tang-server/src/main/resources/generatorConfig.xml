@@ -19,11 +19,7 @@
             <property name="suppressDate" value="true"/>
             <property name="suppressAllComments" value="true"/>
         </commentGenerator>
-        <jdbcConnection
-                driverClass="com.mysql.cj.jdbc.Driver"
-                connectionURL="jdbc:mysql://sh-cdb-jcq85ghy.sql.tencentcdb.com:59069/tang?serverTimezone=Asia/Shanghai&amp;useUnicode=true&amp;characterEncoding=utf-8&amp;useSSL=true"
-                userId="root"
-                password="Mima135654">
+        <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver" connectionURL="jdbc:mysql://sh-cdb-jcq85ghy.sql.tencentcdb.com:59069/tang" userId="root" password="Mima135654">
             <!--解决mysql驱动升级到8.0后不生成指定数据库代码的问题-->
             <property name="nullCatalogMeansCurrent" value="true"/>
         </jdbcConnection>
