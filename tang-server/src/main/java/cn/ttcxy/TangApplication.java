@@ -19,6 +19,7 @@ import java.security.Principal;
 @MapperScan("cn.ttcxy.mapper")
 public class TangApplication {
 
+
 	@Bean
 	@ConditionalOnProperty(value = "tang-https", havingValue = "true")
 	public ServletWebServerFactory servletContainer() {
