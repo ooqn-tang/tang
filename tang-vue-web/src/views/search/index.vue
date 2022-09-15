@@ -9,21 +9,9 @@
           placeholder="请输入"
           aria-label="请输入"
           aria-describedby="button-addon2"/>
-        <button class="btn btn-outline-secondary" type="button" data-bs-toggle="dropdown" aria-expanded="false" @click="form.type = 'article' , so()">搜索</button>
+        <button class="btn btn-outline-secondary" type="button" @click="dataList = [] , so()">搜索</button>
       </div>
-      <ul class="list-group mb-2 move-b-lr-0" v-if="form.type == 'video'">
-        <li  class="list-group-item move-b-lr-0" v-for="(item, index) in dataList" :key="index">
-          <a class="article-title">
-            <strong><p @click="openVideo(item.videoId)">{{ item.title }}</p></strong>
-          </a>
-          <div>
-            <span class="date-color" style="font-size: 16px; color: #5f5a5a">2020.02.02</span>
-            <a href="#" class=" float-end">{{ item.nickname }}</a>
-          </div>
-        </li>
-      </ul>
-
-      <ul class="list-group mb-2 move-b-lr-0" v-if="form.type == 'article'">
+      <ul class="list-group mb-2 move-b-lr-0">
         <li  class="list-group-item" v-for="(item, index) in dataList" :key="index">
           <a class="article-title">
             <strong><p @click="openArticle(item.articleId)">{{ item.title }}</p></strong>
@@ -32,6 +20,9 @@
             <span class="date-color" style="font-size: 16px; color: #5f5a5a">2020.02.02</span>
             <a href="#" class=" float-end">{{ item.nickname }}</a>
           </div>
+        </li>
+        <li class="list-group-item" v-if="videoData.nextPage!=0">
+          <a @click="next()" v-if="!isLoding">获取{{}}</a><a v-if="isLoding">加载中...</a>
         </li>
       </ul>
     </div>
@@ -54,9 +45,9 @@ export default {
     return {
       searchText: "视频",
       form: {
-        wb: "",
-        type: "article"
+        wb: ""
       },
+      isLoding:true,
       dataList: [],
       videoData: {},
     };
@@ -65,14 +56,20 @@ export default {
   created() {},
   methods: {
     so() {
-      this.form.page = this.videoData.nextPage;
+      this.isLoding = true;
       request({
-        url: "/api/"+this.form.type+"/so",
+        url: "/api/article/so",
         method: "GET",
         params: this.form,
       }).then((response) => {
-        this.dataList = response.data.list;
+        this.videoData = response.data;
+        this.dataList = this.dataList.concat(response.data.list)
+        this.isLoding = false;
       });
+    },
+    next(){
+      this.form.page = this.videoData.nextPage;
+      this.so();
     },
     openVideo(videoId) {
       this.$router.push({ name: "video_info", params: { id: videoId } });
