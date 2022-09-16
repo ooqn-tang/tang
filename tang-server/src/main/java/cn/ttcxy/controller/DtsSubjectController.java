@@ -37,7 +37,6 @@ public class DtsSubjectController extends BaseController {
         return articleSubjectService.selectSubjectArticleListById(subjectId);
     }
 
-
     @GetMapping("list")
     public PageInfo<DtsArticleSubjectDto> selectSubject(
             @RequestParam(value = "page", defaultValue = "0") Integer page) {
@@ -77,13 +76,12 @@ public class DtsSubjectController extends BaseController {
         throw new ApiException();
     }
 
-
     @PutMapping("article")
     public String insertArticleToSubject(
             @RequestParam(value = "articleId") String articleId,
             @RequestParam(value = "subjectId") String subjectId) {
 
-        int count = articleService.updateSubject(articleId,subjectId);
+        int count = articleService.updateSubject(articleId, subjectId);
         if (count > 0) {
             return "处理成功";
         }
