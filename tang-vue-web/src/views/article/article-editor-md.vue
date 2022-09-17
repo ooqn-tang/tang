@@ -193,7 +193,7 @@ body {
 }
 </style>
 
-<style scoped lang="scss">
+<style scoped>
 img {
   max-width: 100%;
 }

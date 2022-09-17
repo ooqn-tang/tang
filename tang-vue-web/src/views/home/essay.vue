@@ -104,7 +104,7 @@ export default {
 };
 </script>
 
-<style scoped lang="scss">
+<style scoped>
 strong p,
 .card-body p {
   margin: 0px;

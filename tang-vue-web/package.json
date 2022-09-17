@@ -1,5 +1,5 @@
 {
-  "name": "group-chat",
+  "name": "tang",
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",
@@ -7,28 +7,21 @@
     "serve": "vite preview"
   },
   "dependencies": {
-    "@nplayer/vue": "^1.0.10",
-    "@tinymce/tinymce-vue": "^5.0.0",
-    "@varlet/ui": "^1.23.10",
     "axios": "^0.24.0",
-    "cropperjs": "^1.5.12",
-    "dplayer": "^1.26.0",
-    "element-plus": "^2.1.4",
+    "element-plus": "^2.2.17",
+    "highlight": "^0.2.4",
+    "highlight.js": "^11.6.0",
     "jwt-decode": "^3.1.2",
     "marked": "^2.0.3",
-    "nplayer": "^1.0.10",
-    "sass": "^1.43.5",
-    "tinymce": "^6.1.0",
+    "path": "^0.12.7",
+    "sass": "^1.54.9",
     "vue": "^3.2.22",
-    "vue-avatar-cropper": "^6.0.9",
-    "vue-cropper": "^1.0.2",
     "vue-router": "^4.0.12",
     "vuex": "^4.0.2"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue": "^1.9.3",
-    "naive-ui": "^2.24.1",
-    "unplugin-vue-components": "^0.17.4",
-    "vite": "^2.6.4"
+    "@vitejs/plugin-vue": "^3.1.0",
+    "unplugin-vue-components": "^0.22.7",
+    "vite": "^3.1.0"
   }
 }

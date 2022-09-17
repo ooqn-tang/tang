@@ -1,4 +1,4 @@
-2<template>
+<template>
   <el-row>
     <el-col style="padding: 10px">
       <el-form :inline="true" class="demo-form-inline"  >

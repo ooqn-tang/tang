@@ -121,7 +121,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style scoped>
 .m-r-5-px{
   margin-right: 5px 
 }
@@ -130,10 +130,6 @@ export default {
 }
 p{
   margin: 0px;
-}
-
-body{
-    overflow-y: scroll !important;
 }
 
 </style>

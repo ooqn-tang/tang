@@ -75,7 +75,7 @@ export default {
 };
 </script>
 
-<style scope lang="scss">
+<style scoped>
 .W33{
   width: 33%;
 }

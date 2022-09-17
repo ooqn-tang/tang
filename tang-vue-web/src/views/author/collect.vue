@@ -62,7 +62,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style scoped>
 body{
     overflow-y: scroll;
 }

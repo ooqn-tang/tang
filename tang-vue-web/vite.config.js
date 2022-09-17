@@ -1,17 +1,17 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
-import path from "path";
+import {resolve} from "path";
 import components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 
 export default defineConfig({
   resolve: {
     alias: {
-      "@": path.resolve(__dirname, "src"),
-      "apis": path.resolve(__dirname, "src/apis"),
-      "comps": path.resolve(__dirname, "src/components"),
-      "views": path.resolve(__dirname, "src/views"),
-      "utils": path.resolve(__dirname, "src/utils")
+      "@": resolve("./src"),
+      "apis": resolve("./src/apis"),
+      "comps": resolve("./src/components"),
+      "views": resolve("./src/views"),
+      "utils": resolve("./src/utils")
     }
   },
   plugins: [

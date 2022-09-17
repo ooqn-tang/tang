@@ -2,19 +2,16 @@
   <div class="row">
     <div class="col-lg-8 move-p-lr-0">
       <div class="input-group mb-2 move-search">
-        <input
-          type="text"
-          class="form-control search-input"
-          v-model="form.wb"
-          placeholder="请输入"
-          aria-label="请输入"
-          aria-describedby="button-addon2"/>
+        <input type="text" class="form-control search-input" v-model="form.wb" placeholder="请输入" aria-label="请输入"
+          aria-describedby="button-addon2" />
         <button class="btn btn-outline-secondary" type="button" @click="dataList = [] , so()">搜索</button>
       </div>
       <ul class="list-group mb-2 move-b-lr-0">
-        <li  class="list-group-item" v-for="(item, index) in dataList" :key="index">
+        <li class="list-group-item" v-for="(item, index) in dataList" :key="index">
           <a class="article-title">
-            <strong><p @click="openArticle(item.articleId)">{{ item.title }}</p></strong>
+            <strong>
+              <p @click="openArticle(item.articleId)">{{ item.title }}</p>
+            </strong>
           </a>
           <div>
             <span class="date-color" style="font-size: 16px; color: #5f5a5a">2020.02.02</span>
@@ -47,13 +44,13 @@ export default {
       form: {
         wb: ""
       },
-      isLoding:true,
+      isLoding: true,
       dataList: [],
       videoData: {},
     };
   },
   computed: {},
-  created() {},
+  created() { },
   methods: {
     so() {
       this.isLoding = true;
@@ -67,7 +64,7 @@ export default {
         this.isLoding = false;
       });
     },
-    next(){
+    next() {
       this.form.page = this.videoData.nextPage;
       this.so();
     },

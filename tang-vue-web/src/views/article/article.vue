@@ -255,7 +255,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
   .classColor{
     color: #ff5c5c;
   }
