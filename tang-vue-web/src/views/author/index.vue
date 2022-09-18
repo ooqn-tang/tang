@@ -62,8 +62,8 @@ export default {
     return {
       routeName:this.$route.name,
       author:{
-        nickname:"#########################",
-        signature:"#########################"
+        nickname:"∷∷∷∷∷∷∷∷",
+        signature:"∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷"
       },
       thisUsername:"",
       loginUsername:this.$store.state.username,

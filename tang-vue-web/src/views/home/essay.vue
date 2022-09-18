@@ -17,7 +17,11 @@
               </p>
               {{item.text}}
             </li>
+            <li class="list-group-item" v-if="essayList.length == 0">
+              加载中...
+            </li>
           </ul>
+         
         </div>
       </div>
     </div>

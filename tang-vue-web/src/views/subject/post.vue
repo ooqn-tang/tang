@@ -43,7 +43,12 @@ export default {
   data() {
     return {
       username: this.$store.getters.username,
-      subjectData:{}
+      subjectData:{
+        subjectName:"∷∷∷∷∷∷∷∷∷",
+        synopsis:"∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷",
+        createDate:"∷∷∷∷∷∷∷",
+        nickname:"∷∷∷∷∷∷∷"
+      }
     };
   },
   created() {
