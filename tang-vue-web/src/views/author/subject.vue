@@ -1,7 +1,7 @@
 <template>
   <ul class="list-group article-list">
     <li class="list-group-item" v-for="(item,index) in subjectList" :key="index">
-      <router-link :to="{name:'subject_info',params:{subject_id:item.subjectId}}">
+      <router-link :to="{name:'subject_post',params:{subject_id:item.subjectId}}">
         <strong v-text="item.subjectName"></strong>
       </router-link>
       <span class="float-end" data-bs-toggle="modal" data-bs-target="#exampleModal" v-if="isThisUser" @click="updateClick(item.subjectId,item.subjectName,item.synopsis)">编辑</span>

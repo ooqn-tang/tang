@@ -1,7 +1,7 @@
 <template>
   <ul class="list-group article-list">
     <li class="list-group-item" v-for="(item,index) in articleList" :key="index">
-      <router-link :to="{name: 'article_info', params: { id: item.dataId}}" class="article-title" v-if="item.type == 1">
+      <router-link :to="{name: 'article_post', params: { id: item.dataId}}" class="article-title" v-if="item.type == 1">
         <strong><p>📰{{item.title}}</p></strong>
       </router-link>
       <router-link :to="{name: 'video_info', params: { id: item.dataId}}" class="article-title" v-if="item.type == 2">

@@ -4,27 +4,27 @@ const routes = [
     {
         path: '/',
         name: 'home',
-        component: () => import('views/home/index.vue'),
+        component: () => import('views/home.vue'),
         children: [
             {
                 path: '/',
                 name: 'main',
-                component: () => import('views/article/index.vue')
+                component: () => import('views/article-list.vue')
             },
             {
                 path: 'message',
                 name: 'message',
-                component: () => import('views/home/message.vue')
+                component: () => import('views/message.vue')
             },
             {
                 path: 'essay',
                 name: 'essay',
-                component: () => import('views/home/essay.vue')
+                component: () => import('views/essay.vue')
             },
             {
                 path: '/article',
                 name: 'article',
-                component: () => import('views/article/index.vue')
+                component: () => import('views/article-list.vue')
             },
             {
                 path: '/author/:username',
@@ -62,28 +62,28 @@ const routes = [
             },
             {
                 path: '/article/:id',
-                name: 'article_info',
-                component: () => import('views/article/article.vue')
+                name: 'article_post',
+                component: () => import('views/article-post.vue')
             },
             {
                 path: '/subject',
                 name: 'subject_index',
-                component: () => import('views/subject/index.vue')
+                component: () => import('views/subject.vue')
             },
             {
-                path: '/authors',
-                name: 'authors',
-                component: () => import('views/home/authors.vue')
+                path: '/author',
+                name: 'author',
+                component: () => import('views/author-list.vue')
             },
             {
                 path: '/subject/:subject_id',
-                name: 'subject_info',
-                component: () => import('views/subject/post.vue')
+                name: 'subject_post',
+                component: () => import('views/subject-post.vue')
             },
             {
                 path: '/search',
                 name: 'search_index',
-                component: () => import('views/search/index.vue')
+                component: () => import('views/search.vue')
             }
         ]
     },
@@ -132,12 +132,12 @@ const routes = [
     {
         path: '/login',
         name: 'login',
-        component: () => import('views/home/login.vue')
+        component: () => import('views/login.vue')
     },
     {
         path: '/register',
         name: 'register',
-        component: () => import('views/home/register.vue')
+        component: () => import('views/register.vue')
     },
     {
         path: '/:catchAll(.*)',

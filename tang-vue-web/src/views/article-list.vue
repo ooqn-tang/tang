@@ -13,7 +13,7 @@
         <div class="card-body article-list p-0">
           <ul class="list-group ">
             <li class="list-group-item " v-for="(item,index) in articleList" :key="index">
-              <router-link :to="{name: 'article_info', params: { id: item.articleId}}" class="article-title">
+              <router-link :to="{name: 'article_post', params: { id: item.articleId}}" class="article-title">
                 <strong><p v-text="item.title"></p></strong>
               </router-link>
               <div class="article-synopsis" style="color: #5f5a5a;">{{item.synopsis}}</div>

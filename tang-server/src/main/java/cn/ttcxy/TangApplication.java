@@ -63,7 +63,6 @@ public class TangApplication {
 		return connector;
 	}
 
-
 	public static void main(String[] args) {
 		SpringApplication springApplication = new SpringApplication(TangApplication.class);
 		springApplication.run(args);

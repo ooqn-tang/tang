@@ -16,7 +16,7 @@
             <router-link class="nav-link active" to="/essay">📝短文</router-link>
           </li>
           <li class="nav-item">
-            <router-link class="nav-link active" to="/authors">👨‍🎓作者</router-link>
+            <router-link class="nav-link active" to="/author-list">👨‍🎓作者</router-link>
           </li>
           <li class="nav-item">
             <router-link class="nav-link active" to="/subject">📒专题</router-link>
@@ -34,7 +34,7 @@
             <ul class="dropdown-menu">
               <li><a class="dropdown-item" href="/article">📰文章</a></li>
               <li><a class="dropdown-item" href="/essay">📝短文</a></li>
-              <li><a class="dropdown-item" href="/authors">👨‍🎓作者</a></li>
+              <li><a class="dropdown-item" href="/author-list">👨‍🎓作者</a></li>
               <li><a class="dropdown-item" href="/subject">📒专题</a></li>
               <li><a class="dropdown-item" href="/dynamic" v-if="isLogin">📒动态</a></li>
             </ul>

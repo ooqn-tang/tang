@@ -6,7 +6,7 @@
       :key="index"
     >
       <router-link
-        :to="{ name: 'article_info', params: { id: item.articleId } }"
+        :to="{ name: 'article_post', params: { id: item.articleId } }"
         class="article-title"
       >
         <strong><p v-text="item.title"></p></strong>

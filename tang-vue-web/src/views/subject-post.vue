@@ -14,7 +14,7 @@
       </div>
       <ul class="list-group  mb-2 move-b-lr-0">
         <li class="list-group-item move-b-lr-0" v-for="(item,index) in subjectData.articleList" :key="index">
-          <router-link :to="{name: 'article_info', params: {id: item.articleId}}" class="article-title">
+          <router-link :to="{name: 'article_post', params: {id: item.articleId}}" class="article-title">
             <strong><p v-text="item.title"></p></strong>
           </router-link>
           <div class="article-synopsis" style="color: #5f5a5a;">{{item.synopsis}}</div>
@@ -39,7 +39,7 @@
 <script>
 import request from 'utils/request'
 export default {
-  name: "subject_info",
+  name: "post",
   data() {
     return {
       username: this.$store.getters.username,

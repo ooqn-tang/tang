@@ -72,7 +72,7 @@ export default {
       this.$router.push({ name: "video_info", params: { id: videoId } });
     },
     openArticle(dataId) {
-      this.$router.push({ name: "article_info", params: { id: dataId } });
+      this.$router.push({ name: "article_post", params: { id: dataId } });
     },
   },
   mounted() {

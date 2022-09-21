@@ -8,7 +8,7 @@
         <router-link
           :class="item.articleId == article.articleId ? 'active2' : ''"
           :key="index"
-          :to="{ name: 'article_info', params: { id: item.articleId } }"
+          :to="{ name: 'article_post', params: { id: item.articleId } }"
           v-for="(item, index) in articleList"
           class="list-group-item"
           >{{ item.title }}</router-link
@@ -126,7 +126,7 @@
 import "highlight.js/styles/github.css";
 import request from "utils/request";
 export default {
-  name: "article_info",
+  name: "article_post",
   data() {
     return {
       fans: 2,
