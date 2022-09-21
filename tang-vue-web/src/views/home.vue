@@ -34,7 +34,7 @@
             <ul class="dropdown-menu">
               <li><a class="dropdown-item" href="/article">📰文章</a></li>
               <li><a class="dropdown-item" href="/essay">📝短文</a></li>
-              <li><a class="dropdown-item" href="/author-list">👨‍🎓作者</a></li>
+              <li><a class="dropdown-item" href="/author">👨‍🎓作者</a></li>
               <li><a class="dropdown-item" href="/subject">📒专题</a></li>
               <li><a class="dropdown-item" href="/dynamic" v-if="isLogin">📒动态</a></li>
             </ul>
