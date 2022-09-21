@@ -16,7 +16,7 @@
             <router-link class="nav-link active" to="/essay">📝短文</router-link>
           </li>
           <li class="nav-item">
-            <router-link class="nav-link active" to="/author-list">👨‍🎓作者</router-link>
+            <router-link class="nav-link active" to="/author">👨‍🎓作者</router-link>
           </li>
           <li class="nav-item">
             <router-link class="nav-link active" to="/subject">📒专题</router-link>
