@@ -4,7 +4,7 @@ const routes = [
     {
         path: '/',
         name: 'home',
-        component: () => import('views/home.vue'),
+        component: () => import('views/home/home.vue'),
         children: [
             {
                 path: '/',
@@ -15,7 +15,8 @@ const routes = [
                 path: '/article',
                 name: 'article',
                 component: () => import('views/article/article-list.vue')
-            },{
+            },
+            {
                 path: '/article/:id',
                 name: 'article_post',
                 component: () => import('views/article/article-post.vue')
@@ -23,7 +24,7 @@ const routes = [
             {
                 path: 'message',
                 name: 'message',
-                component: () => import('views/message.vue')
+                component: () => import('views/home/message.vue')
             },
             {
                 path: 'essay',
@@ -82,26 +83,25 @@ const routes = [
                     }
                 ]
             },
-            
             {
                 path: '/subject',
-                name: 'subject_index',
-                component: () => import('views/subject.vue')
+                name: 'subject',
+                component: () => import('views/subject/subject.vue')
             },
             {
                 path: '/author',
                 name: 'author',
-                component: () => import('views/author-list.vue')
+                component: () => import('views/author/author-list.vue')
             },
             {
                 path: '/subject/:subject_id',
                 name: 'subject_post',
-                component: () => import('views/subject-post.vue')
+                component: () => import('views/subject/subject-post.vue')
             },
             {
                 path: '/search',
                 name: 'search_index',
-                component: () => import('views/search.vue')
+                component: () => import('views/home/search.vue')
             }
         ]
     },
@@ -150,16 +150,16 @@ const routes = [
     {
         path: '/login',
         name: 'login',
-        component: () => import('views/login.vue')
+        component: () => import('views/home/login.vue')
     },
     {
         path: '/register',
         name: 'register',
-        component: () => import('views/register.vue')
+        component: () => import('views/home/register.vue')
     },
     {
         path: '/:catchAll(.*)',
-        component: () => import('views/404.vue'),
+        component: () => import('views/home/404.vue'),
         hidden: true
     }
 ]

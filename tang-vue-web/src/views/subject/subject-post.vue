@@ -39,7 +39,7 @@
 <script>
 import request from 'utils/request'
 export default {
-  name: "post",
+  name: "subject_post",
   data() {
     return {
       username: this.$store.getters.username,
