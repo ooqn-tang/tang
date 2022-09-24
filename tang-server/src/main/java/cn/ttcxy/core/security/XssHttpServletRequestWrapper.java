@@ -9,10 +9,9 @@ import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 
-import org.springframework.web.util.HtmlUtils;
+import com.alibaba.fastjson.JSONObject;
 
 import cn.hutool.extra.servlet.ServletUtil;
-import cn.hutool.http.HtmlUtil;
 import cn.ttcxy.util.XssUtil;
 
 public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
@@ -29,7 +28,9 @@ public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
  
     @Override
     public ServletInputStream getInputStream() throws IOException {
-        body = XssUtil.stripXss(body);
+        JSONObject parseObject = JSONObject.parseObject(body);
+        XssUtil.analysisJson(parseObject);
+        body = parseObject.toJSONString();
         final ByteArrayInputStream bais = new ByteArrayInputStream(body.getBytes());
         return new ServletInputStream() {
             @Override

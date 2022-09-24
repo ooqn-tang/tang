@@ -1,58 +1,18 @@
 package cn.ttcxy.util;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
-import cn.hutool.core.util.StrUtil;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document.OutputSettings;
+import org.jsoup.nodes.Document.OutputSettings.Syntax;
+import org.jsoup.safety.Safelist;
+
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 
 public class XssUtil {
-
-    private static List<Pattern> patterns = null;
-
-    /**
-     * @return
-     */
-    private static List<Object[]> getXssPatternList() {
-        List<Object[]> ret = new ArrayList<Object[]>();
-        ret.add(new Object[] { "<(no)?script[^>]*>.*?</(no)?script>", Pattern.CASE_INSENSITIVE });
-        ret.add(new Object[] { "eval\\((.*?)\\)", Pattern.CASE_INSENSITIVE | Pattern.MULTILINE | Pattern.DOTALL });
-        ret.add(new Object[] { "expression\\((.*?)\\)",
-                Pattern.CASE_INSENSITIVE | Pattern.MULTILINE | Pattern.DOTALL });
-        ret.add(new Object[] { "javascript:|vbscript:|view-source:", Pattern.CASE_INSENSITIVE });
-        ret.add(new Object[] { "<(\"[^\"]*\"|\'[^\']*\'|[^\'\">])*>",
-                Pattern.CASE_INSENSITIVE | Pattern.MULTILINE | Pattern.DOTALL });
-        ret.add(new Object[] { "window\\.|\\.location|document\\.|alert\\(|window\\.open\\(",
-                Pattern.CASE_INSENSITIVE | Pattern.MULTILINE | Pattern.DOTALL });
-        ret.add(new Object[] {
-                "<+\\s*\\w*\\s*(oncontrolselect|oncopy|oncut|ondataavailable|ondatasetchanged|ondatasetcomplete|ondblclick|ondeactivate|ondrag|ondragend|ondragenter|ondragleave|ondragover|ondragstart|ondrop|οnerrοr=|onerroupdate|onfilterchange|onfinish|onfocus|onfocusin|onfocusout|onhelp|onkeydown|onkeypress|onkeyup|onlayoutcomplete|onload|onlosecapture|onmousedown|onmouseenter|onmouseleave|onmousemove|onmousout|onmouseover|onmouseup|onmousewheel|onmove|onmoveend|onmovestart|onabort|onactivate|onafterprint|onafterupdate|onbefore|onbeforeactivate|onbeforecopy|onbeforecut|onbeforedeactivate|onbeforeeditocus|onbeforepaste|onbeforeprint|onbeforeunload|onbeforeupdate|onblur|onbounce|oncellchange|onchange|onclick|oncontextmenu|onpaste|onpropertychange|onreadystatechange|onreset|onresize|onresizend|onresizestart|onrowenter|onrowexit|onrowsdelete|onrowsinserted|onscroll|onselect|onselectionchange|onselectstart|onstart|onstop|onsubmit|onunload)+\\s*=+",
-                Pattern.CASE_INSENSITIVE | Pattern.MULTILINE | Pattern.DOTALL });
-        return ret;
-    }
-
-    /**
-     * @return
-     */
-    private static List<Pattern> getPatterns() {
-        if (patterns == null) {
-            List<Pattern> list = new ArrayList<Pattern>();
-            String regex = null;
-            Integer flag = null;
-
-            for (Object[] arr : getXssPatternList()) {
-                if (arr.length != 2) {
-                    continue;
-                }
-                regex = (String) arr[0];
-                flag = (Integer) arr[1];
-                list.add(Pattern.compile(regex, flag));
-            }
-            patterns = list;
-        }
-
-        return patterns;
-    }
 
     /**
      * 过滤掉xss字符串
@@ -61,46 +21,44 @@ public class XssUtil {
      * @return
      */
     public static String stripXss(String value) {
-        if (!StrUtil.isEmpty(value)) {
-            Matcher matcher = null;
-
-            for (Pattern pattern : getPatterns()) {
-                matcher = pattern.matcher(value);
-                // 匹配
-                if (matcher.find()) {
-                    // 删除相关字符串
-                    value = matcher.replaceAll("");
-                }
-            }
-            value = value.replaceAll("<", "&lt;").replaceAll(">", "&gt;");
-        }
-        return value;
+        Safelist whitelist = Safelist.relaxed();
+        return Jsoup.clean(value,whitelist);
     }
 
-    /**
-     * 是否存在xss
-     *
-     * @param value
-     * @return
-     */
-    public static void checkXss(String value) {
-        if (!StrUtil.isEmpty(value)) {
-            Matcher matcher = null;
 
-            for (Pattern pattern : getPatterns()) {
-                matcher = pattern.matcher(value);
-                // 匹配
-                if (matcher.find()) {
-                    System.out.print((String.format("存在非法字符［%s］", value)));
-                }
-            }
-
-        }
-        return;
-    }
 
     public static void main(String[] args) {
-        System.out.println(stripXss("alert('asdfasdf')111111111111111"));
+        
+        String html = "{'asdf':'<p style=\"\">aaaaaaaaaaaaaaa</p>'}";//接收到的html代码
+        JSONObject parseObject = JSONObject.parseObject(html);
+        analysisJson(parseObject);
+
+        System.out.println(parseObject);
+    }
+
+    public static void  analysisJson(Object objJson){
+        //如果objJson为json数组
+        if(objJson instanceof JSONArray) {
+            JSONArray objArray = (JSONArray)objJson;
+            for (int i = 0; i < objArray.size(); i++) {
+                analysisJson(objArray.get(i));
+            }
+        } else if(objJson instanceof JSONObject) { //如果objJson为json对象
+            JSONObject jsonObject = (JSONObject)objJson;
+            Iterator it = jsonObject.keySet().iterator();
+            while(it.hasNext()) {
+                String key = it.next().toString();
+                Object value = jsonObject.get(key); //value
+                if(value instanceof JSONArray) { //如果value是数组
+                    JSONArray objArray = (JSONArray)value;
+                    analysisJson(objArray);
+                } else if(value instanceof JSONObject){ //如果value是json对象
+                    analysisJson((JSONObject)value);
+                } else { //如果value是基本类型
+                    jsonObject.put(key, stripXss((String)value));
+                }
+            }
+        }
     }
 }
 
