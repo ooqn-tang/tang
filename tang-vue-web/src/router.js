@@ -9,7 +9,16 @@ const routes = [
             {
                 path: '/',
                 name: 'main',
-                component: () => import('views/article-list.vue')
+                component: () => import('views/article/article-list.vue')
+            },
+            {
+                path: '/article',
+                name: 'article',
+                component: () => import('views/article/article-list.vue')
+            },{
+                path: '/article/:id',
+                name: 'article_post',
+                component: () => import('views/article/article-post.vue')
             },
             {
                 path: 'message',
@@ -38,11 +47,6 @@ const routes = [
                         component: () => import('views/essay/my.vue')
                     }
                 ]
-            },
-            {
-                path: '/article',
-                name: 'article',
-                component: () => import('views/article-list.vue')
             },
             {
                 path: '/author/:username',
@@ -78,11 +82,7 @@ const routes = [
                     }
                 ]
             },
-            {
-                path: '/article/:id',
-                name: 'article_post',
-                component: () => import('views/article-post.vue')
-            },
+            
             {
                 path: '/subject',
                 name: 'subject_index',
@@ -145,7 +145,7 @@ const routes = [
     {
         path: '/article-editor-md/:id',
         name: 'article-editor-md',
-        component: () => import('views/article-editor-md.vue')
+        component: () => import('views/article/article-editor-md.vue')
     },
     {
         path: '/login',
