@@ -50,6 +50,7 @@ public class UtsLoginController extends BaseController {
     private AuthenticationManagerBuilder authenticationManagerBuilder;
 
     @PostMapping("/authenticate")
+    // http://localhost:8888/api/authenticate%3Cscript%3Ealert(%22hello%20XSS!%22)%3C/script%3E
     public String authorize(@RequestBody UtsLoginParam loginParam) {
         UsernamePasswordAuthenticationToken authenticationToken =
                 new UsernamePasswordAuthenticationToken(loginParam.getUsername(), loginParam.getPassword());

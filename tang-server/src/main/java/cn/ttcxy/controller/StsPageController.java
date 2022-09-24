@@ -6,6 +6,9 @@ import cn.ttcxy.service.DtsArticleService;
 import cn.ttcxy.service.DtsArticleSubjectService;
 import cn.ttcxy.service.StsNoticeService;
 import com.github.pagehelper.PageInfo;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,7 +31,9 @@ public class StsPageController {
     private StsNoticeService noticeService;
 
     @GetMapping
-    public String toIndex(@RequestParam(value = "page", defaultValue = "1") Integer page, Model model) {
+    public String toIndex(@RequestParam(value = "page", defaultValue = "1") Integer page, Model model,HttpServletRequest request) {
+        String parameter = request.getParameter("a");
+        System.out.println(parameter);
         PageInfo<DtsArticleDto> dtsArticleDtoPageInfo = articleService.selectArticleListSmall(page, 50);
         model.addAttribute("articlePage", dtsArticleDtoPageInfo);
         model.addAttribute("notice", noticeService.selectAllNotice());

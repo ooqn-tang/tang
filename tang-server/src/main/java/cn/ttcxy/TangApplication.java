@@ -10,6 +10,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
+import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.boot.web.servlet.server.ServletWebServerFactory;
 import org.springframework.context.annotation.Bean;
 
@@ -17,6 +18,7 @@ import java.security.Principal;
 
 @SpringBootApplication(scanBasePackages = {"cn.ttcxy"})
 @MapperScan("cn.ttcxy.mapper")
+@ServletComponentScan
 public class TangApplication {
 
 

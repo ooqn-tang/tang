@@ -4,8 +4,8 @@
        <div class="card mb-2 move-b-lr-0">
          <div class="card-body p-0">
            <nav class="nav">
-              <a class="nav-link" :class="selectClassId == 'gz' ? 'nav-link-active' : ''" @click="selectClassClick('gz')">关注</a>
               <a class="nav-link" :class="selectClassId == ''?'nav-link-active':''" @click="selectClassClick('')">最新</a>
+              <a class="nav-link" :class="selectClassId == 'gz' ? 'nav-link-active' : ''" @click="selectClassClick('gz')">关注</a>
             </nav>
          </div>
        </div>

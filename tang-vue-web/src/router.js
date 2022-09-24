@@ -18,8 +18,26 @@ const routes = [
             },
             {
                 path: 'essay',
-                name: 'essay',
-                component: () => import('views/essay.vue')
+                name: 'essay_index',
+                component: () => import('views/essay/index.vue'),
+                redirect:"/essay/message",
+                children:[
+                    {
+                        path: 'message',
+                        name: 'essay_message',
+                        component: () => import('views/essay/message.vue')
+                    },
+                    {
+                        path: 'collect',
+                        name: 'essay_collect',
+                        component: () => import('views/essay/collect.vue')
+                    },
+                    {
+                        path: 'my',
+                        name: 'essay_my',
+                        component: () => import('views/essay/my.vue')
+                    }
+                ]
             },
             {
                 path: '/article',
@@ -127,7 +145,7 @@ const routes = [
     {
         path: '/article-editor-md/:id',
         name: 'article-editor-md',
-        component: () => import('views/article/article-editor-md.vue')
+        component: () => import('views/article-editor-md.vue')
     },
     {
         path: '/login',

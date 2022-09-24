@@ -13,7 +13,7 @@
             <a class="nav-link active" href="/article">📰文章</a>
           </li>
           <li class="nav-item">
-            <router-link class="nav-link active" to="/essay">📝短文</router-link>
+            <router-link class="nav-link active" to="/essay">📝随笔</router-link>
           </li>
           <li class="nav-item">
             <router-link class="nav-link active" to="/author">👨‍🎓作者</router-link>
@@ -33,7 +33,7 @@
             <a class="nav-link active dropdown-toggle" href="#" data-bs-toggle="dropdown">{{title}}</a>
             <ul class="dropdown-menu">
               <li><a class="dropdown-item" href="/article">📰文章</a></li>
-              <li><a class="dropdown-item" href="/essay">📝短文</a></li>
+              <li><a class="dropdown-item" href="/essay">📝随笔</a></li>
               <li><a class="dropdown-item" href="/author">👨‍🎓作者</a></li>
               <li><a class="dropdown-item" href="/subject">📒专题</a></li>
               <li><a class="dropdown-item" href="/dynamic" v-if="isLogin">📒动态</a></li>

@@ -1,8 +1,13 @@
 package cn.ttcxy.core.security;
 
+import java.util.Map;
+
+import javax.servlet.DispatcherType;
+import javax.servlet.Filter;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -15,6 +20,7 @@ import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.csrf.CsrfFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
@@ -87,6 +93,17 @@ public class MySecurityConfig {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", config);
         return new CorsFilter(source);
+    }
+
+    @Bean
+    public FilterRegistrationBean<Filter> xssFilterRegistration(){
+        FilterRegistrationBean<Filter> registrationBean = new FilterRegistrationBean<>();
+        registrationBean.setDispatcherTypes(DispatcherType.REQUEST);
+        registrationBean.setFilter(new XssFilter());
+        registrationBean.addUrlPatterns("/*");
+        registrationBean.setName("xssFilter");
+        registrationBean.setOrder(FilterRegistrationBean.HIGHEST_PRECEDENCE);
+        return registrationBean;
     }
 
 }
