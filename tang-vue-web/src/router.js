@@ -143,6 +143,18 @@ const routes = [
         ]
     },
     {
+        path: '/chat',
+        name: 'chat',
+        component: () => import('views/chat/index.vue'),
+        children:[
+            {
+                path:"",
+                name:"chat_no",
+                component: () => import('views/chat/no.vue')
+            }
+        ]
+    },
+    {
         path: '/article-editor-md/:id',
         name: 'article-editor-md',
         component: () => import('views/article/article-editor-md.vue')

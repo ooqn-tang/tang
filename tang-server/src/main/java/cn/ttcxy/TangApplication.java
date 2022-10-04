@@ -13,15 +13,25 @@ import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactor
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.boot.web.servlet.server.ServletWebServerFactory;
 import org.springframework.context.annotation.Bean;
+import org.springframework.web.socket.server.standard.ServerEndpointExporter;
 
 import java.security.Principal;
 
-@SpringBootApplication(scanBasePackages = {"cn.ttcxy"})
+@SpringBootApplication(scanBasePackages = { "cn.ttcxy" })
 @MapperScan("cn.ttcxy.mapper")
 @ServletComponentScan
 public class TangApplication {
 
+	public static void main(String[] args) {
+		SpringApplication springApplication = new SpringApplication(TangApplication.class);
+		springApplication.run(args);
+	}
 
+	@Bean
+    public ServerEndpointExporter serverEndpointExporter() {
+        return new ServerEndpointExporter();
+    }
+	
 	@Bean
 	@ConditionalOnProperty(value = "tang-https", havingValue = "true")
 	public ServletWebServerFactory servletContainer() {
@@ -39,12 +49,13 @@ public class TangApplication {
 
 		tomcat.addAdditionalTomcatConnectors(createStandardConnector());
 
-		tomcat.addContextCustomizers( context -> {
+		tomcat.addContextCustomizers(context -> {
 			RealmBase realmBase = new RealmBase() {
 				@Override
 				protected String getPassword(String username) {
 					return null;
 				}
+
 				@Override
 				protected Principal getPrincipal(String username) {
 					return null;
@@ -64,10 +75,4 @@ public class TangApplication {
 		connector.setRedirectPort(443);
 		return connector;
 	}
-
-	public static void main(String[] args) {
-		SpringApplication springApplication = new SpringApplication(TangApplication.class);
-		springApplication.run(args);
-	}
-
 }

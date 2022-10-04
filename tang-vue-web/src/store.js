@@ -8,5 +8,8 @@ export default createStore({
     },
     actions: {
       
+    },
+    ws:{
+            
     }
 })

@@ -12,7 +12,7 @@
     "highlight": "^0.2.4",
     "highlight.js": "^11.6.0",
     "jwt-decode": "^3.1.2",
-    "marked": "^2.0.3",
+    "marked": "^4.1.1",
     "path": "^0.12.7",
     "sass": "^1.54.9",
     "vue": "^3.2.22",
