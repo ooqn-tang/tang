@@ -16,10 +16,11 @@ router.beforeEach((to, from) => {
 
 const app = createApp(App)
 
-app.use(ElementPlus, {locale: zhCn})
+app.use(ElementPlus, { locale: zhCn })
 app.use(router)
 app.use(store)
 app.use(info)
 app.use(notice)
 app.mount('#app')
+
 

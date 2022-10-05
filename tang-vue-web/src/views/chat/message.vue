@@ -1,201 +1,45 @@
 <template>
-    <div  id="message-item-body">
-    <div id="r-body-head">
-        <div class="message-nc">
+  <div style="    height: 100%;">
+    <div id="r-body-head"  style="border-right: 1px solid;">
+      <div class="message-nc">
         ❌首页
-        </div>
-        <div class="float-right message-nc">个人中心</div>
+      </div>
+      <div class="float-right message-nc">个人中心</div>
     </div>
-    <div id="r-body-body">
-        <div id="message-item-body">
-        <div class="message-item">
-            <strong>{{ }}</strong>
-            <br />
-            <div class="markdown-body"></div>
-        </div>
-        </div>
-        <div id="message-srk">
-        <textarea class="message-input"></textarea>
-        <button class="send-but">发送</button>
-        </div>
+    <div id="message-item-body" style="border-right: 1px solid;">
+      
     </div>
-</div>
-  </template>
+    <div style="height:150px;width:100%">
+        <textarea class="message-input" v-model="text" style="float:left;resize: none;border-top: 1px solid;border-right: 1px solid;padding: 5px;"></textarea>
+        <button class="send-but" style="float:left;border-top: 1px solid;border-right: 1px solid;" @click="send()">发送</button>
+    </div>
+  </div>
+</template>
   
-  <script>
-  export default {
-    name: "chat",
-    data() {
-      return {
-      };
-    },
-    computed: {},
-    created() { },
-    watch: {
-    },
-    methods: {
-    },
-    mounted() {
+<script>
+export default {
+  name: "chat",
+  data() {
+    return {
+      text:""
+    };
+  },
+  computed: {},
+  created() { },
+  watch: {
+  },
+  methods: {
+    send(){
+      let message = {
+        to:this.$route.params.id,
+        text:this.text,
+        type:"message"
+      }
+      this.$store.state.ws.send(JSON.stringify(message));
     }
+  },
+  mounted() {
   }
-  </script>
+}
+</script>
   
-  <style>
-    html,body{
-      margin: 0;
-      padding: 0;
-      height: 100%;
-  }
-  body{
-    
-    background-color: #f3e4d2;
-  }
-  *{
-      box-sizing: border-box;
-      word-wrap:break-word
-  }
-  #app{
-      margin: auto;
-      height: 100%;
-      width: 100%;
-  }
-  a{
-      text-decoration: none;
-      color: black;
-  }
-  img{
-    max-width: 300px !important;
-  }
-  
-  .message-item {
-    border: 1px solid black;
-    background: #dfd4c9;
-    border-radius: 5px;
-    margin: 4px;
-    padding: 3px;
-  }
-  .message-input {
-    width: calc(100% - 55px);
-    height: 100%;
-    resize: none;
-  }
-  .send-but{
-    float: right;
-    height: 100%;
-    width: 50px;
-  }
-  #message-item-body{
-    height: calc(100% - 200px);overflow-y: scroll;
-  }
-  #message-srk{
-    height:200px;padding:5px;background: #d6d0c1;    border-top: 1px solid black;
-  }
-    
-  @media (max-width: 768px) {
-    #message-item-body{
-      height: calc(100% - 50px);
-    }
-    #message-srk{
-      height:50px;padding:5px;
-    }
-  
-  }
-  
-  #body{
-      border: 1px solid black;
-      height: 100%;
-  }
-  #message{
-      border-right: 1px solid black;
-      width: 300px;
-      height: 100%;
-      float: left;
-  }
-  #message-tx{
-      padding: 3px;
-      border-radius: 5px;
-      border: 1px solid red;
-      height: 40px;
-      width: 40px;
-      float: left;
-  }
-  .message-nc{
-      padding-left: 5px;
-      float: left;
-      font-weight:bold;
-      line-height: 40px;
-  }
-  #r-body{
-      height: 100%;
-      width:calc(100% - 300px);
-      float: right;
-  }
-  #message-head,#r-body-head{
-      height: 50px;
-      border-bottom: 1px solid black;
-      background-color: rgb(115, 168, 247);
-      padding: 4px;
-  }
-  #message-body{
-      height: calc(100% - 50px);
-      background-color: blanchedalmond;
-       overflow-y: scroll;
-  }
-  #r-body-body{
-      height: calc(100% - 50px);
-      background-color: blanchedalmond;
-  }
-  
-  
-  .b1-p1-mb-1{
-      border: 1px solid black;
-      padding: 3px;
-      margin-bottom: 3px;
-  }
-  .m-t-l-r-5{
-    margin-top: 4px;
-    margin-left: 4px;
-    margin-right: 4px;
-  }
-  .br-5{
-    border-radius: 5px;
-  }
-  .head-button{
-    line-height: 34px;
-    margin-left: 3px;
-  }
-  .float-right{
-    float: right;
-  }
-  #syy{
-    display: none;
-  }
-  
-  
-  #plaza{
-    display: none;
-  }
-  
-  @media (max-width: 768px) {
-    #plaza{
-      display: block;
-    }
-    #message{
-      display: none;
-    }   
-    #syy{
-      display: initial;
-    }
-    #r-body{
-      width: 100%;    
-    }
-    #sz,#tc{
-      display: block;
-    }
-    #app{
-      max-height: 100%;
-      max-width: 100%;
-      padding: 0;
-    }
-  }
-  </style>

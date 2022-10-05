@@ -5,20 +5,7 @@
         <div class="message-nc">聊天</div>
       </div>
       <div id="message-body">
-        <div class="b1-p1-mb-1 br-5 m-t-l-r-5" >
-          <strong>{{}}</strong>
-          <span style="float: right">{{}}</span>
-          <br />
-          <p style="
-              color: #8d8d8d;
-              white-space: nowrap;
-              margin: 0px;
-              overflow: hidden;
-              text-overflow: ellipsis;
-            ">
-            {{}}：{{}}
-          </p>
-        </div>
+        
       </div>
     </div>
     <div id="r-body-body">
@@ -35,10 +22,38 @@ export default {
     };
   },
   computed: {},
-  created() { },
   watch: {
   },
+  destroyed() {
+    this.$store.state.ws.close() //离开路由之后断开websocket连接
+  },
+  created() {
+    this.initWebSocket();
+  },
   methods: {
+    initWebSocket() {
+      try{
+        this.$store.state.ws = new WebSocket(import.meta.env.VITE_BASE_API_WS + "api/ws/" + localStorage.getItem("jwt"));
+        this.$store.state.ws.onmessage = this.websocketonmessage;
+        this.$store.state.ws.onopen = this.websocketonopen;
+        this.$store.state.ws.onerror = this.websocketonerror;
+        this.$store.state.ws.onclose = this.websocketclose;
+      }catch(e){
+        console.log(e)
+      }
+    },
+    websocketonopen() {
+
+    },
+    websocketonerror() {
+      this.initWebSocket();
+    },
+    websocketonmessage(e) {
+      console.log(e.data)
+    },
+    websocketclose(e) {
+      console.log("断开连接", e);
+    },
   },
   mounted() {
   }
@@ -52,7 +67,7 @@ export default {
     height: 100%;
 }
 body{
-  
+  overflow-y: hidden !important;
   background-color: #f3e4d2;
 }
 *{
@@ -82,32 +97,24 @@ img{
 .message-input {
   width: calc(100% - 55px);
   height: 100%;
-  resize: none;
 }
 .send-but{
-  float: right;
   height: 100%;
-  width: 50px;
+  width: 55px;
 }
 #message-item-body{
   height: calc(100% - 200px);overflow-y: scroll;
 }
-#message-srk{
-  height:200px;padding:5px;background: #d6d0c1;    border-top: 1px solid black;
-}
-  
+
 @media (max-width: 768px) {
   #message-item-body{
     height: calc(100% - 50px);
   }
-  #message-srk{
-    height:50px;padding:5px;
-  }
+
 
 }
 
 #body{
-    border: 1px solid black;
     height: 100%;
 }
 #message{
@@ -147,8 +154,10 @@ img{
      overflow-y: scroll;
 }
 #r-body-body{
-    height: calc(100% - 50px);
     background-color: blanchedalmond;
+    width: calc(100% - 300px);
+    height: 100%;
+    float: right;
 }
 
 

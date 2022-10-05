@@ -151,6 +151,11 @@ const routes = [
                 path:"",
                 name:"chat_no",
                 component: () => import('views/chat/no.vue')
+            },
+            {
+                path:"message/:id",
+                name:"chat_message",
+                component: () => import('views/chat/message.vue')
             }
         ]
     },
