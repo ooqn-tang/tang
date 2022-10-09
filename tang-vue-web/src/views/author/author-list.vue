@@ -9,7 +9,7 @@
           <div class="card move-b-lr-0">
             <div class="card-body">
               <p class="card-text text-truncate">
-                <router-link target="_blank" :to="{name:'author_article',params:{username:item.username}}">
+                <router-link target="_blank" :to="{name:'author_article',params:{username: item.username}}">
                   <strong v-text="item.nickname"></strong>
                 </router-link>
               </p>
