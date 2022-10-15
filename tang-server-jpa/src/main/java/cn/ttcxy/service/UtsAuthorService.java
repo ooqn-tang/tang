@@ -1,0 +1,174 @@
+package cn.ttcxy.service;
+
+import cn.hutool.core.date.DateUtil;
+import cn.hutool.core.util.IdUtil;
+import cn.hutool.core.util.ObjectUtil;
+import cn.hutool.core.util.RandomUtil;
+import cn.ttcxy.entity.dto.UtsRoleDto;
+import cn.ttcxy.entity.model.*;
+import cn.ttcxy.entity.param.UtsRoleParam;
+import cn.ttcxy.mapper.repository.UtsAuthorRepository;
+import cn.ttcxy.mapper.repository.UtsAuthorRoleRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+
+import java.util.*;
+
+/**
+ * 创作者服务
+ */
+@Service
+public class UtsAuthorService {
+
+    @Autowired
+    private UtsAuthorRepository utsAuthorRepository;
+
+    @Autowired
+    private UtsAuthorRoleRepository authorRoleRepository;
+
+    @Autowired
+    private UtsRoleService roleService;
+
+    private static final Map<String, Date> usernameTime = new HashMap<>();
+
+    public UtsAuthor selectAuthorByName(String username) {
+        UtsAuthorExample authorExample = new UtsAuthorExample();
+        authorExample.createCriteria().andUsernameEqualTo(username);
+        return utsAuthorRepository.findByUsername(username);
+    }
+
+    public UtsAuthor selectAuthorByMail(String mail) {
+        UtsAuthorExample authorExample = new UtsAuthorExample();
+        authorExample.createCriteria().andMailEqualTo(mail);
+        return utsAuthorRepository.findByMail(mail);
+    }
+
+    public UtsAuthor insertAuthor(UtsAuthor author) throws DuplicateKeyException {
+        String objectId = IdUtil.objectId();
+        author.setAuthorId(objectId);
+        String username = getUsername();
+        author.setNickname(username);
+        author.setUsername(username);
+
+        UtsAuthorRole authorRole = new UtsAuthorRole();
+        authorRole.setAuthorRoleId(IdUtil.objectId());
+        authorRole.setAuthorId(objectId);
+        authorRole.setRoleId("2");
+        authorRole.setCreateTime(DateUtil.date());
+        authorRoleRepository.save(authorRole);
+        return utsAuthorRepository.save(author);
+    }
+
+    public int updateAuthorByName(UtsAuthor author) {
+        UtsAuthorExample authorExample = new UtsAuthorExample();
+        authorExample.createCriteria().andMailEqualTo(author.getMail());
+        return utsAuthorRepository.saveByMail(author.getMail());
+    }
+
+    public Boolean selectUsernameIsTrue(String username) {
+        UtsAuthorExample authorExample = new UtsAuthorExample();
+        authorExample.createCriteria().andUsernameEqualTo(username);
+        return utsAuthorRepository.countByUsername(username) > 0;
+    }
+
+    public Boolean selectNicknameIsTrue(String nickname) {
+        return utsAuthorRepository.countByNickname(nickname) > 0;
+    }
+
+    public Boolean selectMailIsTrue(String mail) {
+        UtsAuthorExample authorExample = new UtsAuthorExample();
+        authorExample.createCriteria().andMailEqualTo(mail);
+        return utsAuthorRepository.countByMail(mail) > 0;
+    }
+
+    public Page<UtsAuthor> selectAuthor(Integer page, Integer size) {
+        Pageable pageable = PageRequest.of(page,size);
+        //new PageImpl<>()
+        return utsAuthorRepository.findAll(pageable);
+    }
+
+
+
+    public List<UtsAuthor> select(String queryData) {
+        return utsAuthorRepository.findByMailLikeAndUsernameLikeAndNicknameLike(
+                "%" + queryData + "%",
+                "%" + queryData + "%",
+                "%" + queryData + "%"
+        );
+    }
+
+    public UtsAuthor update(UtsAuthor author) {
+        return utsAuthorRepository.save(author);
+    }
+
+    public void delete(String authorId) {
+        utsAuthorRepository.deleteById(authorId);
+    }
+
+    public void insertRole(String authorId, List<UtsRoleParam> roleParams) {
+        UtsAuthorRoleExample authorRoleExample = new UtsAuthorRoleExample();
+        authorRoleExample.createCriteria().andAuthorIdEqualTo(authorId);
+        authorRoleRepository.deleteByAuthorId(authorId);
+        for (UtsRoleParam roleParam : roleParams) {
+            UtsAuthorRole authorRole = new UtsAuthorRole();
+            authorRole.setAuthorRoleId(IdUtil.objectId());
+            authorRole.setRoleId(roleParam.getRoleId());
+            authorRole.setCreateTime(new Date());
+            authorRole.setAuthorId(authorId);
+            authorRoleRepository.save(authorRole);
+        }
+    }
+
+    public Date nowTime(String username, List<UtsRoleDto> roleList) {
+        Set<Date> dateSet = new TreeSet<>();
+        Date usernameTime = getUsernameTime(username);
+        if (usernameTime != null) {
+            dateSet.add(usernameTime);
+        }
+        dateSet.addAll(getRoleNameTime(roleList));
+
+        return dateSet.stream().reduce((first, second) -> second).orElse(new Date());
+    }
+
+    private Date getUsernameTime(String username) {
+        Date date = usernameTime.get(username);
+        if (ObjectUtil.isEmpty(date)) {
+            UtsAuthor author = selectAuthorByName(username);
+            date = author.getRefreshTime();
+            usernameTime.put(username, date);
+        }
+        return date;
+    }
+
+    private Set<Date> getRoleNameTime(List<UtsRoleDto> roleList) {
+        Set<Date> dateSet = new TreeSet<>();
+        for (UtsRoleDto role : roleList) {
+            List<UtsRole> roles = roleService.selectByName(role.getRoleValue());
+            for (UtsRole r : roles) {
+                Date refreshTime = r.getRefreshTime();
+                if (!ObjectUtil.isEmpty(refreshTime)) {
+                    dateSet.add(refreshTime);
+                }
+            }
+        }
+        return dateSet;
+    }
+
+    private String getUsername() {
+        while (true) {
+            String name = RandomUtil.randomNumbers(8);
+            Boolean isUsername = selectUsernameIsTrue(name);
+            Boolean isNickname = selectNicknameIsTrue(name);
+            if (!isUsername && !isNickname) {
+                return name;
+            }
+        }
+    }
+
+
+}
