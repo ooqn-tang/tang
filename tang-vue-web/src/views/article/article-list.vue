@@ -50,7 +50,7 @@ export default {
       selectClassId:'',
       selectType:1,
       articlePage:{
-        nextPage:1
+        nextPage:0
       },
       articleList:[],
       isLoding:true
@@ -75,7 +75,7 @@ export default {
       }).then((response) => {
         this.articlePage = response.data
         this.isLoding = false
-        this.articleList = this.articleList.concat(response.data.list)
+        this.articleList = this.articleList.concat(response.data.content)
       })
     },
     next(){

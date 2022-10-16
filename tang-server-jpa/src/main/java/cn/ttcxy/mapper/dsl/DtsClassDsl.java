@@ -19,12 +19,11 @@ public class DtsClassDsl {
     private final QDtsClass qDtsClass = QDtsClass.dtsClass;
 
     public List<DtsClass> selectClass(String type) {
-        return query.select(
-                qDtsClass
-        ).from(
-                qDtsClass
-        ).where(
-                qDtsClass.type.eq(type)
-        ).fetch();
+        return query
+                .select(qDtsClass)
+                .from(qDtsClass)
+                .where(
+                        qDtsClass.type.eq(type))
+                .fetch();
     }
 }

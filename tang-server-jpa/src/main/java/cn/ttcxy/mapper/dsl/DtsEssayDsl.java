@@ -1,16 +1,16 @@
 package cn.ttcxy.mapper.dsl;
 
-import cn.ttcxy.entity.dto.DtsCommentDto;
-import cn.ttcxy.entity.dto.DtsEssayDto;
-import cn.ttcxy.entity.model.QDtsEssay;
-import cn.ttcxy.entity.model.QUtsAuthor;
-import com.querydsl.core.types.Projections;
-import com.querydsl.core.types.dsl.Wildcard;
-import com.querydsl.jpa.impl.JPAQueryFactory;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
+import com.querydsl.core.types.Projections;
+import com.querydsl.jpa.impl.JPAQueryFactory;
+
+import cn.ttcxy.entity.dto.DtsEssayDto;
+import cn.ttcxy.entity.model.QDtsEssay;
+import cn.ttcxy.entity.model.QUtsAuthor;
 
 @Component
 public class DtsEssayDsl {
@@ -25,8 +25,13 @@ public class DtsEssayDsl {
     public List<DtsEssayDto> select() {
         return query.select(Projections.bean(
                 DtsEssayDto.class,
-                Wildcard.all
-        )).from(
+                qDtsEssay.text,
+                qDtsEssay.essayId,
+                qDtsEssay.createTime,
+                qDtsEssay.url,
+                qUtsAuthor.nickname,
+                qUtsAuthor.username
+                )).from(
                 qDtsEssay, qUtsAuthor
         ).where(
                 qDtsEssay.authorId.eq(qUtsAuthor.authorId)

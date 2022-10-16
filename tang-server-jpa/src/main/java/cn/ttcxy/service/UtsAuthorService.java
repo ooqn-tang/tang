@@ -1,23 +1,29 @@
 package cn.ttcxy.service;
 
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.RandomUtil;
 import cn.ttcxy.entity.dto.UtsRoleDto;
-import cn.ttcxy.entity.model.*;
+import cn.ttcxy.entity.model.UtsAuthor;
+import cn.ttcxy.entity.model.UtsAuthorRole;
+import cn.ttcxy.entity.model.UtsRole;
 import cn.ttcxy.entity.param.UtsRoleParam;
 import cn.ttcxy.mapper.repository.UtsAuthorRepository;
 import cn.ttcxy.mapper.repository.UtsAuthorRoleRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DuplicateKeyException;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Service;
-
-import java.util.*;
 
 /**
  * 创作者服务
@@ -37,14 +43,10 @@ public class UtsAuthorService {
     private static final Map<String, Date> usernameTime = new HashMap<>();
 
     public UtsAuthor selectAuthorByName(String username) {
-        UtsAuthorExample authorExample = new UtsAuthorExample();
-        authorExample.createCriteria().andUsernameEqualTo(username);
         return utsAuthorRepository.findByUsername(username);
     }
 
     public UtsAuthor selectAuthorByMail(String mail) {
-        UtsAuthorExample authorExample = new UtsAuthorExample();
-        authorExample.createCriteria().andMailEqualTo(mail);
         return utsAuthorRepository.findByMail(mail);
     }
 
@@ -65,14 +67,10 @@ public class UtsAuthorService {
     }
 
     public int updateAuthorByName(UtsAuthor author) {
-        UtsAuthorExample authorExample = new UtsAuthorExample();
-        authorExample.createCriteria().andMailEqualTo(author.getMail());
         return utsAuthorRepository.saveByMail(author.getMail());
     }
 
     public Boolean selectUsernameIsTrue(String username) {
-        UtsAuthorExample authorExample = new UtsAuthorExample();
-        authorExample.createCriteria().andUsernameEqualTo(username);
         return utsAuthorRepository.countByUsername(username) > 0;
     }
 
@@ -81,14 +79,10 @@ public class UtsAuthorService {
     }
 
     public Boolean selectMailIsTrue(String mail) {
-        UtsAuthorExample authorExample = new UtsAuthorExample();
-        authorExample.createCriteria().andMailEqualTo(mail);
         return utsAuthorRepository.countByMail(mail) > 0;
     }
 
-    public Page<UtsAuthor> selectAuthor(Integer page, Integer size) {
-        Pageable pageable = PageRequest.of(page,size);
-        //new PageImpl<>()
+    public Page<UtsAuthor> selectAuthor(Pageable pageable) {
         return utsAuthorRepository.findAll(pageable);
     }
 
@@ -111,8 +105,6 @@ public class UtsAuthorService {
     }
 
     public void insertRole(String authorId, List<UtsRoleParam> roleParams) {
-        UtsAuthorRoleExample authorRoleExample = new UtsAuthorRoleExample();
-        authorRoleExample.createCriteria().andAuthorIdEqualTo(authorId);
         authorRoleRepository.deleteByAuthorId(authorId);
         for (UtsRoleParam roleParam : roleParams) {
             UtsAuthorRole authorRole = new UtsAuthorRole();

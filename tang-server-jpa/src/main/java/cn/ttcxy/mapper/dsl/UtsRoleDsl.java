@@ -35,27 +35,25 @@ public class UtsRoleDsl {
                 qUtsRole.roleId,
                 qUtsRole.roleName,
                 qUtsRole.roleValue,
-                qUtsRole.updateTime
-        )).from(qUtsRole,qUtsAuthorRole).where(
-                qUtsRole.roleId.eq(qUtsAuthorRole.roleId),
-                qUtsAuthorRole.authorId.eq(authorId)
-        ).fetch();
+                qUtsRole.updateTime)).from(qUtsRole, qUtsAuthorRole).where(
+                        qUtsRole.roleId.eq(qUtsAuthorRole.roleId),
+                        qUtsAuthorRole.authorId.eq(authorId))
+                .fetch();
 
     }
 
-    public List<String> selectRoleIdList(String authorId){
+    public List<String> selectRoleIdList(String authorId) {
 
         QUtsAuthor qUtsAuthor = QUtsAuthor.utsAuthor;
         QUtsAuthorRole qUtsAuthorRole = QUtsAuthorRole.utsAuthorRole;
 
         return query.select(Projections.bean(
                 String.class,
-                qUtsAuthorRole.roleId
-        )).from(qUtsAuthor, qUtsAuthorRole).where(
-                qUtsAuthor.authorId.eq(qUtsAuthorRole.authorId),
-                qUtsAuthorRole.authorId.eq(authorId)
-        ).fetch();
-        
+                qUtsAuthorRole.roleId)).from(qUtsAuthor, qUtsAuthorRole).where(
+                        qUtsAuthor.authorId.eq(qUtsAuthorRole.authorId),
+                        qUtsAuthorRole.authorId.eq(authorId))
+                .fetch();
+
     }
 
 }

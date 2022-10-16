@@ -1,19 +1,19 @@
 package cn.ttcxy.service;
 
+import java.util.Date;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import cn.hutool.core.util.IdUtil;
 import cn.ttcxy.entity.dto.UtsRoleDto;
 import cn.ttcxy.entity.model.UtsResource;
 import cn.ttcxy.entity.model.UtsResourceRole;
-import cn.ttcxy.entity.model.UtsResourceRoleExample;
 import cn.ttcxy.entity.model.UtsRole;
 import cn.ttcxy.mapper.dsl.UtsRoleDsl;
 import cn.ttcxy.mapper.repository.UtsResourceRoleRepository;
 import cn.ttcxy.mapper.repository.UtsRoleRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.util.Date;
-import java.util.List;
 
 @Service
 public class UtsRoleService {
@@ -52,8 +52,6 @@ public class UtsRoleService {
     }
 
     public void insertResource(String roleId, List<UtsResource> resourceList) {
-        UtsResourceRoleExample resourceRoleExample = new UtsResourceRoleExample();
-        resourceRoleExample.createCriteria().andRoleIdEqualTo(roleId);
         resourceRoleRepository.deleteByRoleId(roleId);
         for (UtsResource utsResource : resourceList) {
             UtsResourceRole resourceRole = new UtsResourceRole();

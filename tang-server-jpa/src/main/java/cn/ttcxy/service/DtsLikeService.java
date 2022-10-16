@@ -1,10 +1,10 @@
 package cn.ttcxy.service;
 
-import cn.ttcxy.entity.model.DtsLike;
-import cn.ttcxy.entity.model.DtsLikeExample;
-import cn.ttcxy.mapper.repository.DtsLikeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import cn.ttcxy.entity.model.DtsLike;
+import cn.ttcxy.mapper.repository.DtsLikeRepository;
 
 @Service
 public class DtsLikeService {
@@ -20,10 +20,6 @@ public class DtsLikeService {
      * 返回记录的行数
      */
     public long select(String authorId,String dataId){
-        DtsLikeExample likeExample = new DtsLikeExample();
-        likeExample.createCriteria()
-                .andAuthorIdEqualTo(authorId)
-                .andDataIdEqualTo(dataId);
         return likeRepository.countByAuthorIdAndDataId(authorId,dataId);
     }
 

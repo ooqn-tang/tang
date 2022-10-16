@@ -1,10 +1,10 @@
 package cn.ttcxy.mapper.repository;
 
 
-import cn.ttcxy.entity.model.DtsArticleContent;
-import cn.ttcxy.entity.model.UtsFans;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
+
+import cn.ttcxy.entity.model.UtsFans;
 
 @Repository
 public interface UtsFansRepository extends CrudRepository<UtsFans, String> {

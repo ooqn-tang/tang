@@ -1,17 +1,25 @@
 package cn.ttcxy.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.github.pagehelper.PageInfo;
+
 import cn.hutool.core.bean.BeanUtil;
 import cn.ttcxy.core.exception.ApiException;
 import cn.ttcxy.entity.dto.DtsArticleSubjectDto;
-import cn.ttcxy.entity.model.DtsArticle;
 import cn.ttcxy.entity.model.DtsArticleSubject;
 import cn.ttcxy.entity.param.DtsSubjectParam;
 import cn.ttcxy.service.DtsArticleService;
 import cn.ttcxy.service.DtsArticleSubjectService;
-import com.github.pagehelper.PageInfo;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("api/subject")
@@ -76,15 +84,9 @@ public class DtsSubjectController extends BaseController {
     }
 
     @PutMapping("article")
-    public String insertArticleToSubject(
-            @RequestParam(value = "articleId") String articleId,
-            @RequestParam(value = "subjectId") String subjectId) {
-
-        DtsArticle dtsArticle = articleService.updateSubject(articleId, subjectId);
-        if (dtsArticle != null) {
-            return "处理成功";
-        }
-        throw new ApiException();
+    public Integer insertArticleToSubject(@RequestParam(value = "articleId") String articleId, @RequestParam(value = "subjectId") String subjectId) {
+        return articleService.saveSubjectId(articleId, subjectId);
+        
     }
 
     @GetMapping("article/{articleId}")

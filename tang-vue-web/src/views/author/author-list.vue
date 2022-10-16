@@ -45,7 +45,7 @@ export default {
         url: '/api/author/selectAuthor',
         method: 'GET'
       }).then((response) => {
-        this.authorList = response.data.list
+        this.authorList = response.data.content
       })
     }
   },

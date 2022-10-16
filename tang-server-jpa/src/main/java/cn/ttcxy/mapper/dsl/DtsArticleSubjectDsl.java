@@ -1,16 +1,17 @@
 package cn.ttcxy.mapper.dsl;
 
-import cn.ttcxy.entity.dto.DtsArticleDto;
-import cn.ttcxy.entity.dto.DtsArticleSubjectDto;
-import cn.ttcxy.entity.model.QDtsArticleSubject;
-import cn.ttcxy.entity.model.QUtsAuthor;
-import com.querydsl.core.types.Projections;
-import com.querydsl.core.types.dsl.Wildcard;
-import com.querydsl.jpa.impl.JPAQueryFactory;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
+import com.querydsl.core.types.Projections;
+import com.querydsl.core.types.dsl.Wildcard;
+import com.querydsl.jpa.impl.JPAQueryFactory;
+
+import cn.ttcxy.entity.dto.DtsArticleSubjectDto;
+import cn.ttcxy.entity.model.QDtsArticleSubject;
+import cn.ttcxy.entity.model.QUtsAuthor;
 
 /**
  * 文章专辑
@@ -40,7 +41,11 @@ public class DtsArticleSubjectDsl {
     public List<DtsArticleSubjectDto> selectSubjectList() {
         return query.select(Projections.bean(
                 DtsArticleSubjectDto.class,
-                Wildcard.all
+                qArticleSubject.subjectId,
+                qArticleSubject.subjectName,
+                qArticleSubject.synopsis,
+                qArticleSubject.createDate,
+                qArticleSubject.updateDate
         )).from(
                 qArticleSubject, qAuthor
         ).where(

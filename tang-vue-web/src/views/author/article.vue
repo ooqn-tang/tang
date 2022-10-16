@@ -138,7 +138,7 @@ export default {
       thisItem: {},
       articleList: [],
       articlePage: {
-        nextPage: 1,
+        nextPage: 0,
       },
       subjectFrom: {
         subjectId: "",
@@ -153,9 +153,8 @@ export default {
         method: "get",
         params: { page: pageSize },
       }).then((response) => {
-        if (response.data.list != undefined) {
-          this.articlePage = response.data;
-          this.articleList = this.articleList.concat(response.data.list);
+        if (response.data != undefined) {
+          this.articleList = this.articleList.concat(response.data.content);
         }
       });
     },

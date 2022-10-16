@@ -1,13 +1,13 @@
 package cn.ttcxy.mapper.dsl;
 
-import cn.ttcxy.entity.dto.DtsCommentDto;
-import cn.ttcxy.entity.dto.DtsDataCount;
-import cn.ttcxy.entity.model.QDtsArticle;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.Wildcard;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+
+import cn.ttcxy.entity.model.QDtsArticle;
 
 /**
  * 同时获取视频，博客

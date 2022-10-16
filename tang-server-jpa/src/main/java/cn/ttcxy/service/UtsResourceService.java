@@ -1,22 +1,13 @@
 package cn.ttcxy.service;
 
-import cn.hutool.core.util.IdUtil;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import cn.ttcxy.entity.model.UtsResource;
 import cn.ttcxy.mapper.dsl.UtsResourceDsl;
 import cn.ttcxy.mapper.repository.UtsResourceRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.method.HandlerMethod;
-import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
-import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
-import org.springframework.web.util.pattern.PathPattern;
-
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 @Service
 public class UtsResourceService {
@@ -61,43 +52,43 @@ public class UtsResourceService {
         return resourceDls.selectByRoleId(roleId);
     }
 
-    @Autowired
-    private ApplicationContext applicationContext;
+    // @Autowired
+    // private ApplicationContext applicationContext;
 
     public void urls() {
-        RequestMappingHandlerMapping mapping = applicationContext.getBean(RequestMappingHandlerMapping.class);
-        // 获取url与类和方法的对应信息
-        Map<RequestMappingInfo, HandlerMethod> map = mapping.getHandlerMethods();
+    //     RequestMappingHandlerMapping mapping = applicationContext.getBean(RequestMappingHandlerMapping.class);
+    //     // 获取url与类和方法的对应信息
+    //     Map<RequestMappingInfo, HandlerMethod> map = mapping.getHandlerMethods();
 
-        UtsResource resource = new UtsResource();
-        resource.setState(9);
-        resourceRepository.save(resource);
+    //     UtsResource resource = new UtsResource();
+    //     resource.setState(9);
+    //     resourceRepository.save(resource);
 
-        for (Map.Entry<RequestMappingInfo, HandlerMethod> entryInfo : map.entrySet()) {
-            assert entryInfo.getKey().getPathPatternsCondition() != null;
-            Set<PathPattern> patterns = entryInfo.getKey().getPathPatternsCondition().getPatterns();
-            for (PathPattern pathPattern : patterns) {
-                String url = pathPattern.getPatternString();
-                Set<RequestMethod> methods = entryInfo.getKey().getMethodsCondition().getMethods();
-                for (RequestMethod method : methods) {
-                    String urlStr = url.replaceAll("\\{[^}]*}", "*");
-                    try {
-                        UtsResource utsResource = new UtsResource();
-                        utsResource.setResourceId(IdUtil.objectId());
-                        utsResource.setType(method.name());
-                        utsResource.setName(urlStr);
-                        utsResource.setPath(urlStr);
-                        utsResource.setCreateTime(new Date());
-                        utsResource.setState(8);
-                        insert(utsResource);
-                    }catch (Exception e){
-                        UtsResource utsResource = new UtsResource();
-                        utsResource.setState(8);
-                        resourceRepository.saveByPath(urlStr);
-                        System.out.println("数据已经存在");
-                    }
-                }
-            }
-        }
+    //     for (Map.Entry<RequestMappingInfo, HandlerMethod> entryInfo : map.entrySet()) {
+    //         assert entryInfo.getKey().getPathPatternsCondition() != null;
+    //         Set<PathPattern> patterns = entryInfo.getKey().getPathPatternsCondition().getPatterns();
+    //         for (PathPattern pathPattern : patterns) {
+    //             String url = pathPattern.getPatternString();
+    //             Set<RequestMethod> methods = entryInfo.getKey().getMethodsCondition().getMethods();
+    //             for (RequestMethod method : methods) {
+    //                 String urlStr = url.replaceAll("\\{[^}]*}", "*");
+    //                 try {
+    //                     UtsResource utsResource = new UtsResource();
+    //                     utsResource.setResourceId(IdUtil.objectId());
+    //                     utsResource.setType(method.name());
+    //                     utsResource.setName(urlStr);
+    //                     utsResource.setPath(urlStr);
+    //                     utsResource.setCreateTime(new Date());
+    //                     utsResource.setState(8);
+    //                     insert(utsResource);
+    //                 }catch (Exception e){
+    //                     UtsResource utsResource = new UtsResource();
+    //                     utsResource.setState(8);
+    //                     resourceRepository.saveByPath(urlStr);
+    //                     System.out.println("数据已经存在");
+    //                 }
+    //             }
+    //         }
+    //     }
     }
 }

@@ -1,19 +1,23 @@
 package cn.ttcxy.mapper.dsl;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Component;
+
+import com.querydsl.core.types.Projections;
+import com.querydsl.core.types.dsl.Wildcard;
+import com.querydsl.jpa.impl.JPAQuery;
+import com.querydsl.jpa.impl.JPAQueryFactory;
+
 import cn.ttcxy.entity.dto.DtsArticleDto;
 import cn.ttcxy.entity.model.QDtsArticle;
 import cn.ttcxy.entity.model.QDtsArticleContent;
 import cn.ttcxy.entity.model.QDtsArticleSubject;
 import cn.ttcxy.entity.model.QUtsAuthor;
-
-import java.util.List;
-
-import com.querydsl.core.types.Projections;
-import com.querydsl.core.types.dsl.Wildcard;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import com.querydsl.jpa.impl.JPAQueryFactory;
-import org.springframework.stereotype.Component;
 
 /**
  * 文章
@@ -29,59 +33,75 @@ public class DtsArticleDsl {
     @Autowired
     private JPAQueryFactory query;
 
-    public List<DtsArticleDto> selectArticleList(String classId) {
-        return query.select(Projections.bean(
+    public Page<DtsArticleDto> selectArticleList(String classId, Pageable pageable) {
+        JPAQuery<?> jpaQuery = query
+                .from(
+                        qAuthor, qArticle)
+                .where(
+                        qAuthor.authorId.eq(qArticle.authorId),
+                        qArticle.state.eq(1));
+
+
+
+        Long count = jpaQuery.select(qArticle.articleId.count()).fetchOne();
+
+        List<DtsArticleDto> articleList = jpaQuery.select(Projections.bean(
                 DtsArticleDto.class,
                 qArticle.articleId,
                 qArticle.title,
                 qArticle.createDate,
                 qArticle.updateDate,
                 qAuthor.username,
-                qAuthor.nickname
-        )).from(
-                qAuthor, qArticle
-        ).where(
-                qAuthor.authorId.eq(qArticle.authorId),
-                qArticle.state.eq(1)
-        ).orderBy(qArticle.createDate.desc()).fetch();
+                qAuthor.nickname,
+                qArticle.synopsis
+                ))
+                .orderBy(qArticle.createDate.desc())
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize()).fetch();
+
+        return new PageImpl<>(articleList, pageable, count);       
+                
     }
 
-    public List<DtsArticleDto> selectGzArticleList(String authorId) {
-        return query.select(Projections.bean(
-                DtsArticleDto.class, Wildcard.all
-        )).from(
-                qArticle
-        ).where(
-                qArticle.state.eq(1)
-        ).orderBy(
-                qArticle.createDate.desc()
-        ).fetch();
+    public Page<DtsArticleDto> selectGzArticleList(String authorId, Pageable pageable) {
+
+        JPAQuery<?> jpaQuery = query
+                .from(qArticle).where(qArticle.state.eq(1)).orderBy(qArticle.createDate.desc());
+
+        Long totle = jpaQuery
+                .select(Projections.bean(Long.class, qArticle.articleId.count())).fetchOne();
+
+        List<DtsArticleDto> fetch = jpaQuery
+                .select(Projections.bean(DtsArticleDto.class, Wildcard.all))
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize()).fetch();
+
+        return new PageImpl<>(fetch, pageable, totle);
+
     }
 
     public List<DtsArticleDto> selectArticleListSmall() {
         return query.select(Projections.bean(
-                DtsArticleDto.class, Wildcard.all
-        )).from(
-                qArticle
-        ).where(
-                qArticle.state.eq(1)
-        ).orderBy(
-                qArticle.createDate.desc()
-        ).fetch();
+                DtsArticleDto.class, Wildcard.all)).from(
+                        qArticle)
+                .where(
+                        qArticle.state.eq(1))
+                .orderBy(
+                        qArticle.createDate.desc())
+                .fetch();
     }
 
     public List<DtsArticleDto> search(String title) {
         return query.select(Projections.bean(
-                DtsArticleDto.class, Wildcard.all
-        )).from(
-                qAuthor, qArticle
-        ).where(
-                qAuthor.authorId.eq(qArticle.authorId),
-                qArticle.state.eq(1),
-                qArticle.title.like("%" + title + "%")
-        ).orderBy(
-                qArticle.createDate.desc()
-        ).fetch();
+                DtsArticleDto.class, Wildcard.all)).from(
+                        qAuthor, qArticle)
+                .where(
+                        qAuthor.authorId.eq(qArticle.authorId),
+                        qArticle.state.eq(1),
+                        qArticle.title.like("%" + title + "%"))
+                .orderBy(
+                        qArticle.createDate.desc())
+                .fetch();
     }
 
     public DtsArticleDto selectArticleById(String id) {
@@ -93,50 +113,61 @@ public class DtsArticleDsl {
                 qArticle.updateDate,
                 qAuthor.username,
                 qAuthor.nickname,
-                qArticleContent.text
-        )).from(
-                qAuthor, qArticle
-        ).where(
-                qArticle.articleId.eq(id),
-                qAuthor.authorId.eq(qArticle.authorId)
-        ).leftJoin(
-                qArticleContent
-        ).on(
-                qArticleContent.articleId.eq(qArticle.articleId)
-        ).orderBy(
-                qArticle.createDate.desc()
-        ).fetchOne();
+                qArticleContent.text)).from(
+                        qAuthor, qArticle)
+                .where(
+                        qArticle.articleId.eq(id),
+                        qAuthor.authorId.eq(qArticle.authorId))
+                .leftJoin(
+                        qArticleContent)
+                .on(
+                        qArticleContent.articleId.eq(qArticle.articleId))
+                .orderBy(
+                        qArticle.createDate.desc())
+                .fetchOne();
     }
 
     public DtsArticleDto selectArticleAllById(String id) {
-        return query.select(Projections.bean(
-                DtsArticleDto.class,
-                qArticle.articleId,
-                qAuthor.username,
-                qAuthor.nickname,
-                qArticle.title,
-                qArticle.createDate,
-                qArticle.updateDate,
-                qArticle.synopsis,
-                qArticleContent.text,
-                qArticleContent.markdown,
-                qArticle.subjectId
-        )).from(
-                qAuthor, qArticle
-        ).where(
-                qArticle.articleId.eq(id),
-                qAuthor.authorId.eq(qArticle.authorId)
-        ).leftJoin(
-                qArticleContent
-        ).on(
-                qArticleContent.articleId.eq(qArticle.articleId)
-        ).orderBy(
-                qArticle.createDate.desc()
-        ).fetchOne();
+        return query.select(
+                Projections.bean(
+                        DtsArticleDto.class,
+                        qArticle.articleId,
+                        qAuthor.username,
+                        qAuthor.nickname,
+                        qArticle.title,
+                        qArticle.createDate,
+                        qArticle.updateDate,
+                        qArticle.synopsis,
+                        qArticleContent.text,
+                        qArticleContent.markdown,
+                        qArticle.subjectId))
+                .from(
+                        qAuthor, qArticle)
+                .where(
+                        qArticle.articleId.eq(id),
+                        qAuthor.authorId.eq(qArticle.authorId))
+                .leftJoin(
+                        qArticleContent)
+                .on(
+                        qArticleContent.articleId.eq(qArticle.articleId))
+                .orderBy(
+                        qArticle.createDate.desc())
+                .fetchOne();
     }
 
-    public List<DtsArticleDto> selectArticleListByUsername(String username) {
-        return query.select(Projections.bean(
+    public Page<DtsArticleDto> selectArticleListByUsername(String username, Pageable pageable) {
+         JPAQuery<?> jpaQuery = query
+                .from(qAuthor)
+                .innerJoin(qArticle)
+                .on(qAuthor.authorId.eq(qArticle.authorId), qAuthor.username.eq(username))
+                .leftJoin(qDtsArticleSubject)
+                .on(qDtsArticleSubject.subjectId.eq(qArticle.subjectId))
+                .where(qArticle.state.eq(1))
+                .orderBy(qArticle.createDate.desc());
+
+        Long count = jpaQuery.select(qArticle.articleId.count()).fetchOne();
+
+        List<DtsArticleDto> fetch = jpaQuery.select(Projections.bean(
                 DtsArticleDto.class,
                 qArticle.articleId,
                 qAuthor.username,
@@ -145,31 +176,17 @@ public class DtsArticleDsl {
                 qArticle.createDate,
                 qArticle.updateDate,
                 qArticle.synopsis,
-                qArticle.subjectId
-        )).from(
-                qAuthor
-        ).innerJoin(
-                qArticle
-        ).on(
-                qAuthor.authorId.eq(qArticle.authorId),
-                qAuthor.username.eq(username)
-        ).leftJoin(
-                qDtsArticleSubject
-        ).on(
-                qDtsArticleSubject.subjectId.eq(qArticle.subjectId)
-        ).where(
-                qArticle.state.eq(1)
-        ).orderBy(
-                qArticle.createDate.desc()
-        ).fetch();
+                qArticle.subjectId,
+                qDtsArticleSubject.subjectName
+                )).offset(pageable.getOffset()).limit(pageable.getPageSize()).fetch();
+        return new PageImpl<>(fetch, pageable, count);
     }
 
     public List<DtsArticleDto> selectArticleList1000() {
         return query.select(Projections.bean(
                 DtsArticleDto.class,
                 qArticle.articleId,
-                qArticle.title
-        )).from(qArticle).limit(1000).fetch();
+                qArticle.title)).from(qArticle).limit(1000).fetch();
     }
 
 }

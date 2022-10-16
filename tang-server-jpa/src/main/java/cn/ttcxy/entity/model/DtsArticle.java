@@ -28,6 +28,6 @@ public class DtsArticle {
 
     private String subjectId;
 
-    private Integer orderNum;
+    private String orderNum;
 
 }

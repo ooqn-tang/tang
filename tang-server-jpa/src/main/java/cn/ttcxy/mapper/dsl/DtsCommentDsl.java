@@ -1,21 +1,21 @@
 package cn.ttcxy.mapper.dsl;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import com.querydsl.core.types.Predicate;
+import com.querydsl.core.types.Projections;
+import com.querydsl.core.types.dsl.Wildcard;
+import com.querydsl.jpa.impl.JPAQueryFactory;
+
 import cn.hutool.core.util.ArrayUtil;
-import cn.ttcxy.entity.dto.DtsArticleSubjectDto;
 import cn.ttcxy.entity.dto.DtsCommentDto;
 import cn.ttcxy.entity.model.QDtsComment;
 import cn.ttcxy.entity.model.QStsCode;
 import cn.ttcxy.entity.model.QUtsAuthor;
-import com.querydsl.core.types.Predicate;
-import com.querydsl.core.types.Projections;
-import com.querydsl.core.types.dsl.Wildcard;
-import com.querydsl.jpa.JPAExpressions;
-import com.querydsl.jpa.impl.JPAQueryFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * 评论

@@ -1,19 +1,17 @@
 package cn.ttcxy.service;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.IdUtil;
 import cn.ttcxy.entity.dto.DtsDataDto;
 import cn.ttcxy.entity.model.DtsCollect;
-import cn.ttcxy.entity.model.DtsCollectExample;
 import cn.ttcxy.mapper.dsl.DtsCollectDsl;
 import cn.ttcxy.mapper.dsl.DtsDataDsl;
 import cn.ttcxy.mapper.repository.DtsCollectRepository;
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class DtsCollectService {
@@ -37,8 +35,6 @@ public class DtsCollectService {
 
     public DtsCollect insert(String authorId, String dataId) {
         Integer type = dataDsl.selectDataType(dataId);
-        DtsCollectExample collectExample = new DtsCollectExample();
-        collectExample.createCriteria().andDataIdEqualTo(dataId).andAuthorIdEqualTo(authorId);
         DtsCollect dtsCollect = new DtsCollect();
         String id = IdUtil.objectId();
         dtsCollect.setAuthorId(authorId);

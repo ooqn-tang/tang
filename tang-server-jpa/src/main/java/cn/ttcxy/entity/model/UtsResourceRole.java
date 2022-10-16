@@ -1,12 +1,11 @@
 package cn.ttcxy.entity.model;
 
-import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.Entity;
 import javax.persistence.Id;
 
 import lombok.Data;
-import javax.persistence.Entity;
 
 @Entity
 @Data
@@ -20,8 +19,6 @@ public class UtsResourceRole {
     private String roleId;
 
     private Date createTime;
-
-    private static final long serialVersionUID = 1L;
 
     public String getResourceRoleId() {
         return resourceRoleId;

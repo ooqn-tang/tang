@@ -10,6 +10,10 @@ import cn.ttcxy.mapper.repository.DtsArticleRepository;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -33,9 +37,8 @@ public class DtsArticleService {
     @Autowired
     private DtsEssayService dynamicService;
 
-    public PageInfo<DtsArticleDto> selectArticleList(String classId, Integer page, Integer size) {
-        PageHelper.startPage(page, size);
-        return new PageInfo<>(articleDsl.selectArticleList(classId));
+    public Page<DtsArticleDto> selectArticleList(String classId, Pageable pageable) {
+        return articleDsl.selectArticleList(classId,pageable);
     }
 
     public PageInfo<DtsArticleDto> selectArticleListSmall(Integer page, Integer size) {
@@ -48,9 +51,8 @@ public class DtsArticleService {
         return new PageInfo<>(articleDsl.search(title));
     }
 
-    public PageInfo<DtsArticleDto> selectArticleByAuthorName(String username, Integer page, Integer size) {
-        PageHelper.startPage(page, size);
-        return new PageInfo<>(articleDsl.selectArticleListByUsername(username));
+    public Page<DtsArticleDto> selectArticleByAuthorName(String username, Pageable pageable) {
+        return articleDsl.selectArticleListByUsername(username,pageable);
     }
 
     public DtsArticle insertArticle(DtsArticle article) {
@@ -114,19 +116,26 @@ public class DtsArticleService {
         return set;
     }
 
-    public DtsArticle updateSubject(String articleId, String subjectId) {
-        DtsArticle article = new DtsArticle();
-        article.setArticleId(articleId);
-        article.setSubjectId(subjectId);
-        return articleRepository.save(article);
+    public Integer saveSubjectId(String articleId, String subjectId) {
+        return articleRepository.saveSubjectId(subjectId,articleId);
     }
 
     public String authorId(String articleId) {
         return articleRepository.findById(articleId).orElseThrow().getAuthorId();
     }
 
-    public PageInfo<DtsArticleDto> selectGzArticleList(String classId, Integer page,String authorId) {
-        PageHelper.startPage(page, 10);
-        return new PageInfo<>(articleDsl.selectGzArticleList(authorId));
+    public Page<DtsArticleDto> selectGzArticleList(String classId, Pageable pageable,String authorId) {
+        return articleDsl.selectGzArticleList(authorId,pageable);
+    }
+
+    public static void main(String[] args) {
+        Pageable of = PageRequest.of(11, 10);
+        PageImpl<Object> pageImpl = new PageImpl<>(new ArrayList<>(),of,100);
+
+        System.out.println(pageImpl.hasNext());
+        System.out.println(pageImpl.hasPrevious());
+        System.out.println(pageImpl.getTotalElements());        
+        System.out.println(pageImpl.getTotalPages());
+        System.out.println(pageImpl);
     }
 }

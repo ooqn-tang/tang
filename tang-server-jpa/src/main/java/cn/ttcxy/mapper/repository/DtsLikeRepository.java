@@ -1,12 +1,12 @@
 package cn.ttcxy.mapper.repository;
 
 
-import cn.ttcxy.entity.model.DtsArticleContent;
-import cn.ttcxy.entity.model.DtsLike;
+import java.util.List;
+
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
+import cn.ttcxy.entity.model.DtsLike;
 
 @Repository
 public interface DtsLikeRepository extends CrudRepository<DtsLike, String> {
