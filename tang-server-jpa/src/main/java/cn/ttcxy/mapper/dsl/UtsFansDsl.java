@@ -1,17 +1,21 @@
 package cn.ttcxy.mapper.dsl;
 
-import cn.ttcxy.entity.dto.UtsFansDto;
-import cn.ttcxy.entity.model.QUtsAuthor;
-import cn.ttcxy.entity.model.QUtsFans;
-
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Component;
 
 import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.Wildcard;
+import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import org.springframework.stereotype.Component;
+
+import cn.ttcxy.entity.dto.UtsFansDto;
+import cn.ttcxy.entity.model.QUtsAuthor;
+import cn.ttcxy.entity.model.QUtsFans;
 
 /**
  * 粉丝
@@ -26,19 +30,19 @@ public class UtsFansDsl {
     private QUtsAuthor qAuthor = QUtsAuthor.utsAuthor;
     private QUtsAuthor qAuthor1 = QUtsAuthor.utsAuthor;
 
-    public List<UtsFansDto> selectFansList(String userId) {
-        return query.select(Projections.bean(
-                        UtsFansDto.class,
-                        qFans.fansId,
-                        qFans.authorId,
-                        qFans.beAuthorId,
-                        qAuthor.nickname,
-                        qAuthor.username
-                )).from(qFans, qAuthor, qAuthor1)
-                .where(qAuthor.authorId.eq(qFans.authorId),
-                        qAuthor1.authorId.eq(qFans.authorId),
-                        qFans.authorId.eq(userId))
-                .orderBy(qFans.createDate.asc()).fetch();
+    public Page<UtsFansDto> selectFansList(String userId, Pageable pageable) {
+        JPAQuery<?> jpaQuery = query.from(qFans, qAuthor, qAuthor1)
+                .where(qAuthor.authorId.eq(qFans.authorId), qAuthor1.authorId.eq(qFans.authorId),
+                        qFans.authorId.eq(userId));
+
+        Long fetchOne = jpaQuery.select(qFans.fansId.count()).fetchOne();
+
+        List<UtsFansDto> fansList = jpaQuery
+                .select(Projections.bean(UtsFansDto.class, qFans.fansId, qFans.authorId, qFans.beAuthorId,
+                        qAuthor.nickname, qAuthor.username))
+                .orderBy(qFans.createDate.asc()).offset(pageable.getOffset())
+                .limit(pageable.getPageSize()).fetch();
+        return new PageImpl<>(fansList, pageable, fetchOne);
     }
 
     public Long isFans(String authorId, String beAuthorId) {

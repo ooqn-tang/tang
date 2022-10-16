@@ -109,13 +109,9 @@ const routes = [
         path: '/admin',
         name: 'admin',
         component: () => import('views/admin/index.vue'),
-        redirect:"/admin/comment",
+        redirect:"/admin/author",
         children:[
             {
-                path:"comment",
-                name:"admin_comment",
-                component: () => import('views/admin/comment.vue')
-            },{
                 path:"recommend",
                 name:"admin_recommend",
                 component: () => import('views/admin/recommend.vue')

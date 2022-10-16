@@ -1,6 +1,9 @@
 package cn.ttcxy.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,8 +13,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.github.pagehelper.PageInfo;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.ttcxy.core.exception.ApiException;
@@ -33,10 +34,9 @@ public class DtsSubjectController extends BaseController {
     private DtsArticleService articleService;
 
     @GetMapping("username")
-    public PageInfo<DtsArticleSubjectDto> selectSubjectArticleListByUsername(
-            @RequestParam(value = "username", defaultValue = "0") String username) {
-
-        return articleSubjectService.selectSubjectListByUsername(username, 1, 10);
+    public Page<DtsArticleSubjectDto> selectSubjectArticleListByUsername(@RequestParam(value = "username", defaultValue = "0") String username) {
+        Pageable pageable = PageRequest.of(0, 10);
+        return articleSubjectService.selectSubjectListByUsername(username, pageable);
     }
 
     @GetMapping("subjectId")
@@ -47,18 +47,15 @@ public class DtsSubjectController extends BaseController {
     }
 
     @GetMapping("list")
-    public PageInfo<DtsArticleSubjectDto> selectSubject(
-            @RequestParam(value = "page", defaultValue = "0") Integer page) {
-
-        Integer pageSize = 20;
-        return articleSubjectService.selectSubjectList(page, pageSize);
+    public Page<DtsArticleSubjectDto> selectSubject( @RequestParam(value = "page", defaultValue = "0") Integer page) {
+        Pageable pageable = PageRequest.of(page, 20);
+        return articleSubjectService.selectSubjectList(pageable);
     }
 
     @GetMapping("search")
-    public PageInfo<DtsArticleSubjectDto> selectSubjectByName(
-            @RequestParam(value = "subjectName", defaultValue = "") String name) {
-
-        return articleSubjectService.selectSubjectListBySubjectName(name, 1, 10);
+    public Page<DtsArticleSubjectDto> selectSubjectByName(@RequestParam(value = "subjectName", defaultValue = "") String name) {
+        Pageable pageable = PageRequest.of(1, 15);
+        return articleSubjectService.selectSubjectListBySubjectName(name, pageable);
     }
 
     @PostMapping

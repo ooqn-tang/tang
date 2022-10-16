@@ -3,10 +3,9 @@ package cn.ttcxy.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
 
 import cn.hutool.core.date.DateTime;
 import cn.hutool.core.date.DateUtil;
@@ -37,14 +36,12 @@ public class DtsArticleSubjectService {
         return dtsArticleSubjectDto;
     }
 
-    public PageInfo<DtsArticleSubjectDto> selectSubjectList(Integer page, Integer pageSize) {
-        PageHelper.startPage(page,pageSize);
-        return new PageInfo<>(articleSubjectDsl.selectSubjectList());
+    public Page<DtsArticleSubjectDto> selectSubjectList(Pageable pageable) {
+        return articleSubjectDsl.selectSubjectList(pageable);
     }
 
-    public PageInfo<DtsArticleSubjectDto> selectSubjectListByUsername(String username, Integer page, Integer pageSize) {
-        PageHelper.startPage(page,pageSize);
-        return new PageInfo<>(articleSubjectDsl.selectSubjectListByUsername(username));
+    public Page<DtsArticleSubjectDto> selectSubjectListByUsername(String username, Pageable pageable) {
+        return articleSubjectDsl.selectSubjectListByUsername(username,pageable);
     }
 
     public DtsArticleSubject insertSubject(DtsArticleSubject subject) {
@@ -56,13 +53,15 @@ public class DtsArticleSubjectService {
     }
 
     public DtsArticleSubject updateSubject(DtsArticleSubject subject) {
-        subject.setUpdateDate(DateUtil.date());
-        return articleSubjectRepository.save(subject);
+        DtsArticleSubject articleSubject = articleSubjectRepository.findById(subject.getSubjectId()).orElseThrow();
+        articleSubject.setUpdateDate(DateUtil.date());
+        articleSubject.setSubjectName(subject.getSubjectName());
+        articleSubject.setSynopsis(subject.getSynopsis());
+        return articleSubjectRepository.save(articleSubject);
     }
 
-    public PageInfo<DtsArticleSubjectDto> selectSubjectListBySubjectName(String name, int page, int pageSize) {
-        PageHelper.startPage(page,pageSize);
-        return new PageInfo<>(articleSubjectDsl.selectSubjectListBySubjectName(name));
+    public Page<DtsArticleSubjectDto> selectSubjectListBySubjectName(String name, Pageable pageable) {
+        return articleSubjectDsl.selectSubjectListBySubjectName(name, pageable);
     }
 
     public String selectSubjectIdByArticleId(String articleId) {

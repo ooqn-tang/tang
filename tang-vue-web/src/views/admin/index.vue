@@ -16,9 +16,6 @@
     <el-menu-item index="admin_video" @click="$router.push({name:'admin_video'})">
       <template #title>视频</template>
     </el-menu-item>
-    <el-menu-item index="admin_comment" @click="$router.push({name:'admin_comment'})">
-      <template #title>评论</template>
-    </el-menu-item>
     <el-menu-item index="admin_recommend" @click="$router.push({name:'admin_recommend'})">
       <template #title>推荐</template>
     </el-menu-item>

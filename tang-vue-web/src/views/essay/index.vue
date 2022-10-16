@@ -33,8 +33,7 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <textarea class="form-control" placeholder="Leave a comment here" v-model="essay.text" id="floatingTextarea2"
-            style="height: 250px"></textarea>
+          <textarea class="form-control" placeholder="Leave a comment here" v-model="essay.text" id="floatingTextarea2" style="height: 250px"></textarea>
         </div>
         <div class="modal-footer">
           <button type="button" ref="close" class="btn btn-secondary" data-bs-dismiss="modal">关闭</button>

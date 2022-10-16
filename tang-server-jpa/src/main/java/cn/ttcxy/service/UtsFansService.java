@@ -1,5 +1,10 @@
 package cn.ttcxy.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+
 import cn.hutool.core.date.DateTime;
 import cn.hutool.core.util.IdUtil;
 import cn.ttcxy.entity.dto.UtsFansDto;
@@ -7,9 +12,6 @@ import cn.ttcxy.entity.model.UtsAuthor;
 import cn.ttcxy.entity.model.UtsFans;
 import cn.ttcxy.mapper.dsl.UtsFansDsl;
 import cn.ttcxy.mapper.repository.UtsFansRepository;
-import com.github.pagehelper.PageInfo;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 /**
  * 粉丝相关服务
@@ -27,8 +29,8 @@ public class UtsFansService {
     private UtsAuthorService authorService;
 
     
-    public PageInfo<UtsFansDto> selectFansList(String authorId){
-        return new PageInfo<>(fansDsl.selectFansList(authorId));
+    public Page<UtsFansDto> selectFansList(String authorId,Pageable pageable){
+        return fansDsl.selectFansList(authorId,pageable);
     }
 
     

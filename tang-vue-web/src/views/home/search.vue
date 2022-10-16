@@ -60,7 +60,7 @@ export default {
         params: this.form,
       }).then((response) => {
         this.videoData = response.data;
-        this.dataList = this.dataList.concat(response.data.list)
+        this.dataList = this.dataList.concat(response.data.content)
         this.isLoding = false;
       });
     },

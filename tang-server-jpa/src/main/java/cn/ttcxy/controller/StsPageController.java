@@ -1,12 +1,5 @@
 package cn.ttcxy.controller;
 
-import cn.ttcxy.entity.dto.DtsArticleDto;
-import cn.ttcxy.entity.dto.DtsArticleSubjectDto;
-import cn.ttcxy.service.DtsArticleService;
-import cn.ttcxy.service.DtsArticleSubjectService;
-import cn.ttcxy.service.StsNoticeService;
-import com.github.pagehelper.PageInfo;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +12,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import cn.ttcxy.entity.dto.DtsArticleDto;
+import cn.ttcxy.entity.dto.DtsArticleSubjectDto;
+import cn.ttcxy.service.DtsArticleService;
+import cn.ttcxy.service.DtsArticleSubjectService;
+import cn.ttcxy.service.StsNoticeService;
 
 @Controller
 @RequestMapping
@@ -37,7 +36,8 @@ public class StsPageController {
     public String toIndex(@RequestParam(value = "page", defaultValue = "1") Integer page, Model model,HttpServletRequest request) {
         String parameter = request.getParameter("a");
         System.out.println(parameter);
-        PageInfo<DtsArticleDto> dtsArticleDtoPageInfo = articleService.selectArticleListSmall(page, 50);
+        Pageable pageable = PageRequest.of(page,50);
+        Page<DtsArticleDto> dtsArticleDtoPageInfo = articleService.selectArticleListSmall(pageable);
         model.addAttribute("articlePage", dtsArticleDtoPageInfo);
         model.addAttribute("notice", noticeService.selectAllNotice());
         return "articles";
@@ -75,7 +75,8 @@ public class StsPageController {
 
     @GetMapping("subjects")
     public String subjects(@RequestParam(value = "page", defaultValue = "1") Integer page, Model model){
-        PageInfo<DtsArticleSubjectDto> dtsArticleSubjectDtoPageInfo = articleSubjectService.selectSubjectList(page,50);
+        Pageable pageable = PageRequest.of(page, 50);
+        Page<DtsArticleSubjectDto> dtsArticleSubjectDtoPageInfo = articleSubjectService.selectSubjectList(pageable);
         model.addAttribute("subjects", dtsArticleSubjectDtoPageInfo);
         return "subjects";
     }

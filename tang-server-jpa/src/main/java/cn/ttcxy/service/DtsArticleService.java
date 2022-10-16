@@ -1,14 +1,9 @@
 package cn.ttcxy.service;
 
-import cn.ttcxy.entity.dto.DtsArticleDto;
-import cn.ttcxy.entity.model.DtsArticle;
-import cn.ttcxy.entity.model.DtsArticleContent;
-import cn.ttcxy.entity.model.DtsEssay;
-import cn.ttcxy.mapper.dsl.DtsArticleDsl;
-import cn.ttcxy.mapper.repository.DtsArticleContentRepository;
-import cn.ttcxy.mapper.repository.DtsArticleRepository;
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -16,9 +11,13 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import cn.ttcxy.entity.dto.DtsArticleDto;
+import cn.ttcxy.entity.model.DtsArticle;
+import cn.ttcxy.entity.model.DtsArticleContent;
+import cn.ttcxy.entity.model.DtsEssay;
+import cn.ttcxy.mapper.dsl.DtsArticleDsl;
+import cn.ttcxy.mapper.repository.DtsArticleContentRepository;
+import cn.ttcxy.mapper.repository.DtsArticleRepository;
 
 /**
  * 博客服务
@@ -41,14 +40,13 @@ public class DtsArticleService {
         return articleDsl.selectArticleList(classId,pageable);
     }
 
-    public PageInfo<DtsArticleDto> selectArticleListSmall(Integer page, Integer size) {
-        PageHelper.startPage(page, size);
-        return new PageInfo<>(articleDsl.selectArticleListSmall());
+    public Page<DtsArticleDto> selectArticleListSmall(Pageable pageable) {
+        return articleDsl.selectArticleListSmall(pageable);
     }
 
-    public PageInfo<DtsArticleDto> search(String title, Integer page, Integer pageSize) {
-        PageHelper.startPage(page, pageSize);
-        return new PageInfo<>(articleDsl.search(title));
+    public Page<DtsArticleDto> search(String title, Integer page, Integer pageSize) {
+        Pageable pageable = PageRequest.of(page, pageSize);
+        return articleDsl.search(title,pageable);
     }
 
     public Page<DtsArticleDto> selectArticleByAuthorName(String username, Pageable pageable) {

@@ -80,28 +80,31 @@ public class DtsArticleDsl {
 
     }
 
-    public List<DtsArticleDto> selectArticleListSmall() {
-        return query.select(Projections.bean(
-                DtsArticleDto.class, Wildcard.all)).from(
-                        qArticle)
-                .where(
-                        qArticle.state.eq(1))
-                .orderBy(
-                        qArticle.createDate.desc())
-                .fetch();
+    public Page<DtsArticleDto> selectArticleListSmall(Pageable pageable) {
+
+        JPAQuery<?> jpaQuery = query.from(qArticle).where(qArticle.state.eq(1)).orderBy(qArticle.createDate.desc());
+        
+        Long count = jpaQuery.select(qArticle.articleId.count()).fetchOne();
+
+        List<DtsArticleDto> articleList = jpaQuery.select(Projections.bean(DtsArticleDto.class, Wildcard.all)).offset(pageable.getOffset()).limit(pageable.getPageSize()).fetch();
+        
+        return new PageImpl<>(articleList,pageable,count);
     }
 
-    public List<DtsArticleDto> search(String title) {
-        return query.select(Projections.bean(
-                DtsArticleDto.class, Wildcard.all)).from(
-                        qAuthor, qArticle)
-                .where(
-                        qAuthor.authorId.eq(qArticle.authorId),
-                        qArticle.state.eq(1),
-                        qArticle.title.like("%" + title + "%"))
-                .orderBy(
-                        qArticle.createDate.desc())
-                .fetch();
+    public Page<DtsArticleDto> search(String title,Pageable pageable) {
+        JPAQuery<?> jpaQuery = query.from(qAuthor, qArticle).where(qAuthor.authorId.eq(qArticle.authorId),qArticle.state.eq(1),qArticle.title.like("%" + title + "%")).orderBy(qArticle.createDate.desc());
+        Long count = jpaQuery.select(qArticle.articleId.count()).fetchOne();
+        List<DtsArticleDto> articleList = jpaQuery.select(Projections.bean(
+                DtsArticleDto.class, 
+                qArticle.articleId,
+                qArticle.title,
+                qArticle.createDate,
+                qArticle.updateDate,
+                qAuthor.username,
+                qAuthor.nickname,
+                qArticle.synopsis
+                )).offset(pageable.getOffset()).limit(pageable.getPageSize()).fetch();
+        return new PageImpl<>(articleList,pageable,count);
     }
 
     public DtsArticleDto selectArticleById(String id) {
@@ -162,8 +165,7 @@ public class DtsArticleDsl {
                 .on(qAuthor.authorId.eq(qArticle.authorId), qAuthor.username.eq(username))
                 .leftJoin(qDtsArticleSubject)
                 .on(qDtsArticleSubject.subjectId.eq(qArticle.subjectId))
-                .where(qArticle.state.eq(1))
-                .orderBy(qArticle.createDate.desc());
+                .where(qArticle.state.eq(1));
 
         Long count = jpaQuery.select(qArticle.articleId.count()).fetchOne();
 
@@ -178,7 +180,7 @@ public class DtsArticleDsl {
                 qArticle.synopsis,
                 qArticle.subjectId,
                 qDtsArticleSubject.subjectName
-                )).offset(pageable.getOffset()).limit(pageable.getPageSize()).fetch();
+                )).orderBy(qArticle.createDate.desc()).offset(pageable.getOffset()).limit(pageable.getPageSize()).fetch();
         return new PageImpl<>(fetch, pageable, count);
     }
 

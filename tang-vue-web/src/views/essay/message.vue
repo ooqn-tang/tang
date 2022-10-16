@@ -36,7 +36,7 @@ export default {
                 method: "get",
                 params: { type: 'essay' }
             }).then((response) => {
-                this.essayList = response.data.list
+                this.essayList = response.data.content
             });
         },
         insertEssay() {

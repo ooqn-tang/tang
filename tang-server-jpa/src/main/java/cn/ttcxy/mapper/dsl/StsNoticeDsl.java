@@ -1,5 +1,7 @@
 package cn.ttcxy.mapper.dsl;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -20,8 +22,8 @@ public class StsNoticeDsl {
     private final QStsNotice qNotice = QStsNotice.stsNotice;
 
     public Integer selectNoticeMaxOrder() {
-        return query.select(Projections.bean(Integer.class, qNotice.orderNum)).from(qNotice)
-                .orderBy(qNotice.orderNum.desc()).limit(1).fetchOne();
+        Integer fetchOne = query.select(qNotice.orderNum.max()).from(qNotice).orderBy(qNotice.orderNum.desc()).limit(1).fetchOne();
+        return Optional.ofNullable(fetchOne).orElse(0);
     }
 
 }

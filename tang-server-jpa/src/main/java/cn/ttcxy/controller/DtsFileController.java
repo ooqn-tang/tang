@@ -33,7 +33,7 @@ public class DtsFileController extends BaseController {
     @PostMapping("/upload")
     public String create(@RequestParam("file") MultipartFile file,@RequestParam("type")String type) throws IOException {
         
-        String fileName = Optional.of(file.getOriginalFilename()).orElseThrow();
+        String fileName = Optional.ofNullable(file.getOriginalFilename()).orElseThrow();
 
         String[] split = fileName.split("\\.");
         if (split.length < 2){

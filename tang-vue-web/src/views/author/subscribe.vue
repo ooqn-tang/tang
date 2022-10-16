@@ -30,7 +30,7 @@ export default {
         url: '/api/fans/list',
         method: 'get'
       }).then((response) => {
-        this.fansList = response.data.list;
+        this.fansList = response.data.content;
       })
     },
     deleteFansMethod(username,index){

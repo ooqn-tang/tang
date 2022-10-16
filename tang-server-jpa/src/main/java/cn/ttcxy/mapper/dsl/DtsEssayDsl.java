@@ -3,9 +3,13 @@ package cn.ttcxy.mapper.dsl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 import com.querydsl.core.types.Projections;
+import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
 import cn.ttcxy.entity.dto.DtsEssayDto;
@@ -22,8 +26,16 @@ public class DtsEssayDsl {
     @Autowired
     private JPAQueryFactory query;
 
-    public List<DtsEssayDto> select() {
-        return query.select(Projections.bean(
+    public Page<DtsEssayDto> select(Pageable pageable) {
+        JPAQuery<?> jpaQuery = query.from(
+                qDtsEssay, qUtsAuthor
+        ).where(
+                qDtsEssay.authorId.eq(qUtsAuthor.authorId)
+        );
+
+        Long fetchOne = jpaQuery.select(qDtsEssay.essayId.count()).fetchOne();
+
+        List<DtsEssayDto> fetch = jpaQuery.select(Projections.bean(
                 DtsEssayDto.class,
                 qDtsEssay.text,
                 qDtsEssay.essayId,
@@ -31,12 +43,10 @@ public class DtsEssayDsl {
                 qDtsEssay.url,
                 qUtsAuthor.nickname,
                 qUtsAuthor.username
-                )).from(
-                qDtsEssay, qUtsAuthor
-        ).where(
-                qDtsEssay.authorId.eq(qUtsAuthor.authorId)
-        ).orderBy(
-                qDtsEssay.createTime.desc()
-        ).fetch();
+                )).offset(pageable.getOffset()).limit(pageable.getPageSize()).orderBy(
+                        qDtsEssay.createTime.desc()
+                ).fetch();
+
+        return new PageImpl<>(fetch,pageable,fetchOne);
     }
 }

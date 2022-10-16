@@ -18,8 +18,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.github.pagehelper.PageInfo;
-
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.date.DateTime;
 import cn.hutool.core.util.IdUtil;
@@ -129,9 +127,7 @@ public class DtsArticleController extends BaseController {
     }
 
     @GetMapping("so")
-    public PageInfo<?> search(
-            @RequestParam(value = "page",defaultValue = "0")Integer page,
-            @RequestParam("wb") String wb){
+    public Page<?> search(@RequestParam(value = "page",defaultValue = "0")Integer page,@RequestParam("wb") String wb){
         return articleService.search(wb,page,10);
     }
 }

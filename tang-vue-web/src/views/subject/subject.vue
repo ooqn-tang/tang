@@ -52,7 +52,7 @@ export default {
         url: '/api/subject/list',
         method: 'GET'
       }).then((response) => {
-        this.subjectList = response.data.list
+        this.subjectList = response.data.content
       })
     }
   },
