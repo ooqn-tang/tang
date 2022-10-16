@@ -7,6 +7,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.data.domain.Page;
@@ -29,6 +31,7 @@ import cn.ttcxy.mapper.repository.UtsAuthorRoleRepository;
  * 创作者服务
  */
 @Service
+@Transactional
 public class UtsAuthorService {
 
     @Autowired

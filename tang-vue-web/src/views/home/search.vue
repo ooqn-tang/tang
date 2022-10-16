@@ -18,7 +18,7 @@
             <a href="#" class=" float-end">{{ item.nickname }}</a>
           </div>
         </li>
-        <li class="list-group-item" v-if="videoData.nextPage!=0">
+        <li class="list-group-item">
           <a @click="next()" v-if="!isLoding">获取{{}}</a><a v-if="isLoding">加载中...</a>
         </li>
       </ul>
@@ -40,13 +40,12 @@ export default {
   name: "search_index",
   data() {
     return {
-      searchText: "视频",
+      searchText: "文章",
       form: {
         wb: ""
       },
       isLoding: true,
       dataList: [],
-      videoData: {},
     };
   },
   computed: {},
@@ -59,18 +58,14 @@ export default {
         method: "GET",
         params: this.form,
       }).then((response) => {
-        this.videoData = response.data;
         this.dataList = this.dataList.concat(response.data.content)
         this.isLoding = false;
       });
     },
     next() {
-      this.form.page = this.videoData.nextPage;
       this.so();
     },
-    openVideo(videoId) {
-      this.$router.push({ name: "video_info", params: { id: videoId } });
-    },
+
     openArticle(dataId) {
       this.$router.push({ name: "article_post", params: { id: dataId } });
     },

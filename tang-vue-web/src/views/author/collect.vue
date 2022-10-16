@@ -4,9 +4,6 @@
       <router-link :to="{name: 'article_post', params: { id: item.dataId}}" class="article-title" v-if="item.type == 1">
         <strong><p>📰{{item.title}}</p></strong>
       </router-link>
-      <router-link :to="{name: 'video_info', params: { id: item.dataId}}" class="article-title" v-if="item.type == 2">
-        <strong><p>📺{{item.title}}</p></strong>
-      </router-link>
       <div class="article-synopsis">{{item.synopsis}}</div>
       <div>
         <span>{{item.createDate}}</span>

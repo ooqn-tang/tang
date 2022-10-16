@@ -16,6 +16,8 @@ spring:
     console:
       path: /h2-console
       enabled: true
+      settings:
+        web-admin-password: as
   main:
     allow-circular-references: true
   jackson:

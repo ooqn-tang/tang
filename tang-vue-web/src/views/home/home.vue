@@ -87,14 +87,6 @@ export default {
   created() {
   },
   methods: {
-    createVideo(){
-      request({
-        url: '/api/video',
-        method: 'POST'
-      }).then((response) => {
-        this.$router.push({name:'video_contribute',params: {id:response.data}})
-      })
-    },
     createArticle(){
       request({
         url: '/api/article',
