@@ -46,6 +46,9 @@ export default {
       },
       isLoding: true,
       dataList: [],
+      page:{
+        number:0
+      },
     };
   },
   computed: {},
@@ -53,16 +56,20 @@ export default {
   methods: {
     so() {
       this.isLoding = true;
+      this.form.page = this.page.number
       request({
         url: "/api/article/so",
         method: "GET",
         params: this.form,
       }).then((response) => {
+        this.page = response.data
         this.dataList = this.dataList.concat(response.data.content)
         this.isLoding = false;
       });
     },
     next() {
+      if(this.page.l)
+      this.page.number += 1
       this.so();
     },
 

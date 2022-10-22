@@ -38,7 +38,7 @@ public class UtsAuthorController extends BaseController {
         UtsAuthor author = BeanUtil.toBean(authorParam, UtsAuthor.class);
         String authorId = authorId();
         author.setAuthorId(authorId);
-        int count = authorService.updateAuthorByName(author);
+        long count = authorService.update(author);
         if (count > 0) {
             return "更新成功";
         }

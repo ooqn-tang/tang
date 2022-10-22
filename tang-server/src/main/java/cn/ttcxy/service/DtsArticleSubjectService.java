@@ -31,6 +31,9 @@ public class DtsArticleSubjectService {
 
     public DtsArticleSubjectDto selectSubjectArticleListById(String subjectId) {
         DtsArticleSubjectDto dtsArticleSubjectDto = articleSubjectDsl.selectSubjectById(subjectId);
+        if(dtsArticleSubjectDto == null){
+            return null;
+        }
         List<DtsArticle> dtsArticles = articleRepository.findAllBySubjectId(subjectId);
         dtsArticleSubjectDto.setArticleList(dtsArticles);
         return dtsArticleSubjectDto;
@@ -40,8 +43,8 @@ public class DtsArticleSubjectService {
         return articleSubjectDsl.selectSubjectList(pageable);
     }
 
-    public Page<DtsArticleSubjectDto> selectSubjectListByUsername(String username, Pageable pageable) {
-        return articleSubjectDsl.selectSubjectListByUsername(username,pageable);
+    public List<DtsArticleSubjectDto> selectSubjectListByUsername(String username) {
+        return articleSubjectDsl.selectSubjectListByUsername(username);
     }
 
     public DtsArticleSubject insertSubject(DtsArticleSubject subject) {

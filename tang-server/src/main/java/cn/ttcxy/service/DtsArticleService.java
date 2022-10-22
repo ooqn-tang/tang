@@ -36,8 +36,8 @@ public class DtsArticleService {
     @Autowired
     private DtsEssayService dynamicService;
 
-    public Page<DtsArticleDto> selectArticleList(String classId, Pageable pageable) {
-        return articleDsl.selectArticleList(classId,pageable);
+    public Page<DtsArticleDto> selectArticleList(Pageable pageable) {
+        return articleDsl.selectArticleList(pageable);
     }
 
     public Page<DtsArticleDto> selectArticleListSmall(Pageable pageable) {
@@ -122,7 +122,7 @@ public class DtsArticleService {
         return articleRepository.findById(articleId).orElseThrow().getAuthorId();
     }
 
-    public Page<DtsArticleDto> selectGzArticleList(String classId, Pageable pageable,String authorId) {
+    public Page<DtsArticleDto> selectGzArticleList(Pageable pageable,String authorId) {
         return articleDsl.selectGzArticleList(authorId,pageable);
     }
 

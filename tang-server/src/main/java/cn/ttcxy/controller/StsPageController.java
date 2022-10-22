@@ -34,8 +34,6 @@ public class StsPageController {
 
     @GetMapping
     public String toIndex(@RequestParam(value = "page", defaultValue = "1") Integer page, Model model,HttpServletRequest request) {
-        String parameter = request.getParameter("a");
-        System.out.println(parameter);
         Pageable pageable = PageRequest.of(page,50);
         Page<DtsArticleDto> dtsArticleDtoPageInfo = articleService.selectArticleListSmall(pageable);
         model.addAttribute("articlePage", dtsArticleDtoPageInfo);
@@ -61,7 +59,7 @@ public class StsPageController {
     @GetMapping("map")
     public String map(@RequestParam(value = "page", defaultValue = "0") Integer page, Model model) {
         Pageable pageable = PageRequest.of(page, 15);
-        Page<DtsArticleDto> dtsArticleDtoPage = articleService.selectArticleList("", pageable);
+        Page<DtsArticleDto> dtsArticleDtoPage = articleService.selectArticleList(pageable);
         model.addAttribute("articlePage", dtsArticleDtoPage);
         return "map";
     }

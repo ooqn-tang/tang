@@ -24,6 +24,7 @@ import cn.ttcxy.entity.model.UtsAuthor;
 import cn.ttcxy.entity.model.UtsAuthorRole;
 import cn.ttcxy.entity.model.UtsRole;
 import cn.ttcxy.entity.param.UtsRoleParam;
+import cn.ttcxy.mapper.dsl.UtsAuthorDsl;
 import cn.ttcxy.mapper.repository.UtsAuthorRepository;
 import cn.ttcxy.mapper.repository.UtsAuthorRoleRepository;
 
@@ -36,6 +37,9 @@ public class UtsAuthorService {
 
     @Autowired
     private UtsAuthorRepository utsAuthorRepository;
+
+    @Autowired
+    private UtsAuthorDsl authorDsl;
 
     @Autowired
     private UtsAuthorRoleRepository authorRoleRepository;
@@ -69,8 +73,8 @@ public class UtsAuthorService {
         return utsAuthorRepository.save(author);
     }
 
-    public int updateAuthorByName(UtsAuthor author) {
-        return utsAuthorRepository.saveByMail(author.getMail());
+    public long update(UtsAuthor author) {
+        return authorDsl.updata(author);
     }
 
     public Boolean selectUsernameIsTrue(String username) {
@@ -97,10 +101,6 @@ public class UtsAuthorService {
                 "%" + queryData + "%",
                 "%" + queryData + "%"
         );
-    }
-
-    public UtsAuthor update(UtsAuthor author) {
-        return utsAuthorRepository.save(author);
     }
 
     public void delete(String authorId) {

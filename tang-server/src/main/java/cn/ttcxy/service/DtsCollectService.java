@@ -3,6 +3,8 @@ package cn.ttcxy.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import cn.hutool.core.date.DateUtil;
@@ -10,7 +12,6 @@ import cn.hutool.core.util.IdUtil;
 import cn.ttcxy.entity.dto.DtsDataDto;
 import cn.ttcxy.entity.model.DtsCollect;
 import cn.ttcxy.mapper.dsl.DtsCollectDsl;
-import cn.ttcxy.mapper.dsl.DtsDataDsl;
 import cn.ttcxy.mapper.repository.DtsCollectRepository;
 
 @Service
@@ -22,27 +23,16 @@ public class DtsCollectService {
     @Autowired
     private DtsCollectDsl collectDsl;
 
-    @Autowired
-    private DtsDataDsl dataDsl;
-
     public long select(String authorId, String dataId) {
         return collectRepository.countByDataIdAndAuthorId(dataId, authorId);
     }
 
-    public List<DtsDataDto> selectCollect(String username) {
-        return collectDsl.selectCollect(username);
+    public Page<DtsCollect> selectCollect(String authorId,Pageable pageable) {
+        return collectDsl.selectCollect(authorId, pageable);
     }
 
-    public DtsCollect insert(String authorId, String dataId) {
-        Integer type = dataDsl.selectDataType(dataId);
-        DtsCollect dtsCollect = new DtsCollect();
-        String id = IdUtil.objectId();
-        dtsCollect.setAuthorId(authorId);
-        dtsCollect.setDataId(dataId);
-        dtsCollect.setCollectId(id);
-        dtsCollect.setType(type);
-        dtsCollect.setCreateDate(DateUtil.date());
-        return collectRepository.save(dtsCollect);
+    public DtsCollect insert(DtsCollect collect) {
+        return collectRepository.save(collect);
     }
 
     public int unCollect(String authorId, String dataId) {

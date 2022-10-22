@@ -3,15 +3,24 @@ package cn.ttcxy.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
+import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.date.DateTime;
+import cn.hutool.core.date.DateUtil;
+import cn.hutool.core.util.IdUtil;
 import cn.ttcxy.entity.dto.DtsDataDto;
 import cn.ttcxy.entity.model.DtsCollect;
+import cn.ttcxy.entity.param.DtsCollectParam;
 import cn.ttcxy.service.DtsCollectService;
 
 @RestController
@@ -28,15 +37,22 @@ public class DtsCollectController extends BaseController {
     }
 
     @GetMapping("list")
-    public List<DtsDataDto> list(){
-        String username = authorName();
-        return collectService.selectCollect(username);
+    public Page<DtsCollect> list(@RequestParam("page")Integer page){
+        Pageable pageable = PageRequest.of(page, 10);
+        String authorId = authorId();
+        return collectService.selectCollect(authorId,pageable);
     }
 
-    @PostMapping("{dataId}")
-    public DtsCollect insert(@PathVariable("dataId") String dataId){
+    @PostMapping
+    public DtsCollect insert(@RequestBody DtsCollectParam collectParam){
+        DtsCollect collect = BeanUtil.toBean(collectParam, DtsCollect.class);
+        DateTime date = DateUtil.date();
         String authorId = authorId();
-        return collectService.insert(authorId,dataId);
+
+        collect.setCollectId(IdUtil.objectId());
+        collect.setAuthorId(authorId);
+        collect.setCreateDate(date);
+        return collectService.insert(collect);
     }
 
     @DeleteMapping("{dataId}")

@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.date.DateTime;
+import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.ttcxy.core.api.ResponseCode;
@@ -38,20 +39,15 @@ public class DtsArticleController extends BaseController {
     private DtsArticleService articleService;
 
     @GetMapping("list")
-    public Page<DtsArticleDto> selectArticleList(
-            @RequestParam(value = "page" ,defaultValue = "1")Integer page,
-            @RequestParam(value = "classId",defaultValue = "")String classId){
-        Page<DtsArticleDto> articleList;
-
+    public Page<DtsArticleDto> selectArticleList(@RequestParam(value = "page" ,defaultValue = "0")Integer page){
         Pageable pageable = PageRequest.of(page, 15);
+        return articleService.selectArticleList(pageable);
+    }
 
-        if(StrUtil.equals("gz",classId)){
-            articleList = articleService.selectGzArticleList(classId, pageable, authorId());
-        }else{
-            articleList = articleService.selectArticleList(classId, pageable);
-        }
-
-        return articleList;
+    @GetMapping("list/gz")
+    public Page<DtsArticleDto> selectArticleListGz(@RequestParam(value = "page" ,defaultValue = "0")Integer page){
+        Pageable pageable = PageRequest.of(page, 15);
+        return articleService.selectGzArticleList(pageable, authorId());
     }
 
     @GetMapping("list/{username}")
@@ -68,7 +64,7 @@ public class DtsArticleController extends BaseController {
     }
 
     @PostMapping
-    public ResponseEntity<String> create(){
+    public String create(){
         DateTime dateTime = new DateTime();
         String authorId = authorId();
         DtsArticle article = new DtsArticle();
@@ -77,10 +73,8 @@ public class DtsArticleController extends BaseController {
         article.setUpdateDate(dateTime);
         article.setState(5);
         article.setAuthorId(authorId);
-        if (articleService.insertArticle(article) != null){
-            return ResponseEntity.ok(article.getArticleId());
-        }
-        throw new ApiException(HttpStatus.ACCEPTED);
+        articleService.insertArticle(article);
+        return article.getArticleId();
     }
 
     @DeleteMapping("{articleId}")
@@ -96,14 +90,17 @@ public class DtsArticleController extends BaseController {
     public String update(@RequestBody DtsArticleParam articleParam){
         DtsArticle article = BeanUtil.toBean(articleParam, DtsArticle.class);
         String articleId = article.getArticleId();
-        String authorId= articleService.authorId(articleId);
+        String authorId = articleService.authorId(articleId);
         if (StrUtil.equals(authorId, authorId())){
+            article.setAuthorId(authorId);
             article.setState(1);
+            article.setUpdateDate(DateUtil.date());
+
             DtsArticleContent articleContent = new DtsArticleContent();
             articleContent.setArticleId(article.getArticleId());
             articleContent.setMarkdown(articleParam.getMarkdown());
             articleContent.setText(articleParam.getText());
-            article.setAuthorId(authorId);
+            
             DtsArticle dtsArticle = articleService.updateArticle(article, articleContent);
             if (dtsArticle != null){
                 return ResponseCode.SUCCESS.getMessage();

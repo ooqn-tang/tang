@@ -1,5 +1,6 @@
 package cn.ttcxy.controller;
 
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -34,9 +35,8 @@ public class DtsSubjectController extends BaseController {
     private DtsArticleService articleService;
 
     @GetMapping("username")
-    public Page<DtsArticleSubjectDto> selectSubjectArticleListByUsername(@RequestParam(value = "username", defaultValue = "0") String username) {
-        Pageable pageable = PageRequest.of(0, 10);
-        return articleSubjectService.selectSubjectListByUsername(username, pageable);
+    public List<DtsArticleSubjectDto> selectSubjectArticleListByUsername(@RequestParam(value = "username", defaultValue = "0") String username) {
+        return articleSubjectService.selectSubjectListByUsername(username);
     }
 
     @GetMapping("subjectId")

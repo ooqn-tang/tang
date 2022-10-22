@@ -2,10 +2,15 @@ package cn.ttcxy.mapper.dsl;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
-
-import cn.ttcxy.entity.dto.DtsDataDto;
+import com.querydsl.jpa.impl.JPAQuery;
+import com.querydsl.jpa.impl.JPAQueryFactory;
+import cn.ttcxy.entity.model.DtsCollect;
+import cn.ttcxy.entity.model.QDtsCollect;
 
 /**
  * 收藏
@@ -13,8 +18,20 @@ import cn.ttcxy.entity.dto.DtsDataDto;
 @Component
 public class DtsCollectDsl {
 
-    public List<DtsDataDto> selectCollect(String username) {
-        return new ArrayList<>();
+    QDtsCollect qCollect = QDtsCollect.dtsCollect;
+
+    @Autowired
+    private JPAQueryFactory query;
+
+    public Page<DtsCollect> selectCollect(String authorId, Pageable pageable) {
+        JPAQuery<?> fromQuery = query.from(qCollect).where(qCollect.authorId.eq(authorId));
+
+        Long fetchOne = fromQuery.select(qCollect.collectId.count()).fetchOne();
+
+        List<DtsCollect> fetch = fromQuery.select(qCollect).offset(pageable.getOffset())
+        .limit(pageable.getPageSize()).orderBy(qCollect.createDate.desc()).fetch();
+
+        return new PageImpl<>(fetch,pageable,fetchOne);
     }
 
 }

@@ -1,21 +1,17 @@
 <template>
   <ul class="list-group article-list">
-    <li class="list-group-item" v-for="(item,index) in articleList" :key="index">
-      <router-link :to="{name: 'article_post', params: { id: item.dataId}}" class="article-title" v-if="item.type == 1">
-        <strong><p>📰{{item.title}}</p></strong>
-      </router-link>
-      <div class="article-synopsis">{{item.synopsis}}</div>
+    <li class="list-group-item" v-for="(item,index) in collects" :key="index">
+      <a target="_blank" :href="item.url" class="article-title">
+        <strong><p>{{item.title}}</p></strong>
+      </a>
       <div>
         <span>{{item.createDate}}</span>
-        <a class="float-end">
-          {{item.nickname}}
-        </a>
       </div>
     </li>   
-    <li class="list-group-item" v-if="!this.articlePage.isLastPage">
-      <a @click="nextPage()">{{huoqu}}</a>
+    <li class="list-group-item" >
+      <a @click="next()">{{huoqu}}</a>
     </li> 
-    <li class="list-group-item" v-if="articleList.length == 0">
+    <li class="list-group-item" v-if="collects.length == 0">
       没有数据
     </li>
   </ul>
@@ -27,10 +23,10 @@ export default {
   name: "author_collect",
   data() {
     return {
-      articlePage:{
-        nextPage:1
+      page:{
+        number:0
       },
-      articleList:[],
+      collects:[],
       huoqu:"获取中..."
     };
   },
@@ -40,21 +36,22 @@ export default {
       request({
         url: '/api/collect/list',
         method: 'GET',
-        params:{page:pageNum}
+        params:{page: this.page.number}
       }).then((response) => {
-        this.articlePage = response.data
-        this.articleList = this.articleList.concat(response.data.list)
+        this.page = response.data
+        this.collects = this.collects.concat(response.data.content)
         this.huoqu = '获取'
       })
     },
-    nextPage(){
-      if(!this.articlePage.isLastPage){
-        this.collectList(this.articlePage.nextPage)
+    next(){
+      if (!this.page.last) {
+        this.page.number += 1
+        this.collectList(this.page.number)
       }
     }
   },
   mounted(){
-    this.collectList(this.articlePage.nextPage)
+    this.collectList(this.page.number)
   }
 };
 </script>

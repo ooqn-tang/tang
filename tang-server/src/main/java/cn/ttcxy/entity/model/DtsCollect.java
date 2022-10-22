@@ -16,10 +16,14 @@ public class DtsCollect {
 
     private String authorId;
 
+    private String title;
+
+    private String synopsis;
+
+    private String url;
+
     private String dataId;
 
     private Date createDate;
-
-    private Integer type;
 
 }

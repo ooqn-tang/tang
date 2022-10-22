@@ -90,7 +90,7 @@ export default {
         method: 'GET',
         params:{"username":username}
       }).then((response) => {
-        this.subjectList = response.data.content
+        this.subjectList = response.data
       })
     }
   },

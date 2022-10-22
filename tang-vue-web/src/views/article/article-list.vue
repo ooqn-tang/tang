@@ -4,8 +4,8 @@
        <div class="card mb-2 move-b-lr-0">
          <div class="card-body p-0">
            <nav class="nav">
-              <a class="nav-link" :class="selectClassId == ''?'nav-link-active':''" @click="selectClassClick('')">最新</a>
-              <a class="nav-link" :class="selectClassId == 'gz' ? 'nav-link-active' : ''" @click="selectClassClick('gz')">关注</a>
+              <a class="nav-link" :class="selectTag == ''?'nav-link-active':''" @click="selectTagClick('')">最新</a>
+              <a class="nav-link" :class="selectTag == 'gz' ? 'nav-link-active' : ''" @click="selectTagClick('gz')">关注</a>
             </nav>
          </div>
        </div>
@@ -47,10 +47,10 @@ export default {
   name: "article",
   data() {
     return {
-      selectClassId:'',
+      selectTag:'',
       selectType:1,
-      articlePage:{
-        nextPage:0
+      page:{
+        number:0
       },
       articleList:[],
       isLoding:true
@@ -60,32 +60,41 @@ export default {
    
   },
   methods: {
-    selectClassClick(classId){
-      this.selectClassId = classId
-      this.articleList = []
-      this.articlePage.nextPage = 1
-      this.loadArticle(this.articlePage.nextPage,classId)
+    selectTagClick(selectTag){
+      this.page = {
+        number:0
+      }
+      this.selectTag = selectTag;
+      this.articleList=[]
+      this.loadArticle()
     },
-    loadArticle(nextPage,classId){
+    loadArticle(){
+      let url = ''
+      if(this.selectTag == 'gz'){
+        url = '/api/article/list/gz'
+      }else{
+        url = '/api/article/list'
+      }
       this.isLoding = true
       request({
-        url: '/api/article/list',
+        url: url,
         method: 'get',
-        params:{page:nextPage,classId:classId}
+        params:{page: this.page.number}
       }).then((response) => {
-        this.articlePage = response.data
         this.isLoding = false
+        this.page = response.data
         this.articleList = this.articleList.concat(response.data.content)
       })
     },
     next(){
-      if(!this.articlePage.isLastPage){
-        this.loadArticle(this.articlePage.nextPage,this.selectTag)
+      if(!this.page.last){
+        this.page.number += 1
+        this.loadArticle()
       }
     }
   },
   mounted(){
-    this.loadArticle(this.articlePage.nextPage,this.selectTag)
+    this.loadArticle(this.page.number)
   }
 }
 </script>

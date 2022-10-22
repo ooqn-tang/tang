@@ -183,8 +183,14 @@ export default {
         });
       } else {
         request({
-          url: "/api/collect/"+this.articleId,
+          url: "/api/collect",
           method: "POST",
+          data:{
+            dataId:this.articleId,
+            url:window.location.href,
+            title:this.article.title,
+            synopsis:this.article.synopsis
+          }
         }).then((response) => {
           this.collect = 1;
         });

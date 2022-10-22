@@ -137,8 +137,8 @@ export default {
       isThisUser: this.$route.params.username == this.$store.state.username,
       thisItem: {},
       articleList: [],
-      articlePage: {
-        nextPage: 0,
+      page: {
+        number: 0,
       },
       subjectFrom: {
         subjectId: "",
@@ -153,9 +153,8 @@ export default {
         method: "get",
         params: { page: pageSize },
       }).then((response) => {
-        if (response.data != undefined) {
-          this.articleList = this.articleList.concat(response.data.content);
-        }
+        this.page = response.data
+        this.articleList = this.articleList.concat(response.data.content);
       });
     },
     loadSubjectList() {
@@ -164,7 +163,7 @@ export default {
         method: "GET",
         params: { username: this.$route.params.username },
       }).then((response) => {
-        this.subjectList = response.data.content;
+        this.subjectList = response.data;
       });
     },
     insertArticleToSubject() {
@@ -206,13 +205,13 @@ export default {
       });
     },
     nextPage() {
-      if (!this.articlePage.isLastPage) {
-        this.loadArticleByUsername(this.articlePage.nextPage);
+      if (!this.page.last) {
+        this.loadArticleByUsername(this.page.number + 1);
       }
     },
   },
   mounted() {
-    this.loadArticleByUsername(this.articlePage.nextPage);
+    this.loadArticleByUsername(this.page.number);
     this.loadSubjectList();
   },
 };

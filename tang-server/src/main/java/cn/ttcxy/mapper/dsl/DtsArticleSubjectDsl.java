@@ -59,7 +59,7 @@ public class DtsArticleSubjectDsl {
         return new PageImpl<>(articleSubjectList,pageable,fetchOne);
     }
 
-    public Page<DtsArticleSubjectDto> selectSubjectListByUsername(String username,Pageable pageable) {
+    public List<DtsArticleSubjectDto> selectSubjectListByUsername(String username) {
         JPAQuery<?> jpaQuery = query.from(
                 qArticleSubject
         ).leftJoin(
@@ -69,8 +69,6 @@ public class DtsArticleSubjectDsl {
         ).where(
                 qAuthor.username.eq(username)
         );
-
-        Long fetchOne = jpaQuery.select(qArticleSubject.subjectId.count()).fetchOne();
 
         List<DtsArticleSubjectDto> fetch = jpaQuery.select(Projections.bean(
                 DtsArticleSubjectDto.class,
@@ -82,9 +80,9 @@ public class DtsArticleSubjectDsl {
                 qArticleSubject.authorId,
                 qAuthor.username,
                 qAuthor.nickname
-        )).offset(pageable.getOffset()).limit(pageable.getPageSize()).fetch();
+        )).fetch();
 
-        return new PageImpl<>(fetch,pageable,fetchOne);
+        return fetch;
     }
 
     public Page<DtsArticleSubjectDto> selectSubjectListBySubjectName(String name,Pageable pageable) {

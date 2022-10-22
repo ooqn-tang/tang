@@ -164,7 +164,7 @@ export default {
         method: "GET",
         params: { username: this.$store.state.username },
       }).then((response) => {
-        this.subjectList = response.data.list;
+        this.subjectList = response.data;
       });
     },
     changeFlag(flag) {
