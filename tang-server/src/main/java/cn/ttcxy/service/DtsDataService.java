@@ -1,6 +1,6 @@
 package cn.ttcxy.service;
 
-import cn.ttcxy.mapper.dao.DtsDataDao;
+import cn.ttcxy.mapper.dsl.DtsDataDsl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -8,9 +8,9 @@ import org.springframework.stereotype.Service;
 public class DtsDataService {
 
     @Autowired
-    private DtsDataDao dataDao;
+    private DtsDataDsl dataDsl;
 
     public String selectDataAuthorId(String dataId){
-        return dataDao.selectDataAuthorId(dataId);
+        return dataDsl.selectDataAuthorId(dataId);
     }
 }

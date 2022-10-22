@@ -36,30 +36,22 @@ public class AdminAuthorController extends BaseController {
     @PostMapping
     public String insert(@RequestBody UtsAuthorParam authorParam){
         UtsAuthor author = BeanUtil.toBean(authorParam, UtsAuthor.class);
-        int count = authorService.insertAuthor(author);
-        if (count > 0){
+        UtsAuthor utsAuthor = authorService.insertAuthor(author);
+        if (utsAuthor != null){
             return ResponseCode.SUCCESS.getMessage();
         }
         throw new ApiException();
     }
 
     @PutMapping
-    public String update(@RequestBody UtsAuthorParam authorParam){
+    public UtsAuthor update(@RequestBody UtsAuthorParam authorParam){
         UtsAuthor author = BeanUtil.toBean(authorParam, UtsAuthor.class);
-        int count = authorService.update(author);
-        if (count > 0){
-            return ResponseCode.SUCCESS.getMessage();
-        }
-        throw new ApiException();
+        return authorService.update(author);
     }
 
     @DeleteMapping("{authorId}")
-    public String delete(@PathVariable("authorId") String authorId){
-        int count = authorService.delete(authorId);
-        if (count > 0){
-            return ResponseCode.SUCCESS.getMessage();
-        }
-        throw new ApiException();
+    public void delete(@PathVariable("authorId") String authorId){
+        authorService.delete(authorId);
     }
 
 }

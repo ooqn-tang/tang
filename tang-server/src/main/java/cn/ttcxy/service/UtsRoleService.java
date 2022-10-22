@@ -1,74 +1,73 @@
 package cn.ttcxy.service;
 
-import cn.hutool.core.util.IdUtil;
-import cn.ttcxy.entity.dto.UtsRoleDto;
-import cn.ttcxy.entity.model.*;
-import cn.ttcxy.mapper.UtsResourceRoleMapper;
-import cn.ttcxy.mapper.UtsRoleMapper;
-import cn.ttcxy.mapper.dao.UtsRoleDao;
+import java.util.Date;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-import java.util.List;
+import cn.hutool.core.util.IdUtil;
+import cn.ttcxy.entity.dto.UtsRoleDto;
+import cn.ttcxy.entity.model.UtsResource;
+import cn.ttcxy.entity.model.UtsResourceRole;
+import cn.ttcxy.entity.model.UtsRole;
+import cn.ttcxy.mapper.dsl.UtsRoleDsl;
+import cn.ttcxy.mapper.repository.UtsResourceRoleRepository;
+import cn.ttcxy.mapper.repository.UtsRoleRepository;
 
 @Service
 public class UtsRoleService {
 
     @Autowired
-    private UtsRoleDao roleDao;
+    private UtsRoleDsl roleDls;
 
     @Autowired
-    private UtsRoleMapper roleMapper;
+    private UtsRoleRepository roleRepository;
 
     @Autowired
-    private UtsResourceRoleMapper resourceRoleMapper;
+    private UtsResourceRoleRepository resourceRoleRepository;
 
     public List<UtsRoleDto> roleList(String authorId){
-        return roleDao.selectRoleListByAuthorId(authorId);
+        return roleDls.selectRoleListByAuthorId(authorId);
     }
 
     public UtsRole selectById(String roleId) {
-        return roleMapper.selectByPrimaryKey(roleId);
+        return roleRepository.findById(roleId).orElseThrow();
     }
 
-    public int delete(String roleId) {
-        return roleMapper.deleteByPrimaryKey(roleId);
+    public void delete(String roleId) {
+        roleRepository.deleteById(roleId);
     }
 
-    public int update(UtsRole role) {
-        return roleMapper.updateByPrimaryKey(role);
+    public UtsRole update(UtsRole role) {
+        return roleRepository.save(role);
     }
 
-    public int insert(UtsRole role) {
-        return roleMapper.insert(role);
+    public UtsRole insert(UtsRole role) {
+        return roleRepository.save(role);
     }
 
-    public List<UtsRole> select() {
-        return roleMapper.selectByExample(null);
+    public Iterable<UtsRole> select() {
+        return roleRepository.findAll();
     }
 
     public void insertResource(String roleId, List<UtsResource> resourceList) {
-        UtsResourceRoleExample resourceRoleExample = new UtsResourceRoleExample();
-        resourceRoleExample.createCriteria().andRoleIdEqualTo(roleId);
-        resourceRoleMapper.deleteByExample(resourceRoleExample);
+        resourceRoleRepository.deleteByRoleId(roleId);
         for (UtsResource utsResource : resourceList) {
             UtsResourceRole resourceRole = new UtsResourceRole();
             resourceRole.setRoleId(roleId);
             resourceRole.setResourceId(utsResource.getResourceId());
             resourceRole.setCreateTime(new Date());
             resourceRole.setResourceRoleId(IdUtil.objectId());
-            resourceRoleMapper.insert(resourceRole);
+            resourceRoleRepository.save(resourceRole);
         }
     }
 
     public List<String> selectRoleIdList(String authorId) {
-        return roleDao.selectRoleIdList(authorId);
+        return roleDls.selectRoleIdList(authorId);
     }
 
     public List<UtsRole> selectByName(String roleName) {
-        UtsRoleExample roleExample = new UtsRoleExample();
-        roleExample.createCriteria().andRoleNameEqualTo(roleName);
-        return roleMapper.selectByExample(roleExample);
+        return roleRepository.findByRoleName(roleName);
     }
 }

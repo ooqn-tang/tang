@@ -87,8 +87,8 @@ public class UtsLoginController extends BaseController {
             String password = param.getPassword();
             author.setPassword(new BCryptPasswordEncoder().encode(password));
             author.setMail(mail);
-            int count = authorService.insertAuthor(author);
-            if (count > 0) {
+            UtsAuthor utsAuthor = authorService.insertAuthor(author);
+            if (utsAuthor != null) {
                 return "注册成功";
             }
             throw new ApiException();

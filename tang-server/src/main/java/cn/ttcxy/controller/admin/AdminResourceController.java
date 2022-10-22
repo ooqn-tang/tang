@@ -1,18 +1,25 @@
 package cn.ttcxy.controller.admin;
 
+import java.util.Date;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.IdUtil;
 import cn.ttcxy.controller.BaseController;
-import cn.ttcxy.core.exception.ApiException;
-import cn.ttcxy.core.api.ResponseCode;
 import cn.ttcxy.entity.model.UtsResource;
 import cn.ttcxy.entity.param.UtsResourceParam;
 import cn.ttcxy.service.UtsResourceService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.Date;
-import java.util.List;
 
 @RestController
 @RequestMapping("api/admin/resource")
@@ -32,25 +39,17 @@ public class AdminResourceController extends BaseController {
     }
 
     @PostMapping
-    public String insert(@RequestBody UtsResourceParam resourceParam){
+    public UtsResource insert(@RequestBody UtsResourceParam resourceParam){
         UtsResource resource = BeanUtil.toBean(resourceParam, UtsResource.class);
         resource.setResourceId(IdUtil.objectId());
         resource.setCreateTime(new Date());
-        int count = resourceService.insert(resource);
-        if (count > 0){
-            return ResponseCode.SUCCESS.getMessage();
-        }
-        throw new ApiException();
+        return resourceService.insert(resource);
     }
 
     @PutMapping
-    public String update(@RequestBody UtsResourceParam resourceParam){
+    public UtsResource update(@RequestBody UtsResourceParam resourceParam){
         UtsResource resource = BeanUtil.toBean(resourceParam, UtsResource.class);
-        int count = resourceService.update(resource);
-        if (count > 0){
-            return ResponseCode.SUCCESS.getMessage();
-        }
-        throw new ApiException();
+        return resourceService.update(resource);
     }
 
     @GetMapping("{resourceId}")
@@ -59,12 +58,8 @@ public class AdminResourceController extends BaseController {
     }
 
     @DeleteMapping("{resourceId}")
-    public String delete(@PathVariable("resourceId") String resourceId){
-        int count = resourceService.delete(resourceId);
-        if (count > 0){
-            return ResponseCode.SUCCESS.getMessage();
-        }
-        throw new ApiException();
+    public void delete(@PathVariable("resourceId") String resourceId){
+        resourceService.delete(resourceId);
     }
 
     @GetMapping("role/{roleId}")

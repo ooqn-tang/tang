@@ -1,16 +1,14 @@
 package cn.ttcxy.service;
 
-import java.util.List;
-
+import cn.hutool.core.util.IdUtil;
+import cn.ttcxy.entity.model.StsNotice;
+import cn.ttcxy.entity.param.StsNoticeParam;
+import cn.ttcxy.mapper.dsl.StsNoticeDsl;
+import cn.ttcxy.mapper.repository.StsNoticeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import cn.hutool.core.util.IdUtil;
-import cn.ttcxy.entity.model.StsNotice;
-import cn.ttcxy.entity.model.StsNoticeExample;
-import cn.ttcxy.entity.param.StsNoticeParam;
-import cn.ttcxy.mapper.StsNoticeMapper;
-import cn.ttcxy.mapper.dao.StsNoticeDao;
+import java.util.List;
 
 /**
  * 广告
@@ -19,42 +17,40 @@ import cn.ttcxy.mapper.dao.StsNoticeDao;
 public class StsNoticeService {
 
     @Autowired
-    private StsNoticeMapper noticeMapper;
+    private StsNoticeRepository noticeRepository;
 
     @Autowired
-    private StsNoticeDao noticeDao;
+    private StsNoticeDsl noticeDsl;
 
 
     
     public List<StsNotice> selectAllNotice() {
-        StsNoticeExample noticeExample = new StsNoticeExample();
-        noticeExample.setOrderByClause("order_num");
-        return noticeMapper.selectByExample(noticeExample);
+
+        return noticeRepository.findAllOrderByOrderNumAsc();
     }
 
     
     public StsNotice selectById(String id) {
-        return noticeMapper.selectByPrimaryKey(id);
+        return noticeRepository.findById(id).orElseThrow();
     }
 
     
-    public int insertNotice(StsNotice notice) {
+    public StsNotice insertNotice(StsNotice notice) {
         String id = IdUtil.objectId();
         notice.setNoticeId(id);
-
-        Integer integer = noticeDao.selectNoticeMaxOrder();
+        Integer integer = noticeDsl.selectNoticeMaxOrder();
         notice.setOrderNum(integer+1);
-        return noticeMapper.insertSelective(notice);
+        return noticeRepository.save(notice);
     }
 
     
-    public int updateNotice(StsNotice notice) {
-        return noticeMapper.updateByPrimaryKeySelective(notice);
+    public StsNotice updateNotice(StsNotice notice) {
+        return noticeRepository.save(notice);
     }
 
     
-    public int deleteNotice(String id) {
-        return noticeMapper.deleteByPrimaryKey(id);
+    public void deleteNotice(String id) {
+        noticeRepository.deleteById(id);
     }
 
 
@@ -65,7 +61,7 @@ public class StsNoticeService {
             StsNotice notice = new StsNotice();
             notice.setNoticeId(id);
             notice.setOrderNum(i);
-            noticeMapper.updateByPrimaryKeySelective(notice);
+            noticeRepository.save(notice);
         }
     }
 }

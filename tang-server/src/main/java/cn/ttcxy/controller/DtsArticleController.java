@@ -3,6 +3,9 @@ package cn.ttcxy.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -14,8 +17,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.github.pagehelper.PageInfo;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.date.DateTime;
@@ -37,25 +38,28 @@ public class DtsArticleController extends BaseController {
     private DtsArticleService articleService;
 
     @GetMapping("list")
-    public PageInfo<DtsArticleDto> selectArticleList(
+    public Page<DtsArticleDto> selectArticleList(
             @RequestParam(value = "page" ,defaultValue = "1")Integer page,
             @RequestParam(value = "classId",defaultValue = "")String classId){
-        PageInfo<DtsArticleDto> articleList;
+        Page<DtsArticleDto> articleList;
+
+        Pageable pageable = PageRequest.of(page, 15);
+
         if(StrUtil.equals("gz",classId)){
-            articleList = articleService.selectGzArticleList(classId, page, authorId());
+            articleList = articleService.selectGzArticleList(classId, pageable, authorId());
         }else{
-            articleList = articleService.selectArticleList(classId, page, 10);
+            articleList = articleService.selectArticleList(classId, pageable);
         }
 
         return articleList;
     }
 
     @GetMapping("list/{username}")
-    public ResponseEntity<PageInfo<DtsArticleDto>> selectArticleListByUsername(
+    public Page<DtsArticleDto> selectArticleListByUsername(
             @RequestParam(value = "page" ,defaultValue = "1")Integer page,
             @PathVariable(value = "username")String username){
-        PageInfo<DtsArticleDto> articleList = articleService.selectArticleByAuthorName(username, page, 10);
-        return ResponseEntity.ok(articleList);
+                Pageable pageable = PageRequest.of(page, 10);
+        return articleService.selectArticleByAuthorName(username, pageable);
     }
 
     @GetMapping("recommend")
@@ -73,7 +77,7 @@ public class DtsArticleController extends BaseController {
         article.setUpdateDate(dateTime);
         article.setState(5);
         article.setAuthorId(authorId);
-        if (articleService.insertArticle(article) > 0){
+        if (articleService.insertArticle(article) != null){
             return ResponseEntity.ok(article.getArticleId());
         }
         throw new ApiException(HttpStatus.ACCEPTED);
@@ -83,12 +87,9 @@ public class DtsArticleController extends BaseController {
     public ResponseEntity<String> delete(@PathVariable("articleId") String articleId){
         String authorId = articleService.authorId(articleId);
         if (StrUtil.equals(authorId,authorId())){
-            int count = articleService.deleteByArticleIdAndAuthorId(articleId, authorId());
-            if(count > 0){
-                return ResponseEntity.ok("处理成功");
-            }
+            articleService.deleteByArticleIdAndAuthorId(articleId, authorId());
         }
-        throw new ApiException(HttpStatus.INTERNAL_SERVER_ERROR);
+        return ResponseEntity.ok("处理成功");
     }
 
     @PutMapping
@@ -103,8 +104,8 @@ public class DtsArticleController extends BaseController {
             articleContent.setMarkdown(articleParam.getMarkdown());
             articleContent.setText(articleParam.getText());
             article.setAuthorId(authorId);
-            int count  = articleService.updateArticle(article,articleContent);
-            if (count > 0){
+            DtsArticle dtsArticle = articleService.updateArticle(article, articleContent);
+            if (dtsArticle != null){
                 return ResponseCode.SUCCESS.getMessage();
             }
         }
@@ -126,9 +127,7 @@ public class DtsArticleController extends BaseController {
     }
 
     @GetMapping("so")
-    public PageInfo<?> search(
-            @RequestParam(value = "page",defaultValue = "0")Integer page,
-            @RequestParam("wb") String wb){
+    public Page<?> search(@RequestParam(value = "page",defaultValue = "0")Integer page,@RequestParam("wb") String wb){
         return articleService.search(wb,page,10);
     }
 }

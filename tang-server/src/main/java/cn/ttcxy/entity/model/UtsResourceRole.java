@@ -1,9 +1,17 @@
 package cn.ttcxy.entity.model;
 
-import java.io.Serializable;
 import java.util.Date;
 
-public class UtsResourceRole implements Serializable {
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+import lombok.Data;
+
+@Entity
+@Data
+public class UtsResourceRole {
+    
+    @Id
     private String resourceRoleId;
 
     private String resourceId;
@@ -11,8 +19,6 @@ public class UtsResourceRole implements Serializable {
     private String roleId;
 
     private Date createTime;
-
-    private static final long serialVersionUID = 1L;
 
     public String getResourceRoleId() {
         return resourceRoleId;
@@ -46,18 +52,4 @@ public class UtsResourceRole implements Serializable {
         this.createTime = createTime;
     }
 
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(getClass().getSimpleName());
-        sb.append(" [");
-        sb.append("Hash = ").append(hashCode());
-        sb.append(", resourceRoleId=").append(resourceRoleId);
-        sb.append(", resourceId=").append(resourceId);
-        sb.append(", roleId=").append(roleId);
-        sb.append(", createTime=").append(createTime);
-        sb.append(", serialVersionUID=").append(serialVersionUID);
-        sb.append("]");
-        return sb.toString();
-    }
 }

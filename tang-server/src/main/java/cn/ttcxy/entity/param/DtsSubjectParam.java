@@ -6,7 +6,7 @@ import lombok.Data;
 public class DtsSubjectParam {
 
     // 专题id
-    private String articleSubjectId;
+    private String subjectId;
 
     // 专题名
     private String subjectName;

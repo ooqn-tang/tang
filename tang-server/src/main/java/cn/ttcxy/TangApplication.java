@@ -6,6 +6,7 @@ import org.apache.catalina.realm.RealmBase;
 import org.apache.tomcat.util.descriptor.web.SecurityCollection;
 import org.apache.tomcat.util.descriptor.web.SecurityConstraint;
 import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -15,7 +16,11 @@ import org.springframework.boot.web.servlet.server.ServletWebServerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.socket.server.standard.ServerEndpointExporter;
 
+import com.querydsl.jpa.impl.JPAQueryFactory;
+
 import java.security.Principal;
+
+import javax.persistence.EntityManager;
 
 @SpringBootApplication(scanBasePackages = { "cn.ttcxy" })
 @MapperScan("cn.ttcxy.mapper")
@@ -28,6 +33,12 @@ public class TangApplication {
 	}
 
 	@Bean
+    @Autowired
+    public JPAQueryFactory jpaQuery(EntityManager entityManager) {
+        return new JPAQueryFactory(entityManager);
+    }
+
+	//@Bean
     public ServerEndpointExporter serverEndpointExporter() {
         return new ServerEndpointExporter();
     }

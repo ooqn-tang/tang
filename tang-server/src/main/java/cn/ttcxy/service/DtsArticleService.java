@@ -5,19 +5,19 @@ import java.util.List;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
 
 import cn.ttcxy.entity.dto.DtsArticleDto;
 import cn.ttcxy.entity.model.DtsArticle;
 import cn.ttcxy.entity.model.DtsArticleContent;
-import cn.ttcxy.entity.model.DtsArticleExample;
 import cn.ttcxy.entity.model.DtsEssay;
-import cn.ttcxy.mapper.DtsArticleContentMapper;
-import cn.ttcxy.mapper.DtsArticleMapper;
-import cn.ttcxy.mapper.dao.DtsArticleDao;
+import cn.ttcxy.mapper.dsl.DtsArticleDsl;
+import cn.ttcxy.mapper.repository.DtsArticleContentRepository;
+import cn.ttcxy.mapper.repository.DtsArticleRepository;
 
 /**
  * 博客服务
@@ -28,93 +28,83 @@ public class DtsArticleService {
     private static List<DtsArticleDto> cache = new ArrayList<>();
 
     @Autowired
-    private DtsArticleDao articleDao;
+    private DtsArticleDsl articleDsl;
 
     @Autowired
-    private DtsArticleMapper articleMapper;
+    private DtsArticleRepository articleRepository;
 
     @Autowired
     private DtsEssayService dynamicService;
 
+    public Page<DtsArticleDto> selectArticleList(String classId, Pageable pageable) {
+        return articleDsl.selectArticleList(classId,pageable);
+    }
+
+    public Page<DtsArticleDto> selectArticleListSmall(Pageable pageable) {
+        return articleDsl.selectArticleListSmall(pageable);
+    }
+
+    public Page<DtsArticleDto> search(String title, Integer page, Integer pageSize) {
+        Pageable pageable = PageRequest.of(page, pageSize);
+        return articleDsl.search(title,pageable);
+    }
+
+    public Page<DtsArticleDto> selectArticleByAuthorName(String username, Pageable pageable) {
+        return articleDsl.selectArticleListByUsername(username,pageable);
+    }
+
+    public DtsArticle insertArticle(DtsArticle article) {
+        return articleRepository.save(article);
+    }
+
     @Autowired
-    private DtsArticleContentMapper articleContentMapper;
+    DtsArticleContentRepository articleContentRepository;
 
-    public PageInfo<DtsArticleDto> selectArticleList(String classId, Integer page, Integer size) {
-        PageHelper.startPage(page, size);
-        return new PageInfo<>(articleDao.selectArticleList(classId));
-    }
+    public DtsArticle updateArticle(DtsArticle article, DtsArticleContent articleContent) {
+        DtsArticle saveArticle = articleRepository.save(article);
 
-    public PageInfo<DtsArticleDto> selectArticleListSmall(Integer page, Integer size) {
-        PageHelper.startPage(page, size);
-        return new PageInfo<>(articleDao.selectArticleListSmall());
-    }
-
-    public PageInfo<DtsArticleDto> search(String title, Integer page, Integer pageSize) {
-        PageHelper.startPage(page, pageSize);
-        return new PageInfo<>(articleDao.search(title));
-    }
-
-    public PageInfo<DtsArticleDto> selectArticleByAuthorName(String username, Integer page, Integer size) {
-        PageHelper.startPage(page, size);
-        return new PageInfo<>(articleDao.selectArticleListByUsername(username));
-    }
-
-    public int insertArticle(DtsArticle article) {
-        return articleMapper.insertSelective(article);
-    }
-
-    public int updateArticle(DtsArticle article, DtsArticleContent articleContent) {
-        int i = articleMapper.updateByPrimaryKeySelective(article);
         String articleId = article.getArticleId();
-        int count = articleContentCount(articleId);
-        if (count > 0){
-            articleContentMapper.updateByPrimaryKeySelective(articleContent);
-        }else{
-            articleContentMapper.insert(articleContent);
-        }
+        articleContentCount(articleId);
+
+        articleContentRepository.save(articleContent);
+
         DtsEssay dynamic = new DtsEssay();
         dynamic.setText(article.getTitle());
         dynamic.setAuthorId(article.getAuthorId());
         dynamic.setUrl("/article/"+article.getArticleId());
         dynamicService.insert(dynamic);
-        return i;
+        return saveArticle;
     }
 
-    public int articleContentCount(String articleId){
-        DtsArticleContent articleContent = articleContentMapper.selectByPrimaryKey(articleId);
-        if (articleContent == null){
-            return 0;
-        }
-        return 1;
+    public void articleContentCount(String articleId){
+        articleContentRepository.countByArticleId(articleId);
     }
 
-    public int deleteByArticleIdAndAuthorId(String articleId, String authorId) {
-        DtsArticleExample articleExample = new DtsArticleExample();
-        articleExample.createCriteria().andArticleIdEqualTo(articleId).andAuthorIdEqualTo(authorId);
-        return articleMapper.deleteByExample(articleExample);
+    public void deleteByArticleIdAndAuthorId(String articleId, String authorId) {
+        articleRepository.deleteByArticleIdAndAuthorId(articleId,authorId);
     }
 
 
     public DtsArticleDto selectArticleById(String id) {
-        return articleDao.selectArticleById(id);
+        return articleDsl.selectArticleById(id);
     }
 
     public DtsArticleDto selectArticleAllById(String id) {
-        return articleDao.selectArticleAllById(id);
+        return articleDsl.selectArticleAllById(id);
     }
 
     public DtsArticle selectArticleInfoById(String id) {
-        return articleMapper.selectByPrimaryKey(id);
+        return articleRepository.findById(id).orElseThrow();
     }
 
     public DtsArticle selectById(String id) {
-        return articleMapper.selectByPrimaryKey(id);
+        return articleRepository.findById(id).orElseThrow();
     }
 
 
     public List<DtsArticleDto> selectArticleListRandom() {
         List<DtsArticleDto> set = new ArrayList<>();
-        DtsArticleService.cache = articleDao.selectArticleList1000();
+        DtsArticleService.cache = articleDsl.selectArticleList1000();
         while (set.size() <= 10) {
             Random random = new Random();
             int n = random.nextInt(DtsArticleService.cache.size());
@@ -124,23 +114,26 @@ public class DtsArticleService {
         return set;
     }
 
-    public int updateSubject(String articleId, String subjectId) {
-        DtsArticle article = new DtsArticle();
-        article.setArticleId(articleId);
-        article.setSubjectId(subjectId);
-        return articleMapper.updateByPrimaryKeySelective(article);
+    public Integer saveSubjectId(String articleId, String subjectId) {
+        return articleRepository.saveSubjectId(subjectId,articleId);
     }
 
     public String authorId(String articleId) {
-        DtsArticle article = articleMapper.selectByPrimaryKey(articleId);
-        if (article != null){
-            return article.getAuthorId();
-        }
-        return null;
+        return articleRepository.findById(articleId).orElseThrow().getAuthorId();
     }
 
-    public PageInfo<DtsArticleDto> selectGzArticleList(String classId, Integer page,String authorId) {
-        PageHelper.startPage(page, 10);
-        return new PageInfo<>(articleDao.selectGzArticleList(authorId));
+    public Page<DtsArticleDto> selectGzArticleList(String classId, Pageable pageable,String authorId) {
+        return articleDsl.selectGzArticleList(authorId,pageable);
+    }
+
+    public static void main(String[] args) {
+        Pageable of = PageRequest.of(11, 10);
+        PageImpl<Object> pageImpl = new PageImpl<>(new ArrayList<>(),of,100);
+
+        System.out.println(pageImpl.hasNext());
+        System.out.println(pageImpl.hasPrevious());
+        System.out.println(pageImpl.getTotalElements());        
+        System.out.println(pageImpl.getTotalPages());
+        System.out.println(pageImpl);
     }
 }

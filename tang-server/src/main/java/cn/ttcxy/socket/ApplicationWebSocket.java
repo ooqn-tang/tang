@@ -1,9 +1,7 @@
 package cn.ttcxy.socket;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
@@ -14,10 +12,8 @@ import javax.websocket.OnMessage;
 import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.PathParam;
-import javax.websocket.server.ServerEndpoint;
 
 import org.springframework.security.core.Authentication;
-import org.springframework.stereotype.Component;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -26,8 +22,8 @@ import cn.ttcxy.core.security.JwtProvider;
 import cn.ttcxy.entity.dto.UtsAuthorDto;
 import cn.ttcxy.util.SpringUtil;
 
-@ServerEndpoint(value = "/api/ws/{jwt}")
-@Component
+//@ServerEndpoint(value = "/api/ws/{jwt}")
+//@Component
 public class ApplicationWebSocket {
 
     // 成员ID的所有连接

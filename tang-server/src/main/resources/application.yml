@@ -3,10 +3,21 @@ server:
 
 spring:
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://47.92.193.34:3306/tang?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&useSSL=true
-    username: root
-    password: Mima911..
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:C:\Users\Bobcbui No\OneDrive\tang
+    username: as
+    password: as
+  jpa:
+    database: h2
+    hibernate:
+      ddl-auto: 'update'
+    show-sql: true
+  h2:
+    console:
+      path: /h2-console
+      enabled: true
+      settings:
+        web-admin-password: as
   main:
     allow-circular-references: true
   jackson:

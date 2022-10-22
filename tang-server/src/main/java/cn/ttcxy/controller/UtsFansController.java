@@ -1,15 +1,23 @@
 package cn.ttcxy.controller;
 
-import cn.ttcxy.core.exception.ApiException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 import cn.ttcxy.core.api.ResponseCode;
+import cn.ttcxy.core.exception.ApiException;
 import cn.ttcxy.entity.dto.UtsFansDto;
 import cn.ttcxy.entity.model.UtsAuthor;
 import cn.ttcxy.entity.model.UtsFans;
 import cn.ttcxy.service.UtsAuthorService;
 import cn.ttcxy.service.UtsFansService;
-import com.github.pagehelper.PageInfo;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
 
 /**
  * 粉丝
@@ -25,7 +33,7 @@ public class UtsFansController extends BaseController {
     private UtsAuthorService authorService;
 
     @GetMapping("username/{username}")
-    public Integer selectByUsername(@PathVariable("username") String username) {
+    public Long selectByUsername(@PathVariable("username") String username) {
         String authorId = authorId();
         UtsAuthor utsAuthor = authorService.selectAuthorByName(username);
         if (utsAuthor != null) {
@@ -35,13 +43,14 @@ public class UtsFansController extends BaseController {
     }
 
     @GetMapping("list")
-    public PageInfo<UtsFansDto> selectList() {
+    public Page<UtsFansDto> selectList() {
         String authorId = authorId();
-        return fansService.selectFansList(authorId);
+        Pageable pageable = PageRequest.of(0, 20);
+        return fansService.selectFansList(authorId,pageable);
     }
 
     @PostMapping("{fansName}")
-    public Integer insert(@PathVariable("fansName") String fansName) {
+    public UtsFans insert(@PathVariable("fansName") String fansName) {
         String authorId = authorId();
 
         UtsAuthor utsAuthor = authorService.selectAuthorByName(fansName);
@@ -52,11 +61,7 @@ public class UtsFansController extends BaseController {
         UtsFans fans = new UtsFans();
         fans.setAuthorId(authorId);
         fans.setBeAuthorId(utsAuthor.getAuthorId());
-        int count = fansService.insertFans(fans);
-        if (count > 0) {
-            return count;
-        }
-        throw new ApiException();
+        return fansService.insertFans(fans);
     }
 
     @DeleteMapping("{fansName}")

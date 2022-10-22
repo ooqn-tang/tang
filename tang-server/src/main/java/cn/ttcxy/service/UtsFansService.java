@@ -1,18 +1,17 @@
 package cn.ttcxy.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import com.github.pagehelper.PageInfo;
 
 import cn.hutool.core.date.DateTime;
 import cn.hutool.core.util.IdUtil;
 import cn.ttcxy.entity.dto.UtsFansDto;
 import cn.ttcxy.entity.model.UtsAuthor;
 import cn.ttcxy.entity.model.UtsFans;
-import cn.ttcxy.entity.model.UtsFansExample;
-import cn.ttcxy.mapper.UtsFansMapper;
-import cn.ttcxy.mapper.dao.UtsFansDao;
+import cn.ttcxy.mapper.dsl.UtsFansDsl;
+import cn.ttcxy.mapper.repository.UtsFansRepository;
 
 /**
  * 粉丝相关服务
@@ -21,41 +20,37 @@ import cn.ttcxy.mapper.dao.UtsFansDao;
 public class UtsFansService {
 
     @Autowired
-    private UtsFansDao fansDao;
+    private UtsFansDsl fansDsl;
 
     @Autowired
-    private UtsFansMapper fansMapper;
+    private UtsFansRepository fansRepository;
 
     @Autowired
     private UtsAuthorService authorService;
 
     
-    public PageInfo<UtsFansDto> selectFansList(String authorId){
-        return new PageInfo<>(fansDao.selectFansList(authorId));
+    public Page<UtsFansDto> selectFansList(String authorId,Pageable pageable){
+        return fansDsl.selectFansList(authorId,pageable);
     }
 
     
-    public int insertFans(UtsFans fans) {
+    public UtsFans insertFans(UtsFans fans) {
         fans.setCreateDate(DateTime.now());
         fans.setFansId(IdUtil.objectId());
-        return fansMapper.insertSelective(fans);
+        return fansRepository.save(fans);
     }
 
     
     public int deleteFans(String fansName,String authorId){
         UtsAuthor author = authorService.selectAuthorByName(fansName);
         if (author != null){
-            UtsFansExample fansExample = new UtsFansExample();
-            fansExample.createCriteria()
-                    .andBeAuthorIdEqualTo(author.getAuthorId())
-                    .andAuthorIdEqualTo(authorId);
-            return fansMapper.deleteByExample(fansExample);
+            return fansRepository.deleteByBeAuthorIdAndAuthorId(author.getAuthorId(),authorId);
         }
         return 0;
     }
 
     
-    public Integer isFans(String authorId, String beAuthorId) {
-        return fansDao.isFans(authorId,beAuthorId);
+    public Long isFans(String authorId, String beAuthorId) {
+        return fansDsl.isFans(authorId,beAuthorId);
     }
 }

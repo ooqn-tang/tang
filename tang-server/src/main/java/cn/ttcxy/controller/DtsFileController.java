@@ -21,6 +21,7 @@ import java.awt.image.BufferedImage;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("api/file")
@@ -31,10 +32,8 @@ public class DtsFileController extends BaseController {
 
     @PostMapping("/upload")
     public String create(@RequestParam("file") MultipartFile file,@RequestParam("type")String type) throws IOException {
-        String fileName = file.getOriginalFilename();
-        if (StrUtil.isBlank(fileName)){
-            throw new ApiException(ResponseCode.VALIDATE_FAILED);
-        }
+        
+        String fileName = Optional.ofNullable(file.getOriginalFilename()).orElseThrow();
 
         String[] split = fileName.split("\\.");
         if (split.length < 2){

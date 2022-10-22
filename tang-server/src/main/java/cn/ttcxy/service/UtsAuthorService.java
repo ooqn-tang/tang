@@ -7,12 +7,13 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
 
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.IdUtil;
@@ -20,52 +21,39 @@ import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.RandomUtil;
 import cn.ttcxy.entity.dto.UtsRoleDto;
 import cn.ttcxy.entity.model.UtsAuthor;
-import cn.ttcxy.entity.model.UtsAuthorExample;
 import cn.ttcxy.entity.model.UtsAuthorRole;
-import cn.ttcxy.entity.model.UtsAuthorRoleExample;
 import cn.ttcxy.entity.model.UtsRole;
 import cn.ttcxy.entity.param.UtsRoleParam;
-import cn.ttcxy.mapper.UtsAuthorMapper;
-import cn.ttcxy.mapper.UtsAuthorRoleMapper;
+import cn.ttcxy.mapper.repository.UtsAuthorRepository;
+import cn.ttcxy.mapper.repository.UtsAuthorRoleRepository;
 
 /**
  * 创作者服务
  */
 @Service
+@Transactional
 public class UtsAuthorService {
 
     @Autowired
-    private UtsAuthorMapper utsAuthorMapper;
+    private UtsAuthorRepository utsAuthorRepository;
 
     @Autowired
-    private UtsAuthorRoleMapper authorRoleMapper;
+    private UtsAuthorRoleRepository authorRoleRepository;
 
     @Autowired
     private UtsRoleService roleService;
 
-    private static final Map<String,Date> usernameTime = new HashMap<>();
+    private static final Map<String, Date> usernameTime = new HashMap<>();
 
     public UtsAuthor selectAuthorByName(String username) {
-        UtsAuthorExample authorExample = new UtsAuthorExample();
-        authorExample.createCriteria().andUsernameEqualTo(username);
-        List<UtsAuthor> utsAuthors = utsAuthorMapper.selectByExample(authorExample);
-        if (utsAuthors.size() > 0){
-            return utsAuthors.get(0);
-        }
-        return null;
+        return utsAuthorRepository.findByUsername(username);
     }
 
     public UtsAuthor selectAuthorByMail(String mail) {
-        UtsAuthorExample authorExample = new UtsAuthorExample();
-        authorExample.createCriteria().andMailEqualTo(mail);
-        List<UtsAuthor> utsAuthors = utsAuthorMapper.selectByExample(authorExample);
-        if (utsAuthors.size() > 0){
-            return utsAuthors.get(0);
-        }
-        return null;
+        return utsAuthorRepository.findByMail(mail);
     }
 
-    public int insertAuthor(UtsAuthor author) throws DuplicateKeyException {
+    public UtsAuthor insertAuthor(UtsAuthor author) throws DuplicateKeyException {
         String objectId = IdUtil.objectId();
         author.setAuthorId(objectId);
         String username = getUsername();
@@ -77,73 +65,64 @@ public class UtsAuthorService {
         authorRole.setAuthorId(objectId);
         authorRole.setRoleId("2");
         authorRole.setCreateTime(DateUtil.date());
-        authorRoleMapper.insert(authorRole);
-        return utsAuthorMapper.insertSelective(author);
+        authorRoleRepository.save(authorRole);
+        return utsAuthorRepository.save(author);
     }
 
     public int updateAuthorByName(UtsAuthor author) {
-        UtsAuthorExample authorExample = new UtsAuthorExample();
-        authorExample.createCriteria().andMailEqualTo(author.getMail());
-        return utsAuthorMapper.updateByExampleSelective(author, authorExample);
+        return utsAuthorRepository.saveByMail(author.getMail());
     }
 
     public Boolean selectUsernameIsTrue(String username) {
-        UtsAuthorExample authorExample = new UtsAuthorExample();
-        authorExample.createCriteria().andUsernameEqualTo(username);
-        return utsAuthorMapper.countByExample(authorExample) > 0;
+        return utsAuthorRepository.countByUsername(username) > 0;
     }
 
     public Boolean selectNicknameIsTrue(String nickname) {
-        UtsAuthorExample authorExample = new UtsAuthorExample();
-        authorExample.createCriteria().andNicknameEqualTo(nickname);
-        return utsAuthorMapper.countByExample(authorExample) > 0;
+        return utsAuthorRepository.countByNickname(nickname) > 0;
     }
 
     public Boolean selectMailIsTrue(String mail) {
-        UtsAuthorExample authorExample = new UtsAuthorExample();
-        authorExample.createCriteria().andMailEqualTo(mail);
-        return utsAuthorMapper.countByExample(authorExample) > 0;
+        return utsAuthorRepository.countByMail(mail) > 0;
     }
 
-    public PageInfo<UtsAuthor> selectAuthor(Integer page, Integer size) {
-        PageHelper.startPage(page, size);
-        return new PageInfo<>(utsAuthorMapper.selectByExample(null));
+    public Page<UtsAuthor> selectAuthor(Pageable pageable) {
+        return utsAuthorRepository.findAll(pageable);
     }
+
+
 
     public List<UtsAuthor> select(String queryData) {
-        UtsAuthorExample example = new UtsAuthorExample();
-        example.or().andMailLike("%"+queryData+"%");
-        example.or().andUsernameLike("%"+queryData+"%");
-        example.or().andNicknameLike("%"+queryData+"%");
-        return utsAuthorMapper.selectByExample(example);
+        return utsAuthorRepository.findByMailLikeAndUsernameLikeAndNicknameLike(
+                "%" + queryData + "%",
+                "%" + queryData + "%",
+                "%" + queryData + "%"
+        );
     }
 
-    public int update(UtsAuthor author) {
-        return utsAuthorMapper.updateByPrimaryKeySelective(author);
+    public UtsAuthor update(UtsAuthor author) {
+        return utsAuthorRepository.save(author);
     }
 
-    public int delete(String authorId) {
-        return utsAuthorMapper.deleteByPrimaryKey(authorId);
+    public void delete(String authorId) {
+        utsAuthorRepository.deleteById(authorId);
     }
 
-    public void insertRole(String authorId,List<UtsRoleParam> roleParams) {
-        UtsAuthorRoleExample authorRoleExample = new UtsAuthorRoleExample();
-        authorRoleExample.createCriteria().andAuthorIdEqualTo(authorId);
-        authorRoleMapper.deleteByExample(authorRoleExample);
+    public void insertRole(String authorId, List<UtsRoleParam> roleParams) {
+        authorRoleRepository.deleteByAuthorId(authorId);
         for (UtsRoleParam roleParam : roleParams) {
             UtsAuthorRole authorRole = new UtsAuthorRole();
             authorRole.setAuthorRoleId(IdUtil.objectId());
             authorRole.setRoleId(roleParam.getRoleId());
             authorRole.setCreateTime(new Date());
             authorRole.setAuthorId(authorId);
-            authorRoleMapper.insert(authorRole);
+            authorRoleRepository.save(authorRole);
         }
     }
 
     public Date nowTime(String username, List<UtsRoleDto> roleList) {
         Set<Date> dateSet = new TreeSet<>();
         Date usernameTime = getUsernameTime(username);
-        if (usernameTime!=null){
+        if (usernameTime != null) {
             dateSet.add(usernameTime);
         }
         dateSet.addAll(getRoleNameTime(roleList));
@@ -151,23 +130,23 @@ public class UtsAuthorService {
         return dateSet.stream().reduce((first, second) -> second).orElse(new Date());
     }
 
-    private Date getUsernameTime(String username){
+    private Date getUsernameTime(String username) {
         Date date = usernameTime.get(username);
-        if (ObjectUtil.isEmpty(date)){
+        if (ObjectUtil.isEmpty(date)) {
             UtsAuthor author = selectAuthorByName(username);
             date = author.getRefreshTime();
-            usernameTime.put(username,date);
+            usernameTime.put(username, date);
         }
         return date;
     }
 
-    private Set<Date> getRoleNameTime(List<UtsRoleDto> roleList){
+    private Set<Date> getRoleNameTime(List<UtsRoleDto> roleList) {
         Set<Date> dateSet = new TreeSet<>();
         for (UtsRoleDto role : roleList) {
             List<UtsRole> roles = roleService.selectByName(role.getRoleValue());
             for (UtsRole r : roles) {
                 Date refreshTime = r.getRefreshTime();
-                if (!ObjectUtil.isEmpty(refreshTime)){
+                if (!ObjectUtil.isEmpty(refreshTime)) {
                     dateSet.add(refreshTime);
                 }
             }
@@ -175,12 +154,12 @@ public class UtsAuthorService {
         return dateSet;
     }
 
-    private String getUsername(){
-        while(true){
+    private String getUsername() {
+        while (true) {
             String name = RandomUtil.randomNumbers(8);
             Boolean isUsername = selectUsernameIsTrue(name);
             Boolean isNickname = selectNicknameIsTrue(name);
-            if (!isUsername && !isNickname){
+            if (!isUsername && !isNickname) {
                 return name;
             }
         }
