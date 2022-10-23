@@ -1,20 +1,16 @@
 <template>
-<div class="row clearfix">
+  <div class="row clearfix">
     <div class="col-md-9 ">
       <div class="row">
-        <div
-          class="col-xl-3 col-lg-4 col-md-4 col-12 mb-2 move-p-lr-0"
-          v-for="(item, index) in subjectList"
-          :key="index"
-        >
+        <div class="col-xl-3 col-lg-4 col-md-4 col-12 mb-2 move-p-lr-0" v-for="(item, index) in subjectList"
+          :key="index">
           <div class="card move-b-lr-0">
             <div class="card-body" style="">
               <p class="card-text text-truncate">
                 <router-link :to="{name:'subject_post',params:{subject_id:item.subjectId}}">
                   <strong>{{item.subjectName}}</strong>
                 </router-link>
-                
-                </p>
+              </p>
               <p class="card-text text-truncate">作者：{{item.nickname}}</p>
               <p class="card-text text-truncate">专辑描述：{{item.synopsis}}</p>
             </div>
@@ -30,8 +26,8 @@
         <info></info>
       </div>
     </div>
-</div>
- 
+  </div>
+
 </template>
 
 <script>
@@ -41,13 +37,13 @@ export default {
   data() {
     return {
       username: this.$store.getters.username,
-      subjectList:[]
+      subjectList: []
     };
   },
   created() {
   },
   methods: {
-    selectSubjectList(){
+    selectSubjectList() {
       request({
         url: '/api/subject/list',
         method: 'GET'
@@ -56,14 +52,14 @@ export default {
       })
     }
   },
-  mounted(){
+  mounted() {
     this.selectSubjectList()
   }
 };
 </script>
 
 <style scoped>
-body{
-    overflow-y: scroll;
+body {
+  overflow-y: scroll;
 }
 </style>

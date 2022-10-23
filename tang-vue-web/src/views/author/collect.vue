@@ -2,11 +2,8 @@
   <ul class="list-group article-list">
     <li class="list-group-item" v-for="(item,index) in collects" :key="index">
       <a target="_blank" :href="item.url" class="article-title">
-        <strong><p>{{item.title}}</p></strong>
+        <strong>{{item.title}}</strong><span style="float:right">{{item.createDate}}</span>
       </a>
-      <div>
-        <span>{{item.createDate}}</span>
-      </div>
     </li>   
     <li class="list-group-item" >
       <a @click="next()">{{huoqu}}</a>

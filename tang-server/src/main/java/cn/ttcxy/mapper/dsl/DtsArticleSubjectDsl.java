@@ -33,7 +33,11 @@ public class DtsArticleSubjectDsl {
         return query.select(Projections.bean(
                 DtsArticleSubjectDto.class,
                 qArticleSubject.subjectId,
-                qArticleSubject.subjectName
+                qArticleSubject.subjectName,
+                qArticleSubject.synopsis,
+                qArticleSubject.createDate,
+                qAuthor.nickname,
+                qAuthor.username
         )).from(
                 qArticleSubject, qAuthor
         ).where(

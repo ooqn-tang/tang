@@ -38,7 +38,7 @@ public class TangApplication {
         return new JPAQueryFactory(entityManager);
     }
 
-	//@Bean
+	@Bean
     public ServerEndpointExporter serverEndpointExporter() {
         return new ServerEndpointExporter();
     }

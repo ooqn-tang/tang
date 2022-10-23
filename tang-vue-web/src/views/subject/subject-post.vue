@@ -56,11 +56,8 @@ export default {
   methods: {
     loadSubjectById(){
       request({
-        url: '/api/subject/subjectId',
+        url: '/api/subject/id/'+this.$route.params.subject_id,
         method: 'GET',
-        params: {
-            "subjectId":this.$route.params.subject_id
-        }
       }).then((response) => {
         this.subjectData = response.data
       })

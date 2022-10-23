@@ -16,9 +16,6 @@
     <el-menu-item index="admin_recommend" @click="$router.push({name:'admin_recommend'})">
       <template #title>推荐</template>
     </el-menu-item>
-    <el-menu-item index="admin_class" @click="$router.push({name:'admin_class'})">
-      <template #title>分类</template>
-    </el-menu-item>
     <el-menu-item index="admin_author"  @click="$router.push({name:'admin_author'})">
       <template #title>用户</template>
     </el-menu-item>

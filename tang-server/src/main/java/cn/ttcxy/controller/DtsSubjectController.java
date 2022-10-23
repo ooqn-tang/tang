@@ -39,10 +39,8 @@ public class DtsSubjectController extends BaseController {
         return articleSubjectService.selectSubjectListByUsername(username);
     }
 
-    @GetMapping("subjectId")
-    public DtsArticleSubjectDto selectSubjectArticleById(
-            @RequestParam(value = "subjectId") String subjectId) {
-
+    @GetMapping("id/{subjectId}")
+    public DtsArticleSubjectDto selectSubjectArticleById(@PathVariable(value = "subjectId") String subjectId) {
         return articleSubjectService.selectSubjectArticleListById(subjectId);
     }
 

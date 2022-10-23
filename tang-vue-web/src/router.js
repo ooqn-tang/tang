@@ -38,11 +38,6 @@ const routes = [
                         component: () => import('views/essay/message.vue')
                     },
                     {
-                        path: 'collect',
-                        name: 'essay_collect',
-                        component: () => import('views/essay/collect.vue')
-                    },
-                    {
                         path: 'my',
                         name: 'essay_my',
                         component: () => import('views/essay/my.vue')
@@ -127,10 +122,6 @@ const routes = [
                 path:"resource",
                 name:"admin_resource",
                 component: () => import('views/admin/resource.vue')
-            },{
-                path:"class",
-                name:"admin_class",
-                component: () => import('views/admin/class.vue')
             },{
                 path:"article",
                 name:"admin_article",

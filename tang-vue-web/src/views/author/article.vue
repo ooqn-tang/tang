@@ -70,7 +70,7 @@
       </div>
     </li>
     <li class="list-group-item">
-      <a @click="nextPage()">获取</a>
+      <a @click="next()">获取</a>
     </li>
   </ul>
 
@@ -204,7 +204,7 @@ export default {
         this.articleList.splice(index, 1);
       });
     },
-    nextPage() {
+    next() {
       if (!this.page.last) {
         this.loadArticleByUsername(this.page.number + 1);
       }
