@@ -28,6 +28,4 @@ public class UtsAuthor {
 
     private Date refreshTime;
 
-    private String headUrl;
-
 }

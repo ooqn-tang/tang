@@ -1,10 +1,8 @@
 <template>
   <div class="row">
     <div class="col-md-3 col-lg-3 d-md-inline d-none">
-      <div class="list-group mb-2" v-if="showSubject">
-        <a class="list-group-item active"
-          >{{ subject.subjectName }}<span class="float-end">专题</span></a
-        >
+      <div class="list-group mb-2" v-if="articleList.length > 0">
+        <a class="list-group-item active">专题</a>
         <router-link
           :class="item.articleId == article.articleId ? 'active2' : ''"
           :key="index"
@@ -137,7 +135,6 @@ export default {
       article: {},
       subject: [],
       articleList: [],
-      showSubject: false,
       collect: 0,
       dataText: '加载中...'
     };
@@ -225,11 +222,7 @@ export default {
         url: "/api/subject/article/"+this.articleId,
         method: "GET",
       }).then((response) => {
-        this.subject = response.data;
-        if (this.subject != "") {
-          this.articleList = response.data.articleList;
-          this.showSubject = true;
-        }
+        this.articleList = response.data;
       });
     },
     loadRecommend() {

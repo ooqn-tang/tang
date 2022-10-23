@@ -104,7 +104,7 @@ public class UtsAuthorService {
     }
 
     public void delete(String authorId) {
-        utsAuthorRepository.deleteById(authorId);
+        authorDsl.updateStateDelete(authorId);
     }
 
     public void insertRole(String authorId, List<UtsRoleParam> roleParams) {

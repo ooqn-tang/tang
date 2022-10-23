@@ -18,7 +18,9 @@ import org.springframework.web.bind.annotation.RestController;
 import cn.hutool.core.bean.BeanUtil;
 import cn.ttcxy.core.exception.ApiException;
 import cn.ttcxy.entity.dto.DtsArticleSubjectDto;
+import cn.ttcxy.entity.model.DtsArticle;
 import cn.ttcxy.entity.model.DtsArticleSubject;
+import cn.ttcxy.entity.model.DtsArticleSubjectRelevance;
 import cn.ttcxy.entity.param.DtsSubjectParam;
 import cn.ttcxy.service.DtsArticleService;
 import cn.ttcxy.service.DtsArticleSubjectService;
@@ -41,7 +43,7 @@ public class DtsSubjectController extends BaseController {
 
     @GetMapping("id/{subjectId}")
     public DtsArticleSubjectDto selectSubjectArticleById(@PathVariable(value = "subjectId") String subjectId) {
-        return articleSubjectService.selectSubjectArticleListById(subjectId);
+        return articleSubjectService.findSubjectArticleListBySubjectId(subjectId);
     }
 
     @GetMapping("list")
@@ -79,15 +81,14 @@ public class DtsSubjectController extends BaseController {
     }
 
     @PutMapping("article")
-    public Integer insertArticleToSubject(@RequestParam(value = "articleId") String articleId, @RequestParam(value = "subjectId") String subjectId) {
+    public DtsArticleSubjectRelevance insertArticleToSubject(@RequestParam(value = "articleId") String articleId, @RequestParam(value = "subjectId") String subjectId) {
         return articleService.saveSubjectId(articleId, subjectId);
         
     }
 
     @GetMapping("article/{articleId}")
-    public DtsArticleSubjectDto selectSubjectListByArticleId(@PathVariable("articleId") String articleId) {
-        String subjectId = articleSubjectService.selectSubjectIdByArticleId(articleId);
-        return articleSubjectService.selectSubjectArticleListById(subjectId);
+    public List<DtsArticle> findSubjectListByArticleId(@PathVariable("articleId") String articleId) {
+        return articleSubjectService.findSubjectArticleListByArticleId(articleId);
     }
 
 }

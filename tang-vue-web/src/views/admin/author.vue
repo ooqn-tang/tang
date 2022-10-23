@@ -25,7 +25,7 @@
           <el-table-column prop="address" label="操作"  width="135">
             <template #default="scope">
               <el-button size="small" @click="handleEdit(scope.$index, scope.row), (dialogVisible = true)" >编辑</el-button>
-              <el-button size="small" type="danger" @click="deleteResource(scope.row.resourceId)">删除</el-button>
+              <el-button size="small" type="danger" @click="deleteAuthor(scope.row.authorId)">删除</el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -124,6 +124,14 @@ export default {
         params:{queryData:this.queryData}
       }).then((response) => {
         this.authorList = response.data;
+      });
+    },
+    deleteAuthor(authorId){
+      request({
+        url: "/api/admin/author/"+authorId,
+        method: "DELETE"
+      }).then((response) => {
+        console.log(response.data)
       });
     }
   },

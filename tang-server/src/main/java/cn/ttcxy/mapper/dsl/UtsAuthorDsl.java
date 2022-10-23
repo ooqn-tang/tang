@@ -24,4 +24,8 @@ public class UtsAuthorDsl {
                 .where(qAuthor.authorId.eq(author.getAuthorId())).execute();
     }
 
+    public void updateStateDelete(String authorId) {
+       
+    }
+
 }

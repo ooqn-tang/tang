@@ -68,9 +68,10 @@ export default {
       });
     },
     next() {
-      if(this.page.l)
-      this.page.number += 1
-      this.so();
+      if(!this.page.last){
+        this.page.number += 1
+        this.so();
+      }
     },
 
     openArticle(dataId) {

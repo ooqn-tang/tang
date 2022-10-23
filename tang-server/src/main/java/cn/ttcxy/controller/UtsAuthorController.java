@@ -48,9 +48,7 @@ public class UtsAuthorController extends BaseController {
 
     @GetMapping("{username}")
     public UtsAuthor authorByUsername(@PathVariable(value = "username") String username) {
-        UtsAuthor utsAuthor = authorService.selectAuthorByName(username);
-        utsAuthor.setPassword(null);
-        return utsAuthor;
+        return authorService.selectAuthorByName(username);
     }
 
     @GetMapping("list")

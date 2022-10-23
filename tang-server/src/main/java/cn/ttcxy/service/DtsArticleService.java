@@ -14,16 +14,22 @@ import org.springframework.stereotype.Service;
 import cn.ttcxy.entity.dto.DtsArticleDto;
 import cn.ttcxy.entity.model.DtsArticle;
 import cn.ttcxy.entity.model.DtsArticleContent;
+import cn.ttcxy.entity.model.DtsArticleSubjectRelevance;
 import cn.ttcxy.entity.model.DtsEssay;
+import cn.ttcxy.entity.model.QDtsArticleSubjectRelevance;
 import cn.ttcxy.mapper.dsl.DtsArticleDsl;
+import cn.ttcxy.mapper.dsl.DtsArticleSubjectDsl;
 import cn.ttcxy.mapper.repository.DtsArticleContentRepository;
 import cn.ttcxy.mapper.repository.DtsArticleRepository;
+import cn.ttcxy.mapper.repository.DtsArticleSubjectRelevanceRepository;
 
 /**
  * 博客服务
  */
 @Service
 public class DtsArticleService {
+
+
 
     private static List<DtsArticleDto> cache = new ArrayList<>();
 
@@ -114,8 +120,14 @@ public class DtsArticleService {
         return set;
     }
 
-    public Integer saveSubjectId(String articleId, String subjectId) {
-        return articleRepository.saveSubjectId(subjectId,articleId);
+    @Autowired
+    private DtsArticleSubjectRelevanceRepository dtsArticleSubjectRepository;
+
+    public DtsArticleSubjectRelevance saveSubjectId(String articleId, String subjectId) {
+        DtsArticleSubjectRelevance articleSubjectRelevance = new DtsArticleSubjectRelevance();
+        articleSubjectRelevance.setArticleId(articleId);
+        articleSubjectRelevance.setSubjectId(subjectId);
+        return dtsArticleSubjectRepository.save(articleSubjectRelevance);
     }
 
     public String authorId(String articleId) {

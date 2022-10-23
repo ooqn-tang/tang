@@ -47,9 +47,7 @@ public class UtsRoleDsl {
         QUtsAuthor qUtsAuthor = QUtsAuthor.utsAuthor;
         QUtsAuthorRole qUtsAuthorRole = QUtsAuthorRole.utsAuthorRole;
 
-        return query.select(Projections.bean(
-                String.class,
-                qUtsAuthorRole.roleId)).from(qUtsAuthor, qUtsAuthorRole).where(
+        return query.select(qUtsAuthorRole.roleId).from(qUtsAuthor, qUtsAuthorRole).where(
                         qUtsAuthor.authorId.eq(qUtsAuthorRole.authorId),
                         qUtsAuthorRole.authorId.eq(authorId))
                 .fetch();

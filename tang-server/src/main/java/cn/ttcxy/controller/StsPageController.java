@@ -45,10 +45,10 @@ public class StsPageController {
     public String toArticle(@PathVariable("id") String id, Model model) {
         DtsArticleDto articleDto = articleService.selectArticleById(id);
         model.addAttribute("article", articleDto);
-        String subjectId = articleSubjectService.selectSubjectIdByArticleId(id);
+        String subjectId = articleSubjectService.findSubjectIdByArticleId(id);
         
         if(subjectId!=null){
-            DtsArticleSubjectDto selectSubjectArticleListById = articleSubjectService.selectSubjectArticleListById(subjectId);
+            DtsArticleSubjectDto selectSubjectArticleListById = articleSubjectService.findSubjectArticleListBySubjectId(subjectId);
             model.addAttribute("subject", selectSubjectArticleListById);
         }
        
@@ -66,7 +66,7 @@ public class StsPageController {
 
     @GetMapping("subject/{id}")
     public String subject(@PathVariable("id") String id, Model model){
-        DtsArticleSubjectDto dtsArticleSubjectDto = articleSubjectService.selectSubjectArticleListById(id);
+        DtsArticleSubjectDto dtsArticleSubjectDto = articleSubjectService.findSubjectArticleListBySubjectId(id);
         model.addAttribute("subject", dtsArticleSubjectDto);
         return "subject";
     }

@@ -1,12 +1,10 @@
 package cn.ttcxy.service;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
 import cn.hutool.core.date.DateTime;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.IdUtil;
@@ -14,7 +12,6 @@ import cn.ttcxy.entity.dto.DtsArticleSubjectDto;
 import cn.ttcxy.entity.model.DtsArticle;
 import cn.ttcxy.entity.model.DtsArticleSubject;
 import cn.ttcxy.mapper.dsl.DtsArticleSubjectDsl;
-import cn.ttcxy.mapper.repository.DtsArticleRepository;
 import cn.ttcxy.mapper.repository.DtsArticleSubjectRepository;
 
 @Service
@@ -27,24 +24,24 @@ public class DtsArticleSubjectService {
     private DtsArticleSubjectRepository articleSubjectRepository;
 
     @Autowired
-    private DtsArticleRepository articleRepository;
+    private DtsArticleSubjectDsl dtsArticleSubjectDsl;
 
-    public DtsArticleSubjectDto selectSubjectArticleListById(String subjectId) {
-        DtsArticleSubjectDto dtsArticleSubjectDto = articleSubjectDsl.selectSubjectById(subjectId);
+    public DtsArticleSubjectDto findSubjectArticleListBySubjectId(String subjectId) {
+        DtsArticleSubjectDto dtsArticleSubjectDto = articleSubjectDsl.findSubjectById(subjectId);
         if(dtsArticleSubjectDto == null){
             return null;
         }
-        List<DtsArticle> dtsArticles = articleRepository.findAllBySubjectId(subjectId);
+        List<DtsArticle> dtsArticles = articleSubjectDsl.findAllBySubjectId(subjectId);
         dtsArticleSubjectDto.setArticleList(dtsArticles);
         return dtsArticleSubjectDto;
     }
 
     public Page<DtsArticleSubjectDto> selectSubjectList(Pageable pageable) {
-        return articleSubjectDsl.selectSubjectList(pageable);
+        return articleSubjectDsl.findSubjectList(pageable);
     }
 
     public List<DtsArticleSubjectDto> selectSubjectListByUsername(String username) {
-        return articleSubjectDsl.selectSubjectListByUsername(username);
+        return articleSubjectDsl.findSubjectListByUsername(username);
     }
 
     public DtsArticleSubject insertSubject(DtsArticleSubject subject) {
@@ -64,15 +61,19 @@ public class DtsArticleSubjectService {
     }
 
     public Page<DtsArticleSubjectDto> selectSubjectListBySubjectName(String name, Pageable pageable) {
-        return articleSubjectDsl.selectSubjectListBySubjectName(name, pageable);
+        return articleSubjectDsl.findSubjectListBySubjectName(name, pageable);
     }
 
-    public String selectSubjectIdByArticleId(String articleId) {
-        return articleRepository.findById(articleId).orElseThrow().getSubjectId();
+    public String findSubjectIdByArticleId(String articleId) {
+        return articleSubjectDsl.findSubjectIdByArticleId(articleId);
     }
 
     public DtsArticleSubject subjectById(String subjectId) {
         return articleSubjectRepository.findById(subjectId).orElseThrow();
+    }
+
+    public List<DtsArticle> findSubjectArticleListByArticleId(String articleId) {
+        return dtsArticleSubjectDsl.findSubjectArticleListByArticleId(articleId);
     }
 
 }

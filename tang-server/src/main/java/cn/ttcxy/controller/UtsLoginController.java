@@ -3,6 +3,7 @@ package cn.ttcxy.controller;
 import cn.hutool.cache.Cache;
 import cn.hutool.cache.CacheUtil;
 import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.lang.Validator;
 import cn.hutool.core.util.StrUtil;
 import cn.ttcxy.core.exception.ApiException;
@@ -50,7 +51,6 @@ public class UtsLoginController extends BaseController {
     private AuthenticationManagerBuilder authenticationManagerBuilder;
 
     @PostMapping("/authenticate")
-    // http://localhost:8888/api/authenticate%3Cscript%3Ealert(%22hello%20XSS!%22)%3C/script%3E
     public String authorize(@RequestBody UtsLoginParam loginParam) {
         UsernamePasswordAuthenticationToken authenticationToken =
                 new UsernamePasswordAuthenticationToken(loginParam.getUsername(), loginParam.getPassword());
@@ -87,6 +87,8 @@ public class UtsLoginController extends BaseController {
             String password = param.getPassword();
             author.setPassword(new BCryptPasswordEncoder().encode(password));
             author.setMail(mail);
+            author.setRefreshTime(DateUtil.date());
+            author.setUpdateTime(DateUtil.date());
             UtsAuthor utsAuthor = authorService.insertAuthor(author);
             if (utsAuthor != null) {
                 return "注册成功";

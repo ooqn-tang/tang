@@ -29,6 +29,4 @@ public class DtsArticle {
 
     private String synopsis;
 
-    private String subjectId;
-
 }
