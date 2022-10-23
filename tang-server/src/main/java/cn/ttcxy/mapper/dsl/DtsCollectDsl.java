@@ -1,14 +1,16 @@
 package cn.ttcxy.mapper.dsl;
 
-import java.util.ArrayList;
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
+
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+
 import cn.ttcxy.entity.model.DtsCollect;
 import cn.ttcxy.entity.model.QDtsCollect;
 

@@ -35,9 +35,6 @@ public class DtsArticleService {
     @Autowired
     private DtsArticleRepository articleRepository;
 
-    @Autowired
-    private DtsEssayService dynamicService;
-
     public Page<DtsArticleDto> selectArticleList(Pageable pageable) {
         return articleDsl.selectArticleList(pageable);
     }
