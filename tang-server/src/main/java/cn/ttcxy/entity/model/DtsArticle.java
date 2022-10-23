@@ -4,6 +4,8 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Lob;
+
 import org.hibernate.annotations.DynamicUpdate;
 import lombok.Data;
 
@@ -28,5 +30,11 @@ public class DtsArticle {
     private Integer state;
 
     private String synopsis;
+
+    @Lob
+    private String text;
+
+    @Lob
+    private String markdown;
 
 }

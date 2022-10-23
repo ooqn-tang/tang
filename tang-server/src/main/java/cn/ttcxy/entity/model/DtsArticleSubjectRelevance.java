@@ -1,5 +1,7 @@
 package cn.ttcxy.entity.model;
 
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -21,4 +23,6 @@ public class DtsArticleSubjectRelevance {
     private String subjectId;
 
     private Integer orderNum;
+
+    private Date createDate;
 }

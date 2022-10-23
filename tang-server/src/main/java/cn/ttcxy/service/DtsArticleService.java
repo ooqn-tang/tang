@@ -11,15 +11,11 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import cn.hutool.core.date.DateUtil;
 import cn.ttcxy.entity.dto.DtsArticleDto;
 import cn.ttcxy.entity.model.DtsArticle;
-import cn.ttcxy.entity.model.DtsArticleContent;
 import cn.ttcxy.entity.model.DtsArticleSubjectRelevance;
-import cn.ttcxy.entity.model.DtsEssay;
-import cn.ttcxy.entity.model.QDtsArticleSubjectRelevance;
 import cn.ttcxy.mapper.dsl.DtsArticleDsl;
-import cn.ttcxy.mapper.dsl.DtsArticleSubjectDsl;
-import cn.ttcxy.mapper.repository.DtsArticleContentRepository;
 import cn.ttcxy.mapper.repository.DtsArticleRepository;
 import cn.ttcxy.mapper.repository.DtsArticleSubjectRelevanceRepository;
 
@@ -64,27 +60,22 @@ public class DtsArticleService {
     }
 
     @Autowired
-    DtsArticleContentRepository articleContentRepository;
+    private DtsArticleSubjectRelevanceRepository subjectRelevanceRepository;
 
-    public DtsArticle updateArticle(DtsArticle article, DtsArticleContent articleContent) {
+    public DtsArticle updateArticle(DtsArticle article,String subjectId) {
         DtsArticle saveArticle = articleRepository.save(article);
-
-        String articleId = article.getArticleId();
-        articleContentCount(articleId);
-
-        articleContentRepository.save(articleContent);
-
-        DtsEssay dynamic = new DtsEssay();
-        dynamic.setText(article.getTitle());
-        dynamic.setAuthorId(article.getAuthorId());
-        dynamic.setUrl("/article/"+article.getArticleId());
-        dynamicService.insert(dynamic);
+        DtsArticleSubjectRelevance articleSubjectRelevance = subjectRelevanceRepository.findByArticleId(article.getArticleId());
+        
+        if(articleSubjectRelevance == null){
+            articleSubjectRelevance = new DtsArticleSubjectRelevance();
+            articleSubjectRelevance.setArticleId(article.getArticleId());
+            articleSubjectRelevance.setSubjectId(subjectId);
+            articleSubjectRelevance.setCreateDate(DateUtil.date());
+        }
+        subjectRelevanceRepository.save(articleSubjectRelevance);
         return saveArticle;
     }
 
-    public void articleContentCount(String articleId){
-        articleContentRepository.countByArticleId(articleId);
-    }
 
     public void deleteByArticleIdAndAuthorId(String articleId, String authorId) {
         articleRepository.deleteByArticleIdAndAuthorId(articleId,authorId);

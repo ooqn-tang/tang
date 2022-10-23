@@ -15,7 +15,6 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 
 import cn.ttcxy.entity.dto.DtsArticleDto;
 import cn.ttcxy.entity.model.QDtsArticle;
-import cn.ttcxy.entity.model.QDtsArticleContent;
 import cn.ttcxy.entity.model.QDtsArticleSubject;
 import cn.ttcxy.entity.model.QDtsArticleSubjectRelevance;
 import cn.ttcxy.entity.model.QUtsAuthor;
@@ -29,7 +28,6 @@ public class DtsArticleDsl {
 
         private final QUtsAuthor qAuthor = QUtsAuthor.utsAuthor;
         private final QDtsArticle qArticle = QDtsArticle.dtsArticle;
-        private final QDtsArticleContent qArticleContent = QDtsArticleContent.dtsArticleContent;
         private final QDtsArticleSubject qDtsArticleSubject = QDtsArticleSubject.dtsArticleSubject;
         private final QDtsArticleSubjectRelevance qSubjectRelevance = QDtsArticleSubjectRelevance.dtsArticleSubjectRelevance;
 
@@ -109,12 +107,10 @@ public class DtsArticleDsl {
         public DtsArticleDto selectArticleById(String id) {
                 return query.select(Projections.bean(DtsArticleDto.class, qArticle.articleId,
                                 qArticle.title, qArticle.createDate, qArticle.updateDate,
-                                qAuthor.username, qAuthor.nickname, qArticleContent.text))
+                                qAuthor.username, qAuthor.nickname, qArticle.text))
                                 .from(qAuthor, qArticle)
                                 .where(qArticle.articleId.eq(id),
                                                 qAuthor.authorId.eq(qArticle.authorId))
-                                .leftJoin(qArticleContent)
-                                .on(qArticleContent.articleId.eq(qArticle.articleId))
                                 .orderBy(qArticle.createDate.desc()).fetchOne();
         }
 
@@ -122,12 +118,10 @@ public class DtsArticleDsl {
                 return query.select(Projections.bean(DtsArticleDto.class, qArticle.articleId,
                                 qAuthor.username, qAuthor.nickname, qArticle.title,
                                 qArticle.createDate, qArticle.updateDate, qArticle.synopsis,
-                                qArticleContent.text, qArticleContent.markdown))
+                                qArticle.text, qArticle.markdown))
                                 .from(qAuthor, qArticle)
                                 .where(qArticle.articleId.eq(articleId),
                                                 qAuthor.authorId.eq(qArticle.authorId))
-                                .leftJoin(qArticleContent)
-                                .on(qArticleContent.articleId.eq(qArticle.articleId))
                                 .orderBy(qArticle.createDate.desc()).fetchOne();
         }
 

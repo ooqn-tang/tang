@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,7 +26,6 @@ import cn.ttcxy.core.api.ResponseCode;
 import cn.ttcxy.core.exception.ApiException;
 import cn.ttcxy.entity.dto.DtsArticleDto;
 import cn.ttcxy.entity.model.DtsArticle;
-import cn.ttcxy.entity.model.DtsArticleContent;
 import cn.ttcxy.entity.param.DtsArticleParam;
 import cn.ttcxy.service.DtsArticleService;
 
@@ -95,13 +93,7 @@ public class DtsArticleController extends BaseController {
             article.setAuthorId(authorId);
             article.setState(1);
             article.setUpdateDate(DateUtil.date());
-
-            DtsArticleContent articleContent = new DtsArticleContent();
-            articleContent.setArticleId(article.getArticleId());
-            articleContent.setMarkdown(articleParam.getMarkdown());
-            articleContent.setText(articleParam.getText());
-            
-            DtsArticle dtsArticle = articleService.updateArticle(article, articleContent);
+            DtsArticle dtsArticle = articleService.updateArticle(article,articleParam.getSubjectId());
             if (dtsArticle != null){
                 return ResponseCode.SUCCESS.getMessage();
             }
