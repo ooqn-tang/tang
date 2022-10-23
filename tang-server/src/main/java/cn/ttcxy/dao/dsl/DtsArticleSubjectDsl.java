@@ -131,11 +131,16 @@ public class DtsArticleSubjectDsl {
 				.fetch();
 	}
 
-	public List<DtsArticle> findSubjectArticleListByArticleId(String articleId) {
+	public List<DtsArticle> findSubjectArticleTitleListBySubjectId(String subjectId) {
 		return query
-				.select(qArticle)
+				.select(Projections.bean(
+					DtsArticle.class,
+					qArticle.articleId,
+					qArticle.title))
 				.from(qArticle, qSubjectRelevance)
-				.where(qArticle.articleId.eq(qSubjectRelevance.articleId), qArticle.articleId.eq(articleId))
+				.where(
+						qArticle.articleId.eq(qSubjectRelevance.articleId),
+						qSubjectRelevance.subjectId.eq(subjectId))
 				.fetch();
 	}
 

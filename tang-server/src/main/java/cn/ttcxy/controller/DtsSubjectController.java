@@ -88,7 +88,7 @@ public class DtsSubjectController extends BaseController {
 
     @GetMapping("article/{articleId}")
     public List<DtsArticle> findSubjectListByArticleId(@PathVariable("articleId") String articleId) {
-        return articleSubjectService.findSubjectArticleListByArticleId(articleId);
+        return articleSubjectService.findSubjectArticleTitleListByArticleId(articleId);
     }
 
 }

@@ -1,12 +1,10 @@
 package cn.ttcxy.service;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
 import cn.hutool.core.date.DateTime;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.IdUtil;
@@ -74,8 +72,9 @@ public class DtsArticleSubjectService {
         return articleSubjectRepository.findById(subjectId).orElseThrow();
     }
 
-    public List<DtsArticle> findSubjectArticleListByArticleId(String articleId) {
-        return dtsArticleSubjectDsl.findSubjectArticleListByArticleId(articleId);
+    public List<DtsArticle> findSubjectArticleTitleListByArticleId(String articleId) {
+        String subjectId = findSubjectIdByArticleId(articleId);
+        return dtsArticleSubjectDsl.findSubjectArticleTitleListBySubjectId(subjectId);
     }
 
 }
