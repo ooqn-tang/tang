@@ -5,9 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import cn.ttcxy.dao.dsl.UtsResourceDsl;
+import cn.ttcxy.dao.repository.UtsResourceRepository;
 import cn.ttcxy.entity.model.UtsResource;
-import cn.ttcxy.mapper.dsl.UtsResourceDsl;
-import cn.ttcxy.mapper.repository.UtsResourceRepository;
 
 @Service
 public class UtsResourceService {

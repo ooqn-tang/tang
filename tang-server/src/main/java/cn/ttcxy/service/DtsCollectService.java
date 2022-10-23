@@ -5,9 +5,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import cn.ttcxy.dao.dsl.DtsCollectDsl;
+import cn.ttcxy.dao.repository.DtsCollectRepository;
 import cn.ttcxy.entity.model.DtsCollect;
-import cn.ttcxy.mapper.dsl.DtsCollectDsl;
-import cn.ttcxy.mapper.repository.DtsCollectRepository;
 
 @Service
 public class DtsCollectService {

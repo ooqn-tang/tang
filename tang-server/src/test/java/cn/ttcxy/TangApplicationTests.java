@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Bean;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
-import cn.ttcxy.mapper.dsl.DtsClassDsl;
+import cn.ttcxy.dao.dsl.DtsClassDsl;
 
 @SpringBootTest(classes = TangApplication.class)
 class TangApplicationTests {

@@ -7,10 +7,10 @@ import org.springframework.stereotype.Service;
 
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.IdUtil;
+import cn.ttcxy.dao.dsl.DtsEssayDsl;
+import cn.ttcxy.dao.repository.DtsEssayRepository;
 import cn.ttcxy.entity.dto.DtsEssayDto;
 import cn.ttcxy.entity.model.DtsEssay;
-import cn.ttcxy.mapper.dsl.DtsEssayDsl;
-import cn.ttcxy.mapper.repository.DtsEssayRepository;
 
 @Service
 public class DtsEssayService {

@@ -8,11 +8,11 @@ import org.springframework.stereotype.Service;
 import cn.hutool.core.date.DateTime;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.IdUtil;
+import cn.ttcxy.dao.dsl.DtsArticleSubjectDsl;
+import cn.ttcxy.dao.repository.DtsArticleSubjectRepository;
 import cn.ttcxy.entity.dto.DtsArticleSubjectDto;
 import cn.ttcxy.entity.model.DtsArticle;
 import cn.ttcxy.entity.model.DtsArticleSubject;
-import cn.ttcxy.mapper.dsl.DtsArticleSubjectDsl;
-import cn.ttcxy.mapper.repository.DtsArticleSubjectRepository;
 
 @Service
 public class DtsArticleSubjectService {

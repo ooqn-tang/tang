@@ -7,13 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import cn.hutool.core.util.IdUtil;
+import cn.ttcxy.dao.dsl.UtsRoleDsl;
+import cn.ttcxy.dao.repository.UtsResourceRoleRepository;
+import cn.ttcxy.dao.repository.UtsRoleRepository;
 import cn.ttcxy.entity.dto.UtsRoleDto;
 import cn.ttcxy.entity.model.UtsResource;
 import cn.ttcxy.entity.model.UtsResourceRole;
 import cn.ttcxy.entity.model.UtsRole;
-import cn.ttcxy.mapper.dsl.UtsRoleDsl;
-import cn.ttcxy.mapper.repository.UtsResourceRoleRepository;
-import cn.ttcxy.mapper.repository.UtsRoleRepository;
 
 @Service
 public class UtsRoleService {

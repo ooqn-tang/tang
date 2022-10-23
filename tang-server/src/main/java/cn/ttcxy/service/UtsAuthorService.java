@@ -19,14 +19,14 @@ import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.RandomUtil;
+import cn.ttcxy.dao.dsl.UtsAuthorDsl;
+import cn.ttcxy.dao.repository.UtsAuthorRepository;
+import cn.ttcxy.dao.repository.UtsAuthorRoleRepository;
 import cn.ttcxy.entity.dto.UtsRoleDto;
 import cn.ttcxy.entity.model.UtsAuthor;
 import cn.ttcxy.entity.model.UtsAuthorRole;
 import cn.ttcxy.entity.model.UtsRole;
 import cn.ttcxy.entity.param.UtsRoleParam;
-import cn.ttcxy.mapper.dsl.UtsAuthorDsl;
-import cn.ttcxy.mapper.repository.UtsAuthorRepository;
-import cn.ttcxy.mapper.repository.UtsAuthorRoleRepository;
 
 /**
  * 创作者服务

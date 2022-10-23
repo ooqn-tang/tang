@@ -12,12 +12,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import cn.hutool.core.date.DateUtil;
+import cn.ttcxy.dao.dsl.DtsArticleDsl;
+import cn.ttcxy.dao.repository.DtsArticleRepository;
+import cn.ttcxy.dao.repository.DtsArticleSubjectRelevanceRepository;
 import cn.ttcxy.entity.dto.DtsArticleDto;
 import cn.ttcxy.entity.model.DtsArticle;
 import cn.ttcxy.entity.model.DtsArticleSubjectRelevance;
-import cn.ttcxy.mapper.dsl.DtsArticleDsl;
-import cn.ttcxy.mapper.repository.DtsArticleRepository;
-import cn.ttcxy.mapper.repository.DtsArticleSubjectRelevanceRepository;
 
 /**
  * 博客服务

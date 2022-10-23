@@ -1,4 +1,4 @@
-package cn.ttcxy.mapper.dsl;
+package cn.ttcxy.dao.dsl;
 
 import cn.ttcxy.entity.dto.DtsMessageDto;
 import org.springframework.stereotype.Component;

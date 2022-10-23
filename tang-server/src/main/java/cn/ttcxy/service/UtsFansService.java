@@ -7,11 +7,11 @@ import org.springframework.stereotype.Service;
 
 import cn.hutool.core.date.DateTime;
 import cn.hutool.core.util.IdUtil;
+import cn.ttcxy.dao.dsl.UtsFansDsl;
+import cn.ttcxy.dao.repository.UtsFansRepository;
 import cn.ttcxy.entity.dto.UtsFansDto;
 import cn.ttcxy.entity.model.UtsAuthor;
 import cn.ttcxy.entity.model.UtsFans;
-import cn.ttcxy.mapper.dsl.UtsFansDsl;
-import cn.ttcxy.mapper.repository.UtsFansRepository;
 
 /**
  * 粉丝相关服务

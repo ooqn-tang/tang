@@ -1,4 +1,4 @@
-package cn.ttcxy.mapper.repository;
+package cn.ttcxy.dao.repository;
 
 
 import java.util.List;

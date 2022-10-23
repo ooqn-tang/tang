@@ -1,7 +1,8 @@
 package cn.ttcxy.service;
 
+import cn.ttcxy.dao.dsl.DtsMessageDsl;
 import cn.ttcxy.entity.dto.DtsMessageDto;
-import cn.ttcxy.mapper.dsl.DtsMessageDsl;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

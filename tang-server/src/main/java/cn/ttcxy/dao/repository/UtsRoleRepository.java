@@ -1,4 +1,4 @@
-package cn.ttcxy.mapper.repository;
+package cn.ttcxy.dao.repository;
 
 
 import cn.ttcxy.entity.model.UtsRole;

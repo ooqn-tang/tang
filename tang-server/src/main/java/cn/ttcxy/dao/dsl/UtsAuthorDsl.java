@@ -1,4 +1,4 @@
-package cn.ttcxy.mapper.dsl;
+package cn.ttcxy.dao.dsl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

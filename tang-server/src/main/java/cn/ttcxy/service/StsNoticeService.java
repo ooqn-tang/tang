@@ -1,10 +1,11 @@
 package cn.ttcxy.service;
 
 import cn.hutool.core.util.IdUtil;
+import cn.ttcxy.dao.dsl.StsNoticeDsl;
+import cn.ttcxy.dao.repository.StsNoticeRepository;
 import cn.ttcxy.entity.model.StsNotice;
 import cn.ttcxy.entity.param.StsNoticeParam;
-import cn.ttcxy.mapper.dsl.StsNoticeDsl;
-import cn.ttcxy.mapper.repository.StsNoticeRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -3,8 +3,8 @@ package cn.ttcxy.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import cn.ttcxy.dao.repository.DtsLikeRepository;
 import cn.ttcxy.entity.model.DtsLike;
-import cn.ttcxy.mapper.repository.DtsLikeRepository;
 
 @Service
 public class DtsLikeService {

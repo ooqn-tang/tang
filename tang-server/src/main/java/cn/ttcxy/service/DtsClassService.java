@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import cn.ttcxy.mapper.dsl.DtsClassDsl;
+import cn.ttcxy.dao.dsl.DtsClassDsl;
 import cn.ttcxy.entity.model.DtsClass;
 
 @Service
