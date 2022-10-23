@@ -1,8 +1,10 @@
 package cn.ttcxy.entity.dto;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 public class DtsSearchDto {
 
     private String nickname;

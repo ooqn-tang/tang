@@ -28,8 +28,7 @@ public class DtsArticleSubjectDsl {
 
 	private final QDtsArticleSubject qArticleSubject = QDtsArticleSubject.dtsArticleSubject;
 	private final QUtsAuthor qAuthor = QUtsAuthor.utsAuthor;
-	private final QDtsArticleSubjectRelevance qSubjectRelevance =
-			QDtsArticleSubjectRelevance.dtsArticleSubjectRelevance;
+	private final QDtsArticleSubjectRelevance qSubjectRelevance = QDtsArticleSubjectRelevance.dtsArticleSubjectRelevance;
 	private final QDtsArticle qArticle = QDtsArticle.dtsArticle;
 
 	@Autowired
@@ -80,14 +79,11 @@ public class DtsArticleSubjectDsl {
 				.on(qAuthor.authorId.eq(qArticleSubject.authorId))
 				.where(qArticleSubject.subjectName.like('%' + name + '%'));
 		Long fetchOne = jpaQuery.select(qArticleSubject.subjectId.count()).fetchOne();
-		List<DtsArticleSubjectDto> fetch =
-				jpaQuery.select(Projections.bean(DtsArticleSubjectDto.class, Wildcard.all))
-						.offset(pageable.getOffset()).limit(pageable.getPageSize()).fetch();
+		List<DtsArticleSubjectDto> fetch = jpaQuery.select(Projections.bean(DtsArticleSubjectDto.class, Wildcard.all))
+				.offset(pageable.getOffset()).limit(pageable.getPageSize()).fetch();
 		return new PageImpl<>(fetch, pageable, fetchOne);
 
 	}
-
-
 
 	public String findSubjectIdByArticleId(String articleId) {
 		return query.select(qSubjectRelevance.subjectId).from(qArticle).leftJoin(qSubjectRelevance)
@@ -96,12 +92,13 @@ public class DtsArticleSubjectDsl {
 
 	public List<DtsArticle> findAllBySubjectId(String subjectId) {
 		return query.select(qArticle).from(qArticle, qSubjectRelevance)
-				.where(qArticle.articleId.eq(qSubjectRelevance.articleId),qSubjectRelevance.subjectId.eq(subjectId)).fetch();
+				.where(qArticle.articleId.eq(qSubjectRelevance.articleId), qSubjectRelevance.subjectId.eq(subjectId))
+				.fetch();
 	}
 
 	public List<DtsArticle> findSubjectArticleListByArticleId(String articleId) {
 		return query.select(qArticle).from(qArticle, qSubjectRelevance)
-		.where(qArticle.articleId.eq(qSubjectRelevance.articleId),qArticle.articleId.eq(articleId)).fetch();
+				.where(qArticle.articleId.eq(qSubjectRelevance.articleId), qArticle.articleId.eq(articleId)).fetch();
 	}
 
 }

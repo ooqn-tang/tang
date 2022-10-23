@@ -25,7 +25,7 @@ public class UtsAuthorDsl {
     }
 
     public void updateStateDelete(String authorId) {
-       
+
     }
 
 }

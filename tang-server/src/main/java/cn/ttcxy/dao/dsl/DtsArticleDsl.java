@@ -59,7 +59,7 @@ public class DtsArticleDsl {
                 JPAQuery<?> jpaQuery = query.from(qFans).leftJoin(qArticle)
                                 .on(qFans.beAuthorId.eq(qArticle.authorId)).leftJoin(qAuthor)
                                 .on(qFans.beAuthorId.eq(qAuthor.authorId))
-                                .where(qFans.authorId.eq(authorId),qArticle.state.eq(1));
+                                .where(qFans.authorId.eq(authorId), qArticle.state.eq(1));
 
                 Long totle = jpaQuery.select(qArticle.articleId.count()).fetchOne();
 
@@ -99,7 +99,7 @@ public class DtsArticleDsl {
                                                 qArticle.title, qArticle.createDate,
                                                 qArticle.updateDate, qAuthor.username,
                                                 qAuthor.nickname, qArticle.synopsis))
-                                                .orderBy(qArticle.createDate.desc())
+                                .orderBy(qArticle.createDate.desc())
                                 .offset(pageable.getOffset()).limit(pageable.getPageSize()).fetch();
                 return new PageImpl<>(articleList, pageable, count);
         }
@@ -140,7 +140,7 @@ public class DtsArticleDsl {
                                 .select(Projections.bean(DtsArticleDto.class, qArticle.articleId,
                                                 qAuthor.username, qAuthor.nickname, qArticle.title,
                                                 qArticle.createDate, qArticle.updateDate,
-                                                qArticle.synopsis, 
+                                                qArticle.synopsis,
                                                 qDtsArticleSubject.subjectName))
                                 .orderBy(qArticle.createDate.desc()).offset(pageable.getOffset())
                                 .limit(pageable.getPageSize()).fetch();

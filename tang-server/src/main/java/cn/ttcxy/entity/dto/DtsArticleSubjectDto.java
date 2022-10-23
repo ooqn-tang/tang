@@ -1,12 +1,14 @@
 package cn.ttcxy.entity.dto;
 
-import cn.ttcxy.entity.model.DtsArticle;
-import lombok.Data;
-
 import java.util.Date;
 import java.util.List;
 
-@Data
+import cn.ttcxy.entity.model.DtsArticle;
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class DtsArticleSubjectDto {
 
     private String subjectId;

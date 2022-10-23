@@ -48,8 +48,8 @@ public class UtsRoleDsl {
         QUtsAuthorRole qUtsAuthorRole = QUtsAuthorRole.utsAuthorRole;
 
         return query.select(qUtsAuthorRole.roleId).from(qUtsAuthor, qUtsAuthorRole).where(
-                        qUtsAuthor.authorId.eq(qUtsAuthorRole.authorId),
-                        qUtsAuthorRole.authorId.eq(authorId))
+                qUtsAuthor.authorId.eq(qUtsAuthorRole.authorId),
+                qUtsAuthorRole.authorId.eq(authorId))
                 .fetch();
 
     }

@@ -1,5 +1,9 @@
 package cn.ttcxy;
 
+import java.security.Principal;
+
+import javax.persistence.EntityManager;
+
 import org.apache.catalina.Context;
 import org.apache.catalina.connector.Connector;
 import org.apache.catalina.realm.RealmBase;
@@ -18,10 +22,6 @@ import org.springframework.web.socket.server.standard.ServerEndpointExporter;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
-import java.security.Principal;
-
-import javax.persistence.EntityManager;
-
 @SpringBootApplication(scanBasePackages = { "cn.ttcxy" })
 @MapperScan("cn.ttcxy.mapper")
 @ServletComponentScan
@@ -33,16 +33,16 @@ public class TangApplication {
 	}
 
 	@Bean
-    @Autowired
-    public JPAQueryFactory jpaQuery(EntityManager entityManager) {
-        return new JPAQueryFactory(entityManager);
-    }
+	@Autowired
+	public JPAQueryFactory jpaQuery(EntityManager entityManager) {
+		return new JPAQueryFactory(entityManager);
+	}
 
 	@Bean
-    public ServerEndpointExporter serverEndpointExporter() {
-        return new ServerEndpointExporter();
-    }
-	
+	public ServerEndpointExporter serverEndpointExporter() {
+		return new ServerEndpointExporter();
+	}
+
 	@Bean
 	@ConditionalOnProperty(value = "tang-https", havingValue = "true")
 	public ServletWebServerFactory servletContainer() {

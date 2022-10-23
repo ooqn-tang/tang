@@ -1,13 +1,15 @@
 package cn.ttcxy.entity.dto;
 
-import lombok.Data;
-
 import java.util.Date;
+
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * Article模型类
  */
-@Data
+@Getter
+@Setter
 public class DtsDataDto {
 
     private String dataId;

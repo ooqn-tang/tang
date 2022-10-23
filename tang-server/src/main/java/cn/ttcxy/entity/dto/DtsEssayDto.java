@@ -1,10 +1,12 @@
 package cn.ttcxy.entity.dto;
 
-import lombok.Data;
-
 import java.util.Date;
 
-@Data
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class DtsEssayDto {
 
     private String essayId;

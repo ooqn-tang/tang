@@ -5,10 +5,12 @@ import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
-@Data
+@Getter
+@Setter
 public class UtsAuthor {
     
     @Id
@@ -27,5 +29,7 @@ public class UtsAuthor {
     private Date updateTime;
 
     private Date refreshTime;
+
+    private boolean enabled;
 
 }
