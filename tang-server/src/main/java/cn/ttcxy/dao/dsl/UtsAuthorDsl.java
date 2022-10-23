@@ -18,10 +18,14 @@ public class UtsAuthorDsl {
     private QUtsAuthor qAuthor = QUtsAuthor.utsAuthor;
 
     public long updata(UtsAuthor author) {
-        return query.update(qAuthor).set(qAuthor.nickname, author.getNickname())
+        return query
+                .update(qAuthor)
+                .set(qAuthor.nickname, author.getNickname())
                 .set(qAuthor.signature, author.getSignature())
                 .set(qAuthor.updateTime, author.getUpdateTime())
-                .where(qAuthor.authorId.eq(author.getAuthorId())).execute();
+                .where(
+                        qAuthor.authorId.eq(author.getAuthorId()))
+                .execute();
     }
 
     public void updateStateDelete(String authorId) {

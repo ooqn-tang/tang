@@ -19,37 +19,42 @@ import cn.ttcxy.entity.model.QUtsRole;
 @Component
 public class UtsRoleDsl {
 
-    // 查询工厂实体
+    private final QUtsAuthor qUtsAuthor = QUtsAuthor.utsAuthor;
+    private final QUtsAuthorRole qUtsAuthorRole = QUtsAuthorRole.utsAuthorRole;
+    private final QUtsRole qUtsRole = QUtsRole.utsRole;
+
     @Autowired
     private JPAQueryFactory query;
 
     public List<UtsRoleDto> selectRoleListByAuthorId(String authorId) {
-
-        QUtsRole qUtsRole = QUtsRole.utsRole;
-        QUtsAuthorRole qUtsAuthorRole = QUtsAuthorRole.utsAuthorRole;
-
-        return query.select(Projections.bean(
-                UtsRoleDto.class,
-                qUtsRole.createTime,
-                qUtsRole.refreshTime,
-                qUtsRole.roleId,
-                qUtsRole.roleName,
-                qUtsRole.roleValue,
-                qUtsRole.updateTime)).from(qUtsRole, qUtsAuthorRole).where(
+        return query
+                .select(Projections.bean(
+                        UtsRoleDto.class,
+                        qUtsRole.createTime,
+                        qUtsRole.refreshTime,
+                        qUtsRole.roleId,
+                        qUtsRole.roleName,
+                        qUtsRole.roleValue,
+                        qUtsRole.updateTime))
+                .from(
+                        qUtsRole,
+                        qUtsAuthorRole)
+                .where(
                         qUtsRole.roleId.eq(qUtsAuthorRole.roleId),
                         qUtsAuthorRole.authorId.eq(authorId))
                 .fetch();
-
     }
 
     public List<String> selectRoleIdList(String authorId) {
-
-        QUtsAuthor qUtsAuthor = QUtsAuthor.utsAuthor;
-        QUtsAuthorRole qUtsAuthorRole = QUtsAuthorRole.utsAuthorRole;
-
-        return query.select(qUtsAuthorRole.roleId).from(qUtsAuthor, qUtsAuthorRole).where(
-                qUtsAuthor.authorId.eq(qUtsAuthorRole.authorId),
-                qUtsAuthorRole.authorId.eq(authorId))
+        return query
+                .select(
+                        qUtsAuthorRole.roleId)
+                .from(
+                        qUtsAuthor,
+                        qUtsAuthorRole)
+                .where(
+                        qUtsAuthor.authorId.eq(qUtsAuthorRole.authorId),
+                        qUtsAuthorRole.authorId.eq(authorId))
                 .fetch();
 
     }

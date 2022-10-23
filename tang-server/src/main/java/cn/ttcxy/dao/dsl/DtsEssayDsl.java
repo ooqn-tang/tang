@@ -19,31 +19,33 @@ import cn.ttcxy.entity.model.QUtsAuthor;
 @Component
 public class DtsEssayDsl {
 
-        QDtsEssay qDtsEssay = QDtsEssay.dtsEssay;
-        QUtsAuthor qUtsAuthor = QUtsAuthor.utsAuthor;
+	QDtsEssay qDtsEssay = QDtsEssay.dtsEssay;
+	QUtsAuthor qUtsAuthor = QUtsAuthor.utsAuthor;
 
-        @Autowired
-        private JPAQueryFactory query;
+	@Autowired
+	private JPAQueryFactory query;
 
-        public Page<DtsEssayDto> select(Pageable pageable) {
-                JPAQuery<?> jpaQuery = query.from(
-                                qDtsEssay, qUtsAuthor).where(
-                                                qDtsEssay.authorId.eq(qUtsAuthor.authorId));
+	public Page<DtsEssayDto> select(Pageable pageable) {
+		JPAQuery<?> jpaQuery = query
+				.from(qDtsEssay, qUtsAuthor)
+				.where(qDtsEssay.authorId.eq(qUtsAuthor.authorId));
 
-                Long fetchOne = jpaQuery.select(qDtsEssay.essayId.count()).fetchOne();
+		Long fetchOne = jpaQuery.select(qDtsEssay.essayId.count()).fetchOne();
 
-                List<DtsEssayDto> fetch = jpaQuery.select(Projections.bean(
-                                DtsEssayDto.class,
-                                qDtsEssay.text,
-                                qDtsEssay.essayId,
-                                qDtsEssay.createTime,
-                                qDtsEssay.url,
-                                qUtsAuthor.nickname,
-                                qUtsAuthor.username)).offset(pageable.getOffset()).limit(pageable.getPageSize())
-                                .orderBy(
-                                                qDtsEssay.createTime.desc())
-                                .fetch();
+		List<DtsEssayDto> fetch = jpaQuery
+				.select(Projections.bean(
+						DtsEssayDto.class,
+						qDtsEssay.text,
+						qDtsEssay.essayId,
+						qDtsEssay.createTime,
+						qDtsEssay.url,
+						qUtsAuthor.nickname,
+						qUtsAuthor.username))
+				.offset(pageable.getOffset())
+				.limit(pageable.getPageSize())
+				.orderBy(qDtsEssay.createTime.desc())
+				.fetch();
 
-                return new PageImpl<>(fetch, pageable, fetchOne);
-        }
+		return new PageImpl<>(fetch, pageable, fetchOne);
+	}
 }

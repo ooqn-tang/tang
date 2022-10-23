@@ -30,6 +30,4 @@ public class UtsAuthor {
 
     private Date refreshTime;
 
-    private boolean enabled;
-
 }
