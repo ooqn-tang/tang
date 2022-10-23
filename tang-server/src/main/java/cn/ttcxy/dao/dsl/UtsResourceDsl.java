@@ -62,9 +62,7 @@ public class UtsResourceDsl {
 
 	public List<String> selectByRoleId(String roleId) {
 		return query
-				.select(Projections.bean(
-						String.class,
-						qUtsResource.resourceId))
+				.select(qUtsResource.resourceId)
 				.from(
 						qUtsResource,
 						qUtsResourceRole)

@@ -17,7 +17,7 @@
             <div class="panel panel-default move-b-lr-0">
                 <div class="panel-body">
                     <ul class="blog-list">
-                        <li th:each="item : ${articlePage.list}">
+                        <li th:each="item : ${articlePage.content}">
                             <a th:href="'/article/' + ${item.articleId}" th:text="${item.title}"></a>
                             <span th:text="${#dates.format(item.createDate, 'yyyy-MM-dd')}" class="blog-time"></span>
                             <hr class="hr"/>
@@ -26,8 +26,8 @@
                 </div>
                 <div class="panel-footer">
                     <ul class="pager">
-                        <li class="previous"><a th:href="'?page='+${articlePage.prePage}">上一页</a></li>
-                        <li class="next"><a th:href="'?page='+${articlePage.nextPage}">下一页</a></li>
+                        <li class="previous"><a th:href="'?page='+${articlePage.number - 1}">上一页</a></li>
+                        <li class="next"><a th:href="'?page='+${articlePage.number + 1}">下一页</a></li>
                     </ul>
                 </div>
             </div>

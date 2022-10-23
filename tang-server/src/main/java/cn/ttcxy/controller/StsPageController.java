@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.alibaba.fastjson.JSONObject;
+
 import cn.ttcxy.entity.dto.DtsArticleDto;
 import cn.ttcxy.entity.dto.DtsArticleSubjectDto;
 import cn.ttcxy.service.DtsArticleService;
@@ -33,11 +35,12 @@ public class StsPageController {
     private StsNoticeService noticeService;
 
     @GetMapping
-    public String toIndex(@RequestParam(value = "page", defaultValue = "1") Integer page, Model model,HttpServletRequest request) {
+    public String toIndex(@RequestParam(value = "page", defaultValue = "0") Integer page, Model model,HttpServletRequest request) {
         Pageable pageable = PageRequest.of(page,50);
         Page<DtsArticleDto> dtsArticleDtoPageInfo = articleService.selectArticleListSmall(pageable);
         model.addAttribute("articlePage", dtsArticleDtoPageInfo);
         model.addAttribute("notice", noticeService.selectAllNotice());
+        System.out.println(JSONObject.toJSONString(dtsArticleDtoPageInfo));
         return "articles";
     }
 
@@ -72,7 +75,7 @@ public class StsPageController {
     }
 
     @GetMapping("subjects")
-    public String subjects(@RequestParam(value = "page", defaultValue = "1") Integer page, Model model){
+    public String subjects(@RequestParam(value = "page", defaultValue = "0") Integer page, Model model){
         Pageable pageable = PageRequest.of(page, 50);
         Page<DtsArticleSubjectDto> dtsArticleSubjectDtoPageInfo = articleSubjectService.selectSubjectList(pageable);
         model.addAttribute("subjects", dtsArticleSubjectDtoPageInfo);

@@ -89,13 +89,18 @@ public class DtsArticleDsl {
 
 		JPAQuery<?> jpaQuery = query
 				.from(qArticle)
-				.where(qArticle.state.eq(1))
-				.orderBy(qArticle.createDate.desc());
+				.where(qArticle.state.eq(1));
 
 		Long count = jpaQuery.select(qArticle.articleId.count()).fetchOne();
 
 		List<DtsArticleDto> articleList = jpaQuery
-				.select(Projections.bean(DtsArticleDto.class, Wildcard.all))
+				.select(Projections.bean(
+						DtsArticleDto.class,
+						qArticle.articleId,
+						qArticle.title,
+						qArticle.synopsis,
+						qArticle.createDate))
+				.orderBy(qArticle.createDate.desc())
 				.offset(pageable.getOffset())
 				.limit(pageable.getPageSize())
 				.fetch();

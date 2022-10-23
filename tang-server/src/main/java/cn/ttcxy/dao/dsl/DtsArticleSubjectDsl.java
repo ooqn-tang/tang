@@ -116,10 +116,8 @@ public class DtsArticleSubjectDsl {
 	public String findSubjectIdByArticleId(String articleId) {
 		return query
 				.select(qSubjectRelevance.subjectId)
-				.from(qArticle)
-				.leftJoin(qSubjectRelevance)
-				.on(qArticle.articleId.eq(qSubjectRelevance.articleId))
-				.limit(1)
+				.from(qSubjectRelevance)
+				.where(qSubjectRelevance.articleId.eq(articleId))
 				.fetchOne();
 	}
 
