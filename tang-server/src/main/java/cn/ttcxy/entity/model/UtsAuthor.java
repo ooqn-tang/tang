@@ -11,20 +11,20 @@ import lombok.Setter;
 @Setter
 public class UtsAuthor {
 
-  @Id
-  private String authorId;
+	@Id
+	private String authorId;
 
-  private String username;
+	private String username;
 
-  private String nickname;
+	private String nickname;
 
-  private String password;
+	private String password;
 
-  private String mail;
+	private String mail;
 
-  private String signature;
+	private String signature;
 
-  private Date updateTime;
+	private Date updateTime;
 
-  private Date refreshTime;
+	private Date refreshTime;
 }

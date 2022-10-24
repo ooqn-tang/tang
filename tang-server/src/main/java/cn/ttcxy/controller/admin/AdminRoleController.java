@@ -25,63 +25,57 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("api/admin/role")
 public class AdminRoleController extends BaseController {
 
-  @Autowired
-  private UtsRoleService roleService;
+	@Autowired
+	private UtsRoleService roleService;
 
-  @Autowired
-  private UtsAuthorService authorService;
+	@Autowired
+	private UtsAuthorService authorService;
 
-  @GetMapping
-  public Iterable<UtsRole> select() {
-    return roleService.select();
-  }
+	@GetMapping
+	public Iterable<UtsRole> select() {
+		return roleService.select();
+	}
 
-  @PostMapping
-  public UtsRole insert(@RequestBody UtsRoleParam roleParam) {
-    UtsRole role = BeanUtil.toBean(roleParam, UtsRole.class);
-    role.setRoleId(IdUtil.objectId());
-    role.setCreateTime(new Date());
-    return roleService.insert(role);
-  }
+	@PostMapping
+	public UtsRole insert(@RequestBody UtsRoleParam roleParam) {
+		UtsRole role = BeanUtil.toBean(roleParam, UtsRole.class);
+		role.setRoleId(IdUtil.objectId());
+		role.setCreateTime(new Date());
+		return roleService.insert(role);
+	}
 
-  @PutMapping
-  public void update(@RequestBody UtsRoleParam roleParam) {
-    UtsRole role = BeanUtil.toBean(roleParam, UtsRole.class);
-    roleService.update(role);
-  }
+	@PutMapping
+	public void update(@RequestBody UtsRoleParam roleParam) {
+		UtsRole role = BeanUtil.toBean(roleParam, UtsRole.class);
+		roleService.update(role);
+	}
 
-  @GetMapping("{roleId}")
-  public UtsRole select(@PathVariable("roleId") String roleId) {
-    return roleService.selectById(roleId);
-  }
+	@GetMapping("{roleId}")
+	public UtsRole select(@PathVariable("roleId") String roleId) {
+		return roleService.selectById(roleId);
+	}
 
-  @DeleteMapping("{roleId}")
-  public void delete(@PathVariable("roleId") String roleId) {
-    roleService.delete(roleId);
-  }
+	@DeleteMapping("{roleId}")
+	public void delete(@PathVariable("roleId") String roleId) {
+		roleService.delete(roleId);
+	}
 
-  @PostMapping("resource/{roleId}")
-  public String insertResource(
-    @PathVariable("roleId") String roleId,
-    @RequestBody List<UtsResource> resourceList
-  ) {
-    roleService.insertResource(roleId, resourceList);
-    return ResponseCode.SUCCESS.getMessage();
-  }
+	@PostMapping("resource/{roleId}")
+	public String insertResource(@PathVariable("roleId") String roleId,
+			@RequestBody List<UtsResource> resourceList) {
+		roleService.insertResource(roleId, resourceList);
+		return ResponseCode.SUCCESS.getMessage();
+	}
 
-  @GetMapping("author/{authorId}")
-  public List<String> selectAuthorIdList(
-    @PathVariable("authorId") String authorId
-  ) {
-    return roleService.selectRoleIdList(authorId);
-  }
+	@GetMapping("author/{authorId}")
+	public List<String> selectAuthorIdList(@PathVariable("authorId") String authorId) {
+		return roleService.selectRoleIdList(authorId);
+	}
 
-  @PostMapping("author/{authorId}")
-  public String insertRoleOnAuthor(
-    @PathVariable("authorId") String authorId,
-    @RequestBody List<UtsRoleParam> roleParams
-  ) {
-    authorService.insertRole(authorId, roleParams);
-    return ResponseCode.SUCCESS.getMessage();
-  }
+	@PostMapping("author/{authorId}")
+	public String insertRoleOnAuthor(@PathVariable("authorId") String authorId,
+			@RequestBody List<UtsRoleParam> roleParams) {
+		authorService.insertRole(authorId, roleParams);
+		return ResponseCode.SUCCESS.getMessage();
+	}
 }

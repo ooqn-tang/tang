@@ -17,57 +17,37 @@ import org.springframework.stereotype.Component;
 @Component
 public class UtsResourceDsl {
 
-  @Autowired
-  private JPAQueryFactory query;
+	@Autowired
+	private JPAQueryFactory query;
 
-  private final QUtsRole qUtsRole = QUtsRole.utsRole;
-  private final QUtsResource qUtsResource = QUtsResource.utsResource;
-  private final QUtsResourceRole qUtsResourceRole =
-    QUtsResourceRole.utsResourceRole;
+	private final QUtsRole qUtsRole = QUtsRole.utsRole;
+	private final QUtsResource qUtsResource = QUtsResource.utsResource;
+	private final QUtsResourceRole qUtsResourceRole = QUtsResourceRole.utsResourceRole;
 
-  List<UtsRoleResourceDto> selectAll() {
-    return query
-      .select(
-        Projections.bean(
-          UtsRoleResourceDto.class,
-          qUtsResource.path,
-          qUtsResource.name
-        )
-      )
-      .from(qUtsResource, qUtsResourceRole, qUtsRole)
-      .where(
-        qUtsResource.resourceId.eq(qUtsResourceRole.resourceId),
-        qUtsRole.roleId.eq(qUtsResourceRole.roleId)
-      )
-      .fetch();
-  }
+	List<UtsRoleResourceDto> selectAll() {
+		return query
+				.select(Projections.bean(UtsRoleResourceDto.class, qUtsResource.path,
+						qUtsResource.name))
+				.from(qUtsResource, qUtsResourceRole, qUtsRole)
+				.where(qUtsResource.resourceId.eq(qUtsResourceRole.resourceId),
+						qUtsRole.roleId.eq(qUtsResourceRole.roleId))
+				.fetch();
+	}
 
-  public List<UtsResource> loadResourceUrlByRoleValue(String roleValue) {
-    return query
-      .select(
-        Projections.bean(
-          UtsResource.class,
-          qUtsResource.path,
-          qUtsResource.type
-        )
-      )
-      .from(qUtsResource, qUtsResourceRole, qUtsRole)
-      .where(
-        qUtsResource.resourceId.eq(qUtsResourceRole.resourceId),
-        qUtsRole.roleId.eq(qUtsResourceRole.roleId),
-        qUtsRole.roleValue.eq(roleValue)
-      )
-      .fetch();
-  }
+	public List<UtsResource> loadResourceUrlByRoleValue(String roleValue) {
+		return query
+				.select(Projections.bean(UtsResource.class, qUtsResource.path, qUtsResource.type))
+				.from(qUtsResource, qUtsResourceRole, qUtsRole)
+				.where(qUtsResource.resourceId.eq(qUtsResourceRole.resourceId),
+						qUtsRole.roleId.eq(qUtsResourceRole.roleId),
+						qUtsRole.roleValue.eq(roleValue))
+				.fetch();
+	}
 
-  public List<String> selectByRoleId(String roleId) {
-    return query
-      .select(qUtsResource.resourceId)
-      .from(qUtsResource, qUtsResourceRole)
-      .where(
-        qUtsResource.resourceId.eq(qUtsResourceRole.resourceId),
-        qUtsResourceRole.roleId.eq(roleId)
-      )
-      .fetch();
-  }
+	public List<String> selectByRoleId(String roleId) {
+		return query.select(qUtsResource.resourceId).from(qUtsResource, qUtsResourceRole)
+				.where(qUtsResource.resourceId.eq(qUtsResourceRole.resourceId),
+						qUtsResourceRole.roleId.eq(roleId))
+				.fetch();
+	}
 }

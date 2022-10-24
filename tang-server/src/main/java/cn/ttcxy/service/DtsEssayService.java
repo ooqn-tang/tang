@@ -14,23 +14,23 @@ import org.springframework.stereotype.Service;
 @Service
 public class DtsEssayService {
 
-  @Autowired
-  private DtsEssayRepository essayRepository;
+	@Autowired
+	private DtsEssayRepository essayRepository;
 
-  @Autowired
-  private DtsEssayDsl essayDsl;
+	@Autowired
+	private DtsEssayDsl essayDsl;
 
-  public DtsEssay insert(DtsEssay dynamic) {
-    dynamic.setEssayId(IdUtil.objectId());
-    dynamic.setCreateTime(DateUtil.date());
-    return essayRepository.save(dynamic);
-  }
+	public DtsEssay insert(DtsEssay dynamic) {
+		dynamic.setEssayId(IdUtil.objectId());
+		dynamic.setCreateTime(DateUtil.date());
+		return essayRepository.save(dynamic);
+	}
 
-  public void delete(String authorId) {
-    essayRepository.deleteById(authorId);
-  }
+	public void delete(String authorId) {
+		essayRepository.deleteById(authorId);
+	}
 
-  public Page<DtsEssayDto> select(Pageable pageable) {
-    return essayDsl.select(pageable);
-  }
+	public Page<DtsEssayDto> select(Pageable pageable) {
+		return essayDsl.select(pageable);
+	}
 }

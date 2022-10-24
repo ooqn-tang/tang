@@ -1,3 +1,4 @@
 package cn.ttcxy.util;
 
-public class JwtUtil {}
+public class JwtUtil {
+}

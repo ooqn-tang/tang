@@ -9,12 +9,12 @@ import lombok.Data;
 @Data
 public class DtsClass {
 
-  @Id
-  private String classId;
+	@Id
+	private String classId;
 
-  private String className;
+	private String className;
 
-  private Date createTime;
+	private Date createTime;
 
-  private String type;
+	private String type;
 }

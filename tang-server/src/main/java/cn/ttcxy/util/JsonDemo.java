@@ -8,14 +8,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class JsonDemo {
 
-  public static void main(String[] args)
-    throws JsonMappingException, JsonProcessingException {
-    ObjectMapper obj = new ObjectMapper();
-    obj.configure(Feature.ALLOW_SINGLE_QUOTES, true);
-    JsonNode readTree = obj.readTree("{'a':{'c':'b'}}");
+	public static void main(String[] args) throws JsonMappingException, JsonProcessingException {
+		ObjectMapper obj = new ObjectMapper();
+		obj.configure(Feature.ALLOW_SINGLE_QUOTES, true);
+		JsonNode readTree = obj.readTree("{'a':{'c':'b'}}");
 
-    for (JsonNode jsonNode : readTree) {
-      System.out.println(jsonNode);
-    }
-  }
+		for (JsonNode jsonNode : readTree) {
+			System.out.println(jsonNode);
+		}
+	}
 }

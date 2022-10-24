@@ -10,26 +10,26 @@ import lombok.Setter;
 @Setter
 public class DtsArticleSubjectDto {
 
-  private String subjectId;
+	private String subjectId;
 
-  // 专题名
-  private String subjectName;
+	// 专题名
+	private String subjectName;
 
-  // 描述
-  private String synopsis;
+	// 描述
+	private String synopsis;
 
-  // 创建时间
-  private Date createDate;
+	// 创建时间
+	private Date createDate;
 
-  // 更新时间
-  private Date updateDate;
+	// 更新时间
+	private Date updateDate;
 
-  private String authorId;
+	private String authorId;
 
-  private String username;
+	private String username;
 
-  private String nickname;
+	private String nickname;
 
-  // 博客列表
-  private List<DtsArticle> articleList;
+	// 博客列表
+	private List<DtsArticle> articleList;
 }

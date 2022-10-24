@@ -23,34 +23,33 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("api/admin/author")
 public class AdminAuthorController extends BaseController {
 
-  @Autowired
-  private UtsAuthorService authorService;
+	@Autowired
+	private UtsAuthorService authorService;
 
-  @GetMapping
-  public List<UtsAuthor> select(
-    @RequestParam(value = "queryData", defaultValue = "") String queryData
-  ) {
-    return authorService.select(queryData);
-  }
+	@GetMapping
+	public List<UtsAuthor> select(
+			@RequestParam(value = "queryData", defaultValue = "") String queryData) {
+		return authorService.select(queryData);
+	}
 
-  @PostMapping
-  public String insert(@RequestBody UtsAuthorParam authorParam) {
-    UtsAuthor author = BeanUtil.toBean(authorParam, UtsAuthor.class);
-    UtsAuthor utsAuthor = authorService.insertAuthor(author);
-    if (utsAuthor != null) {
-      return ResponseCode.SUCCESS.getMessage();
-    }
-    throw new ApiException();
-  }
+	@PostMapping
+	public String insert(@RequestBody UtsAuthorParam authorParam) {
+		UtsAuthor author = BeanUtil.toBean(authorParam, UtsAuthor.class);
+		UtsAuthor utsAuthor = authorService.insertAuthor(author);
+		if (utsAuthor != null) {
+			return ResponseCode.SUCCESS.getMessage();
+		}
+		throw new ApiException();
+	}
 
-  @PutMapping
-  public long update(@RequestBody UtsAuthorParam authorParam) {
-    UtsAuthor author = BeanUtil.toBean(authorParam, UtsAuthor.class);
-    return authorService.update(author);
-  }
+	@PutMapping
+	public long update(@RequestBody UtsAuthorParam authorParam) {
+		UtsAuthor author = BeanUtil.toBean(authorParam, UtsAuthor.class);
+		return authorService.update(author);
+	}
 
-  @DeleteMapping("{authorId}")
-  public void delete(@PathVariable("authorId") String authorId) {
-    authorService.delete(authorId);
-  }
+	@DeleteMapping("{authorId}")
+	public void delete(@PathVariable("authorId") String authorId) {
+		authorService.delete(authorId);
+	}
 }

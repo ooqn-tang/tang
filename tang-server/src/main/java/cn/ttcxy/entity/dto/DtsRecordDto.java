@@ -8,15 +8,15 @@ import lombok.Setter;
 @Setter
 public class DtsRecordDto {
 
-  private String title;
+	private String title;
 
-  private String dataId;
+	private String dataId;
 
-  private String username;
+	private String username;
 
-  private String nickname;
+	private String nickname;
 
-  private Date createDate;
+	private Date createDate;
 
-  private String type;
+	private String type;
 }

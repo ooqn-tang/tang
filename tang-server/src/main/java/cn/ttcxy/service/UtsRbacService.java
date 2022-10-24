@@ -13,31 +13,24 @@ import org.springframework.util.AntPathMatcher;
 @Service
 public class UtsRbacService {
 
-  private final AntPathMatcher antPathMatcher = new AntPathMatcher();
+	private final AntPathMatcher antPathMatcher = new AntPathMatcher();
 
-  @Autowired
-  private UtsResourceService utsResourceService;
+	@Autowired
+	private UtsResourceService utsResourceService;
 
-  public boolean hasPermission(
-    HttpServletRequest request,
-    Authentication authentication
-  ) {
-    Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
-    for (GrantedAuthority authority : authorities) {
-      String role = authority.getAuthority();
-      List<UtsResource> resourceList = utsResourceService.loadResourceUrlByRoleValue(
-        role
-      );
-      for (UtsResource resource : resourceList) {
-        String method = request.getMethod();
-        if (
-          antPathMatcher.match(resource.getPath(), request.getRequestURI()) &&
-          method.equals(resource.getType())
-        ) {
-          return true;
-        }
-      }
-    }
-    return false;
-  }
+	public boolean hasPermission(HttpServletRequest request, Authentication authentication) {
+		Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
+		for (GrantedAuthority authority : authorities) {
+			String role = authority.getAuthority();
+			List<UtsResource> resourceList = utsResourceService.loadResourceUrlByRoleValue(role);
+			for (UtsResource resource : resourceList) {
+				String method = request.getMethod();
+				if (antPathMatcher.match(resource.getPath(), request.getRequestURI())
+						&& method.equals(resource.getType())) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
 }

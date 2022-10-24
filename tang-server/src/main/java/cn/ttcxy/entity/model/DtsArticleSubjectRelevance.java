@@ -13,15 +13,15 @@ import lombok.Setter;
 @Setter
 public class DtsArticleSubjectRelevance {
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  private Integer id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Integer id;
 
-  private String articleId;
+	private String articleId;
 
-  private String subjectId;
+	private String subjectId;
 
-  private Integer orderNum;
+	private Integer orderNum;
 
-  private Date createDate;
+	private Date createDate;
 }

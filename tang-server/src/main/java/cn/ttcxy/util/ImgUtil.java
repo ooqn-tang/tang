@@ -10,16 +10,16 @@ import javax.imageio.ImageIO;
  */
 public class ImgUtil {
 
-  public static boolean isNotImage(InputStream inputStream) {
-    try {
-      BufferedImage read = ImageIO.read(inputStream);
-      return read == null;
-    } catch (IOException e) {
-      return true;
-    }
-  }
+	public static boolean isNotImage(InputStream inputStream) {
+		try {
+			BufferedImage read = ImageIO.read(inputStream);
+			return read == null;
+		} catch (IOException e) {
+			return true;
+		}
+	}
 
-  public static void main(String[] args) {
-    System.out.println("skdljfklasjdklfasdf");
-  }
+	public static void main(String[] args) {
+		System.out.println("skdljfklasjdklfasdf");
+	}
 }

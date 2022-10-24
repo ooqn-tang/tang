@@ -10,16 +10,12 @@ import org.springframework.stereotype.Component;
 @Component
 public class DtsClassDsl {
 
-  @Autowired
-  private JPAQueryFactory query;
+	@Autowired
+	private JPAQueryFactory query;
 
-  private final QDtsClass qDtsClass = QDtsClass.dtsClass;
+	private final QDtsClass qDtsClass = QDtsClass.dtsClass;
 
-  public List<DtsClass> selectClass(String type) {
-    return query
-      .select(qDtsClass)
-      .from(qDtsClass)
-      .where(qDtsClass.type.eq(type))
-      .fetch();
-  }
+	public List<DtsClass> selectClass(String type) {
+		return query.select(qDtsClass).from(qDtsClass).where(qDtsClass.type.eq(type)).fetch();
+	}
 }

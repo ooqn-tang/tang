@@ -9,12 +9,12 @@ import lombok.Data;
 @Data
 public class UtsFans {
 
-  @Id
-  private String fansId;
+	@Id
+	private String fansId;
 
-  private String beAuthorId;
+	private String beAuthorId;
 
-  private String authorId;
+	private String authorId;
 
-  private Date createDate;
+	private Date createDate;
 }

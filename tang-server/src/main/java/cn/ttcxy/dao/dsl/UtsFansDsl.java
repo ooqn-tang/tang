@@ -20,48 +20,31 @@ import org.springframework.stereotype.Component;
 @Component
 public class UtsFansDsl {
 
-  @Autowired
-  private JPAQueryFactory query;
+	@Autowired
+	private JPAQueryFactory query;
 
-  private final QUtsFans qFans = QUtsFans.utsFans;
-  private final QUtsAuthor qAuthor = QUtsAuthor.utsAuthor;
-  private final QUtsAuthor qAuthor1 = QUtsAuthor.utsAuthor;
+	private final QUtsFans qFans = QUtsFans.utsFans;
+	private final QUtsAuthor qAuthor = QUtsAuthor.utsAuthor;
+	private final QUtsAuthor qAuthor1 = QUtsAuthor.utsAuthor;
 
-  public Page<UtsFansDto> selectFansList(String userId, Pageable pageable) {
-    JPAQuery<?> jpaQuery = query
-      .from(qFans, qAuthor, qAuthor1)
-      .where(
-        qAuthor.authorId.eq(qFans.authorId),
-        qAuthor1.authorId.eq(qFans.authorId),
-        qFans.authorId.eq(userId)
-      );
+	public Page<UtsFansDto> selectFansList(String userId, Pageable pageable) {
+		JPAQuery<?> jpaQuery =
+				query.from(qFans, qAuthor, qAuthor1).where(qAuthor.authorId.eq(qFans.authorId),
+						qAuthor1.authorId.eq(qFans.authorId), qFans.authorId.eq(userId));
 
-    Long fetchOne = jpaQuery.select(qFans.fansId.count()).fetchOne();
+		Long fetchOne = jpaQuery.select(qFans.fansId.count()).fetchOne();
 
-    List<UtsFansDto> fansList = jpaQuery
-      .select(
-        Projections.bean(
-          UtsFansDto.class,
-          qFans.fansId,
-          qFans.authorId,
-          qFans.beAuthorId,
-          qAuthor.nickname,
-          qAuthor.username
-        )
-      )
-      .orderBy(qFans.createDate.asc())
-      .offset(pageable.getOffset())
-      .limit(pageable.getPageSize())
-      .fetch();
+		List<UtsFansDto> fansList = jpaQuery
+				.select(Projections.bean(UtsFansDto.class, qFans.fansId, qFans.authorId,
+						qFans.beAuthorId, qAuthor.nickname, qAuthor.username))
+				.orderBy(qFans.createDate.asc()).offset(pageable.getOffset())
+				.limit(pageable.getPageSize()).fetch();
 
-    return new PageImpl<>(fansList, pageable, fetchOne);
-  }
+		return new PageImpl<>(fansList, pageable, fetchOne);
+	}
 
-  public Long isFans(String authorId, String beAuthorId) {
-    return query
-      .select(Wildcard.count)
-      .from(qFans)
-      .where(qFans.authorId.eq(authorId), qFans.beAuthorId.eq(beAuthorId))
-      .fetchOne();
-  }
+	public Long isFans(String authorId, String beAuthorId) {
+		return query.select(Wildcard.count).from(qFans)
+				.where(qFans.authorId.eq(authorId), qFans.beAuthorId.eq(beAuthorId)).fetchOne();
+	}
 }

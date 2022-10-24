@@ -30,97 +30,73 @@ import org.springframework.stereotype.Component;
 @Component
 public class JwtProvider implements InitializingBean {
 
-  @Autowired
-  private TangProperties tangProperties;
+	@Autowired
+	private TangProperties tangProperties;
 
-  private Key key;
+	private Key key;
 
-  @Override
-  public void afterPropertiesSet() {
-    byte[] keyBytes = Decoders.BASE64.decode(
-      tangProperties.getJwt().getBase64Secret()
-    );
-    this.key = Keys.hmacShaKeyFor(keyBytes);
-  }
+	@Override
+	public void afterPropertiesSet() {
+		byte[] keyBytes = Decoders.BASE64.decode(tangProperties.getJwt().getBase64Secret());
+		this.key = Keys.hmacShaKeyFor(keyBytes);
+	}
 
-  public String createToken(Object details, boolean rememberMe) {
-    UserDetails userDetails = (UserDetails) details;
-    Collection<? extends GrantedAuthority> authorities = userDetails.getAuthorities();
-    UtsAuthorDto authorDto = (UtsAuthorDto) userDetails;
+	public String createToken(Object details, boolean rememberMe) {
+		UserDetails userDetails = (UserDetails) details;
+		Collection<? extends GrantedAuthority> authorities = userDetails.getAuthorities();
+		UtsAuthorDto authorDto = (UtsAuthorDto) userDetails;
 
-    long now = (new Date()).getTime();
-    Date validity;
-    if (rememberMe) {
-      validity =
-        new Date(
-          now + tangProperties.getJwt().getTokenValidityInSecondsForRememberMe()
-        );
-    } else {
-      validity =
-        new Date(now + tangProperties.getJwt().getTokenValidityInSeconds());
-    }
+		long now = (new Date()).getTime();
+		Date validity;
+		if (rememberMe) {
+			validity = new Date(
+					now + tangProperties.getJwt().getTokenValidityInSecondsForRememberMe());
+		} else {
+			validity = new Date(now + tangProperties.getJwt().getTokenValidityInSeconds());
+		}
 
-    StringBuilder stringBuilder = new StringBuilder();
-    for (GrantedAuthority authority : authorities) {
-      stringBuilder.append(authority.getAuthority());
-      stringBuilder.append(",");
-    }
-    if (stringBuilder.length() > 0) {
-      stringBuilder.deleteCharAt(stringBuilder.length() - 1);
-    }
+		StringBuilder stringBuilder = new StringBuilder();
+		for (GrantedAuthority authority : authorities) {
+			stringBuilder.append(authority.getAuthority());
+			stringBuilder.append(",");
+		}
+		if (stringBuilder.length() > 0) {
+			stringBuilder.deleteCharAt(stringBuilder.length() - 1);
+		}
 
-    return Jwts
-      .builder()
-      .setSubject(authorDto.getUsername())
-      .claim(tangProperties.getAuthoritiesKey(), stringBuilder)
-      .claim(tangProperties.getAuthorKey(), authorDto)
-      .signWith(key, SignatureAlgorithm.HS512)
-      .setExpiration(validity)
-      .compact();
-  }
+		return Jwts.builder().setSubject(authorDto.getUsername())
+				.claim(tangProperties.getAuthoritiesKey(), stringBuilder)
+				.claim(tangProperties.getAuthorKey(), authorDto)
+				.signWith(key, SignatureAlgorithm.HS512).setExpiration(validity).compact();
+	}
 
-  public Authentication getAuthentication(String token) {
-    Claims claims = Jwts
-      .parserBuilder()
-      .setSigningKey(key)
-      .build()
-      .parseClaimsJws(token)
-      .getBody();
+	public Authentication getAuthentication(String token) {
+		Claims claims =
+				Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token).getBody();
 
-    Collection<? extends GrantedAuthority> authorities = Arrays
-      .stream(
-        claims.get(tangProperties.getAuthoritiesKey()).toString().split(",")
-      )
-      .map(SimpleGrantedAuthority::new)
-      .collect(Collectors.toList());
+		Collection<? extends GrantedAuthority> authorities =
+				Arrays.stream(claims.get(tangProperties.getAuthoritiesKey()).toString().split(","))
+						.map(SimpleGrantedAuthority::new).collect(Collectors.toList());
 
-    UtsAuthorDto principal = BeanUtil.toBean(
-      claims.get(tangProperties.getAuthorKey()),
-      UtsAuthorDto.class
-    );
+		UtsAuthorDto principal =
+				BeanUtil.toBean(claims.get(tangProperties.getAuthorKey()), UtsAuthorDto.class);
 
-    return new UsernamePasswordAuthenticationToken(
-      principal,
-      token,
-      authorities
-    );
-  }
+		return new UsernamePasswordAuthenticationToken(principal, token, authorities);
+	}
 
-  public boolean validateToken(String authToken) {
-    try {
-      Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(authToken);
-      return true;
-    } catch (
-      io.jsonwebtoken.security.SecurityException | MalformedJwtException e
-    ) {
-      log.info("Invalid JWT signature.");
-    } catch (ExpiredJwtException e) {
-      log.info("Expired JWT token.");
-    } catch (UnsupportedJwtException e) {
-      log.info("Unsupported JWT token.");
-    } catch (IllegalArgumentException e) {
-      log.info("JWT token compact of handler are invalid.");
-    }
-    return false;
-  }
+	public boolean validateToken(String authToken) {
+		try {
+			Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(authToken);
+			return true;
+		} catch (io.jsonwebtoken.security.SecurityException | MalformedJwtException e) {
+			log.info("Invalid JWT signature.");
+		} catch (ExpiredJwtException e) {
+			log.info("Expired JWT token.");
+		} catch (UnsupportedJwtException e) {
+			log.info("Unsupported JWT token.");
+		} catch (IllegalArgumentException e) {
+			log.info("JWT token compact of handler are invalid.");
+		}
+		return false;
+	}
 }

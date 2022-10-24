@@ -18,37 +18,34 @@ import org.springframework.stereotype.Service;
 @Service
 public class UtsFansService {
 
-  @Autowired
-  private UtsFansDsl fansDsl;
+	@Autowired
+	private UtsFansDsl fansDsl;
 
-  @Autowired
-  private UtsFansRepository fansRepository;
+	@Autowired
+	private UtsFansRepository fansRepository;
 
-  @Autowired
-  private UtsAuthorService authorService;
+	@Autowired
+	private UtsAuthorService authorService;
 
-  public Page<UtsFansDto> selectFansList(String authorId, Pageable pageable) {
-    return fansDsl.selectFansList(authorId, pageable);
-  }
+	public Page<UtsFansDto> selectFansList(String authorId, Pageable pageable) {
+		return fansDsl.selectFansList(authorId, pageable);
+	}
 
-  public UtsFans insertFans(UtsFans fans) {
-    fans.setCreateDate(DateTime.now());
-    fans.setFansId(IdUtil.objectId());
-    return fansRepository.save(fans);
-  }
+	public UtsFans insertFans(UtsFans fans) {
+		fans.setCreateDate(DateTime.now());
+		fans.setFansId(IdUtil.objectId());
+		return fansRepository.save(fans);
+	}
 
-  public int deleteFans(String fansName, String authorId) {
-    UtsAuthor author = authorService.selectAuthorByName(fansName);
-    if (author != null) {
-      return fansRepository.deleteByBeAuthorIdAndAuthorId(
-        author.getAuthorId(),
-        authorId
-      );
-    }
-    return 0;
-  }
+	public int deleteFans(String fansName, String authorId) {
+		UtsAuthor author = authorService.selectAuthorByName(fansName);
+		if (author != null) {
+			return fansRepository.deleteByBeAuthorIdAndAuthorId(author.getAuthorId(), authorId);
+		}
+		return 0;
+	}
 
-  public Long isFans(String authorId, String beAuthorId) {
-    return fansDsl.isFans(authorId, beAuthorId);
-  }
+	public Long isFans(String authorId, String beAuthorId) {
+		return fansDsl.isFans(authorId, beAuthorId);
+	}
 }

@@ -9,12 +9,12 @@ import lombok.Data;
 @Data
 public class DtsLike {
 
-  @Id
-  private String likeId;
+	@Id
+	private String likeId;
 
-  private String dataId;
+	private String dataId;
 
-  private String authorId;
+	private String authorId;
 
-  private Date createTime;
+	private Date createTime;
 }

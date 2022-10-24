@@ -11,25 +11,25 @@ import org.springframework.stereotype.Service;
 @Service
 public class DtsCollectService {
 
-  @Autowired
-  private DtsCollectRepository collectRepository;
+	@Autowired
+	private DtsCollectRepository collectRepository;
 
-  @Autowired
-  private DtsCollectDsl collectDsl;
+	@Autowired
+	private DtsCollectDsl collectDsl;
 
-  public long select(String authorId, String dataId) {
-    return collectRepository.countByDataIdAndAuthorId(dataId, authorId);
-  }
+	public long select(String authorId, String dataId) {
+		return collectRepository.countByDataIdAndAuthorId(dataId, authorId);
+	}
 
-  public Page<DtsCollect> selectCollect(String authorId, Pageable pageable) {
-    return collectDsl.selectCollect(authorId, pageable);
-  }
+	public Page<DtsCollect> selectCollect(String authorId, Pageable pageable) {
+		return collectDsl.selectCollect(authorId, pageable);
+	}
 
-  public DtsCollect insert(DtsCollect collect) {
-    return collectRepository.save(collect);
-  }
+	public DtsCollect insert(DtsCollect collect) {
+		return collectRepository.save(collect);
+	}
 
-  public int unCollect(String authorId, String dataId) {
-    return collectRepository.deleteByDataIdAndAuthorId(dataId, authorId);
-  }
+	public int unCollect(String authorId, String dataId) {
+		return collectRepository.deleteByDataIdAndAuthorId(dataId, authorId);
+	}
 }

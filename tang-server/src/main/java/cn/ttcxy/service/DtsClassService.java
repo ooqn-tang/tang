@@ -9,10 +9,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class DtsClassService {
 
-  @Autowired
-  private DtsClassDsl classDsl;
+	@Autowired
+	private DtsClassDsl classDsl;
 
-  public List<DtsClass> selectClass(String type) {
-    return classDsl.selectClass(type);
-  }
+	public List<DtsClass> selectClass(String type) {
+		return classDsl.selectClass(type);
+	}
 }

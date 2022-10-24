@@ -10,15 +10,15 @@ import lombok.Setter;
 @Setter
 public class StsAdvertiseDto {
 
-  private String id;
+	private String id;
 
-  private String title;
+	private String title;
 
-  private String url;
+	private String url;
 
-  private String createDate;
+	private String createDate;
 
-  private String deliveryTime;
+	private String deliveryTime;
 
-  private String description;
+	private String description;
 }

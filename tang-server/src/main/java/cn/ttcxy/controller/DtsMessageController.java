@@ -14,11 +14,11 @@ import org.springframework.web.bind.annotation.RestController;
 @Validated
 public class DtsMessageController extends BaseController {
 
-  @Autowired
-  private DtseMssageService mssageService;
+	@Autowired
+	private DtseMssageService mssageService;
 
-  @GetMapping
-  public List<DtsMessageDto> message() {
-    return mssageService.authorMessageList(authorId());
-  }
+	@GetMapping
+	public List<DtsMessageDto> message() {
+		return mssageService.authorMessageList(authorId());
+	}
 }

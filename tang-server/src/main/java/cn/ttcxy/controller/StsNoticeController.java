@@ -12,11 +12,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("api/notice")
 public class StsNoticeController extends BaseController {
 
-  @Autowired
-  private StsNoticeService noticeService;
+	@Autowired
+	private StsNoticeService noticeService;
 
-  @GetMapping("list")
-  public List<StsNotice> select() {
-    return noticeService.selectAllNotice();
-  }
+	@GetMapping("list")
+	public List<StsNotice> select() {
+		return noticeService.selectAllNotice();
+	}
 }

@@ -12,10 +12,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class DtseMssageService {
 
-  @Autowired
-  private DtsMessageDsl messageDsl;
+	@Autowired
+	private DtsMessageDsl messageDsl;
 
-  public List<DtsMessageDto> authorMessageList(String authorId) {
-    return messageDsl.selectAuthorMessage(authorId);
-  }
+	public List<DtsMessageDto> authorMessageList(String authorId) {
+		return messageDsl.selectAuthorMessage(authorId);
+	}
 }

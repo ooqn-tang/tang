@@ -15,31 +15,30 @@ import org.springframework.stereotype.Service;
 @Service
 public class UtsUserDetailsService implements UserDetailsService {
 
-  @Autowired
-  private UtsAuthorService utsAuthorService;
+	@Autowired
+	private UtsAuthorService utsAuthorService;
 
-  @Autowired
-  private UtsRoleService utsRoleService;
+	@Autowired
+	private UtsRoleService utsRoleService;
 
-  @Override
-  public UserDetails loadUserByUsername(String username)
-    throws UsernameNotFoundException {
-    UtsAuthor author;
+	@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		UtsAuthor author;
 
-    if (Validator.isEmail(username)) {
-      author = utsAuthorService.selectAuthorByMail(username);
-    } else {
-      author = utsAuthorService.selectAuthorByName(username);
-    }
+		if (Validator.isEmail(username)) {
+			author = utsAuthorService.selectAuthorByMail(username);
+		} else {
+			author = utsAuthorService.selectAuthorByName(username);
+		}
 
-    if (author != null) {
-      UtsAuthorDto authorDto = new UtsAuthorDto();
-      authorDto.setAuthor(author);
-      List<UtsRoleDto> utsRoles = utsRoleService.roleList(author.getAuthorId());
-      authorDto.setRoleList(utsRoles);
-      return BeanUtil.toBean(authorDto, UtsAuthorDto.class);
-    }
+		if (author != null) {
+			UtsAuthorDto authorDto = new UtsAuthorDto();
+			authorDto.setAuthor(author);
+			List<UtsRoleDto> utsRoles = utsRoleService.roleList(author.getAuthorId());
+			authorDto.setRoleList(utsRoles);
+			return BeanUtil.toBean(authorDto, UtsAuthorDto.class);
+		}
 
-    throw new UsernameNotFoundException("输入的用户名或密码不正确");
-  }
+		throw new UsernameNotFoundException("输入的用户名或密码不正确");
+	}
 }

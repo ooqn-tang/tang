@@ -16,6 +16,7 @@ public interface DtsCollectRepository extends CrudRepository<DtsCollect, String>
     long countByDataIdAndAuthorId(String dataId, String authorId);
 
     @Modifying
-    @Query(value = "delete from dts_collect c where c.data_id = ?1 and c.author_id = ?2", nativeQuery = true) 
+    @Query(value = "delete from dts_collect c where c.data_id = ?1 and c.author_id = ?2",
+            nativeQuery = true)
     int deleteByDataIdAndAuthorId(String dataId, String authorId);
 }

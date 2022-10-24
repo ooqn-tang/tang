@@ -8,10 +8,10 @@ import lombok.Data;
 @Data
 public class StsCode {
 
-  @Id
-  private Integer codeId;
+	@Id
+	private Integer codeId;
 
-  private String codeName;
+	private String codeName;
 
-  private String codeRemark;
+	private String codeRemark;
 }

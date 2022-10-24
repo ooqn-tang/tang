@@ -5,93 +5,93 @@ import java.util.List;
 
 public class UtsResourceDto {
 
-  private Integer id;
+	private Integer id;
 
-  private String parentId;
+	private String parentId;
 
-  private String node;
+	private String node;
 
-  private String path;
+	private String path;
 
-  private String name;
+	private String name;
 
-  private String level;
+	private String level;
 
-  private String type;
+	private String type;
 
-  private Date createTime;
+	private Date createTime;
 
-  private List<UtsRoleDto> utsRoleDtoList;
+	private List<UtsRoleDto> utsRoleDtoList;
 
-  public Integer getId() {
-    return id;
-  }
+	public Integer getId() {
+		return id;
+	}
 
-  public void setId(Integer id) {
-    this.id = id;
-  }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-  public String getParentId() {
-    return parentId;
-  }
+	public String getParentId() {
+		return parentId;
+	}
 
-  public void setParentId(String parentId) {
-    this.parentId = parentId;
-  }
+	public void setParentId(String parentId) {
+		this.parentId = parentId;
+	}
 
-  public String getNode() {
-    return node;
-  }
+	public String getNode() {
+		return node;
+	}
 
-  public void setNode(String node) {
-    this.node = node;
-  }
+	public void setNode(String node) {
+		this.node = node;
+	}
 
-  public String getPath() {
-    return path;
-  }
+	public String getPath() {
+		return path;
+	}
 
-  public void setPath(String path) {
-    this.path = path;
-  }
+	public void setPath(String path) {
+		this.path = path;
+	}
 
-  public String getName() {
-    return name;
-  }
+	public String getName() {
+		return name;
+	}
 
-  public void setName(String name) {
-    this.name = name;
-  }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-  public String getLevel() {
-    return level;
-  }
+	public String getLevel() {
+		return level;
+	}
 
-  public void setLevel(String level) {
-    this.level = level;
-  }
+	public void setLevel(String level) {
+		this.level = level;
+	}
 
-  public String getType() {
-    return type;
-  }
+	public String getType() {
+		return type;
+	}
 
-  public void setType(String type) {
-    this.type = type;
-  }
+	public void setType(String type) {
+		this.type = type;
+	}
 
-  public Date getCreateTime() {
-    return createTime;
-  }
+	public Date getCreateTime() {
+		return createTime;
+	}
 
-  public void setCreateTime(Date createTime) {
-    this.createTime = createTime;
-  }
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
+	}
 
-  public List<UtsRoleDto> getRoleDtoList() {
-    return utsRoleDtoList;
-  }
+	public List<UtsRoleDto> getRoleDtoList() {
+		return utsRoleDtoList;
+	}
 
-  public void setRoleDtoList(List<UtsRoleDto> utsRoleDtoList) {
-    this.utsRoleDtoList = utsRoleDtoList;
-  }
+	public void setRoleDtoList(List<UtsRoleDto> utsRoleDtoList) {
+		this.utsRoleDtoList = utsRoleDtoList;
+	}
 }

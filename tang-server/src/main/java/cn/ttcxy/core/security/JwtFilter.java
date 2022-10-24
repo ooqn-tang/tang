@@ -22,66 +22,53 @@ import org.springframework.web.filter.GenericFilterBean;
 
 public class JwtFilter extends GenericFilterBean {
 
-  private static final Logger LOG = LoggerFactory.getLogger(JwtFilter.class);
+	private static final Logger LOG = LoggerFactory.getLogger(JwtFilter.class);
 
-  @Autowired
-  private JwtProvider jwtProvider;
+	@Autowired
+	private JwtProvider jwtProvider;
 
-  @Autowired
-  private UtsAuthorService authorService;
+	@Autowired
+	private UtsAuthorService authorService;
 
-  @Autowired
-  private TangProperties tangProperties;
+	@Autowired
+	private TangProperties tangProperties;
 
-  private final AntPathMatcher antPathMatcher = new AntPathMatcher();
+	private final AntPathMatcher antPathMatcher = new AntPathMatcher();
 
-  @Override
-  public void doFilter(
-    ServletRequest request,
-    ServletResponse response,
-    FilterChain chain
-  )
-    throws IOException, ServletException {
-    HttpServletRequest httpServletRequest = (HttpServletRequest) request;
-    HttpServletResponse httpServletResponse = (HttpServletResponse) response;
-    String jwt = resolveToken(httpServletRequest);
-    String requestURI = httpServletRequest.getRequestURI();
+	@Override
+	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+			throws IOException, ServletException {
+		HttpServletRequest httpServletRequest = (HttpServletRequest) request;
+		HttpServletResponse httpServletResponse = (HttpServletResponse) response;
+		String jwt = resolveToken(httpServletRequest);
+		String requestURI = httpServletRequest.getRequestURI();
 
-    if (
-      StringUtils.hasText(jwt) &&
-      jwtProvider.validateToken(jwt) &&
-      !antPathMatcher.match("/api/refresh", requestURI)
-    ) {
-      Authentication authentication = jwtProvider.getAuthentication(jwt);
-      UtsAuthorDto authorDto = (UtsAuthorDto) authentication.getPrincipal();
-      Date date = authorService.nowTime(
-        authorDto.getUsername(),
-        authorDto.getRoleList()
-      );
-      if (date != null && date.getTime() != authorDto.getRefreshTime()) {
-        httpServletResponse.setStatus(666);
-        httpServletResponse.getWriter().print("JWT权限刷新了");
-        return;
-      } else {
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-      }
-      LOG.debug(
-        "set Authentication to security context for '{}', uri: {}",
-        authentication.getName(),
-        requestURI
-      );
-    } else {
-      LOG.debug("no valid JWT token found, uri: {}", requestURI);
-    }
+		if (StringUtils.hasText(jwt) && jwtProvider.validateToken(jwt)
+				&& !antPathMatcher.match("/api/refresh", requestURI)) {
+			Authentication authentication = jwtProvider.getAuthentication(jwt);
+			UtsAuthorDto authorDto = (UtsAuthorDto) authentication.getPrincipal();
+			Date date = authorService.nowTime(authorDto.getUsername(), authorDto.getRoleList());
+			if (date != null && date.getTime() != authorDto.getRefreshTime()) {
+				httpServletResponse.setStatus(666);
+				httpServletResponse.getWriter().print("JWT权限刷新了");
+				return;
+			} else {
+				SecurityContextHolder.getContext().setAuthentication(authentication);
+			}
+			LOG.debug("set Authentication to security context for '{}', uri: {}",
+					authentication.getName(), requestURI);
+		} else {
+			LOG.debug("no valid JWT token found, uri: {}", requestURI);
+		}
 
-    chain.doFilter(request, response);
-  }
+		chain.doFilter(request, response);
+	}
 
-  private String resolveToken(HttpServletRequest request) {
-    String bearerToken = request.getHeader(tangProperties.getTokenKey());
-    if (StringUtils.hasText(bearerToken)) {
-      return bearerToken;
-    }
-    return null;
-  }
+	private String resolveToken(HttpServletRequest request) {
+		String bearerToken = request.getHeader(tangProperties.getTokenKey());
+		if (StringUtils.hasText(bearerToken)) {
+			return bearerToken;
+		}
+		return null;
+	}
 }

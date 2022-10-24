@@ -5,17 +5,17 @@ import lombok.Data;
 @Data
 public class UtsAuthorParam {
 
-  private String authorId;
+	private String authorId;
 
-  private String username;
+	private String username;
 
-  private String nickname;
+	private String nickname;
 
-  private String password;
+	private String password;
 
-  private String mail;
+	private String mail;
 
-  private String signature;
+	private String signature;
 
-  private String headUrl;
+	private String headUrl;
 }

@@ -24,35 +24,33 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("api/essay")
 public class DtsEssayController extends BaseController {
 
-  @Autowired
-  private DtsEssayService essayService;
+	@Autowired
+	private DtsEssayService essayService;
 
-  @PostMapping
-  public DtsEssayDto insert(@RequestBody DtsEssayParam essayParam) {
-    DtsEssay essay = BeanUtil.toBean(essayParam, DtsEssay.class);
-    essay.setAuthorId(authorId());
-    essay.setType("essay");
-    DtsEssay dtsEssay = essayService.insert(essay);
-    if (dtsEssay != null) {
-      DtsEssayDto dtsEssayDto = BeanUtil.toBean(essay, DtsEssayDto.class);
-      UtsAuthor author = author();
-      dtsEssayDto.setUsername(author.getUsername());
-      dtsEssayDto.setNickname(author.getNickname());
-      return dtsEssayDto;
-    }
-    throw new ApiException("添加失败");
-  }
+	@PostMapping
+	public DtsEssayDto insert(@RequestBody DtsEssayParam essayParam) {
+		DtsEssay essay = BeanUtil.toBean(essayParam, DtsEssay.class);
+		essay.setAuthorId(authorId());
+		essay.setType("essay");
+		DtsEssay dtsEssay = essayService.insert(essay);
+		if (dtsEssay != null) {
+			DtsEssayDto dtsEssayDto = BeanUtil.toBean(essay, DtsEssayDto.class);
+			UtsAuthor author = author();
+			dtsEssayDto.setUsername(author.getUsername());
+			dtsEssayDto.setNickname(author.getNickname());
+			return dtsEssayDto;
+		}
+		throw new ApiException("添加失败");
+	}
 
-  @GetMapping
-  public Page<DtsEssayDto> select(
-    @RequestParam(defaultValue = "0") Integer page
-  ) {
-    Pageable pageable = PageRequest.of(page, 30);
-    return essayService.select(pageable);
-  }
+	@GetMapping
+	public Page<DtsEssayDto> select(@RequestParam(defaultValue = "0") Integer page) {
+		Pageable pageable = PageRequest.of(page, 30);
+		return essayService.select(pageable);
+	}
 
-  @DeleteMapping("{essayId}")
-  public void delete(@PathVariable("essayId") String essayId) {
-    essayService.delete(essayId);
-  }
+	@DeleteMapping("{essayId}")
+	public void delete(@PathVariable("essayId") String essayId) {
+		essayService.delete(essayId);
+	}
 }

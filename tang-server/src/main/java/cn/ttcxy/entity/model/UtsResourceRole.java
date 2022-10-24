@@ -9,44 +9,44 @@ import lombok.Data;
 @Data
 public class UtsResourceRole {
 
-  @Id
-  private String resourceRoleId;
+	@Id
+	private String resourceRoleId;
 
-  private String resourceId;
+	private String resourceId;
 
-  private String roleId;
+	private String roleId;
 
-  private Date createTime;
+	private Date createTime;
 
-  public String getResourceRoleId() {
-    return resourceRoleId;
-  }
+	public String getResourceRoleId() {
+		return resourceRoleId;
+	}
 
-  public void setResourceRoleId(String resourceRoleId) {
-    this.resourceRoleId = resourceRoleId;
-  }
+	public void setResourceRoleId(String resourceRoleId) {
+		this.resourceRoleId = resourceRoleId;
+	}
 
-  public String getResourceId() {
-    return resourceId;
-  }
+	public String getResourceId() {
+		return resourceId;
+	}
 
-  public void setResourceId(String resourceId) {
-    this.resourceId = resourceId;
-  }
+	public void setResourceId(String resourceId) {
+		this.resourceId = resourceId;
+	}
 
-  public String getRoleId() {
-    return roleId;
-  }
+	public String getRoleId() {
+		return roleId;
+	}
 
-  public void setRoleId(String roleId) {
-    this.roleId = roleId;
-  }
+	public void setRoleId(String roleId) {
+		this.roleId = roleId;
+	}
 
-  public Date getCreateTime() {
-    return createTime;
-  }
+	public Date getCreateTime() {
+		return createTime;
+	}
 
-  public void setCreateTime(Date createTime) {
-    this.createTime = createTime;
-  }
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
+	}
 }

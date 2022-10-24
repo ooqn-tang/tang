@@ -9,18 +9,18 @@ import lombok.Data;
 @Data
 public class DtsMessage {
 
-  @Id
-  private String messageId;
+	@Id
+	private String messageId;
 
-  private String authorId;
+	private String authorId;
 
-  private String recipientAuthorId;
+	private String recipientAuthorId;
 
-  private Date createDate;
+	private Date createDate;
 
-  private String text;
+	private String text;
 
-  private String url;
+	private String url;
 
-  private String title;
+	private String title;
 }

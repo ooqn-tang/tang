@@ -8,19 +8,19 @@ import lombok.Setter;
 @Setter
 public class DtsMessageDto {
 
-  private String messageId;
+	private String messageId;
 
-  private String authorId;
+	private String authorId;
 
-  private Date createDate;
+	private Date createDate;
 
-  private String text;
+	private String text;
 
-  private String title;
+	private String title;
 
-  private String username;
+	private String username;
 
-  private String url;
+	private String url;
 
-  private String nickname;
+	private String nickname;
 }

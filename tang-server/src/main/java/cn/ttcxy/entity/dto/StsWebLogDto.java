@@ -10,52 +10,52 @@ import lombok.Setter;
 @Setter
 public class StsWebLogDto {
 
-  /**
-   * 操作描述
-   */
-  private String description;
+	/**
+	 * 操作描述
+	 */
+	private String description;
 
-  /**
-   * 操作用户
-   */
-  private String username;
+	/**
+	 * 操作用户
+	 */
+	private String username;
 
-  /**
-   * 操作时间
-   */
-  private Long startTime;
+	/**
+	 * 操作时间
+	 */
+	private Long startTime;
 
-  /**
-   * 消耗时间
-   */
-  private Integer spendTime;
+	/**
+	 * 消耗时间
+	 */
+	private Integer spendTime;
 
-  /**
-   * 根路径
-   */
-  private String basePath;
+	/**
+	 * 根路径
+	 */
+	private String basePath;
 
-  /**
-   * URI
-   */
-  private String uri;
+	/**
+	 * URI
+	 */
+	private String uri;
 
-  /**
-   * URL
-   */
-  private String url;
+	/**
+	 * URL
+	 */
+	private String url;
 
-  /**
-   * 请求类型
-   */
-  private String method;
+	/**
+	 * 请求类型
+	 */
+	private String method;
 
-  /**
-   * IP地址
-   */
-  private String ip;
+	/**
+	 * IP地址
+	 */
+	private String ip;
 
-  private Object parameter;
+	private Object parameter;
 
-  private Object result;
+	private Object result;
 }

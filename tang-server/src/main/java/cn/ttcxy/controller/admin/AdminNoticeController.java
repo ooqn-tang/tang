@@ -21,34 +21,34 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("api/admin/notice")
 public class AdminNoticeController extends BaseController {
 
-  @Autowired
-  private StsNoticeService noticeService;
+	@Autowired
+	private StsNoticeService noticeService;
 
-  @PostMapping
-  public StsNotice insert(@RequestBody StsNoticeParam noticeParam) {
-    StsNotice notice = BeanUtil.toBean(noticeParam, StsNotice.class);
-    notice.setCreateDate(DateUtil.date());
-    return noticeService.insertNotice(notice);
-  }
+	@PostMapping
+	public StsNotice insert(@RequestBody StsNoticeParam noticeParam) {
+		StsNotice notice = BeanUtil.toBean(noticeParam, StsNotice.class);
+		notice.setCreateDate(DateUtil.date());
+		return noticeService.insertNotice(notice);
+	}
 
-  @PutMapping
-  public StsNotice update(@RequestBody StsNoticeParam noticeParam) {
-    StsNotice notice = BeanUtil.toBean(noticeParam, StsNotice.class);
-    return noticeService.updateNotice(notice);
-  }
+	@PutMapping
+	public StsNotice update(@RequestBody StsNoticeParam noticeParam) {
+		StsNotice notice = BeanUtil.toBean(noticeParam, StsNotice.class);
+		return noticeService.updateNotice(notice);
+	}
 
-  @PutMapping("order")
-  public void updateOrder(@RequestBody StsNoticeParam[] noticeList) {
-    noticeService.updateNoticeOrder(noticeList);
-  }
+	@PutMapping("order")
+	public void updateOrder(@RequestBody StsNoticeParam[] noticeList) {
+		noticeService.updateNoticeOrder(noticeList);
+	}
 
-  @DeleteMapping("{id}")
-  public void delete(@PathVariable("id") String id) {
-    noticeService.deleteNotice(id);
-  }
+	@DeleteMapping("{id}")
+	public void delete(@PathVariable("id") String id) {
+		noticeService.deleteNotice(id);
+	}
 
-  @GetMapping
-  public List<StsNotice> select() {
-    return noticeService.selectAllNotice();
-  }
+	@GetMapping
+	public List<StsNotice> select() {
+		return noticeService.selectAllNotice();
+	}
 }

@@ -9,18 +9,18 @@ import lombok.Data;
 @Data
 public class DtsArticleSubject {
 
-  @Id
-  private String subjectId;
+	@Id
+	private String subjectId;
 
-  private String subjectName;
+	private String subjectName;
 
-  private String authorId;
+	private String authorId;
 
-  private Integer orderNum;
+	private Integer orderNum;
 
-  private Date createDate;
+	private Date createDate;
 
-  private Date updateDate;
+	private Date updateDate;
 
-  private String synopsis;
+	private String synopsis;
 }

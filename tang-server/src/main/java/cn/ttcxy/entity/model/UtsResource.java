@@ -9,16 +9,16 @@ import lombok.Data;
 @Data
 public class UtsResource {
 
-  @Id
-  private String resourceId;
+	@Id
+	private String resourceId;
 
-  private String path;
+	private String path;
 
-  private String name;
+	private String name;
 
-  private String type;
+	private String type;
 
-  private Date createTime;
+	private Date createTime;
 
-  private Integer state;
+	private Integer state;
 }

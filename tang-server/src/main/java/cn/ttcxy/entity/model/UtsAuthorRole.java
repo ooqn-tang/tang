@@ -9,12 +9,12 @@ import lombok.Data;
 @Data
 public class UtsAuthorRole {
 
-  @Id
-  private String authorRoleId;
+	@Id
+	private String authorRoleId;
 
-  private String authorId;
+	private String authorId;
 
-  private String roleId;
+	private String roleId;
 
-  private Date createTime;
+	private Date createTime;
 }

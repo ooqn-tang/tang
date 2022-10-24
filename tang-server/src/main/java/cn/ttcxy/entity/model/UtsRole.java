@@ -9,16 +9,16 @@ import lombok.Data;
 @Data
 public class UtsRole {
 
-  @Id
-  private String roleId;
+	@Id
+	private String roleId;
 
-  private String roleName;
+	private String roleName;
 
-  private String roleValue;
+	private String roleValue;
 
-  private Date createTime;
+	private Date createTime;
 
-  private Date updateTime;
+	private Date updateTime;
 
-  private Date refreshTime;
+	private Date refreshTime;
 }

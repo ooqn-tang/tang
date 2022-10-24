@@ -23,47 +23,46 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("api/admin/resource")
 public class AdminResourceController extends BaseController {
 
-  @Autowired
-  private UtsResourceService resourceService;
+	@Autowired
+	private UtsResourceService resourceService;
 
-  @GetMapping("refresh")
-  public void refresh() {
-    resourceService.urls();
-  }
+	@GetMapping("refresh")
+	public void refresh() {
+		resourceService.urls();
+	}
 
-  @GetMapping
-  public List<UtsResource> loadResponseList(
-    @RequestParam(value = "queryData", defaultValue = "") String queryData
-  ) {
-    return resourceService.select(queryData);
-  }
+	@GetMapping
+	public List<UtsResource> loadResponseList(
+			@RequestParam(value = "queryData", defaultValue = "") String queryData) {
+		return resourceService.select(queryData);
+	}
 
-  @PostMapping
-  public UtsResource insert(@RequestBody UtsResourceParam resourceParam) {
-    UtsResource resource = BeanUtil.toBean(resourceParam, UtsResource.class);
-    resource.setResourceId(IdUtil.objectId());
-    resource.setCreateTime(new Date());
-    return resourceService.insert(resource);
-  }
+	@PostMapping
+	public UtsResource insert(@RequestBody UtsResourceParam resourceParam) {
+		UtsResource resource = BeanUtil.toBean(resourceParam, UtsResource.class);
+		resource.setResourceId(IdUtil.objectId());
+		resource.setCreateTime(new Date());
+		return resourceService.insert(resource);
+	}
 
-  @PutMapping
-  public UtsResource update(@RequestBody UtsResourceParam resourceParam) {
-    UtsResource resource = BeanUtil.toBean(resourceParam, UtsResource.class);
-    return resourceService.update(resource);
-  }
+	@PutMapping
+	public UtsResource update(@RequestBody UtsResourceParam resourceParam) {
+		UtsResource resource = BeanUtil.toBean(resourceParam, UtsResource.class);
+		return resourceService.update(resource);
+	}
 
-  @GetMapping("{resourceId}")
-  public UtsResource select(@PathVariable("resourceId") String resourceId) {
-    return resourceService.selectById(resourceId);
-  }
+	@GetMapping("{resourceId}")
+	public UtsResource select(@PathVariable("resourceId") String resourceId) {
+		return resourceService.selectById(resourceId);
+	}
 
-  @DeleteMapping("{resourceId}")
-  public void delete(@PathVariable("resourceId") String resourceId) {
-    resourceService.delete(resourceId);
-  }
+	@DeleteMapping("{resourceId}")
+	public void delete(@PathVariable("resourceId") String resourceId) {
+		resourceService.delete(resourceId);
+	}
 
-  @GetMapping("role/{roleId}")
-  public List<String> selectIdByRole(@PathVariable("roleId") String roleId) {
-    return resourceService.selectByRoleId(roleId);
-  }
+	@GetMapping("role/{roleId}")
+	public List<String> selectIdByRole(@PathVariable("roleId") String roleId) {
+		return resourceService.selectByRoleId(roleId);
+	}
 }

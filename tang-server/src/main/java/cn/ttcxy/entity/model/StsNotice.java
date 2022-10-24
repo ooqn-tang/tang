@@ -9,16 +9,16 @@ import lombok.Data;
 @Entity
 public class StsNotice {
 
-  @Id
-  private String noticeId;
+	@Id
+	private String noticeId;
 
-  private String title;
+	private String title;
 
-  private String url;
+	private String url;
 
-  private Date createDate;
+	private Date createDate;
 
-  private String description;
+	private String description;
 
-  private Integer orderNum;
+	private Integer orderNum;
 }

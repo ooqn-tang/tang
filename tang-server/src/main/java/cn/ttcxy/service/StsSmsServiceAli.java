@@ -5,7 +5,7 @@ package cn.ttcxy.service;
  */
 public class StsSmsServiceAli {
 
-  public boolean sendCode(String sms, String code) {
-    return false;
-  }
+	public boolean sendCode(String sms, String code) {
+		return false;
+	}
 }

@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class DtsMessageDsl {
 
-  public List<DtsMessageDto> selectAuthorMessage(String authorId) {
-    return new ArrayList<>();
-  }
+	public List<DtsMessageDto> selectAuthorMessage(String authorId) {
+		return new ArrayList<>();
+	}
 }

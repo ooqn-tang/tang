@@ -9,12 +9,12 @@ import lombok.Data;
 @Data
 public class StsConfig {
 
-  @Id
-  private String configId;
+	@Id
+	private String configId;
 
-  private String configName;
+	private String configName;
 
-  private String data;
+	private String data;
 
-  private Date createDate;
+	private Date createDate;
 }

@@ -12,19 +12,15 @@ import org.springframework.stereotype.Component;
 @Component
 public class StsNoticeDsl {
 
-  @Autowired
-  private JPAQueryFactory query;
+	@Autowired
+	private JPAQueryFactory query;
 
-  private final QStsNotice qNotice = QStsNotice.stsNotice;
+	private final QStsNotice qNotice = QStsNotice.stsNotice;
 
-  public Integer selectNoticeMaxOrder() {
-    Integer fetchOne = query
-      .select(qNotice.orderNum.max())
-      .from(qNotice)
-      .orderBy(qNotice.orderNum.desc())
-      .limit(1)
-      .fetchOne();
+	public Integer selectNoticeMaxOrder() {
+		Integer fetchOne = query.select(qNotice.orderNum.max()).from(qNotice)
+				.orderBy(qNotice.orderNum.desc()).limit(1).fetchOne();
 
-    return Optional.ofNullable(fetchOne).orElse(0);
-  }
+		return Optional.ofNullable(fetchOne).orElse(0);
+	}
 }

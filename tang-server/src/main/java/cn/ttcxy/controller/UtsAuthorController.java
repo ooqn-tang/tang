@@ -23,41 +23,36 @@ import org.springframework.web.bind.annotation.RestController;
 @Validated
 public class UtsAuthorController extends BaseController {
 
-  @Autowired
-  private UtsAuthorService authorService;
+	@Autowired
+	private UtsAuthorService authorService;
 
-  @GetMapping("selectAuthor")
-  public Page<UtsAuthor> select(
-    @RequestParam(value = "page", defaultValue = "0") Integer page
-  ) {
-    Pageable pageable = PageRequest.of(page, 100);
-    return authorService.selectAuthor(pageable);
-  }
+	@GetMapping("selectAuthor")
+	public Page<UtsAuthor> select(@RequestParam(value = "page", defaultValue = "0") Integer page) {
+		Pageable pageable = PageRequest.of(page, 100);
+		return authorService.selectAuthor(pageable);
+	}
 
-  @PutMapping
-  public String update(@RequestBody UtsAuthorParam authorParam) {
-    UtsAuthor author = BeanUtil.toBean(authorParam, UtsAuthor.class);
-    String authorId = authorId();
-    author.setAuthorId(authorId);
-    long count = authorService.update(author);
-    if (count > 0) {
-      return "更新成功";
-    }
-    throw new ApiException();
-  }
+	@PutMapping
+	public String update(@RequestBody UtsAuthorParam authorParam) {
+		UtsAuthor author = BeanUtil.toBean(authorParam, UtsAuthor.class);
+		String authorId = authorId();
+		author.setAuthorId(authorId);
+		long count = authorService.update(author);
+		if (count > 0) {
+			return "更新成功";
+		}
+		throw new ApiException();
+	}
 
-  @GetMapping("{username}")
-  public UtsAuthor authorByUsername(
-    @PathVariable(value = "username") String username
-  ) {
-    return authorService.selectAuthorByName(username);
-  }
+	@GetMapping("{username}")
+	public UtsAuthor authorByUsername(@PathVariable(value = "username") String username) {
+		return authorService.selectAuthorByName(username);
+	}
 
-  @GetMapping("list")
-  public Page<UtsAuthor> authorList(
-    @RequestParam(value = "page", defaultValue = "1") Integer page
-  ) {
-    Pageable pageable = PageRequest.of(page, 10);
-    return authorService.selectAuthor(pageable);
-  }
+	@GetMapping("list")
+	public Page<UtsAuthor> authorList(
+			@RequestParam(value = "page", defaultValue = "1") Integer page) {
+		Pageable pageable = PageRequest.of(page, 10);
+		return authorService.selectAuthor(pageable);
+	}
 }

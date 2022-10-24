@@ -7,15 +7,15 @@ import lombok.Setter;
 @Setter
 public class DtsSearchDto {
 
-  private String nickname;
+	private String nickname;
 
-  private String username;
+	private String username;
 
-  private String createDate;
+	private String createDate;
 
-  private String title;
+	private String title;
 
-  private String synopsis;
+	private String synopsis;
 
-  private String dataId;
+	private String dataId;
 }

@@ -5,9 +5,9 @@ import lombok.Data;
 @Data
 public class StsNoticeParam {
 
-  private String noticeId;
+	private String noticeId;
 
-  private String title;
+	private String title;
 
-  private String url;
+	private String url;
 }

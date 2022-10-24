@@ -6,13 +6,13 @@ import lombok.Data;
 @Data
 public class UtsResourceParam {
 
-  private String resourceId;
+	private String resourceId;
 
-  private String path;
+	private String path;
 
-  private String name;
+	private String name;
 
-  private String type;
+	private String type;
 
-  private Date createTime;
+	private Date createTime;
 }
