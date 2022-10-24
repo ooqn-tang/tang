@@ -1,4 +1,3 @@
 package cn.ttcxy.util;
 
-public class RedisUtil {
-}
+public class RedisUtil {}

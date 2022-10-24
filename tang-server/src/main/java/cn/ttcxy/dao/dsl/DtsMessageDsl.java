@@ -1,10 +1,9 @@
 package cn.ttcxy.dao.dsl;
 
 import cn.ttcxy.entity.dto.DtsMessageDto;
-import org.springframework.stereotype.Component;
-
 import java.util.ArrayList;
 import java.util.List;
+import org.springframework.stereotype.Component;
 
 /**
  * 动态
@@ -12,8 +11,7 @@ import java.util.List;
 @Component
 public class DtsMessageDsl {
 
-    public List<DtsMessageDto> selectAuthorMessage(String authorId) {
-        return new ArrayList<>();
-    }
-
+  public List<DtsMessageDto> selectAuthorMessage(String authorId) {
+    return new ArrayList<>();
+  }
 }

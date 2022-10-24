@@ -12,14 +12,12 @@
     height: 100%;
 }
 body{
-    overflow-y: scroll !important;
     padding-right:0px !important;
 }
 html,body{
     width: 100%;
     height: 100%;
     overflow-x: hidden;
-    -webkit-tap-highlight-color: transparent;
 }
 .m-active:hover{
     background: rgb(224, 224, 224);
@@ -112,8 +110,6 @@ nav .dropdown-menu{
     padding-right:12px;
 }
 
-// bootstrap stype
-
 .t-b-b-1{
     border-bottom: 1px solid #cecece;
 }
@@ -126,4 +122,7 @@ nav .dropdown-menu{
 
 .mr-10{
     margin-right: 10px;
+  }
+  .blog-btn{
+    padding: 0px 5px 0px 3px; font-size: 13px
   }

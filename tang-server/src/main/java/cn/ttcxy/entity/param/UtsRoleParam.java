@@ -1,21 +1,20 @@
 package cn.ttcxy.entity.param;
 
-import lombok.Data;
-
 import java.util.Date;
+import lombok.Data;
 
 @Data
 public class UtsRoleParam {
-    // id
-    private String roleId;
 
-    // 中文名称
-    private String roleName;
+  // id
+  private String roleId;
 
-    // 角色值，需要为字母，推荐为中文拼音
-    private String roleValue;
+  // 中文名称
+  private String roleName;
 
-    // 创建时间
-    private Date createTime;
+  // 角色值，需要为字母，推荐为中文拼音
+  private String roleValue;
 
+  // 创建时间
+  private Date createTime;
 }

@@ -13,13 +13,13 @@ import org.springframework.stereotype.Component;
 @ConfigurationProperties(prefix = "tang")
 public class TangProperties {
 
-    private String tokenKey = "token";
+  private String tokenKey = "token";
 
-    private String authorKey = "author";
+  private String authorKey = "author";
 
-    private String authoritiesKey = "roles";
+  private String authoritiesKey = "roles";
 
-    private String openUrl = "";
+  private String openUrl = "";
 
-    private JwtProperties jwt = new JwtProperties();
+  private JwtProperties jwt = new JwtProperties();
 }

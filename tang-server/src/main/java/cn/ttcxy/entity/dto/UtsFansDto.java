@@ -4,64 +4,63 @@ import java.util.Date;
 
 public class UtsFansDto {
 
-    private String fansId;
+  private String fansId;
 
-    private String authorId;
+  private String authorId;
 
-    private String beAuthorId;
+  private String beAuthorId;
 
-    private String nickname;
+  private String nickname;
 
-    private String username;
+  private String username;
 
-    private Date createDate;
+  private Date createDate;
 
-    public String getFansId() {
-        return fansId;
-    }
+  public String getFansId() {
+    return fansId;
+  }
 
-    public void setFansId(String fansId) {
-        this.fansId = fansId;
-    }
+  public void setFansId(String fansId) {
+    this.fansId = fansId;
+  }
 
-    public String getAuthorId() {
-        return authorId;
-    }
+  public String getAuthorId() {
+    return authorId;
+  }
 
-    public void setAuthorId(String authorId) {
-        this.authorId = authorId;
-    }
+  public void setAuthorId(String authorId) {
+    this.authorId = authorId;
+  }
 
-    public String getBeAuthorId() {
-        return beAuthorId;
-    }
+  public String getBeAuthorId() {
+    return beAuthorId;
+  }
 
-    public void setBeAuthorId(String beAuthorId) {
-        this.beAuthorId = beAuthorId;
-    }
+  public void setBeAuthorId(String beAuthorId) {
+    this.beAuthorId = beAuthorId;
+  }
 
-    public String getNickname() {
-        return nickname;
-    }
+  public String getNickname() {
+    return nickname;
+  }
 
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
-    }
+  public void setNickname(String nickname) {
+    this.nickname = nickname;
+  }
 
-    public String getUsername() {
-        return username;
-    }
+  public String getUsername() {
+    return username;
+  }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
+  public void setUsername(String username) {
+    this.username = username;
+  }
 
-    public Date getCreateDate() {
-        return createDate;
-    }
+  public Date getCreateDate() {
+    return createDate;
+  }
 
-    public void setCreateDate(Date createDate) {
-        this.createDate = createDate;
-    }
-
+  public void setCreateDate(Date createDate) {
+    this.createDate = createDate;
+  }
 }

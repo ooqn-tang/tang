@@ -7,12 +7,11 @@ import lombok.Setter;
 @Setter
 public class DtsDataCount {
 
-    private Integer like;
+  private Integer like;
 
-    private Integer coin;
+  private Integer coin;
 
-    private Integer view;
+  private Integer view;
 
-    private Integer comment;
-
+  private Integer comment;
 }

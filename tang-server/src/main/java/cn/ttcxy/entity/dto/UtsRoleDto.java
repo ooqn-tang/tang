@@ -1,10 +1,8 @@
 package cn.ttcxy.entity.dto;
 
 import java.util.Date;
-
-import org.springframework.security.core.GrantedAuthority;
-
 import lombok.Data;
+import org.springframework.security.core.GrantedAuthority;
 
 /**
  * 角色
@@ -12,20 +10,20 @@ import lombok.Data;
 @Data
 public class UtsRoleDto implements GrantedAuthority {
 
-    private String roleId;
+  private String roleId;
 
-    private String roleName;
+  private String roleName;
 
-    private String roleValue;
+  private String roleValue;
 
-    private Date createTime;
+  private Date createTime;
 
-    private Date updateTime;
+  private Date updateTime;
 
-    private Date refreshTime;
-    @Override
-    public String getAuthority() {
-        return roleValue;
-    }
+  private Date refreshTime;
 
+  @Override
+  public String getAuthority() {
+    return roleValue;
+  }
 }

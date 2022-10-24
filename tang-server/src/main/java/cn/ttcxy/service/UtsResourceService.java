@@ -1,61 +1,56 @@
 package cn.ttcxy.service;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import cn.ttcxy.dao.dsl.UtsResourceDsl;
 import cn.ttcxy.dao.repository.UtsResourceRepository;
 import cn.ttcxy.entity.model.UtsResource;
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 @Service
 public class UtsResourceService {
 
-    @Autowired
-    private UtsResourceDsl resourceDls;
+  @Autowired
+  private UtsResourceDsl resourceDls;
 
-    @Autowired
-    private UtsResourceRepository resourceRepository;
+  @Autowired
+  private UtsResourceRepository resourceRepository;
 
-    
-    public List<UtsResource> loadResourceUrlByRoleValue(String roleValue) {
-        return resourceDls.loadResourceUrlByRoleValue(roleValue);
-    }
+  public List<UtsResource> loadResourceUrlByRoleValue(String roleValue) {
+    return resourceDls.loadResourceUrlByRoleValue(roleValue);
+  }
 
-    
-    public List<UtsResource> select(String queryData) {
-        return resourceRepository.findByNameLikeAndPathLike("%"+queryData+"%","%"+queryData+"%");
-    }
+  public List<UtsResource> select(String queryData) {
+    return resourceRepository.findByNameLikeAndPathLike(
+      "%" + queryData + "%",
+      "%" + queryData + "%"
+    );
+  }
 
-    public UtsResource insert(UtsResource resource) {
-        return resourceRepository.save(resource);
-    }
+  public UtsResource insert(UtsResource resource) {
+    return resourceRepository.save(resource);
+  }
 
-    
-    public void delete(String resourceId) {
-        resourceRepository.deleteById(resourceId);
-    }
+  public void delete(String resourceId) {
+    resourceRepository.deleteById(resourceId);
+  }
 
-    
-    public UtsResource selectById(String resourceId) {
-        return resourceRepository.findById(resourceId).orElseThrow();
-    }
+  public UtsResource selectById(String resourceId) {
+    return resourceRepository.findById(resourceId).orElseThrow();
+  }
 
-    
-    public UtsResource update(UtsResource resource) {
-        return resourceRepository.save(resource);
-    }
+  public UtsResource update(UtsResource resource) {
+    return resourceRepository.save(resource);
+  }
 
-    
-    public List<String> selectByRoleId(String roleId) {
-        return resourceDls.selectByRoleId(roleId);
-    }
+  public List<String> selectByRoleId(String roleId) {
+    return resourceDls.selectByRoleId(roleId);
+  }
 
-    // @Autowired
-    // private ApplicationContext applicationContext;
+  // @Autowired
+  // private ApplicationContext applicationContext;
 
-    public void urls() {
+  public void urls() {
     //     RequestMappingHandlerMapping mapping = applicationContext.getBean(RequestMappingHandlerMapping.class);
     //     // 获取url与类和方法的对应信息
     //     Map<RequestMappingInfo, HandlerMethod> map = mapping.getHandlerMethods();
@@ -90,5 +85,5 @@ public class UtsResourceService {
     //             }
     //         }
     //     }
-    }
+  }
 }

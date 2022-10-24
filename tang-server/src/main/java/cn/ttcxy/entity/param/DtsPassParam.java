@@ -5,12 +5,11 @@ import lombok.Data;
 @Data
 public class DtsPassParam {
 
-    private String dataId;
+  private String dataId;
 
-    private String checkId;
+  private String checkId;
 
-    private String checkText;
+  private String checkText;
 
-    private String state;
-
+  private String state;
 }

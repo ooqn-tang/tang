@@ -1,29 +1,26 @@
 package cn.ttcxy.entity.model;
 
 import java.util.Date;
-
 import javax.persistence.Entity;
 import javax.persistence.Id;
-
 import lombok.Data;
 
 @Entity
 @Data
 public class DtsArticleSubject {
-    
-    @Id
-    private String subjectId;
 
-    private String subjectName;
+  @Id
+  private String subjectId;
 
-    private String authorId;
+  private String subjectName;
 
-    private Integer orderNum;
+  private String authorId;
 
-    private Date createDate;
+  private Integer orderNum;
 
-    private Date updateDate;
+  private Date createDate;
 
-    private String synopsis;
+  private Date updateDate;
 
+  private String synopsis;
 }

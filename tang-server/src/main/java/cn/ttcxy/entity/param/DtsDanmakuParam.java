@@ -5,16 +5,15 @@ import lombok.Data;
 @Data
 public class DtsDanmakuParam {
 
-    private String id;
+  private String id;
 
-    private String author;
+  private String author;
 
-    private String time;
+  private String time;
 
-    private String text;
+  private String text;
 
-    private String color;
+  private String color;
 
-    private String type;
-
+  private String type;
 }

@@ -5,36 +5,34 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Lob;
-
-import org.hibernate.annotations.DynamicUpdate;
 import lombok.Data;
+import org.hibernate.annotations.DynamicUpdate;
 
 @Entity
 @Data
 @DynamicUpdate
 public class DtsArticle {
 
-    @Id
-    private String articleId;
+  @Id
+  private String articleId;
 
-    private String title;
+  private String title;
 
-    @Column(updatable = false)
-    private String authorId;
+  @Column(updatable = false)
+  private String authorId;
 
-    @Column(updatable = false)
-    private Date createDate;
+  @Column(updatable = false)
+  private Date createDate;
 
-    private Date updateDate;
+  private Date updateDate;
 
-    private Integer state;
+  private Integer state;
 
-    private String synopsis;
+  private String synopsis;
 
-    @Lob
-    private String text;
+  @Lob
+  private String text;
 
-    @Lob
-    private String markdown;
-
+  @Lob
+  private String markdown;
 }

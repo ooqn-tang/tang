@@ -1,7 +1,6 @@
 package cn.ttcxy.entity.dto;
 
 import java.util.Date;
-
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,20 +8,19 @@ import lombok.Setter;
 @Setter
 public class DtsEssayDto {
 
-    private String essayId;
+  private String essayId;
 
-    private String authorId;
+  private String authorId;
 
-    private String text;
+  private String text;
 
-    private String url;
+  private String url;
 
-    private Date createTime;
+  private Date createTime;
 
-    private String coverUrl;
+  private String coverUrl;
 
-    private String nickname;
+  private String nickname;
 
-    private String username;
-
+  private String username;
 }

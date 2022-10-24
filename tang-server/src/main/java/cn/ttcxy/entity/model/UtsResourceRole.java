@@ -1,55 +1,52 @@
 package cn.ttcxy.entity.model;
 
 import java.util.Date;
-
 import javax.persistence.Entity;
 import javax.persistence.Id;
-
 import lombok.Data;
 
 @Entity
 @Data
 public class UtsResourceRole {
-    
-    @Id
-    private String resourceRoleId;
 
-    private String resourceId;
+  @Id
+  private String resourceRoleId;
 
-    private String roleId;
+  private String resourceId;
 
-    private Date createTime;
+  private String roleId;
 
-    public String getResourceRoleId() {
-        return resourceRoleId;
-    }
+  private Date createTime;
 
-    public void setResourceRoleId(String resourceRoleId) {
-        this.resourceRoleId = resourceRoleId;
-    }
+  public String getResourceRoleId() {
+    return resourceRoleId;
+  }
 
-    public String getResourceId() {
-        return resourceId;
-    }
+  public void setResourceRoleId(String resourceRoleId) {
+    this.resourceRoleId = resourceRoleId;
+  }
 
-    public void setResourceId(String resourceId) {
-        this.resourceId = resourceId;
-    }
+  public String getResourceId() {
+    return resourceId;
+  }
 
-    public String getRoleId() {
-        return roleId;
-    }
+  public void setResourceId(String resourceId) {
+    this.resourceId = resourceId;
+  }
 
-    public void setRoleId(String roleId) {
-        this.roleId = roleId;
-    }
+  public String getRoleId() {
+    return roleId;
+  }
 
-    public Date getCreateTime() {
-        return createTime;
-    }
+  public void setRoleId(String roleId) {
+    this.roleId = roleId;
+  }
 
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
+  public Date getCreateTime() {
+    return createTime;
+  }
 
+  public void setCreateTime(Date createTime) {
+    this.createTime = createTime;
+  }
 }

@@ -36,89 +36,96 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api")
 public class UtsLoginController extends BaseController {
 
-    public static Cache<String, String> fifoCache = CacheUtil.newTimedCache(6000);
+  public static Cache<String, String> fifoCache = CacheUtil.newTimedCache(6000);
 
-    @Autowired
-    private UtsAuthorService authorService;
+  @Autowired
+  private UtsAuthorService authorService;
 
-    @Autowired
-    private JwtProvider jwtProvider;
+  @Autowired
+  private JwtProvider jwtProvider;
 
-    @Autowired
-    private UtsUserDetailsService utsUserDetailsService;
+  @Autowired
+  private UtsUserDetailsService utsUserDetailsService;
 
-    @Autowired
-    private AuthenticationManagerBuilder authenticationManagerBuilder;
+  @Autowired
+  private AuthenticationManagerBuilder authenticationManagerBuilder;
 
-    @PostMapping("/authenticate")
-    public String authorize(@RequestBody UtsLoginParam loginParam) {
-        UsernamePasswordAuthenticationToken authenticationToken =
-                new UsernamePasswordAuthenticationToken(loginParam.getUsername(), loginParam.getPassword());
-        Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        boolean rememberMe = loginParam.getRememberMe() != null && loginParam.getRememberMe();
-        if (authentication.getPrincipal() instanceof UserDetails){
-            return jwtProvider.createToken(authentication.getPrincipal(), rememberMe);
-        }
-        throw new ApiException();
+  @PostMapping("/authenticate")
+  public String authorize(@RequestBody UtsLoginParam loginParam) {
+    UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
+      loginParam.getUsername(),
+      loginParam.getPassword()
+    );
+    Authentication authentication = authenticationManagerBuilder
+      .getObject()
+      .authenticate(authenticationToken);
+    SecurityContextHolder.getContext().setAuthentication(authentication);
+    boolean rememberMe =
+      loginParam.getRememberMe() != null && loginParam.getRememberMe();
+    if (authentication.getPrincipal() instanceof UserDetails) {
+      return jwtProvider.createToken(authentication.getPrincipal(), rememberMe);
     }
+    throw new ApiException();
+  }
 
-    @PostMapping("/refresh")
-    public String refresh(@RequestBody JSONObject jsonObject) {
-        String jwt = jsonObject.getString("jwt");
-        if (StringUtils.hasText(jwt) && jwtProvider.validateToken(jwt)) {
-            Authentication authentication = jwtProvider.getAuthentication(jwt);
-            UtsAuthorDto oldAuthorDto = (UtsAuthorDto) authentication.getPrincipal();
-            UtsAuthorDto authorDto = (UtsAuthorDto)utsUserDetailsService.loadUserByUsername(oldAuthorDto.getUsername());
-            return jwtProvider.createToken(authorDto, true);
-        }
-        throw new ApiException("无效token");
+  @PostMapping("/refresh")
+  public String refresh(@RequestBody JSONObject jsonObject) {
+    String jwt = jsonObject.getString("jwt");
+    if (StringUtils.hasText(jwt) && jwtProvider.validateToken(jwt)) {
+      Authentication authentication = jwtProvider.getAuthentication(jwt);
+      UtsAuthorDto oldAuthorDto = (UtsAuthorDto) authentication.getPrincipal();
+      UtsAuthorDto authorDto = (UtsAuthorDto) utsUserDetailsService.loadUserByUsername(
+        oldAuthorDto.getUsername()
+      );
+      return jwtProvider.createToken(authorDto, true);
     }
+    throw new ApiException("无效token");
+  }
 
-    @PostMapping("register")
-    public String register(@RequestBody UtsRegisterParam param) {
-        String mail = param.getMail();
-        if (Validator.isEmail(mail)) {
-            Boolean isTrue = authorService.selectMailIsTrue(mail);
-            if (isTrue) {
-                throw new ApiException("邮箱以存在");
-            }
-            UtsAuthor author = BeanUtil.toBean(param, UtsAuthor.class);
-            String password = param.getPassword();
-            author.setPassword(new BCryptPasswordEncoder().encode(password));
-            author.setMail(mail);
-            author.setRefreshTime(DateUtil.date());
-            author.setUpdateTime(DateUtil.date());
-            UtsAuthor utsAuthor = authorService.insertAuthor(author);
-            if (utsAuthor != null) {
-                return "注册成功";
-            }
-            throw new ApiException();
-        } else {
-            throw new ApiException("请输入邮箱号");
-        }
+  @PostMapping("register")
+  public String register(@RequestBody UtsRegisterParam param) {
+    String mail = param.getMail();
+    if (Validator.isEmail(mail)) {
+      Boolean isTrue = authorService.selectMailIsTrue(mail);
+      if (isTrue) {
+        throw new ApiException("邮箱以存在");
+      }
+      UtsAuthor author = BeanUtil.toBean(param, UtsAuthor.class);
+      String password = param.getPassword();
+      author.setPassword(new BCryptPasswordEncoder().encode(password));
+      author.setMail(mail);
+      author.setRefreshTime(DateUtil.date());
+      author.setUpdateTime(DateUtil.date());
+      UtsAuthor utsAuthor = authorService.insertAuthor(author);
+      if (utsAuthor != null) {
+        return "注册成功";
+      }
+      throw new ApiException();
+    } else {
+      throw new ApiException("请输入邮箱号");
     }
+  }
 
-    @PostMapping("password")
-    public String updatePassword(@RequestBody UtsRePasswordParam param) {
-        String mail = param.getMail();
-        Boolean isTrue = authorService.selectMailIsTrue(mail);
-        if (!isTrue) {
-            throw new ApiException("邮箱不存在");
-        }
-        String code = fifoCache.get(mail);
-        if (code == null) {
-            throw new ApiException("没有发送邮箱号");
-        }
-        if (StrUtil.equals(code, param.getCode())) {
-            String password = param.getPassword();
-            UtsAuthor author = BeanUtil.toBean(param, UtsAuthor.class);
-            author.setPassword(new BCryptPasswordEncoder().encode(password));
-            Long count = authorService.update(author);
-            if (count > 0) {
-                return "修改成功";
-            }
-        }
-        throw new ApiException();
+  @PostMapping("password")
+  public String updatePassword(@RequestBody UtsRePasswordParam param) {
+    String mail = param.getMail();
+    Boolean isTrue = authorService.selectMailIsTrue(mail);
+    if (!isTrue) {
+      throw new ApiException("邮箱不存在");
     }
+    String code = fifoCache.get(mail);
+    if (code == null) {
+      throw new ApiException("没有发送邮箱号");
+    }
+    if (StrUtil.equals(code, param.getCode())) {
+      String password = param.getPassword();
+      UtsAuthor author = BeanUtil.toBean(param, UtsAuthor.class);
+      author.setPassword(new BCryptPasswordEncoder().encode(password));
+      Long count = authorService.update(author);
+      if (count > 0) {
+        return "修改成功";
+      }
+    }
+    throw new ApiException();
+  }
 }

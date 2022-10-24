@@ -1,27 +1,24 @@
 package cn.ttcxy.entity.model;
 
 import java.util.Date;
-
 import javax.persistence.Entity;
 import javax.persistence.Id;
-
 import lombok.Data;
 
 @Data
 @Entity
 public class StsNotice {
-    
-    @Id
-    private String noticeId;
 
-    private String title;
+  @Id
+  private String noticeId;
 
-    private String url;
+  private String title;
 
-    private Date createDate;
+  private String url;
 
-    private String description;
+  private Date createDate;
 
-    private Integer orderNum;
+  private String description;
 
+  private Integer orderNum;
 }

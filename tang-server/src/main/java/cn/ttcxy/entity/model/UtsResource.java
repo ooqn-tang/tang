@@ -1,27 +1,24 @@
 package cn.ttcxy.entity.model;
 
 import java.util.Date;
-
 import javax.persistence.Entity;
 import javax.persistence.Id;
-
 import lombok.Data;
 
 @Entity
 @Data
 public class UtsResource {
-    
-    @Id
-    private String resourceId;
 
-    private String path;
+  @Id
+  private String resourceId;
 
-    private String name;
+  private String path;
 
-    private String type;
+  private String name;
 
-    private Date createTime;
+  private String type;
 
-    private Integer state;
+  private Date createTime;
 
+  private Integer state;
 }

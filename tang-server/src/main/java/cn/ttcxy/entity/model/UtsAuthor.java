@@ -1,10 +1,8 @@
 package cn.ttcxy.entity.model;
 
 import java.util.Date;
-
 import javax.persistence.Entity;
 import javax.persistence.Id;
-
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,22 +10,21 @@ import lombok.Setter;
 @Getter
 @Setter
 public class UtsAuthor {
-    
-    @Id
-    private String authorId;
 
-    private String username;
+  @Id
+  private String authorId;
 
-    private String nickname;
+  private String username;
 
-    private String password;
+  private String nickname;
 
-    private String mail;
+  private String password;
 
-    private String signature;
+  private String mail;
 
-    private Date updateTime;
+  private String signature;
 
-    private Date refreshTime;
+  private Date updateTime;
 
+  private Date refreshTime;
 }

@@ -1,7 +1,6 @@
 package cn.ttcxy.entity.model;
 
 import java.util.Date;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,16 +12,16 @@ import lombok.Setter;
 @Getter
 @Setter
 public class DtsArticleSubjectRelevance {
-    
-    @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
-    private Integer id;
 
-    private String articleId;
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  private Integer id;
 
-    private String subjectId;
+  private String articleId;
 
-    private Integer orderNum;
+  private String subjectId;
 
-    private Date createDate;
+  private Integer orderNum;
+
+  private Date createDate;
 }
