@@ -18,8 +18,12 @@ public class StsNoticeDsl {
 	private final QStsNotice qNotice = QStsNotice.stsNotice;
 
 	public Integer selectNoticeMaxOrder() {
-		Integer fetchOne = query.select(qNotice.orderNum.max()).from(qNotice)
-				.orderBy(qNotice.orderNum.desc()).limit(1).fetchOne();
+		Integer fetchOne = query
+				.select(qNotice.orderNum.max())
+				.from(qNotice)
+				.orderBy(qNotice.orderNum.desc())
+				.limit(1)
+				.fetchOne();
 
 		return Optional.ofNullable(fetchOne).orElse(0);
 	}

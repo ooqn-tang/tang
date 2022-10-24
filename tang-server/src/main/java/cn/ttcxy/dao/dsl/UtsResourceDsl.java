@@ -26,27 +26,37 @@ public class UtsResourceDsl {
 
 	List<UtsRoleResourceDto> selectAll() {
 		return query
-				.select(Projections.bean(UtsRoleResourceDto.class, qUtsResource.path,
+				.select(Projections.bean(
+						UtsRoleResourceDto.class,
+						qUtsResource.path,
 						qUtsResource.name))
 				.from(qUtsResource, qUtsResourceRole, qUtsRole)
-				.where(qUtsResource.resourceId.eq(qUtsResourceRole.resourceId),
+				.where(
+						qUtsResource.resourceId.eq(qUtsResourceRole.resourceId),
 						qUtsRole.roleId.eq(qUtsResourceRole.roleId))
 				.fetch();
 	}
 
 	public List<UtsResource> loadResourceUrlByRoleValue(String roleValue) {
 		return query
-				.select(Projections.bean(UtsResource.class, qUtsResource.path, qUtsResource.type))
+				.select(Projections.bean(
+						UtsResource.class,
+						qUtsResource.path,
+						qUtsResource.type))
 				.from(qUtsResource, qUtsResourceRole, qUtsRole)
-				.where(qUtsResource.resourceId.eq(qUtsResourceRole.resourceId),
+				.where(
+						qUtsResource.resourceId.eq(qUtsResourceRole.resourceId),
 						qUtsRole.roleId.eq(qUtsResourceRole.roleId),
 						qUtsRole.roleValue.eq(roleValue))
 				.fetch();
 	}
 
 	public List<String> selectByRoleId(String roleId) {
-		return query.select(qUtsResource.resourceId).from(qUtsResource, qUtsResourceRole)
-				.where(qUtsResource.resourceId.eq(qUtsResourceRole.resourceId),
+		return query
+				.select(qUtsResource.resourceId)
+				.from(qUtsResource, qUtsResourceRole)
+				.where(
+						qUtsResource.resourceId.eq(qUtsResourceRole.resourceId),
 						qUtsResourceRole.roleId.eq(roleId))
 				.fetch();
 	}

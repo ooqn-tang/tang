@@ -23,12 +23,20 @@ public class DtsCollectDsl {
 	private JPAQueryFactory query;
 
 	public Page<DtsCollect> selectCollect(String authorId, Pageable pageable) {
-		JPAQuery<?> fromQuery = query.from(qCollect).where(qCollect.authorId.eq(authorId));
+		JPAQuery<?> fromQuery = query
+				.from(qCollect)
+				.where(qCollect.authorId.eq(authorId));
 
-		Long fetchOne = fromQuery.select(qCollect.collectId.count()).fetchOne();
+		Long fetchOne = fromQuery
+				.select(qCollect.collectId.count())
+				.fetchOne();
 
-		List<DtsCollect> fetch = fromQuery.select(qCollect).offset(pageable.getOffset())
-				.limit(pageable.getPageSize()).orderBy(qCollect.createDate.desc()).fetch();
+		List<DtsCollect> fetch = fromQuery
+				.select(qCollect)
+				.offset(pageable.getOffset())
+				.limit(pageable.getPageSize())
+				.orderBy(qCollect.createDate.desc())
+				.fetch();
 
 		return new PageImpl<>(fetch, pageable, fetchOne);
 	}

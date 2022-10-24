@@ -23,17 +23,27 @@ public class DtsEssayDsl {
 	private JPAQueryFactory query;
 
 	public Page<DtsEssayDto> select(Pageable pageable) {
-		JPAQuery<?> jpaQuery =
-				query.from(qDtsEssay, qUtsAuthor).where(qDtsEssay.authorId.eq(qUtsAuthor.authorId));
+		JPAQuery<?> jpaQuery = query
+				.from(qDtsEssay, qUtsAuthor)
+				.where(qDtsEssay.authorId.eq(qUtsAuthor.authorId));
 
-		Long fetchOne = jpaQuery.select(qDtsEssay.essayId.count()).fetchOne();
+		Long fetchOne = jpaQuery
+				.select(qDtsEssay.essayId.count())
+				.fetchOne();
 
 		List<DtsEssayDto> fetch = jpaQuery
-				.select(Projections.bean(DtsEssayDto.class, qDtsEssay.text, qDtsEssay.essayId,
-						qDtsEssay.createTime, qDtsEssay.url, qUtsAuthor.nickname,
+				.select(Projections.bean(
+						DtsEssayDto.class,
+						qDtsEssay.text,
+						qDtsEssay.essayId,
+						qDtsEssay.createTime,
+						qDtsEssay.url,
+						qUtsAuthor.nickname,
 						qUtsAuthor.username))
-				.offset(pageable.getOffset()).limit(pageable.getPageSize())
-				.orderBy(qDtsEssay.createTime.desc()).fetch();
+				.offset(pageable.getOffset())
+				.limit(pageable.getPageSize())
+				.orderBy(qDtsEssay.createTime.desc())
+				.fetch();
 
 		return new PageImpl<>(fetch, pageable, fetchOne);
 	}

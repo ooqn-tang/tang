@@ -28,23 +28,36 @@ public class UtsFansDsl {
 	private final QUtsAuthor qAuthor1 = QUtsAuthor.utsAuthor;
 
 	public Page<UtsFansDto> selectFansList(String userId, Pageable pageable) {
-		JPAQuery<?> jpaQuery =
-				query.from(qFans, qAuthor, qAuthor1).where(qAuthor.authorId.eq(qFans.authorId),
+		JPAQuery<?> jpaQuery = query
+				.from(qFans, qAuthor, qAuthor1)
+				.where(qAuthor.authorId.eq(qFans.authorId),
 						qAuthor1.authorId.eq(qFans.authorId), qFans.authorId.eq(userId));
 
 		Long fetchOne = jpaQuery.select(qFans.fansId.count()).fetchOne();
 
 		List<UtsFansDto> fansList = jpaQuery
-				.select(Projections.bean(UtsFansDto.class, qFans.fansId, qFans.authorId,
-						qFans.beAuthorId, qAuthor.nickname, qAuthor.username))
-				.orderBy(qFans.createDate.asc()).offset(pageable.getOffset())
-				.limit(pageable.getPageSize()).fetch();
+				.select(Projections.bean(
+						UtsFansDto.class,
+						qFans.fansId,
+						qFans.authorId,
+						qFans.beAuthorId,
+						qAuthor.nickname,
+						qAuthor.username))
+				.orderBy(qFans.createDate.asc())
+				.offset(pageable.getOffset())
+				.limit(pageable.getPageSize())
+				.fetch();
 
 		return new PageImpl<>(fansList, pageable, fetchOne);
 	}
 
 	public Long isFans(String authorId, String beAuthorId) {
-		return query.select(Wildcard.count).from(qFans)
-				.where(qFans.authorId.eq(authorId), qFans.beAuthorId.eq(beAuthorId)).fetchOne();
+		return query
+				.select(Wildcard.count)
+				.from(qFans)
+				.where(
+						qFans.authorId.eq(authorId),
+						qFans.beAuthorId.eq(beAuthorId))
+				.fetchOne();
 	}
 }
