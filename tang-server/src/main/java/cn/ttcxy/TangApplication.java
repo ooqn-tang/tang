@@ -2,12 +2,15 @@ package cn.ttcxy;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import java.security.Principal;
+import java.sql.SQLException;
+
 import javax.persistence.EntityManager;
 import org.apache.catalina.Context;
 import org.apache.catalina.connector.Connector;
 import org.apache.catalina.realm.RealmBase;
 import org.apache.tomcat.util.descriptor.web.SecurityCollection;
 import org.apache.tomcat.util.descriptor.web.SecurityConstraint;
+import org.h2.tools.Server;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -24,7 +27,8 @@ import org.springframework.web.socket.server.standard.ServerEndpointExporter;
 @ServletComponentScan
 public class TangApplication {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws SQLException {
+		Server.main("-tcp", "-tcpAllowOthers","-ifNotExists");
 		SpringApplication springApplication = new SpringApplication(TangApplication.class);
 		springApplication.run(args);
 	}

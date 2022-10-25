@@ -1,15 +1,7 @@
 package cn.ttcxy.controller;
 
-import cn.hutool.core.bean.BeanUtil;
-import cn.ttcxy.core.exception.ApiException;
-import cn.ttcxy.entity.dto.DtsArticleSubjectDto;
-import cn.ttcxy.entity.model.DtsArticle;
-import cn.ttcxy.entity.model.DtsArticleSubject;
-import cn.ttcxy.entity.model.DtsArticleSubjectRelevance;
-import cn.ttcxy.entity.param.DtsSubjectParam;
-import cn.ttcxy.service.DtsArticleService;
-import cn.ttcxy.service.DtsArticleSubjectService;
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -25,6 +17,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import cn.hutool.core.bean.BeanUtil;
+import cn.ttcxy.core.exception.ApiException;
+import cn.ttcxy.entity.dto.DtsArticleSubjectDto;
+import cn.ttcxy.entity.model.DtsArticle;
+import cn.ttcxy.entity.model.DtsArticleSubject;
+import cn.ttcxy.entity.model.DtsArticleSubjectRelevance;
+import cn.ttcxy.entity.param.DtsSubjectParam;
+import cn.ttcxy.service.DtsArticleSubjectService;
+
 @RestController
 @RequestMapping("api/subject")
 @Validated
@@ -32,9 +33,6 @@ public class DtsSubjectController extends BaseController {
 
 	@Autowired
 	private DtsArticleSubjectService articleSubjectService;
-
-	@Autowired
-	private DtsArticleService articleService;
 
 	@GetMapping("username")
 	public List<DtsArticleSubjectDto> selectSubjectArticleListByUsername(
@@ -64,7 +62,7 @@ public class DtsSubjectController extends BaseController {
 	public Page<DtsArticleSubjectDto> selectSubjectByName(
 			@RequestParam(value = "subjectName", defaultValue = "") String name) {
 		Pageable pageable = PageRequest.of(1, 15);
-		return articleSubjectService.selectSubjectListBySubjectName(name, pageable);
+		return articleSubjectService.findSubjectListBySubjectName(name, pageable);
 	}
 
 	@PostMapping
@@ -93,7 +91,7 @@ public class DtsSubjectController extends BaseController {
 	public DtsArticleSubjectRelevance insertArticleToSubject(
 			@RequestParam(value = "articleId") String articleId,
 			@RequestParam(value = "subjectId") String subjectId) {
-		return articleService.saveSubjectId(articleId, subjectId);
+		return articleSubjectService.saveSubjectId(articleId, subjectId);
 	}
 
 	@GetMapping("article/{articleId}")

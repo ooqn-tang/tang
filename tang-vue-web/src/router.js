@@ -104,9 +104,13 @@ const routes = [
         path: '/admin',
         name: 'admin',
         component: () => import('views/admin/index.vue'),
-        redirect:"/admin/author",
+        redirect:"/admin/article",
         children:[
             {
+                path:"article",
+                name:"admin_article",
+                component: () => import('views/admin/article.vue')
+            },{
                 path:"recommend",
                 name:"admin_recommend",
                 component: () => import('views/admin/recommend.vue')
@@ -122,10 +126,6 @@ const routes = [
                 path:"resource",
                 name:"admin_resource",
                 component: () => import('views/admin/resource.vue')
-            },{
-                path:"article",
-                name:"admin_article",
-                component: () => import('views/admin/article.vue')
             }
         ]
     },

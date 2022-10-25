@@ -1,12 +1,7 @@
 package cn.ttcxy.controller;
 
-import cn.ttcxy.entity.dto.DtsArticleDto;
-import cn.ttcxy.entity.dto.DtsArticleSubjectDto;
-import cn.ttcxy.service.DtsArticleService;
-import cn.ttcxy.service.DtsArticleSubjectService;
-import cn.ttcxy.service.StsNoticeService;
-import com.alibaba.fastjson.JSONObject;
 import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -18,12 +13,16 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.alibaba.fastjson.JSONObject;
+
+import cn.ttcxy.entity.dto.DtsArticleDto;
+import cn.ttcxy.entity.dto.DtsArticleSubjectDto;
+import cn.ttcxy.service.DtsArticleSubjectService;
+import cn.ttcxy.service.StsNoticeService;
+
 @Controller
 @RequestMapping
 public class StsPageController {
-
-	@Autowired
-	private DtsArticleService articleService;
 
 	@Autowired
 	private DtsArticleSubjectService articleSubjectService;
@@ -35,7 +34,7 @@ public class StsPageController {
 	public String toIndex(@RequestParam(value = "page", defaultValue = "0") Integer page,
 			Model model, HttpServletRequest request) {
 		Pageable pageable = PageRequest.of(page, 50);
-		Page<DtsArticleDto> dtsArticleDtoPageInfo = articleService.selectArticleListSmall(pageable);
+		Page<DtsArticleDto> dtsArticleDtoPageInfo = articleSubjectService.selectArticleListSmall(pageable);
 		model.addAttribute("articlePage", dtsArticleDtoPageInfo);
 		model.addAttribute("notice", noticeService.selectAllNotice());
 		System.out.println(JSONObject.toJSONString(dtsArticleDtoPageInfo));
@@ -44,7 +43,7 @@ public class StsPageController {
 
 	@GetMapping("article/{id}")
 	public String toArticle(@PathVariable("id") String id, Model model) {
-		DtsArticleDto articleDto = articleService.selectArticleById(id);
+		DtsArticleDto articleDto = articleSubjectService.selectArticleById(id);
 		model.addAttribute("article", articleDto);
 		String subjectId = articleSubjectService.findSubjectIdByArticleId(id);
 
@@ -61,7 +60,7 @@ public class StsPageController {
 	@GetMapping("map")
 	public String map(@RequestParam(value = "page", defaultValue = "0") Integer page, Model model) {
 		Pageable pageable = PageRequest.of(page, 15);
-		Page<DtsArticleDto> dtsArticleDtoPage = articleService.selectArticleList(pageable);
+		Page<DtsArticleDto> dtsArticleDtoPage = articleSubjectService.selectArticleList(pageable);
 		model.addAttribute("articlePage", dtsArticleDtoPage);
 		return "map";
 	}
