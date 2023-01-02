@@ -4,8 +4,8 @@ server:
 spring:
   datasource:
     driver-class-name: org.h2.Driver
-    #url: jdbc:h2:C:\Users\Bobcbui No\OneDrive\tang
-    url: jdbc:h2:tcp://localhost:9092/~/tang
+    url: jdbc:h2:C:\Users\Bobcbui No\OneDrive\tang
+    #url: jdbc:h2:tcp://localhost:9092/~/tang
     username: as
     password: as
   jpa:
