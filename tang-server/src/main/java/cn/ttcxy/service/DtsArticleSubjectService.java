@@ -16,7 +16,6 @@ import cn.ttcxy.entity.model.DtsArticleSubjectRelevance;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +23,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import com.beust.ah.A;
 
 /**
  * 文章于文章专辑相关
@@ -225,14 +222,7 @@ public class DtsArticleSubjectService {
 	/**
 	 * 管理查询
 	 */
-    public Page<DtsArticleDto> findArticleList(Pageable page, Integer state) {
-        return articleDsl.selectArticleListState(page, state);
+    public Page<DtsArticleDto> findArticleList(Integer page, String state) {
+        return null;
     }
-
-	public void deleteArticleByArticleId(String articleId) {
-		Optional<DtsArticle> findById = articleRepository.findById(articleId);
-		DtsArticle article = findById.orElseThrow();
-		article.setState(4);
-		articleRepository.save(article);
-	}
 }

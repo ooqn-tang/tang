@@ -4,12 +4,12 @@ package cn.ttcxy.dao.repository;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.NoRepositoryBean;
 import org.springframework.data.repository.PagingAndSortingRepository;
-import org.springframework.stereotype.Repository;
 
 import cn.ttcxy.entity.model.UtsAuthor;
 
-@Repository
+@NoRepositoryBean
 public interface UtsAuthorRepository extends PagingAndSortingRepository<UtsAuthor, String> {
 
     UtsAuthor findByUsername(String username);

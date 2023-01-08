@@ -5,11 +5,11 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.repository.NoRepositoryBean;
 
 import cn.ttcxy.entity.model.StsNotice;
 
-@Repository
+@NoRepositoryBean
 public interface StsNoticeRepository extends JpaRepository<StsNotice, String> {
 
     @Query("FROM StsNotice ORDER BY orderNum ASC")

@@ -5,11 +5,11 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.repository.NoRepositoryBean;
 
 import cn.ttcxy.entity.model.UtsResource;
 
-@Repository
+@NoRepositoryBean
 public interface UtsResourceRepository extends CrudRepository<UtsResource, String> {
 
     List<UtsResource> findByNameLikeAndPathLike(String name, String path);

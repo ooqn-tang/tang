@@ -1,12 +1,5 @@
 package cn.ttcxy.controller;
 
-import cn.hutool.core.bean.BeanUtil;
-import cn.hutool.core.date.DateTime;
-import cn.hutool.core.date.DateUtil;
-import cn.hutool.core.util.IdUtil;
-import cn.ttcxy.entity.model.DtsCollect;
-import cn.ttcxy.entity.param.DtsCollectParam;
-import cn.ttcxy.service.DtsCollectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -19,6 +12,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.date.DateTime;
+import cn.hutool.core.date.DateUtil;
+import cn.hutool.core.util.IdUtil;
+import cn.ttcxy.entity.model.DtsCollect;
+import cn.ttcxy.entity.param.DtsCollectParam;
+import cn.ttcxy.service.DtsCollectService;
 
 @RestController
 @RequestMapping("api/collect")

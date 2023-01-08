@@ -99,6 +99,7 @@ export default {
     }
   },
   onActivated(){
+    alert()
     if(this.$route.name == 'article'){
       this.title = '文章'
     }else if(this.$route.name == 'subject_index'){

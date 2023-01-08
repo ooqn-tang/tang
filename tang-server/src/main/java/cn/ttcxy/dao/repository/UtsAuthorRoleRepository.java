@@ -2,11 +2,11 @@ package cn.ttcxy.dao.repository;
 
 
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.repository.NoRepositoryBean;
 
 import cn.ttcxy.entity.model.UtsAuthorRole;
 
-@Repository
+@NoRepositoryBean
 public interface UtsAuthorRoleRepository extends CrudRepository<UtsAuthorRole, String> {
 
     long deleteByAuthorId(String authorId);
