@@ -24,6 +24,7 @@ import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.ttcxy.core.api.ResponseCode;
 import cn.ttcxy.core.exception.ApiException;
+import cn.ttcxy.entity.StateNum;
 import cn.ttcxy.entity.dto.DtsArticleDto;
 import cn.ttcxy.entity.model.DtsArticle;
 import cn.ttcxy.entity.param.DtsArticleParam;
@@ -71,7 +72,7 @@ public class DtsArticleController extends BaseController {
 		article.setArticleId(IdUtil.objectId());
 		article.setCreateDate(dateTime);
 		article.setUpdateDate(dateTime);
-		article.setState(5);
+		article.setState(StateNum.notSubmit);
 		article.setAuthorId(authorId);
 		articleSubjectService.insertArticle(article);
 		return article.getArticleId();
@@ -93,7 +94,7 @@ public class DtsArticleController extends BaseController {
 		String authorId = articleSubjectService.authorId(articleId);
 		if (StrUtil.equals(authorId, authorId())) {
 			article.setAuthorId(authorId);
-			article.setState(1);
+			article.setState(StateNum.normal);
 			article.setUpdateDate(DateUtil.date());
 			DtsArticle dtsArticle =
 			articleSubjectService.updateArticle(article, articleParam.getSubjectId());

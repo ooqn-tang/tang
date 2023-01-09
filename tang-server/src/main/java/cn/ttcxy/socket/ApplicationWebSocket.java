@@ -33,8 +33,7 @@ public class ApplicationWebSocket {
 
 	@OnOpen
 	public void onOpen(Session session, @PathParam("jwt") String jwt) {
-		Authentication authentication =
-				SpringUtil.getBean(JwtProvider.class).getAuthentication(jwt);
+		Authentication authentication = SpringUtil.getBean(JwtProvider.class).getAuthentication(jwt);
 		UtsAuthorDto authorDto = (UtsAuthorDto) authentication.getPrincipal();
 		if (authorDto == null) {
 			return;
@@ -83,5 +82,6 @@ public class ApplicationWebSocket {
 	}
 
 	@OnError
-	public void onError(Session session, Throwable error) {}
+	public void onError(Session session, Throwable error) {
+	}
 }

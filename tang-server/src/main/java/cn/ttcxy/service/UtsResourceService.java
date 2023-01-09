@@ -45,44 +45,8 @@ public class UtsResourceService {
 		return resourceDls.selectByRoleId(roleId);
 	}
 
-	// @Autowired
-	// private ApplicationContext applicationContext;
-
+	
 	public void urls() {
-		// RequestMappingHandlerMapping mapping =
-		// applicationContext.getBean(RequestMappingHandlerMapping.class);
-		// // 获取url与类和方法的对应信息
-		// Map<RequestMappingInfo, HandlerMethod> map = mapping.getHandlerMethods();
-
-		// UtsResource resource = new UtsResource();
-		// resource.setState(9);
-		// resourceRepository.save(resource);
-
-		// for (Map.Entry<RequestMappingInfo, HandlerMethod> entryInfo : map.entrySet()) {
-		// assert entryInfo.getKey().getPathPatternsCondition() != null;
-		// Set<PathPattern> patterns = entryInfo.getKey().getPathPatternsCondition().getPatterns();
-		// for (PathPattern pathPattern : patterns) {
-		// String url = pathPattern.getPatternString();
-		// Set<RequestMethod> methods = entryInfo.getKey().getMethodsCondition().getMethods();
-		// for (RequestMethod method : methods) {
-		// String urlStr = url.replaceAll("\\{[^}]*}", "*");
-		// try {
-		// UtsResource utsResource = new UtsResource();
-		// utsResource.setResourceId(IdUtil.objectId());
-		// utsResource.setType(method.name());
-		// utsResource.setName(urlStr);
-		// utsResource.setPath(urlStr);
-		// utsResource.setCreateTime(new Date());
-		// utsResource.setState(8);
-		// insert(utsResource);
-		// }catch (Exception e){
-		// UtsResource utsResource = new UtsResource();
-		// utsResource.setState(8);
-		// resourceRepository.saveByPath(urlStr);
-		// System.out.println("数据已经存在");
-		// }
-		// }
-		// }
-		// }
+		
 	}
 }

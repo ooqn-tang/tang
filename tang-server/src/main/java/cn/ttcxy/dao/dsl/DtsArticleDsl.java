@@ -1,5 +1,6 @@
 package cn.ttcxy.dao.dsl;
 
+import cn.ttcxy.entity.StateNum;
 import cn.ttcxy.entity.dto.DtsArticleDto;
 import cn.ttcxy.entity.model.QDtsArticle;
 import cn.ttcxy.entity.model.QDtsArticleSubject;
@@ -120,7 +121,7 @@ public class DtsArticleDsl {
 	public Page<DtsArticleDto> selectArticleListSmall(Pageable pageable) {
 		JPAQuery<?> jpaQuery = query
 				.from(qArticle)
-				.where(qArticle.state.eq(1));
+				.where(qArticle.state.eq(StateNum.normal));
 
 		Long count = jpaQuery
 				.select(qArticle.articleId.count())

@@ -19,6 +19,7 @@ import cn.ttcxy.dao.dsl.DtsArticleSubjectDsl;
 import cn.ttcxy.dao.repository.DtsArticleRepository;
 import cn.ttcxy.dao.repository.DtsArticleSubjectRelevanceRepository;
 import cn.ttcxy.dao.repository.DtsArticleSubjectRepository;
+import cn.ttcxy.entity.StateNum;
 import cn.ttcxy.entity.dto.DtsArticleDto;
 import cn.ttcxy.entity.dto.DtsArticleSubjectDto;
 import cn.ttcxy.entity.model.DtsArticle;
@@ -230,7 +231,7 @@ public class DtsArticleSubjectService {
 	public void deleteArticleByArticleId(String articleId) {
 		Optional<DtsArticle> findById = articleRepository.findById(articleId);
 		DtsArticle article = findById.orElseThrow();
-		article.setState(4);
+		article.setState(StateNum.delete);
 		articleRepository.save(article);
 	}
 }
