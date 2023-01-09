@@ -1,17 +1,16 @@
 package cn.ttcxy;
 
-import com.querydsl.jpa.impl.JPAQueryFactory;
 import java.security.Principal;
 import java.sql.SQLException;
 
 import javax.persistence.EntityManager;
+
 import org.apache.catalina.Context;
 import org.apache.catalina.connector.Connector;
 import org.apache.catalina.realm.RealmBase;
 import org.apache.tomcat.util.descriptor.web.SecurityCollection;
 import org.apache.tomcat.util.descriptor.web.SecurityConstraint;
 import org.h2.tools.Server;
-import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -22,8 +21,9 @@ import org.springframework.boot.web.servlet.server.ServletWebServerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.socket.server.standard.ServerEndpointExporter;
 
-@SpringBootApplication(scanBasePackages = {"cn.ttcxy"})
-@MapperScan("cn.ttcxy.mapper")
+import com.querydsl.jpa.impl.JPAQueryFactory;
+
+@SpringBootApplication
 @ServletComponentScan
 public class TangApplication {
 

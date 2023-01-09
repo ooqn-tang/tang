@@ -1,5 +1,16 @@
 package cn.ttcxy.service;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.Random;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+
 import cn.hutool.core.date.DateTime;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.IdUtil;
@@ -13,19 +24,6 @@ import cn.ttcxy.entity.dto.DtsArticleSubjectDto;
 import cn.ttcxy.entity.model.DtsArticle;
 import cn.ttcxy.entity.model.DtsArticleSubject;
 import cn.ttcxy.entity.model.DtsArticleSubjectRelevance;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.Random;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Service;
-
-import com.beust.ah.A;
 
 /**
  * 文章于文章专辑相关

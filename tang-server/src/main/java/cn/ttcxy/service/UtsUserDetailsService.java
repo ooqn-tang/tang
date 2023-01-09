@@ -1,18 +1,18 @@
 package cn.ttcxy.service;
 
-import cn.hutool.core.bean.BeanUtil;
-import cn.hutool.core.lang.Validator;
-import cn.ttcxy.entity.StateEnum;
-import cn.ttcxy.entity.dto.UtsAuthorDto;
-import cn.ttcxy.entity.dto.UtsRoleDto;
-import cn.ttcxy.entity.model.UtsAuthor;
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+
+import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.lang.Validator;
+import cn.ttcxy.entity.dto.UtsAuthorDto;
+import cn.ttcxy.entity.dto.UtsRoleDto;
+import cn.ttcxy.entity.model.UtsAuthor;
 
 @Service
 public class UtsUserDetailsService implements UserDetailsService {
