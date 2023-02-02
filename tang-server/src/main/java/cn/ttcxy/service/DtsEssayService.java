@@ -14,11 +14,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class DtsEssayService {
 
-	@Autowired
-	private DtsEssayRepository essayRepository;
 
 	@Autowired
 	private DtsEssayDsl essayDsl;
+	
+	@Autowired
+	private DtsEssayRepository essayRepository;
 
 	public DtsEssay insert(DtsEssay dynamic) {
 		dynamic.setEssayId(IdUtil.objectId());

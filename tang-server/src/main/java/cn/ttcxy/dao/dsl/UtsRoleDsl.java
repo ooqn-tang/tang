@@ -4,6 +4,8 @@ import cn.ttcxy.entity.dto.UtsRoleDto;
 import cn.ttcxy.entity.model.QUtsAuthor;
 import cn.ttcxy.entity.model.QUtsAuthorRole;
 import cn.ttcxy.entity.model.QUtsRole;
+import cn.ttcxy.entity.model.UtsRole;
+
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import java.util.List;
@@ -16,9 +18,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class UtsRoleDsl {
 
+	private final QUtsRole qUtsRole = QUtsRole.utsRole;
 	private final QUtsAuthor qUtsAuthor = QUtsAuthor.utsAuthor;
 	private final QUtsAuthorRole qUtsAuthorRole = QUtsAuthorRole.utsAuthorRole;
-	private final QUtsRole qUtsRole = QUtsRole.utsRole;
 
 	@Autowired
 	private JPAQueryFactory query;
@@ -46,5 +48,9 @@ public class UtsRoleDsl {
 				.where(qUtsAuthor.authorId.eq(qUtsAuthorRole.authorId),
 						qUtsAuthorRole.authorId.eq(authorId))
 				.fetch();
+	}
+
+	public List<UtsRole> findByRoleName(String roleName){
+		return query.selectFrom(qUtsRole).fetch();
 	}
 }

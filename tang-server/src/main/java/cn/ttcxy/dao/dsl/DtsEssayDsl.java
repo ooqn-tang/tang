@@ -16,8 +16,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class DtsEssayDsl {
 
-	QDtsEssay qDtsEssay = QDtsEssay.dtsEssay;
-	QUtsAuthor qUtsAuthor = QUtsAuthor.utsAuthor;
+	private final QDtsEssay qDtsEssay = QDtsEssay.dtsEssay;
+	private final QUtsAuthor qUtsAuthor = QUtsAuthor.utsAuthor;
 
 	@Autowired
 	private JPAQueryFactory query;

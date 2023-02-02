@@ -23,10 +23,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class DtsArticleSubjectDsl {
 
-	private final QDtsArticleSubject qArticleSubject = QDtsArticleSubject.dtsArticleSubject;
 	private final QUtsAuthor qAuthor = QUtsAuthor.utsAuthor;
-	private final QDtsArticleSubjectRelevance qSubjectRelevance = QDtsArticleSubjectRelevance.dtsArticleSubjectRelevance;
 	private final QDtsArticle qArticle = QDtsArticle.dtsArticle;
+	private final QDtsArticleSubject qArticleSubject = QDtsArticleSubject.dtsArticleSubject;
+	private final QDtsArticleSubjectRelevance qSubjectRelevance = QDtsArticleSubjectRelevance.dtsArticleSubjectRelevance;
 
 	@Autowired
 	private JPAQueryFactory query;
