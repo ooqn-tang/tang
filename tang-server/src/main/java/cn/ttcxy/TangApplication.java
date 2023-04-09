@@ -28,25 +28,25 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 public class TangApplication {
 
 	public static void main(String[] args) throws SQLException {
-		Server.main("-tcp", "-tcpAllowOthers","-ifNotExists");
+		// Server.main("-tcp", "-tcpAllowOthers","-ifNotExists");
 		SpringApplication springApplication = new SpringApplication(TangApplication.class);
 		springApplication.run(args);
 	}
 
-	@Bean
-	@Autowired
-	public JPAQueryFactory jpaQuery(EntityManager entityManager) {
+    @Bean
+    @Autowired
+    JPAQueryFactory jpaQuery(EntityManager entityManager) {
 		return new JPAQueryFactory(entityManager);
 	}
 
-	@Bean
-	public ServerEndpointExporter serverEndpointExporter() {
+    @Bean
+    ServerEndpointExporter serverEndpointExporter() {
 		return new ServerEndpointExporter();
 	}
 
-	@Bean
-	@ConditionalOnProperty(value = "tang-https", havingValue = "true")
-	public ServletWebServerFactory servletContainer() {
+    @Bean
+    @ConditionalOnProperty(value = "tang-https", havingValue = "true")
+    ServletWebServerFactory servletContainer() {
 		TomcatServletWebServerFactory tomcat = new TomcatServletWebServerFactory() {
 			@Override
 			protected void postProcessContext(Context context) {

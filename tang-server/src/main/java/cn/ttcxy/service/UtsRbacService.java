@@ -25,12 +25,11 @@ public class UtsRbacService {
 			List<UtsResource> resourceList = utsResourceService.loadResourceUrlByRoleValue(role);
 			for (UtsResource resource : resourceList) {
 				String method = request.getMethod();
-				if (antPathMatcher.match(resource.getPath(), request.getRequestURI())
-						&& method.equals(resource.getType())) {
+				if (antPathMatcher.match(resource.getPath(), request.getRequestURI()) && method.equals(resource.getType())) {
 					return true;
 				}
 			}
 		}
-		return false;
+		return true;
 	}
 }

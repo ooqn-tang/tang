@@ -8,20 +8,22 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Bean;
-
+import org.springframework.context.annotation.Configuration;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
 import cn.ttcxy.dao.dsl.UtsRoleDsl;
 
-@SpringBootTest(classes = TangApplication.class,webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@Configuration
+@SpringBootTest(classes = TangApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class TangApplicationTests {
 
-	@Bean
+    @Bean
     @Autowired
-    public JPAQueryFactory jpaQuery(EntityManager entityManager) {
+    JPAQueryFactory jpaQuery(EntityManager entityManager) {
         return new JPAQueryFactory(entityManager);
     }
 
+	// 声明一个Autowired注解，表示它是一个自动注入的注解
 	@Autowired
 	UtsRoleDsl roleDsl;
 
