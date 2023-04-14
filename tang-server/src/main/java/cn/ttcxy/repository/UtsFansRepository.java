@@ -1,7 +1,6 @@
 package cn.ttcxy.repository;
 
 import cn.ttcxy.entity.dto.UtsFansDto;
-import javax.transaction.Transactional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -10,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import cn.ttcxy.entity.model.UtsFans;
+import jakarta.transaction.Transactional;
 
 @Transactional
 public interface UtsFansRepository extends CrudRepository<UtsFans, String> {

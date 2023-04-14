@@ -3,7 +3,7 @@ package cn.ttcxy.core.task;
 import cn.ttcxy.entity.model.StsNotice;
 import cn.ttcxy.service.StsNoticeService;
 import java.util.List;
-import javax.servlet.ServletContext;
+import jakarta.servlet.ServletContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;

@@ -1,7 +1,7 @@
 package cn.ttcxy.entity.param;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.Size;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 /**

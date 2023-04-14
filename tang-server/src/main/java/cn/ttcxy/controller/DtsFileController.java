@@ -15,8 +15,8 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.Optional;
 import javax.imageio.ImageIO;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.apache.catalina.connector.ClientAbortException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
@@ -44,8 +44,7 @@ public class DtsFileController extends BaseController {
 		Files.copy(file.getInputStream(), dest.toPath());
 
 		if (StrUtil.equals(type, "1")) {
-			BufferedImage sourceImg = ImageIO
-					.read(new FileInputStream(tangFile + File.separator + objectId + "." + s));
+			BufferedImage sourceImg = ImageIO.read(new FileInputStream(tangFile + File.separator + objectId + "." + s));
 			if (sourceImg == null) {
 				throw new ApiException(ResponseCode.FAILED.getStatus(), "请上传PNG格式");
 			}
