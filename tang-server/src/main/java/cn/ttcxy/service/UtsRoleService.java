@@ -1,23 +1,21 @@
 package cn.ttcxy.service;
 
+import java.util.Date;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import cn.hutool.core.util.IdUtil;
-import cn.ttcxy.dao.dsl.UtsRoleDsl;
-import cn.ttcxy.dao.repository.UtsResourceRoleRepository;
-import cn.ttcxy.dao.repository.UtsRoleRepository;
 import cn.ttcxy.entity.dto.UtsRoleDto;
 import cn.ttcxy.entity.model.UtsResource;
 import cn.ttcxy.entity.model.UtsResourceRole;
 import cn.ttcxy.entity.model.UtsRole;
-import java.util.Date;
-import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import cn.ttcxy.repository.UtsResourceRoleRepository;
+import cn.ttcxy.repository.UtsRoleRepository;
 
 @Service
 public class UtsRoleService {
-
-	@Autowired
-	private UtsRoleDsl roleDls;
 
 	@Autowired
 	private UtsRoleRepository roleRepository;
@@ -26,7 +24,7 @@ public class UtsRoleService {
 	private UtsResourceRoleRepository resourceRoleRepository;
 
 	public List<UtsRoleDto> roleList(String authorId) {
-		return roleDls.selectRoleListByAuthorId(authorId);
+		return roleRepository.selectRoleListByAuthorId(authorId);
 	}
 
 	public UtsRole selectById(String roleId) {
@@ -62,7 +60,7 @@ public class UtsRoleService {
 	}
 
 	public List<String> selectRoleIdList(String authorId) {
-		return roleDls.selectRoleIdList(authorId);
+		return roleRepository.selectRoleIdList(authorId);
 	}
 
 	public List<UtsRole> selectByName(String roleName) {

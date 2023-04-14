@@ -1,23 +1,21 @@
 package cn.ttcxy.service;
 
-import cn.ttcxy.dao.dsl.UtsResourceDsl;
-import cn.ttcxy.dao.repository.UtsResourceRepository;
-import cn.ttcxy.entity.model.UtsResource;
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import cn.ttcxy.entity.model.UtsResource;
+import cn.ttcxy.repository.UtsResourceRepository;
 
 @Service
 public class UtsResourceService {
 
 	@Autowired
-	private UtsResourceDsl resourceDls;
-
-	@Autowired
 	private UtsResourceRepository resourceRepository;
 
 	public List<UtsResource> loadResourceUrlByRoleValue(String roleValue) {
-		return resourceDls.loadResourceUrlByRoleValue(roleValue);
+		return resourceRepository.loadResourceUrlByRoleValue(roleValue);
 	}
 
 	public List<UtsResource> select(String queryData) {
@@ -42,7 +40,7 @@ public class UtsResourceService {
 	}
 
 	public List<String> selectByRoleId(String roleId) {
-		return resourceDls.selectByRoleId(roleId);
+		return resourceRepository.selectByRoleId(roleId);
 	}
 
 	

@@ -1,7 +1,8 @@
 package cn.ttcxy.service;
 
-import cn.ttcxy.dao.repository.DtsLikeRepository;
 import cn.ttcxy.entity.model.DtsLike;
+import cn.ttcxy.repository.DtsLikeRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

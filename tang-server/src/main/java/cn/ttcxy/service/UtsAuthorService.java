@@ -4,14 +4,14 @@ import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.RandomUtil;
-import cn.ttcxy.dao.dsl.UtsAuthorDsl;
-import cn.ttcxy.dao.repository.UtsAuthorRepository;
-import cn.ttcxy.dao.repository.UtsAuthorRoleRepository;
 import cn.ttcxy.entity.dto.UtsRoleDto;
 import cn.ttcxy.entity.model.UtsAuthor;
 import cn.ttcxy.entity.model.UtsAuthorRole;
 import cn.ttcxy.entity.model.UtsRole;
 import cn.ttcxy.entity.param.UtsRoleParam;
+import cn.ttcxy.repository.UtsAuthorRepository;
+import cn.ttcxy.repository.UtsAuthorRoleRepository;
+
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -36,15 +36,14 @@ public class UtsAuthorService {
 	private UtsAuthorRepository utsAuthorRepository;
 
 	@Autowired
-	private UtsAuthorDsl authorDsl;
-
-	@Autowired
 	private UtsAuthorRoleRepository authorRoleRepository;
 
 	@Autowired
 	private UtsRoleService roleService;
 
 	private static final Map<String, Date> usernameTime = new HashMap<>();
+
+	
 
 	public UtsAuthor selectAuthorByName(String username) {
 		return utsAuthorRepository.findByUsername(username);
@@ -70,8 +69,8 @@ public class UtsAuthorService {
 		return utsAuthorRepository.save(author);
 	}
 
-	public long update(UtsAuthor author) {
-		return authorDsl.updata(author);
+	public UtsAuthor update(UtsAuthor author) {
+		return utsAuthorRepository.save(author);
 	}
 
 	public Boolean selectUsernameIsTrue(String username) {
@@ -96,7 +95,8 @@ public class UtsAuthorService {
 	}
 
 	public void delete(String authorId) {
-		authorDsl.updateStateDelete(authorId);
+		UtsAuthor author = utsAuthorRepository.findById(authorId).orElseThrow();
+		utsAuthorRepository.save(author);
 	}
 
 	public void insertRole(String authorId, List<UtsRoleParam> roleParams) {

@@ -1,4 +1,4 @@
-package cn.ttcxy.dao.repository;
+package cn.ttcxy.repository;
 
 
 import java.util.List;

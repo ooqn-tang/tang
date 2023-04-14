@@ -117,8 +117,8 @@ public class UtsLoginController extends BaseController {
 			String password = param.getPassword();
 			UtsAuthor author = BeanUtil.toBean(param, UtsAuthor.class);
 			author.setPassword(new BCryptPasswordEncoder().encode(password));
-			Long count = authorService.update(author);
-			if (count > 0) {
+			UtsAuthor update = authorService.update(author);
+			if (update != null) {
 				return "修改成功";
 			}
 		}

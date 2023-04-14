@@ -1,4 +1,4 @@
-package cn.ttcxy.dao.repository;
+package cn.ttcxy.repository;
 
 
 import java.util.List;
@@ -12,4 +12,7 @@ public interface StsNoticeRepository extends JpaRepository<StsNotice, String> {
 
     @Query("FROM StsNotice ORDER BY orderNum ASC")
     List<StsNotice> findAllOrderByOrderNumAsc();
+
+    @Query(value = "FROM StsNotice ORDER BY orderNum ASC", nativeQuery = true)
+    Integer selectNoticeMaxOrder();
 }

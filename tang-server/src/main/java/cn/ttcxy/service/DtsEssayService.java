@@ -1,22 +1,19 @@
 package cn.ttcxy.service;
 
-import cn.hutool.core.date.DateUtil;
-import cn.hutool.core.util.IdUtil;
-import cn.ttcxy.dao.dsl.DtsEssayDsl;
-import cn.ttcxy.dao.repository.DtsEssayRepository;
-import cn.ttcxy.entity.dto.DtsEssayDto;
-import cn.ttcxy.entity.model.DtsEssay;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import cn.hutool.core.date.DateUtil;
+import cn.hutool.core.util.IdUtil;
+import cn.ttcxy.entity.dto.DtsEssayDto;
+import cn.ttcxy.entity.model.DtsEssay;
+import cn.ttcxy.repository.DtsEssayRepository;
+
 @Service
 public class DtsEssayService {
 
-
-	@Autowired
-	private DtsEssayDsl essayDsl;
 	
 	@Autowired
 	private DtsEssayRepository essayRepository;
@@ -32,6 +29,6 @@ public class DtsEssayService {
 	}
 
 	public Page<DtsEssayDto> select(Pageable pageable) {
-		return essayDsl.select(pageable);
+		return essayRepository.select(pageable);
 	}
 }

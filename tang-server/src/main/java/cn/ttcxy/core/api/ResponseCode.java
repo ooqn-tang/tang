@@ -45,4 +45,8 @@ public enum ResponseCode {
 	public String getMessage() {
 		return message;
 	}
+
+    public long getCode() {
+        return 0;
+    }
 }

@@ -112,7 +112,7 @@ public class DtsArticleController extends BaseController {
 
 	@GetMapping("load/{articleId}/all")
 	public DtsArticleDto loadAll(@PathVariable(name = "articleId") String articleId) {
-		DtsArticleDto articleDto = articleSubjectService.selectArticleAllById(articleId);
+		DtsArticleDto articleDto = articleSubjectService.selectArticleById(articleId);
 		if (articleDto == null) {
 			throw new ApiException();
 		}

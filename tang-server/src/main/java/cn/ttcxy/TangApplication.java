@@ -21,22 +21,14 @@ import org.springframework.boot.web.servlet.server.ServletWebServerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.socket.server.standard.ServerEndpointExporter;
 
-import com.querydsl.jpa.impl.JPAQueryFactory;
-
 @SpringBootApplication
 @ServletComponentScan
 public class TangApplication {
 
 	public static void main(String[] args) throws SQLException {
-		// Server.main("-tcp", "-tcpAllowOthers","-ifNotExists");
+		Server.main("-tcp", "-tcpAllowOthers","-ifNotExists");
 		SpringApplication springApplication = new SpringApplication(TangApplication.class);
 		springApplication.run(args);
-	}
-
-    @Bean
-    @Autowired
-    JPAQueryFactory jpaQuery(EntityManager entityManager) {
-		return new JPAQueryFactory(entityManager);
 	}
 
     @Bean

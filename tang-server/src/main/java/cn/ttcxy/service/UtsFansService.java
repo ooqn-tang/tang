@@ -2,11 +2,11 @@ package cn.ttcxy.service;
 
 import cn.hutool.core.date.DateTime;
 import cn.hutool.core.util.IdUtil;
-import cn.ttcxy.dao.dsl.UtsFansDsl;
-import cn.ttcxy.dao.repository.UtsFansRepository;
 import cn.ttcxy.entity.dto.UtsFansDto;
 import cn.ttcxy.entity.model.UtsAuthor;
 import cn.ttcxy.entity.model.UtsFans;
+import cn.ttcxy.repository.UtsFansRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -19,16 +19,13 @@ import org.springframework.stereotype.Service;
 public class UtsFansService {
 
 	@Autowired
-	private UtsFansDsl fansDsl;
-
-	@Autowired
 	private UtsFansRepository fansRepository;
 
 	@Autowired
 	private UtsAuthorService authorService;
 
 	public Page<UtsFansDto> selectFansList(String authorId, Pageable pageable) {
-		return fansDsl.selectFansList(authorId, pageable);
+		return fansRepository.selectFansList(authorId, pageable);
 	}
 
 	public UtsFans insertFans(UtsFans fans) {
@@ -46,6 +43,6 @@ public class UtsFansService {
 	}
 
 	public Long isFans(String authorId, String beAuthorId) {
-		return fansDsl.isFans(authorId, beAuthorId);
+		return fansRepository.isFans(authorId, beAuthorId);
 	}
 }

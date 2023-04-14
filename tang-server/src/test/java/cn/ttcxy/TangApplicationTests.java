@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
-import cn.ttcxy.dao.dsl.UtsRoleDsl;
+import cn.ttcxy.repository.dsl.UtsRoleDsl;
 
 @Configuration
 @SpringBootTest(classes = TangApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)

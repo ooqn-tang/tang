@@ -43,9 +43,9 @@ public class AdminAuthorController extends BaseController {
 	}
 
 	@PutMapping
-	public long update(@RequestBody UtsAuthorParam authorParam) {
+	public void update(@RequestBody UtsAuthorParam authorParam) {
 		UtsAuthor author = BeanUtil.toBean(authorParam, UtsAuthor.class);
-		return authorService.update(author);
+		authorService.update(author);
 	}
 
 	@DeleteMapping("{authorId}")

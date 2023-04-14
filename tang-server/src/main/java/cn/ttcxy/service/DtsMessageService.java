@@ -2,8 +2,9 @@ package cn.ttcxy.service;
 
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.IdUtil;
-import cn.ttcxy.dao.repository.DtsMessageRepository;
 import cn.ttcxy.entity.model.DtsMessage;
+import cn.ttcxy.repository.DtsMessageRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

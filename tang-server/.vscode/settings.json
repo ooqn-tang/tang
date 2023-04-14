@@ -3,5 +3,6 @@
     "files.associations": {
         "*.yml": "yaml"
     },
-    "java.compile.nullAnalysis.mode": "automatic"
+    "java.compile.nullAnalysis.mode": "automatic",
+    "java.debug.settings.onBuildFailureProceed": true
 }

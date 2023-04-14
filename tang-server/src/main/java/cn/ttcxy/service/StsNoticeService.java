@@ -1,13 +1,14 @@
 package cn.ttcxy.service;
 
-import cn.hutool.core.util.IdUtil;
-import cn.ttcxy.dao.dsl.StsNoticeDsl;
-import cn.ttcxy.dao.repository.StsNoticeRepository;
-import cn.ttcxy.entity.model.StsNotice;
-import cn.ttcxy.entity.param.StsNoticeParam;
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import cn.hutool.core.util.IdUtil;
+import cn.ttcxy.entity.model.StsNotice;
+import cn.ttcxy.entity.param.StsNoticeParam;
+import cn.ttcxy.repository.StsNoticeRepository;
 
 /**
  * 广告
@@ -17,9 +18,6 @@ public class StsNoticeService {
 
 	@Autowired
 	private StsNoticeRepository noticeRepository;
-
-	@Autowired
-	private StsNoticeDsl noticeDsl;
 
 	public List<StsNotice> selectAllNotice() {
 		return noticeRepository.findAllOrderByOrderNumAsc();
@@ -32,7 +30,7 @@ public class StsNoticeService {
 	public StsNotice insertNotice(StsNotice notice) {
 		String id = IdUtil.objectId();
 		notice.setNoticeId(id);
-		Integer integer = noticeDsl.selectNoticeMaxOrder();
+		Integer integer = noticeRepository.selectNoticeMaxOrder();
 		notice.setOrderNum(integer + 1);
 		return noticeRepository.save(notice);
 	}

@@ -14,17 +14,15 @@ import org.springframework.stereotype.Service;
 import cn.hutool.core.date.DateTime;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.IdUtil;
-import cn.ttcxy.dao.dsl.DtsArticleDsl;
-import cn.ttcxy.dao.dsl.DtsArticleSubjectDsl;
-import cn.ttcxy.dao.repository.DtsArticleRepository;
-import cn.ttcxy.dao.repository.DtsArticleSubjectRelevanceRepository;
-import cn.ttcxy.dao.repository.DtsArticleSubjectRepository;
 import cn.ttcxy.entity.StateNum;
 import cn.ttcxy.entity.dto.DtsArticleDto;
 import cn.ttcxy.entity.dto.DtsArticleSubjectDto;
 import cn.ttcxy.entity.model.DtsArticle;
 import cn.ttcxy.entity.model.DtsArticleSubject;
 import cn.ttcxy.entity.model.DtsArticleSubjectRelevance;
+import cn.ttcxy.repository.DtsArticleRepository;
+import cn.ttcxy.repository.DtsArticleSubjectRelevanceRepository;
+import cn.ttcxy.repository.DtsArticleSubjectRepository;
 
 /**
  * 文章于文章专辑相关
@@ -35,16 +33,10 @@ public class DtsArticleSubjectService {
 	private static List<DtsArticleDto> cache = new ArrayList<>();
 
 	@Autowired
-	private DtsArticleSubjectDsl articleSubjectDsl;
-
-	@Autowired
 	private DtsArticleSubjectRepository articleSubjectRepository;
 	
 	@Autowired
 	private DtsArticleSubjectRelevanceRepository dtsArticleSubjectRepository;
-
-	@Autowired
-	private DtsArticleSubjectDsl dtsArticleSubjectDsl;
 
 	@Autowired
 	private DtsArticleRepository articleRepository;
@@ -53,17 +45,17 @@ public class DtsArticleSubjectService {
 	private DtsArticleSubjectRelevanceRepository subjectRelevanceRepository;
 
 	@Autowired
-	private DtsArticleDsl articleDsl;
+	private DtsArticleRepository articlerRepository;
 
 	/**
 	 * 查询这个专辑的所有文章
 	 */
 	public DtsArticleSubjectDto findSubjectArticleListBySubjectId(String subjectId) {
-		DtsArticleSubjectDto dtsArticleSubjectDto = articleSubjectDsl.findSubjectById(subjectId);
+		DtsArticleSubjectDto dtsArticleSubjectDto = articlerRepository.findSubjectById(subjectId);
 		if (dtsArticleSubjectDto == null) {
 			return null;
 		}
-		List<DtsArticle> dtsArticles = articleSubjectDsl.findAllBySubjectId(subjectId);
+		List<DtsArticle> dtsArticles = articlerRepository.findAllBySubjectId(subjectId);
 		dtsArticleSubjectDto.setArticleList(dtsArticles);
 		return dtsArticleSubjectDto;
 	}
@@ -72,14 +64,14 @@ public class DtsArticleSubjectService {
 	 * 查询专辑链表
 	 */
 	public Page<DtsArticleSubjectDto> selectSubjectList(Pageable pageable) {
-		return articleSubjectDsl.findSubjectList(pageable);
+		return articleSubjectRepository.findSubjectList(pageable);
 	}
 
 	/**
 	 * 通过作者名称查询专辑列表
 	 */
 	public List<DtsArticleSubjectDto> selectSubjectListByUsername(String username) {
-		return articleSubjectDsl.findSubjectListByUsername(username);
+		return articleSubjectRepository.findSubjectListByUsername(username);
 	}
 
 	/**
@@ -109,11 +101,11 @@ public class DtsArticleSubjectService {
 	 * 通过专辑名称搜索专辑
 	 */
 	public Page<DtsArticleSubjectDto> findSubjectListBySubjectName(String name,Pageable pageable) {
-		return articleSubjectDsl.findSubjectListBySubjectName(name, pageable);
+		return articleSubjectRepository.findSubjectListBySubjectName(name, pageable);
 	}
 
 	public String findSubjectIdByArticleId(String articleId) {
-		return articleSubjectDsl.findSubjectIdByArticleId(articleId);
+		return articleSubjectRepository.findSubjectIdByArticleId(articleId);
 	}
 
 	public DtsArticleSubject subjectById(String subjectId) {
@@ -122,28 +114,28 @@ public class DtsArticleSubjectService {
 
 	public List<DtsArticle> findSubjectArticleTitleListByArticleId(String articleId) {
 		String subjectId = findSubjectIdByArticleId(articleId);
-		return dtsArticleSubjectDsl.findSubjectArticleTitleListBySubjectId(subjectId);
+		return articleSubjectRepository.findSubjectArticleTitleListBySubjectId(subjectId);
 	}
 
 	public void deleteBySubjectIdAndAuthorId(String subjectId, String authorId) {
-		dtsArticleSubjectDsl.deleteBySubjectIdAndAuthorId(subjectId, authorId);
+		articleSubjectRepository.deleteBySubjectIdAndAuthorId(subjectId, authorId);
 	}
 
 	public Page<DtsArticleDto> selectArticleList(Pageable pageable) {
-		return articleDsl.selectArticleList(pageable);
+		return articleRepository.selectArticleList(pageable);
 	}
 
 	public Page<DtsArticleDto> selectArticleListSmall(Pageable pageable) {
-		return articleDsl.selectArticleListSmall(pageable);
+		return articleRepository.selectArticleListSmall(pageable);
 	}
 
 	public Page<DtsArticleDto> search(String title, Integer page, Integer pageSize) {
 		Pageable pageable = PageRequest.of(page, pageSize);
-		return articleDsl.search(title, pageable);
+		return articleRepository.search(title, pageable);
 	}
 
 	public Page<DtsArticleDto> selectArticleByAuthorName(String username, Pageable pageable) {
-		return articleDsl.selectArticleListByUsername(username, pageable);
+		return articleRepository.selectArticleListByUsername(username, pageable);
 	}
 
 	public DtsArticle insertArticle(DtsArticle article) {
@@ -170,11 +162,7 @@ public class DtsArticleSubjectService {
 	}
 
 	public DtsArticleDto selectArticleById(String id) {
-		return articleDsl.selectArticleById(id);
-	}
-
-	public DtsArticleDto selectArticleAllById(String id) {
-		return articleDsl.selectArticleAllById(id);
+		return articleRepository.selectArticle(id);
 	}
 
 	public DtsArticle selectArticleInfoById(String id) {
@@ -187,7 +175,7 @@ public class DtsArticleSubjectService {
 
 	public List<DtsArticleDto> selectArticleListRandom() {
 		List<DtsArticleDto> set = new ArrayList<>();
-		cache = articleDsl.selectArticleList1000();
+		cache = articleRepository.selectArticleList1000();
 		while (set.size() <= 10) {
 			Random random = new Random();
 			int n = random.nextInt(cache.size());
@@ -218,14 +206,14 @@ public class DtsArticleSubjectService {
 	 * 查询关注用户的文章
 	 */
 	public Page<DtsArticleDto> selectGzArticleList(Pageable pageable, String authorId) {
-		return articleDsl.selectGzArticleList(authorId, pageable);
+		return articleRepository.selectGzArticleList(authorId, pageable);
 	}
 
 	/**
 	 * 管理查询
 	 */
     public Page<DtsArticleDto> findArticleList(Pageable page, Integer state) {
-        return articleDsl.selectArticleListState(page, state);
+        return articleRepository.selectArticleListState(page, state);
     }
 
 	public void deleteArticleByArticleId(String articleId) {

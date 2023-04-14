@@ -3,16 +3,15 @@ server:
 
 spring:
   datasource:
-    initialization-mode: always  
     driver-class-name: org.h2.Driver
-    url: jdbc:h2:C:\Users\Bobcbui No\OneDrive\tang
-    #url: jdbc:h2:tcp://localhost:9092/~/tang
+    url: jdbc:h2:tcp://localhost:9092/~/tang
     username: as
     password: as
+    data: data.sql
   sql:
-    init: classpath:data.sql
+    init:
+      mode: never #always never
   jpa:
-    
     database: h2
     hibernate:
       ddl-auto: 'update'

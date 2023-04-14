@@ -1,8 +1,10 @@
-package cn.ttcxy.dao.repository;
+package cn.ttcxy.repository;
 
 
 import javax.transaction.Transactional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -18,4 +20,8 @@ public interface DtsCollectRepository extends CrudRepository<DtsCollect, String>
     @Query(value = "delete from dts_collect c where c.data_id = ?1 and c.author_id = ?2",
             nativeQuery = true)
     int deleteByDataIdAndAuthorId(String dataId, String authorId);
+
+    @Query(value = "delete from dts_collect c where c.data_id = ?1 and c.author_id = ?2",
+            nativeQuery = true)
+    Page<DtsCollect> selectCollect(String authorId, Pageable pageable);
 }
