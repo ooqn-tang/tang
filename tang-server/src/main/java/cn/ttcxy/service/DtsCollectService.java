@@ -26,7 +26,7 @@ public class DtsCollectService {
 		return collectRepository.save(collect);
 	}
 
-	public int unCollect(String authorId, String dataId) {
-		return collectRepository.deleteByDataIdAndAuthorId(dataId, authorId);
+	public void unCollect(String authorId, String dataId) {
+		collectRepository.deleteByDataIdAndAuthorId(dataId, authorId);
 	}
 }

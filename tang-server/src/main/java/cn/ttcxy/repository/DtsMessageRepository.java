@@ -8,6 +8,7 @@ import org.springframework.data.repository.CrudRepository;
 
 import cn.ttcxy.entity.dto.DtsMessageDto;
 import cn.ttcxy.entity.model.DtsMessage;
+import org.springframework.stereotype.Repository;
 
 public interface DtsMessageRepository extends CrudRepository<DtsMessage, String> {
 

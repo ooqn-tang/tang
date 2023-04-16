@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import cn.ttcxy.entity.model.StsNotice;
+import org.springframework.stereotype.Repository;
 
 public interface StsNoticeRepository extends CrudRepository<StsNotice, String> {
 

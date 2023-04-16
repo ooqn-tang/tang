@@ -8,6 +8,7 @@ import org.springframework.data.repository.CrudRepository;
 
 import cn.ttcxy.entity.dto.UtsRoleDto;
 import cn.ttcxy.entity.model.UtsRole;
+import org.springframework.stereotype.Repository;
 
 public interface UtsRoleRepository extends CrudRepository<UtsRole, String> {
 

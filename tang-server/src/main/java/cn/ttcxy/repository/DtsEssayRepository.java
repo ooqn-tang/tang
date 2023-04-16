@@ -8,6 +8,7 @@ import org.springframework.data.repository.CrudRepository;
 
 import cn.ttcxy.entity.dto.DtsEssayDto;
 import cn.ttcxy.entity.model.DtsEssay;
+import org.springframework.stereotype.Repository;
 
 public interface DtsEssayRepository extends CrudRepository<DtsEssay, String> {
 

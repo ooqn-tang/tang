@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.data.repository.CrudRepository;
 
 import cn.ttcxy.entity.model.DtsLike;
+import org.springframework.stereotype.Repository;
 
 public interface DtsLikeRepository extends CrudRepository<DtsLike, String> {
 

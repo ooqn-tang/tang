@@ -1,13 +1,13 @@
 package cn.ttcxy.repository;
 
 
-import java.util.List;
-
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
-
 import cn.ttcxy.entity.dto.UtsRoleResourceDto;
 import cn.ttcxy.entity.model.UtsResource;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 public interface UtsResourceRepository extends CrudRepository<UtsResource, String> {
 

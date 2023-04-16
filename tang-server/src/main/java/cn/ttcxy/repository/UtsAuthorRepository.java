@@ -3,12 +3,17 @@ package cn.ttcxy.repository;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.ListCrudRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 import cn.ttcxy.entity.model.UtsAuthor;
+import org.springframework.stereotype.Repository;
 
-public interface UtsAuthorRepository extends PagingAndSortingRepository<UtsAuthor, String> {
+public interface UtsAuthorRepository extends CrudRepository<UtsAuthor, String> {
 
     UtsAuthor findByUsername(String username);
 
@@ -19,9 +24,11 @@ public interface UtsAuthorRepository extends PagingAndSortingRepository<UtsAutho
 
     int countByUsername(String username);
 
-    List<UtsAuthor> findByMailLikeAndUsernameLikeAndNicknameLike(String s, String s1, String s2);
+    List<UtsAuthor> findByMailLikeAndUsernameLikeAndNicknameLike(String mailLike, String username, String nicknameLike);
 
     long countByNickname(String nickname);
 
     long countByMail(String mail);
+
+    Page<UtsAuthor> findAll(Pageable pageable);
 }

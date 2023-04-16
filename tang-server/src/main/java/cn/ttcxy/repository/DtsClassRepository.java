@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import cn.ttcxy.entity.model.DtsClass;
+import org.springframework.stereotype.Repository;
 
 public interface DtsClassRepository extends CrudRepository<DtsClass, String> {
 

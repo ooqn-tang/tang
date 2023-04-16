@@ -10,6 +10,7 @@ import org.springframework.data.repository.CrudRepository;
 
 import cn.ttcxy.entity.model.UtsFans;
 import jakarta.transaction.Transactional;
+import org.springframework.stereotype.Repository;
 
 @Transactional
 public interface UtsFansRepository extends CrudRepository<UtsFans, String> {

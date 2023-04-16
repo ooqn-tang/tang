@@ -54,8 +54,8 @@ public class DtsCollectController extends BaseController {
 	}
 
 	@DeleteMapping("{dataId}")
-	public Integer delete(@PathVariable("dataId") String dataId) {
+	public void delete(@PathVariable("dataId") String dataId) {
 		String authorId = authorId();
-		return collectService.unCollect(authorId, dataId);
+		collectService.unCollect(authorId, dataId);
 	}
 }
