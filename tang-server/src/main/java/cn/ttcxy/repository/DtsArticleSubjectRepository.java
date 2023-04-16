@@ -31,9 +31,6 @@ public interface DtsArticleSubjectRepository extends CrudRepository<DtsArticleSu
 	public String findSubjectIdByArticleId(String articleId) ;
 
 	@Query(value="select * from dts_article_subject",nativeQuery = true)
-	public List<DtsArticle> findAllBySubjectId(String subjectId) ;
-
-	@Query(value="select * from dts_article_subject",nativeQuery = true)
 	public List<DtsArticle> findSubjectArticleTitleListBySubjectId(String subjectId) ;
 
 	@Query(value="select * from dts_article_subject",nativeQuery = true)

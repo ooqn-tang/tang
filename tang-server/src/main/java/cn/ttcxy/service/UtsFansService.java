@@ -25,7 +25,7 @@ public class UtsFansService {
 	private UtsAuthorService authorService;
 
 	public Page<UtsFansDto> selectFansList(String authorId, Pageable pageable) {
-		return fansRepository.selectFansList(authorId, pageable);
+		return fansRepository.findFansList(authorId, pageable);
 	}
 
 	public UtsFans insertFans(UtsFans fans) {

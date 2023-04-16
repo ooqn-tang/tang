@@ -15,6 +15,6 @@ public class DtsClassService {
 	private DtsClassRepository classRepository;
 
 	public List<DtsClass> selectClass(String type) {
-		return classRepository.selectClass(type);
+		return classRepository.findByType(type);
 	}
 }

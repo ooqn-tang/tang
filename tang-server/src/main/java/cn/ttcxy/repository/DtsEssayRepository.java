@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
 
 public interface DtsEssayRepository extends CrudRepository<DtsEssay, String> {
 
-    @Query(value="select * from dts_essay",nativeQuery = true)
-    Page<DtsEssayDto> select(Pageable pageable);
+    @Query(value="select * from dts_essay t1 , uts_author t2 where t1.author_id and t2.author_id",nativeQuery = true)
+    Page<DtsEssayDto> findAllInfo(Pageable pageable);
 
 }

@@ -47,7 +47,7 @@ pagehelper:
   params: count=countSql
 
 tang:
-  openUrl: /api/ws/**,/api/register,/,/*.html,/src/main/resources/favicon.ico,/**/*.html,/**/*.css,/**/*.js,/h2-console/**,/swagger-ui/**,/swagger-resources/**,/swagger-resources,/v3/api-docs,/**/*.jpg,/**/*.*,/api/authenticate,/error,/api/refresh
+  openUrl: /,/**/*.jpg,/**/*.html,/**/*.js,/**/*.css,/api/ws/**,/api/register,/h2-console/**,/swagger-ui/**,/swagger-resources/**,/swagger-resources,/v3/api-docs,/api/authenticate,/error,/api/refresh
   tokenKey: Token
   jwt:
     base64-secret: 6IKv5a6a5pivSkZL5ouJ6JCo6YWx6LGG6IWQ6ICD6JmRYXNr5bCx5Zyw5pa56Imw6Ium5ouJ6JCo5aSn5a625Y+RYWtzZGZqbGthc2RqZmtsYXNkamZsa+WPkeWjq+Wkp+Wkq+WViuaJi+WKqOmYgOaJi+WKqOmYgOmYv+aWr+iSguiKrOmYv+aWr+iSguiKrA==

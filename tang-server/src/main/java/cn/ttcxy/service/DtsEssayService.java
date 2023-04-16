@@ -28,7 +28,7 @@ public class DtsEssayService {
 		essayRepository.deleteById(authorId);
 	}
 
-	public Page<DtsEssayDto> select(Pageable pageable) {
-		return essayRepository.select(pageable);
+	public Page<DtsEssayDto> findAllInfo(Pageable pageable) {
+		return essayRepository.findAllInfo(pageable);
 	}
 }

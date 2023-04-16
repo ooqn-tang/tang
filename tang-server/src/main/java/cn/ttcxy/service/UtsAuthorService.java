@@ -33,7 +33,7 @@ import org.springframework.stereotype.Service;
 public class UtsAuthorService {
 
 	@Autowired
-	private UtsAuthorRepository utsAuthorRepository;
+	private UtsAuthorRepository authorRepository;
 
 	@Autowired
 	private UtsAuthorRoleRepository authorRoleRepository;
@@ -46,11 +46,11 @@ public class UtsAuthorService {
 	
 
 	public UtsAuthor selectAuthorByName(String username) {
-		return utsAuthorRepository.findByUsername(username);
+		return authorRepository.findByUsername(username);
 	}
 
 	public UtsAuthor selectAuthorByMail(String mail) {
-		return utsAuthorRepository.findByMail(mail);
+		return authorRepository.findByMail(mail);
 	}
 
 	public UtsAuthor insertAuthor(UtsAuthor author) throws DuplicateKeyException {
@@ -66,37 +66,37 @@ public class UtsAuthorService {
 		authorRole.setRoleId("2");
 		authorRole.setCreateTime(DateUtil.date());
 		authorRoleRepository.save(authorRole);
-		return utsAuthorRepository.save(author);
+		return authorRepository.save(author);
 	}
 
 	public UtsAuthor update(UtsAuthor author) {
-		return utsAuthorRepository.save(author);
+		return authorRepository.save(author);
 	}
 
 	public Boolean selectUsernameIsTrue(String username) {
-		return utsAuthorRepository.countByUsername(username) > 0;
+		return authorRepository.countByUsername(username) > 0;
 	}
 
 	public Boolean selectNicknameIsTrue(String nickname) {
-		return utsAuthorRepository.countByNickname(nickname) > 0;
+		return authorRepository.countByNickname(nickname) > 0;
 	}
 
 	public Boolean selectMailIsTrue(String mail) {
-		return utsAuthorRepository.countByMail(mail) > 0;
+		return authorRepository.countByMail(mail) > 0;
 	}
 
 	public Page<UtsAuthor> selectAuthor(Pageable pageable) {
-		return utsAuthorRepository.findAll(pageable);
+		return authorRepository.findAll(pageable);
 	}
 
 	public List<UtsAuthor> select(String queryData) {
-		return utsAuthorRepository.findByMailLikeAndUsernameLikeAndNicknameLike(
+		return authorRepository.findByMailLikeAndUsernameLikeAndNicknameLike(
 				"%" + queryData + "%", "%" + queryData + "%", "%" + queryData + "%");
 	}
 
 	public void delete(String authorId) {
-		UtsAuthor author = utsAuthorRepository.findById(authorId).orElseThrow();
-		utsAuthorRepository.save(author);
+		UtsAuthor author = authorRepository.findById(authorId).orElseThrow();
+		authorRepository.save(author);
 	}
 
 	public void insertRole(String authorId, List<UtsRoleParam> roleParams) {

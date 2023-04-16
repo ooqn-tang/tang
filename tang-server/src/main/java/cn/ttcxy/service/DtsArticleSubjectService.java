@@ -55,7 +55,7 @@ public class DtsArticleSubjectService {
 		if (dtsArticleSubjectDto == null) {
 			return null;
 		}
-		List<DtsArticle> dtsArticles = articlerRepository.findAllBySubjectId(subjectId);
+		List<DtsArticle> dtsArticles = articlerRepository.findSubjectArticleListBySubjectId(subjectId);
 		dtsArticleSubjectDto.setArticleList(dtsArticles);
 		return dtsArticleSubjectDto;
 	}
@@ -122,11 +122,11 @@ public class DtsArticleSubjectService {
 	}
 
 	public Page<DtsArticleDto> selectArticleList(Pageable pageable) {
-		return articleRepository.selectArticleList(pageable);
+		return articleRepository.findArticleList(pageable);
 	}
 
 	public Page<DtsArticleDto> selectArticleListSmall(Pageable pageable) {
-		return articleRepository.selectArticleListSmall(pageable);
+		return articleRepository.findArticleListSmall(pageable);
 	}
 
 	public Page<DtsArticleDto> search(String title, Integer page, Integer pageSize) {
@@ -135,7 +135,7 @@ public class DtsArticleSubjectService {
 	}
 
 	public Page<DtsArticleDto> selectArticleByAuthorName(String username, Pageable pageable) {
-		return articleRepository.selectArticleListByUsername(username, pageable);
+		return articleRepository.findArticleListByUsername(username, pageable);
 	}
 
 	public DtsArticle insertArticle(DtsArticle article) {
@@ -162,7 +162,7 @@ public class DtsArticleSubjectService {
 	}
 
 	public DtsArticleDto selectArticleById(String id) {
-		return articleRepository.selectArticle(id);
+		return articleRepository.findArticle(id);
 	}
 
 	public DtsArticle selectArticleInfoById(String id) {
@@ -175,7 +175,7 @@ public class DtsArticleSubjectService {
 
 	public List<DtsArticleDto> selectArticleListRandom() {
 		List<DtsArticleDto> set = new ArrayList<>();
-		cache = articleRepository.selectArticleList1000();
+		cache = articleRepository.findArticleList1000();
 		while (set.size() <= 10) {
 			Random random = new Random();
 			int n = random.nextInt(cache.size());
@@ -206,14 +206,14 @@ public class DtsArticleSubjectService {
 	 * 查询关注用户的文章
 	 */
 	public Page<DtsArticleDto> selectGzArticleList(Pageable pageable, String authorId) {
-		return articleRepository.selectGzArticleList(authorId, pageable);
+		return articleRepository.findGzArticleList(authorId, pageable);
 	}
 
 	/**
 	 * 管理查询
 	 */
-    public Page<DtsArticleDto> findArticleList(Pageable page, Integer state) {
-        return articleRepository.selectArticleListState(page, state);
+    public Page<DtsArticleDto> findArticleList(Integer state,Pageable page) {
+        return articleRepository.findArticleListState(state,page);
     }
 
 	public void deleteArticleByArticleId(String articleId) {

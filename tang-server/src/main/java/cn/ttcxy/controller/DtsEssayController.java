@@ -46,7 +46,7 @@ public class DtsEssayController extends BaseController {
 	@GetMapping
 	public Page<DtsEssayDto> select(@RequestParam(defaultValue = "0") Integer page) {
 		Pageable pageable = PageRequest.of(page, 30);
-		return essayService.select(pageable);
+		return essayService.findAllInfo(pageable);
 	}
 
 	@DeleteMapping("{essayId}")

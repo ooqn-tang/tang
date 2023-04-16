@@ -16,13 +16,13 @@ public class UtsRbacService {
 	private final AntPathMatcher antPathMatcher = new AntPathMatcher();
 
 	@Autowired
-	private UtsResourceService utsResourceService;
+	private UtsResourceService resourceService;
 
 	public boolean hasPermission(HttpServletRequest request, Authentication authentication) {
 		Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
 		for (GrantedAuthority authority : authorities) {
 			String role = authority.getAuthority();
-			List<UtsResource> resourceList = utsResourceService.loadResourceUrlByRoleValue(role);
+			List<UtsResource> resourceList = resourceService.loadResourceUrlByRoleValue(role);
 			for (UtsResource resource : resourceList) {
 				String method = request.getMethod();
 				if (antPathMatcher.match(resource.getPath(), request.getRequestURI()) && method.equals(resource.getType())) {

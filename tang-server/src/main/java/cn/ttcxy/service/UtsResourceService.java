@@ -40,7 +40,7 @@ public class UtsResourceService {
 	}
 
 	public List<String> selectByRoleId(String roleId) {
-		return resourceRepository.selectByRoleId(roleId);
+		return resourceRepository.findByRoleId(roleId);
 	}
 
 	

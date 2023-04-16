@@ -18,25 +18,25 @@ import cn.ttcxy.entity.model.UtsAuthor;
 public class UtsUserDetailsService implements UserDetailsService {
 
 	@Autowired
-	private UtsAuthorService utsAuthorService;
+	private UtsAuthorService authorService;
 
 	@Autowired
-	private UtsRoleService utsRoleService;
+	private UtsRoleService roleService;
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		UtsAuthor author;
 
 		if (Validator.isEmail(username)) {
-			author = utsAuthorService.selectAuthorByMail(username);
+			author = authorService.selectAuthorByMail(username);
 		} else {
-			author = utsAuthorService.selectAuthorByName(username);
+			author = authorService.selectAuthorByName(username);
 		}
 
 		if (author != null) {
 			UtsAuthorDto authorDto = new UtsAuthorDto();
 			authorDto.setAuthor(author);
-			List<UtsRoleDto> utsRoles = utsRoleService.roleList(author.getAuthorId());
+			List<UtsRoleDto> utsRoles = roleService.roleList(author.getAuthorId());
 			authorDto.setRoleList(utsRoles);
 			return BeanUtil.toBean(authorDto, UtsAuthorDto.class);
 		}

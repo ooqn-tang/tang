@@ -17,41 +17,41 @@ import cn.ttcxy.entity.model.DtsArticle;
 
 public interface DtsArticleRepository extends CrudRepository<DtsArticle, String> {
 
-    @Query(value="?1",nativeQuery = true)
-    List<DtsArticle> findAllBySubjectId(String subjectId);
+    @Query(value="select * from dts_article_subject t1, dts_article t2 where t1.subject_id = ?1 and t1.article_id = t2.article_id ",nativeQuery = true)
+    List<DtsArticle> findSubjectArticleListBySubjectId(String subjectId);
 
     @Modifying
     @Transactional
     void deleteByArticleIdAndAuthorId(String articleId, String authorId);
 
-    @Query(value="?1",nativeQuery = true)
-    Page<DtsArticleDto> selectArticleListState(Pageable page, Integer state);
+    @Query(value="select * from dts_article t1 , uts_author t2 where t1.state = ?1 and t1.author_id = t2.author_id" ,nativeQuery = true)
+    Page<DtsArticleDto> findArticleListState(Integer state, Pageable page);
 
     @Query(value="?1",nativeQuery = true)
-    Page<DtsArticleDto> selectGzArticleList(String authorId, Pageable pageable);
+    Page<DtsArticleDto> findGzArticleList(String authorId, Pageable pageable);
 
     @Query(value="?1",nativeQuery = true)
-    List<DtsArticleDto> selectArticleList1000();
+    List<DtsArticleDto> findArticleList1000();
 
     @Query(value="?1",nativeQuery = true)
     DtsArticleSubjectDto findSubjectById(String subjectId);
 
     @Query(value="?1",nativeQuery = true)
-    Page<DtsArticleDto> selectArticleList(Pageable pageable);
+    Page<DtsArticleDto> findArticleList(Pageable pageable);
 
     @Query(value="?1",nativeQuery = true)
-    Page<DtsArticleDto> selectArticleListSmall(Pageable pageable);
+    Page<DtsArticleDto> findArticleListSmall(Pageable pageable);
 
     @Query(value="?1",nativeQuery = true)
     Page<DtsArticleDto> search(String title, Pageable pageable);
 
     @Query(value = "select * from dts_article t1,dts_author t2 where t1.author_id = t2.author_id and t2.username = ?1",nativeQuery = true)
-    Page<DtsArticleDto> selectArticleListByUsername(String username, Pageable pageable);
+    Page<DtsArticleDto> findArticleListByUsername(String username, Pageable pageable);
 
     @Query(value="?1",nativeQuery = true)
-    DtsArticleDto selectArticle(String id);
+    DtsArticleDto findArticle(String id);
 
-    @Query(value="?1",nativeQuery = true)
-    DtsArticleDto selectArticleAll(String id);
+    @Query(value="select * from dts_article t1, uts_author t2 where and t1.authorId = ?1 and t1.author_id = t2.author_id",nativeQuery = true)
+    DtsArticleDto findArticleAllInfoByAuthorId(String id);
 
 }

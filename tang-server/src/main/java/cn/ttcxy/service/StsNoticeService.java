@@ -30,7 +30,7 @@ public class StsNoticeService {
 	public StsNotice insertNotice(StsNotice notice) {
 		String id = IdUtil.objectId();
 		notice.setNoticeId(id);
-		Integer integer = noticeRepository.selectNoticeMaxOrder();
+		Integer integer = noticeRepository.findNoticeMaxOrder();
 		notice.setOrderNum(integer + 1);
 		return noticeRepository.save(notice);
 	}

@@ -24,7 +24,7 @@ public class UtsRoleService {
 	private UtsResourceRoleRepository resourceRoleRepository;
 
 	public List<UtsRoleDto> roleList(String authorId) {
-		return roleRepository.selectRoleListByAuthorId(authorId);
+		return roleRepository.findRoleListByAuthorId(authorId);
 	}
 
 	public UtsRole selectById(String roleId) {
@@ -60,7 +60,7 @@ public class UtsRoleService {
 	}
 
 	public List<String> selectRoleIdList(String authorId) {
-		return roleRepository.selectRoleIdList(authorId);
+		return roleRepository.findRoleIdList(authorId);
 	}
 
 	public List<UtsRole> selectByName(String roleName) {

@@ -24,15 +24,16 @@ public class AdminArticleController {
 
     @GetMapping
     public Page<DtsArticleDto> find(
-            @RequestParam(value = "page", defaultValue = "0") Integer page,
-            @RequestParam(value = "state", defaultValue = "1") Integer state) {
+            @RequestParam(value = "state", defaultValue = "1") Integer state,
+            @RequestParam(value = "page", defaultValue = "0") Integer page) {
         Pageable pageable = PageRequest.of(page, 10);
-        return articleSubjectService.findArticleList(pageable,state);
+        return articleSubjectService.findArticleList(state,pageable);
        
     }
 
     @DeleteMapping("{articleId}")
-    public void delete(@PathVariable("articleId")String articleId) {
+    public void delete(
+            @PathVariable("articleId")String articleId) {
         articleSubjectService.deleteArticleByArticleId(articleId);
     }
 

@@ -5,7 +5,6 @@ import cn.ttcxy.entity.dto.UtsRoleResourceDto;
 import cn.ttcxy.entity.model.UtsResource;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 
@@ -22,7 +21,7 @@ public interface UtsResourceRepository extends CrudRepository<UtsResource, Strin
         and t2.role_id = t3.role_id 
         and t3.role_value = ?1
     """,nativeQuery = true)
-    List<UtsRoleResourceDto> selectAll();
+    List<UtsRoleResourceDto> findAllInfo();
 
     @Query(value = """
         select t1.resource_id as resourceId,t1.path as path,t1.name as name,t1.type as type,t1.create_time as createTime,t1.state as state,t2.role_id as roleId,t3.role_value as roleValue 
@@ -39,5 +38,5 @@ public interface UtsResourceRepository extends CrudRepository<UtsResource, Strin
         and t2.role_id = t3.role_id 
         and t3.role_value = ?1
     """,nativeQuery = true)
-    public List<String> selectByRoleId(String roleId);
+    public List<String> findByRoleId(String roleId);
 }

@@ -10,7 +10,6 @@ import org.springframework.data.repository.CrudRepository;
 
 import cn.ttcxy.entity.model.UtsFans;
 import jakarta.transaction.Transactional;
-import org.springframework.stereotype.Repository;
 
 @Transactional
 public interface UtsFansRepository extends CrudRepository<UtsFans, String> {
@@ -22,5 +21,5 @@ public interface UtsFansRepository extends CrudRepository<UtsFans, String> {
     public Long isFans(String authorId, String beAuthorId);
 
     @Query(value = "select * from uts_fans where author_id = ?1", nativeQuery = true)
-    Page<UtsFansDto> selectFansList(String userId, Pageable pageable);
+    Page<UtsFansDto> findFansList(String userId, Pageable pageable);
 }

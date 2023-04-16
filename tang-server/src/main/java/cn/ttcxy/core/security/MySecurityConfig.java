@@ -43,10 +43,11 @@ public class MySecurityConfig {
 
     @Bean
     WebSecurityCustomizer webSecurityCustomizer() {
+		String[] split = tangProperties.getOpenUrl().split(",");
 		return web -> web
 				.ignoring()
 				.requestMatchers(HttpMethod.OPTIONS, "/**")
-				.requestMatchers(tangProperties.getOpenUrl().split(","));
+				.requestMatchers(split);
 	}
 
     @Bean

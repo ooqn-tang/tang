@@ -18,6 +18,6 @@ public class DtseMssageService {
 	private DtsMessageRepository messageRepository;
 
 	public List<DtsMessageDto> authorMessageList(String authorId) {
-		return messageRepository.selectAuthorMessage(authorId);
+		return messageRepository.findAuthorMessage(authorId);
 	}
 }
