@@ -11,7 +11,6 @@ import org.springframework.data.repository.CrudRepository;
 import cn.ttcxy.entity.dto.DtsArticleSubjectDto;
 import cn.ttcxy.entity.model.DtsArticle;
 import cn.ttcxy.entity.model.DtsArticleSubject;
-import org.springframework.stereotype.Repository;
 
 public interface DtsArticleSubjectRepository extends CrudRepository<DtsArticleSubject, String> {
 

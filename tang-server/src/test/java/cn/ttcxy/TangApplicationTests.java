@@ -1,9 +1,10 @@
 package cn.ttcxy;
 
-import cn.ttcxy.entity.dto.DtsEssayDto;
-import cn.ttcxy.entity.model.DtsEssay;
-import cn.ttcxy.repository.DtsEssayRepository;
-import com.alibaba.fastjson.JSON;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.util.Date;
+import java.util.List;
+
 import org.h2.tools.Server;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -11,13 +12,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Configuration;
 
-import cn.ttcxy.repository.UtsRoleRepository;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
+import com.alibaba.fastjson.JSON;
 
-import java.util.Date;
-import java.util.List;
+import cn.ttcxy.entity.dto.DtsEssayDto;
+import cn.ttcxy.entity.model.DtsEssay;
+import cn.ttcxy.repository.DtsEssayRepository;
+import cn.ttcxy.repository.UtsRoleRepository;
 
 @Configuration
 @SpringBootTest(classes = TangApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -51,9 +51,8 @@ class TangApplicationTests {
         DtsEssay save = essayRepository.save(essay);
         System.out.println("===========");
         System.out.println(save);
-        Pageable pageable = PageRequest.of(1, 30);
-        Page<DtsEssayDto> select = essayRepository.findAllInfo(pageable);
-        List<DtsEssayDto> content = select.getContent();
+        List<DtsEssayDto> content = essayRepository.findAllInfo();
         System.out.println(JSON.toJSONString(content));
+        assertEquals(1, content.size());
     }
 }
