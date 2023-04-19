@@ -16,9 +16,14 @@ public class UtsRole {
 
 	private String roleValue;
 
+	private String createAuthorId;
+
 	private Date createTime;
+
+	private String updateAuthorId;
 
 	private Date updateTime;
 
 	private Date refreshTime;
+
 }

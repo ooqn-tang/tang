@@ -22,6 +22,18 @@ public class UtsRoleDto implements GrantedAuthority {
 
 	private Date refreshTime;
 
+	public UtsRoleDto() {
+	}
+
+	public UtsRoleDto(String roleId, String roleName, String roleValue, Date createTime, Date updateTime, Date refreshTime) {
+		this.roleId = roleId;
+		this.roleName = roleName;
+		this.roleValue = roleValue;
+		this.createTime = createTime;
+		this.updateTime = updateTime;
+		this.refreshTime = refreshTime;
+	}
+
 	@Override
 	public String getAuthority() {
 		return roleValue;

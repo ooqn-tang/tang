@@ -6,6 +6,7 @@ import java.util.Set;
 public class UtsRoleResourceDto {
 
 	private String path;
+	
 	Set<UtsRole> roleSet;
 
 	public String getPath() {

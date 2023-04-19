@@ -36,8 +36,7 @@ public class DtsEssayController extends BaseController {
 		if (dtsEssay != null) {
 			DtsEssayDto dtsEssayDto = BeanUtil.toBean(essay, DtsEssayDto.class);
 			UtsAuthor author = author();
-			dtsEssayDto.setUsername(author.getUsername());
-			dtsEssayDto.setNickname(author.getNickname());
+			dtsEssayDto.setAuthor(author);
 			return dtsEssayDto;
 		}
 		throw new ApiException("添加失败");

@@ -14,6 +14,8 @@ public class DtsLike {
 
 	private String dataId;
 
+	private String dataType;
+
 	private String authorId;
 
 	private Date createTime;

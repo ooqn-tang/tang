@@ -1,13 +1,13 @@
 package cn.ttcxy.repository;
 
 
-import cn.ttcxy.entity.model.DtsArticleSubjectRelevance;
+import cn.ttcxy.entity.model.DtsSubjectRelevance;
 import org.springframework.data.repository.CrudRepository;
 
-public interface DtsArticleSubjectRelevanceRepository extends CrudRepository<DtsArticleSubjectRelevance, String> {
+public interface DtsArticleSubjectRelevanceRepository extends CrudRepository<DtsSubjectRelevance, String> {
 
     int countByArticleId(String articleId);
 
-    DtsArticleSubjectRelevance findByArticleId(String articleId);
+    DtsSubjectRelevance findByArticleId(String articleId);
 
 }

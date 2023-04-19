@@ -22,7 +22,7 @@ import cn.ttcxy.core.exception.ApiException;
 import cn.ttcxy.entity.dto.DtsArticleSubjectDto;
 import cn.ttcxy.entity.model.DtsArticle;
 import cn.ttcxy.entity.model.DtsArticleSubject;
-import cn.ttcxy.entity.model.DtsArticleSubjectRelevance;
+import cn.ttcxy.entity.model.DtsSubjectRelevance;
 import cn.ttcxy.entity.param.DtsSubjectParam;
 import cn.ttcxy.service.DtsArticleSubjectService;
 
@@ -88,7 +88,7 @@ public class DtsSubjectController extends BaseController {
 	}
 
 	@PutMapping("article")
-	public DtsArticleSubjectRelevance insertArticleToSubject(
+	public DtsSubjectRelevance insertArticleToSubject(
 			@RequestParam(value = "articleId") String articleId,
 			@RequestParam(value = "subjectId") String subjectId) {
 		return articleSubjectService.saveSubjectId(articleId, subjectId);

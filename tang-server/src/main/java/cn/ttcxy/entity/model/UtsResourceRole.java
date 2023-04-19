@@ -18,35 +18,4 @@ public class UtsResourceRole {
 
 	private Date createTime;
 
-	public String getResourceRoleId() {
-		return resourceRoleId;
-	}
-
-	public void setResourceRoleId(String resourceRoleId) {
-		this.resourceRoleId = resourceRoleId;
-	}
-
-	public String getResourceId() {
-		return resourceId;
-	}
-
-	public void setResourceId(String resourceId) {
-		this.resourceId = resourceId;
-	}
-
-	public String getRoleId() {
-		return roleId;
-	}
-
-	public void setRoleId(String roleId) {
-		this.roleId = roleId;
-	}
-
-	public Date getCreateTime() {
-		return createTime;
-	}
-
-	public void setCreateTime(Date createTime) {
-		this.createTime = createTime;
-	}
 }

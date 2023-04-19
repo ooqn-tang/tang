@@ -16,9 +16,17 @@ public class StsNotice {
 
 	private String url;
 
-	private Date createDate;
-
 	private String description;
 
+	private String type;
+
+	private String status;
+	
 	private Integer orderNum;
+
+
+	private String createAuthorId;
+
+	private Date createDate;
+
 }

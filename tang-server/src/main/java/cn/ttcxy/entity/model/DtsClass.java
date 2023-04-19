@@ -12,9 +12,18 @@ public class DtsClass {
 	@Id
 	private String classId;
 
-	private String className;
+	private String parentId;
+
+	private String type;
+
+	private String name;
+
+	private String createAuthorId;
 
 	private Date createTime;
 
-	private String type;
+	private String updateAuthorId;
+
+	private Date updateTime;
+
 }

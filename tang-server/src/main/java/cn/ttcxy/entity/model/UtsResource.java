@@ -1,12 +1,17 @@
 package cn.ttcxy.entity.model;
 
 import java.util.Date;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class UtsResource {
 
 	@Id
@@ -18,7 +23,8 @@ public class UtsResource {
 
 	private String type;
 
-	private Date createTime;
-
 	private Integer state;
+	
+	private Date createTime;
+	
 }

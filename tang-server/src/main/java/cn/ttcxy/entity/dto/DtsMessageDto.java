@@ -1,6 +1,7 @@
 package cn.ttcxy.entity.dto;
 
-import java.util.Date;
+import cn.ttcxy.entity.model.DtsMessage;
+import cn.ttcxy.entity.model.UtsAuthor;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -8,19 +9,9 @@ import lombok.Setter;
 @Setter
 public class DtsMessageDto {
 
-	private String messageId;
+	private DtsMessage message;
 
-	private String authorId;
+	private UtsAuthor author;
 
-	private Date createDate;
-
-	private String text;
-
-	private String title;
-
-	private String username;
-
-	private String url;
-
-	private String nickname;
+	
 }

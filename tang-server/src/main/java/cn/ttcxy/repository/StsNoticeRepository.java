@@ -10,7 +10,7 @@ import cn.ttcxy.entity.model.StsNotice;
 
 public interface StsNoticeRepository extends CrudRepository<StsNotice, String> {
 
-    @Query("FROM StsNotice ORDER BY orderNum ASC")
+    @Query("FROM StsNotice order by orderNum ASC")
     List<StsNotice> findAllOrderByOrderNumAsc();
 
     @Query(value = "FROM StsNotice ORDER BY orderNum ASC", nativeQuery = true)

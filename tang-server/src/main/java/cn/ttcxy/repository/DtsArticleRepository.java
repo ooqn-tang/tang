@@ -45,7 +45,12 @@ public interface DtsArticleRepository extends CrudRepository<DtsArticle, String>
     @Query(value="?1",nativeQuery = true)
     Page<DtsArticleDto> search(String title, Pageable pageable);
 
-    @Query(value = "select * from dts_article t1,dts_author t2 where t1.author_id = t2.author_id and t2.username = ?1",nativeQuery = true)
+    @Query(value = """
+        select new cn.ttcxy.entity.dto.DtsArticleDto(t1.articleId,
+        t2.username,t2.nickname,t1.title,t1.createTime,t1.updateTime,t1.synposis,t1.text,
+        t1.markdown)
+        from DtsArticle t1,DtsAuthor t2 where t1.author_id = t2.author_id and t2.username = ?1
+        """,nativeQuery = true)
     Page<DtsArticleDto> findArticleListByUsername(String username, Pageable pageable);
 
     @Query(value="?1",nativeQuery = true)

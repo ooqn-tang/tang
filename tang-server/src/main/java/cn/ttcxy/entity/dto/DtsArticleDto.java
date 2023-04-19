@@ -1,6 +1,8 @@
 package cn.ttcxy.entity.dto;
 
-import java.util.Date;
+import cn.ttcxy.entity.model.DtsArticle;
+import cn.ttcxy.entity.model.DtsArticleSubject;
+import cn.ttcxy.entity.model.UtsAuthor;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,41 +13,25 @@ import lombok.Setter;
 @Setter
 public class DtsArticleDto {
 
-	private String articleId;
+	/**
+	 * 浏览器访问量
+	 */
+	private Integer pageViewCount;
 
-	// 用户名
-	private String username;
+	/**
+	 * 点赞量
+	 */
+	private Integer likeCount;
 
-	// 昵称
-	private String nickname;
+	/**
+	 * 收藏量
+	 */
+	private Integer collectCount;
 
-	// 博客标题
-	private String title;
+	private DtsArticle article;
 
-	// 创建时间
-	private Date createDate;
+	private UtsAuthor author;
 
-	// 更新时间
-	private Date updateDate;
-
-	// 大纲
-	private String synopsis;
-
-	// 博文文本
-	private String text;
-
-	// markdown
-	private String markdown;
-
-	// 专题名
-	private String subjectName;
-
-	// 专题ID
-	private String subjectId;
-
-	private String classId;
-
-	private String className;
-
-	private String type;
+	private DtsArticleSubject subject;
+	
 }

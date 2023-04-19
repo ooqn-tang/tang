@@ -9,4 +9,4 @@ export function refresh(data) {
         // 发送的数据为传入的data
         data:data
     })
-}
+}   

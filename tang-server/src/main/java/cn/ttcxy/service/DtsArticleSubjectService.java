@@ -19,7 +19,7 @@ import cn.ttcxy.entity.dto.DtsArticleDto;
 import cn.ttcxy.entity.dto.DtsArticleSubjectDto;
 import cn.ttcxy.entity.model.DtsArticle;
 import cn.ttcxy.entity.model.DtsArticleSubject;
-import cn.ttcxy.entity.model.DtsArticleSubjectRelevance;
+import cn.ttcxy.entity.model.DtsSubjectRelevance;
 import cn.ttcxy.repository.DtsArticleRepository;
 import cn.ttcxy.repository.DtsArticleSubjectRelevanceRepository;
 import cn.ttcxy.repository.DtsArticleSubjectRepository;
@@ -144,12 +144,12 @@ public class DtsArticleSubjectService {
 
 	public DtsArticle updateArticle(DtsArticle article, String subjectId) {
 		DtsArticle saveArticle = articleRepository.save(article);
-		DtsArticleSubjectRelevance articleSubjectRelevance =
+		DtsSubjectRelevance articleSubjectRelevance =
 				subjectRelevanceRepository.findByArticleId(article.getArticleId());
 
 		if (articleSubjectRelevance == null) {
-			articleSubjectRelevance = new DtsArticleSubjectRelevance();
-			articleSubjectRelevance.setArticleId(article.getArticleId());
+			articleSubjectRelevance = new DtsSubjectRelevance();
+			articleSubjectRelevance.setDataId(article.getArticleId());
 			articleSubjectRelevance.setSubjectId(subjectId);
 			articleSubjectRelevance.setCreateDate(DateUtil.date());
 		}
@@ -188,9 +188,9 @@ public class DtsArticleSubjectService {
 	/**
 	 * 保存文章专辑
 	 */
-	public DtsArticleSubjectRelevance saveSubjectId(String articleId, String subjectId) {
-		DtsArticleSubjectRelevance articleSubjectRelevance = new DtsArticleSubjectRelevance();
-		articleSubjectRelevance.setArticleId(articleId);
+	public DtsSubjectRelevance saveSubjectId(String articleId, String subjectId) {
+		DtsSubjectRelevance articleSubjectRelevance = new DtsSubjectRelevance();
+		articleSubjectRelevance.setDataId(articleId);
 		articleSubjectRelevance.setSubjectId(subjectId);
 		return dtsArticleSubjectRepository.save(articleSubjectRelevance);
 	}

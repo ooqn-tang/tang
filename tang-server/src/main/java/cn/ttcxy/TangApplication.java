@@ -3,6 +3,8 @@ package cn.ttcxy;
 import java.security.Principal;
 import java.sql.SQLException;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import org.apache.catalina.Context;
 import org.apache.catalina.connector.Connector;
 import org.apache.catalina.realm.RealmBase;
@@ -23,6 +25,10 @@ import org.springframework.web.socket.server.standard.ServerEndpointExporter;
 @SpringBootApplication
 @ServletComponentScan
 public class TangApplication {
+
+
+	@PersistenceContext
+	private EntityManager entityManager;
 
 	public static void main(String[] args) throws SQLException {
 		Server.main("-tcp", "-tcpAllowOthers","-ifNotExists");
