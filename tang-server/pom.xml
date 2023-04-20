@@ -8,7 +8,7 @@
 		<version>3.0.5</version>
 		<relativePath/>
 	</parent>
-	<groupId>cn.ttcxy</groupId>
+	<groupId>com.ooqn</groupId>
 	<artifactId>tang-server</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>tang-server</name>
