@@ -14,4 +14,5 @@ public interface DtsArticleRepository extends CrudRepository<DtsArticle, String>
     @Modifying
     void deleteByArticleIdAndAuthorId(String articleId, String authorId);
 
+    void deleteByArticleId(String articleId);
 }
