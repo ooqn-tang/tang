@@ -21,7 +21,7 @@ import cn.hutool.core.bean.BeanUtil;
 import com.ooqn.core.exception.ApiException;
 import com.ooqn.entity.dto.DtsArticleSubjectDto;
 import com.ooqn.entity.model.DtsArticle;
-import com.ooqn.entity.model.DtsArticleSubject;
+import com.ooqn.entity.model.DtsSubject;
 import com.ooqn.entity.model.DtsSubjectRelevance;
 import com.ooqn.entity.param.DtsSubjectParam;
 import com.ooqn.service.DtsArticleSubjectService;
@@ -67,10 +67,10 @@ public class DtsSubjectController extends BaseController {
 
 	@PostMapping
 	public String insertSubject(@RequestBody DtsSubjectParam subjectParam) {
-		DtsArticleSubject subjectDto = BeanUtil.toBean(subjectParam, DtsArticleSubject.class);
+		DtsSubject subjectDto = BeanUtil.toBean(subjectParam, DtsSubject.class);
 		String authorId = authorId();
 		subjectDto.setAuthorId(authorId);
-		DtsArticleSubject dtsArticleSubject = articleSubjectService.insertSubject(subjectDto);
+		DtsSubject dtsArticleSubject = articleSubjectService.insertSubject(subjectDto);
 		if (dtsArticleSubject != null) {
 			return "处理成功";
 		}
@@ -79,7 +79,7 @@ public class DtsSubjectController extends BaseController {
 
 	@PutMapping
 	public String updateSubject(@RequestBody DtsSubjectParam subjectParam) {
-		DtsArticleSubject subject = BeanUtil.toBean(subjectParam, DtsArticleSubject.class);
+		DtsSubject subject = BeanUtil.toBean(subjectParam, DtsSubject.class);
 		subject = articleSubjectService.updateSubject(subject);
 		if (subject != null) {
 			return "处理成功";

@@ -5,24 +5,27 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 
-import com.ooqn.entity.StateNum;
-import com.ooqn.entity.dto.DtsArticleDto;
-import com.ooqn.entity.dto.DtsArticleSubjectDto;
-import com.ooqn.entity.model.DtsArticle;
-import com.ooqn.entity.model.DtsArticleSubject;
-import com.ooqn.repository.DtsArticleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.ooqn.entity.StateNum;
+import com.ooqn.entity.dto.DtsArticleDto;
+import com.ooqn.entity.dto.DtsArticleSubjectDto;
+import com.ooqn.entity.model.DtsArticle;
+import com.ooqn.entity.model.DtsSubject;
+import com.ooqn.entity.model.DtsSubjectRelevance;
+import com.ooqn.entity.model.UtsAuthor;
+import com.ooqn.repository.DtsArticleRepository;
+import com.ooqn.repository.DtsSubjectRelevanceRepository;
+import com.ooqn.repository.UtsAuthorRepository;
+import com.ooqn.repository.DtsSubjectRepository;
+
 import cn.hutool.core.date.DateTime;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.IdUtil;
-import com.ooqn.entity.model.DtsSubjectRelevance;
-import com.ooqn.repository.DtsArticleSubjectRelevanceRepository;
-import com.ooqn.repository.DtsArticleSubjectRepository;
 
 /**
  * 文章于文章专辑相关
@@ -33,16 +36,19 @@ public class DtsArticleSubjectService {
 	private static List<DtsArticleDto> cache = new ArrayList<>();
 
 	@Autowired
-	private DtsArticleSubjectRepository articleSubjectRepository;
+	private UtsAuthorRepository authorRepository;
+
+	@Autowired
+	private DtsSubjectRepository subjectRepository;
 	
 	@Autowired
-	private DtsArticleSubjectRelevanceRepository dtsArticleSubjectRepository;
+	private DtsSubjectRelevanceRepository dtsArticleSubjectRepository;
 
 	@Autowired
 	private DtsArticleRepository articleRepository;
 
 	@Autowired
-	private DtsArticleSubjectRelevanceRepository subjectRelevanceRepository;
+	private DtsSubjectRelevanceRepository subjectRelevanceRepository;
 
 	@Autowired
 	private DtsArticleRepository articlerRepository;
@@ -77,24 +83,24 @@ public class DtsArticleSubjectService {
 	/**
 	 * 添加专辑
 	 */
-	public DtsArticleSubject insertSubject(DtsArticleSubject subject) {
+	public DtsSubject insertSubject(DtsSubject subject) {
 		subject.setSubjectId(IdUtil.objectId());
 		DateTime date = DateUtil.date();
 		subject.setCreateDate(date);
 		subject.setUpdateDate(date);
-		return articleSubjectRepository.save(subject);
+		return subjectRepository.save(subject);
 	}
 
 	/**
 	 * 更新专辑
 	 */
-	public DtsArticleSubject updateSubject(DtsArticleSubject subject) {
-		DtsArticleSubject articleSubject =
-				articleSubjectRepository.findById(subject.getSubjectId()).orElseThrow();
+	public DtsSubject updateSubject(DtsSubject subject) {
+		DtsSubject articleSubject =
+		subjectRepository.findById(subject.getSubjectId()).orElseThrow();
 		articleSubject.setUpdateDate(DateUtil.date());
 		articleSubject.setSubjectName(subject.getSubjectName());
 		articleSubject.setSynopsis(subject.getSynopsis());
-		return articleSubjectRepository.save(articleSubject);
+		return subjectRepository.save(articleSubject);
 	}
 
 	/**
@@ -108,8 +114,8 @@ public class DtsArticleSubjectService {
 		return null;//articleSubjectRepository.findSubjectIdByArticleId(articleId);
 	}
 
-	public DtsArticleSubject subjectById(String subjectId) {
-		return articleSubjectRepository.findById(subjectId).orElseThrow();
+	public DtsSubject subjectById(String subjectId) {
+		return subjectRepository.findById(subjectId).orElseThrow();
 	}
 
 	public List<DtsArticle> findSubjectArticleTitleListByArticleId(String articleId) {
@@ -142,11 +148,13 @@ public class DtsArticleSubjectService {
 		return articleRepository.save(article);
 	}
 
-	public DtsArticle updateArticle(DtsArticle article, String subjectId) {
+	public DtsArticle updateArticle(DtsArticle article, String subjectId, String classId, String tagId) {
 		DtsArticle saveArticle = articleRepository.save(article);
-		DtsSubjectRelevance articleSubjectRelevance =
-				subjectRelevanceRepository.findByArticleId(article.getArticleId());
+		DtsSubjectRelevance articleSubjectRelevance = subjectRelevanceRepository.findByDataId(article.getArticleId());
 
+		if(subjectId == null){
+			return saveArticle;
+		}
 		if (articleSubjectRelevance == null) {
 			articleSubjectRelevance = new DtsSubjectRelevance();
 			articleSubjectRelevance.setDataId(article.getArticleId());
@@ -161,8 +169,15 @@ public class DtsArticleSubjectService {
 		articleRepository.deleteByArticleIdAndAuthorId(articleId, authorId);
 	}
 
-	public DtsArticleDto selectArticleById(String id) {
-		return null;//articleRepository.findArticle(id);
+	public DtsArticleDto selectArticleById(String articleId) {
+		DtsArticleDto articleDto = new DtsArticleDto();
+		DtsArticle article = articleRepository.findById(articleId).orElseThrow();
+		UtsAuthor author = authorRepository.findById(article.getAuthorId()).orElseThrow();
+		DtsSubject subject = subjectRepository.findByArticleId(articleId).orElse(null);
+		articleDto.setArticle(article);
+		articleDto.setAuthor(author);
+		articleDto.setSubject(subject);
+		return articleDto;
 	}
 
 	public DtsArticle selectArticleInfoById(String id) {

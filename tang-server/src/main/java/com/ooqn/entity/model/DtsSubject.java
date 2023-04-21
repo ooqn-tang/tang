@@ -7,7 +7,7 @@ import lombok.Data;
 
 @Entity
 @Data
-public class DtsArticleSubject {
+public class DtsSubject {
 
 	@Id
 	private String subjectId;

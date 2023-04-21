@@ -3,7 +3,7 @@ package com.ooqn.entity.dto;
 import java.util.List;
 
 import com.ooqn.entity.model.DtsArticle;
-import com.ooqn.entity.model.DtsArticleSubject;
+import com.ooqn.entity.model.DtsSubject;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,7 +11,7 @@ import lombok.Setter;
 @Setter
 public class DtsArticleSubjectDto {
 
-	private DtsArticleSubject subject;
+	private DtsSubject subject;
 
 	private List<DtsArticle> articleList;
 	

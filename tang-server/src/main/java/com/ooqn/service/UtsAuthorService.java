@@ -136,7 +136,7 @@ public class UtsAuthorService {
 	private Set<Date> getRoleNameTime(List<UtsRoleDto> roleList) {
 		Set<Date> dateSet = new TreeSet<>();
 		for (UtsRoleDto role : roleList) {
-			List<UtsRole> roles = roleService.selectByName(role.getRoleValue());
+			List<UtsRole> roles = roleService.selectByName(role.getRole().getRoleValue());
 			for (UtsRole r : roles) {
 				Date refreshTime = r.getRefreshTime();
 				if (!ObjectUtil.isEmpty(refreshTime)) {

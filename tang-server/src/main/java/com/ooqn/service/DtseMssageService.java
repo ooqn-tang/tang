@@ -2,10 +2,10 @@ package com.ooqn.service;
 
 import java.util.List;
 
-import com.ooqn.entity.dto.DtsMessageDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ooqn.entity.dto.DtsMessageDto;
 import com.ooqn.repository.DtsMessageRepository;
 
 /**

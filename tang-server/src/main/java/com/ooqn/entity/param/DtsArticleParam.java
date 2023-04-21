@@ -2,6 +2,9 @@ package com.ooqn.entity.param;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
+
+import java.util.List;
+
 import org.hibernate.validator.constraints.Length;
 
 @Data
@@ -26,4 +29,6 @@ public class DtsArticleParam {
 	private String subjectId;
 
 	private String classId;
+
+	private List<String> tagIdList;
 }

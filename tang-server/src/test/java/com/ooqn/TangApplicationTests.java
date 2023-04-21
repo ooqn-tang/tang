@@ -1,12 +1,5 @@
 package com.ooqn;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import java.util.Date;
-import java.util.List;
-
-import com.ooqn.repository.DtsArticleRepository;
-import com.ooqn.repository.DtsEssayRepository;
 import org.h2.tools.Server;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -14,10 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Configuration;
 
-import com.alibaba.fastjson.JSON;
-
-import com.ooqn.entity.dto.DtsEssayDto;
-import com.ooqn.entity.model.DtsEssay;
+import com.ooqn.repository.DtsArticleRepository;
 import com.ooqn.repository.UtsRoleRepository;
 
 @Configuration
@@ -42,6 +32,7 @@ class TangApplicationTests {
 
     @Test
     public void test1(){
-
+        System.out.println("************************************"+utsRoleRepository.findRoleListByAuthorId("1"));
+        
     }
 }

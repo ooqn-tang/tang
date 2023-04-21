@@ -2,17 +2,20 @@ package com.ooqn.service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.ooqn.entity.dto.UtsRoleDto;
 import com.ooqn.entity.model.UtsResource;
 import com.ooqn.entity.model.UtsResourceRole;
 import com.ooqn.entity.model.UtsRole;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import cn.hutool.core.util.IdUtil;
+import com.ooqn.repository.UtsAuthorRoleRepository;
 import com.ooqn.repository.UtsResourceRoleRepository;
 import com.ooqn.repository.UtsRoleRepository;
+
+import cn.hutool.core.util.IdUtil;
 
 @Service
 public class UtsRoleService {
@@ -23,8 +26,16 @@ public class UtsRoleService {
 	@Autowired
 	private UtsResourceRoleRepository resourceRoleRepository;
 
+	@Autowired
+	private UtsAuthorRoleRepository authorRoleRepository;
+
 	public List<UtsRoleDto> roleList(String authorId) {
-		return null;//roleRepository.findRoleListByAuthorId(authorId);
+		List<UtsRole> roleList = roleRepository.findRoleListByAuthorId(authorId);
+		return roleList.stream().map(role -> {
+			UtsRoleDto roleDto = new UtsRoleDto();
+			roleDto.setRole(role);
+			return roleDto;
+		}).collect(Collectors.toList());
 	}
 
 	public UtsRole selectById(String roleId) {

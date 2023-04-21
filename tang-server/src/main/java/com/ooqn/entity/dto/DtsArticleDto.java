@@ -1,7 +1,7 @@
 package com.ooqn.entity.dto;
 
 import com.ooqn.entity.model.DtsArticle;
-import com.ooqn.entity.model.DtsArticleSubject;
+import com.ooqn.entity.model.DtsSubject;
 import com.ooqn.entity.model.UtsAuthor;
 import lombok.Getter;
 import lombok.Setter;
@@ -32,6 +32,6 @@ public class DtsArticleDto {
 
 	private UtsAuthor author;
 
-	private DtsArticleSubject subject;
+	private DtsSubject subject;
 	
 }

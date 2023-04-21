@@ -4,7 +4,7 @@
     <input
       type="text"
       id="title"
-      v-model="articleData.title"
+      v-model="articleForm.title"
       placeholder="标题"
     />
     <input
@@ -22,7 +22,7 @@
       @scroll="sysHandleScroll()"
       @mouseover="changeFlag(false)"
       id="text"
-      v-model="articleData.markdown"
+      v-model="articleForm.markdown"
       placeholder="可以输入Markdown文本为内容添加样式"
     ></textarea>
     <div
@@ -30,7 +30,7 @@
       @scroll="exterHandleScroll()"
       @mouseover="changeFlag(true)"
       id="content"
-      v-html="articleData.text"
+      v-html="articleForm.text"
       class="markdown-body"
     ></div>
   </div>
@@ -55,7 +55,7 @@
         </div>
         <div class="modal-body">
           <div class="mb-3">
-            <select class="form-select" v-model="articleData.subjectId">
+            <select class="form-select" v-model="articleForm.subjectId">
               <option value="">请选择专辑</option>
               <option
                 v-for="(item, index) in subjectList"
@@ -106,31 +106,10 @@ export default {
   name: "article-editor-md",
   data() {
     return {
-      thisArticleId: this.$route.params.id,
-      articleData: {},
-      subjectId: "",
-      classId: "",
+      articleId: this.$route.params.id,
       subjectList: [],
-      subjectMap: {},
+      articleForm:{}
     };
-  },
-  watch: {
-    articleData: {
-      handler(val) {
-        if (val.markdown != undefined) {
-          this.articleData.text = marked(val.markdown);
-          this.articleData.synopsis = val.text
-            .replace(/<(style|script|iframe)[^>]*?>[\s\S]+?<\/\1\s*>/gi, "")
-            .replace(/<[^>]+?>/g, "")
-            .replace(/\s+/g, " ")
-            .replace(/ /g, " ")
-            .replace(/>/g, " ")
-            .substring(0, 150)
-            .replace(" ", "");
-        }
-      },
-      deep: true,
-    },
   },
   methods: {
     loadArticleAllInfo(articleId) {
@@ -138,24 +117,28 @@ export default {
         url: "/api/article/load/" + articleId + "/all",
         method: "GET",
       }).then((response) => {
-        this.articleData = response.data;
-        this.articleData.subjectId =
-          this.articleData.subjectId == null ? "" : this.articleData.subjectId;
-        this.articleData.classId =
-          this.articleData.classId == null ? "" : this.articleData.classId;
+        debugger
+        this.articleForm.articleId = response.data.article.articleId;
+        this.articleForm.title = response.data.article.title;
+        this.articleForm.synopsis = response.data.article.synopsis;
+        this.articleForm.text = response.data.article.text;
+        this.articleForm.markdown = response.data.article.markdown;
+        //this.articleForm.subjectId = response.data.subject.subjectId;
+        //this.articleForm.classId = response.data.classId;
       });
     },
     saveArticle() {
-      if(this.articleData.title == undefined || this.articleData.title == ""){
+      if(this.articleForm.title == undefined || this.articleForm.title == ""){
         alert("请输入标题！")
         return;
       }
+      debugger
       request({
         url: "/api/article",
         method: "PUT",
-        data: this.articleData,
+        data: this.articleForm,
       }).then((response) => {
-        window.location.href = "/article/" + this.articleData.articleId;
+        window.location.href = "/article/" + this.articleForm.articleId;
       });
     },
     loadSubject() {
@@ -183,7 +166,7 @@ export default {
   },
   mounted() {
     this.loadSubject();
-    this.loadArticleAllInfo(this.thisArticleId);
+    this.loadArticleAllInfo(this.articleId);
   },
 };
 </script>

@@ -14,7 +14,7 @@ public class UtsResourceService {
 	private UtsResourceRepository resourceRepository;
 
 	public List<UtsResource> loadResourceUrlByRoleValue(String roleValue) {
-		return null;//resourceRepository.loadResourceUrlByRoleValue(roleValue);
+		return resourceRepository.loadResourceUrlByRoleValue(roleValue);
 	}
 
 	public List<UtsResource> select(String queryData) {

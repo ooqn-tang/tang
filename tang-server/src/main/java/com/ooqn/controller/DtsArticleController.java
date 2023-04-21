@@ -97,7 +97,7 @@ public class DtsArticleController extends BaseController {
 			article.setState(StateNum.normal);
 			article.setUpdateDate(DateUtil.date());
 			DtsArticle dtsArticle =
-			articleSubjectService.updateArticle(article, articleParam.getSubjectId());
+			articleSubjectService.updateArticle(article, articleParam.getSubjectId(),null,null);
 			if (dtsArticle != null) {
 				return ResponseCode.SUCCESS.getMessage();
 			}

@@ -3,13 +3,16 @@ package com.ooqn.repository;
 
 import java.util.List;
 
-import com.ooqn.entity.dto.UtsRoleDto;
-import com.ooqn.entity.model.UtsRole;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+
+import com.ooqn.entity.model.UtsRole;
 
 public interface UtsRoleRepository extends CrudRepository<UtsRole, String> {
 
     List<UtsRole> findByRoleName(String roleName);
+
+    @Query("From UtsRole where roleId in (select roleId from UtsAuthorRole where authorId = ?1)")
+    List<UtsRole> findRoleListByAuthorId(String authorId);
 
 }
