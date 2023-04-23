@@ -24,12 +24,13 @@ public class UtsFansService {
 	@Autowired
 	private UtsAuthorService authorService;
 
-	public Page<UtsFansDto> selectFansList(String authorId, Pageable pageable) {
-		return null;//fansRepository.findFansList(authorId, pageable);
+	public Page<UtsAuthor> selectFansList(String authorId, Pageable pageable) {
+		Page<UtsAuthor> authorList = fansRepository.findFansList(authorId, pageable);
+		return fansRepository.findFansList(authorId, pageable);
 	}
 
 	public UtsFans insertFans(UtsFans fans) {
-		fans.setCreateDate(DateTime.now());
+		fans.setCreateTime(DateTime.now());
 		fans.setFansId(IdUtil.objectId());
 		return fansRepository.save(fans);
 	}
@@ -43,6 +44,6 @@ public class UtsFansService {
 	}
 
 	public Long isFans(String authorId, String beAuthorId) {
-		return null;//fansRepository.isFans(authorId, beAuthorId);
+		return fansRepository.countByAuthorIdAndBeAuthorId(authorId, beAuthorId);
 	}
 }

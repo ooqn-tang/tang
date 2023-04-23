@@ -60,7 +60,7 @@ export default {
     deleteNotice(index, row) {
       alert(row.articleId)
       request({
-        url: "/api/admin/article/" + row.articleId,
+        url: `/api/admin/article/${row.articleId}`,
         method: "DELETE",
       }).then((response) => {
         this.noticeList.splice(index, 1)
@@ -69,7 +69,7 @@ export default {
     },
     loadArticle() {
       request({
-        url: "/api/admin/article",
+        url: `/api/admin/article`,
         method: "GET",
       }).then((response) => {
         this.articleList = response.data.content

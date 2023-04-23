@@ -20,7 +20,7 @@ public class DtsMessageService {
 		message.setTitle(title);
 		message.setText(text);
 		message.setMessageId(IdUtil.objectId());
-		message.setCreateDate(DateUtil.date());
+		message.setCreateTime(DateUtil.date());
 		message.setUrl(url);
 		message.setAuthorId(authorId);
 		message.setRecipientAuthorId(recipientAuthorId);

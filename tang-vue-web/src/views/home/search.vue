@@ -58,7 +58,7 @@ export default {
       this.isLoding = true;
       this.form.page = this.page.number
       request({
-        url: "/api/article/so",
+        url: `/api/article/so`,
         method: "GET",
         params: this.form,
       }).then((response) => {

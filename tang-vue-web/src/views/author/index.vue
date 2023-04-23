@@ -83,14 +83,14 @@ export default {
     fansClick(username){
       if(this.fans == 2){
         request({
-          url: '/api/fans/' + username,
+          url: `/api/fans/${username}`,
           method: 'POST'
         }).then((response) => {
           this.fans = 1
         })
       }else{
         request({
-          url: '/api/fans/' + username,
+          url: `/api/fans/${username}`,
           method: 'DELETE'
         }).then((response) => {
           this.fans = 2
@@ -100,10 +100,10 @@ export default {
     },
     isFans(){
       request({
-        url: '/api/fans/username/'+this.thisUsername,
+        url: `/api/fans/username/${this.thisUsername}`,
         method: 'get',
       }).then((response) => {
-        if(response.data == 1){
+        if(response.data > 0){
           this.fans = 1
         }else{
           this.fans = 2
@@ -112,7 +112,7 @@ export default {
     },
     selectAuthor(username){
       request({
-        url: '/api/author/' + username,
+        url: `/api/author/${username}`,
         method: 'GET'
       }).then((response) => {
         this.author = response.data

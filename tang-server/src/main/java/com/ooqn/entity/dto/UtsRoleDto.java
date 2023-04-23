@@ -1,10 +1,10 @@
 package com.ooqn.entity.dto;
 
-import java.util.Date;
-import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 
 import com.ooqn.entity.model.UtsRole;
+
+import lombok.Data;
 
 /**
  * 角色

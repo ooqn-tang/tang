@@ -3,12 +3,12 @@
     <div class="col-md-9  move-p-lr-0">
       <div class="card mb-2  move-b-lr-0">
         <div class="card-body">
-          <h4>{{subjectData.subjectName}}</h4>
-          <span>{{subjectData.synopsis}}</span>
+          <h4>{{subjectData.subject.subjectName}}</h4>
+          <span>{{subjectData.subject.synopsis}}</span>
           <hr>
           <div>
-            <router-link :to="'/author/'+subjectData.username">{{subjectData.nickname}}</router-link>
-            <span class="float-end">{{subjectData.createDate}}</span>
+            <router-link :to="'/author/'+subjectData.author.username">{{subjectData.author.nickname}}</router-link>
+            <span class="float-end">{{subjectData.subject.createTime}}</span>
           </div>
         </div>
       </div>
@@ -44,10 +44,17 @@ export default {
     return {
       username: this.$store.getters.username,
       subjectData:{
-        subjectName:"∷∷∷∷∷∷∷∷∷",
-        synopsis:"∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷",
-        createDate:"∷∷∷∷∷∷∷",
-        nickname:"∷∷∷∷∷∷∷"
+        subject:{
+          subjectName:"∷∷∷∷∷∷∷∷∷",
+          synopsis:"∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷",
+          createDate:"∷∷∷∷∷∷∷"
+        },
+        author:{
+          username:"∷∷∷∷∷∷∷∷∷",
+          nickname:"∷∷∷∷∷∷∷∷∷",
+        },
+        articleList:[]
+        
       }
     };
   },
@@ -56,7 +63,7 @@ export default {
   methods: {
     loadSubjectById(){
       request({
-        url: '/api/subject/id/'+this.$route.params.subject_id,
+        url: `/api/subject/id/${this.$route.params.subject_id}`,
         method: 'GET',
       }).then((response) => {
         this.subjectData = response.data

@@ -6,8 +6,8 @@
       </router-link>
       <span class="float-end" @click="deleteFansMethod(item.username,index)">取消关注</span>
     </li>   
-    <li class="list-group-item ">
-      <a class="" @click="loadArticle()">获取</a>
+    <li class="list-group-item" @click="loadArticle()">
+      获取
     </li> 
   </ul>
 </template>
@@ -25,9 +25,9 @@ export default {
 
   },
   methods: {
-    fansListMethod(){
+    findFansList(){
       request({
-        url: '/api/fans/list',
+        url: `/api/fans/list`,
         method: 'get'
       }).then((response) => {
         this.fansList = response.data.content;
@@ -35,17 +35,17 @@ export default {
     },
     deleteFansMethod(username,index){
       request({
-        url: '/api/fans/' + username,
+        url: `/api/fans/${username}`,
         method: 'DELETE'
       }).then((response) => {
-        if(response.data.code == 200){
+        if(response.data > 0){
           this.fansList.splice(index,1)
         }
       })
     }
   },
   mounted(){
-    this.fansListMethod()
+    this.findFansList()
   }
 };
 </script>

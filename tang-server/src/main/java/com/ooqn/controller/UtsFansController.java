@@ -42,7 +42,7 @@ public class UtsFansController extends BaseController {
 	}
 
 	@GetMapping("list")
-	public Page<UtsFansDto> selectList() {
+	public Page<UtsAuthor> selectList() {
 		String authorId = authorId();
 		Pageable pageable = PageRequest.of(0, 20);
 		return fansService.selectFansList(authorId, pageable);

@@ -34,15 +34,14 @@ public class DtsSubjectController extends BaseController {
 	@Autowired
 	private DtsArticleSubjectService articleSubjectService;
 
-	@GetMapping("username")
-	public List<DtsArticleSubjectDto> selectSubjectArticleListByUsername(
-			@RequestParam(value = "username", defaultValue = "0") String username) {
+	@GetMapping("username/{username}")
+	public List<DtsSubject> selectSubjectArticleListByUsername(
+			@PathVariable(value = "username") String username) {
 		return articleSubjectService.selectSubjectListByUsername(username);
 	}
 
 	@GetMapping("id/{subjectId}")
-	public DtsArticleSubjectDto selectSubjectArticleById(
-			@PathVariable(value = "subjectId") String subjectId) {
+	public DtsArticleSubjectDto selectSubjectArticleById(@PathVariable(value = "subjectId") String subjectId) {
 		return articleSubjectService.findSubjectArticleListBySubjectId(subjectId);
 	}
 
@@ -88,10 +87,10 @@ public class DtsSubjectController extends BaseController {
 	}
 
 	@PutMapping("article")
-	public DtsSubjectRelevance insertArticleToSubject(
+	public void insertArticleToSubject(
 			@RequestParam(value = "articleId") String articleId,
 			@RequestParam(value = "subjectId") String subjectId) {
-		return articleSubjectService.saveSubjectId(articleId, subjectId);
+		articleSubjectService.saveSubjectId(articleId, subjectId);
 	}
 
 	@GetMapping("article/{articleId}")

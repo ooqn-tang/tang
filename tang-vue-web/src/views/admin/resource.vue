@@ -94,7 +94,7 @@ export default {
   methods: {
     refresh(){
       request({
-        url: "/api/admin/resource/refresh",
+        url: `/api/admin/resource/refresh`,
         method: "GET",
       }).then((response) => {
         this.loadResourceList()
@@ -108,7 +108,7 @@ export default {
     },
     selectResource(id){
       request({
-        url: "/api/admin/resource/"+id,
+        url: `/api/admin/resource/${id}`,
         method: "GET",
       }).then((response) => {
         this.formData = response.data;
@@ -116,7 +116,7 @@ export default {
     },
     loadResourceList() {
       request({
-        url: "/api/admin/resource",
+        url: `/api/admin/resource`,
         method: "GET",
         params:{queryData:this.queryData}
       }).then((response) => {
@@ -126,7 +126,7 @@ export default {
     insertResource() {
       if(this.formData.resourceId == undefined){
         request({
-          url: "/api/admin/resource",
+          url: `/api/admin/resource`,
           method: "POST",
           data: this.formData,
         }).then((response) => {
@@ -136,7 +136,7 @@ export default {
         });
       }else{
          request({
-          url: "/api/admin/resource",
+          url: `/api/admin/resource`,
           method: "PUT",
           data: this.formData,
         }).then((response) => {
@@ -158,7 +158,7 @@ export default {
         }
       ).then(() => {
         request({
-          url: "/api/admin/resource/" + id,
+          url: `/api/admin/resource/${id}`,
           method: "DELETE",
         }).then((response) => {
           ElMessage({
@@ -176,7 +176,7 @@ export default {
     },
     update() {
       request({
-        url: "/api/admin/resource",
+        url: `/api/admin/resource`,
         method: "PUT",
         data: this.formData,
       }).then((response) => {

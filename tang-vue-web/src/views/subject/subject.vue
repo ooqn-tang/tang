@@ -45,7 +45,7 @@ export default {
   methods: {
     selectSubjectList() {
       request({
-        url: '/api/subject/list',
+        url: `/api/subject/list`,
         method: 'GET'
       }).then((response) => {
         this.subjectList = response.data.content

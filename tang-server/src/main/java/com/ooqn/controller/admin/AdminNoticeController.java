@@ -28,7 +28,7 @@ public class AdminNoticeController extends BaseController {
 	@PostMapping
 	public StsNotice insert(@RequestBody StsNoticeParam noticeParam) {
 		StsNotice notice = BeanUtil.toBean(noticeParam, StsNotice.class);
-		notice.setCreateDate(DateUtil.date());
+		notice.setCreateTime(DateUtil.date());
 		return noticeService.insertNotice(notice);
 	}
 

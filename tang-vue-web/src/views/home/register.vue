@@ -58,7 +58,7 @@ export default {
         return
       }
       request({
-        url: '/api/register',
+        url: `/api/register`,
         method: 'post',
         data:this.loginData
     }).then((response) => {

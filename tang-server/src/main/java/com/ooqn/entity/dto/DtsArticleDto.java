@@ -3,6 +3,8 @@ package com.ooqn.entity.dto;
 import com.ooqn.entity.model.DtsArticle;
 import com.ooqn.entity.model.DtsSubject;
 import com.ooqn.entity.model.UtsAuthor;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,27 +13,25 @@ import lombok.Setter;
  */
 @Getter
 @Setter
+@Schema(description = "通用返回对象")
 public class DtsArticleDto {
 
-	/**
-	 * 浏览器访问量
-	 */
+	@Schema(description = "浏览器访问量")
 	private Integer pageViewCount;
 
-	/**
-	 * 点赞量
-	 */
+	@Schema(description="点赞量")
 	private Integer likeCount;
 
-	/**
-	 * 收藏量
-	 */
+	@Schema(description="收藏量")
 	private Integer collectCount;
 
+	@Schema(description ="文章")
 	private DtsArticle article;
 
+	@Schema(description="作者")
 	private UtsAuthor author;
 
+	@Schema(description="专题")
 	private DtsSubject subject;
 	
 }

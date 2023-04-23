@@ -19,7 +19,7 @@
                     <ul class="blog-list">
                         <li th:each="item : ${subjects.content}">
                             <a th:href="'/subject/' + ${item.subjectId}" th:text="${item.subjectName}"></a>
-                            <span th:text="${#dates.format(item.createDate, 'yyyy-MM-dd')}" class="blog-time"></span>
+                            <span th:text="${#dates.format(item.createTime, 'yyyy-MM-dd')}" class="blog-time"></span>
                             <p th:text="${item.synopsis}"></p>
                             <hr style="border:2px double #e8e8e8"/>
                         </li>

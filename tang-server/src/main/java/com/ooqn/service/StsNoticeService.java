@@ -20,7 +20,7 @@ public class StsNoticeService {
 	private StsNoticeRepository noticeRepository;
 
 	public List<StsNotice> selectAllNotice() {
-		return null;//noticeRepository.findAllOrderByOrderNumAsc();
+		return noticeRepository.findAllByOrderByOrderNum();
 	}
 
 	public StsNotice selectById(String id) {

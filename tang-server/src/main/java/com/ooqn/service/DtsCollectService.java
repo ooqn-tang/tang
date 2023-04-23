@@ -18,7 +18,7 @@ public class DtsCollectService {
 	}
 
 	public Page<DtsCollect> selectCollect(String authorId, Pageable pageable) {
-		return null;//collectRepository.selectCollect(authorId, pageable);
+		return collectRepository.findByAuthorId(authorId, pageable);
 	}
 
 	public DtsCollect insert(DtsCollect collect) {

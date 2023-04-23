@@ -114,7 +114,7 @@ export default {
   methods: {
     loadArticleAllInfo(articleId) {
       request({
-        url: "/api/article/load/" + articleId + "/all",
+        url: `/api/article/load/${articleId}/all`,
         method: "GET",
       }).then((response) => {
         debugger
@@ -132,20 +132,19 @@ export default {
         alert("请输入标题！")
         return;
       }
-      debugger
+      this.articleForm.text = marked(this.articleForm.markdown);
       request({
-        url: "/api/article",
+        url: `/api/article`,
         method: "PUT",
         data: this.articleForm,
       }).then((response) => {
-        window.location.href = "/article/" + this.articleForm.articleId;
+        window.location.href = `/article/${this.articleForm.articleId}`;
       });
     },
     loadSubject() {
       request({
-        url: "/api/subject/username",
+        url: `/api/subject/username/${this.$store.state.username}`,
         method: "GET",
-        params: { username: this.$store.state.username },
       }).then((response) => {
         this.subjectList = response.data;
       });

@@ -49,7 +49,7 @@ public class DtsCollectController extends BaseController {
 
 		collect.setCollectId(IdUtil.objectId());
 		collect.setAuthorId(authorId);
-		collect.setCreateDate(date);
+		collect.setCreateTime(date);
 		return collectService.insert(collect);
 	}
 

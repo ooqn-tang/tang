@@ -67,7 +67,7 @@ export default {
     save() {
       if (this.saveType == "insert") {
         request({
-          url: '/api/subject',
+          url: `/api/subject`,
           method: 'POST',
           data: this.dataFrom
         }).then((response) => {
@@ -75,7 +75,7 @@ export default {
         })
       } else {
         request({
-          url: '/api/subject',
+          url: `/api/subject`,
           method: 'PUT',
           data: this.dataFrom
         }).then((response) => {
@@ -92,7 +92,7 @@ export default {
     deleteClick(subjectId, index){
       if(confirm("确认删除吗？")){
         request({
-          url: '/api/subject/'+subjectId,
+          url: `/api/subject/${subjectId}`,
           method: 'DELETE'
         }).then((response) => {
           this.subjectList.splice(index, 1);
@@ -101,9 +101,8 @@ export default {
     },
     selectSubjectListByUsername(username) {
       request({
-        url: '/api/subject/username',
+        url: `/api/subject/username/`+username,
         method: 'GET',
-        params: { "username": username }
       }).then((response) => {
         this.subjectList = response.data
       })

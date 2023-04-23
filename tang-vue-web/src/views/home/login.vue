@@ -49,7 +49,7 @@ export default {
   methods: {
     login(){
       request({
-        url: '/api/authenticate',
+        url: `/api/authenticate`,
         method: 'post',
         data:this.loginData
     }).then((response) => {

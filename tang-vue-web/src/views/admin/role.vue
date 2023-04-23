@@ -112,7 +112,7 @@ export default {
     },
     saveResourceRole(){
       request({
-        url: "/api/admin/role/resource/"+this.selectRoleId,
+        url: `/api/admin/role/resource/${this.selectRoleId}`,
         method: "POST",
         data:this.resourceForm
       }).then((response) => {
@@ -126,7 +126,7 @@ export default {
     selectRole() {
       this.loading = true
       request({
-        url: "/api/admin/role",
+        url: `/api/admin/role`,
         method: "GET",
       }).then((response) => {
         this.loading = false
@@ -135,7 +135,7 @@ export default {
     },
     selectResource(row) {
       request({
-        url: "/api/admin/resource",
+        url: `/api/admin/resource`,
         async: false,
         method: "GET",
       }).then((response) => {
@@ -145,7 +145,7 @@ export default {
     },
     selectResourceIdList(id) {
       request({
-        url: "/api/admin/resource/role/" + id,
+        url: `/api/admin/resource/role/${id}`,
         method: "GET",
       }).then((response) => {
         this.resourceIdList = response.data;

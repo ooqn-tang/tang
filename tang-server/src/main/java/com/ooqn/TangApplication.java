@@ -3,8 +3,6 @@ package com.ooqn;
 import java.security.Principal;
 import java.sql.SQLException;
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
 import org.apache.catalina.Context;
 import org.apache.catalina.connector.Connector;
 import org.apache.catalina.realm.RealmBase;
@@ -20,6 +18,9 @@ import org.springframework.boot.web.servlet.server.ServletWebServerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.web.socket.server.standard.ServerEndpointExporter;
+
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 
 @EnableJpaRepositories
 @SpringBootApplication

@@ -1,42 +1,42 @@
 <template>
   <ul class="list-group article-list">
     <li class="list-group-item" v-for="(item, index) in articleList" :key="index">
-      <router-link :to="{ name: 'article_post', params: { id: item.articleId } }" class="article-title">
+      <router-link :to="{ name: 'article_post', params: { id: item.article.articleId } }" class="article-title">
         <strong>
-          <p v-text="item.title"></p>
+          <p v-text="item.article.title"></p>
         </strong>
       </router-link>
-      <div class="article-synopsis">{{ item.synopsis }}</div>
-      <p v-if="item.subjectName != null">
+      <div class="article-synopsis">{{ item.article.synopsis }}</div>
+      <p v-if="item.subject != null">
         <span style="
             background: #efefef;
             padding: 0px 5px;
             border-radius: 10px;
             color: #7d7d7d;
-          ">专辑 : {{ item.subjectName }}</span>
+          ">专辑 : {{ item.subject.subjectName }}</span>
       </p>
       <span style="
           background: #efefef;
           padding: 0px 5px;
           border-radius: 10px;
           color: #7d7d7d;
-        ">{{ item.createDate }}</span>
+        ">{{ item.article.createTime }}</span>
 
       <div class="btn-group float-end">
         <button class="btn btn-outline-danger float-end blog-btn" v-if="isThisUser"
-          @click="deleteArticle(item.articleId, index)">
+          @click="deleteArticle(item.article.articleId, index)">
           删除
         </button>
         <router-link class="btn btn-outline-danger float-end blog-btn" v-if="isThisUser" target="_blank"
-          :to="{ name: 'article-editor-md', params: { id: item.articleId } }">修改</router-link>
-        <button class="btn btn-outline-success float-end blog-btn" style=""
-          v-if="item.subjectName == null && isThisUser" data-bs-toggle="modal" data-bs-target="#exampleModal"
-          @click="(subjectFrom.articleId = item.articleId), (thisItem = item)">
+          :to="{ name: 'article-editor-md', params: { id: item.article.articleId } }">修改</router-link>
+        <button class="btn btn-outline-success float-end blog-btn"
+          v-if="item.subject == null && isThisUser" data-bs-toggle="modal" data-bs-target="#exampleModal"
+          @click="(subjectFrom.articleId = item.article.articleId), (thisItem = item)">
           添加到专辑
         </button>
-        <button class="btn btn-outline-warning float-end blog-btn" v-if="item.subjectName != null && isThisUser"
+        <button class="btn btn-outline-warning float-end blog-btn" v-if="item.subject != null && isThisUser"
           data-bs-toggle="modal" data-bs-target="#exampleModal"
-          @click="(subjectFrom.articleId = item.articleId), (thisItem = item)">
+          @click="(subjectFrom.articleId = item.article.articleId), (thisItem = item)">
           修改到专辑
         </button>
       </div>
@@ -97,7 +97,7 @@ export default {
   methods: {
     loadArticleByUsername(pageSize) {
       request({
-        url: "/api/article/list/" + this.$route.params.username,
+        url: `/api/article/list/${this.$route.params.username}`,
         method: "get",
         params: { page: pageSize },
       }).then((response) => {
@@ -107,9 +107,8 @@ export default {
     },
     loadSubjectList() {
       request({
-        url: "/api/subject/username",
+        url: `/api/subject/username/${this.$route.params.username}`,
         method: "GET",
-        params: { username: this.$route.params.username },
       }).then((response) => {
         this.subjectList = response.data;
       });
@@ -118,7 +117,7 @@ export default {
       let articleId = this.subjectFrom.articleId;
       let subjectId = this.subjectFrom.subjectId;
       request({
-        url: "/api/subject/article",
+        url: `/api/subject/article`,
         method: "POST",
         params: { articleId: articleId, subjectId: subjectId },
       }).then((response) => {
@@ -130,7 +129,7 @@ export default {
       let articleId = this.subjectFrom.articleId;
       let subjectId = this.subjectFrom.subjectId;
       request({
-        url: "/api/subject/article",
+        url: `/api/subject/article`,
         method: "PUT",
         params: { articleId: articleId, subjectId: subjectId },
       }).then((response) => {
@@ -147,7 +146,7 @@ export default {
     deleteArticle(articleId, index) {
       if (confirm("确认删除吗？")) {
         request({
-          url: "/api/article/" + articleId,
+          url: `/api/article/${articleId}`,
           method: "DELETE",
         }).then((response) => {
           this.articleList.splice(index, 1);

@@ -1,9 +1,10 @@
 <template>
   <ul class="list-group article-list">
     <li class="list-group-item" v-for="(item,index) in collects" :key="index">
-      <a target="_blank" :href="item.url" class="article-title">
+      {{ item }}
+      <!-- <a target="_blank" :href="item.url" class="article-title">
         <strong>{{item.title}}</strong><span style="float:right">{{item.createDate}}</span>
-      </a>
+      </a> -->
     </li>   
     <li class="list-group-item" >
       <a @click="next()">{{huoqu}}</a>
@@ -31,7 +32,7 @@ export default {
     collectList(pageNum){
       this.huoqu = '获取中...'
       request({
-        url: '/api/collect/list',
+        url: `/api/collect/list`,
         method: 'GET',
         params:{page: this.page.number}
       }).then((response) => {

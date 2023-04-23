@@ -84,7 +84,7 @@ export default {
   methods: {
     insertNotice(){
       request({
-        url: "/api/admin/notice",
+        url: `/api/admin/notice`,
         method: "POST",
         data:this.form,
       }).then((response) => {
@@ -96,7 +96,7 @@ export default {
     },
     deleteNotice(index,row){
       request({
-        url: "/api/admin/notice/"+row.noticeId,
+        url: `/api/admin/notice/${row.noticeId}`,
         method: "DELETE",
       }).then((response) => {
         this.noticeList.splice(index, 1)
@@ -106,7 +106,7 @@ export default {
     updateOrder(){
       console.log(this.noticeList)
        request({
-        url: "/api/admin/notice/order",
+        url: `/api/admin/notice/order`,
         method: "PUT",
         data:this.noticeList,
       }).then((response) => {
@@ -116,7 +116,7 @@ export default {
     },
     saveNotice(index,row){
       request({
-        url: "/api/admin/notice",
+        url: `/api/admin/notice`,
         method: "PUT",
         data:row,
       }).then((response) => {
@@ -125,7 +125,7 @@ export default {
     },
     loadRecommend(){
       request({
-        url: "/api/admin/notice",
+        url: `/api/admin/notice`,
         method: "GET",
       }).then((response) => {
         this.noticeList = response.data

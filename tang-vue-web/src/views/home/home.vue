@@ -89,7 +89,7 @@ export default {
   methods: {
     createArticle(){
       request({
-        url: '/api/article',
+        url: `/api/article`,
         method: 'POST'
       }).then((response) => {
         let routeData = this.$router.resolve({name:"article-editor-md",params:{id:response.data}});

@@ -2,6 +2,7 @@ package com.ooqn.entity.model;
 
 import java.util.Date;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
@@ -12,19 +13,25 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Schema(description = "资源")
 public class UtsResource {
 
 	@Id
 	private String resourceId;
 
+	@Schema(description = "资源路径")
 	private String path;
 
+	@Schema(description = "资源名称")
 	private String name;
 
+	@Schema(description = "资源类型")
 	private String type;
 
+	@Schema(description = "资源状态")
 	private Integer state;
 	
+	@Schema(description = "创建时间")
 	private Date createTime;
 	
 }

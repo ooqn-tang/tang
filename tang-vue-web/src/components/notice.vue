@@ -76,7 +76,7 @@ export default {
   methods: {
     loadNotice(){
       request({
-        url: '/api/notice/list',
+        url: `/api/notice/list`,
         method: 'GET'
       }).then((response) => {
           this.advList = response.data

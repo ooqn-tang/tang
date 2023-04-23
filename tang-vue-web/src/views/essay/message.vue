@@ -46,7 +46,7 @@ export default {
 	methods: {
 		loadEssay() {
 			request({
-				url: "/api/essay",
+				url: `/api/essay`,
 				method: "get",
 				params: { page: this.page.number }
 			}).then((response) => {
@@ -56,7 +56,7 @@ export default {
 		},
 		insertEssay() {
 			request({
-				url: "/api/essay",
+				url: `/api/essay`,
 				method: "post",
 				data: this.form
 			}).then((response) => {

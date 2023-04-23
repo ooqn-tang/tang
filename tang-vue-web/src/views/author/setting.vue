@@ -55,7 +55,7 @@ export default {
       param.append("type", "2"); //通过append向form对象添加数据
       console.log(param.get("file")); //FormData私有类对象，访问不到，可以通过get判断值是否传进去
       request({
-        url: "/api/file/upload",
+        url: `/api/file/upload`,
         method: "post",
         data:param,
         headers: { "Content-Type": "multipart/form-data" }
@@ -70,7 +70,7 @@ export default {
     },
     save() {
       request({
-        url: "/api/author",
+        url: `/api/author`,
         method: "PUT",
         data: this.author,
       }).then((response) => {
@@ -80,7 +80,7 @@ export default {
     },
     selectAuthorLoad() {
       request({
-        url: "/api/author/" + this.$route.params.username,
+        url: `/api/author/${this.$route.params.username}`,
         method: "GET",
       }).then((response) => {
         this.author = response.data;

@@ -60,8 +60,8 @@ public class DtsArticleController extends BaseController {
 	}
 
 	@GetMapping("recommend")
-	public ResponseEntity<List<DtsArticleDto>> selectArticleListRecommend() {
-		return ResponseEntity.ok(articleSubjectService.selectArticleListRandom());
+	public List<DtsArticleDto> selectArticleListRecommend() {
+		return articleSubjectService.selectArticleListRandom();
 	}
 
 	@PostMapping
@@ -70,8 +70,8 @@ public class DtsArticleController extends BaseController {
 		String authorId = authorId();
 		DtsArticle article = new DtsArticle();
 		article.setArticleId(IdUtil.objectId());
-		article.setCreateDate(dateTime);
-		article.setUpdateDate(dateTime);
+		article.setCreateTime(dateTime);
+		article.setUpdateTime(dateTime);
 		article.setState(StateNum.notSubmit);
 		article.setAuthorId(authorId);
 		articleSubjectService.insertArticle(article);
@@ -95,7 +95,7 @@ public class DtsArticleController extends BaseController {
 		if (StrUtil.equals(authorId, authorId())) {
 			article.setAuthorId(authorId);
 			article.setState(StateNum.normal);
-			article.setUpdateDate(DateUtil.date());
+			article.setUpdateTime(DateUtil.date());
 			DtsArticle dtsArticle =
 			articleSubjectService.updateArticle(article, articleParam.getSubjectId(),null,null);
 			if (dtsArticle != null) {

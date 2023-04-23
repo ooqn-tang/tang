@@ -24,5 +24,8 @@ export default defineConfig({
     host: 'localhost',
     open: '/',
     port: 8080
+  },
+  dev:{
+    sourcemap:true
   }
 })

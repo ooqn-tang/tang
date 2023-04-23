@@ -48,7 +48,7 @@ export default {
     selectTag(type) {
       this.select = type;
       request({
-        url: "/api/message",
+        url: `/api/message`,
         method: "GET",
         params: { type: type },
       }).then((response) => {
@@ -57,7 +57,7 @@ export default {
     },
     authorListArticleCount() {
       request({
-        url: "/api/author/authorListArticleCount",
+        url: `/api/author/authorListArticleCount`,
         method: "GET",
       }).then((response) => {
         this.authorList = response.data.list;
@@ -65,7 +65,7 @@ export default {
     },
     loadDynamic() {
       request({
-        url: "/api/message",
+        url: `/api/message`,
         method: "GET",
       }).then((response) => {
         this.dynamicList = response.data;

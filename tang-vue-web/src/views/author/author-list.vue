@@ -42,7 +42,7 @@ export default {
   methods: {
     selectAuthor(){
       request({
-        url: '/api/author/selectAuthor',
+        url: `/api/author/selectAuthor`,
         method: 'GET'
       }).then((response) => {
         this.authorList = response.data.content

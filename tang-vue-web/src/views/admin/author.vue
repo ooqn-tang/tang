@@ -88,7 +88,7 @@ export default {
     },
     saveAuthorRole(){
       request({
-        url: "api/admin/role/author/"+this.selectAuthorId,
+        url: `api/admin/role/author/${this.selectAuthorId}`,
         method: "POST",
         data:this.roleForm
       }).then((response) => {
@@ -105,12 +105,12 @@ export default {
     },
     selectRole(row){
       request({
-        url: "api/admin/role",
+        url: `api/admin/role`,
         method: "GET",
       }).then((response) => {
         this.roleList = response.data;
         request({
-          url: "api/admin/role/author/"+row.authorId,
+          url: `api/admin/role/author/${row.authorId}`,
           method: "GET",
         }).then((response) => {
           this.roleIdList = response.data;
@@ -119,7 +119,7 @@ export default {
     },
     selectAuthor(){
       request({
-        url: "/api/admin/author",
+        url: `/api/admin/author`,
         method: "GET",
         params:{queryData:this.queryData}
       }).then((response) => {
@@ -128,7 +128,7 @@ export default {
     },
     deleteAuthor(authorId){
       request({
-        url: "/api/admin/author/"+authorId,
+        url: `/api/admin/author/${authorId}`,
         method: "DELETE"
       }).then((response) => {
         console.log(response.data)
