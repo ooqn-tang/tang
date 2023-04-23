@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -16,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.ooqn.entity.StateNum;
 import com.ooqn.entity.dto.DtsArticleDto;
 import com.ooqn.entity.dto.DtsArticleSubjectDto;
+import com.ooqn.entity.dto.DtsSubjectDto;
 import com.ooqn.entity.model.DtsArticle;
 import com.ooqn.entity.model.DtsSubject;
 import com.ooqn.entity.model.DtsSubjectRelevance;
@@ -102,8 +104,15 @@ public class DtsArticleSubjectService {
 	/**
 	 * 通过专辑名称搜索专辑
 	 */
-	public Page<DtsArticleSubjectDto> findSubjectListBySubjectName(String name, Pageable pageable) {
-		return null;// articleSubjectRepository.findSubjectListBySubjectName(name, pageable);
+	public Page<DtsSubjectDto> findSubjectListBySubjectName(String name, Pageable pageable) {
+		Page<DtsSubject> subjectList = subjectRepository.findBySubjectName(name, pageable);
+		Page<DtsSubjectDto> subjectDtoList = subjectList.map(subject -> {
+			DtsSubjectDto subjectDto = new DtsSubjectDto();
+			subjectDto.setSubject(subject);
+			subjectDto.setAuthor(authorRepository.findById(subject.getAuthorId()).orElseThrow());
+			return subjectDto;
+		});
+		return subjectDtoList;
 	}
 
 	public String findSubjectIdByArticleId(String articleId) {

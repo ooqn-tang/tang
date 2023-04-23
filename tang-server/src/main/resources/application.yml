@@ -1,6 +1,8 @@
 server:
   port: 8888
-
+logging:
+  level:
+    root: info
 spring:
   datasource:
     driver-class-name: org.h2.Driver
