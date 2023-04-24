@@ -26,6 +26,9 @@ public class DtsArticle {
 	@Schema(description = "作者ID")
 	private String authorId;
 
+	@Schema(description = "分类ID")
+	private String categoryId;
+
 	@Column(updatable = false)
 	@Schema(description = "创建时间")
 	private Date createTime;

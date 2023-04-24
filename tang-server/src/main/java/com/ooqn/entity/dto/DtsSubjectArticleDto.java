@@ -11,11 +11,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class DtsArticleSubjectDto {
-
-	private DtsSubject subject;
-
-	private UtsAuthor author;
+public class DtsSubjectArticleDto extends DtsSubjectDto {
 
 	private List<DtsArticle> articleList;
 	

@@ -16,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.ooqn.entity.StateNum;
 import com.ooqn.entity.dto.DtsArticleDto;
-import com.ooqn.entity.dto.DtsArticleSubjectDto;
+import com.ooqn.entity.dto.DtsSubjectArticleDto;
 import com.ooqn.entity.dto.DtsSubjectDto;
 import com.ooqn.entity.model.DtsArticle;
 import com.ooqn.entity.model.DtsSubject;
@@ -54,11 +54,11 @@ public class DtsArticleSubjectService {
 	/**
 	 * 查询这个专辑的所有文章
 	 */
-	public DtsArticleSubjectDto findSubjectArticleListBySubjectId(String subjectId) {
+	public DtsSubjectArticleDto findSubjectArticleListBySubjectId(String subjectId) {
 		List<DtsArticle> articleList = articleRepository.findSubjectById(subjectId);
 		DtsSubject subject = subjectRepository.findById(subjectId).orElseThrow();
 		UtsAuthor author = authorRepository.findById(subject.getAuthorId()).orElseThrow();
-		DtsArticleSubjectDto articleSubjectDto = new DtsArticleSubjectDto();
+		DtsSubjectArticleDto articleSubjectDto = new DtsSubjectArticleDto();
 		articleSubjectDto.setArticleList(articleList);
 		articleSubjectDto.setSubject(subject);
 		articleSubjectDto.setAuthor(author);
@@ -68,7 +68,7 @@ public class DtsArticleSubjectService {
 	/**
 	 * 查询专辑链表
 	 */
-	public Page<DtsArticleSubjectDto> selectSubjectList(Pageable pageable) {
+	public Page<DtsSubjectArticleDto> selectSubjectList(Pageable pageable) {
 		return null;// articleSubjectRepository.findSubjectList(pageable);
 	}
 
@@ -124,8 +124,7 @@ public class DtsArticleSubjectService {
 	}
 
 	public List<DtsArticle> findSubjectArticleTitleListByArticleId(String articleId) {
-		String subjectId = findSubjectIdByArticleId(articleId);
-		return null;// articleSubjectRepository.findSubjectArticleTitleListBySubjectId(subjectId);
+		return articleRepository.findSubjectArticleListByArticleId(articleId);
 	}
 
 	public void deleteBySubjectIdAndAuthorId(String subjectId, String authorId) {

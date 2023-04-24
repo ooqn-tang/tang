@@ -19,7 +19,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import cn.hutool.core.bean.BeanUtil;
 import com.ooqn.core.exception.ApiException;
-import com.ooqn.entity.dto.DtsArticleSubjectDto;
+import com.ooqn.entity.dto.DtsSubjectArticleDto;
+import com.ooqn.entity.dto.DtsSubjectDto;
 import com.ooqn.entity.model.DtsArticle;
 import com.ooqn.entity.model.DtsSubject;
 import com.ooqn.entity.model.DtsSubjectRelevance;
@@ -41,7 +42,7 @@ public class DtsSubjectController extends BaseController {
 	}
 
 	@GetMapping("id/{subjectId}")
-	public DtsArticleSubjectDto selectSubjectArticleById(@PathVariable(value = "subjectId") String subjectId) {
+	public DtsSubjectArticleDto selectSubjectArticleById(@PathVariable(value = "subjectId") String subjectId) {
 		return articleSubjectService.findSubjectArticleListBySubjectId(subjectId);
 	}
 
@@ -51,15 +52,14 @@ public class DtsSubjectController extends BaseController {
 	}
 
 	@GetMapping("list")
-	public Page<DtsArticleSubjectDto> selectSubject(
+	public Page<DtsSubjectArticleDto> selectSubject(
 			@RequestParam(value = "page", defaultValue = "0") Integer page) {
 		Pageable pageable = PageRequest.of(page, 20);
 		return articleSubjectService.selectSubjectList(pageable);
 	}
 
 	@GetMapping("search")
-	public Page<DtsArticleSubjectDto> selectSubjectByName(
-			@RequestParam(value = "subjectName", defaultValue = "") String name) {
+	public Page<DtsSubjectDto> selectSubjectByName(@RequestParam(value = "subjectName", defaultValue = "") String name) {
 		Pageable pageable = PageRequest.of(1, 15);
 		return articleSubjectService.findSubjectListBySubjectName(name, pageable);
 	}

@@ -5,10 +5,14 @@ import java.util.List;
 
 import org.springframework.data.repository.CrudRepository;
 
-import com.ooqn.entity.model.DtsClass;
+import com.ooqn.entity.model.DtsCategory;
 
-public interface DtsClassRepository extends CrudRepository<DtsClass, String> {
+public interface DtsClassRepository extends CrudRepository<DtsCategory, String> {
 
-    List<DtsClass> findByType(String type);
+    List<DtsCategory> findByType(String type);
+
+    List<DtsCategory> findByTypeOrderByOrderNum(String type);
+
+    List<DtsCategory> findByParentIdOrderByOrderNum(String parentId);
 
 }

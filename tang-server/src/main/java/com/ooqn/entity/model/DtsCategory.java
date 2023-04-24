@@ -10,10 +10,10 @@ import lombok.Data;
 @Entity
 @Data
 @Schema(description = "数据分类")
-public class DtsClass {
+public class DtsCategory {
 
 	@Id
-	private String classId;
+	private String categoryId;
 
 	@Schema(description = "父分类ID")
 	private String parentId;
@@ -30,10 +30,7 @@ public class DtsClass {
 	@Schema(description = "创建时间")
 	private Date createTime;
 
-	@Schema(description = "更新作者ID")
-	private String updateAuthorId;
-
-	@Schema(description = "更新时间")
-	private Date updateTime;
+	@Schema(description = "OrderNum")
+	private Integer orderNum;
 
 }

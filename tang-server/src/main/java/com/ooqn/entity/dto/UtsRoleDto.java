@@ -4,12 +4,14 @@ import org.springframework.security.core.GrantedAuthority;
 
 import com.ooqn.entity.model.UtsRole;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * 角色
  */
-@Data
+@Getter
+@Setter
 public class UtsRoleDto implements GrantedAuthority {
 
 	private UtsRole role;

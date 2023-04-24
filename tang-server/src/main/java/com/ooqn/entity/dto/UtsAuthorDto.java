@@ -1,16 +1,19 @@
 package com.ooqn.entity.dto;
 
-import com.ooqn.entity.model.UtsAuthor;
-
 import java.util.Collection;
 import java.util.List;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-@Data
+import com.ooqn.entity.model.UtsAuthor;
+
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 @EqualsAndHashCode
 public class UtsAuthorDto implements UserDetails {
 
