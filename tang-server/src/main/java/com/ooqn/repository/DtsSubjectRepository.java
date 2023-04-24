@@ -21,4 +21,9 @@ public interface DtsSubjectRepository extends CrudRepository<DtsSubject, String>
 
     Page<DtsSubject> findBySubjectName(String name, Pageable pageable);
 
+    @Query("select dsr.subjectId From DtsSubjectRelevance dsr where dsr.dataId = ?1")
+    String findSubjectIdByArticleId(String articleId);
+
+    void deleteBySubjectIdAndAuthorId(String subjectId, String authorId);
+
 }

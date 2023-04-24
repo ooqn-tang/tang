@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
+import com.ooqn.entity.dto.DtsArticleDto;
 import com.ooqn.entity.model.DtsArticle;
 
 public interface DtsArticleRepository extends CrudRepository<DtsArticle, String> {
@@ -35,4 +36,9 @@ public interface DtsArticleRepository extends CrudRepository<DtsArticle, String>
     da.articleId in (select dsr.dataId from DtsSubjectRelevance dsr where dsr.dataId = ?1)
     """)
     List<DtsArticle> findSubjectArticleListByArticleId(String articleId);
+
+    @Query("""
+    select da From DtsArticle da
+    """)
+    Page<DtsArticleDto> findArticleList(Pageable pageable);
 }

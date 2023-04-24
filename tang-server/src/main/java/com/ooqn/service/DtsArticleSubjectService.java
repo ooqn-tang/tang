@@ -83,8 +83,8 @@ public class DtsArticleSubjectService {
 	 * 添加专辑
 	 */
 	public DtsSubject insertSubject(DtsSubject subject) {
-		subject.setSubjectId(IdUtil.objectId());
 		DateTime date = DateUtil.date();
+		subject.setSubjectId(IdUtil.objectId());
 		subject.setCreateTime(date);
 		subject.setUpdateDate(date);
 		return subjectRepository.save(subject);
@@ -116,7 +116,7 @@ public class DtsArticleSubjectService {
 	}
 
 	public String findSubjectIdByArticleId(String articleId) {
-		return null;// articleSubjectRepository.findSubjectIdByArticleId(articleId);
+		return subjectRepository.findSubjectIdByArticleId(articleId);
 	}
 
 	public DtsSubject subjectById(String subjectId) {
@@ -128,11 +128,11 @@ public class DtsArticleSubjectService {
 	}
 
 	public void deleteBySubjectIdAndAuthorId(String subjectId, String authorId) {
-		// articleSubjectRepository.deleteBySubjectIdAndAuthorId(subjectId, authorId);
+		subjectRepository.deleteBySubjectIdAndAuthorId(subjectId, authorId);
 	}
 
 	public Page<DtsArticleDto> selectArticleList(Pageable pageable) {
-		return null;// articleRepository.findArticleList(pageable);
+		return articleRepository.findArticleList(pageable);
 	}
 
 	public Page<DtsArticleDto> selectArticleListSmall(Pageable pageable) {
