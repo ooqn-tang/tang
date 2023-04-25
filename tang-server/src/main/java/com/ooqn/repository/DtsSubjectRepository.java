@@ -23,5 +23,4 @@ public interface DtsSubjectRepository extends CrudRepository<DtsSubject, String>
 
     @Query("From DtsSubject")
     Page<DtsSubject> findSubjectList(Pageable pageable);
-
 }

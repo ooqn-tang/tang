@@ -3,9 +3,11 @@ package com.ooqn.entity.dto;
 import com.ooqn.entity.model.DtsSubject;
 import com.ooqn.entity.model.UtsAuthor;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 public class DtsSubjectDto {
 
     private DtsSubject subject;

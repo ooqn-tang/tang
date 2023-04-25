@@ -16,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.ooqn.entity.StateNum;
 import com.ooqn.entity.dto.DtsArticleDto;
-import com.ooqn.entity.dto.DtsArticleSubjectDto;
+import com.ooqn.entity.dto.DtsSubjectArticleDto;
 import com.ooqn.entity.dto.DtsSubjectDto;
 import com.ooqn.entity.model.DtsArticle;
 import com.ooqn.entity.model.DtsSubject;
@@ -54,11 +54,11 @@ public class DtsArticleSubjectService {
 	/**
 	 * 查询这个专辑的所有文章
 	 */
-	public DtsArticleSubjectDto findSubjectArticleListBySubjectId(String subjectId) {
+	public DtsSubjectArticleDto findSubjectArticleListBySubjectId(String subjectId) {
 		List<DtsArticle> articleList = articleRepository.findSubjectById(subjectId);
 		DtsSubject subject = subjectRepository.findById(subjectId).orElseThrow();
 		UtsAuthor author = authorRepository.findById(subject.getAuthorId()).orElseThrow();
-		DtsArticleSubjectDto articleSubjectDto = new DtsArticleSubjectDto();
+		DtsSubjectArticleDto articleSubjectDto = new DtsSubjectArticleDto();
 		articleSubjectDto.setArticleList(articleList);
 		articleSubjectDto.setSubject(subject);
 		articleSubjectDto.setAuthor(author);
@@ -68,6 +68,7 @@ public class DtsArticleSubjectService {
 	/**
 	 * 查询专辑链表
 	 */
+
 	public Page<DtsSubjectDto> selectSubjectList(Pageable pageable) {
 		Page<DtsSubject> subjectPage = subjectRepository.findSubjectList(pageable);
 		Page<DtsSubjectDto> subjectList = subjectPage.map(subject -> {
@@ -92,8 +93,8 @@ public class DtsArticleSubjectService {
 	 * 添加专辑
 	 */
 	public DtsSubject insertSubject(DtsSubject subject) {
-		subject.setSubjectId(IdUtil.objectId());
 		DateTime date = DateUtil.date();
+		subject.setSubjectId(IdUtil.objectId());
 		subject.setCreateTime(date);
 		subject.setUpdateDate(date);
 		return subjectRepository.save(subject);
@@ -125,7 +126,7 @@ public class DtsArticleSubjectService {
 	}
 
 	public String findSubjectIdByArticleId(String articleId) {
-		return null;// articleSubjectRepository.findSubjectIdByArticleId(articleId);
+		return subjectRepository.findSubjectIdByArticleId(articleId);
 	}
 
 	public DtsSubject subjectById(String subjectId) {
@@ -133,12 +134,11 @@ public class DtsArticleSubjectService {
 	}
 
 	public List<DtsArticle> findSubjectArticleTitleListByArticleId(String articleId) {
-		String subjectId = findSubjectIdByArticleId(articleId);
-		return null;// articleSubjectRepository.findSubjectArticleTitleListBySubjectId(subjectId);
+		return articleRepository.findSubjectArticleListByArticleId(articleId);
 	}
 
 	public void deleteBySubjectIdAndAuthorId(String subjectId, String authorId) {
-		// articleSubjectRepository.deleteBySubjectIdAndAuthorId(subjectId, authorId);
+		subjectRepository.deleteBySubjectIdAndAuthorId(subjectId, authorId);
 	}
 
 	public Page<DtsArticleDto> selectArticleList(Pageable pageable) {
