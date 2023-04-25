@@ -8,14 +8,6 @@
           class="list-group-item">{{ item.title }}</router-link>
       </div>
 
-      <div class="card mb-2" v-if="recommendList == null">
-        <div class="card-body">
-          <div class="spinner-border" role="status">
-            <span class="visually-hidden">{{ dataText }}</span>
-          </div>
-        </div>
-      </div>
-
       <div class="list-group mb-2">
         <a class="list-group-item active">推荐<span class="float-end">🎇</span></a>
         <a v-for="(item, index) in recommendList" class="list-group-item" :key="index"
@@ -91,7 +83,7 @@ let fans = ref(1);
 let articleId = ref(route.query.value);
 let loginUsername = ref("");
 let loading = ref(false);
-let recommendList = ref(null);
+let recommendList = ref([]);
 let article = ref({
   article: {},
   author: {}
@@ -185,7 +177,7 @@ function loadRecommend() {
     url: `/api/article/recommend`,
     method: "GET",
   }).then((response) => {
-    recommendList = response.data;
+    recommendList.value = response.data;
   });
 }
 function load() {
@@ -201,7 +193,7 @@ function load() {
 // 生命周期钩子
 onMounted(() => {
   load();
-  //loadRecommend();
+  loadRecommend();
 })
 
 </script>

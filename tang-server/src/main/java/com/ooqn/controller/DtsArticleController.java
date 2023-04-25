@@ -60,7 +60,7 @@ public class DtsArticleController extends BaseController {
 	}
 
 	@GetMapping("recommend")
-	public List<DtsArticleDto> selectArticleListRecommend() {
+	public List<DtsArticle> selectArticleListRecommend() {
 		return articleSubjectService.selectArticleListRandom();
 	}
 

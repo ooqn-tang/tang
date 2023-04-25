@@ -40,4 +40,8 @@ public interface DtsArticleRepository extends CrudRepository<DtsArticle, String>
     """)
     List<DtsArticle> findSubjectArticleListByArticleId(String articleId);
 
+    // 使用jpa随机查询DtsArticle10条数据
+    @Query(value = "from DtsArticle order by rand() limit 10")
+    List<DtsArticle> randomArticle();
+
 }

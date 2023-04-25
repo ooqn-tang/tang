@@ -126,7 +126,7 @@ public class DtsArticleSubjectService {
 	}
 
 	public String findSubjectIdByArticleId(String articleId) {
-		return subjectRepository.findSubjectIdByArticleId(articleId);
+		return subjectRepository.findSubjectIdByDataId(articleId);
 	}
 
 	public DtsSubject subjectById(String subjectId) {
@@ -219,9 +219,8 @@ public class DtsArticleSubjectService {
 		return articleRepository.findById(id).orElseThrow();
 	}
 
-	public List<DtsArticleDto> selectArticleListRandom() {
-		List<DtsArticleDto> set = new ArrayList<>();
-		return set;
+	public List<DtsArticle> selectArticleListRandom() {
+		return articleRepository.randomArticle();
 	}
 
 	/**
