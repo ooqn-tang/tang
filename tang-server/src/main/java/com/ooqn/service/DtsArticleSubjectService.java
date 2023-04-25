@@ -68,8 +68,17 @@ public class DtsArticleSubjectService {
 	/**
 	 * 查询专辑链表
 	 */
-	public Page<DtsArticleSubjectDto> selectSubjectList(Pageable pageable) {
-		return null;// articleSubjectRepository.findSubjectList(pageable);
+	public Page<DtsSubjectDto> selectSubjectList(Pageable pageable) {
+		Page<DtsSubject> subjectPage = subjectRepository.findSubjectList(pageable);
+		Page<DtsSubjectDto> subjectList = subjectPage.map(subject -> {
+			String authorId = subject.getAuthorId();
+			UtsAuthor author = authorRepository.findById(authorId).orElseThrow();
+			DtsSubjectDto subjectDto = new DtsSubjectDto();
+			subjectDto.setSubject(subject);
+			subjectDto.setAuthor(author);
+			return subjectDto;
+		});
+		return subjectList;
 	}
 
 	/**
@@ -133,7 +142,15 @@ public class DtsArticleSubjectService {
 	}
 
 	public Page<DtsArticleDto> selectArticleList(Pageable pageable) {
-		return null;// articleRepository.findArticleList(pageable);
+		Page<DtsArticle> findArticleList = articleRepository.findArticleList(pageable);
+		return findArticleList.map(article -> {
+			String authorId = article.getAuthorId();
+			UtsAuthor author = authorRepository.findById(authorId).orElseThrow();
+			DtsArticleDto articleDto = new DtsArticleDto();
+			articleDto.setArticle(article);
+			articleDto.setAuthor(author);
+			return articleDto;
+		});
 	}
 
 	public Page<DtsArticleDto> selectArticleListSmall(Pageable pageable) {
@@ -147,14 +164,13 @@ public class DtsArticleSubjectService {
 
 	public Page<DtsArticleDto> selectArticleByAuthorName(String username, Pageable pageable) {
 		Page<DtsArticle> articleList = articleRepository.findArticleListByUsername(username, pageable);
-		Page<DtsArticleDto> articleDtoList = articleList.map(article -> {
+		return articleList.map(article -> {
 			DtsArticleDto articleDto = new DtsArticleDto();
 			articleDto.setArticle(article);
 			articleDto.setAuthor(authorRepository.findById(article.getAuthorId()).orElseThrow());
 			articleDto.setSubject(subjectRepository.findByDataId(article.getArticleId()).orElse(null));
 			return articleDto;
 		});
-		return articleDtoList;
 	}
 
 	public DtsArticle insertArticle(DtsArticle article) {

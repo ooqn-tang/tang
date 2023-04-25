@@ -7,12 +7,12 @@
           <div class="card move-b-lr-0">
             <div class="card-body" style="">
               <p class="card-text text-truncate">
-                <router-link :to="{name:'subject_post',params:{subject_id:item.subjectId}}">
-                  <strong>{{item.subjectName}}</strong>
+                <router-link :to="{name:'subject_post',params:{subject_id:item.subject.subjectId}}">
+                  <strong>{{item.subject.subjectName}}</strong>
                 </router-link>
               </p>
-              <p class="card-text text-truncate">作者：{{item.nickname}}</p>
-              <p class="card-text text-truncate">专辑描述：{{item.synopsis}}</p>
+              <p class="card-text text-truncate">作者：{{item.author.nickname}}</p>
+              <p class="card-text text-truncate">专辑描述：{{item.subject.synopsis}}</p>
             </div>
           </div>
         </div>
@@ -30,32 +30,30 @@
 
 </template>
 
-<script>
+<script setup name="subject">
+import { ref, onMounted } from 'vue'
+import { useStore } from 'vuex'
+import { useRouter } from 'vue-router'
+
 import request from 'utils/request'
-export default {
-  name: "subject",
-  data() {
-    return {
-      username: this.$store.getters.username,
-      subjectList: []
-    };
-  },
-  created() {
-  },
-  methods: {
-    selectSubjectList() {
-      request({
-        url: `/api/subject/list`,
-        method: 'GET'
-      }).then((response) => {
-        this.subjectList = response.data.content
-      })
-    }
-  },
-  mounted() {
-    this.selectSubjectList()
-  }
-};
+
+const store = useStore()
+const router = useRouter()
+
+let subjectList = ref([])
+let username = store.getters.username
+
+onMounted(() => {
+  selectSubjectList()
+})
+function selectSubjectList() {
+  request({
+    url: `/api/subject/list`,
+    method: 'GET'
+  }).then((response) => {
+    subjectList.value = response.data.content
+  })
+}
 </script>
 
 <style scoped>

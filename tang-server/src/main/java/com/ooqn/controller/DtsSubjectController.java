@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import cn.hutool.core.bean.BeanUtil;
 import com.ooqn.core.exception.ApiException;
 import com.ooqn.entity.dto.DtsArticleSubjectDto;
+import com.ooqn.entity.dto.DtsSubjectDto;
 import com.ooqn.entity.model.DtsArticle;
 import com.ooqn.entity.model.DtsSubject;
 import com.ooqn.entity.model.DtsSubjectRelevance;
@@ -51,7 +52,7 @@ public class DtsSubjectController extends BaseController {
 	}
 
 	@GetMapping("list")
-	public Page<DtsArticleSubjectDto> selectSubject(
+	public Page<DtsSubjectDto> selectSubject(
 			@RequestParam(value = "page", defaultValue = "0") Integer page) {
 		Pageable pageable = PageRequest.of(page, 20);
 		return articleSubjectService.selectSubjectList(pageable);
@@ -61,7 +62,7 @@ public class DtsSubjectController extends BaseController {
 	public Page<DtsArticleSubjectDto> selectSubjectByName(
 			@RequestParam(value = "subjectName", defaultValue = "") String name) {
 		Pageable pageable = PageRequest.of(1, 15);
-		return articleSubjectService.findSubjectListBySubjectName(name, pageable);
+		return null;//articleSubjectService.findSubjectListBySubjectName(name, pageable);
 	}
 
 	@PostMapping

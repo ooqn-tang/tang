@@ -5,13 +5,14 @@
         <h4 class="modal-title text-center">登录</h4>
       </div>
       <div id="model-body" class="modal-body">
+        {{ loginData.value }}
         <label>邮箱/用户名：</label>
         <div class="form-group">
-          <input type="text" v-model="loginData.username" placeholder="邮箱/用户名" autocomplete="off" class="form-control"/>
+          <input type="text" v-model="loginData.username" placeholder="邮箱/用户名" autocomplete="off" class="form-control" />
         </div>
         <label>密码：</label>
         <div class="form-group">
-          <input type="password" v-model="loginData.password" placeholder="密码" autocomplete="off" class="form-control"/>
+          <input type="password" v-model="loginData.password" placeholder="密码" autocomplete="off" class="form-control" />
         </div>
       </div>
       <div class="modal-footer">
@@ -29,63 +30,61 @@
   </div>
 </template>
 
-<script>
+<script setup name="login">
+import { ref, onMounted } from 'vue'
+import { useStore } from 'vuex'
+import { useRoute, useRouter } from "vue-router"
+import { createStore } from 'vuex'
+
 import jwt_decode from "jwt-decode"
 import request from 'utils/request'
-export default {
-  name: "login",
-  data() {
-    return {
-      loginData:{
-        username:"",
-        password:"",
-        mail:"",
-        password1:"",
-        'rememberMe':true
-      }
-    };
-  },
-  components: {},
-  methods: {
-    login(){
-      request({
-        url: `/api/authenticate`,
-        method: 'post',
-        data:this.loginData
-    }).then((response) => {
-        if(response.status === 200){
-          let authorData = jwt_decode(response.data)
-          localStorage.setItem("jwt",response.data)
-          localStorage.setItem("authorData",JSON.stringify(authorData))
-          this.$router.push({path:"/author/"+authorData.sub})
-        }
-      }).catch(e => {
-        alert(e.data)
-      });
+
+let loginData = ref({rememberMe:true})
+let store = useStore()
+let route = useRoute()
+let router = useRouter()
+
+function login() {
+  request({
+    url: `/api/authenticate`,
+    method: 'post',
+    data: loginData.value
+  }).then((response) => {
+    if (response.status === 200) {
+      let authorData = jwt_decode(response.data)
+      localStorage.setItem("jwt", response.data)
+      localStorage.setItem("authorData", JSON.stringify(authorData))
+      router.push({ path: "/author/" + authorData.sub })
     }
-  },
-  mounted(){
-    localStorage.removeItem("jwt")
-    localStorage.removeItem("authorData")
-  }
-};
+  }).catch(e => {
+    alert(e.data)
+  });
+}
+
+onMounted(() => {
+ 
+})
+
 </script>
 
 <style scoped>
-.W33{
+.W33 {
   width: 33%;
 }
-.W34{
+
+.W34 {
   width: 34%
 }
-.W100{
+
+.W100 {
   width: 100%;
 }
-.mb10px{
+
+.mb10px {
   margin-bottom: 10px;
 }
-html,body{
-  overflow:hidden;
-}
 
-</style>
+html,
+body {
+  overflow: hidden;
+}</style>

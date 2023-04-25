@@ -33,10 +33,12 @@
                 </strong>
                 .
                 <span style="color: rgb(180, 180, 180)">{{ article.article.createTime }}</span>
-                <button v-if="fans == 2" class="btn btn-outline-warning float-end t-b-m-1" @click="fansClick(article.author.username)">
+                <button v-if="fans == 2" class="btn btn-outline-warning float-end t-b-m-1"
+                  @click="fansClick(article.author.username)">
                   订阅
                 </button>
-                <button v-if="fans == 1" class="btn btn-outline-warning float-end t-b-m-1" @click="fansClick(article.author.username)">
+                <button v-if="fans == 1" class="btn btn-outline-warning float-end t-b-m-1"
+                  @click="fansClick(article.author.username)">
                   取消订阅
                 </button>
               </div>
@@ -66,141 +68,145 @@
           style="margin-left: 0px" @click="collectClick">收藏</a>
         <a disabled class="btn btn-outline-primary btn-sm mini-but">举报</a>
         <a class="btn btn-outline-primary btn-sm mini-but" :href="'https://ttcxy.cn/article/' + articleId">阅读模式</a>
-        <a class="btn btn-outline-primary btn-sm mini-but" onclick="document.body.scrollTop = document.documentElement.scrollTop = 0">⬆TOP</a>
+        <a class="btn btn-outline-primary btn-sm mini-but"
+          onclick="document.body.scrollTop = document.documentElement.scrollTop = 0">⬆TOP</a>
       </div>
     </div>
   </nav>
 </template>
 
-<script>
+<script setup name="article_post">
+import { ref, onMounted } from 'vue'
+import { createStore } from 'vuex'
+import { useStore } from 'vuex'
+import { useRoute, useRouter } from "vue-router"
 import "highlight.js/styles/github.css";
 import request from "utils/request";
-export default {
-  name: "article_post",
-  data() {
-    return {
-      fans: 2,
-      loginUsername: "",//this.$store.state.username,
-      articleId: this.$route.params.id,
-      loading: false,
-      recommendList: null,
-      article: {
-        article: {},
-        author: {}
-      },
-      subject: [],
-      articleList: [],
-      collect: 0,
-      dataText: '加载中...'
-    };
-  },
-  components: {},
-  methods: {
-    fansClick(username) {
-      if (this.fans == 2) {
-        request({
-          url: `/api/fans/${username}`,
-          method: "POST",
-        }).then((response) => {
-          this.fans = 1;
-        });
-      } else {
-        request({
-          url: `/api/fans/${username}`,
-          method: "DELETE",
-        }).then((response) => {
-          this.fans = 2;
-        });
+
+const router = useRouter()
+const route = useRoute()
+const store = useStore()
+
+let fans = ref(1);
+let articleId = ref(route.query.value);
+let loginUsername = ref("");
+let loading = ref(false);
+let recommendList = ref(null);
+let article = ref({
+  article: {},
+  author: {}
+});
+let subject = ref([]);
+let articleList = ref([]);
+let collect = ref(0);
+let dataText = ref('加载中...')
+
+
+
+function fansClick(username) {
+  if (fans == 2) {
+    request({
+      url: `/api/fans/${username}`,
+      method: "POST",
+    }).then((response) => {
+      fans = 1;
+    });
+  } else {
+    request({
+      url: `/api/fans/${username}`,
+      method: "DELETE",
+    }).then((response) => {
+      fans = 2;
+    });
+  }
+}
+function isFans() {
+  request({
+    url: `/api/fans/username/${article.author.username}`,
+    method: "get",
+  }).then((response) => {
+    if (response.data == 1) {
+      fans = 1;
+    } else {
+      fans = 2;
+    }
+  });
+}
+function collectClick() {
+  if (collect == 1) {
+    request({
+      url: `/api/collect/${articleId}`,
+      method: "DELETE",
+    }).then((response) => {
+      collect = 0;
+    });
+  } else {
+    request({
+      url: `/api/collect`,
+      method: "POST",
+      data: {
+        dataId: articleId,
+        url: window.location.href,
+        title: article.title,
+        synopsis: article.synopsis
       }
-    },
-    isFans() {
-      request({
-        url: `/api/fans/username/${this.article.author.username}`,
-        method: "get",
-      }).then((response) => {
-        if (response.data == 1) {
-          this.fans = 1;
-        } else {
-          this.fans = 2;
-        }
-      });
-    },
-    collectClick() {
-      if (this.collect == 1) {
-        request({
-          url: `/api/collect/${this.articleId}`,
-          method: "DELETE",
-        }).then((response) => {
-          this.collect = 0;
-        });
-      } else {
-        request({
-          url: `/api/collect`,
-          method: "POST",
-          data: {
-            dataId: this.articleId,
-            url: window.location.href,
-            title: this.article.title,
-            synopsis: this.article.synopsis
-          }
-        }).then((response) => {
-          this.collect = 1;
-        });
-      }
-    },
-    isLike() {
-      request({
-        url: `/api/collect/${this.articleId}`,
-        method: "GET",
-      }).then((response) => {
-        this.collect = response.data;
-      });
-    },
-    loadArticleInfo() {
-      request({
-        url: `/api/article/load/${this.articleId}`,
-        method: "GET",
-      }).then((response) => {
-        this.article = response.data;
-      });
-    },
-    selectSubjectArticleList() {
-      request({
-        url: `/api/subject/article/${this.articleId}`,
-        method: "GET",
-      }).then((response) => {
-        this.articleList = response.data;
-      });
-    },
-    loadRecommend() {
-      request({
-        url: `/api/article/recommend`,
-        method: "GET",
-      }).then((response) => {
-        this.recommendList = response.data;
-      });
-    },
-    load() {
-      this.articleId = this.$route.params.id;
-      if (this.$store.state.username != "") {
-        this.isLike();
-      }
-      this.selectSubjectArticleList();
-      this.loadArticleInfo();
-    },
-  },
-  mounted() {
-    this.load();
-    this.loadRecommend();
-  },
-  watch: {
-    $route: "load",
-  },
-};
+    }).then((response) => {
+      collect = 1;
+    });
+  }
+}
+function isLike() {
+  request({
+    url: `/api/collect/${articleId}`,
+    method: "GET",
+  }).then((response) => {
+    collect = response.data;
+  });
+}
+function loadArticleInfo() {
+  request({
+    url: `/api/article/load/${articleId}`,
+    method: "GET",
+  }).then((response) => {
+    article.value = response.data
+    
+  });
+}
+function selectSubjectArticleList() {
+  request({
+    url: `/api/subject/article/${articleId}`,
+    method: "GET",
+  }).then((response) => {
+    articleList = response.data;
+  });
+}
+function loadRecommend() {
+  request({
+    url: `/api/article/recommend`,
+    method: "GET",
+  }).then((response) => {
+    recommendList = response.data;
+  });
+}
+function load() {
+  articleId = route.params.id;
+  if (store.state.username != "") {
+    isLike();
+  }
+  selectSubjectArticleList();
+  loadArticleInfo();
+}
+
+
+// 生命周期钩子
+onMounted(() => {
+  load();
+  //loadRecommend();
+})
+
 </script>
 
 <style scoped>
 .classColor {
   color: #ff5c5c;
-}
-</style>
+}</style>

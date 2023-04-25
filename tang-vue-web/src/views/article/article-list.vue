@@ -13,18 +13,18 @@
         <div class="card-body article-list p-0">
           <ul class="list-group ">
             <li class="list-group-item " v-for="(item, index) in articleList" :key="index">
-              <router-link :to="{ name: 'article_post', params: { id: item.articleId } }" class="article-title">
+              <router-link :to="{ name: 'article_post', params: { id: item.article.articleId } }" class="article-title">
                 <strong>
-                  <p v-text="item.title"></p>
+                  <p v-text="item.article.title"></p>
                 </strong>
               </router-link>
-              <div class="article-synopsis" style="color: #5f5a5a;">{{ item.synopsis }}</div>
+              <div class="article-synopsis" style="color: #5f5a5a;">{{ item.article.synopsis }}</div>
               <div>
-                <span class="date-color" style="font-size: 16px;">{{ item.createDate }}</span>
+                <span class="date-color" style="font-size: 16px;">{{ item.article.createTime }}</span>
                 <span v-for="(item, index) in item.tagList" :key="index"> . <span
                     style="font-size: 16px;color: #dc3545;">{{ item.tagName }}</span></span>
-                <router-link :to="{ name: 'author_article', params: { username: item.username } }"
-                  class="float-end">{{ item.nickname }}</router-link>
+                <router-link :to="{ name: 'author_article', params: { username: item.author.username } }"
+                  class="float-end">{{ item.author.nickname }}</router-link>
               </div>
             </li>
             <li class="list-group-item">
@@ -47,12 +47,17 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
+import { useStore } from 'vuex'
+import { useRoute, useRouter } from "vue-router"
 import request from 'utils/request'
 
-let  selectTag = ""
-let  selectType = 1
-let  page = { number: 0 }
-let  articleList = []
+let store = useStore()
+let route = useRoute()
+
+let  selectTag = ref("")
+let  selectType = ref(1)
+let  page = ref({ number: 0 })
+let  articleList = ref([])
 let  isLoding = ref(true)
 
 // 生命周期钩子
@@ -61,12 +66,12 @@ onMounted(() => {
 })
 
 function selectTagClick(selectTag) {
-  page = {
-    number: 0
-  }
-  selectTag = selectTag;
-  articleList = []
-  loadArticle()
+  // page = {
+  //   number: 0
+  // }
+  // selectTag = selectTag;
+  // articleList = ref([])
+  // loadArticle()
 }
 function loadArticle() {
   let url = ''
@@ -80,9 +85,9 @@ function loadArticle() {
     method: 'get',
     params: { page: page.number }
   }).then((response) => {
-    isLoding = false
-    page = response.data
-    articleList = articleList.concat(response.data.content)
+    isLoding.value = false
+    page.value = response.data
+    articleList.value = articleList.value.concat(response.data.content)
   })
 }
 function next() {
