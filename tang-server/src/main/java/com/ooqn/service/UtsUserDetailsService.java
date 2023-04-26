@@ -14,6 +14,9 @@ import org.springframework.stereotype.Service;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.lang.Validator;
 
+/**
+ * @description: 用户登录认证信息查询
+ */
 @Service
 public class UtsUserDetailsService implements UserDetailsService {
 

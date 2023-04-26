@@ -21,7 +21,8 @@ public interface UtsAuthorRepository extends CrudRepository<UtsAuthor, String> {
 
     int countByUsername(String username);
 
-    List<UtsAuthor> findByMailLikeAndUsernameLikeAndNicknameLike(String mailLike, String username, String nicknameLike);
+    @Query("select ua from UtsAuthor ua where ua.nickname like %?1% or ua.username like %?1% or ua.nickname like %?1%")
+    List<UtsAuthor> findByMailLikeOrUsernameLikeOrNicknameLike(String queryData);
 
     long countByNickname(String nickname);
 

@@ -1,16 +1,16 @@
 package com.ooqn.service;
 
-import cn.hutool.core.date.DateTime;
-import cn.hutool.core.util.IdUtil;
-import com.ooqn.entity.dto.UtsFansDto;
-import com.ooqn.entity.model.UtsAuthor;
-import com.ooqn.entity.model.UtsFans;
-import com.ooqn.repository.UtsFansRepository;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import com.ooqn.entity.model.UtsAuthor;
+import com.ooqn.entity.model.UtsFans;
+import com.ooqn.repository.UtsFansRepository;
+
+import cn.hutool.core.date.DateTime;
+import cn.hutool.core.util.IdUtil;
 
 /**
  * 粉丝相关服务
@@ -25,7 +25,6 @@ public class UtsFansService {
 	private UtsAuthorService authorService;
 
 	public Page<UtsAuthor> selectFansList(String authorId, Pageable pageable) {
-		Page<UtsAuthor> authorList = fansRepository.findFansList(authorId, pageable);
 		return fansRepository.findFansList(authorId, pageable);
 	}
 

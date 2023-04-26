@@ -28,20 +28,33 @@ import jakarta.persistence.PersistenceContext;
 public class TangApplication {
 
 
+	/**
+	 * 注入实体管理器
+	 */
 	@PersistenceContext
 	private EntityManager entityManager;
 
 	public static void main(String[] args) throws SQLException {
+		/**
+		 * 启动h2数据库
+		 */
 		Server.main("-tcp", "-tcpAllowOthers","-ifNotExists");
 		SpringApplication springApplication = new SpringApplication(TangApplication.class);
 		springApplication.run(args);
 	}
 
+	/**
+	 * 配置websocket
+	 */
     @Bean
     ServerEndpointExporter serverEndpointExporter() {
 		return new ServerEndpointExporter();
 	}
 
+	/**
+	 * 配置https
+	 * @ConditionalOnProperty注解的作用是当配置文件中tang-https=true时，才会执行下面的方法
+	 */
     @Bean
     @ConditionalOnProperty(value = "tang-https", havingValue = "true")
     ServletWebServerFactory servletContainer() {
@@ -77,6 +90,9 @@ public class TangApplication {
 		return tomcat;
 	}
 
+	/**
+	 * 配置http转https
+	 */
 	private Connector createStandardConnector() {
 		Connector connector = new Connector("org.apache.coyote.http11.Http11NioProtocol");
 		connector.setScheme("http");

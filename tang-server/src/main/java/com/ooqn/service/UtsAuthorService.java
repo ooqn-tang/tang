@@ -91,8 +91,7 @@ public class UtsAuthorService {
 	}
 
 	public List<UtsAuthor> select(String queryData) {
-		return authorRepository.findByMailLikeAndUsernameLikeAndNicknameLike(
-				"%" + queryData + "%", "%" + queryData + "%", "%" + queryData + "%");
+		return authorRepository.findByMailLikeOrUsernameLikeOrNicknameLike(queryData);
 	}
 
 	public void delete(String authorId) {

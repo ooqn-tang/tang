@@ -8,7 +8,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Configuration;
 
 import com.ooqn.repository.DtsArticleRepository;
+import com.ooqn.repository.UtsAuthorRepository;
 import com.ooqn.repository.UtsRoleRepository;
+import com.ooqn.service.UtsAuthorService;
 
 @Configuration
 @SpringBootTest(classes = TangApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -30,9 +32,13 @@ class TangApplicationTests {
     @Autowired
     DtsArticleRepository articleRepository;
 
+    @Autowired
+    UtsAuthorRepository authorRepository;
+
     @Test
     public void test1(){
-        System.out.println("************************************"+utsRoleRepository.findRoleListByAuthorId("1"));
+        System.out.println("************************************"+authorRepository.findAll());
+        System.out.println("************************************"+authorRepository.findByMailLikeOrUsernameLikeOrNicknameLike("a"));
         
     }
 }
