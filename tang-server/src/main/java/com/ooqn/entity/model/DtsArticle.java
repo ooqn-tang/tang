@@ -6,12 +6,16 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Lob;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+
 import org.hibernate.annotations.DynamicUpdate;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 
 @Entity
-@Data
+@Getter
+@Setter
 @DynamicUpdate
 @Schema(description = "通用返回对象")
 public class DtsArticle {

@@ -264,7 +264,9 @@ public class DtsArticleSubjectService {
 	 * 查询关注用户的文章
 	 */
 	public Page<DtsArticleDto> selectGzArticleList(Pageable pageable, String authorId) {
-		return null;// articleRepository.findGzArticleList(authorId, pageable);
+		Page<DtsArticle> findGzArticleList = articleRepository.findFansArticleList(authorId, pageable);
+		return null;
+
 	}
 
 	/**

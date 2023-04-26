@@ -15,4 +15,7 @@ public interface UtsRoleRepository extends CrudRepository<UtsRole, String> {
     @Query("From UtsRole where roleId in (select roleId from UtsAuthorRole where authorId = ?1)")
     List<UtsRole> findRoleListByAuthorId(String authorId);
 
+    @Query("select roleId from UtsAuthorRole where authorId = ?1")
+    List<String> findRoleIdList(String authorId);
+
 }

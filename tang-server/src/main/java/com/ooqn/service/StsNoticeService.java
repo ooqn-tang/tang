@@ -19,28 +19,27 @@ public class StsNoticeService {
 	@Autowired
 	private StsNoticeRepository noticeRepository;
 
+	/**
+	 * 查询所有广告
+	 */
 	public List<StsNotice> selectAllNotice() {
 		return noticeRepository.findAllByOrderByOrderNum();
-	}
-
-	public StsNotice selectById(String id) {
-		return noticeRepository.findById(id).orElseThrow();
 	}
 
 	public StsNotice insertNotice(StsNotice notice) {
 		String id = IdUtil.objectId();
 		notice.setNoticeId(id);
-		Integer integer = null;//noticeRepository.findNoticeMaxOrder();
+		Integer integer = noticeRepository.findNoticeMaxOrder();
 		notice.setOrderNum(integer + 1);
 		return noticeRepository.save(notice);
 	}
 
-	public StsNotice updateNotice(StsNotice notice) {
-		return noticeRepository.save(notice);
+	public void deleteNotice(String noticeId) {
+		noticeRepository.deleteById(noticeId);
 	}
 
-	public void deleteNotice(String id) {
-		noticeRepository.deleteById(id);
+	public StsNotice updateNotice(StsNotice notice) {
+		return noticeRepository.save(notice);
 	}
 
 	public void updateNoticeOrder(StsNoticeParam[] noticeList) {

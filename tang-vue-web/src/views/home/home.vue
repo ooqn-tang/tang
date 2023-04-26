@@ -68,49 +68,43 @@
   </div>
 </template>
 
-<script>
+<script setup name="home">
+import { ref, reactive, computed, watch, onMounted, onUnmounted,onActivated } from 'vue'
 import request from 'utils/request'
-export default {
-  name: "home",
-  data() {
-    return {
-      title:"菜单",
-      isAdmin:this.$store.state.roles.indexOf("ROLE_ADMIN") > -1,
-      isLogin:this.$store.state.username != null && this.$store.state.username != '' && this.$store.state.username != undefined
-    };
-  },
-  computed: {
-    name() {
-      return 
-    },
-  },
-  created() {
-  },
-  methods: {
-    createArticle(){
-      request({
-        url: `/api/article`,
-        method: 'POST'
-      }).then((response) => {
-        let routeData = this.$router.resolve({name:"article-editor-md",params:{id:response.data}});
-        window.open(routeData.href, '_blank');
-        this.$refs.close.click()
-      })
-    }
-  },
-  onActivated(){
-    alert()
-    if(this.$route.name == 'article'){
-      this.title = '文章'
-    }else if(this.$route.name == 'subject_index'){
-      this.title = '专辑'
-    }else if(this.$route.name == 'author_list'){
-      this.title = '作者'
-    }else{
-      this.title = '菜单'
-    }
+import { useStore } from 'vuex'
+import { useRouter } from 'vue-router'
+import { useRoute } from 'vue-router'
+
+const store = useStore()
+const router = useRouter()
+const route = useRoute()
+
+let title = ref("菜单")
+let isAdmin = computed(() => store.state.roles.indexOf("ROLE_ADMIN") > -1)
+let isLogin = computed(() => store.state.username != null && store.state.username != '' && store.state.username != undefined)
+
+onActivated(() => {
+  if(route.name == 'article'){
+    title.value = '文章'
+  }else if(route.name == 'subject_index'){
+    title.value = '专辑'
+  }else if(route.name == 'author_list'){
+    title.value = '作者'
+  }else{
+    title.value = '菜单'
   }
-};
+})
+
+function createArticle(){
+  request({
+    url: `/api/article`,
+    method: 'POST'
+  }).then((response) => {
+    let routeData = router.resolve({name:"article-editor-md",params:{id:response.data}});
+    window.open(routeData.href, '_blank');
+  })
+}
+
 </script>
 
 <style>

@@ -6,10 +6,10 @@
         data-bs-target="#exampleModal" />
     </div>
     <div class="body">
-      <textarea ref="systemForm" @scroll="sysHandleScroll()" @mouseover="changeFlag(false)" id="text"
-        v-model="articleForm.markdown" placeholder="可以输入Markdown文本为内容添加样式"></textarea>
-      <div ref="externalForm" @scroll="exterHandleScroll()" @mouseover="changeFlag(true)" id="content"
-        v-html="articleForm.text" class="markdown-body"></div>
+      <textarea ref="systemForm" @scroll="sysHandleScroll()" id="text" v-model="articleForm.markdown"
+        placeholder="可以输入Markdown文本为内容添加样式"></textarea>
+      <div ref="externalForm" @scroll="exterHandleScroll()" id="content" v-html="articleForm.text" class="markdown-body">
+      </div>
     </div>
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -30,13 +30,8 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-              关闭
-            </button>
-            <button type="button" class="btn btn-primary">存草稿</button>
-            <button type="button" class="btn btn-primary" @click="saveArticle()">
-              发布
-            </button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">关闭</button>
+            <button type="button" class="btn btn-primary" @click="saveArticle()">发布</button>
           </div>
         </div>
       </div>
@@ -44,11 +39,17 @@
   </div>
 </template>
 <script setup name="article-editor-md">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, watch } from 'vue'
+import { useRoute } from 'vue-router'
+import { useStore } from 'vuex'
 import { marked } from "marked";
 import hljs from "highlight.js";
 import "highlight.js/styles/github.css";
 import request from "utils/request";
+
+const route = useRoute();
+const store = useStore();
+
 marked.setOptions({
   renderer: new marked.Renderer(),
   highlight: function (code) {
@@ -62,9 +63,11 @@ marked.setOptions({
   smartypants: false,
 });
 
-let articleId = ref($route.params.id);
+let articleId = ref(route.params.id);
 let subjectList = ref([]);
 let articleForm = ref({});
+let externalForm = ref(null);
+let systemForm = ref(null);
 
 onMounted(() => {
   loadArticleAllInfo(articleId.value);
@@ -76,48 +79,48 @@ function loadArticleAllInfo(articleId) {
     url: `/api/article/load/${articleId}/all`,
     method: "GET",
   }).then((response) => {
-    articleForm.articleId = response.data.article.articleId;
-    articleForm.title = response.data.article.title;
-    articleForm.synopsis = response.data.article.synopsis;
-    articleForm.text = response.data.article.text;
-    articleForm.markdown = response.data.article.markdown;
+    articleForm.value.articleId = response.data.article.articleId;
+    articleForm.value.title = response.data.article.title;
+    articleForm.value.synopsis = response.data.article.synopsis;
+    articleForm.value.text = response.data.article.text;
+    articleForm.value.markdown = response.data.article.markdown;
+    articleForm.value.subjectId = response.data.subject.subjectId;
   });
 }
 function saveArticle() {
-  if (articleForm.title == undefined || articleForm.title == "") {
+  debugger
+  if (articleForm.value.title == undefined || articleForm.value.title == "") {
     alert("请输入标题！")
     return;
   }
-  articleForm.text = marked(articleForm.markdown);
+  articleForm.value.text = marked(articleForm.value.markdown);
   request({
     url: `/api/article`,
     method: "PUT",
-    data: articleForm,
+    data: articleForm.value,
   }).then((response) => {
-    window.location.href = `/article/${articleForm.articleId}`;
+    window.location.href = `/article/${articleForm.value.articleId}`;
   });
 }
 function loadSubject() {
   request({
-    url: `/api/subject/username/${$store.state.username}`,
+    url: `/api/subject/username/${store.state.username}`,
     method: "GET",
   }).then((response) => {
     subjectList = response.data;
   });
 }
-function changeFlag(flag) {
-  flag = flag;
-}
+
 function sysHandleScroll() {
-  if (!flag) {
-    $refs.externalForm.scrollTop = $refs.systemForm.scrollTop;
-  }
+  externalForm.value.scrollTop = systemForm.value.scrollTop;
 }
 function exterHandleScroll() {
-  if (flag) {
-    $refs.systemForm.scrollTop = $refs.externalForm.scrollTop;
-  }
+  systemForm.value.scrollTop = externalForm.value.scrollTop;
 }
+
+watch(() => articleForm.value.markdown, (value) => {
+  articleForm.value.text = marked(value)
+})
 
 </script>
 <style>

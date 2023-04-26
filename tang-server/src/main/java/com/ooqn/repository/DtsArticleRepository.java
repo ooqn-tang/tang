@@ -8,7 +8,6 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
-import com.ooqn.entity.dto.DtsArticleDto;
 import com.ooqn.entity.model.DtsArticle;
 
 public interface DtsArticleRepository extends CrudRepository<DtsArticle, String> {
@@ -40,8 +39,14 @@ public interface DtsArticleRepository extends CrudRepository<DtsArticle, String>
     """)
     List<DtsArticle> findSubjectArticleListByArticleId(String articleId);
 
-    // 使用jpa随机查询DtsArticle10条数据
-    @Query(value = "from DtsArticle order by rand() limit 10")
+    @Query("from DtsArticle order by rand() limit 10")
     List<DtsArticle> randomArticle();
+
+    @Query("""
+    select da From DtsArticle da where
+    da.authorId in (select df.beAuthorId from UtsFans df where df.authorId = ?1)
+    order by da.createTime desc
+    """)
+    Page<DtsArticle> findFansArticleList(String authorId, Pageable pageable);
 
 }
