@@ -16,7 +16,7 @@ public interface DtsSubjectRepository extends CrudRepository<DtsSubject, String>
     @Query("From DtsSubject where subjectId in (select subjectId from DtsSubjectRelevance where dataId = ?1)")
     Optional<DtsSubject> findByDataId(String articleId);
 
-    @Query("From DtsSubject where authorId in (select authorId from UtsAuthor where username = ?1)")
+    @Query("From DtsSubject where authorId in (select authorId from UtsAuthor where username = ?1) order by createTime desc")
     List<DtsSubject> findByAuthorName(String username);
 
     Page<DtsSubject> findBySubjectName(String name, Pageable pageable);

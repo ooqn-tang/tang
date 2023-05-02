@@ -15,4 +15,8 @@ public interface DtsSubjectRelevanceRepository extends CrudRepository<DtsSubject
 
     List<DtsSubjectRelevance> findBySubjectId(String subjectId);
 
+    void deleteBySubjectIdAndDataId(String subjectId, String articleId);
+
+    void deleteByDataId(String articleId);
+
 }

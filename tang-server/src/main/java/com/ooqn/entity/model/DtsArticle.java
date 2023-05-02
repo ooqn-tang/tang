@@ -1,17 +1,19 @@
 package com.ooqn.entity.model;
 
 import java.util.Date;
+
+import org.hibernate.annotations.DynamicUpdate;
+
+import com.beust.ah.A;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Lob;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
-
-import org.hibernate.annotations.DynamicUpdate;
-
-import io.swagger.v3.oas.annotations.media.Schema;
+import java.util.Objects;
 
 @Entity
 @Getter
@@ -19,6 +21,14 @@ import io.swagger.v3.oas.annotations.media.Schema;
 @DynamicUpdate
 @Schema(description = "通用返回对象")
 public class DtsArticle {
+
+	public DtsArticle() {
+	}
+
+	public DtsArticle(String articleId,String title) {
+		this.articleId = articleId;
+		this.title = title;
+	}
 
 	@Id
 	private String articleId;
@@ -53,4 +63,6 @@ public class DtsArticle {
 	@Lob
 	@Schema(description = "markdown")
 	private String markdown;
+
+
 }

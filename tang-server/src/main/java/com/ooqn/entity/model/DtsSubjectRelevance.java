@@ -5,12 +5,15 @@ import java.util.Date;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 import lombok.Getter;
 import lombok.Setter;
 
 @Entity
 @Getter
 @Setter
+@Table(uniqueConstraints = {@UniqueConstraint(columnNames = { "dataId", "subjectId" })})
 public class DtsSubjectRelevance {
 
 	@Id
@@ -25,7 +28,7 @@ public class DtsSubjectRelevance {
 
 	@Schema(description = "排序")
 	private Integer orderNum;
-	
+
 	@Schema(description = "创建人id")
 	private String createAuthorId;
 
@@ -37,8 +40,5 @@ public class DtsSubjectRelevance {
 
 	@Schema(description = "更新时间")
 	private Date updateTime;
-
-
-
 
 }

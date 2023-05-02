@@ -83,7 +83,7 @@ function loadArticle() {
   request({
     url: url,
     method: 'get',
-    params: { page: page.number }
+    params: { page: page.value.number }
   }).then((response) => {
     isLoding.value = false
     page.value = response.data
@@ -92,7 +92,7 @@ function loadArticle() {
 }
 function next() {
   if (!this.page.last) {
-    page.number += 1
+    page.value.number += 1
     loadArticle()
   }
 }

@@ -134,9 +134,10 @@ public class DtsArticleSubjectService {
 	}
 
 	public List<DtsArticle> findSubjectArticleTitleListByArticleId(String articleId) {
-		return articleRepository.findSubjectArticleListByArticleId(articleId);
+		return articleRepository.findSubjectArticleTitleListByArticleId(articleId);
 	}
 
+	@Transactional
 	public void deleteBySubjectIdAndAuthorId(String subjectId, String authorId) {
 		subjectRepository.deleteBySubjectIdAndAuthorId(subjectId, authorId);
 	}
@@ -226,9 +227,14 @@ public class DtsArticleSubjectService {
 	/**
 	 * 保存文章专辑
 	 */
+	@Transactional(rollbackFor = Exception.class)
 	public void saveSubjectId(String articleId, String subjectId) {
+
+		subjectRelevanceRepository.deleteByDataId(articleId);
+
 		List<DtsSubjectRelevance> subjectRelevanceList = subjectRelevanceRepository.findBySubjectId(subjectId);
 		DateTime date = DateUtil.date();
+
 		AtomicInteger index = new AtomicInteger(0);
 		subjectRelevanceList = subjectRelevanceList.stream().map(subjectRelevance -> {
 			subjectRelevance.setOrderNum(index.getAndIncrement());
@@ -236,20 +242,15 @@ public class DtsArticleSubjectService {
 			return subjectRelevance;
 		}).collect(Collectors.toList());
 
-		// subjectRelevanceList 中是否包含 articleId
-		boolean contains = subjectRelevanceList.stream()
-				.anyMatch(subjectRelevance -> subjectRelevance.getDataId().equals(articleId));
-
-		if (!contains) {
-			DtsSubjectRelevance subjectRelevance = new DtsSubjectRelevance();
-			subjectRelevance.setSubjectRelevanceId(IdUtil.objectId());
-			subjectRelevance.setSubjectId(subjectId);
-			subjectRelevance.setDataId(articleId);
-			subjectRelevance.setOrderNum(subjectRelevanceList.size());
-			subjectRelevance.setCreateTime(date);
-			subjectRelevance.setUpdateTime(date);
-			subjectRelevanceList.add(subjectRelevance);
-		}
+		DtsSubjectRelevance subjectRelevance = new DtsSubjectRelevance();
+		subjectRelevance.setSubjectRelevanceId(IdUtil.objectId());
+		subjectRelevance.setSubjectId(subjectId);
+		subjectRelevance.setDataId(articleId);
+		subjectRelevance.setOrderNum(subjectRelevanceList.size());
+		subjectRelevance.setCreateTime(date);
+		subjectRelevance.setUpdateTime(date);
+		subjectRelevanceList.add(subjectRelevance);
+	
 		subjectRelevanceRepository.saveAll(subjectRelevanceList);
 	}
 

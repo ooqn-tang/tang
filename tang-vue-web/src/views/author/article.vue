@@ -36,7 +36,7 @@
         </button>
         <button class="btn btn-outline-warning float-end blog-btn" v-if="item.subject != null && isThisUser"
           data-bs-toggle="modal" data-bs-target="#exampleModal"
-          @click="(subjectFrom.articleId = item.article.articleId), (thisItem = item)">
+          @click="clickSubject(item)">
           修改到专辑
         </button>
       </div>
@@ -75,96 +75,94 @@
   </div>
 </template>
 
-<script>
+<script setup name="author_article">
 import request from "utils/request";
-export default {
-  name: "author_article",
-  data() {
-    return {
-      thisUsername: this.$route.params.username,
-      isThisUser: this.$route.params.username == this.$store.state.username,
-      thisItem: {},
-      articleList: [],
-      page: {
-        number: 0,
-      },
-      subjectFrom: {
-        subjectId: "",
-      },
-      subjectList: [],
-    };
-  },
-  methods: {
-    loadArticleByUsername(pageSize) {
-      request({
-        url: `/api/article/list/${this.$route.params.username}`,
-        method: "get",
-        params: { page: pageSize },
-      }).then((response) => {
-        this.page = response.data
-        this.articleList = this.articleList.concat(response.data.content);
-      });
-    },
-    loadSubjectList() {
-      request({
-        url: `/api/subject/username/${this.$route.params.username}`,
-        method: "GET",
-      }).then((response) => {
-        this.subjectList = response.data;
-      });
-    },
-    insertArticleToSubject() {
-      let articleId = this.subjectFrom.articleId;
-      let subjectId = this.subjectFrom.subjectId;
-      request({
-        url: `/api/subject/article`,
-        method: "POST",
-        params: { articleId: articleId, subjectId: subjectId },
-      }).then((response) => {
-        this.thisItem.subjectId = subjectId;
-        this.$refs.close.click();
-      });
-    },
-    updateArticleToSubject() {
-      let articleId = this.subjectFrom.articleId;
-      let subjectId = this.subjectFrom.subjectId;
-      request({
-        url: `/api/subject/article`,
-        method: "PUT",
-        params: { articleId: articleId, subjectId: subjectId },
-      }).then((response) => {
-        this.thisItem.subjectId = subjectId;
-        for (let i in this.subjectList) {
-          let t = this.subjectList[i];
-          if (subjectId == t.subjectId) {
-            this.thisItem.subjectName = t.subjectName;
-          }
-        }
-        this.$refs.close.click();
-      });
-    },
-    deleteArticle(articleId, index) {
-      if (confirm("确认删除吗？")) {
-        request({
-          url: `/api/article/${articleId}`,
-          method: "DELETE",
-        }).then((response) => {
-          this.articleList.splice(index, 1);
-        });
-      }
 
-    },
-    next() {
-      if (!this.page.last) {
-        this.loadArticleByUsername(this.page.number + 1);
-      }
-    },
-  },
-  mounted() {
-    this.loadArticleByUsername(this.page.number);
-    this.loadSubjectList();
-  },
+import { onMounted, ref } from "vue";
+import { useRouter } from "vue-router";
+import { useStore } from "vuex";
+import { useRoute } from "vue-router";
+
+let router = useRouter();
+let store = useStore();
+let route = useRoute();
+
+let thisUsername = route.params.username;
+let isThisUser = route.params.username == store.state.username;
+let thisItem = ref({});
+let articleList = ref([]);
+let page = ref({
+  number: 0,
+});
+let subjectFrom = ref({
+  subjectId: "",
+});
+let subjectList = ref([]);
+let close = ref(null);
+
+let loadArticleByUsername = (pageSize) => {
+  request({
+    url: `/api/article/list/${route.params.username}`,
+    method: "get",
+    params: { page: pageSize },
+  }).then((response) => {
+    page.value = response.data;
+    articleList.value = articleList.value.concat(response.data.content);
+  });
 };
+
+let clickSubject = (item) => {
+  subjectFrom.value.articleId = item.article.articleId;
+  subjectFrom.value.subjectId = item.subject.subjectId;
+  thisItem.value = item
+};
+
+let loadSubjectList = () => {
+  request({
+    url: `/api/subject/username/${route.params.username}`,
+    method: "GET",
+  }).then((response) => {
+    subjectList.value = response.data;
+  });
+};
+
+let updateArticleToSubject = () => {
+  request({
+    url: `/api/subject/article`,
+    params: { subjectId: subjectFrom.value.subjectId, articleId: subjectFrom.value.articleId },
+    method: "PUT",
+  }).then((response) => {
+    if (response.status == 200) {
+      thisItem.value.subject = {
+        subjectId: subjectFrom.value.subjectId,
+        subjectName: subjectList.value.find((item) => item.subjectId == subjectFrom.value.subjectId).subjectName,
+      };
+      close.value.click();
+    }
+  });
+};
+
+let deleteArticle = (articleId, index) => {
+  request({
+    url: `/api/article/${articleId}`,
+    method: "DELETE",
+  }).then((response) => {
+    if (response.data.code == 200) {
+      articleList.value.splice(index, 1);
+    }
+  });
+};
+
+let next = () => {
+  if (page.value.number + 1 < page.value.totalPages) {
+    loadArticleByUsername(page.value.number + 1);
+  }
+};
+
+onMounted(() => {
+  loadArticleByUsername(0);
+  loadSubjectList();
+});
 </script>
 
 <style scoped>

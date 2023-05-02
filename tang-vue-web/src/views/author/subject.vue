@@ -38,7 +38,7 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">关闭</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" ref="close">关闭</button>
           <button type="button" class="btn btn-primary" @click="save">保存</button>
         </div>
       </div>
@@ -46,72 +46,85 @@
   </div>
 </template>
 
-<script>
+<script setup name="author_subject">
+import { ref, onMounted } from 'vue'
+import { useStore } from 'vuex'
+import { useRouter } from 'vue-router'
+import { useRoute } from 'vue-router'
+
 import request from 'utils/request'
-export default {
-  name: "author_subject",
-  data() {
-    return {
-      saveType: "update",// insert
-      thisUsername: this.$route.params.username,
-      isThisUser: this.$route.params.username == this.$store.state.username,
-      subjectList: [],
-      dataFrom: {
-        subjectId: "",
-        subjectName: "",
-        synopsis: ""
-      }
-    };
-  },
-  methods: {
-    save() {
-      if (this.saveType == "insert") {
-        request({
-          url: `/api/subject`,
-          method: 'POST',
-          data: this.dataFrom
-        }).then((response) => {
-          alert(JSON.stringify(response.data))
-        })
-      } else {
-        request({
-          url: `/api/subject`,
-          method: 'PUT',
-          data: this.dataFrom
-        }).then((response) => {
-          alert(JSON.stringify(response.data))
-        })
-      }
-    },
-    updateClick(subjectId, subjectName, synopsis) {
-      this.dataFrom.subjectId = subjectId;
-      this.dataFrom.subjectName = subjectName;
-      this.dataFrom.synopsis = synopsis;
-      this.saveType = 'update'
-    },
-    deleteClick(subjectId, index){
-      if(confirm("确认删除吗？")){
-        request({
-          url: `/api/subject/${subjectId}`,
-          method: 'DELETE'
-        }).then((response) => {
-          this.subjectList.splice(index, 1);
-        })
-      }
-    },
-    selectSubjectListByUsername(username) {
-      request({
-        url: `/api/subject/username/`+username,
-        method: 'GET',
-      }).then((response) => {
-        this.subjectList = response.data
-      })
-    }
-  },
-  mounted() {
-    this.selectSubjectListByUsername(this.$route.params.username)
+
+let store = useStore()
+let router = useRouter()
+let route = useRoute()
+
+let close = ref(null)
+let isThisUser = ref(false)
+let thisItem = ref({});
+let subjectList = ref([])
+let dataFrom = ref({
+  subjectId: "",
+  subjectName: "",
+  synopsis: ""
+})
+
+let saveType = ref("update")// insert
+let thisUsername = route.params.username
+
+let selectSubjectListByUsername = (username) => {
+  request({
+    url: `/api/subject/username/${username}`,
+    method: 'GET',
+  }).then((response) => {
+    subjectList.value = response.data
+  })
+}
+
+let save = () => {
+  if (saveType.value == "insert") {
+    request({
+      url: `/api/subject`,
+      method: 'POST',
+      data: dataFrom.value
+    }).then((response) => {
+      subjectList.value.unshift(response.data)
+      close.value.click()
+    })
+  } else {
+    request({
+      url: `/api/subject`,
+      method: 'PUT',
+      data: dataFrom.value
+    }).then((response) => {
+      alert(JSON.stringify(response.data))
+    })
   }
-};
+
+}
+
+let updateClick = (subjectId, subjectName, synopsis) => {
+  dataFrom.value.subjectId = subjectId;
+  dataFrom.value.subjectName = subjectName;
+  dataFrom.value.synopsis = synopsis;
+  saveType.value = 'update'
+}
+
+let deleteClick = (subjectId, index) => {
+  if(confirm("确认删除吗？")){
+    request({
+      url: `/api/subject/${subjectId}`,
+      method: 'DELETE'
+    }).then((response) => {
+      subjectList.value.splice(index, 1);
+    })
+  }
+}
+
+onMounted(() => {
+  selectSubjectListByUsername(thisUsername)
+  isThisUser.value = thisUsername == store.state.username
+})
+
 </script>
 
 <style scoped>

@@ -66,15 +66,11 @@ public class DtsSubjectController extends BaseController {
 	}
 
 	@PostMapping
-	public String insertSubject(@RequestBody DtsSubjectParam subjectParam) {
+	public DtsSubject insertSubject(@RequestBody DtsSubjectParam subjectParam) {
 		DtsSubject subjectDto = BeanUtil.toBean(subjectParam, DtsSubject.class);
 		String authorId = authorId();
 		subjectDto.setAuthorId(authorId);
-		DtsSubject dtsArticleSubject = articleSubjectService.insertSubject(subjectDto);
-		if (dtsArticleSubject != null) {
-			return "处理成功";
-		}
-		throw new ApiException();
+		return articleSubjectService.insertSubject(subjectDto);
 	}
 
 	@PutMapping

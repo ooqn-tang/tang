@@ -88,7 +88,6 @@ function loadArticleAllInfo(articleId) {
   });
 }
 function saveArticle() {
-  debugger
   if (articleForm.value.title == undefined || articleForm.value.title == "") {
     alert("请输入标题！")
     return;
