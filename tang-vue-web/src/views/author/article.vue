@@ -75,13 +75,13 @@
   </div>
 </template>
 
-<script setup name="author_article">
+<script setup>
 import request from "utils/request";
 
 import { onMounted, ref } from "vue";
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
-import { useRoute } from "vue-router";
+import { useRoute } from "vue-router"
 
 let router = useRouter();
 let store = useStore();

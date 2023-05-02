@@ -68,7 +68,7 @@
   </div>
 </template>
 
-<script setup name="home">
+<script setup>
 import { ref, reactive, computed, watch, onMounted, onUnmounted,onActivated } from 'vue'
 import request from 'utils/request'
 import { useStore } from 'vuex'

@@ -30,29 +30,35 @@
   </div>
 </template>
 
-<script>
+<script setup>
+import { useRoute } from "vue-router"
+import { onMounted, ref } from "vue";
+import { useRouter } from "vue-router";
+import { useStore } from "vuex";
+
 import request from 'utils/request'
-export default {
-  name: "author-list",
-  data() {
-    return {
-      authorList: [],
-    };
-  },
-  methods: {
-    selectAuthor(){
-      request({
-        url: `/api/author/selectAuthor`,
-        method: 'GET'
-      }).then((response) => {
-        this.authorList = response.data.content
-      })
-    }
-  },
-  mounted() {
-    this.selectAuthor()
-  },
-};
+import notice from 'components/notice.vue'
+import info from 'components/info.vue'
+
+const route = useRoute()
+const router = useRouter()
+const store = useStore()
+
+let authorList = ref([])
+
+let selectAuthor = () => {
+  request({
+    url: `/api/author/selectAuthor`,
+    method: 'GET'
+  }).then((response) => {
+    authorList.value = response.data.content
+  })
+}
+
+onMounted(() => {
+  selectAuthor()
+})
+
 </script>
 
 <style scoped>

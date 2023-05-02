@@ -46,7 +46,7 @@
   </div>
 </template>
 
-<script setup name="author_subject">
+<script setup>
 import { ref, onMounted } from 'vue'
 import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'

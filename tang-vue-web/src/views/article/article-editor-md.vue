@@ -38,7 +38,7 @@
     </div>
   </div>
 </template>
-<script setup name="article-editor-md">
+<script setup>
 import { ref, onMounted, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { useStore } from 'vuex'

@@ -30,7 +30,7 @@
 
 </template>
 
-<script setup name="subject">
+<script setup>
 import { ref, onMounted } from 'vue'
 import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'

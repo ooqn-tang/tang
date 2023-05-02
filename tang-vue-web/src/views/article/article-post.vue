@@ -67,7 +67,7 @@
   </nav>
 </template>
 
-<script setup name="article_post">
+<script setup>
 import { ref, onMounted } from 'vue'
 import { createStore } from 'vuex'
 import { useStore } from 'vuex'
