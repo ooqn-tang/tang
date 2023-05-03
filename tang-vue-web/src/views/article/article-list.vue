@@ -4,8 +4,13 @@
       <div class="card mb-2 move-b-lr-0">
         <div class="card-body p-0">
           <nav class="nav">
-            <a class="nav-link" :class="selectTag == '' ? 'nav-link-active' : ''" @click="selectTagClick('')">最新</a>
-            <a class="nav-link" :class="selectTag == 'gz' ? 'nav-link-active' : ''" @click="selectTagClick('gz')">关注</a>
+            <a v-for="(item, index) in classList" :key="index" class="nav-link" :class="selectTag == item.name ? 'nav-link-active' : ''"
+              @click="selectTagClick('')">{{ item.name }}</a>
+          </nav>
+          <hr>
+          <nav class="nav">
+            <a v-for="(item, index) in classList" :key="index" class="nav-link" :class="selectTag == item.name ? 'nav-link-active' : ''"
+              @click="selectTagClick('')">{{ item.name }}</a>
           </nav>
         </div>
       </div>
@@ -54,11 +59,37 @@ import request from 'utils/request'
 let store = useStore()
 let route = useRoute()
 
-let  selectTag = ref("")
-let  selectType = ref(1)
-let  page = ref({ number: 0 })
-let  articleList = ref([])
-let  isLoding = ref(true)
+let selectTag = ref("")
+let selectType = ref(1)
+let page = ref({ number: 0 })
+let articleList = ref([])
+let isLoding = ref(true)
+let categoryList = ref([])
+
+let classList = [
+  {
+    name: '计算机',
+    type: 1
+  },
+  {
+    name: '设计',
+    type: 2
+  },
+  {
+    name: '游戏',
+    type: 3
+  },
+  {
+    name: '音乐',
+    type: 4
+  },
+  {
+    name: '生活',
+    type: 5
+  }
+
+
+]
 
 // 生命周期钩子
 onMounted(() => {
@@ -66,6 +97,7 @@ onMounted(() => {
 })
 
 function selectTagClick(selectTag) {
+  loadCategoryList("1")
   // page = {
   //   number: 0
   // }
@@ -73,6 +105,17 @@ function selectTagClick(selectTag) {
   // articleList = ref([])
   // loadArticle()
 }
+
+let loadCategoryList = (type) => {
+  request({
+    url: '/api/category/list',
+    method: 'get',
+    params: { type: type }
+  }).then((response) => {
+    categoryList.value = response.data
+  })
+}
+
 function loadArticle() {
   let url = ''
   if (selectTag == 'gz') {
@@ -104,7 +147,10 @@ strong p,
 .card-body p {
   margin: 0px;
 }
-
+hr{
+  margin: 0 !important;
+}
 .red {
   color: red;
-}</style>
+}
+</style>
