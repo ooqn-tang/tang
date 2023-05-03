@@ -15,9 +15,6 @@ public class DtsCategory {
 	@Id
 	private String categoryId;
 
-	@Schema(description = "父分类ID")
-	private String parentId;
-
 	// 1:文章分类 2:专题分类 3:标签分类
 	@Schema(description = "分类类型")
 	private String type;
@@ -33,5 +30,9 @@ public class DtsCategory {
 
 	@Schema(description = "OrderNum")
 	private Integer orderNum;
+
+	// 1:正常 2:未激活
+	@Schema(description = "是否激活")
+	private Integer active;
 
 }

@@ -4,8 +4,12 @@
       <div class="card mb-2 move-b-lr-0">
         <div class="card-body p-0">
           <nav class="nav">
-            <a class="nav-link" @click="selectCategoryClick()">{{fastTag}}</a>
-            <a v-for="(item, index) in categoryList" :key="index" class="nav-link" @click="selectCategoryClick(item.categoryId)">{{ item.name }}</a>
+            <a class="nav-link" :class="thisSelectCategoryId == '0' ? 'nav-link-active' : ''" 
+            @click="selectCategoryClick({categoryId:0})">全部</a>
+            <a v-for="(item, index) in categoryList" 
+            :key="index" 
+            :class="thisSelectCategoryId == item.categoryId ? 'nav-link-active' : ''" 
+            class="nav-link" @click="selectCategoryClick(item)">{{ item.name }}</a>
           </nav>
         </div>
       </div>
@@ -47,70 +51,36 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
-import { useStore } from 'vuex'
-import { useRoute, useRouter } from "vue-router"
 import request from 'utils/request'
 
-let store = useStore()
-let route = useRoute()
 
 let fastTag = ref(null)
-let thisSelectCategoryId = ref("")
-let selectType = ref(1)
+let thisSelectCategoryId = ref(0)
 let page = ref({ number: 0 })
 let articleList = ref([])
 let isLoding = ref(true)
 let categoryList = ref([])
 
-let classList = [
-  {
-    name: '计算机',
-    type: 1
-  },
-  {
-    name: '设计',
-    type: 2
-  },
-  {
-    name: '游戏',
-    type: 3
-  },
-  {
-    name: '音乐',
-    type: 4
-  },
-  {
-    name: '生活',
-    type: 5
-  }
-
-
-]
 
 // 生命周期钩子
 onMounted(() => {
   loadArticle(page.number)
-  loadCategoryList(0,"全部")
+  loadCategoryList({categoryId:0})
 })
 
-let selectCategoryClick = (selectCategoryId) => {
-  if(selectCategoryId == undefined){
-    loadCategoryList(0,"全部")
-  }else{
-    loadCategoryList(selectCategoryId,"返回")
-  }
-  thisSelectCategoryId.value = selectCategoryId
+let selectCategoryClick = (item) => {
+  loadCategoryList()
+  thisSelectCategoryId = item.categoryId
 }
 
-let loadCategoryList = (parentId,tagName) => {
+let loadCategoryList = () => {
   request({
     url: '/api/category/list',
     method: 'get',
-    params: { type: "1" ,parentId: parentId}
+    params: { type: "1"}
   }).then((response) => {
     if(response.data.length > 0){
       categoryList.value = response.data
-      fastTag.value = tagName
     }
   })
 }

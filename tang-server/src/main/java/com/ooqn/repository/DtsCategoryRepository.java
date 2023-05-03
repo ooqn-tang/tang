@@ -10,6 +10,4 @@ public interface DtsCategoryRepository extends CrudRepository<DtsCategory, Strin
 
     List<DtsCategory> findByType(String type);
 
-    List<DtsCategory> findByTypeAndParentId(String type, String parentId);
-
 }

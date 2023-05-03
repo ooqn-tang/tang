@@ -20,6 +20,7 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
+            <label for="exampleDataList" class="form-label">专辑</label>
             <div class="mb-3">
               <select class="form-select" v-model="articleForm.subjectId">
                 <option value="">请选择专辑</option>
@@ -28,6 +29,15 @@
                 </option>
               </select>
             </div>
+            <label for="exampleDataList" class="form-label">分类</label>
+            <div class="mb-3">
+              <select class="form-select" v-model="articleForm.subjectId">
+                <option value="">请选择分类</option>
+                <option v-for="(item, index) in categoryList" :key="index" :value="item.categoryId">
+                  {{ item.name }}
+                </option>
+              </select>
+            </div>    
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">关闭</button>
@@ -68,13 +78,15 @@ let subjectList = ref([]);
 let articleForm = ref({});
 let externalForm = ref(null);
 let systemForm = ref(null);
+let categoryList = ref([]);
 
 onMounted(() => {
   loadArticleAllInfo(articleId.value);
   loadSubject();
+  loadCategoryList();
 });
 
-function loadArticleAllInfo(articleId) {
+let loadArticleAllInfo = (articleId) => {
   request({
     url: `/api/article/load/${articleId}/all`,
     method: "GET",
@@ -87,7 +99,7 @@ function loadArticleAllInfo(articleId) {
     articleForm.value.subjectId = response.data.subject.subjectId;
   });
 }
-function saveArticle() {
+let saveArticle = () => {
   if (articleForm.value.title == undefined || articleForm.value.title == "") {
     alert("请输入标题！")
     return;
@@ -101,7 +113,7 @@ function saveArticle() {
     window.location.href = `/article/${articleForm.value.articleId}`;
   });
 }
-function loadSubject() {
+let loadSubject = () => {
   request({
     url: `/api/subject/username/${store.state.username}`,
     method: "GET",
@@ -110,10 +122,22 @@ function loadSubject() {
   });
 }
 
-function sysHandleScroll() {
+let loadCategoryList = () => {
+  request({
+    url: `/api/category/all`,
+    params: {
+      type: 1,
+    },
+    method: "GET",
+  }).then((response) => {
+    categoryList.value = response.data;
+  });
+}
+
+let sysHandleScroll = () => {
   externalForm.value.scrollTop = systemForm.value.scrollTop;
 }
-function exterHandleScroll() {
+let exterHandleScroll = () => {
   systemForm.value.scrollTop = externalForm.value.scrollTop;
 }
 
