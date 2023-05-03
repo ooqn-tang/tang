@@ -14,8 +14,8 @@ public class DtsCategoryService {
     @Autowired
     private DtsCategoryRepository categoryRepository;
 
-    public List<DtsCategory> selectCategoryList(String type) {
-        return categoryRepository.findByType(type);
+    public List<DtsCategory> selectCategoryList(String type,String parentId) {
+        return categoryRepository.findByTypeAndParentId(type,parentId);
     }
 
 }

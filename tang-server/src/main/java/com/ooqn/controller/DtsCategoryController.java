@@ -19,8 +19,8 @@ public class DtsCategoryController extends BaseController {
     private DtsCategoryService categoryService;
 
     @GetMapping("list")
-    public List<DtsCategory> selectCategoryList(@RequestParam String type) {
-        return categoryService.selectCategoryList(type);
+    public List<DtsCategory> selectCategoryList(@RequestParam String type,@RequestParam String parentId) {
+        return categoryService.selectCategoryList(type,parentId);
     }
     
 }

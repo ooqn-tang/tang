@@ -3,7 +3,6 @@ package com.ooqn.entity.model;
 import java.util.Date;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import lombok.Data;
@@ -25,10 +24,6 @@ public class DtsCategory {
 
 	@Schema(description = "分类名称")
 	private String name;
-
-	@Schema(description = "值")
-	@Column(columnDefinition = "VAL varchar(100) COMMENT '值'")
-	private String value;
 
 	@Schema(description = "创建作者ID")
 	private String createAuthorId;
