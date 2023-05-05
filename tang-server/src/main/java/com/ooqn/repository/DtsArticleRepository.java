@@ -61,4 +61,6 @@ public interface DtsArticleRepository extends CrudRepository<DtsArticle, String>
     """)
     List<DtsArticle> findSubjectArticleTitleListByArticleId(String articleId);
 
+    Page<DtsArticle> findArticleListState(Integer state, Pageable page);
+
 }

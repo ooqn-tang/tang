@@ -10,7 +10,6 @@ import org.springframework.context.annotation.Configuration;
 import com.ooqn.repository.DtsArticleRepository;
 import com.ooqn.repository.UtsAuthorRepository;
 import com.ooqn.repository.UtsRoleRepository;
-import com.ooqn.service.UtsAuthorService;
 
 @Configuration
 @SpringBootTest(classes = TangApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)

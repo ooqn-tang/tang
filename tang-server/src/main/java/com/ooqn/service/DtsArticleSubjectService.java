@@ -1,15 +1,12 @@
 package com.ooqn.service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -37,8 +34,6 @@ import cn.hutool.core.util.StrUtil;
  */
 @Service
 public class DtsArticleSubjectService {
-
-	private static List<DtsArticleDto> cache = new ArrayList<>();
 
 	@Autowired
 	private UtsAuthorRepository authorRepository;
@@ -169,7 +164,7 @@ public class DtsArticleSubjectService {
 	}
 
 	public Page<DtsArticleDto> search(String title, Integer page, Integer pageSize) {
-		Pageable pageable = PageRequest.of(page, pageSize);
+		//Pageable pageable = PageRequest.of(page, pageSize);
 		return null;// articleRepository.search(title, pageable);
 	}
 
@@ -275,16 +270,29 @@ public class DtsArticleSubjectService {
 	 * 查询关注用户的文章
 	 */
 	public Page<DtsArticleDto> selectGzArticleList(Pageable pageable, String authorId) {
-		Page<DtsArticle> findGzArticleList = articleRepository.findFansArticleList(authorId, pageable);
-		return null;
-
+		Page<DtsArticle> gzArticleList = articleRepository.findFansArticleList(authorId, pageable);
+		return gzArticleList.map(article -> {
+			DtsArticleDto articleDto = new DtsArticleDto();
+			articleDto.setArticle(article);
+			authorRepository.findById(article.getAuthorId()).ifPresent(author -> {
+				articleDto.setAuthor(author);
+			});
+			return articleDto;
+		});
 	}
 
 	/**
 	 * 管理查询
 	 */
 	public Page<DtsArticleDto> findArticleList(Integer state, Pageable page) {
-		return null;// articleRepository.findArticleListState(state,page);
+		Page<DtsArticle> articleList = articleRepository.findArticleListState(state,page);
+		return articleList.map(article -> {
+			DtsArticleDto articleDto = new DtsArticleDto();
+			articleDto.setArticle(article);
+			articleDto.setAuthor(authorRepository.findById(article.getAuthorId()).orElseThrow());
+			articleDto.setSubject(subjectRepository.findByDataId(article.getArticleId()).orElse(null));
+			return articleDto;
+		});
 	}
 
 	public void deleteArticleByArticleId(String articleId) {

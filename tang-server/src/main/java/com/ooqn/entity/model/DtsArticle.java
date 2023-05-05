@@ -4,8 +4,6 @@ import java.util.Date;
 
 import org.hibernate.annotations.DynamicUpdate;
 
-import com.beust.ah.A;
-
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -13,7 +11,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Lob;
 import lombok.Getter;
 import lombok.Setter;
-import java.util.Objects;
 
 @Entity
 @Getter

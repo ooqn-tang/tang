@@ -1,12 +1,5 @@
 package com.ooqn.controller;
 
-import com.ooqn.core.api.ResponseCode;
-import com.ooqn.core.exception.ApiException;
-import com.ooqn.entity.dto.UtsFansDto;
-import com.ooqn.entity.model.UtsAuthor;
-import com.ooqn.entity.model.UtsFans;
-import com.ooqn.service.UtsAuthorService;
-import com.ooqn.service.UtsFansService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -17,6 +10,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.ooqn.core.api.ResponseCode;
+import com.ooqn.core.exception.ApiException;
+import com.ooqn.entity.model.UtsAuthor;
+import com.ooqn.entity.model.UtsFans;
+import com.ooqn.service.UtsAuthorService;
+import com.ooqn.service.UtsFansService;
 
 /**
  * 粉丝

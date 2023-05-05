@@ -11,7 +11,6 @@ import com.ooqn.entity.dto.UtsRoleDto;
 import com.ooqn.entity.model.UtsResource;
 import com.ooqn.entity.model.UtsResourceRole;
 import com.ooqn.entity.model.UtsRole;
-import com.ooqn.repository.UtsAuthorRoleRepository;
 import com.ooqn.repository.UtsResourceRoleRepository;
 import com.ooqn.repository.UtsRoleRepository;
 
@@ -26,8 +25,6 @@ public class UtsRoleService {
 	@Autowired
 	private UtsResourceRoleRepository resourceRoleRepository;
 
-	@Autowired
-	private UtsAuthorRoleRepository authorRoleRepository;
 
 	public List<UtsRoleDto> roleList(String authorId) {
 		List<UtsRole> roleList = roleRepository.findRoleListByAuthorId(authorId);

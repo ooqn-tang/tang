@@ -17,16 +17,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import cn.hutool.core.bean.BeanUtil;
 import com.ooqn.core.exception.ApiException;
-
 import com.ooqn.entity.dto.DtsSubjectArticleDto;
 import com.ooqn.entity.dto.DtsSubjectDto;
 import com.ooqn.entity.model.DtsArticle;
 import com.ooqn.entity.model.DtsSubject;
-import com.ooqn.entity.model.DtsSubjectRelevance;
 import com.ooqn.entity.param.DtsSubjectParam;
 import com.ooqn.service.DtsArticleSubjectService;
+
+import cn.hutool.core.bean.BeanUtil;
 
 @RestController
 @RequestMapping("api/subject")
@@ -62,7 +61,7 @@ public class DtsSubjectController extends BaseController {
 	@GetMapping("search")
 	public Page<DtsSubjectDto> selectSubjectByName(@RequestParam(value = "subjectName", defaultValue = "") String name) {
 		Pageable pageable = PageRequest.of(1, 15);
-		return null;//articleSubjectService.findSubjectListBySubjectName(name, pageable);
+		return articleSubjectService.findSubjectListBySubjectName(name, pageable);
 	}
 
 	@PostMapping
