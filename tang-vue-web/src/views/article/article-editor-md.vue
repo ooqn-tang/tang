@@ -31,7 +31,7 @@
             </div>
             <label for="exampleDataList" class="form-label">分类</label>
             <div class="mb-3">
-              <select class="form-select" v-model="articleForm.subjectId">
+              <select class="form-select" v-model="articleForm.categoryId">
                 <option value="">请选择分类</option>
                 <option v-for="(item, index) in categoryList" :key="index" :value="item.categoryId">
                   {{ item.name }}

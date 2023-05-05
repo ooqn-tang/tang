@@ -62,7 +62,7 @@ public class StsPageController {
 	@GetMapping("map")
 	public String map(@RequestParam(value = "page", defaultValue = "0") Integer page, Model model) {
 		Pageable pageable = PageRequest.of(page, 15);
-		Page<DtsArticleDto> dtsArticleDtoPage = articleSubjectService.selectArticleList(pageable);
+		Page<DtsArticleDto> dtsArticleDtoPage = articleSubjectService.selectArticleList("0",pageable);
 		model.addAttribute("articlePage", dtsArticleDtoPage);
 		return "map";
 	}

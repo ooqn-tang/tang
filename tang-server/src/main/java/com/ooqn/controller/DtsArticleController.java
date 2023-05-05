@@ -39,9 +39,10 @@ public class DtsArticleController extends BaseController {
 
 	@GetMapping("list")
 	public Page<DtsArticleDto> selectArticleList(
-			@RequestParam(value = "page", defaultValue = "0") Integer page) {
+		@RequestParam(value = "page", defaultValue = "0") Integer page,
+		@RequestParam(value = "categoryId", defaultValue = "0") String categoryId) {
 		Pageable pageable = PageRequest.of(page, 15);
-		return articleSubjectService.selectArticleList(pageable);
+		return articleSubjectService.selectArticleList(categoryId,pageable);
 	}
 
 	@GetMapping("list/gz")

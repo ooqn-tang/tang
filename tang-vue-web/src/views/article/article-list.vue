@@ -51,27 +51,32 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 import request from 'utils/request'
 
-
-let fastTag = ref(null)
-let thisSelectCategoryId = ref(0)
-let page = ref({ number: 0 })
-let articleList = ref([])
-let isLoding = ref(true)
-let categoryList = ref([])
+let route = useRoute();
+let router = useRouter();
+let fastTag = ref(null);
+let thisSelectCategoryId = ref(0);
+let page = ref({ number: 0 });
+let articleList = ref([]);
+let isLoding = ref(true);
+let categoryList = ref([]);
 
 
 // 生命周期钩子
 onMounted(() => {
-  loadArticle(page.number)
-  loadCategoryList({categoryId:0})
+  loadArticle({categoryId:0});
+  loadCategoryList();
 })
 
 let selectCategoryClick = (item) => {
-  loadCategoryList()
-  thisSelectCategoryId = item.categoryId
+  thisSelectCategoryId = item.categoryId;
+  page.value.number = 0;
+  articleList.value = [];
+  loadArticle(item);
 }
+
 
 let loadCategoryList = () => {
   request({
@@ -85,12 +90,12 @@ let loadCategoryList = () => {
   })
 }
 
-let loadArticle = () => {
+let loadArticle = (item) => {
   let url = '/api/article/list'
   request({
     url: url,
     method: 'get',
-    params: { page: page.value.number }
+    params: { page: page.value.number,categoryId:item.categoryId }
   }).then((response) => {
     isLoding.value = false
     page.value = response.data

@@ -30,6 +30,7 @@ import com.ooqn.repository.UtsAuthorRepository;
 import cn.hutool.core.date.DateTime;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.IdUtil;
+import cn.hutool.core.util.StrUtil;
 
 /**
  * 文章于文章专辑相关
@@ -142,8 +143,16 @@ public class DtsArticleSubjectService {
 		subjectRepository.deleteBySubjectIdAndAuthorId(subjectId, authorId);
 	}
 
-	public Page<DtsArticleDto> selectArticleList(Pageable pageable) {
-		Page<DtsArticle> findArticleList = articleRepository.findArticleList(pageable);
+	public Page<DtsArticleDto> selectArticleList(String categoryId,Pageable pageable) {
+
+		Page<DtsArticle> findArticleList = null;
+
+		if(StrUtil.equals(categoryId, "0")){
+			findArticleList = articleRepository.findArticleList(categoryId, pageable);
+		}else{
+			findArticleList = articleRepository.findArticleListByCategoryId(categoryId, pageable);
+		}
+
 		return findArticleList.map(article -> {
 			String authorId = article.getAuthorId();
 			UtsAuthor author = authorRepository.findById(authorId).orElseThrow();
@@ -152,6 +161,7 @@ public class DtsArticleSubjectService {
 			articleDto.setAuthor(author);
 			return articleDto;
 		});
+		
 	}
 
 	public Page<DtsArticleDto> selectArticleListSmall(Pageable pageable) {

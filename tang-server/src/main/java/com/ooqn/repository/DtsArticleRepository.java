@@ -31,7 +31,10 @@ public interface DtsArticleRepository extends CrudRepository<DtsArticle, String>
     List<DtsArticle> findSubjectById(String subjectId);
 
     @Query("from DtsArticle")
-    Page<DtsArticle> findArticleList(Pageable pageable);
+    Page<DtsArticle> findArticleList(String categoryId, Pageable pageable);
+
+    @Query("select da from DtsArticle da where da.categoryId = ?1")
+    Page<DtsArticle> findArticleListByCategoryId(String categoryId, Pageable pageable);
 
     @Query("""
     From DtsArticle da where

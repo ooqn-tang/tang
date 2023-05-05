@@ -23,6 +23,8 @@ public class DtsArticleParam {
 	@NotBlank
 	private String text;
 
+	private String categoryId;
+
 	@NotBlank
 	private String markdown;
 
