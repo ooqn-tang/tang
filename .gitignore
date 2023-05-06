@@ -2,3 +2,5 @@
 /vue-web/node_modules/
 /service/target
 /.idea/
+/.vscode/
+.vscode
