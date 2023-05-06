@@ -126,14 +126,29 @@ public class DtsArticleSubjectService {
 		return subjectDtoList;
 	}
 
+	/**
+	 * 通过专辑id查询专辑 
+	 * @param articleId 文章id
+	 * @return	SubjectId
+	 */
 	public String findSubjectIdByArticleId(String articleId) {
 		return subjectRepository.findSubjectIdByDataId(articleId);
 	}
 
+	/**
+	 * 通过专辑id查询专辑
+	 * @param subjectId	专辑id
+	 * @return	DtsSubject
+	 */
 	public DtsSubject subjectById(String subjectId) {
 		return subjectRepository.findById(subjectId).orElseThrow();
 	}
 
+	/**
+	 * 通过文章id查询专辑
+	 * @param articleId 文章id
+	 * @return List<DtsArticle>
+	 */
 	public List<DtsArticle> findSubjectArticleTitleListByArticleId(String articleId) {
 		return articleRepository.findSubjectArticleTitleListByArticleId(articleId);
 	}
@@ -143,6 +158,12 @@ public class DtsArticleSubjectService {
 		subjectRepository.deleteBySubjectIdAndAuthorId(subjectId, authorId);
 	}
 
+	/**
+	 * 通过文章id查询专辑
+	 * @param categoryId 分类id
+	 * @param pageable 分页
+	 * @return Page<DtsArticleDto>
+	 */
 	public Page<DtsArticleDto> selectArticleList(String categoryId,Pageable pageable) {
 		Page<DtsArticle> findArticleList;
 		if(StrUtil.equals(categoryId, "0")){
