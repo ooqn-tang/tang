@@ -1,6 +1,9 @@
 package com.ooqn.entity.dto;
 
+import java.util.Locale.Category;
+
 import com.ooqn.entity.model.DtsArticle;
+import com.ooqn.entity.model.DtsCategory;
 import com.ooqn.entity.model.DtsSubject;
 import com.ooqn.entity.model.UtsAuthor;
 
@@ -33,5 +36,8 @@ public class DtsArticleDto {
 
 	@Schema(description="专题")
 	private DtsSubject subject;
+
+	@Schema(description = "分类")
+	private DtsCategory category;
 	
 }

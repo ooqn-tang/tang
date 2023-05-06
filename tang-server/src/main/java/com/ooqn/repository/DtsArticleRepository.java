@@ -30,8 +30,8 @@ public interface DtsArticleRepository extends CrudRepository<DtsArticle, String>
     """)
     List<DtsArticle> findSubjectById(String subjectId);
 
-    @Query("from DtsArticle")
-    Page<DtsArticle> findArticleList(String categoryId, Pageable pageable);
+    @Query("select da from DtsArticle da")
+    Page<DtsArticle> findArticleList(Pageable pageable);
 
     @Query("select da from DtsArticle da where da.categoryId = ?1")
     Page<DtsArticle> findArticleListByCategoryId(String categoryId, Pageable pageable);
@@ -61,6 +61,13 @@ public interface DtsArticleRepository extends CrudRepository<DtsArticle, String>
     """)
     List<DtsArticle> findSubjectArticleTitleListByArticleId(String articleId);
 
+    @Query("select da From DtsArticle da where da.state = ?1")
     Page<DtsArticle> findArticleListState(Integer state, Pageable page);
+
+    @Query("select da From DtsArticle da")
+    Page<DtsArticle> findArticleListSmall(Pageable pageable);
+
+    @Query("select da From DtsArticle da where da.title like %?1%")
+    Page<DtsArticle> search(String title, Pageable pageable);
 
 }

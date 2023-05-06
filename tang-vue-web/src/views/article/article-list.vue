@@ -4,12 +4,11 @@
       <div class="card mb-2 move-b-lr-0">
         <div class="card-body p-0">
           <nav class="nav">
-            <a class="nav-link" :class="thisSelectCategoryId == '0' ? 'nav-link-active' : ''" 
-            @click="selectCategoryClick({categoryId:0})">全部</a>
-            <a v-for="(item, index) in categoryList" 
-            :key="index" 
-            :class="thisSelectCategoryId == item.categoryId ? 'nav-link-active' : ''" 
-            class="nav-link" @click="selectCategoryClick(item)">{{ item.name }}</a>
+            <a class="nav-link" :class="selectCategoryId == '0' ? 'nav-link-active' : ''"
+              @click="selectCategoryClick({ categoryId: 0 })">全部</a>
+            <a v-for="(item, index) in categoryList" :key="index"
+              :class="selectCategoryId == item.categoryId ? 'nav-link-active' : ''" class="nav-link"
+              @click="selectCategoryClick(item)">{{ item.name }}</a>
           </nav>
         </div>
       </div>
@@ -24,7 +23,11 @@
               </router-link>
               <div class="article-synopsis" style="color: #5f5a5a;">{{ item.article.synopsis }}</div>
               <div>
-                <span class="date-color" style="font-size: 16px;">{{ item.article.createTime }}</span>
+                <span class="date-color" style="font-size: 16px;">{{ item.article.createTime }} </span>
+                <span class="date-color" style="font-size: 16px;" v-if="item.category != null"> . {{ item.category.name }}
+                </span>
+
+
                 <span v-for="(item, index) in item.tagList" :key="index"> . <span
                     style="font-size: 16px;color: #dc3545;">{{ item.tagName }}</span></span>
                 <router-link :to="{ name: 'author_article', params: { username: item.author.username } }"
@@ -50,14 +53,14 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
-import request from 'utils/request'
+import request from 'utils/request';
+import { onMounted, ref } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
 
 let route = useRoute();
 let router = useRouter();
 let fastTag = ref(null);
-let thisSelectCategoryId = ref(0);
+let selectCategoryId = ref(0);
 let page = ref({ number: 0 });
 let articleList = ref([]);
 let isLoding = ref(true);
@@ -66,12 +69,12 @@ let categoryList = ref([]);
 
 // 生命周期钩子
 onMounted(() => {
-  loadArticle({categoryId:0});
+  loadArticle({ categoryId: 0 });
   loadCategoryList();
 })
 
 let selectCategoryClick = (item) => {
-  thisSelectCategoryId = item.categoryId;
+  selectCategoryId = item.categoryId;
   page.value.number = 0;
   articleList.value = [];
   loadArticle(item);
@@ -82,9 +85,9 @@ let loadCategoryList = () => {
   request({
     url: '/api/category/list',
     method: 'get',
-    params: { type: "1"}
+    params: { type: "1" }
   }).then((response) => {
-    if(response.data.length > 0){
+    if (response.data.length > 0) {
       categoryList.value = response.data
     }
   })
@@ -95,7 +98,7 @@ let loadArticle = (item) => {
   request({
     url: url,
     method: 'get',
-    params: { page: page.value.number,categoryId:item.categoryId }
+    params: { page: page.value.number, categoryId: item.categoryId }
   }).then((response) => {
     isLoding.value = false
     page.value = response.data
@@ -103,9 +106,9 @@ let loadArticle = (item) => {
   })
 }
 let next = () => {
-  if (!this.page.last) {
+  if (!page.last) {
     page.value.number += 1
-    loadArticle()
+    loadArticle({ categoryId: selectCategoryId.value })
   }
 }
 
@@ -116,9 +119,11 @@ strong p,
 .card-body p {
   margin: 0px;
 }
-hr{
+
+hr {
   margin: 0 !important;
 }
+
 .red {
   color: red;
 }

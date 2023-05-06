@@ -27,6 +27,15 @@ public class DtsArticle {
 		this.title = title;
 	}
 
+	public DtsArticle(String articleId,String title,String authorId, String categoryId, String synopsis){
+		this.articleId = articleId;
+		this.title = title;
+		this.authorId = authorId;
+		this.categoryId = categoryId;
+		this.synopsis = synopsis;
+	}
+   
+
 	@Id
 	private String articleId;
 

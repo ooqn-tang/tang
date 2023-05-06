@@ -2,7 +2,6 @@ package com.ooqn.controller;
 
 import java.util.List;
 
-import com.ooqn.entity.StateNum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -18,17 +17,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ooqn.core.api.ResponseCode;
+import com.ooqn.core.exception.ApiException;
+import com.ooqn.entity.StateNum;
+import com.ooqn.entity.dto.DtsArticleDto;
+import com.ooqn.entity.model.DtsArticle;
+import com.ooqn.entity.param.DtsArticleParam;
+import com.ooqn.service.DtsArticleSubjectService;
+
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.date.DateTime;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.StrUtil;
-import com.ooqn.core.api.ResponseCode;
-import com.ooqn.core.exception.ApiException;
-import com.ooqn.entity.dto.DtsArticleDto;
-import com.ooqn.entity.model.DtsArticle;
-import com.ooqn.entity.param.DtsArticleParam;
-import com.ooqn.service.DtsArticleSubjectService;
 
 @RestController
 @RequestMapping("api/article")
@@ -121,8 +122,10 @@ public class DtsArticleController extends BaseController {
 	}
 
 	@GetMapping("so")
-	public Page<?> search(@RequestParam(value = "page", defaultValue = "0") Integer page,
-			@RequestParam("wb") String wb) {
-		return articleSubjectService.search(wb, page, 10);
+	public Page<?> search(
+		@RequestParam(value = "page", defaultValue = "0") Integer page, 
+		@RequestParam("wb") String wb) {
+		Pageable pageable = PageRequest.of(page, 10);
+		return articleSubjectService.search(wb, pageable);
 	}
 }

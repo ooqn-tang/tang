@@ -17,7 +17,7 @@
     <div class="col-md-9 col-lg-9 pb-5">
       <div class="row">
         <div class="col-lg-8 move-p-lr-0">
-          <div class="card mb-2 article-body">
+          <div class="card mb-2 article-body move-b-lr-0">
             <div class="card-body" v-if="!loading">
               <div>
                 <strong>

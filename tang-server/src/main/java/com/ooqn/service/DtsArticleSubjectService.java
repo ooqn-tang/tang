@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,6 +21,7 @@ import com.ooqn.entity.model.DtsSubject;
 import com.ooqn.entity.model.DtsSubjectRelevance;
 import com.ooqn.entity.model.UtsAuthor;
 import com.ooqn.repository.DtsArticleRepository;
+import com.ooqn.repository.DtsCategoryRepository;
 import com.ooqn.repository.DtsSubjectRelevanceRepository;
 import com.ooqn.repository.DtsSubjectRepository;
 import com.ooqn.repository.UtsAuthorRepository;
@@ -46,6 +48,9 @@ public class DtsArticleSubjectService {
 
 	@Autowired
 	private DtsSubjectRelevanceRepository subjectRelevanceRepository;
+
+	@Autowired
+	private DtsCategoryRepository categoryRepository;
 
 	/**
 	 * 查询这个专辑的所有文章
@@ -139,33 +144,45 @@ public class DtsArticleSubjectService {
 	}
 
 	public Page<DtsArticleDto> selectArticleList(String categoryId,Pageable pageable) {
-
-		Page<DtsArticle> findArticleList = null;
-
+		Page<DtsArticle> findArticleList;
 		if(StrUtil.equals(categoryId, "0")){
-			findArticleList = articleRepository.findArticleList(categoryId, pageable);
+			findArticleList = articleRepository.findArticleList(pageable);
 		}else{
 			findArticleList = articleRepository.findArticleListByCategoryId(categoryId, pageable);
 		}
-
 		return findArticleList.map(article -> {
 			String authorId = article.getAuthorId();
-			UtsAuthor author = authorRepository.findById(authorId).orElseThrow();
+			String articleCategoryId = article.getCategoryId();
 			DtsArticleDto articleDto = new DtsArticleDto();
 			articleDto.setArticle(article);
-			articleDto.setAuthor(author);
+
+			if(articleCategoryId != null){
+				categoryRepository.findById(articleCategoryId).ifPresent(articleDto::setCategory);
+			}
+			
+			authorRepository.findById(authorId).ifPresent(articleDto::setAuthor);
 			return articleDto;
 		});
-		
 	}
 
 	public Page<DtsArticleDto> selectArticleListSmall(Pageable pageable) {
-		return null;// articleRepository.findArticleListSmall(pageable);
+		Page<DtsArticle> articlePage = articleRepository.findArticleListSmall(pageable);
+		return articlePage.map( a -> {
+			DtsArticleDto articleDto = new DtsArticleDto();
+			articleDto.setArticle(a);
+			articleDto.setAuthor(authorRepository.findById(a.getAuthorId()).orElseThrow());
+			return articleDto;
+		});
 	}
 
-	public Page<DtsArticleDto> search(String title, Integer page, Integer pageSize) {
-		//Pageable pageable = PageRequest.of(page, pageSize);
-		return null;// articleRepository.search(title, pageable);
+	public Page<DtsArticleDto> search(String title,Pageable pageable) {
+		Page<DtsArticle> articlePage = articleRepository.search(title, pageable);
+		return articlePage.map(article -> {
+			DtsArticleDto articleDto = new DtsArticleDto();
+			articleDto.setArticle(article);
+			articleDto.setAuthor(authorRepository.findById(article.getAuthorId()).orElseThrow());
+			return articleDto;
+		});
 	}
 
 	public Page<DtsArticleDto> selectArticleByAuthorName(String username, Pageable pageable) {
