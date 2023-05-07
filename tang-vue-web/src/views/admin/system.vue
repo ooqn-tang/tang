@@ -7,18 +7,17 @@
   </el-tabs>
 </template>
 
-<script>
+<script setup>
 import request from "utils/request";
-export default {
-  name: "admin_system",
-  data() {
-    return {
-      routeName: this.$route.name,
-      activeName: 'first'
-    };
-  },
-  created() {},
-  methods: {},
-  mounted() {},
-};
+import { ref, reactive, onMounted, onBeforeUnmount } from "vue";
+import { useRouter,useRoute } from "vue-router";
+import { useStore } from "vuex";
+
+let router = useRouter();
+let route = useRoute();
+let store = useStore();
+
+let routeName = ref(route.name);
+let activeName = ref('first')
+
 </script>

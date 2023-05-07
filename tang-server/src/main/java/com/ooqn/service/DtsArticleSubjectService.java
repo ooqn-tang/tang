@@ -213,6 +213,10 @@ public class DtsArticleSubjectService {
 			articleDto.setArticle(article);
 			articleDto.setAuthor(authorRepository.findById(article.getAuthorId()).orElseThrow());
 			articleDto.setSubject(subjectRepository.findByDataId(article.getArticleId()).orElse(null));
+			String categoryId = article.getCategoryId();
+			if(categoryId != null){
+				categoryRepository.findById(categoryId).ifPresent(articleDto::setCategory);
+			}
 			return articleDto;
 		});
 	}

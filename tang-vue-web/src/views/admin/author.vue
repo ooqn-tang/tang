@@ -47,96 +47,155 @@
   </el-row>
 </template>
 
-<script>
+<script setup>
 import { ElMessage } from "element-plus";
 import request from "utils/request";
-export default {
-  name: "admin_author",
-  data() {
-    return {
-      routeName: this.$route.name,
-      formInline:{user:""},
-      authorList:[],
-      roleIdList: [],
-      roleList:[],
-      queryData:"",
-      selectAuthorId:"",
-      roleForm:[],
-      options:[
-        {value:"使用"},{value:"禁用"}
-      ],
-      value:''
-    };
-  },
-  watch: {
-    roleIdList: {
-      handler() {
-        this.$nextTick(() => {
-          for(let index in this.roleList){
-            if(this.roleIdList.indexOf(this.roleList[index].roleId) > -1){
-              this.$refs.multipleTable.toggleRowSelection(this.roleList[index]);
-            }
-          }
-        });
-      }
-    }
-  },
-  created() {},
-  methods: {
-    checkRole(selection, row){
-      this.roleForm = selection
-    },
-    saveAuthorRole(){
-      request({
-        url: `api/admin/role/author/${this.selectAuthorId}`,
-        method: "POST",
-        data:this.roleForm
-      }).then((response) => {
-        this.roleIdList = response.data;
-        ElMessage({
-          type: 'success',
-          message: '删除成功',
-        })
-      });
-    },
-    rowAuthorClick(row, column, event){
-      this.selectAuthorId = row.authorId
-      this.selectRole(row);
-    },
-    selectRole(row){
-      request({
-        url: `api/admin/role`,
-        method: "GET",
-      }).then((response) => {
-        this.roleList = response.data;
-        request({
-          url: `api/admin/role/author/${row.authorId}`,
-          method: "GET",
-        }).then((response) => {
-          this.roleIdList = response.data;
-        });
-      });
-    },
-    selectAuthor(){
-      request({
-        url: `/api/admin/author`,
-        method: "GET",
-        params:{queryData:this.queryData}
-      }).then((response) => {
-        this.authorList = response.data;
-      });
-    },
-    deleteAuthor(authorId){
-      request({
-        url: `/api/admin/author/${authorId}`,
-        method: "DELETE"
-      }).then((response) => {
-        console.log(response.data)
-      });
-    }
-  },
-  mounted() {
-    this.selectAuthor()
-  },
+import { onMounted,ref } from "vue";
+import { useRouter, useRoute } from "vue-router";
+import { useStore } from "vuex";
+
+let store = useStore();
+let router = useRouter();
+let route = useRoute();
+
+const dialogVisible = ref(false);
+const form = ref({});
+const formInline = ref({});
+const input2 = ref("");
+const authorList = ref([]);
+const roleIdList = ref([]);
+const roleList = ref([]);
+const queryData = ref("");
+const selectAuthorId = ref("");
+const roleForm = ref([]);
+
+const options = ref([
+  {value:"使用"},{value:"禁用"}
+]);
+
+const value = ref('');
+
+const checkRole = (selection, row) => {
+  roleForm.value = selection;
 };
+
+const saveAuthorRole = () => {
+  request({
+    url: `api/admin/role/author/${selectAuthorId.value}`,
+    method: "POST",
+    data:roleForm.value
+  }).then((response) => {
+    roleIdList.value = response.data;
+    ElMessage({
+      type: 'success',
+      message: '删除成功',
+    })
+  });
+};
+
+const rowAuthorClick = (row, column, event) => {
+  selectAuthorId.value = row.authorId
+  selectRole(row);
+};
+
+const selectRole = (row) => {
+  request({
+    url: `api/admin/role`,
+    method: "GET",
+  }).then((response) => {
+    roleList.value = response.data;
+    request({
+      url: `api/admin/role/author/${row.authorId}`,
+      method: "GET",
+    }).then((response) => {
+      roleIdList.value = response.data;
+    });
+  });
+};
+
+const selectAuthor = () => {
+  request({
+    url: `/api/admin/author`,
+    method: "GET",
+    params: {
+      queryData: queryData.value,
+    },
+  }).then((response) => {
+    authorList.value = response.data;
+  });
+};
+
+const deleteAuthor = (authorId) => {
+  request({
+    url: `/api/admin/author/${authorId}`,
+    method: "DELETE",
+  }).then((response) => {
+    selectAuthor();
+    ElMessage({
+      type: 'success',
+      message: '删除成功',
+    })
+  });
+};
+
+const handleEdit = (index, row) => {
+  form.value = row;
+};
+
+const handleDelete = (index, row) => {
+  request({
+    url: `/api/admin/author/${row.authorId}`,
+    method: "DELETE",
+  }).then((response) => {
+    selectAuthor();
+    ElMessage({
+      type: 'success',
+      message: '删除成功',
+    })
+  });
+};
+
+const handleCreate = () => {
+  form.value = {};
+  dialogVisible.value = true;
+};
+
+const handleSave = () => {
+  request({
+    url: `/api/admin/author`,
+    method: "POST",
+    data: form.value,
+  }).then((response) => {
+    selectAuthor();
+    dialogVisible.value = false;
+    ElMessage({
+      type: 'success',
+      message: '保存成功',
+    })
+  });
+};
+
+const handleUpdate = () => {
+  request({
+    url: `/api/admin/author`,
+    method: "PUT",
+    data: form.value,
+  }).then((response) => {
+    selectAuthor();
+    dialogVisible.value = false;
+    ElMessage({
+      type: 'success',
+      message: '保存成功',
+    })
+  });
+};
+
+const handleQuery = () => {
+  selectAuthor();
+};
+
+onMounted(() => {
+  selectAuthor();
+});
+
 </script>

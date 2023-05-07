@@ -37,32 +37,34 @@
 
 <script>
 import request from "utils/request";
-export default {
-  name: "admin_recommend",
-  data() {
-    return {
-      routeName: this.$route.name,
-      activeIndex: this.$route.name
-    };
-  },
-  watch: {
-    $route(to, from) {
-      this.routeName = this.$route.name;
-    },
-  },
-  created() {},
-  methods: {
-    logout() {
-      localStorage.removeItem("jwt");
-      localStorage.removeItem("author");
-      this.$store.state.username = "";
-      window.location.href = "/";
-    }
-  },
-  mounted() {
-    
-  },
+import { useRouter, useRoute } from "vue-router";
+import { useStore } from "vuex";
+import { onMounted,ref,watch } from "vue";
+
+let router = useRouter();
+let route = useRoute();
+let store = useStore();
+
+let routeName = ref("admin_article");
+let activeIndex = ref("admin_article");
+
+
+let logout = () => {
+  localStorage.removeItem("jwt");
+  localStorage.removeItem("author");
+  store.state.username = "";
+  window.location.href = "/";
 };
+
+onMounted(() => {
+  findFansList();
+});
+
+watch(route, (to, from) => {
+  routeName.value = to.name;
+  activeIndex.value = to.name;
+});
+
 </script>
 
 <style scoped>

@@ -16,9 +16,8 @@
 </template>
 
 <script>
-import { useRoute } from "vue-router"
 import { onMounted, ref } from "vue";
-import { useRouter } from "vue-router";
+import { useRouter,useRoute } from "vue-router";
 import { useStore } from "vuex";
 
 import request from 'utils/request'

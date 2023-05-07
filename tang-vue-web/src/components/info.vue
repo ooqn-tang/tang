@@ -13,22 +13,11 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: 'info',
-  data() {
-    return {
-      count: 0,
-      advList:[],
-      zz:false
-    }
-  },
-  created() {
-  },
-  methods: {
-  },
-  mounted(){
-    
-  }
-}
+<script setup> 
+import { ref } from 'vue';
+
+let count = ref(0);
+let advList = ref([]);
+let zz = ref(false);
+
 </script>

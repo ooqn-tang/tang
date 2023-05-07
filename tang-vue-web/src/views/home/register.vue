@@ -34,45 +34,47 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import jwt_decode from "jwt-decode"
 import request from 'utils/request'
-export default {
-  name: "register",
-  data() {
-    return {
-      loginData:{
-        username:"",
-        password:"",
-        mail:"",
-        password1:"",
-        'rememberMe':true
-      }
-    };
-  },
-  components: {},
-  methods: {
-    register(){
-      if(this.loginData.password !== this.loginData.password1){
-        alert("两次密码不一致")
-        return
-      }
-      request({
-        url: `/api/register`,
-        method: 'post',
-        data:this.loginData
-    }).then((response) => {
-        alert(response.data)
-      }).catch((error) => {
-        alert(error.data)
-      })
-    }
-  },
-  mounted(){
-    localStorage.removeItem("jwt")
-    localStorage.removeItem("authorData")
+import { onMounted } from "vue";
+
+import { useRouter, useRoute } from "vue-router";
+import { useStore } from "vuex";
+
+let router = useRouter();
+let store = useStore();
+let route = useRoute();
+
+let loginData = ref({
+  username:"",
+  password:"",
+  mail:"",
+  password1:"",
+  'rememberMe':true
+})
+
+let register = () => {
+  if(loginData.value.password !== loginData.value.password1){
+    alert("两次密码不一致")
+    return
   }
-};
+  request({
+    url: `/api/register`,
+    method: 'post',
+    data:loginData.value
+}).then((response) => {
+    alert(response.data)
+  }).catch((error) => {
+    alert(error.data)
+  })
+}
+
+onMounted(() => {
+  localStorage.removeItem("jwt")
+  localStorage.removeItem("authorData")
+})
+
 </script>
 
 <style scoped>

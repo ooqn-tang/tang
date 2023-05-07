@@ -27,54 +27,57 @@
 	</div>
 </template>
   
-<script>
+<script setup>
 import request from "utils/request";
-export default {
-	name: "essay_message",
-	data() {
-		return {
-			page: {
-				number: 0
-			},
-			form: {
+import { onMounted } from "vue";
+import { useRouter, useRoute } from "vue-router";
+import { useStore } from "vuex";
 
-			},
-			essayList: []
-		};
-	},
-	created() { },
-	methods: {
-		loadEssay() {
-			request({
-				url: `/api/essay`,
-				method: "get",
-				params: { page: this.page.number }
-			}).then((response) => {
-				this.page = response.data
-				this.essayList = this.essayList.concat(response.data.content)
-			});
-		},
-		insertEssay() {
-			request({
-				url: `/api/essay`,
-				method: "post",
-				data: this.form
-			}).then((response) => {
-				this.form = {}
-				this.essayList.unshift(response.data)
-			});
-		},
-		next() {
-			if (!this.page.last) {
-				this.page.number += 1
-				this.loadEssay()
-			}
-		}
-	},
-	created() {
-		this.loadEssay()
-	},
+let router = useRouter();
+let route = useRoute();
+let store = useStore();
+
+let page = {
+	number: 0
 };
+let essayList = [];
+let form = {
+	text: ""
+};
+
+let loadEssay = () => {
+	request({
+		url: `/api/essay`,
+		method: "get",
+		params: { page: page.number }
+	}).then((response) => {
+		page = response.data;
+		essayList = essayList.concat(response.data.content);
+	});
+};
+
+let insertEssay = () => {
+	request({
+		url: `/api/essay`,
+		method: "post",
+		data: form
+	}).then((response) => {
+		form = {};
+		essayList.unshift(response.data);
+	});
+};	
+
+let next = () => {
+	if (!page.last) {
+		page.number += 1;
+		loadEssay();
+	}
+};
+
+onMounted(() => {
+	loadEssay();
+});
+
 </script>
   
 <style scoped>

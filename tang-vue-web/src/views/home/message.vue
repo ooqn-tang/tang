@@ -32,50 +32,55 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import request from "utils/request";
-export default {
-  name: "message",
-  data() {
-    return {
-      authorList: [],
-      select: "",
-      vList: [{}, {}, {}, {}, {}],
-      dynamicList: [],
-    };
-  },
-  methods: {
-    selectTag(type) {
-      this.select = type;
-      request({
-        url: `/api/message`,
-        method: "GET",
-        params: { type: type },
-      }).then((response) => {
-        this.dynamicList = response.data;
-      });
-    },
-    authorListArticleCount() {
-      request({
-        url: `/api/author/authorListArticleCount`,
-        method: "GET",
-      }).then((response) => {
-        this.authorList = response.data.list;
-      });
-    },
-    loadDynamic() {
-      request({
-        url: `/api/message`,
-        method: "GET",
-      }).then((response) => {
-        this.dynamicList = response.data;
-      });
-    },
-  },
-  mounted() {
-    this.loadDynamic();
-  },
+import { onMounted, ref } from "vue";
+import { useRouter, useRoute } from "vue-router";
+import { useStore } from "vuex";
+
+const route = useRoute();
+const router = useRouter();
+const store = useStore();
+
+let authorList = ref([]);
+let select = ref("");
+let vList = ref([{}, {}, {}, {}, {}]);
+let dynamicList = ref([]);
+
+let selectTag = (type) => {
+  select.value = type;
+  request({
+    url: `/api/message`,
+    method: "GET",
+    params: { type: type },
+  }).then((response) => {
+    dynamicList.value = response.data;
+  });
 };
+
+let authorListArticleCount = () => {
+  request({
+    url: `/api/author/authorListArticleCount`,
+    method: "GET",
+  }).then((response) => {
+    authorList.value = response.data.list;
+  });
+};
+
+let loadDynamic = () => {
+  request({
+    url: `/api/message`,
+    method: "GET",
+  }).then((response) => {
+    dynamicList.value = response.data;
+  });
+};
+
+
+onMounted(() => {
+  loadDynamic();
+});
+
 </script>
 
 <style scoped>

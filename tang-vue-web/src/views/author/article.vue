@@ -8,19 +8,10 @@
       </router-link>
       <div class="article-synopsis">{{ item.article.synopsis }}</div>
       <p v-if="item.subject != null">
-        <span style="
-            background: #efefef;
-            padding: 0px 5px;
-            border-radius: 10px;
-            color: #7d7d7d;
-          ">专辑 : {{ item.subject.subjectName }}</span>
+        <span class="tag">专辑 : {{ item.subject.subjectName }}</span>
       </p>
-      <span style="
-          background: #efefef;
-          padding: 0px 5px;
-          border-radius: 10px;
-          color: #7d7d7d;
-        ">{{ item.article.createTime }}</span>
+      <span class="tag">{{ item.article.createTime }}</span>
+      <span v-if="item.category != null" class="tag">{{ item.category.name }}</span>
 
       <div class="btn-group float-end">
         <button class="btn btn-outline-danger float-end blog-btn" v-if="isThisUser"
@@ -79,9 +70,8 @@
 import request from "utils/request";
 
 import { onMounted, ref } from "vue";
-import { useRouter } from "vue-router";
+import { useRouter,useRoute } from "vue-router";
 import { useStore } from "vuex";
-import { useRoute } from "vue-router"
 
 let router = useRouter();
 let store = useStore();
@@ -147,7 +137,7 @@ let deleteArticle = (articleId, index) => {
     url: `/api/article/${articleId}`,
     method: "DELETE",
   }).then((response) => {
-    if (response.data.code == 200) {
+    if (response.status == 200) {
       articleList.value.splice(index, 1);
     }
   });
@@ -168,5 +158,12 @@ onMounted(() => {
 <style scoped>
 body {
   overflow-y: scroll;
+}
+.tag{
+  background: #efefef;
+  padding: 0px 5px;
+  border-radius: 10px;
+  color: #7d7d7d;
+  margin-right: 5px;
 }
 </style>

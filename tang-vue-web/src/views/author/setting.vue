@@ -31,66 +31,52 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import request from "utils/request";
 import {removeToken} from "utils/token";
-export default {
-  name: "author_setting",
-  data() {
-    return {
-      author: {
-        username: "",
-        nickname: "",
-        mail: "",
-        headUrl:'https://avatars.githubusercontent.com/u/15867678?v=4'
-      }
-    };
-  },
-  components: {},
-  methods: {
-    uploadImage(e){
-      let file = e.target.files[0];
-      let param = new FormData(); //创建form对象
-      param.append("file", file); //通过append向form对象添加数据
-      param.append("type", "2"); //通过append向form对象添加数据
-      console.log(param.get("file")); //FormData私有类对象，访问不到，可以通过get判断值是否传进去
-      request({
-        url: `/api/file/upload`,
-        method: "post",
-        data:param,
-        headers: { "Content-Type": "multipart/form-data" }
-      }).then((response) => {
-        this.author.headUrl = import.meta.env.VITE_BASE_API + "api/file/" + response.data
-        alert(this.author.headUrl)
-      });
-    },
-    logout() {
-      removeToken(this.$store)
-      window.location.href='/' 
-    },
-    save() {
-      request({
-        url: `/api/author`,
-        method: "PUT",
-        data: this.author,
-      }).then((response) => {
-        alert("保存成功")
-        this.selectAuthorLoad();
-      });
-    },
-    selectAuthorLoad() {
-      request({
-        url: `/api/author/${this.$route.params.username}`,
-        method: "GET",
-      }).then((response) => {
-        this.author = response.data;
-      });
-    },
-  },
-  mounted() {
-    this.selectAuthorLoad();
-  },
+import { onMounted } from "vue";
+import { useRouter, useRoute } from "vue-router";
+import { useStore } from "vuex";
+
+let router = useRouter();
+let route = useRoute();
+let store = useStore();
+
+let author = {
+  username: "",
+  nickname: "",
+  mail: "",
+  headUrl:'https://avatars.githubusercontent.com/u/15867678?v=4'
 };
+
+let loadAuthor = () => {
+  request({
+    url: `/api/author`,
+    method: "get",
+  }).then((response) => {
+    author = response.data;
+  });
+};
+
+let save = () => {
+  request({
+    url: `/api/author`,
+    method: "put",
+    data: author
+  }).then((response) => {
+    alert("保存成功")
+  });
+};
+
+let logout = () => {
+  removeToken(store)
+  window.location.href='/'
+}
+
+onMounted(() => {
+  loadAuthor();
+});
+
 </script>
 
 <style scoped>

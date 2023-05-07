@@ -30,10 +30,9 @@ const routes = [
                 path: 'essay',
                 name: 'essay_index',
                 component: () => import('views/essay/index.vue'),
-                redirect:"/essay/message",
                 children:[
                     {
-                        path: 'message',
+                        path: '',
                         name: 'essay_message',
                         component: () => import('views/essay/message.vue')
                     },

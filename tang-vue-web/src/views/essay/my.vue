@@ -4,23 +4,9 @@
 	</div>
 </template>
   
-<script>
+<script setup>
 import request from "utils/request";
-export default {
-	name: "essay_my",
-	data() {
-		return {
-			essayList: []
-		};
-	},
-	created() { },
-	methods: {
-
-	},
-	mounted() {
-
-	},
-};
+let essayList = [];
 </script>
   
 <style scoped>
