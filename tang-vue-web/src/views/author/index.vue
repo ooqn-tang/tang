@@ -58,63 +58,68 @@
 import request from 'utils/request'
 import { useRouter,useRoute } from 'vue-router'
 import { useStore } from 'vuex'
+import { onMounted,ref,watch } from 'vue'
 
 let router = useRouter()
 let route = useRoute()
 let store = useStore()
 
-let routeName = route.name
-let author = {
+let routeName = ref(route.name)
+let author = ref({
   nickname:"∷∷∷∷∷∷∷∷",
   signature:"∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷"
-}
+})
 
-let thisUsername = ""
+let thisUsername = ref("")
 let loginUsername = store.state.username
-let from = {
+let from = ref({
   page:1
-}
-let fans = 0
+})
+let fans = ref(1)
 
 let fansClick = (username) => {
-  if(fans == 2){
+  if(fans.value == 2){
     request({
       url: `/api/fans/${username}`,
       method: 'POST'
     }).then((response) => {
-      fans = 1
+      fans.value = 1
     })
   }else{
     request({
       url: `/api/fans/${username}`,
       method: 'DELETE'
     }).then((response) => {
-      fans = 2
+      fans.value = 2
     })
   }
-  
 }
+
+// 监听 routeName 的变化 ， 如果变化获取route name 给 routeName
+watch(() => route.name, (val) => {
+  routeName.value = val
+})
 
 let isFans = () => {
   request({
-    url: `/api/fans/${thisUsername}`,
-    method: 'GET'
+    url: `/api/fans/username/${thisUsername}`,
+    method: 'get'
   }).then((response) => {
-    if(response.data.code == 200){
-      fans = 1
+    if(response.data > 0){
+      fans.value = 1
     }else{
-      fans = 2
+      fans.value = 2
     }
   })
 }
 
 let getAuthor = () => {
   request({
-    url: `/api/user/${thisUsername}`,
+    url: `/api/author/${thisUsername}`,
     method: 'GET'
   }).then((response) => {
-    if(response.data.code == 200){
-      author = response.data.data
+    if(response.status == 200){
+      author.value = response.data
     }
   })
 }

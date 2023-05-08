@@ -33,28 +33,30 @@
 
 <script setup>
 import request from "utils/request";
-import {removeToken} from "utils/token";
-import { onMounted } from "vue";
-import { useRouter, useRoute } from "vue-router";
+import { removeToken } from "utils/token";
+import { onMounted, ref } from "vue";
+import { useRoute, useRouter } from "vue-router";
 import { useStore } from "vuex";
 
 let router = useRouter();
 let route = useRoute();
 let store = useStore();
 
-let author = {
+let author = ref({
   username: "",
   nickname: "",
   mail: "",
   headUrl:'https://avatars.githubusercontent.com/u/15867678?v=4'
-};
+});
+
+let username = store.state.username;
 
 let loadAuthor = () => {
   request({
-    url: `/api/author`,
+    url: `/api/author/${username}`,
     method: "get",
   }).then((response) => {
-    author = response.data;
+    author.value = response.data;
   });
 };
 
@@ -62,7 +64,7 @@ let save = () => {
   request({
     url: `/api/author`,
     method: "put",
-    data: author
+    data: author.value
   }).then((response) => {
     alert("保存成功")
   });

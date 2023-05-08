@@ -78,11 +78,11 @@
 </template>
 
 <script>
-import { ElMessage,ElMessageBox } from "element-plus";
+import { ElMessage, ElMessageBox } from "element-plus";
 import request from "utils/request";
-import { useRouter, useRoute } from "vue-router";
+import { onMounted, ref } from "vue";
+import { useRoute, useRouter } from "vue-router";
 import { useStore } from "vuex";
-import { onMounted,ref } from "vue";
 
 let router = useRouter();
 let store = useStore();
@@ -108,15 +108,6 @@ let handleEdit = (row) => {
 
 let handleClose = () => {
   dialogVisible.value = false
-}
-
-let selectResource = (id) => {
-  request({
-    url: `/api/admin/resource/${id}`,
-    method: "GET",
-  }).then((response) => {
-    formData.value = response.data;
-  });
 }
 
 let loadResourceList = () => {
@@ -161,15 +152,6 @@ let deleteResource = (id) => {
     .catch(() => {
       ElMessage.info("已取消删除");
     });
-}
-
-let handleQuery = () => {
-  loadResourceList()
-}
-
-let handleReset = () => {
-  queryData.value = ""
-  loadResourceList()
 }
 
 onMounted(() => {

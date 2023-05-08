@@ -12,7 +12,6 @@
     <a href="/map" class="hidden">地图</a>
   </div>
 </template>
-
 <script setup> 
 import { ref } from 'vue';
 

@@ -32,10 +32,10 @@
 
 <script setup>
 import { onMounted, ref } from "vue";
-import { useRouter,useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import { useStore } from "vuex";
 
-import request from 'utils/request'
+import request from 'utils/request';
 
 const route = useRoute()
 const router = useRouter()

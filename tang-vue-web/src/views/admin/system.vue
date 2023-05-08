@@ -8,9 +8,8 @@
 </template>
 
 <script setup>
-import request from "utils/request";
-import { ref, reactive, onMounted, onBeforeUnmount } from "vue";
-import { useRouter,useRoute } from "vue-router";
+import { ref } from "vue";
+import { useRoute, useRouter } from "vue-router";
 import { useStore } from "vuex";
 
 let router = useRouter();

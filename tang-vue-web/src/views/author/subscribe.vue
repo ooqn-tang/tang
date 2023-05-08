@@ -15,7 +15,7 @@
 <script setup>
 import request from 'utils/request'
 import { onMounted } from 'vue'
-import { useRouter, useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import { useStore } from 'vuex'
 
 let router = useRouter()
