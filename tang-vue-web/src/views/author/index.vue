@@ -116,7 +116,7 @@ let isFans = () => {
 let getAuthor = () => {
   request({
     url: `/api/author/${thisUsername}`,
-    method: 'GET'
+    method: 'get'
   }).then((response) => {
     if(response.status == 200){
       author.value = response.data

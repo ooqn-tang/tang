@@ -1,12 +1,28 @@
 package com.ooqn.core;
 
-import org.springframework.boot.ApplicationArguments;
-import org.springframework.boot.ApplicationRunner;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.stereotype.Component;
 
-public class MyApplicationRunner implements ApplicationRunner   {
+import com.ooqn.service.InitService;
+
+import jakarta.transaction.Transactional;
+
+@Component
+public class MyApplicationRunner implements CommandLineRunner   {
+
+    @Autowired
+    InitService initService;
 
     @Override
-    public void run(ApplicationArguments args) throws Exception {
-        
+    @Transactional
+    public void run(String... args) throws Exception {
+        System.out.println("初始化数据--------------------------------");
+        try {
+            initService.init();
+        } catch (IllegalStateException e) {
+            System.out.println(e.getMessage()+"*****************************");
+        }
+        System.out.println("初始化数据--------------------------------");
     }
 }

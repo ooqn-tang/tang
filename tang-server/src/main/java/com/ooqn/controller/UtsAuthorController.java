@@ -44,6 +44,7 @@ public class UtsAuthorController extends BaseController {
 		throw new ApiException();
 	}
 
+	
 	@GetMapping("{username}")
 	public UtsAuthor authorByUsername(@PathVariable(value = "username") String username) {
 		return authorService.selectAuthorByName(username);

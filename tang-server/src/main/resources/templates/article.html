@@ -3,7 +3,7 @@
 
 <head>
 	<meta charset="utf-8">
-	<title th:text="${article.title + ' - 堂堂程序员'}"></title>
+	<title th:text="${article.article.title + ' - ooqn.com'}"></title>
 	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 	<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
 	<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
@@ -11,7 +11,7 @@
 	<link href="https://cdn.bootcss.com/github-markdown-css/4.0.0/github-markdown.min.css" rel="stylesheet" type="text/css">
 	<link href="/css/style.css" rel="stylesheet" type="text/css">
 	<link href="/css/github.css" rel="stylesheet" type="text/css">
-	<meta name="description" th:content="${article.synopsis}">
+	<meta name="description" th:content="${article.article.synopsis}">
 </head>
 
 <body>
@@ -21,15 +21,15 @@
 			<div class="col-md-8 column move-p-lr-0">
 				<div class="panel panel-default move-b-lr-0">
 					<div class="panel-body">
-						<h1 th:text="${article.title}" id="blog-title"></h1>
-						<div class="markdown-body" th:utext="${article.text}"></div>
+						<h1 th:text="${article.article.title}" id="blog-title"></h1>
+						<div class="markdown-body" th:utext="${article.article.text}"></div>
 					</div>
-					<div class="panel-footer">
+					<!-- <div class="panel-footer">
 						<ul class="pager">
 							<li class="previous"><a href="#">&larr; Older</a></li>
 							<li class="next"><a href="#">Newer &rarr;</a></li>
 						</ul>
-					</div>
+					</div> -->
 				</div>
 			</div>
 			<div class="col-md-4 column move-p-lr-0">
@@ -45,7 +45,7 @@
 	</div>
 	<nav class="navbar navbar-default navbar-fixed-bottom p15" th:if="${subject != null}">
 		<select onchange="change()" id="ml">
-			<option th:each="item : ${subject.articleList}" th:selected="${item.articleId eq article.articleId}"
+			<option th:each="item : ${subject.articleList}" th:selected="${item.articleId eq article.article.articleId}"
 				th:value="${item.articleId}" th:text="${item.title}"></option>
 		</select>
 	</nav>

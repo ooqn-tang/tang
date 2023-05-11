@@ -14,7 +14,7 @@
 
 <script setup>
 import request from 'utils/request'
-import { onMounted } from 'vue'
+import { onMounted,ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useStore } from 'vuex'
 
@@ -22,17 +22,17 @@ let router = useRouter()
 let route = useRoute()
 let store = useStore()
 
-let page = {
+let page = ref({
   number: 0
-}
-let fansList = []
+})
+let fansList = ref([])
 
 let findFansList = () => {
   request({
     url: `/api/fans/list`,
     method: 'get'
   }).then((response) => {
-    fansList = response.data.content
+    fansList.value = response.data.content
   })
 }
 
@@ -42,7 +42,7 @@ let deleteFansMethod = (username,index) => {
     method: 'DELETE'
   }).then((response) => {
     if(response.data > 0){
-      fansList.splice(index,1)
+      fansList.value.splice(index,1)
     }
   })
 }

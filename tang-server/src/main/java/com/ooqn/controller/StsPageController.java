@@ -84,4 +84,9 @@ public class StsPageController {
 		model.addAttribute("subjects", dtsArticleSubjectDtoPageInfo);
 		return "subjects";
 	}
+
+	@GetMapping("init")
+	public String init(){
+		return "init";
+	}
 }

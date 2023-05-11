@@ -56,7 +56,7 @@ public class TangApplication {
 	 * @ConditionalOnProperty注解的作用是当配置文件中tang-https=true时，才会执行下面的方法
 	 */
     @Bean
-    @ConditionalOnProperty(value = "tang-https", havingValue = "true")
+    @ConditionalOnProperty(value = "server.ssl.enabled", havingValue = "true")
     ServletWebServerFactory servletContainer() {
 		TomcatServletWebServerFactory tomcat = new TomcatServletWebServerFactory() {
 			@Override

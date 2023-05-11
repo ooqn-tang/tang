@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh-cn" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+	<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<link href="https://cdn.bootcss.com/github-markdown-css/4.0.0/github-markdown.min.css" rel="stylesheet" type="text/css">
+	<link href="/css/style.css" rel="stylesheet" type="text/css">
+	<link href="/css/github.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <h1>欢迎使用</h1>
+                <h3>请先初始化系统</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div>
+                    <!-- 系统名称 -->
+                    <div class="form-group">
+                        <label for="systemName">系统名称</label>
+                        <input type="text" class="form-control" id="systemName" placeholder="请输入系统名称">
+                    </div>
+                    <!-- 系统描述 -->
+                    <div class="form-group">
+                        <label for="systemDescription">系统描述</label>
+                        <input type="text" class="form-control" id="systemDescription" placeholder="请输入系统描述">
+                    </div>
+                    <!-- 管理名称 -->
+                    <div class="form-group">
+                        <label for="adminName">管理名称</label>
+                        <input type="text" class="form-control" id="adminName" placeholder="请输入管理名称">
+                    </div>
+                    <!-- 管理密码 -->
+                    <div class="form-group">
+                        <label for="adminPassword">管理密码</label>
+                        <input type="password" class="form-control" id="adminPassword" placeholder="请输入管理密码">
+                    </div>
+                    <!-- 管理邮箱 -->
+                    <div class="form-group">
+                        <label for="adminEmail">管理邮箱</label>
+                        <input type="email" class="form-control" id="adminEmail" placeholder="请输入管理邮箱">
+                    </div>
+                    <!-- 提交 -->
+                    <button type="button" class="btn btn-primary" onclick="submit()">提交</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    function submit(){
+        $.ajax({
+            url: "/api/system/init",
+            type: "post",
+            dataType: 'json',
+            data: {
+                systemName: $("#systemName").val(),
+                systemDescription: $("#systemDescription").val(),
+                adminName: $("#adminName").val(),
+                adminPassword: $("#adminPassword").val(),
+                adminEmail: $("#adminEmail").val()
+            },
+            success: function (data) {
+                if(data.code == 200){
+                    alert("初始化成功");
+                    window.location.href = "/login";
+                }else{
+                    alert(data.message);
+                }
+            }
+        });
+    }
+</script>
+</html>

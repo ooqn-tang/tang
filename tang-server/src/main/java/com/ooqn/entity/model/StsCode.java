@@ -12,7 +12,7 @@ import lombok.Data;
 public class StsCode {
 
 	@Id
-	private Integer codeId;
+	private String codeId;
 
 	@Schema(description = "代码名称")
 	private String codeName;
