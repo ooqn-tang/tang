@@ -77,7 +77,7 @@
   </el-dialog>
 </template>
 
-<script>
+<script setup>
 import { ElMessage, ElMessageBox } from "element-plus";
 import request from "utils/request";
 import { onMounted, ref } from "vue";

@@ -15,46 +15,40 @@
   </ul>
 </template>
 
-<script>
-
+<script setup>
 import request from 'utils/request';
+import { onMounted,ref } from 'vue';
 
+let page = ref({
+  number: 0
+})
 
-export default {
-  name: "author_collect",
-  data() {
-    return {
-      page:{
-        number:0
-      },
-      collects:[],
-      huoqu:"获取中..."
-    };
-  },
-  methods: {
-    collectList(pageNum){
-      this.huoqu = '获取中...'
-      request({
-        url: `/api/collect/list`,
-        method: 'GET',
-        params:{page: this.page.number}
-      }).then((response) => {
-        this.page = response.data
-        this.collects = this.collects.concat(response.data.content)
-        this.huoqu = '获取'
-      })
-    },
-    next(){
-      if (!this.page.last) {
-        this.page.number += 1
-        this.collectList(this.page.number)
-      }
-    }
-  },
-  mounted(){
-    this.collectList(this.page.number)
+let huoqu = ref('获取中...')
+
+let collects = ref([])
+
+let collectList = (pageNum) => {
+  request({
+    url: `/api/collect/list`,
+    method: 'GET',
+    params:{page: page.value.number}
+  }).then((response) => {
+    page.value = response.data
+    collects.value = collects.value.concat(response.data.content)
+  })
+}
+
+let next = () => {
+  if (!page.value.last) {
+    page.value.number += 1
+    collectList(page.value.number)
   }
-};
+}
+
+onMounted(() => {
+  collectList(page.value.number)
+})
+
 </script>
 
 <style scoped>

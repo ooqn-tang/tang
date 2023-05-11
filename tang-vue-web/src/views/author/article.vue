@@ -20,11 +20,6 @@
         </button>
         <router-link class="btn btn-outline-warning float-end blog-btn" v-if="isThisUser" target="_blank"
           :to="{ name: 'article-editor-md', params: { id: item.article.articleId } }">修改</router-link>
-        <button class="btn btn-outline-success float-end blog-btn"
-          v-if="item.subject == null && isThisUser" data-bs-toggle="modal" data-bs-target="#exampleModal"
-          @click="(subjectFrom.articleId = item.article.articleId), (thisItem = item)">
-          添加到专辑
-        </button>
       </div>
     </li>
     <li class="list-group-item">
@@ -37,20 +32,16 @@
 import request from "utils/request";
 
 import { onMounted, ref } from "vue";
-import { useRoute, useRouter } from "vue-router";
+import { useRoute } from "vue-router";
 import { useStore } from "vuex";
 
-let router = useRouter();
 let store = useStore();
 let route = useRoute();
 
 let isThisUser = route.params.username == store.state.username;
-let thisItem = ref({});
 let articleList = ref([]);
-let page = ref({number: 0,});
-let subjectFrom = ref({subjectId: ""});
+let page = ref({ number: 0, });
 let subjectList = ref([]);
-let close = ref(null);
 
 let loadArticleByUsername = (pageSize) => {
   request({
@@ -99,7 +90,8 @@ onMounted(() => {
 body {
   overflow-y: scroll;
 }
-.tag{
+
+.tag {
   background: #efefef;
   padding: 0px 5px;
   border-radius: 10px;

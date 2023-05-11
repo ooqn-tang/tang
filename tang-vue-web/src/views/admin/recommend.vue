@@ -63,7 +63,7 @@
   </el-dialog>
 </template>
 
-<script>
+<script setup>
 import { ElMessage } from "element-plus";
 import request from "utils/request";
 import { useRouter, useRoute } from "vue-router";

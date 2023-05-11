@@ -3,88 +3,80 @@
   <a v-for="(item,index) in advList" :key="index" v-bind:href="item.url" class="list-group-item move-b-lr-0">{{item.title}}</a>
 </template>
 
-<script>
+<script setup>
 import request from 'utils/request'
-export default {
-  name: 'notice',
-  data() {
-    return {
-      count: 0,
-      advList:[
-        {
-          url:"",
-          title:"∷∷∷∷∷∷∷∷∷"
-        },
-        {
-          url:"",
-          title:"∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷"
-        },
-        {
-          url:"",
-          title:"∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷"
-        },
-        {
-          url:"",
-          title:"∷∷∷∷∷∷∷∷∷∷∷∷∷"
-        },
-        {
-          url:"",
-          title:"∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷"
-        },
-        {
-          url:"",
-          title:"∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷"
-        },
-        {
-          url:"",
-          title:"∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷"
-        },
-        {
-          url:"",
-          title:"∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷"
-        },
-        {
-          url:"",
-          title:"∷∷∷∷∷∷∷∷∷∷∷∷"
-        },
-        {
-          url:"",
-          title:"∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷"
-        },
-        {
-          url:"",
-          title:"∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷"
-        },
-        {
-          url:"",
-          title:"∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷"
-        },
-        {
-          url:"",
-          title:"∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷"
-        },
-        {
-          url:"",
-          title:"∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷"
-        }
-        
-      ]
-    }
+import { onMounted,ref } from 'vue'
+let advList = ref([
+  {
+    url:"",
+    title:"∷∷∷∷∷∷∷∷∷"
   },
-  created() {
+  {
+    url:"",
+    title:"∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷"
   },
-  methods: {
-    loadNotice(){
-      request({
-        url: `/api/notice/list`,
-        method: 'GET'
-      }).then((response) => {
-          this.advList = response.data
-      })
-    }
+  {
+    url:"",
+    title:"∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷"
   },
-  mounted(){
-      this.loadNotice()
+  {
+    url:"",
+    title:"∷∷∷∷∷∷∷∷∷∷∷∷∷"
+  },
+  {
+    url:"",
+    title:"∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷"
+  },
+  {
+    url:"",
+    title:"∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷"
+  },
+  {
+    url:"",
+    title:"∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷"
+  },
+  {
+    url:"",
+    title:"∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷"
+  },
+  {
+    url:"",
+    title:"∷∷∷∷∷∷∷∷∷∷∷∷"
+  },
+  {
+    url:"",
+    title:"∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷"
+  },
+  {
+    url:"",
+    title:"∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷"
+  },
+  {
+    url:"",
+    title:"∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷"
+  },
+  {
+    url:"",
+    title:"∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷"
+  },
+  {
+    url:"",
+    title:"∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷"
   }
+  
+])
+
+let loadNotice = () => {
+  request({
+    url: `/api/notice/list`,
+    method: 'GET'
+  }).then((response) => {
+      advList.value = response.data
+  })
 }
+
+onMounted(() => {
+  loadNotice()
+})
+
 </script>

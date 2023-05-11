@@ -35,7 +35,7 @@
   
 </template>
 
-<script>
+<script setup>
 import request from "utils/request";
 import { useRouter, useRoute } from "vue-router";
 import { useStore } from "vuex";
