@@ -72,8 +72,7 @@
 import { ref, reactive, computed, watch, onMounted, onUnmounted,onActivated } from 'vue'
 import request from 'utils/request'
 import { useStore } from 'vuex'
-import { useRouter } from 'vue-router'
-import { useRoute } from 'vue-router'
+import { useRouter,useRoute } from 'vue-router'
 
 const store = useStore()
 const router = useRouter()

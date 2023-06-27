@@ -49,14 +49,15 @@
   </div>
 </template>
 <script setup>
-import { ref, onMounted, watch } from 'vue'
-import { useRoute } from 'vue-router'
-import { useStore } from 'vuex'
-import { marked } from "marked";
 import hljs from "highlight.js";
 import "highlight.js/styles/github.css";
+import { marked } from "marked";
 import request from "utils/request";
+import { onMounted, ref, watch } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
+import { useStore } from 'vuex';
 
+const router = useRouter();
 const route = useRoute();
 const store = useStore();
 
@@ -81,9 +82,9 @@ let systemForm = ref(null);
 let categoryList = ref([]);
 
 onMounted(() => {
-  loadArticleAllInfo(articleId.value);
   loadSubject();
   loadCategoryList();
+  loadArticleAllInfo(articleId.value);
 });
 
 let loadArticleAllInfo = (articleId) => {
@@ -97,6 +98,7 @@ let loadArticleAllInfo = (articleId) => {
     articleForm.value.text = response.data.article.text;
     articleForm.value.markdown = response.data.article.markdown;
     articleForm.value.subjectId = response.data.subject.subjectId;
+    articleForm.value.categoryId = response.data.article.categoryId;
   });
 }
 let saveArticle = () => {

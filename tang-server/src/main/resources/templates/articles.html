@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <title>堂堂程序员</title>
+    <title>ooqn.com</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
@@ -18,8 +18,8 @@
                 <div class="panel-body">
                     <ul class="blog-list">
                         <li th:each="item : ${articlePage.content}">
-                            <a th:href="'/article/' + ${item.articleId}" th:text="${item.title}"></a>
-                            <span th:text="${#dates.format(item.createDate, 'yyyy-MM-dd')}" class="blog-time"></span>
+                            <a th:href="'/article/' + ${item.article.articleId}" th:text="${item.article.title}"></a>
+                            <span th:text="${#dates.format(item.article.createTime, 'yyyy-MM-dd')}" class="blog-time"></span>
                             <hr class="hr"/>
                         </li>
                     </ul>

@@ -10,71 +10,71 @@
 			</li>
 			<li class="list-group-item" v-for="(item, index) in essayList" :key="index">
 				<p>
-					<router-link :to="{name:'author_article',params:{username : item.username}}">{{item.nickname}}
-					</router-link>
-					<span class="float-end">{{item.createTime}}</span>
+					<router-link :to="{name:'author_article',params:{username : item.author.username}}">{{item.author.nickname}}</router-link>
+					<span class="float-end">{{item.essay.createTime}}</span>
 				</p>
-				{{item.text}}
+				{{item.essay.text}}
 			</li>
-			<li class="list-group-item" v-if="essayList.length != 0">
+			<li class="list-group-item">
 				<a @click="next()">获取</a>
 			</li>
-			<li class="list-group-item" v-if="essayList.length == 0">
-				加载中...
-			</li>
+			
 		</ul>
 
 	</div>
 </template>
   
-<script>
+<script setup>
 import request from "utils/request";
-export default {
-	name: "essay_message",
-	data() {
-		return {
-			page: {
-				number: 0
-			},
-			form: {
+import { onMounted,ref } from "vue";
+import { useRouter, useRoute } from "vue-router";
+import { useStore } from "vuex";
 
-			},
-			essayList: []
-		};
-	},
-	created() { },
-	methods: {
-		loadEssay() {
-			request({
-				url: `/api/essay`,
-				method: "get",
-				params: { page: this.page.number }
-			}).then((response) => {
-				this.page = response.data
-				this.essayList = this.essayList.concat(response.data.content)
-			});
-		},
-		insertEssay() {
-			request({
-				url: `/api/essay`,
-				method: "post",
-				data: this.form
-			}).then((response) => {
-				this.form = {}
-				this.essayList.unshift(response.data)
-			});
-		},
-		next() {
-			if (!this.page.last) {
-				this.page.number += 1
-				this.loadEssay()
-			}
-		}
-	},
-	created() {
-		this.loadEssay()
-	},
+let router = useRouter();
+let route = useRoute();
+let store = useStore();
+
+let page = ref({
+	number: 0
+});
+let essayList = ref([]);
+let form = {
+	text: ""
 };
+
+let loadEssay = () => {
+	request({
+		url: `/api/essay`,
+		method: "get",
+		params: { page: page.value.number }
+	}).then((response) => {
+		page.value = response.data;
+		essayList.value = essayList.value.concat(response.data.content);
+	});
+};
+
+let insertEssay = () => {
+	request({
+		url: `/api/essay`,
+		method: "post",
+		data: form
+	}).then((response) => {
+		form = {};
+		essayList.unshift(response.data);
+	});
+};	
+
+let next = () => {
+	if (!page.last) {
+		page.value.number += 1;
+		loadEssay();
+	}
+};
+
+onMounted(() => {
+	loadEssay();
+});
+
 </script>
   
 <style scoped>

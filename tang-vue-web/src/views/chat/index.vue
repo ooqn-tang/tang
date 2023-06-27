@@ -14,50 +14,44 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: "chat",
-  data() {
-    return {
-    };
-  },
-  computed: {},
-  watch: {
-  },
-  destroyed() {
-    this.$store.state.ws.close() //离开路由之后断开websocket连接
-  },
-  created() {
-    this.initWebSocket();
-  },
-  methods: {
-    initWebSocket() {
-      try{
-        this.$store.state.ws = new WebSocket(import.meta.env.VITE_BASE_API_WS + "api/ws/" + localStorage.getItem("jwt"));
-        this.$store.state.ws.onmessage = this.websocketonmessage;
-        this.$store.state.ws.onopen = this.websocketonopen;
-        this.$store.state.ws.onerror = this.websocketonerror;
-        this.$store.state.ws.onclose = this.websocketclose;
-      }catch(e){
-        console.log(e)
-      }
-    },
-    websocketonopen() {
+<script setup>
+import request from "utils/request";
+import { onMounted,destroyed } from "vue";
+import { useRouter, useRoute } from "vue-router";
+import { useStore } from "vuex";
 
-    },
-    websocketonerror() {
-      this.initWebSocket();
-    },
-    websocketonmessage(e) {
-      console.log(e.data)
-    },
-    websocketclose(e) {
-      console.log("断开连接", e);
-    },
-  },
-  mounted() {
+let router = useRouter();
+let route = useRoute();
+let store = useStore();
+
+let initWebSocket = () => {
+  try{
+    store.state.ws = new WebSocket(import.meta.env.VITE_BASE_API_WS + "api/ws/" + localStorage.getItem("jwt"));
+    store.state.ws.onmessage = websocketonmessage;
+    store.state.ws.onopen = websocketonopen;
+    store.state.ws.onerror = websocketonerror;
+    store.state.ws.onclose = websocketclose;
+  }catch(e){
+    console.log(e)
   }
-}
+};
+
+let websocketonopen = () => {
+
+};
+
+let websocketonerror = () => {
+  initWebSocket();
+};
+
+let websocketonmessage = (e) => {
+  console.log(e.data)
+};
+
+let websocketclose = (e) => {
+  console.log("断开连接", e);
+};
+
 </script>
 
 <style>

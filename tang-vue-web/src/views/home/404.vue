@@ -4,20 +4,8 @@
  <div style="text-align: center;"><a style="text-align: center;" href="/">首页</a></div>
  
 </template>
-<script>
-export default {
-  name: "error",
-  data() {
-    return {
-    };
-  },
-  components: {
-  },
-  methods: {
-  },
-  mounted(){
-  }
-};
+<script setup>
+
 </script>
 <style scoped>
 body{

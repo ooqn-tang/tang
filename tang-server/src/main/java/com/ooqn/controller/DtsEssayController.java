@@ -3,6 +3,9 @@ package com.ooqn.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -43,8 +46,9 @@ public class DtsEssayController extends BaseController {
 	}
 
 	@GetMapping
-	public List<DtsEssayDto> select(@RequestParam(defaultValue = "0") Integer page) {
-		return essayService.findAllInfo();
+	public Page<DtsEssayDto> select(@RequestParam(defaultValue = "0") Integer page) {
+		Pageable pageable = PageRequest.of(page, 10);
+		return essayService.findAllInfo(pageable);
 	}
 
 	@DeleteMapping("{essayId}")

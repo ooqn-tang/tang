@@ -56,24 +56,22 @@
   <nav class="navbar fixed-bottom navbar-light bg-light" style="border-top: 1px solid rgb(206, 206, 206)">
     <div class="container-fluid">
       <div class="col-md-12 col-lg-12">
-        <a :class="collect == 1 ? 'btn-outline-danger' : 'btn-outline-primary'" class="btn btn-sm mini-but"
-          style="margin-left: 0px" @click="collectClick">收藏</a>
-        <a disabled class="btn btn-outline-primary btn-sm mini-but">举报</a>
-        <a class="btn btn-outline-primary btn-sm mini-but" :href="'https://ttcxy.cn/article/' + articleId">阅读模式</a>
-        <a class="btn btn-outline-primary btn-sm mini-but"
-          onclick="document.body.scrollTop = document.documentElement.scrollTop = 0">⬆TOP</a>
+        <a :class="collect == 1 ? 'btn-outline-danger' : 'btn-outline-primary'" class="btn btn-sm mini-but" style="margin-left: 0px" @click="collectClick">收藏</a>
+        <a class="btn btn-outline-primary btn-sm mini-but" disabled>举报</a>
+        <a class="btn btn-outline-primary btn-sm mini-but" :href="'https://blog.ooqn.com/article/' + articleId" target="_blank">阅读模式</a>
+        <router-link class="btn btn-outline-primary btn-sm mini-but" v-if="isThisUser" target="_blank" :to="{ name: 'article-editor-md', params: { id: articleId } }">修改</router-link>
+        <a class="btn btn-outline-primary btn-sm mini-but" onclick="document.body.scrollTop = document.documentElement.scrollTop = 0">⬆TOP</a>
       </div>
     </div>
   </nav>
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
-import { createStore } from 'vuex'
-import { useStore } from 'vuex'
-import { useRoute, useRouter } from "vue-router"
 import "highlight.js/styles/github.css";
 import request from "utils/request";
+import { onMounted, ref } from 'vue';
+import { useRoute, useRouter } from "vue-router";
+import { useStore } from 'vuex';
 
 const router = useRouter()
 const route = useRoute()
@@ -82,12 +80,14 @@ const store = useStore()
 let fans = ref(1);
 let articleId = ref(route.query.value);
 let loginUsername = ref("");
+
 let loading = ref(false);
 let recommendList = ref([]);
 let article = ref({
   article: {},
   author: {}
 });
+let isThisUser = ref(false)
 let subject = ref([]);
 let articleList = ref([]);
 let collect = ref(0);
@@ -161,7 +161,7 @@ function loadArticleInfo() {
     method: "GET",
   }).then((response) => {
     article.value = response.data
-    
+    isThisUser.value = store.state.username == article.value.author.username
   });
 }
 function selectSubjectArticleList() {
@@ -194,6 +194,7 @@ function load() {
 onMounted(() => {
   load();
   loadRecommend();
+  
 })
 
 </script>

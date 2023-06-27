@@ -1,7 +1,5 @@
 package com.ooqn.entity.dto;
 
-import java.util.Locale.Category;
-
 import com.ooqn.entity.model.DtsArticle;
 import com.ooqn.entity.model.DtsCategory;
 import com.ooqn.entity.model.DtsSubject;

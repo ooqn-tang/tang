@@ -7,7 +7,6 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -126,14 +125,29 @@ public class DtsArticleSubjectService {
 		return subjectDtoList;
 	}
 
+	/**
+	 * 通过专辑id查询专辑 
+	 * @param articleId 文章id
+	 * @return	SubjectId
+	 */
 	public String findSubjectIdByArticleId(String articleId) {
 		return subjectRepository.findSubjectIdByDataId(articleId);
 	}
 
+	/**
+	 * 通过专辑id查询专辑
+	 * @param subjectId	专辑id
+	 * @return	DtsSubject
+	 */
 	public DtsSubject subjectById(String subjectId) {
 		return subjectRepository.findById(subjectId).orElseThrow();
 	}
 
+	/**
+	 * 通过文章id查询专辑
+	 * @param articleId 文章id
+	 * @return List<DtsArticle>
+	 */
 	public List<DtsArticle> findSubjectArticleTitleListByArticleId(String articleId) {
 		return articleRepository.findSubjectArticleTitleListByArticleId(articleId);
 	}
@@ -143,6 +157,12 @@ public class DtsArticleSubjectService {
 		subjectRepository.deleteBySubjectIdAndAuthorId(subjectId, authorId);
 	}
 
+	/**
+	 * 通过文章id查询专辑
+	 * @param categoryId 分类id
+	 * @param pageable 分页
+	 * @return Page<DtsArticleDto>
+	 */
 	public Page<DtsArticleDto> selectArticleList(String categoryId,Pageable pageable) {
 		Page<DtsArticle> findArticleList;
 		if(StrUtil.equals(categoryId, "0")){
@@ -192,6 +212,10 @@ public class DtsArticleSubjectService {
 			articleDto.setArticle(article);
 			articleDto.setAuthor(authorRepository.findById(article.getAuthorId()).orElseThrow());
 			articleDto.setSubject(subjectRepository.findByDataId(article.getArticleId()).orElse(null));
+			String categoryId = article.getCategoryId();
+			if(categoryId != null){
+				categoryRepository.findById(categoryId).ifPresent(articleDto::setCategory);
+			}
 			return articleDto;
 		});
 	}

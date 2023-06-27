@@ -1,95 +1,90 @@
 <template>
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title text-center">注册</h4>
-      </div>
-      <div id="model-body" class="modal-body">
-        <label>邮箱：</label>
-        <div class="input-group">
-          <input type="text" v-model="loginData.mail" placeholder="邮箱号" autocomplete="off" class="form-control">
+  <div class="modal" style="display: inline;">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title text-center">注册</h4>
         </div>
-        <label>密码：</label>
-        <div class="form-group">
-          <input type="password" v-model="loginData.password" placeholder="密码" autocomplete="off" class="form-control"/>
+        <div id="model-body" class="modal-body">
+          <label>邮箱：</label>
+          <div class="input-group">
+            <input type="text" v-model="loginData.mail" placeholder="邮箱号" autocomplete="off" class="form-control">
+          </div>
+          <label>密码：</label>
+          <div class="form-group">
+            <input type="password" v-model="loginData.password" placeholder="密码" autocomplete="off"
+              class="form-control" />
+          </div>
+          <label>确认密码：</label>
+          <div class="form-group">
+            <input type="password" v-model="loginData.password1" placeholder="确认密码" autocomplete="off"
+              class="form-control" />
+          </div>
         </div>
-        <label>确认密码：</label>
-        <div class="form-group">
-          <input type="password" v-model="loginData.password1" placeholder="确认密码" autocomplete="off" class="form-control"/>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <div class="btn-group W100 mb10px">
-          <button type="button" class="btn btn-primary W100" @click="register()">注册</button>
-          
-        </div>
-        <div class="btn-group W100 mb10px">
-          <router-link to="/login" type="button" class="btn btn-primary W100">登录</router-link>
-        </div>
-        <div class="btn-group W100">
-          <router-link to="/" type="button" class="btn btn-default W100">返回首页</router-link>
+        <div class="modal-footer">
+          <div class="btn-group W100">
+            <button type="button" class="btn btn-primary" @click="register()">注册</button>
+
+          </div>
+          <div class="btn-group W100">
+            <router-link to="/login" type="button" class="btn btn-outline-secondary">登录</router-link>
+          </div>
+          <div class="btn-group W100">
+            <router-link to="/" type="button" class="btn btn-outline-secondary ">返回首页</router-link>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </template>
 
-<script>
-import jwt_decode from "jwt-decode"
-import request from 'utils/request'
-export default {
-  name: "register",
-  data() {
-    return {
-      loginData:{
-        username:"",
-        password:"",
-        mail:"",
-        password1:"",
-        'rememberMe':true
-      }
-    };
-  },
-  components: {},
-  methods: {
-    register(){
-      if(this.loginData.password !== this.loginData.password1){
-        alert("两次密码不一致")
-        return
-      }
-      request({
-        url: `/api/register`,
-        method: 'post',
-        data:this.loginData
-    }).then((response) => {
-        alert(response.data)
-      }).catch((error) => {
-        alert(error.data)
-      })
-    }
-  },
-  mounted(){
-    localStorage.removeItem("jwt")
-    localStorage.removeItem("authorData")
+<script setup>
+import request from 'utils/request';
+import { onMounted,ref } from "vue";
+
+import { useRoute, useRouter } from "vue-router";
+import { useStore } from "vuex";
+
+let router = useRouter();
+let store = useStore();
+let route = useRoute();
+
+let loginData = ref({
+  username: "",
+  password: "",
+  mail: "",
+  password1: "",
+  'rememberMe': true
+})
+
+let register = () => {
+  if (loginData.value.password !== loginData.value.password1) {
+    alert("两次密码不一致")
+    return
   }
-};
+  request({
+    url: `/api/register`,
+    method: 'post',
+    data: loginData.value
+  }).then((response) => {
+    alert(response.data)
+  }).catch((error) => {
+    alert(error.data)
+  })
+}
+
+onMounted(() => {
+  localStorage.removeItem("jwt")
+  localStorage.removeItem("authorData")
+})
+
 </script>
 
 <style scoped>
-.W33{
-  width: 33%;
-}
-.W34{
-  width: 34%
+.body{
+  background-image: url('https://img-s-msn-com.akamaized.net/tenant/amp/entityid/AAOElaZ.img') !important;
 }
 .W100{
-  width: 100%;
+  width: 100% !important;
 }
-.mb10px{
-  margin-bottom: 10px;
-}
-html,body{
-  overflow:hidden;
-}
-
 </style>

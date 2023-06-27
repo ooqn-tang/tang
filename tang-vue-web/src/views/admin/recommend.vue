@@ -63,94 +63,101 @@
   </el-dialog>
 </template>
 
-<script>
+<script setup>
 import { ElMessage } from "element-plus";
 import request from "utils/request";
-export default {
-  name: "admin_recommend",
-  data() {
-    return {
-      insertDialogVisible:false,
-      routeName: this.$route.name,
-      noticeList:[{},{}],
-      editIndex:-1,
-      orderButton:true,
-      form:{
+import { useRouter, useRoute } from "vue-router";
+import { useStore } from "vuex";
+import { onMounted,ref } from "vue";
 
-      }
-    };
-  },
-  created() {},
-  methods: {
-    insertNotice(){
-      request({
-        url: `/api/admin/notice`,
-        method: "POST",
-        data:this.form,
-      }).then((response) => {
-        ElMessage({type: 'success', message: '保存成功'})
-        this.insertDialogVisible = false
-        this.loadRecommend()
-        this.form = {}
-      });
-    },
-    deleteNotice(index,row){
-      request({
-        url: `/api/admin/notice/${row.noticeId}`,
-        method: "DELETE",
-      }).then((response) => {
-        this.noticeList.splice(index, 1)
-        ElMessage({type: 'success', message: '删除成功'})
-      });
-    },
-    updateOrder(){
-      console.log(this.noticeList)
-       request({
-        url: `/api/admin/notice/order`,
-        method: "PUT",
-        data:this.noticeList,
-      }).then((response) => {
-        this.orderButton = true
-        ElMessage({type: 'success', message: '保存成功'})
-      });
-    },
-    saveNotice(index,row){
-      request({
-        url: `/api/admin/notice`,
-        method: "PUT",
-        data:row,
-      }).then((response) => {
-        this.editIndex = -1
-      });
-    },
-    loadRecommend(){
-      request({
-        url: `/api/admin/notice`,
-        method: "GET",
-      }).then((response) => {
-        this.noticeList = response.data
-      });
-    },
-    moveUpward(index,row) {
-      if (index > 0) {
-        let upData = this.noticeList[index - 1];
-        this.noticeList.splice(index - 1, 1);
-        this.noticeList.splice(index, 0, upData);
-        this.orderButton = false
-      }
-    },
-    moveDown(index,row) {
-      if ((index + 1) == this.noticeList.length) {
-      } else {
-        let downData = this.noticeList[index + 1];
-        this.noticeList.splice(index + 1, 1);
-        this.noticeList.splice(index, 0, downData);
-        this.orderButton = false
-      }
-    }
-  },
-  mounted() {
-    this.loadRecommend()
-  },
-};
+let router = useRouter();
+let route = useRoute();
+let store = useStore();
+
+let insertDialogVisible = ref(false)
+let routeName = ref(route.name)
+let noticeList = ref([{},{}])
+let editIndex = ref(-1)
+let orderButton = ref(true)
+let form = ref({})
+
+let insertNotice = () => {
+  request({
+    url: `/api/admin/notice`,
+    method: "POST",
+    data:form.value,
+  }).then((response) => {
+    ElMessage({type: 'success', message: '保存成功'})
+    insertDialogVisible.value = false
+    loadRecommend()
+    form.value = {}
+  });
+}
+
+let deleteNotice = (index,row) => {
+  request({
+    url: `/api/admin/notice/${row.noticeId}`,
+    method: "DELETE",
+  }).then((response) => {
+    noticeList.value.splice(index, 1)
+    ElMessage({type: 'success', message: '删除成功'})
+  });
+}
+
+let updateOrder = () => {
+  console.log(noticeList.value)
+   request({
+    url: `/api/admin/notice/order`,
+    method: "PUT",
+    data:noticeList.value,
+  }).then((response) => {
+    orderButton.value = true
+    ElMessage({type: 'success', message: '保存成功'})
+  });
+}
+
+let moveUpward = (index,row) => {
+  if(index == 0){
+    return
+  }
+  let temp = noticeList.value[index-1]
+  noticeList.value[index-1] = noticeList.value[index]
+  noticeList.value[index] = temp
+  orderButton.value = false
+}
+
+let moveDown = (index,row) => {
+  if(index == noticeList.value.length-1){
+    return
+  }
+  let temp = noticeList.value[index+1]
+  noticeList.value[index+1] = noticeList.value[index]
+  noticeList.value[index] = temp
+  orderButton.value = false
+}
+
+let saveNotice = (index,row) => {
+  request({
+    url: `/api/admin/notice`,
+    method: "PUT",
+    data:row,
+  }).then((response) => {
+    ElMessage({type: 'success', message: '保存成功'})
+    editIndex.value = -1
+  });
+}
+
+let loadRecommend = () => {
+  request({
+    url: `/api/admin/notice`,
+    method: "GET",
+  }).then((response) => {
+    noticeList.value = response.data
+  });
+}
+
+onMounted(() => {
+  loadRecommend()
+})
+
 </script>

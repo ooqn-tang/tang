@@ -54,82 +54,83 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import request from 'utils/request'
-export default {
-  name: "author_index",
-  data() {
-    return {
-      routeName:this.$route.name,
-      author:{
-        nickname:"∷∷∷∷∷∷∷∷",
-        signature:"∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷"
-      },
-      thisUsername:"",
-      loginUsername:this.$store.state.username,
-      from:{
-        page:1
-      },
-      fans:0
-    };
-  },
-  components: {},
-  watch:{
-    $route(to,from){
-      this.routeName = this.$route.name
-    }
-  },
-  methods: {
-    fansClick(username){
-      if(this.fans == 2){
-        request({
-          url: `/api/fans/${username}`,
-          method: 'POST'
-        }).then((response) => {
-          this.fans = 1
-        })
-      }else{
-        request({
-          url: `/api/fans/${username}`,
-          method: 'DELETE'
-        }).then((response) => {
-          this.fans = 2
-        })
-      }
-      
-    },
-    isFans(){
-      request({
-        url: `/api/fans/username/${this.thisUsername}`,
-        method: 'get',
-      }).then((response) => {
-        if(response.data > 0){
-          this.fans = 1
-        }else{
-          this.fans = 2
-        }
-      })
-    },
-    selectAuthor(username){
-      request({
-        url: `/api/author/${username}`,
-        method: 'GET'
-      }).then((response) => {
-        this.author = response.data
-      })
-    },
-    
-  },
-  created(){
-    this.selectAuthor(this.$route.params.username)
-  },
-  mounted(){
-    this.thisUsername = this.$route.params.username
-    if(this.$store.state.username != ""){
-      this.isFans()
-    }
+import { useRouter,useRoute } from 'vue-router'
+import { useStore } from 'vuex'
+import { onMounted,ref,watch } from 'vue'
+
+let router = useRouter()
+let route = useRoute()
+let store = useStore()
+
+let routeName = ref(route.name)
+let author = ref({
+  nickname:"∷∷∷∷∷∷∷∷",
+  signature:"∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷"
+})
+
+let thisUsername = ref("")
+let loginUsername = store.state.username
+let from = ref({
+  page:1
+})
+let fans = ref(1)
+
+let fansClick = (username) => {
+  if(fans.value == 2){
+    request({
+      url: `/api/fans/${username}`,
+      method: 'POST'
+    }).then((response) => {
+      fans.value = 1
+    })
+  }else{
+    request({
+      url: `/api/fans/${username}`,
+      method: 'DELETE'
+    }).then((response) => {
+      fans.value = 2
+    })
   }
-};
+}
+
+// 监听 routeName 的变化 ， 如果变化获取route name 给 routeName
+watch(() => route.name, (val) => {
+  routeName.value = val
+})
+
+let isFans = () => {
+  request({
+    url: `/api/fans/username/${thisUsername}`,
+    method: 'get'
+  }).then((response) => {
+    if(response.data > 0){
+      fans.value = 1
+    }else{
+      fans.value = 2
+    }
+  })
+}
+
+let getAuthor = () => {
+  request({
+    url: `/api/author/${thisUsername}`,
+    method: 'get'
+  }).then((response) => {
+    if(response.status == 200){
+      author.value = response.data
+    }
+  })
+}
+
+
+onMounted(() => {
+  thisUsername = router.currentRoute.value.params.username
+  getAuthor()
+  isFans()
+})
+
 </script>
 
 <style scoped>

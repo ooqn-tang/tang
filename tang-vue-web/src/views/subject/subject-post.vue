@@ -36,44 +36,44 @@
  
 </template>
 
-<script>
+<script setup>
 import request from 'utils/request'
-export default {
-  name: "subject_post",
-  data() {
-    return {
-      username: this.$store.getters.username,
-      subjectData:{
-        subject:{
-          subjectName:"∷∷∷∷∷∷∷∷∷",
-          synopsis:"∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷",
-          createDate:"∷∷∷∷∷∷∷"
-        },
-        author:{
-          username:"∷∷∷∷∷∷∷∷∷",
-          nickname:"∷∷∷∷∷∷∷∷∷",
-        },
-        articleList:[]
-        
-      }
-    };
+import { onMounted } from 'vue'
+import { useRouter, useRoute } from 'vue-router'
+import { useStore } from 'vuex'
+
+let router = useRouter()
+let route = useRoute()
+let store = useStore()
+
+let username = store.getters.username
+let subjectData = {
+  subject:{
+    subjectName:"∷∷∷∷∷∷∷∷∷",
+    synopsis:"∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷",
+    createDate:"∷∷∷∷∷∷∷"
   },
-  created() {
+  author:{
+    username:"∷∷∷∷∷∷∷∷∷",
+    nickname:"∷∷∷∷∷∷∷∷∷",
   },
-  methods: {
-    loadSubjectById(){
-      request({
-        url: `/api/subject/id/${this.$route.params.subject_id}`,
-        method: 'GET',
-      }).then((response) => {
-        this.subjectData = response.data
-      })
-    }
-  },
-  mounted(){
-    this.loadSubjectById()
-  }
-};
+  articleList:[]
+  
+}
+
+let loadSubjectById = () => {
+  request({
+    url: `/api/subject/id/${route.params.subject_id}`,
+    method: 'GET',
+  }).then((response) => {
+    subjectData = response.data
+  })
+}
+
+onMounted(() => {
+  loadSubjectById()
+})
+
 </script>
 
 <style scoped>

@@ -12,23 +12,11 @@
     <a href="/map" class="hidden">地图</a>
   </div>
 </template>
+<script setup> 
+import { ref } from 'vue';
 
-<script>
-export default {
-  name: 'info',
-  data() {
-    return {
-      count: 0,
-      advList:[],
-      zz:false
-    }
-  },
-  created() {
-  },
-  methods: {
-  },
-  mounted(){
-    
-  }
-}
+let count = ref(0);
+let advList = ref([]);
+let zz = ref(false);
+
 </script>

@@ -12,42 +12,45 @@
   </ul>
 </template>
 
-<script>
+<script setup>
 import request from 'utils/request'
-export default {
-  name: "author_subscribe",
-  data() {
-    return {
-      fansList:[]
-    };
-  },
-  components: {
+import { onMounted,ref } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
+import { useStore } from 'vuex'
 
-  },
-  methods: {
-    findFansList(){
-      request({
-        url: `/api/fans/list`,
-        method: 'get'
-      }).then((response) => {
-        this.fansList = response.data.content;
-      })
-    },
-    deleteFansMethod(username,index){
-      request({
-        url: `/api/fans/${username}`,
-        method: 'DELETE'
-      }).then((response) => {
-        if(response.data > 0){
-          this.fansList.splice(index,1)
-        }
-      })
+let router = useRouter()
+let route = useRoute()
+let store = useStore()
+
+let page = ref({
+  number: 0
+})
+let fansList = ref([])
+
+let findFansList = () => {
+  request({
+    url: `/api/fans/list`,
+    method: 'get'
+  }).then((response) => {
+    fansList.value = response.data.content
+  })
+}
+
+let deleteFansMethod = (username,index) => {
+  request({
+    url: `/api/fans/${username}`,
+    method: 'DELETE'
+  }).then((response) => {
+    if(response.data > 0){
+      fansList.value.splice(index,1)
     }
-  },
-  mounted(){
-    this.findFansList()
-  }
-};
+  })
+}
+
+onMounted(() => {
+  findFansList()
+})
+
 </script>
 
 <style scoped>

@@ -77,116 +77,85 @@
   </el-dialog>
 </template>
 
-<script>
-import { ElMessage,ElMessageBox } from "element-plus";
+<script setup>
+import { ElMessage, ElMessageBox } from "element-plus";
 import request from "utils/request";
-export default {
-  name: "admin_resource",
-  data() {
-    return {
-      dialogVisible: false,
-      resourceList: [],
-      formData: {},
-      queryData:""
-    };
-  },
-  created() {},
-  methods: {
-    refresh(){
-      request({
-        url: `/api/admin/resource/refresh`,
-        method: "GET",
-      }).then((response) => {
-        this.loadResourceList()
-      });
-    },
-    handleEdit(row){
-      this.formData = row
-    },
-    handleClose() {
-      this.dialogVisible = false
-    },
-    selectResource(id){
+import { onMounted, ref } from "vue";
+import { useRoute, useRouter } from "vue-router";
+import { useStore } from "vuex";
+
+let router = useRouter();
+let store = useStore();
+let route = useRoute();
+
+let dialogVisible = ref(false)
+let resourceList = ref([])
+let formData = ref({})
+let queryData = ref("")
+
+let refresh = () => {
+  request({
+    url: `/api/admin/resource/refresh`,
+    method: "GET",
+  }).then((response) => {
+    loadResourceList()
+  });
+}
+
+let handleEdit = (row) => {
+  formData.value = row
+}
+
+let handleClose = () => {
+  dialogVisible.value = false
+}
+
+let loadResourceList = () => {
+  request({
+    url: `/api/admin/resource`,
+    method: "GET",
+    params: {
+      query: queryData.value
+    }
+  }).then((response) => {
+    resourceList.value = response.data;
+  });
+}
+
+let insertResource = () => {
+  request({
+    url: `/api/admin/resource`,
+    method: "POST",
+    data: formData.value,
+  }).then((response) => {
+    ElMessage.success("保存成功");
+    dialogVisible.value = false
+    loadResourceList()
+  });
+}
+
+let deleteResource = (id) => {
+  ElMessageBox.confirm("此操作将永久删除该资源, 是否继续?", "提示", {
+    confirmButtonText: "确定",
+    cancelButtonText: "取消",
+    type: "warning",
+  })
+    .then(() => {
       request({
         url: `/api/admin/resource/${id}`,
-        method: "GET",
+        method: "DELETE",
       }).then((response) => {
-        this.formData = response.data;
+        ElMessage.success("删除成功");
+        loadResourceList()
       });
-    },
-    loadResourceList() {
-      request({
-        url: `/api/admin/resource`,
-        method: "GET",
-        params:{queryData:this.queryData}
-      }).then((response) => {
-        this.resourceList = response.data;
-      });
-    },
-    insertResource() {
-      if(this.formData.resourceId == undefined){
-        request({
-          url: `/api/admin/resource`,
-          method: "POST",
-          data: this.formData,
-        }).then((response) => {
-          this.loadResourceList();
-          this.dialogVisible = false;
-          this.formData = {}
-        });
-      }else{
-         request({
-          url: `/api/admin/resource`,
-          method: "PUT",
-          data: this.formData,
-        }).then((response) => {
-          this.loadResourceList();
-          this.dialogVisible = false;
-          this.formData = {}
-        });
-      }
-     
-    },
-    deleteResource(id) {
-      ElMessageBox.confirm(
-        '确认删除资源链接吗?',
-        '提醒',
-        {
-          confirmButtonText: '确认',
-          cancelButtonText: '取消',
-          type: 'warning',
-        }
-      ).then(() => {
-        request({
-          url: `/api/admin/resource/${id}`,
-          method: "DELETE",
-        }).then((response) => {
-          ElMessage({
-            type: 'success',
-            message: '删除成功',
-          })
-          this.loadResourceList();
-        });
-      }).catch(() => {
-        ElMessage({
-          type: 'info',
-          message: '取消删除',
-        })
-      })
-    },
-    update() {
-      request({
-        url: `/api/admin/resource`,
-        method: "PUT",
-        data: this.formData,
-      }).then((response) => {
-        this.$refs.me.click();
-        this.loadResourceList();
-      });
-    },
-  },
-  mounted() {
-    this.loadResourceList();
-  },
-};
+    })
+    .catch(() => {
+      ElMessage.info("已取消删除");
+    });
+}
+
+onMounted(() => {
+  loadResourceList()
+})
+
 </script>

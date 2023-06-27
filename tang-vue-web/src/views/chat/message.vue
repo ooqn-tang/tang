@@ -16,30 +16,14 @@
   </div>
 </template>
   
-<script>
-export default {
-  name: "chat",
-  data() {
-    return {
-      text:""
-    };
-  },
-  computed: {},
-  created() { },
-  watch: {
-  },
-  methods: {
-    send(){
-      let message = {
-        to:this.$route.params.id,
-        text:this.text,
-        type:"message"
-      }
-      this.$store.state.ws.send(JSON.stringify(message));
-    }
-  },
-  mounted() {
+<script setup>
+let send = () => {
+  let message = {
+    to: $route.params.id,
+    text: text,
+    type: "message"
   }
+  $store.state.ws.send(JSON.stringify(message));
 }
 </script>
   

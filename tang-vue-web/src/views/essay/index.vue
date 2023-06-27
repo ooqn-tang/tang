@@ -24,16 +24,7 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: "essay_index",
-  data() {
-    return {};
-  },
-  created() { },
-  methods: {},
-  mounted() { },
-};
+<script setup>
 </script>
 
 <style scoped>

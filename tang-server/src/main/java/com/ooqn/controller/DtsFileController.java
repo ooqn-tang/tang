@@ -26,7 +26,7 @@ import org.springframework.web.multipart.MultipartFile;
 @RequestMapping("api/file")
 public class DtsFileController extends BaseController {
 
-	@Value("${tang-file}")
+	@Value("${tang.file}")
 	private String tangFile;
 
 	@PostMapping("/upload")

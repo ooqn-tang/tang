@@ -70,90 +70,89 @@
   </el-row>
 </template>
 
-<script>
+<script setup>
 import request from "utils/request";
-export default {
-  name: "admin_role",
-  data() {
-    return {
-      loading:false,
-      routeName: this.$route.name,
-      formInline: { user: "" },
-      roleList: [],
-      resourceList: null,
-      resourceIdList: null,
-      selectRoleId:"",
-      resourceForm:[],
-      editIndex:-1
-    };
-  },
-  computed:{
-   
-  },
-  watch: {
-      resourceIdList: {
-        handler() {
-          this.$nextTick(() => {
-            for(let index in this.resourceList){
-              if(this.resourceIdList.indexOf(this.resourceList[index].resourceId) > -1){
-                this.$refs.multipleTable.toggleRowSelection(this.resourceList[index]);
-              }
-            }
-          });
-        }
-      },
-  },
-  created() {
-   
-  },
-  methods: {
-    checkResource(selection, row){
-      this.resourceForm = selection
-    },
-    saveResourceRole(){
-      request({
-        url: `/api/admin/role/resource/${this.selectRoleId}`,
-        method: "POST",
-        data:this.resourceForm
-      }).then((response) => {
-        alert("添加成功")
-      });
-    },
-    rowRoleClick(row) {
-      this.selectRoleId = row.roleId
-      this.selectResource(row);
-    },
-    selectRole() {
-      this.loading = true
-      request({
-        url: `/api/admin/role`,
-        method: "GET",
-      }).then((response) => {
-        this.loading = false
-        this.roleList = response.data;
-      });
-    },
-    selectResource(row) {
-      request({
-        url: `/api/admin/resource`,
-        async: false,
-        method: "GET",
-      }).then((response) => {
-        this.resourceList = response.data;
-        this.selectResourceIdList(row.roleId);
-      });
-    },
-    selectResourceIdList(id) {
-      request({
-        url: `/api/admin/resource/role/${id}`,
-        method: "GET",
-      }).then((response) => {
-        this.resourceIdList = response.data;
-      });
-    },
-  },
-  mounted() {
-    this.selectRole();
-  },
+import { onMounted, reactive, ref, watch } from "vue";
+import { useRoute, useRouter } from "vue-router";
+import { useStore } from "vuex";
+
+let router = useRouter();
+let route = useRoute();
+let store = useStore();
+
+let loading = ref(false);
+let routeName = ref(route.name);
+let formInline = reactive({ user: "" });
+let roleList = ref([]);
+let resourceList = ref(null);
+let resourceIdList = ref(null);
+let selectRoleId = ref("");
+let resourceForm = ref([]);
+let editIndex = ref(-1);
+
+let checkResource = (selection, row) => {
+  resourceForm.value = selection;
 };
+
+let saveResourceRole = () => {
+  request({
+    url: `/api/admin/role/resource/${selectRoleId.value}`,
+    method: "POST",
+    data: resourceForm.value,
+  }).then((response) => {
+    alert("添加成功");
+  });
+};
+
+let rowRoleClick = (row) => {
+  selectRoleId.value = row.roleId;
+  selectResource(row);
+};
+
+let selectRole = () => {
+  loading.value = true;
+  request({
+    url: `/api/admin/role`,
+    method: "GET",
+  }).then((response) => {
+    loading.value = false;
+    roleList.value = response.data;
+  });
+};
+
+let selectResource = (row) => {
+  loading.value = true;
+  request({
+    url: `/api/admin/role/resource/${row.roleId}`,
+    method: "GET",
+  }).then((response) => {
+    loading.value = false;
+    resourceList.value = response.data;
+    resourceIdList.value = response.data.map((item) => item.resourceId);
+  });
+};
+
+let deleteResource = (resourceId) => {
+  request({
+    url: `/api/admin/role/resource/${resourceId}`,
+    method: "DELETE",
+  }).then((response) => {
+    alert("删除成功");
+  });
+};
+
+
+onMounted(() => {
+  selectRole();
+});
+
+
+watch(resourceIdList, () => {
+  for (let index in resourceList.value) {
+    if (resourceIdList.value.indexOf(resourceList.value[index].resourceId) > -1) {
+      $refs.multipleTable.toggleRowSelection(resourceList.value[index]);
+    }
+  }
+});
+
 </script>

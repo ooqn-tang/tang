@@ -39,45 +39,47 @@
   </el-table>
 </template>
   
-<script>
+<script setup>
 import { ElMessage } from "element-plus";
 import request from "utils/request";
-export default {
-  name: "admin_article",
-  data() {
-    return {
-      routeName: this.$route.name,
-      articleList: [],
-      editIndex: -1,
-      orderButton: true,
-      form: {
-        state: "1"
-      }
-    };
-  },
-  created() { },
-  methods: {
-    deleteNotice(index, row) {
-      alert(row.articleId)
-      request({
-        url: `/api/admin/article/${row.articleId}`,
-        method: "DELETE",
-      }).then((response) => {
-        this.noticeList.splice(index, 1)
-        ElMessage({ type: 'success', message: '删除成功' })
-      });
-    },
-    loadArticle() {
-      request({
-        url: `/api/admin/article`,
-        method: "GET",
-      }).then((response) => {
-        this.articleList = response.data.content
-      });
-    }
-  },
-  mounted() {
-    this.loadArticle()
-  },
-};
+import { onMounted,ref } from "vue";
+import { useRouter, useRoute } from "vue-router";
+import { useStore } from "vuex";
+
+let router = useRouter();
+let route = useRoute();
+let store = useStore();
+
+let routeName = route.name;
+let articleList = ref([]);
+let editIndex = ref(-1);
+let orderButton = ref(true);
+let form = ref({
+  state: "1"
+});
+
+let deleteNotice = (index, row) => {
+  alert(row.articleId)
+  request({
+    url: `/api/admin/article/${row.articleId}`,
+    method: "DELETE",
+  }).then((response) => {
+    articleList.value.splice(index, 1)
+    ElMessage({ type: 'success', message: '删除成功' })
+  });
+}
+
+let loadArticle = () => {
+  request({
+    url: `/api/admin/article`,
+    method: "GET",
+  }).then((response) => {
+    articleList.value = response.data.content
+  });
+}
+
+onMounted(() => {
+  loadArticle()
+})
+
 </script>
