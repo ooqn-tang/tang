@@ -1,1 +1,42 @@
-spring.profiles.active=dev
+server:
+  port: 8888
+  ssl:
+    key-store: ttcxy.cn.jks
+    enabled: false
+    key-store-password: EL5RIudx
+    key-store-type: JKS
+spring:
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:~/tang
+    username: as
+    password: as
+  jpa:
+    database: h2
+    hibernate:
+      ddl-auto: 'update'
+    show-sql: true
+  main:
+    allow-circular-references: true
+  jackson:
+    default-property-inclusion: non-null
+    date-format: yyyy.MM.dd
+    time-zone: GMT+8
+    locale: zh_CN
+  mvc:
+    throwExceptionIfNoHandlerFound: true
+  servlet:
+    multipart:
+      max-file-size: 500MB
+      max-request-size: 500MB
+tang:
+  file: D://obj
+  openUrl: /,/init,/api/system/init,/*/*.jpg,/*/*.html,/*/*.js,/*/*.css,/api/ws/**,/api/register,/h2-console/**,/swagger-ui/**,/swagger-resources/**,/swagger-resources,/v3/api-docs,/api/authenticate,/error,/api/refresh
+  tokenKey: Token
+  jwt:
+    base64-secret: 6IKv5a6a5pivSkZL5ouJ6JCo6YWx6LGG6IWQ6ICD6JmRYXNr5bCx5Zyw5pa56Imw6Ium5ouJ6JCo5aSn5a625Y+RYWtzZGZqbGthc2RqZmtsYXNkamZsa+WPkeWjq+Wkp+Wkq+WViuaJi+WKqOmYgOaJi+WKqOmYgOmYv+aWr+iSguiKrOmYv+aWr+iSguiKrA==
+    token-validity-in-seconds: 108000
+    token-validity-in-seconds-for-remember-me: 1000000000000
+logging:
+  level:
+    root: info

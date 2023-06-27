@@ -27,7 +27,6 @@ import jakarta.persistence.PersistenceContext;
 @ServletComponentScan
 public class TangApplication {
 
-
 	/**
 	 * 注入实体管理器
 	 */
@@ -38,7 +37,6 @@ public class TangApplication {
 		/**
 		 * 启动h2数据库
 		 */
-		Server.main("-tcp", "-tcpAllowOthers","-ifNotExists");
 		SpringApplication springApplication = new SpringApplication(TangApplication.class);
 		springApplication.run(args);
 	}

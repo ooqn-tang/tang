@@ -5,7 +5,11 @@ import java.util.List;
 import com.ooqn.entity.dto.DtsEssayDto;
 import com.ooqn.entity.model.DtsEssay;
 import com.ooqn.repository.DtsEssayRepository;
+import com.ooqn.repository.UtsAuthorRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import cn.hutool.core.date.DateUtil;
@@ -18,6 +22,9 @@ public class DtsEssayService {
 	@Autowired
 	private DtsEssayRepository essayRepository;
 
+	@Autowired
+	private UtsAuthorRepository authorRepository;
+
 	public DtsEssay insert(DtsEssay dynamic) {
 		dynamic.setEssayId(IdUtil.objectId());
 		dynamic.setCreateTime(DateUtil.date());
@@ -28,7 +35,12 @@ public class DtsEssayService {
 		essayRepository.deleteById(authorId);
 	}
 
-	public List<DtsEssayDto> findAllInfo() {
-		return null;//essayRepository.findAllInfo();
+	public Page<DtsEssayDto> findAllInfo(Pageable pageable) {
+		 return essayRepository.findAll(pageable).map(essay -> {
+			DtsEssayDto essayDto = new DtsEssayDto();
+			essayDto.setEssay(essay);
+			essayDto.setAuthor(authorRepository.findById(essay.getAuthorId()).orElseThrow());
+			return essayDto;
+		 });
 	}
 }

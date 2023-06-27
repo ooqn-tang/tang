@@ -10,18 +10,15 @@
 			</li>
 			<li class="list-group-item" v-for="(item, index) in essayList" :key="index">
 				<p>
-					<router-link :to="{name:'author_article',params:{username : item.username}}">{{item.nickname}}
-					</router-link>
-					<span class="float-end">{{item.createTime}}</span>
+					<router-link :to="{name:'author_article',params:{username : item.author.username}}">{{item.author.nickname}}</router-link>
+					<span class="float-end">{{item.essay.createTime}}</span>
 				</p>
-				{{item.text}}
+				{{item.essay.text}}
 			</li>
-			<li class="list-group-item" v-if="essayList.length != 0">
+			<li class="list-group-item">
 				<a @click="next()">获取</a>
 			</li>
-			<li class="list-group-item" v-if="essayList.length == 0">
-				加载中...
-			</li>
+			
 		</ul>
 
 	</div>
@@ -29,7 +26,7 @@
   
 <script setup>
 import request from "utils/request";
-import { onMounted } from "vue";
+import { onMounted,ref } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import { useStore } from "vuex";
 
@@ -37,10 +34,10 @@ let router = useRouter();
 let route = useRoute();
 let store = useStore();
 
-let page = {
+let page = ref({
 	number: 0
-};
-let essayList = [];
+});
+let essayList = ref([]);
 let form = {
 	text: ""
 };
@@ -49,10 +46,10 @@ let loadEssay = () => {
 	request({
 		url: `/api/essay`,
 		method: "get",
-		params: { page: page.number }
+		params: { page: page.value.number }
 	}).then((response) => {
-		page = response.data;
-		essayList = essayList.concat(response.data.content);
+		page.value = response.data;
+		essayList.value = essayList.value.concat(response.data.content);
 	});
 };
 
@@ -69,7 +66,7 @@ let insertEssay = () => {
 
 let next = () => {
 	if (!page.last) {
-		page.number += 1;
+		page.value.number += 1;
 		loadEssay();
 	}
 };
