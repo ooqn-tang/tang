@@ -18,12 +18,14 @@ public class UtsResourceService {
 	}
 
 	public List<UtsResource> select(String queryData) {
-		return resourceRepository.findByNameLikeAndPathLike("%" + queryData + "%",
-				"%" + queryData + "%");
+		return resourceRepository.findByNameLikeAndPathLikeOrderByPath("%" + queryData + "%", "%" + queryData + "%");
 	}
 
-	public UtsResource insert(UtsResource resource) {
-		return resourceRepository.save(resource);
+	public void insert(UtsResource resource) {
+		UtsResource res= resourceRepository.findByPathAndType(resource.getPath(), resource.getType());
+		if(res == null) {
+			resourceRepository.save(resource);
+		}
 	}
 
 	public void delete(String resourceId) {
@@ -35,7 +37,7 @@ public class UtsResourceService {
 	}
 
 	public UtsResource update(UtsResource resource) {
-		return resourceRepository.save(resource);
+		return resourceRepository.saveAndFlush(resource);
 	}
 
 	public List<String> selectByRoleId(String roleId) {

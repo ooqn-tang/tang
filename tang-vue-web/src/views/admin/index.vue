@@ -57,7 +57,7 @@ let logout = () => {
 };
 
 onMounted(() => {
-  findFansList();
+  
 });
 
 watch(route, (to, from) => {
