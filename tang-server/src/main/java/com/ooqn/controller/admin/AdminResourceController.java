@@ -43,7 +43,8 @@ public class AdminResourceController extends BaseController {
 		UtsResource resource = BeanUtil.toBean(resourceParam, UtsResource.class);
 		resource.setResourceId(IdUtil.objectId());
 		resource.setCreateTime(new Date());
-		return resourceService.insert(resource);
+		resourceService.insert(resource);
+		return resource;
 	}
 
 	@PutMapping

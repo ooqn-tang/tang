@@ -1,7 +1,5 @@
 package com.ooqn.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -15,13 +13,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import cn.hutool.core.bean.BeanUtil;
 import com.ooqn.core.exception.ApiException;
 import com.ooqn.entity.dto.DtsEssayDto;
 import com.ooqn.entity.model.DtsEssay;
 import com.ooqn.entity.model.UtsAuthor;
 import com.ooqn.entity.param.DtsEssayParam;
 import com.ooqn.service.DtsEssayService;
+
+import cn.hutool.core.bean.BeanUtil;
 
 @RestController
 @RequestMapping("api/essay")
