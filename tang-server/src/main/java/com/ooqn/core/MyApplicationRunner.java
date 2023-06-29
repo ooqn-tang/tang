@@ -9,7 +9,7 @@ import com.ooqn.service.InitService;
 import jakarta.transaction.Transactional;
 
 @Component
-public class MyApplicationRunner implements CommandLineRunner   {
+public class MyApplicationRunner implements CommandLineRunner    {
 
     @Autowired
     InitService initService;
@@ -17,12 +17,16 @@ public class MyApplicationRunner implements CommandLineRunner   {
     @Override
     @Transactional
     public void run(String... args) throws Exception {
-        System.out.println("初始化数据--------------------------------");
-        try {
-            initService.init();
-        } catch (IllegalStateException e) {
-            System.out.println(e.getMessage()+"*****************************");
-        }
-        System.out.println("初始化数据--------------------------------");
+        new Thread(){
+            public void run(){
+                System.out.println("初始化数据--------------------------------");
+                try {
+                    initService.init();
+                } catch (IllegalStateException e) {
+                    System.out.println(e.getMessage()+"*****************************");
+                }
+                System.out.println("初始化数据--------------------------------");
+            }
+        }.start();
     }
 }

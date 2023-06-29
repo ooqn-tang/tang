@@ -15,8 +15,8 @@
     :data="resourceList"
     style="width: 100%"
   >
-    <el-table-column prop="name" label="资源名" width="180" />
-    <el-table-column prop="path" label="路径" width="400" />
+    <el-table-column prop="name" label="资源名" width="200" :show-overflow-tooltip="true"/>
+    <el-table-column prop="path" label="路径" width="200" :show-overflow-tooltip="true"/>
     <el-table-column prop="type" label="类型">
       <template #default="scope">
         <el-tag v-if="scope.row.type == 'GET'" class="mx-1">GET</el-tag>
@@ -25,14 +25,6 @@
         <el-tag v-if="scope.row.type == 'DELETE'" class="ml-2 mx-1" type="danger">DELETE</el-tag>
         <el-tag v-if="scope.row.type == 'MENU'" class="ml-2 mx-1" type="info">菜单</el-tag>
       </template> 
-    </el-table-column>
-    <el-table-column label="状态" width="400">
-      <template #default="scope">
-        <el-tag
-          :type="scope.row.state == 8 ? 'success' : 'danger'"
-          disable-transitions
-          >{{ scope.row.state == 8 ? '系统中存在' : '系统中不存在的资源' }}</el-tag>
-      </template>
     </el-table-column>
     <el-table-column prop="tag" label="" align="right">
       <template #default="scope">
@@ -71,7 +63,7 @@
     <template #footer>
       <span class="dialog-footer">
         <el-button @click="dialogVisible = false">取消</el-button>
-        <el-button type="primary" @click="insertResource">保存</el-button>
+        <el-button type="primary" @click="updateResource">保存</el-button>
       </span>
     </template>
   </el-dialog>
@@ -119,6 +111,18 @@ let loadResourceList = () => {
     }
   }).then((response) => {
     resourceList.value = response.data;
+  });
+}
+
+let updateResource = () => {
+  request({
+    url: `/api/admin/resource`,
+    method: "PUT",
+    data: formData.value,
+  }).then((response) => {
+    ElMessage.success("保存成功");
+    dialogVisible.value = false
+    loadResourceList()
   });
 }
 
