@@ -37,7 +37,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/api")
-@Schema(name = "登录")
+@Schema(name = "登录", description = "通用返回对象")
 public class UtsLoginController extends BaseController {
 
     public static Cache<String, String> fifoCache = CacheUtil.newTimedCache(6000);

@@ -60,7 +60,7 @@ let insertEssay = () => {
 		data: form
 	}).then((response) => {
 		form = {};
-		essayList.unshift(response.data);
+		essayList.value.unshift(response.data);
 	});
 };	
 
@@ -91,5 +91,9 @@ strong p,
 	margin: 0 20px;
 	line-height: 40px;
 	float: left;
+}
+/* 第二个list-group-item开始背景色交替 */
+.list-group-item:nth-child(2n+1) {
+	background-color: #f8f9fa;
 }
 </style>
