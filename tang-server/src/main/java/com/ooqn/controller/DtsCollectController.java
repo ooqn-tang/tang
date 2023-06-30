@@ -17,6 +17,7 @@ import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.date.DateTime;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.IdUtil;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 import com.ooqn.core.BaseController;
 import com.ooqn.entity.model.DtsCollect;
@@ -25,6 +26,7 @@ import com.ooqn.service.DtsCollectService;
 
 @RestController
 @RequestMapping("api/collect")
+@Schema(name = "收藏管理")
 public class DtsCollectController extends BaseController {
 
 	@Autowired

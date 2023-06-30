@@ -15,8 +15,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ooqn.entity.dto.DtsArticleDto;
 import com.ooqn.service.DtsArticleSubjectService;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
 @RestController
 @RequestMapping("api/admin/article")
+@Schema(name = "文章管理")
 public class AdminArticleController {
 
     @Autowired

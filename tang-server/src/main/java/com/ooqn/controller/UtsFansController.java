@@ -19,11 +19,14 @@ import com.ooqn.entity.model.UtsFans;
 import com.ooqn.service.UtsAuthorService;
 import com.ooqn.service.UtsFansService;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
 /**
  * 粉丝
  */
 @RestController
 @RequestMapping("api/fans")
+@Schema(name = "粉丝")
 public class UtsFansController extends BaseController {
 
 	@Autowired

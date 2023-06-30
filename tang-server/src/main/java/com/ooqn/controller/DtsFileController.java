@@ -2,6 +2,7 @@ package com.ooqn.controller;
 
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.StrUtil;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 import com.ooqn.core.BaseController;
 import com.ooqn.core.api.ResponseCode;
@@ -26,6 +27,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("api/file")
+@Schema(name = "文件")
 public class DtsFileController extends BaseController {
 
 	@Value("${tang.file}")

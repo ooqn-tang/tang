@@ -2,6 +2,7 @@ package com.ooqn.controller;
 
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.IdUtil;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 import com.ooqn.core.BaseController;
 import com.ooqn.entity.model.DtsLike;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("api/like")
+@Schema(name = "点赞")
 public class DtsLikeController extends BaseController {
 
 	@Autowired

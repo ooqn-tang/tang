@@ -6,6 +6,7 @@ import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.lang.Validator;
 import cn.hutool.core.util.StrUtil;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 import com.ooqn.core.BaseController;
 import com.ooqn.core.exception.ApiException;
@@ -36,6 +37,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/api")
+@Schema(name = "登录")
 public class UtsLoginController extends BaseController {
 
     public static Cache<String, String> fifoCache = CacheUtil.newTimedCache(6000);

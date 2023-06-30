@@ -12,8 +12,11 @@ import com.ooqn.core.BaseController;
 import com.ooqn.entity.model.DtsCategory;
 import com.ooqn.service.DtsCategoryService;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
 @RestController
 @RequestMapping("api/category")
+@Schema(name = "分类管理")
 public class DtsCategoryController extends BaseController {
 
     @Autowired

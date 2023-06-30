@@ -2,6 +2,7 @@ package com.ooqn.controller.admin;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.IdUtil;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 import com.ooqn.core.BaseController;
 import com.ooqn.entity.model.UtsResource;
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("api/admin/resource")
+@Schema(name = "资源管理")
 public class AdminResourceController extends BaseController {
 
 	@Autowired

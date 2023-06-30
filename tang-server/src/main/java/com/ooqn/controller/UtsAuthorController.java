@@ -1,6 +1,7 @@
 package com.ooqn.controller;
 
 import cn.hutool.core.bean.BeanUtil;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 import com.ooqn.core.BaseController;
 import com.ooqn.core.exception.ApiException;
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("api/author")
 @Validated
+@Schema(name = "作者")
 public class UtsAuthorController extends BaseController {
 
 	@Autowired

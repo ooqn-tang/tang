@@ -12,19 +12,8 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.security.SecurityScheme;
 
 @Configuration
-@OpenAPIDefinition(
-        info = @Info(
-                title = "Swagger3",
-                version = "1.0",
-                description = "Swagger3使用演示",
-                contact = @Contact(name = "TOM")
-        ),
-        security = @SecurityRequirement(name = "JWT"),
-        externalDocs = @ExternalDocumentation(description = "参考文档",
-                url = "https://github.com/swagger-api/swagger-core/wiki/Swagger-2.X---Annotations"
-        )
-)
-@SecurityScheme(type = SecuritySchemeType.HTTP, name = "JWT",scheme = "bearer", in = SecuritySchemeIn.HEADER)
+@OpenAPIDefinition(info = @Info(title = "Swagger3", version = "1.0", description = "Swagger3使用演示", contact = @Contact(name = "TOM")), security = @SecurityRequirement(name = "JWT"), externalDocs = @ExternalDocumentation(description = "参考文档", url = "https://github.com/swagger-api/swagger-core/wiki/Swagger-2.X---Annotations"))
+@SecurityScheme(type = SecuritySchemeType.HTTP, name = "JWT", scheme = "bearer", in = SecuritySchemeIn.HEADER)
 public class SwaggerConfig {
-    
+
 }

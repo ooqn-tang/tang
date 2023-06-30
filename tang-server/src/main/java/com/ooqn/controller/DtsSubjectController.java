@@ -27,10 +27,12 @@ import com.ooqn.entity.param.DtsSubjectParam;
 import com.ooqn.service.DtsArticleSubjectService;
 
 import cn.hutool.core.bean.BeanUtil;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 @RestController
 @RequestMapping("api/subject")
 @Validated
+@Schema(name = "专题")
 public class DtsSubjectController extends BaseController {
 
 	@Autowired

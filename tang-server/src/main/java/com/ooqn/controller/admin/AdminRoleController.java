@@ -2,6 +2,7 @@ package com.ooqn.controller.admin;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.IdUtil;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 import com.ooqn.core.BaseController;
 import com.ooqn.core.api.ResponseCode;
@@ -25,6 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("api/admin/role")
+@Schema(name = "角色管理")
 public class AdminRoleController extends BaseController {
 
 	@Autowired
