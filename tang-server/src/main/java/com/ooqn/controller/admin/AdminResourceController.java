@@ -27,6 +27,8 @@ public class AdminResourceController extends BaseController {
 	@Autowired
 	private UtsResourceService resourceService;
 
+	
+
 	@GetMapping("refresh")
 	public void refresh() {
 		resourceService.urls();
