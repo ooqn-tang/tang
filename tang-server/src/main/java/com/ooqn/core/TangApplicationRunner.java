@@ -9,7 +9,7 @@ import com.ooqn.service.InitService;
 import jakarta.transaction.Transactional;
 
 @Component
-public class MyApplicationRunner implements CommandLineRunner    {
+public class TangApplicationRunner implements CommandLineRunner    {
 
     @Autowired
     InitService initService;

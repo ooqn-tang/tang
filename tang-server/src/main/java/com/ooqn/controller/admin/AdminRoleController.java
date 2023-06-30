@@ -2,7 +2,8 @@ package com.ooqn.controller.admin;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.IdUtil;
-import com.ooqn.controller.BaseController;
+
+import com.ooqn.core.BaseController;
 import com.ooqn.core.api.ResponseCode;
 import com.ooqn.entity.model.UtsResource;
 import com.ooqn.entity.model.UtsRole;

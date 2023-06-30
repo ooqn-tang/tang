@@ -1,5 +1,6 @@
 package com.ooqn.controller;
 
+import com.ooqn.core.BaseController;
 import com.ooqn.entity.model.StsNotice;
 import com.ooqn.service.StsNoticeService;
 import java.util.List;

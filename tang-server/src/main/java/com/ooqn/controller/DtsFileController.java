@@ -2,6 +2,8 @@ package com.ooqn.controller;
 
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.StrUtil;
+
+import com.ooqn.core.BaseController;
 import com.ooqn.core.api.ResponseCode;
 import com.ooqn.core.exception.ApiException;
 import com.google.zxing.BarcodeFormat;

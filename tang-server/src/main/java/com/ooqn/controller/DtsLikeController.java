@@ -2,6 +2,8 @@ package com.ooqn.controller;
 
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.IdUtil;
+
+import com.ooqn.core.BaseController;
 import com.ooqn.entity.model.DtsLike;
 import com.ooqn.service.DtsLikeService;
 import org.springframework.beans.factory.annotation.Autowired;

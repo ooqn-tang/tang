@@ -1,7 +1,8 @@
 package com.ooqn.controller.admin;
 
 import cn.hutool.core.bean.BeanUtil;
-import com.ooqn.controller.BaseController;
+
+import com.ooqn.core.BaseController;
 import com.ooqn.core.api.ResponseCode;
 import com.ooqn.core.exception.ApiException;
 import com.ooqn.entity.model.UtsAuthor;

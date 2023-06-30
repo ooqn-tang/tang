@@ -6,6 +6,8 @@ import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.lang.Validator;
 import cn.hutool.core.util.StrUtil;
+
+import com.ooqn.core.BaseController;
 import com.ooqn.core.exception.ApiException;
 import com.ooqn.core.security.JwtProvider;
 import com.ooqn.entity.dto.UtsAuthorDto;

@@ -1,5 +1,6 @@
 package com.ooqn.controller;
 
+import com.ooqn.core.BaseController;
 import com.ooqn.entity.dto.DtsMessageDto;
 import com.ooqn.service.DtseMssageService;
 import java.util.List;
