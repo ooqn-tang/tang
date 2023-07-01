@@ -35,7 +35,7 @@
               <h3>
                 <strong>{{ article.article.title }}</strong>
               </h3>
-              <div class="markdown-body" v-html="article.article.text"></div>
+              <div class="markdown-body" v-html="article.articleContext.text"></div>
             </div>
             <div class="card-body" v-if="loading">{{ dataText }}</div>
           </div>
@@ -83,7 +83,8 @@ let loading = ref(false);
 let recommendList = ref([]);
 let article = ref({
   article: {},
-  author: {}
+  author: {},
+  articleContext:{}
 });
 let isThisUser = ref(false)
 let subject = ref([]);

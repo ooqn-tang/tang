@@ -1,6 +1,7 @@
 package com.ooqn.entity.dto;
 
 import com.ooqn.entity.model.DtsArticle;
+import com.ooqn.entity.model.DtsArticleContext;
 import com.ooqn.entity.model.DtsCategory;
 import com.ooqn.entity.model.DtsSubject;
 import com.ooqn.entity.model.UtsAuthor;
@@ -37,5 +38,8 @@ public class DtsArticleDto {
 
 	@Schema(description = "分类")
 	private DtsCategory category;
+
+	@Schema(description = "文本")
+	private DtsArticleContext articleContext;
 	
 }

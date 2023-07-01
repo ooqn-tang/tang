@@ -95,8 +95,8 @@ let loadArticleAllInfo = (articleId) => {
     articleForm.value.articleId = response.data.article.articleId;
     articleForm.value.title = response.data.article.title;
     articleForm.value.synopsis = response.data.article.synopsis;
-    articleForm.value.text = response.data.article.text;
-    articleForm.value.markdown = response.data.article.markdown;
+    articleForm.value.text = response.data.articleContext.text;
+    articleForm.value.markdown = response.data.articleContext.markdown;
     articleForm.value.categoryId = response.data.article.categoryId;
     articleForm.value.subjectId = response.data.subject == null ? "" : response.data.subject.subjectId;
   });

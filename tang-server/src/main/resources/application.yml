@@ -14,7 +14,7 @@ spring:
   jpa:
     database: h2
     hibernate:
-      ddl-auto: 'update'
+      ddl-auto: 'update' #'create-drop'
     show-sql: true
   main:
     allow-circular-references: true

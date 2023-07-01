@@ -53,7 +53,7 @@ public interface DtsArticleRepository extends CrudRepository<DtsArticle, String>
     Page<DtsArticle> findFansArticleList(String authorId, Pageable pageable);
 
     @Query("""
-    select new DtsArticle(da.articleId,da.title) From DtsArticle da where
+    select da From DtsArticle da where
     da.articleId in (
         select dsr.dataId from DtsSubjectRelevance dsr
         where dsr.subjectId = (select ds.subjectId from DtsSubjectRelevance ds where ds.dataId = ?1)

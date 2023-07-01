@@ -16,9 +16,11 @@ import com.ooqn.entity.dto.DtsArticleDto;
 import com.ooqn.entity.dto.DtsSubjectArticleDto;
 import com.ooqn.entity.dto.DtsSubjectDto;
 import com.ooqn.entity.model.DtsArticle;
+import com.ooqn.entity.model.DtsArticleContext;
 import com.ooqn.entity.model.DtsSubject;
 import com.ooqn.entity.model.DtsSubjectRelevance;
 import com.ooqn.entity.model.UtsAuthor;
+import com.ooqn.repository.DtsArticleContextRepository;
 import com.ooqn.repository.DtsArticleRepository;
 import com.ooqn.repository.DtsCategoryRepository;
 import com.ooqn.repository.DtsSubjectRelevanceRepository;
@@ -44,6 +46,9 @@ public class DtsArticleSubjectService {
 
 	@Autowired
 	private DtsArticleRepository articleRepository;
+
+	@Autowired 
+	private DtsArticleContextRepository articleContextRepository;
 
 	@Autowired
 	private DtsSubjectRelevanceRepository subjectRelevanceRepository;
@@ -220,37 +225,76 @@ public class DtsArticleSubjectService {
 		});
 	}
 
-	public DtsArticle insertArticle(DtsArticle article) {
+	public DtsArticle insertArticle(String authorId) {
+
+		DateTime date = DateUtil.date();
+
+		DtsArticle article = new DtsArticle();
+		article.setArticleId(IdUtil.objectId());
+		article.setCreateTime(date);
+		article.setUpdateTime(date);
+		article.setState(StateNum.notSubmit);
+		article.setAuthorId(authorId);
+
+		DtsArticleContext articleContext = new DtsArticleContext();
+		articleContext.setArticleId(article.getArticleId());
+		articleContext.setUpdateTime(date);
+		articleContext.setCreateTime(date);
+		articleContext.setMarkdown("");
+		articleContext.setText("");
+
+		articleContextRepository.save(articleContext);
 		return articleRepository.save(article);
 	}
 
-	public DtsArticle updateArticle(DtsArticle article, String subjectId, String classId, String tagId) {
+	public DtsArticle updateArticle(DtsArticle article, String subjectId, String text, String markdown) {
+		
 		DtsArticle saveArticle = articleRepository.save(article);
-		DtsSubjectRelevance articleSubjectRelevance = subjectRelevanceRepository.findByDataId(article.getArticleId());
+		Optional<DtsArticleContext> articleContext = articleContextRepository.findById(article.getArticleId());
+
+		articleContext.ifPresent(a -> {
+			a.setText(text);
+			a.setMarkdown(markdown);
+			articleContextRepository.save(a);
+		});
 
 		if (subjectId == null) {
 			return saveArticle;
 		}
-		if (articleSubjectRelevance == null) {
-			articleSubjectRelevance = new DtsSubjectRelevance();
+
+		Integer orderNum = subjectRelevanceRepository.findMaxOrderNumBySubjectId(subjectId);
+		if(orderNum == null){
+			orderNum = 0;
+		}
+
+		DtsSubjectRelevance subjectRelevance = subjectRelevanceRepository.findByDataId(article.getArticleId()).orElse(null);
+
+		if(subjectRelevance == null){
+			DtsSubjectRelevance articleSubjectRelevance = new DtsSubjectRelevance();
 			articleSubjectRelevance.setSubjectRelevanceId(IdUtil.objectId());
 			articleSubjectRelevance.setDataId(article.getArticleId());
 			articleSubjectRelevance.setSubjectId(subjectId);
 			articleSubjectRelevance.setCreateTime(DateUtil.date());
+			articleSubjectRelevance.setOrderNum(orderNum);
+			subjectRelevanceRepository.save(articleSubjectRelevance);
+			return saveArticle;
 		}else{
-			subjectRelevanceRepository.delete(articleSubjectRelevance);
-			articleSubjectRelevance = new DtsSubjectRelevance();
+			subjectRelevanceRepository.delete(subjectRelevance);
+			DtsSubjectRelevance articleSubjectRelevance = new DtsSubjectRelevance();
 			articleSubjectRelevance.setSubjectRelevanceId(IdUtil.objectId());
 			articleSubjectRelevance.setDataId(article.getArticleId());
 			articleSubjectRelevance.setSubjectId(subjectId);
+			articleSubjectRelevance.setOrderNum(orderNum);
 			articleSubjectRelevance.setCreateTime(DateUtil.date());
 			subjectRelevanceRepository.save(articleSubjectRelevance);
 		}
+
 		return saveArticle;
 	}
 
 	@Transactional(rollbackFor = Exception.class)
 	public void deleteByArticleIdAndAuthorId(String articleId, String authorId) {
+		articleContextRepository.deleteByArticleId(articleId);
 		articleRepository.deleteByArticleIdAndAuthorId(articleId, authorId);
 	}
 
@@ -259,6 +303,26 @@ public class DtsArticleSubjectService {
 		DtsArticle article = articleRepository.findById(articleId).orElseThrow();
 		UtsAuthor author = authorRepository.findUsernameNicknameByAuthorId(article.getAuthorId()).orElseThrow();
 		DtsSubject subject = subjectRepository.findByDataId(articleId).orElse(null);
+
+		String text = articleContextRepository.findById(articleId).orElseThrow().getText();
+
+		DtsArticleContext articleContext = new DtsArticleContext();
+		articleContext.setText(text);
+
+		articleDto.setArticleContext(articleContext);
+		articleDto.setArticle(article);
+		articleDto.setAuthor(author);
+		articleDto.setSubject(subject);
+		return articleDto;
+	}
+
+	public DtsArticleDto selectArticleAllById(String articleId) {
+		DtsArticleDto articleDto = new DtsArticleDto();
+		DtsArticle article = articleRepository.findById(articleId).orElseThrow();
+		UtsAuthor author = authorRepository.findUsernameNicknameByAuthorId(article.getAuthorId()).orElseThrow();
+		DtsSubject subject = subjectRepository.findByDataId(articleId).orElse(null);
+
+		articleDto.setArticleContext(articleContextRepository.findById(articleId).orElseThrow());
 		articleDto.setArticle(article);
 		articleDto.setAuthor(author);
 		articleDto.setSubject(subject);

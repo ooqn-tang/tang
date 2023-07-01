@@ -36,7 +36,6 @@ public class UtsAuthor {
 	}
 
 	@Id
-	@JsonIgnore
 	private String authorId;
 
 	@Schema(description = "用户名")
