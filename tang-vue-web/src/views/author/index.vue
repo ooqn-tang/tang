@@ -77,7 +77,7 @@ let from = ref({
 })
 let fans = ref(1)
 
-let fansClick = (username) => {
+function fansClick(username){
   if(fans.value == 2){
     request({
       url: `/api/fans/${username}`,
@@ -100,7 +100,7 @@ watch(() => route.name, (val) => {
   routeName.value = val
 })
 
-let isFans = () => {
+function isFans(){
   request({
     url: `/api/fans/username/${thisUsername}`,
     method: 'get'
@@ -113,7 +113,7 @@ let isFans = () => {
   })
 }
 
-let getAuthor = () => {
+function getAuthor(){
   request({
     url: `/api/author/${thisUsername}`,
     method: 'get'

@@ -51,7 +51,7 @@ let author = ref({
 
 let username = store.state.username;
 
-let loadAuthor = () => {
+function loadAuthor(){
   request({
     url: `/api/author/${username}`,
     method: "get",
@@ -60,7 +60,7 @@ let loadAuthor = () => {
   });
 };
 
-let save = () => {
+function save(){
   request({
     url: `/api/author`,
     method: "put",
@@ -70,7 +70,7 @@ let save = () => {
   });
 };
 
-let logout = () => {
+function logout(){
   removeToken(store)
   window.location.href='/'
 }

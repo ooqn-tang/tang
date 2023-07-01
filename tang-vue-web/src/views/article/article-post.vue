@@ -95,31 +95,31 @@ let dataText = ref('加载中...')
 
 
 function fansClick(username) {
-  if (fans == 2) {
+  if (fans.value == 2) {
     request({
       url: `/api/fans/${username}`,
       method: "POST",
     }).then((response) => {
-      fans = 1;
+      fans.value = 1;
     });
   } else {
     request({
       url: `/api/fans/${username}`,
       method: "DELETE",
     }).then((response) => {
-      fans = 2;
+      fans.value = 2;
     });
   }
 }
 function isFans() {
   request({
-    url: `/api/fans/username/${article.author.username}`,
+    url: `/api/fans/username/${article.value.author.username}`,
     method: "get",
   }).then((response) => {
     if (response.data == 1) {
-      fans = 1;
+      fans.value = 1;
     } else {
-      fans = 2;
+      fans.value = 2;
     }
   });
 }
@@ -161,6 +161,7 @@ function loadArticleInfo() {
   }).then((response) => {
     article.value = response.data
     isThisUser.value = store.state.username == article.value.author.username
+    isFans();
   });
 }
 function selectSubjectArticleList() {
@@ -193,7 +194,6 @@ function load() {
 onMounted(() => {
   load();
   loadRecommend();
-  
 })
 
 </script>

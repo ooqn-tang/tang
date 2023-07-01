@@ -42,7 +42,7 @@ let form = {
 	text: ""
 };
 
-let loadEssay = () => {
+function loadEssay(){
 	request({
 		url: `/api/essay`,
 		method: "get",
@@ -53,7 +53,7 @@ let loadEssay = () => {
 	});
 };
 
-let insertEssay = () => {
+function insertEssay(){
 	request({
 		url: `/api/essay`,
 		method: "post",
@@ -64,7 +64,7 @@ let insertEssay = () => {
 	});
 };	
 
-let next = () => {
+function next(){
 	if (!page.last) {
 		page.value.number += 1;
 		loadEssay();

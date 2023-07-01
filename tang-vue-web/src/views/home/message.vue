@@ -47,7 +47,7 @@ let select = ref("");
 let vList = ref([{}, {}, {}, {}, {}]);
 let dynamicList = ref([]);
 
-let selectTag = (type) => {
+function selectTag(type){
   select.value = type;
   request({
     url: `/api/message`,
@@ -58,7 +58,7 @@ let selectTag = (type) => {
   });
 };
 
-let authorListArticleCount = () => {
+function authorListArticleCount(){
   request({
     url: `/api/author/authorListArticleCount`,
     method: "GET",
@@ -67,7 +67,7 @@ let authorListArticleCount = () => {
   });
 };
 
-let loadDynamic = () => {
+function loadDynamic(){
   request({
     url: `/api/message`,
     method: "GET",

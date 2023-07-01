@@ -43,7 +43,7 @@ let articleList = ref([]);
 let page = ref({ number: 0, });
 let subjectList = ref([]);
 
-let loadArticleByUsername = (pageSize) => {
+function loadArticleByUsername(pageSize){
   request({
     url: `/api/article/list/${route.params.username}`,
     method: "get",
@@ -54,7 +54,7 @@ let loadArticleByUsername = (pageSize) => {
   });
 };
 
-let loadSubjectList = () => {
+function loadSubjectList(){
   request({
     url: `/api/subject/username/${route.params.username}`,
     method: "GET",
@@ -63,7 +63,7 @@ let loadSubjectList = () => {
   });
 };
 
-let deleteArticle = (articleId, index) => {
+function deleteArticle(articleId, index){
   request({
     url: `/api/article/${articleId}`,
     method: "DELETE",
@@ -74,7 +74,7 @@ let deleteArticle = (articleId, index) => {
   });
 };
 
-let next = () => {
+function next(){
   if (page.value.number + 1 < page.value.totalPages) {
     loadArticleByUsername(page.value.number + 1);
   }

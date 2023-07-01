@@ -87,7 +87,7 @@ onMounted(() => {
   loadArticleAllInfo(articleId.value);
 });
 
-let loadArticleAllInfo = (articleId) => {
+function loadArticleAllInfo(articleId){
   request({
     url: `/api/article/load/${articleId}/all`,
     method: "GET",
@@ -101,7 +101,7 @@ let loadArticleAllInfo = (articleId) => {
     articleForm.value.subjectId = response.data.subject == null ? "" : response.data.subject.subjectId;
   });
 }
-let saveArticle = () => {
+function saveArticle(){
   if (articleForm.value.title == undefined || articleForm.value.title == "") {
     alert("请输入标题！")
     return;
@@ -115,7 +115,8 @@ let saveArticle = () => {
     window.location.href = `/article/${articleForm.value.articleId}`;
   });
 }
-let loadSubject = () => {
+
+function loadSubject(){
   request({
     url: `/api/subject/username/${store.state.username}`,
     method: "GET",
@@ -124,7 +125,7 @@ let loadSubject = () => {
   });
 }
 
-let loadCategoryList = () => {
+function loadCategoryList(){
   request({
     url: `/api/category/all`,
     params: {
@@ -136,10 +137,11 @@ let loadCategoryList = () => {
   });
 }
 
-let sysHandleScroll = () => {
+function sysHandleScroll(){
   externalForm.value.scrollTop = systemForm.value.scrollTop;
 }
-let exterHandleScroll = () => {
+
+function exterHandleScroll(){
   systemForm.value.scrollTop = externalForm.value.scrollTop;
 }
 

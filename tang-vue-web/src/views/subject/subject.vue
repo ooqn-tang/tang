@@ -46,6 +46,7 @@ let username = store.getters.username
 onMounted(() => {
   selectSubjectList()
 })
+
 function selectSubjectList() {
   request({
     url: `/api/subject/list`,

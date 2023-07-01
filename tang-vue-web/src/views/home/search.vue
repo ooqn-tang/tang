@@ -12,8 +12,8 @@
             <strong>
               <a href="#" @click="openArticle(item.article.articleId)">{{ item.article.title }}</a>
             </strong>
-            <a href="#" class=" float-end">{{ item.author.nickname }}</a>
           </p>
+          <span>{{ item.article.synopsis }}</span>
         </li>
         <li class="list-group-item">
           <a @click="next()" v-if="!isLoding">获取</a><a v-if="isLoding">加载中...</a>
@@ -43,7 +43,6 @@ const router = useRouter();
 const store = useStore();
 
 let dataList = ref([]);
-let searchText = ref("文章");
 let isLoding = ref(true);
 let page = ref({
   number: 0
@@ -52,7 +51,7 @@ let form = ref({
   wb: ""
 })
 
-let so = () => {
+function so(){
   isLoding.value = true;
   form.value.page = page.value.number
   request({
@@ -66,14 +65,14 @@ let so = () => {
   });
 };
 
-let next = () => {
+function next(){
   if(!page.value.last){
     page.value.number += 1
     so();
   }
 }
 
-let openArticle = (dataId) => {
+function openArticle(dataId){
   router.push({
     name: "article",
     params: {

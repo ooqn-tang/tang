@@ -154,7 +154,7 @@ public class DtsArticleSubjectService {
 	 * @return List<DtsArticle>
 	 */
 	public List<DtsArticle> findSubjectArticleTitleListByArticleId(String articleId) {
-		return articleRepository.findSubjectArticleTitleListByArticleId(articleId);
+		return articleRepository.findSubjectArticleListByArticleId(articleId);
 	}
 
 	@Transactional

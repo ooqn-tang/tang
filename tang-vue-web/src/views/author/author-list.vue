@@ -34,7 +34,7 @@ import request from 'utils/request';
 
 let authorList = ref([])
 
-let selectAuthor = () => {
+function selectAuthor(){
   request({
     url: `/api/author/selectAuthor`,
     method: 'GET'

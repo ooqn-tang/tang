@@ -70,7 +70,7 @@ let dataFrom = ref({
 let saveType = ref("update")// insert
 let thisUsername = route.params.username
 
-let selectSubjectListByUsername = (username) => {
+function selectSubjectListByUsername(username){
   request({
     url: `/api/subject/username/${username}`,
     method: 'GET',
@@ -79,7 +79,7 @@ let selectSubjectListByUsername = (username) => {
   })
 }
 
-let save = () => {
+function save(){
   if (saveType.value == "insert") {
     request({
       url: `/api/subject`,
@@ -101,14 +101,14 @@ let save = () => {
 
 }
 
-let updateClick = (subjectId, subjectName, synopsis) => {
+function updateClick(subjectId, subjectName, synopsis){
   dataFrom.value.subjectId = subjectId;
   dataFrom.value.subjectName = subjectName;
   dataFrom.value.synopsis = synopsis;
   saveType.value = 'update'
 }
 
-let deleteClick = (subjectId, index) => {
+function deleteClick(subjectId, index){
   if(confirm("确认删除吗？")){
     request({
       url: `/api/subject/${subjectId}`,

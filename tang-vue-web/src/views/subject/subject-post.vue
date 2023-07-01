@@ -60,7 +60,7 @@ let subjectData = ref({
   articleList:[]
 })
 
-let loadSubjectById = () => {
+function loadSubjectById(){
   request({
     url: `/api/subject/id/${route.params.subject_id}`,
     method: 'GET',
