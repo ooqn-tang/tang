@@ -1,37 +1,47 @@
 <template>
-  <div style="background-color: #3a94f1;padding:10px">
-    <span style="padding: 10px;color:white;font-weight: bold;font-size:20px">内容管理系统</span>
-    
-    <span style="float:right;color:white;font-weight: bold;font-size:20px;">
-      <span>{{$store.state.author.nickname}}</span>
-      &nbsp;
-      <span @click="logout">退出</span>
+  <div style="background-color: #3a94f1;padding: 10px 20px;">
+    <span @click="isCollapse = !isCollapse" style="color: white;">
+      <el-button type="primary" round>内容管理系统</el-button>
+      <el-button type="primary" round v-if="isCollapse">展开</el-button>
+      <el-button type="primary" round v-if="!isCollapse">收起</el-button>
+    </span>
+    <span style="float:right;color:white;">
+      <el-button type="primary" round>{{$store.state.author.nickname}}</el-button>
+      <el-button type="primary" round @click="logout">退出</el-button>
     </span>
   </div>
-
-<el-menu :default-active="routeName" style="width: 70px;float:left;height: calc(100% - 50px);" @close="handleClose">
+<div style="display: flex;height: calc(100% - 52px);">
+  <el-menu :default-active="routeName" class="el-menu-vertical-demo" :collapse="isCollapse" @open="handleOpen" @close="handleClose">
     <el-menu-item index="admin_article" @click="$router.push({name:'admin_article'})">
+      <el-icon><document /></el-icon>
       <template #title>文章</template>
     </el-menu-item>
     <el-menu-item index="admin_recommend" @click="$router.push({name:'admin_recommend'})">
+      <el-icon><document /></el-icon>
       <template #title>推荐</template>
     </el-menu-item>
     <el-menu-item index="admin_author"  @click="$router.push({name:'admin_author'})">
+      <el-icon><document /></el-icon>
       <template #title>用户</template>
     </el-menu-item>
      <el-menu-item index="admin_role" @click="$router.push({name:'admin_role'})">
+      <el-icon><document /></el-icon>
       <template #title>角色</template>
     </el-menu-item>
     <el-menu-item index="admin_resource" @click="$router.push({name:'admin_resource'})">
+      <el-icon><document /></el-icon>
       <template #title>资源</template>
     </el-menu-item>
     <el-menu-item index="6" @click="$router.push({path:'/'})">
+      <el-icon><setting /></el-icon>
       <template #title>门户</template>
     </el-menu-item>
-  </el-menu>
-  <div style="padding:10px;width: calc(100% - 70px);float:right;overflow-y: scroll;height: calc(100% - 50px);">
-    <router-view/>
-  </div>
+</el-menu>
+<div style="padding:10px;width:100%;float:right;overflow-y: scroll;height: 100%;">
+  <router-view/>
+</div>
+</div>
+
   
 </template>
 
@@ -40,6 +50,7 @@ import request from "utils/request";
 import { useRouter, useRoute } from "vue-router";
 import { useStore } from "vuex";
 import { onMounted,ref,watch } from "vue";
+import { ElButton } from "element-plus";
 
 let router = useRouter();
 let route = useRoute();
@@ -47,6 +58,7 @@ let store = useStore();
 
 let routeName = ref("admin_article");
 let activeIndex = ref("admin_article");
+let isCollapse = ref(false);
 
 
 let logout = () => {
@@ -80,5 +92,9 @@ body{
   font-weight: bold;
     font-size: 15px;
     background: rgb(238, 238, 238);
+}
+.el-menu-vertical-demo:not(.el-menu--collapse) {
+  width: 200px;
+  min-height: 400px;
 }
 </style>
