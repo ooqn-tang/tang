@@ -38,7 +38,7 @@
 
 <script setup>
 import request from 'utils/request'
-import { onMounted } from 'vue'
+import { onMounted,ref } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useStore } from 'vuex'
 
@@ -47,7 +47,7 @@ let route = useRoute()
 let store = useStore()
 
 let username = store.getters.username
-let subjectData = {
+let subjectData = ref({
   subject:{
     subjectName:"∷∷∷∷∷∷∷∷∷",
     synopsis:"∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷",
@@ -58,15 +58,14 @@ let subjectData = {
     nickname:"∷∷∷∷∷∷∷∷∷",
   },
   articleList:[]
-  
-}
+})
 
 let loadSubjectById = () => {
   request({
     url: `/api/subject/id/${route.params.subject_id}`,
     method: 'GET',
   }).then((response) => {
-    subjectData = response.data
+    subjectData.value = response.data
   })
 }
 

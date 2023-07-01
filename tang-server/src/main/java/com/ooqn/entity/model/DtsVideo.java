@@ -1,5 +1,7 @@
 package com.ooqn.entity.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -17,6 +19,7 @@ public class DtsVideo {
     private String title;
 
     @Schema(description = "作者ID")
+    @JsonIgnore
     private String authorId;
 
     @Schema(description = "分类ID")

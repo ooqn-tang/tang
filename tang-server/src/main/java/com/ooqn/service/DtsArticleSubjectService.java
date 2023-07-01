@@ -57,7 +57,7 @@ public class DtsArticleSubjectService {
 	public DtsSubjectArticleDto findSubjectArticleListBySubjectId(String subjectId) {
 		List<DtsArticle> articleList = articleRepository.findSubjectById(subjectId);
 		DtsSubject subject = subjectRepository.findById(subjectId).orElseThrow();
-		UtsAuthor author = authorRepository.findById(subject.getAuthorId()).orElseThrow();
+		UtsAuthor author = authorRepository.findUsernameNicknameByAuthorId(subject.getAuthorId()).orElseThrow();
 		DtsSubjectArticleDto articleSubjectDto = new DtsSubjectArticleDto();
 		articleSubjectDto.setArticleList(articleList);
 		articleSubjectDto.setSubject(subject);
@@ -73,7 +73,7 @@ public class DtsArticleSubjectService {
 		Page<DtsSubject> subjectPage = subjectRepository.findSubjectList(pageable);
 		Page<DtsSubjectDto> subjectList = subjectPage.map(subject -> {
 			String authorId = subject.getAuthorId();
-			UtsAuthor author = authorRepository.findById(authorId).orElseThrow();
+			UtsAuthor author = authorRepository.findUsernameNicknameByAuthorId(authorId).orElseThrow();
 			DtsSubjectDto subjectDto = new DtsSubjectDto();
 			subjectDto.setSubject(subject);
 			subjectDto.setAuthor(author);
@@ -119,7 +119,7 @@ public class DtsArticleSubjectService {
 		Page<DtsSubjectDto> subjectDtoList = subjectList.map(subject -> {
 			DtsSubjectDto subjectDto = new DtsSubjectDto();
 			subjectDto.setSubject(subject);
-			subjectDto.setAuthor(authorRepository.findById(subject.getAuthorId()).orElseThrow());
+			subjectDto.setAuthor(authorRepository.findUsernameNicknameByAuthorId(subject.getAuthorId()).orElseThrow());
 			return subjectDto;
 		});
 		return subjectDtoList;
@@ -190,7 +190,7 @@ public class DtsArticleSubjectService {
 		return articlePage.map( a -> {
 			DtsArticleDto articleDto = new DtsArticleDto();
 			articleDto.setArticle(a);
-			articleDto.setAuthor(authorRepository.findById(a.getAuthorId()).orElseThrow());
+			articleDto.setAuthor(authorRepository.findUsernameNicknameByAuthorId(a.getAuthorId()).orElseThrow());
 			return articleDto;
 		});
 	}
@@ -200,7 +200,7 @@ public class DtsArticleSubjectService {
 		return articlePage.map(article -> {
 			DtsArticleDto articleDto = new DtsArticleDto();
 			articleDto.setArticle(article);
-			articleDto.setAuthor(authorRepository.findById(article.getAuthorId()).orElseThrow());
+			articleDto.setAuthor(authorRepository.findUsernameNicknameByAuthorId(article.getAuthorId()).orElseThrow());
 			return articleDto;
 		});
 	}
@@ -210,7 +210,7 @@ public class DtsArticleSubjectService {
 		return articleList.map(article -> {
 			DtsArticleDto articleDto = new DtsArticleDto();
 			articleDto.setArticle(article);
-			articleDto.setAuthor(authorRepository.findById(article.getAuthorId()).orElseThrow());
+			articleDto.setAuthor(authorRepository.findUsernameNicknameByAuthorId(article.getAuthorId()).orElseThrow());
 			articleDto.setSubject(subjectRepository.findByDataId(article.getArticleId()).orElse(null));
 			String categoryId = article.getCategoryId();
 			if(categoryId != null){
@@ -237,8 +237,15 @@ public class DtsArticleSubjectService {
 			articleSubjectRelevance.setDataId(article.getArticleId());
 			articleSubjectRelevance.setSubjectId(subjectId);
 			articleSubjectRelevance.setCreateTime(DateUtil.date());
+		}else{
+			subjectRelevanceRepository.delete(articleSubjectRelevance);
+			articleSubjectRelevance = new DtsSubjectRelevance();
+			articleSubjectRelevance.setSubjectRelevanceId(IdUtil.objectId());
+			articleSubjectRelevance.setDataId(article.getArticleId());
+			articleSubjectRelevance.setSubjectId(subjectId);
+			articleSubjectRelevance.setCreateTime(DateUtil.date());
+			subjectRelevanceRepository.save(articleSubjectRelevance);
 		}
-		subjectRelevanceRepository.save(articleSubjectRelevance);
 		return saveArticle;
 	}
 
@@ -250,7 +257,7 @@ public class DtsArticleSubjectService {
 	public DtsArticleDto selectArticleById(String articleId) {
 		DtsArticleDto articleDto = new DtsArticleDto();
 		DtsArticle article = articleRepository.findById(articleId).orElseThrow();
-		UtsAuthor author = authorRepository.findById(article.getAuthorId()).orElseThrow();
+		UtsAuthor author = authorRepository.findUsernameNicknameByAuthorId(article.getAuthorId()).orElseThrow();
 		DtsSubject subject = subjectRepository.findByDataId(articleId).orElse(null);
 		articleDto.setArticle(article);
 		articleDto.setAuthor(author);
@@ -315,7 +322,7 @@ public class DtsArticleSubjectService {
 		return gzArticleList.map(article -> {
 			DtsArticleDto articleDto = new DtsArticleDto();
 			articleDto.setArticle(article);
-			authorRepository.findById(article.getAuthorId()).ifPresent(author -> {
+			authorRepository.findUsernameNicknameByAuthorId(article.getAuthorId()).ifPresent(author -> {
 				articleDto.setAuthor(author);
 			});
 			return articleDto;
@@ -330,7 +337,7 @@ public class DtsArticleSubjectService {
 		return articleList.map(article -> {
 			DtsArticleDto articleDto = new DtsArticleDto();
 			articleDto.setArticle(article);
-			articleDto.setAuthor(authorRepository.findById(article.getAuthorId()).orElseThrow());
+			articleDto.setAuthor(authorRepository.findUsernameNicknameByAuthorId(article.getAuthorId()).orElseThrow());
 			articleDto.setSubject(subjectRepository.findByDataId(article.getArticleId()).orElse(null));
 			return articleDto;
 		});

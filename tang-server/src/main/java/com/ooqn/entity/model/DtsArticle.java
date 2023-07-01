@@ -4,6 +4,8 @@ import java.util.Date;
 
 import org.hibernate.annotations.DynamicUpdate;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -44,6 +46,7 @@ public class DtsArticle {
 
 	@Column(updatable = false)
 	@Schema(description = "作者ID")
+	@JsonIgnore
 	private String authorId;
 
 	@Schema(description = "分类ID")
