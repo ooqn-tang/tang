@@ -97,8 +97,8 @@ let loadArticleAllInfo = (articleId) => {
     articleForm.value.synopsis = response.data.article.synopsis;
     articleForm.value.text = response.data.article.text;
     articleForm.value.markdown = response.data.article.markdown;
-    articleForm.value.subjectId = response.data.subject.subjectId;
     articleForm.value.categoryId = response.data.article.categoryId;
+    articleForm.value.subjectId = response.data.subject == null ? "" : response.data.subject.subjectId;
   });
 }
 let saveArticle = () => {
