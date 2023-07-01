@@ -14,12 +14,12 @@
       <span v-if="item.category != null" class="tag">{{ item.category.name }}</span>
 
       <div class="btn-group float-end">
-        <button class="btn btn-outline-danger float-end blog-btn" v-if="isThisUser"
-          @click="deleteArticle(item.article.articleId, index)">
+        <button class="btn btn-outline-danger float-end blog-btn" v-if="isThisUser" @click="deleteArticle(item.article.articleId, index)">
           删除
         </button>
-        <router-link class="btn btn-outline-warning float-end blog-btn" v-if="isThisUser" target="_blank"
-          :to="{ name: 'article-editor-md', params: { id: item.article.articleId } }">修改</router-link>
+        <router-link class="btn btn-outline-warning float-end blog-btn" v-if="isThisUser" target="_blank" :to="{ name: 'article-editor-md', params: { id: item.article.articleId } }">
+          修改
+        </router-link>
       </div>
     </li>
     <li class="list-group-item">
@@ -43,7 +43,7 @@ let articleList = ref([]);
 let page = ref({ number: 0, });
 let subjectList = ref([]);
 
-let loadArticleByUsername = (pageSize) => {
+function loadArticleByUsername(pageSize){
   request({
     url: `/api/article/list/${route.params.username}`,
     method: "get",
@@ -54,7 +54,7 @@ let loadArticleByUsername = (pageSize) => {
   });
 };
 
-let loadSubjectList = () => {
+function loadSubjectList(){
   request({
     url: `/api/subject/username/${route.params.username}`,
     method: "GET",
@@ -63,7 +63,7 @@ let loadSubjectList = () => {
   });
 };
 
-let deleteArticle = (articleId, index) => {
+function deleteArticle(articleId, index){
   request({
     url: `/api/article/${articleId}`,
     method: "DELETE",
@@ -74,7 +74,7 @@ let deleteArticle = (articleId, index) => {
   });
 };
 
-let next = () => {
+function next(){
   if (page.value.number + 1 < page.value.totalPages) {
     loadArticleByUsername(page.value.number + 1);
   }

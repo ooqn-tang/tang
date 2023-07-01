@@ -76,8 +76,8 @@ public class MySecurityConfig {
                 });
 
         http.cors(AbstractHttpConfigurer::disable).csrf(AbstractHttpConfigurer::disable);
-
-        http.headers().frameOptions().sameOrigin().httpStrictTransportSecurity().disable();
+        
+        http.headers(headers -> headers.frameOptions().sameOrigin().httpStrictTransportSecurity().disable());
 
         return http.build();
     }

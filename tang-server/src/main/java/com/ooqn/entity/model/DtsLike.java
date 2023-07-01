@@ -2,6 +2,8 @@ package com.ooqn.entity.model;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -22,6 +24,7 @@ public class DtsLike {
 	private String dataType;
 
 	@Schema(description = "作者ID")
+	@JsonIgnore
 	private String authorId;
 
 	@Schema(description = "创建时间")

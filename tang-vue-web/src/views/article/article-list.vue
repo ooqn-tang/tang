@@ -73,7 +73,7 @@ onMounted(() => {
   loadCategoryList();
 })
 
-let selectCategoryClick = (item) => {
+function selectCategoryClick(item){
   selectCategoryId = item.categoryId;
   page.value.number = 0;
   articleList.value = [];
@@ -81,7 +81,7 @@ let selectCategoryClick = (item) => {
 }
 
 
-let loadCategoryList = () => {
+function loadCategoryList(){
   request({
     url: '/api/category/list',
     method: 'get',
@@ -93,7 +93,7 @@ let loadCategoryList = () => {
   })
 }
 
-let loadArticle = (item) => {
+function loadArticle(item){
   let url = '/api/article/list'
   request({
     url: url,
@@ -105,7 +105,8 @@ let loadArticle = (item) => {
     articleList.value = articleList.value.concat(response.data.content)
   })
 }
-let next = () => {
+
+function next(){
   if (!page.last) {
     page.value.number += 1
     loadArticle({ categoryId: selectCategoryId.value })

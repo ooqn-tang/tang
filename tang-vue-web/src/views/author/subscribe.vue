@@ -27,7 +27,7 @@ let page = ref({
 })
 let fansList = ref([])
 
-let findFansList = () => {
+function findFansList(){
   request({
     url: `/api/fans/list`,
     method: 'get'
@@ -36,7 +36,7 @@ let findFansList = () => {
   })
 }
 
-let deleteFansMethod = (username, index) => {
+function deleteFansMethod(username, index){
   request({
     url: `/api/fans/${username}`,
     method: 'DELETE'

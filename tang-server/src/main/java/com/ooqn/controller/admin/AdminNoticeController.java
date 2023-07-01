@@ -2,7 +2,9 @@ package com.ooqn.controller.admin;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.date.DateUtil;
-import com.ooqn.controller.BaseController;
+import io.swagger.v3.oas.annotations.media.Schema;
+
+import com.ooqn.core.BaseController;
 import com.ooqn.entity.model.StsNotice;
 import com.ooqn.entity.param.StsNoticeParam;
 import com.ooqn.service.StsNoticeService;
@@ -20,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("api/admin/notice")
+@Schema(name = "公告管理")
 public class AdminNoticeController extends BaseController {
 
 	@Autowired

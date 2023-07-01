@@ -1,7 +1,9 @@
 package com.ooqn.controller.admin;
 
 import cn.hutool.core.bean.BeanUtil;
-import com.ooqn.controller.BaseController;
+import io.swagger.v3.oas.annotations.media.Schema;
+
+import com.ooqn.core.BaseController;
 import com.ooqn.core.api.ResponseCode;
 import com.ooqn.core.exception.ApiException;
 import com.ooqn.entity.model.UtsAuthor;
@@ -22,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("api/admin/author")
+@Schema(name = "作者管理")
 public class AdminAuthorController extends BaseController {
 
 	@Autowired

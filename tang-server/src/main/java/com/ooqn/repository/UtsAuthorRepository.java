@@ -2,6 +2,7 @@ package com.ooqn.repository;
 
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -11,6 +12,9 @@ import org.springframework.data.repository.CrudRepository;
 import com.ooqn.entity.model.UtsAuthor;
 
 public interface UtsAuthorRepository extends CrudRepository<UtsAuthor, String> {
+
+    @Query("select new UtsAuthor(ua.username,ua.nickname) from UtsAuthor ua where ua.authorId = ?1")
+    Optional<UtsAuthor> findUsernameNicknameByAuthorId(String authorId);
 
     UtsAuthor findByUsername(String username);
 

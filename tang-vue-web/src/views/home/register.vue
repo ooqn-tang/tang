@@ -57,7 +57,7 @@ let loginData = ref({
   'rememberMe': true
 })
 
-let register = () => {
+function register(){
   if (loginData.value.password !== loginData.value.password1) {
     alert("两次密码不一致")
     return

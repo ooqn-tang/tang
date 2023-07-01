@@ -27,7 +27,7 @@ let huoqu = ref('获取中...')
 
 let collects = ref([])
 
-let collectList = (pageNum) => {
+function collectList(pageNum){
   request({
     url: `/api/collect/list`,
     method: 'GET',
@@ -38,7 +38,7 @@ let collectList = (pageNum) => {
   })
 }
 
-let next = () => {
+function next(){
   if (!page.value.last) {
     page.value.number += 1
     collectList(page.value.number)

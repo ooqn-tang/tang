@@ -2,6 +2,8 @@ package com.ooqn.entity.model;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -22,6 +24,7 @@ public class UtsRole {
 	private String roleValue;
 
 	@Schema(description = "创建人ID")
+	@JsonIgnore
 	private String createAuthorId;
 
 	@Schema(description = "创建时间")

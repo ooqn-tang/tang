@@ -42,7 +42,7 @@ let form = {
 	text: ""
 };
 
-let loadEssay = () => {
+function loadEssay(){
 	request({
 		url: `/api/essay`,
 		method: "get",
@@ -53,18 +53,18 @@ let loadEssay = () => {
 	});
 };
 
-let insertEssay = () => {
+function insertEssay(){
 	request({
 		url: `/api/essay`,
 		method: "post",
 		data: form
 	}).then((response) => {
 		form = {};
-		essayList.unshift(response.data);
+		essayList.value.unshift(response.data);
 	});
 };	
 
-let next = () => {
+function next(){
 	if (!page.last) {
 		page.value.number += 1;
 		loadEssay();
@@ -91,5 +91,9 @@ strong p,
 	margin: 0 20px;
 	line-height: 40px;
 	float: left;
+}
+/* 第二个list-group-item开始背景色交替 */
+.list-group-item:nth-child(2n+1) {
+	background-color: #f8f9fa;
 }
 </style>

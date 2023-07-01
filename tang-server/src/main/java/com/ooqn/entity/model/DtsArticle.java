@@ -4,11 +4,12 @@ import java.util.Date;
 
 import org.hibernate.annotations.DynamicUpdate;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import jakarta.persistence.Lob;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -19,23 +20,6 @@ import lombok.Setter;
 @Schema(description = "通用返回对象")
 public class DtsArticle {
 
-	public DtsArticle() {
-	}
-
-	public DtsArticle(String articleId,String title) {
-		this.articleId = articleId;
-		this.title = title;
-	}
-
-	public DtsArticle(String articleId,String title,String authorId, String categoryId, String synopsis){
-		this.articleId = articleId;
-		this.title = title;
-		this.authorId = authorId;
-		this.categoryId = categoryId;
-		this.synopsis = synopsis;
-	}
-   
-
 	@Id
 	private String articleId;
 
@@ -44,6 +28,7 @@ public class DtsArticle {
 
 	@Column(updatable = false)
 	@Schema(description = "作者ID")
+	@JsonIgnore
 	private String authorId;
 
 	@Schema(description = "分类ID")
@@ -62,13 +47,7 @@ public class DtsArticle {
 	@Schema(description = "概要")
 	private String synopsis;
 
-	@Lob
-	@Schema(description = "正文")
-	private String text;
-
-	@Lob
-	@Schema(description = "markdown")
-	private String markdown;
-
+	@Schema(description = "内容ID")
+	private String articleContextId;
 
 }

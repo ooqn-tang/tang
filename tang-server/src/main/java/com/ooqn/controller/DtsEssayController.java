@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ooqn.core.BaseController;
 import com.ooqn.core.exception.ApiException;
 import com.ooqn.entity.dto.DtsEssayDto;
 import com.ooqn.entity.model.DtsEssay;
@@ -21,9 +22,11 @@ import com.ooqn.entity.param.DtsEssayParam;
 import com.ooqn.service.DtsEssayService;
 
 import cn.hutool.core.bean.BeanUtil;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 @RestController
 @RequestMapping("api/essay")
+@Schema(name = "随笔")
 public class DtsEssayController extends BaseController {
 
 	@Autowired
@@ -39,6 +42,7 @@ public class DtsEssayController extends BaseController {
 			DtsEssayDto dtsEssayDto = BeanUtil.toBean(essay, DtsEssayDto.class);
 			UtsAuthor author = author();
 			dtsEssayDto.setAuthor(author);
+			dtsEssayDto.setEssay(dtsEssay);
 			return dtsEssayDto;
 		}
 		throw new ApiException("添加失败");

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ooqn.core.BaseController;
 import com.ooqn.core.api.ResponseCode;
 import com.ooqn.core.exception.ApiException;
 import com.ooqn.entity.model.UtsAuthor;
@@ -18,11 +19,14 @@ import com.ooqn.entity.model.UtsFans;
 import com.ooqn.service.UtsAuthorService;
 import com.ooqn.service.UtsFansService;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
 /**
  * 粉丝
  */
 @RestController
 @RequestMapping("api/fans")
+@Schema(name = "粉丝")
 public class UtsFansController extends BaseController {
 
 	@Autowired

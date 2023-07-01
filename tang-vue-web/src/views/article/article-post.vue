@@ -3,11 +3,9 @@
     <div class="col-md-3 col-lg-3 d-md-inline d-none">
       <div class="list-group mb-2" v-if="articleList.length > 0">
         <a class="list-group-item active">专题</a>
-        <router-link :class="item.articleId == article.articleId ? 'active2' : ''" :key="index"
-          :to="{ name: 'article_post', params: { id: item.articleId } }" v-for="(item, index) in articleList"
-          class="list-group-item">{{ item.title }}</router-link>
+          <a v-for="(item, index) in articleList" class="list-group-item" :class="item.articleId == article.articleId ? 'active2' : ''" :key="index"
+          :href="'/article/' + item.articleId">{{ item.title }}</a>
       </div>
-
       <div class="list-group mb-2">
         <a class="list-group-item active">推荐<span class="float-end">🎇</span></a>
         <a v-for="(item, index) in recommendList" class="list-group-item" :key="index"
@@ -37,7 +35,7 @@
               <h3>
                 <strong>{{ article.article.title }}</strong>
               </h3>
-              <div class="markdown-body" v-html="article.article.text"></div>
+              <div class="markdown-body" v-html="article.articleContext.text"></div>
             </div>
             <div class="card-body" v-if="loading">{{ dataText }}</div>
           </div>
@@ -85,7 +83,8 @@ let loading = ref(false);
 let recommendList = ref([]);
 let article = ref({
   article: {},
-  author: {}
+  author: {},
+  articleContext:{}
 });
 let isThisUser = ref(false)
 let subject = ref([]);
@@ -96,31 +95,31 @@ let dataText = ref('加载中...')
 
 
 function fansClick(username) {
-  if (fans == 2) {
+  if (fans.value == 2) {
     request({
       url: `/api/fans/${username}`,
       method: "POST",
     }).then((response) => {
-      fans = 1;
+      fans.value = 1;
     });
   } else {
     request({
       url: `/api/fans/${username}`,
       method: "DELETE",
     }).then((response) => {
-      fans = 2;
+      fans.value = 2;
     });
   }
 }
 function isFans() {
   request({
-    url: `/api/fans/username/${article.author.username}`,
+    url: `/api/fans/username/${article.value.author.username}`,
     method: "get",
   }).then((response) => {
     if (response.data == 1) {
-      fans = 1;
+      fans.value = 1;
     } else {
-      fans = 2;
+      fans.value = 2;
     }
   });
 }
@@ -162,6 +161,7 @@ function loadArticleInfo() {
   }).then((response) => {
     article.value = response.data
     isThisUser.value = store.state.username == article.value.author.username
+    isFans();
   });
 }
 function selectSubjectArticleList() {
@@ -194,7 +194,6 @@ function load() {
 onMounted(() => {
   load();
   loadRecommend();
-  
 })
 
 </script>

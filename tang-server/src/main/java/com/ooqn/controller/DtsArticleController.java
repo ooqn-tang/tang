@@ -17,22 +17,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ooqn.core.api.ResponseCode;
+import com.ooqn.core.BaseController;
 import com.ooqn.core.exception.ApiException;
 import com.ooqn.entity.StateNum;
 import com.ooqn.entity.dto.DtsArticleDto;
 import com.ooqn.entity.model.DtsArticle;
 import com.ooqn.entity.param.DtsArticleParam;
 import com.ooqn.service.DtsArticleSubjectService;
+import com.ooqn.util.CommonUtil;
 
 import cn.hutool.core.bean.BeanUtil;
-import cn.hutool.core.date.DateTime;
 import cn.hutool.core.date.DateUtil;
-import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.StrUtil;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 @RestController
 @RequestMapping("api/article")
+@Schema(name = "文章管理")
 public class DtsArticleController extends BaseController {
 
 	@Autowired
@@ -40,10 +41,10 @@ public class DtsArticleController extends BaseController {
 
 	@GetMapping("list")
 	public Page<DtsArticleDto> selectArticleList(
-		@RequestParam(value = "page", defaultValue = "0") Integer page,
-		@RequestParam(value = "categoryId", defaultValue = "0") String categoryId) {
+			@RequestParam(value = "page", defaultValue = "0") Integer page,
+			@RequestParam(value = "categoryId", defaultValue = "0") String categoryId) {
 		Pageable pageable = PageRequest.of(page, 15);
-		return articleSubjectService.selectArticleList(categoryId,pageable);
+		return articleSubjectService.selectArticleList(categoryId, pageable);
 	}
 
 	@GetMapping("list/gz")
@@ -68,15 +69,8 @@ public class DtsArticleController extends BaseController {
 
 	@PostMapping
 	public String create() {
-		DateTime dateTime = new DateTime();
 		String authorId = authorId();
-		DtsArticle article = new DtsArticle();
-		article.setArticleId(IdUtil.objectId());
-		article.setCreateTime(dateTime);
-		article.setUpdateTime(dateTime);
-		article.setState(StateNum.notSubmit);
-		article.setAuthorId(authorId);
-		articleSubjectService.insertArticle(article);
+		DtsArticle article = articleSubjectService.insertArticle(authorId);
 		return article.getArticleId();
 	}
 
@@ -90,21 +84,20 @@ public class DtsArticleController extends BaseController {
 	}
 
 	@PutMapping
-	public String update(@RequestBody DtsArticleParam articleParam) {
+	public void update(@RequestBody DtsArticleParam articleParam) {
 		DtsArticle article = BeanUtil.toBean(articleParam, DtsArticle.class);
 		String articleId = article.getArticleId();
 		String authorId = articleSubjectService.authorId(articleId);
+		String text = articleParam.getText();
+		String markdown = articleParam.getMarkdown();
+		String synopsis = CommonUtil.delHTMLTag(text);
 		if (StrUtil.equals(authorId, authorId())) {
 			article.setAuthorId(authorId);
 			article.setState(StateNum.normal);
 			article.setUpdateTime(DateUtil.date());
-			DtsArticle dtsArticle =
-			articleSubjectService.updateArticle(article, articleParam.getSubjectId(),null,null);
-			if (dtsArticle != null) {
-				return ResponseCode.SUCCESS.getMessage();
-			}
+			article.setSynopsis(StrUtil.sub(synopsis, 0, 150));
+			articleSubjectService.updateArticle(article, articleParam.getSubjectId(), text, markdown);
 		}
-		throw new ApiException(ResponseCode.FORBIDDEN);
 	}
 
 	@GetMapping("load/{articleId}")
@@ -114,7 +107,7 @@ public class DtsArticleController extends BaseController {
 
 	@GetMapping("load/{articleId}/all")
 	public DtsArticleDto loadAll(@PathVariable(name = "articleId") String articleId) {
-		DtsArticleDto articleDto = articleSubjectService.selectArticleById(articleId);
+		DtsArticleDto articleDto = articleSubjectService.selectArticleAllById(articleId);
 		if (articleDto == null) {
 			throw new ApiException();
 		}
@@ -123,8 +116,8 @@ public class DtsArticleController extends BaseController {
 
 	@GetMapping("so")
 	public Page<?> search(
-		@RequestParam(value = "page", defaultValue = "0") Integer page, 
-		@RequestParam("wb") String wb) {
+			@RequestParam(value = "page", defaultValue = "0") Integer page,
+			@RequestParam("wb") String wb) {
 		Pageable pageable = PageRequest.of(page, 10);
 		return articleSubjectService.search(wb, pageable);
 	}

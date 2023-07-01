@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ooqn.core.BaseController;
 import com.ooqn.core.exception.ApiException;
 import com.ooqn.entity.dto.DtsSubjectArticleDto;
 import com.ooqn.entity.dto.DtsSubjectDto;
@@ -26,10 +27,12 @@ import com.ooqn.entity.param.DtsSubjectParam;
 import com.ooqn.service.DtsArticleSubjectService;
 
 import cn.hutool.core.bean.BeanUtil;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 @RestController
 @RequestMapping("api/subject")
 @Validated
+@Schema(name = "专题")
 public class DtsSubjectController extends BaseController {
 
 	@Autowired

@@ -2,7 +2,9 @@ package com.ooqn.controller.admin;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.IdUtil;
-import com.ooqn.controller.BaseController;
+import io.swagger.v3.oas.annotations.media.Schema;
+
+import com.ooqn.core.BaseController;
 import com.ooqn.entity.model.UtsResource;
 import com.ooqn.entity.param.UtsResourceParam;
 import com.ooqn.service.UtsResourceService;
@@ -22,10 +24,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("api/admin/resource")
+@Schema(name = "资源管理")
 public class AdminResourceController extends BaseController {
 
 	@Autowired
 	private UtsResourceService resourceService;
+
+	
 
 	@GetMapping("refresh")
 	public void refresh() {

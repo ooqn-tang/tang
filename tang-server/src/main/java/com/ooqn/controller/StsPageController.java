@@ -22,8 +22,11 @@ import com.ooqn.entity.dto.DtsSubjectDto;
 import com.ooqn.service.DtsArticleSubjectService;
 import com.ooqn.service.StsNoticeService;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
 @Controller
 @RequestMapping
+@Schema(name = "页面")
 public class StsPageController {
 
 	@Autowired

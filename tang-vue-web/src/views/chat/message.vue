@@ -17,7 +17,7 @@
 </template>
   
 <script setup>
-let send = () => {
+function send(){
   let message = {
     to: $route.params.id,
     text: text,

@@ -24,7 +24,7 @@ let router = useRouter();
 let route = useRoute();
 let store = useStore();
 
-let initWebSocket = () => {
+function initWebSocket(){
   try{
     store.state.ws = new WebSocket(import.meta.env.VITE_BASE_API_WS + "api/ws/" + localStorage.getItem("jwt"));
     store.state.ws.onmessage = websocketonmessage;
@@ -36,19 +36,19 @@ let initWebSocket = () => {
   }
 };
 
-let websocketonopen = () => {
+function websocketonopen(){
 
 };
 
-let websocketonerror = () => {
+function websocketonerror(){
   initWebSocket();
 };
 
-let websocketonmessage = (e) => {
+function websocketonmessage(e){
   console.log(e.data)
 };
 
-let websocketclose = (e) => {
+function websocketclose(e){
   console.log("断开连接", e);
 };
 
