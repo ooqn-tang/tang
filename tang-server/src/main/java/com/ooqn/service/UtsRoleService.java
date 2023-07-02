@@ -25,7 +25,6 @@ public class UtsRoleService {
 	@Autowired
 	private UtsResourceRoleRepository resourceRoleRepository;
 
-
 	public List<UtsRoleDto> roleList(String authorId) {
 		List<UtsRole> roleList = roleRepository.findRoleListByAuthorId(authorId);
 		return roleList.stream().map(role -> {
@@ -48,6 +47,8 @@ public class UtsRoleService {
 	}
 
 	public UtsRole insert(UtsRole role) {
+		role.setRoleId(IdUtil.objectId());
+		role.setCreateTime(new Date());
 		return roleRepository.save(role);
 	}
 

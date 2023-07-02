@@ -22,11 +22,11 @@ import com.ooqn.entity.param.DtsEssayParam;
 import com.ooqn.service.DtsEssayService;
 
 import cn.hutool.core.bean.BeanUtil;
-import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
 @RequestMapping("api/essay")
-@Schema(name = "随笔")
+@Tag(name = "随笔")
 public class DtsEssayController extends BaseController {
 
 	@Autowired

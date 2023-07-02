@@ -1,12 +1,5 @@
 package com.ooqn.controller;
 
-import cn.hutool.core.date.DateUtil;
-import cn.hutool.core.util.IdUtil;
-import io.swagger.v3.oas.annotations.media.Schema;
-
-import com.ooqn.core.BaseController;
-import com.ooqn.entity.model.DtsLike;
-import com.ooqn.service.DtsLikeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,9 +8,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ooqn.core.BaseController;
+import com.ooqn.entity.model.DtsLike;
+import com.ooqn.service.DtsLikeService;
+
+import cn.hutool.core.date.DateUtil;
+import cn.hutool.core.util.IdUtil;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 @RestController
 @RequestMapping("api/like")
-@Schema(name = "点赞")
+@Tag(name = "点赞")
 public class DtsLikeController extends BaseController {
 
 	@Autowired

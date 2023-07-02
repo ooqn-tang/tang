@@ -1,14 +1,5 @@
 package com.ooqn.controller.admin;
 
-import cn.hutool.core.bean.BeanUtil;
-import cn.hutool.core.util.IdUtil;
-import io.swagger.v3.oas.annotations.media.Schema;
-
-import com.ooqn.core.BaseController;
-import com.ooqn.entity.model.UtsResource;
-import com.ooqn.entity.param.UtsResourceParam;
-import com.ooqn.service.UtsResourceService;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,15 +13,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ooqn.core.BaseController;
+import com.ooqn.entity.model.UtsResource;
+import com.ooqn.service.UtsResourceService;
+
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 @RestController
 @RequestMapping("api/admin/resource")
-@Schema(name = "资源管理")
+@Tag(name = "资源管理")
 public class AdminResourceController extends BaseController {
 
 	@Autowired
 	private UtsResourceService resourceService;
-
-	
 
 	@GetMapping("refresh")
 	public void refresh() {
@@ -38,23 +33,17 @@ public class AdminResourceController extends BaseController {
 	}
 
 	@GetMapping
-	public List<UtsResource> loadResponseList(
-			@RequestParam(value = "queryData", defaultValue = "") String queryData) {
+	public List<UtsResource> loadResponseList(@RequestParam(value = "queryData", defaultValue = "") String queryData) {
 		return resourceService.select(queryData);
 	}
 
 	@PostMapping
-	public UtsResource insert(@RequestBody UtsResourceParam resourceParam) {
-		UtsResource resource = BeanUtil.toBean(resourceParam, UtsResource.class);
-		resource.setResourceId(IdUtil.objectId());
-		resource.setCreateTime(new Date());
-		resourceService.insert(resource);
-		return resource;
+	public UtsResource insert(@RequestBody UtsResource resource) {
+		return resourceService.insert(resource);
 	}
 
 	@PutMapping
-	public UtsResource update(@RequestBody UtsResourceParam resourceParam) {
-		UtsResource resource = BeanUtil.toBean(resourceParam, UtsResource.class);
+	public UtsResource update(@RequestBody UtsResource resource) {
 		return resourceService.update(resource);
 	}
 

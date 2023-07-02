@@ -14,7 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.ooqn.entity.StateNum;
 import com.ooqn.entity.dto.DtsArticleDto;
 import com.ooqn.entity.dto.DtsSubjectArticleDto;
-import com.ooqn.entity.dto.DtsSubjectDto;
 import com.ooqn.entity.model.DtsArticle;
 import com.ooqn.entity.model.DtsArticleContext;
 import com.ooqn.entity.model.DtsSubject;

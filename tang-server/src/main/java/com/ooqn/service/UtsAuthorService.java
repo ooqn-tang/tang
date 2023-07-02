@@ -1,17 +1,5 @@
 package com.ooqn.service;
 
-import cn.hutool.core.date.DateUtil;
-import cn.hutool.core.util.IdUtil;
-import cn.hutool.core.util.ObjectUtil;
-import cn.hutool.core.util.RandomUtil;
-import com.ooqn.entity.dto.UtsRoleDto;
-import com.ooqn.entity.model.UtsAuthor;
-import com.ooqn.entity.model.UtsAuthorRole;
-import com.ooqn.entity.model.UtsRole;
-import com.ooqn.entity.param.UtsRoleParam;
-import com.ooqn.repository.UtsAuthorRepository;
-import com.ooqn.repository.UtsAuthorRoleRepository;
-
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -19,12 +7,24 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
-import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import com.ooqn.entity.dto.UtsRoleDto;
+import com.ooqn.entity.model.UtsAuthor;
+import com.ooqn.entity.model.UtsAuthorRole;
+import com.ooqn.entity.model.UtsRole;
+import com.ooqn.repository.UtsAuthorRepository;
+import com.ooqn.repository.UtsAuthorRoleRepository;
+
+import cn.hutool.core.date.DateUtil;
+import cn.hutool.core.util.IdUtil;
+import cn.hutool.core.util.ObjectUtil;
+import cn.hutool.core.util.RandomUtil;
+import jakarta.transaction.Transactional;
 
 /**
  * 创作者服务
@@ -44,8 +44,6 @@ public class UtsAuthorService {
 
 	private static final Map<String, Date> usernameTime = new HashMap<>();
 
-	
-
 	public UtsAuthor selectAuthorByName(String username) {
 		return authorRepository.findByUsername(username);
 	}
@@ -56,8 +54,8 @@ public class UtsAuthorService {
 
 	public UtsAuthor insertAuthor(UtsAuthor author) throws DuplicateKeyException {
 		String objectId = IdUtil.objectId();
-		author.setAuthorId(objectId);
 		String username = getUsername();
+		author.setAuthorId(objectId);
 		author.setNickname(username);
 		author.setUsername(username);
 
@@ -99,12 +97,12 @@ public class UtsAuthorService {
 		authorRepository.save(author);
 	}
 
-	public void insertRole(String authorId, List<UtsRoleParam> roleParams) {
+	public void insertAuthorRole(String authorId, List<UtsRole> roles) {
 		authorRoleRepository.deleteByAuthorId(authorId);
-		for (UtsRoleParam roleParam : roleParams) {
+		for (UtsRole role : roles) {
 			UtsAuthorRole authorRole = new UtsAuthorRole();
 			authorRole.setAuthorRoleId(IdUtil.objectId());
-			authorRole.setRoleId(roleParam.getRoleId());
+			authorRole.setRoleId(role.getRoleId());
 			authorRole.setCreateTime(new Date());
 			authorRole.setAuthorId(authorId);
 			authorRoleRepository.save(authorRole);
@@ -118,7 +116,6 @@ public class UtsAuthorService {
 			dateSet.add(usernameTime);
 		}
 		dateSet.addAll(getRoleNameTime(roleList));
-
 		return dateSet.stream().reduce((first, second) -> second).orElse(new Date());
 	}
 

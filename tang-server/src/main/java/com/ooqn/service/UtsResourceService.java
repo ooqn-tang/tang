@@ -1,9 +1,14 @@
 package com.ooqn.service;
 
+import java.util.Date;
 import java.util.List;
 
+import com.ooqn.core.exception.ApiException;
 import com.ooqn.entity.model.UtsResource;
 import com.ooqn.repository.UtsResourceRepository;
+
+import cn.hutool.core.util.IdUtil;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,10 +26,14 @@ public class UtsResourceService {
 		return resourceRepository.findByNameLikeAndPathLikeOrderByPath("%" + queryData + "%", "%" + queryData + "%");
 	}
 
-	public void insert(UtsResource resource) {
-		UtsResource res= resourceRepository.findByPathAndType(resource.getPath(), resource.getType());
+	public UtsResource insert(UtsResource resource) {
+		UtsResource res = resourceRepository.findByPathAndType(resource.getPath(), resource.getType());
 		if(res == null) {
-			resourceRepository.save(resource);
+			resource.setResourceId(IdUtil.objectId());
+			resource.setCreateTime(new Date());
+			return resourceRepository.save(resource);
+		}else{
+			throw new ApiException("内容以及存在");
 		}
 	}
 

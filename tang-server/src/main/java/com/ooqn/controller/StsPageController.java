@@ -19,12 +19,12 @@ import com.ooqn.service.DtsArticleSubjectService;
 import com.ooqn.service.DtsSubjectService;
 import com.ooqn.service.StsNoticeService;
 
-import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
 @RequestMapping
-@Schema(name = "页面")
+@Tag(name = "页面")
 public class StsPageController {
 
 	@Autowired

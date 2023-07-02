@@ -13,20 +13,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import cn.hutool.core.bean.BeanUtil;
-import cn.hutool.core.date.DateTime;
-import cn.hutool.core.date.DateUtil;
-import cn.hutool.core.util.IdUtil;
-import io.swagger.v3.oas.annotations.media.Schema;
-
 import com.ooqn.core.BaseController;
 import com.ooqn.entity.model.DtsCollect;
 import com.ooqn.entity.param.DtsCollectParam;
 import com.ooqn.service.DtsCollectService;
 
+import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.date.DateTime;
+import cn.hutool.core.date.DateUtil;
+import cn.hutool.core.util.IdUtil;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 @RestController
 @RequestMapping("api/collect")
-@Schema(name = "收藏管理")
+@Tag(name = "收藏管理")
 public class DtsCollectController extends BaseController {
 
 	@Autowired
