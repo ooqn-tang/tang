@@ -2,6 +2,7 @@ package com.ooqn.repository;
 
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -19,7 +20,7 @@ public interface StsNoticeRepository extends CrudRepository<StsNotice, String> {
     void deleteByCreateTimeBetween(String startTime, String endTime);
 
     @Query("select max(n.orderNum) from StsNotice n")
-    Integer findNoticeMaxOrder();
+    Optional<Integer> findNoticeMaxOrder();
 
 
 }

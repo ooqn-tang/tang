@@ -29,7 +29,7 @@ public class StsNoticeService {
 	public StsNotice insertNotice(StsNotice notice) {
 		String id = IdUtil.objectId();
 		notice.setNoticeId(id);
-		Integer integer = noticeRepository.findNoticeMaxOrder();
+		Integer integer = noticeRepository.findNoticeMaxOrder().orElse(0);
 		notice.setOrderNum(integer + 1);
 		return noticeRepository.save(notice);
 	}
@@ -42,12 +42,9 @@ public class StsNoticeService {
 		return noticeRepository.save(notice);
 	}
 
-	public void updateNoticeOrder(StsNoticeParam[] noticeList) {
+	public void updateNoticeOrder(StsNotice[] noticeList) {
 		for (int i = 0; i < noticeList.length; i++) {
-			StsNoticeParam stsNoticeParam = noticeList[i];
-			String id = stsNoticeParam.getNoticeId();
-			StsNotice notice = new StsNotice();
-			notice.setNoticeId(id);
+			StsNotice notice = noticeList[i];
 			notice.setOrderNum(i);
 			noticeRepository.save(notice);
 		}

@@ -42,7 +42,7 @@ public class AdminNoticeController extends BaseController {
 	}
 
 	@PutMapping("order")
-	public void updateOrder(@RequestBody StsNoticeParam[] noticeList) {
+	public void updateOrder(@RequestBody StsNotice[] noticeList) {
 		noticeService.updateNoticeOrder(noticeList);
 	}
 
