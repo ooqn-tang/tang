@@ -12,17 +12,17 @@
   <el-table :data="articleList" style="width: 100%" >
     <el-table-column label="标题" show-overflow-tooltip>
       <template #default="scope">
-        {{ scope.row.title }}
+        {{ scope.row.article.title }}
       </template>
     </el-table-column>
     <el-table-column label="时间">
       <template #default="scope">
-        {{ scope.row.createDate }}
+        {{ scope.row.article.createTime }}
       </template>
     </el-table-column>
     <el-table-column label="作者">
       <template #default="scope">
-        {{ scope.row.nickname }}
+        {{ scope.row.author.nickname }}
       </template>
     </el-table-column>
     <el-table-column align="right">
@@ -50,10 +50,7 @@ let router = useRouter();
 let route = useRoute();
 let store = useStore();
 
-let routeName = route.name;
 let articleList = ref([]);
-let editIndex = ref(-1);
-let orderButton = ref(true);
 let form = ref({
   state: "1"
 });
@@ -63,7 +60,7 @@ let deleteNotice = (index, row) => {
   request({
     url: `/api/admin/article/${row.articleId}`,
     method: "DELETE",
-  }).then((response) => {
+  }).then((res) => {
     articleList.value.splice(index, 1)
     ElMessage({ type: 'success', message: '删除成功' })
   });

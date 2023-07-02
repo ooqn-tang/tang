@@ -69,7 +69,7 @@ public class AdminResourceController extends BaseController {
 	}
 
 	@GetMapping("role/{roleId}")
-	public List<String> selectIdByRole(@PathVariable("roleId") String roleId) {
+	public List<UtsResource> selectIdByRole(@PathVariable("roleId") String roleId) {
 		return resourceService.selectByRoleId(roleId);
 	}
 }

@@ -10,6 +10,7 @@ import com.ooqn.entity.model.UtsResource;
 import com.ooqn.entity.model.UtsRole;
 import com.ooqn.entity.param.UtsRoleParam;
 import com.ooqn.service.UtsAuthorService;
+import com.ooqn.service.UtsResourceService;
 import com.ooqn.service.UtsRoleService;
 import java.util.Date;
 import java.util.List;
@@ -34,6 +35,9 @@ public class AdminRoleController extends BaseController {
 
 	@Autowired
 	private UtsAuthorService authorService;
+
+	@Autowired
+	private UtsResourceService resourceService;
 
 	@GetMapping
 	public Iterable<UtsRole> select() {
@@ -65,11 +69,16 @@ public class AdminRoleController extends BaseController {
 	}
 
 	@PostMapping("resource/{roleId}")
-	public String insertResource(@PathVariable("roleId") String roleId,
-			@RequestBody List<UtsResource> resourceList) {
+	public String insertResource(@PathVariable("roleId") String roleId, @RequestBody List<UtsResource> resourceList) {
 		roleService.insertResource(roleId, resourceList);
 		return ResponseCode.SUCCESS.getMessage();
 	}
+
+	@GetMapping("resource/{roleId}")
+	public List<UtsResource> selectResourceByRoleId(@PathVariable("roleId") String roleId) {
+		return resourceService.selectByRoleId(roleId);
+	}
+
 
 	@GetMapping("author/{authorId}")
 	public List<String> selectAuthorIdList(@PathVariable("authorId") String authorId) {

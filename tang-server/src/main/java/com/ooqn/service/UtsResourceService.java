@@ -40,8 +40,8 @@ public class UtsResourceService {
 		return resourceRepository.saveAndFlush(resource);
 	}
 
-	public List<String> selectByRoleId(String roleId) {
-		return null;//resourceRepository.findByRoleId(roleId);
+	public List<UtsResource> selectByRoleId(String roleId) {
+		return resourceRepository.findByRoleId(roleId);
 	}
 
 	

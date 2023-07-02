@@ -1,16 +1,16 @@
 <template>
-  <div style="background-color: #3a94f1;padding: 10px 20px;">
-    <span @click="isCollapse = !isCollapse" style="color: white;">
+  <div class="admin-nav">
+    <span @click="isCollapse = !isCollapse">
       <el-button type="primary" round>内容管理系统</el-button>
       <el-button type="primary" round v-if="isCollapse">展开</el-button>
       <el-button type="primary" round v-if="!isCollapse">收起</el-button>
     </span>
-    <span style="float:right;color:white;">
+    <span class="float-end">
       <el-button type="primary" round>{{$store.state.author.nickname}}</el-button>
       <el-button type="primary" round @click="logout">退出</el-button>
     </span>
   </div>
-<div style="display: flex;height: calc(100% - 52px);">
+<div class="admin-main">
   <el-menu :default-active="routeName" class="el-menu-vertical-demo" :collapse="isCollapse" @open="handleOpen" @close="handleClose">
     <el-menu-item index="admin_article" @click="$router.push({name:'admin_article'})">
       <el-icon><document /></el-icon>
@@ -37,7 +37,7 @@
       <template #title>门户</template>
     </el-menu-item>
 </el-menu>
-<div style="padding:10px;width:100%;float:right;overflow-y: scroll;height: 100%;">
+<div class="admin-body">
   <router-view/>
 </div>
 </div>
@@ -85,16 +85,23 @@ body{
   overflow-y: hidden !important;
 }
 .el-menu-item {
-  font-weight: bold;
-  font-size: 15px;
+   font-size: 15px;
 }
 .el-menu .is-active {
-  font-weight: bold;
     font-size: 15px;
     background: rgb(238, 238, 238);
 }
 .el-menu-vertical-demo:not(.el-menu--collapse) {
   width: 200px;
   min-height: 400px;
+}
+.admin-nav{
+  background-color: #3a94f1;padding: 10px 20px;color: white;
+}
+.admin-main{
+  display: flex;height: calc(100% - 52px);
+}
+.admin-body{
+  padding:10px;width:100%;float:right;overflow-y: scroll;height: 100%;
 }
 </style>

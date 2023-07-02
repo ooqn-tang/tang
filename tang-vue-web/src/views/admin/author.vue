@@ -60,7 +60,6 @@ let route = useRoute();
 
 const dialogVisible = ref(false);
 const form = ref({});
-const formInline = ref({});
 const input2 = ref("");
 const authorList = ref([]);
 const roleIdList = ref([]);
@@ -68,12 +67,6 @@ const roleList = ref([]);
 const queryData = ref("");
 const selectAuthorId = ref("");
 const roleForm = ref([]);
-
-const options = ref([
-  {value:"使用"},{value:"禁用"}
-]);
-
-const value = ref('');
 
 const checkRole = (selection, row) => {
   roleForm.value = selection;
