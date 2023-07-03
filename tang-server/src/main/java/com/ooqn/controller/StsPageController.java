@@ -73,8 +73,7 @@ public class StsPageController {
 
 	@GetMapping("subject/{id}")
 	public String subject(@PathVariable("id") String id, Model model) {
-		DtsSubjectArticleDto dtsArticleSubjectDto =
-				articleSubjectService.findSubjectArticleListBySubjectId(id);
+		DtsSubjectArticleDto dtsArticleSubjectDto = articleSubjectService.findSubjectArticleListBySubjectId(id);
 		model.addAttribute("subject", dtsArticleSubjectDto);
 		return "subject";
 	}
@@ -88,8 +87,4 @@ public class StsPageController {
 		return "subjects";
 	}
 
-	@GetMapping("init")
-	public String init(){
-		return "init";
-	}
 }

@@ -22,7 +22,7 @@
 					<div class="panel-body">
 						<h1 th:text="${article.article.title}" id="blog-title"></h1>
 						<hr>
-						<div class="markdown-body" th:utext="${article.article.text}"></div>
+						<div class="markdown-body" th:utext="${article.articleContext.text}"></div>
 					</div>
 				</div>
 			</div>
