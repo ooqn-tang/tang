@@ -3,18 +3,12 @@ package com.ooqn.core.security;
 import java.util.Collection;
 import java.util.List;
 
-import com.ooqn.entity.model.UtsResource;
-import com.ooqn.entity.propertie.TangProperties;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authorization.AuthorizationDecision;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.GrantedAuthority;
@@ -25,11 +19,13 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.util.AntPathMatcher;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import org.springframework.web.filter.CorsFilter;
 
+import com.ooqn.entity.model.UtsResource;
+import com.ooqn.entity.propertie.TangProperties;
 import com.ooqn.service.UtsResourceService;
+
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 @Configuration
 public class MySecurityConfig {
@@ -115,23 +111,4 @@ public class MySecurityConfig {
         return new JwtFilter();
     }
 
-    @Bean
-    CorsFilter corsFilter() {
-        // 创建CorsConfiguration实例
-        CorsConfiguration config = new CorsConfiguration();
-        // 允许所有域名进行跨域调用
-        config.addAllowedOriginPattern("*");
-        // 允许跨越发送cookie
-        config.setAllowCredentials(true);
-        // 放行全部原始头信息
-        config.addAllowedHeader("*");
-        // 允许所有请求方法跨域调用
-        config.addAllowedMethod("*");
-        // 创建UrlBasedCorsConfigurationSource实例
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        // 将config中的配置属性添加到source中
-        source.registerCorsConfiguration("/**", config);
-        // 返回CorsFilter实例
-        return new CorsFilter(source);
-    }
 }
