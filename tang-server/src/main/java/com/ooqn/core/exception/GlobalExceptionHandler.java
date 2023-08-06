@@ -1,20 +1,21 @@
 package com.ooqn.core.exception;
 
 import java.util.Set;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.AccessDeniedException;
-import org.springframework.web.bind.MethodArgumentNotValidException;
-import org.springframework.web.bind.annotation.ControllerAdvice;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * 全局异常处理
@@ -23,17 +24,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class GlobalExceptionHandler {
 
 	private final Logger logger = LoggerFactory.getLogger(getClass());
-
-	/**
-	 * AccessDeniedException 参数校验统一异常处理
-	 */
-	@ResponseBody
-	@ExceptionHandler(AccessDeniedException.class)
-	public ResponseEntity<String> errorHandler(AccessDeniedException ex,
-			HttpServletResponse httpServletResponse) {
-		logger.error(ex.getMessage(), ex);
-		return ResponseEntity.badRequest().body(ex.getMessage());
-	}
 
 	/**
 	 * ApiException 参数校验统一异常处理

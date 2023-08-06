@@ -3,7 +3,6 @@ package com.ooqn.controller;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,6 +14,7 @@ import com.ooqn.service.UtsAuthorService;
 
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.IdUtil;
+import cn.hutool.crypto.digest.BCrypt;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
@@ -45,12 +45,11 @@ public class StsSystemController {
         UtsAuthor author = new  UtsAuthor();
         author.setAuthorId(IdUtil.objectId());
         author.setUsername(adminName);
-        author.setPassword(new BCryptPasswordEncoder().encode(adminPassword));
+        author.setPassword(BCrypt.hashpw(adminPassword));
         author.setCreateTime(DateUtil.date());
         author.setNickname(adminName);
         author.setRefreshTime(DateUtil.date());
         author.setMail(adminEmail);
-
         authorService.insertAuthor(author);
     }
     

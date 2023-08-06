@@ -1,13 +1,6 @@
 package com.ooqn.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,6 +24,7 @@ import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.lang.Validator;
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.crypto.digest.BCrypt;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 /**
@@ -52,31 +46,33 @@ public class UtsLoginController extends BaseController {
     @Autowired
     private UtsUserDetailsService utsUserDetailsService;
 
-    @Autowired
-    private AuthenticationManagerBuilder authenticationManagerBuilder;
-
     @PostMapping("/authenticate")
     public String authorize(@RequestBody UtsLoginParam loginParam) {
-        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(loginParam.getUsername(), loginParam.getPassword());
-        Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        boolean rememberMe = loginParam.getRememberMe() != null && loginParam.getRememberMe();
-        if (authentication.getPrincipal() instanceof UserDetails) {
-            return jwtProvider.createToken(authentication.getPrincipal(), rememberMe);
+
+        String username = loginParam.getUsername();
+        String password = loginParam.getPassword();
+
+        UtsAuthorDto authorDto = utsUserDetailsService.loadUserByUsername(username);
+        if(authorDto == null) {
+            throw new ApiException("用户不存在");
         }
-        throw new ApiException();
+
+        if (!BCrypt.checkpw(password, authorDto.getAuthor().getPassword())) {
+            throw new ApiException("密码错误");
+        }
+        return jwtProvider.createToken(authorDto, true);
+        
     }
 
     @PostMapping("/refresh")
     public String refresh(@RequestBody JSONObject jsonObject) {
-        String jwt = jsonObject.getString("jwt");
-        if (StringUtils.hasText(jwt) && jwtProvider.validateToken(jwt)) {
-            Authentication authentication = jwtProvider.getAuthentication(jwt);
-            UtsAuthorDto oldAuthorDto = (UtsAuthorDto) authentication.getPrincipal();
-            UtsAuthorDto authorDto = (UtsAuthorDto) utsUserDetailsService
-                    .loadUserByUsername(oldAuthorDto.getUsername());
-            return jwtProvider.createToken(authorDto, true);
-        }
+        // String jwt = jsonObject.getString("jwt");
+        // if (StringUtils.hasText(jwt) && jwtProvider.validateToken(jwt)) {
+        //     UtsAuthorDto authorDto = jwtProvider.getAuthentication(jwt);
+        //     UtsAuthorDto oldAuthorDto = (UtsAuthorDto) authorDto.getPrincipal();
+        //             .loadUserByUsername(oldAuthorDto.getUsername());
+        //     return jwtProvider.createToken(authorDto, true);
+        // }
         throw new ApiException("无效token");
     }
 
@@ -90,7 +86,7 @@ public class UtsLoginController extends BaseController {
             }
             UtsAuthor author = BeanUtil.toBean(param, UtsAuthor.class);
             String password = param.getPassword();
-            author.setPassword(new BCryptPasswordEncoder().encode(password));
+            author.setPassword(BCrypt.hashpw(password));
             author.setMail(mail);
             author.setRefreshTime(DateUtil.date());
             author.setUpdateTime(DateUtil.date());
@@ -118,12 +114,16 @@ public class UtsLoginController extends BaseController {
         if (StrUtil.equals(code, param.getCode())) {
             String password = param.getPassword();
             UtsAuthor author = BeanUtil.toBean(param, UtsAuthor.class);
-            author.setPassword(new BCryptPasswordEncoder().encode(password));
+            author.setPassword(BCrypt.hashpw(password));
             UtsAuthor update = authorService.update(author);
             if (update != null) {
                 return "修改成功";
             }
         }
         throw new ApiException();
+    }
+
+    public static void main(String[] args) {
+        System.out.println(BCrypt.hashpw("123456789"));
     }
 }

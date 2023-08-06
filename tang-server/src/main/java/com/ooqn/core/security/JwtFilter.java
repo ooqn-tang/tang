@@ -6,8 +6,6 @@ import java.util.Date;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -66,18 +64,16 @@ public class JwtFilter extends OncePerRequestFilter  {
 		}
 
 		if (StringUtils.hasText(jwt) && jwtProvider.validateToken(jwt) && !antPathMatcher.match("/api/refresh", requestURI)) {
-			Authentication authentication = jwtProvider.getAuthentication(jwt);
-			UtsAuthorDto authorDto = (UtsAuthorDto) authentication.getPrincipal();
-			Date date = authorService.nowTime(authorDto.getUsername(), authorDto.getRoleList());
+			UtsAuthorDto authorDto = jwtProvider.getAuthentication(jwt);
+			Date date = authorService.nowTime(authorDto.getAuthor().getUsername(), authorDto.getRoleList());
 			if (date != null && date.getTime() != authorDto.getRefreshTime()) {
 				httpServletResponse.setStatus(666);
 				httpServletResponse.getWriter().print("JWT权限刷新了");
 				return;
 			} else {
-				SecurityContextHolder.getContext().setAuthentication(authentication);
+				request.setAttribute("author", authorDto);
 			}
-			LOG.debug("将身份验证设置为安全的上下文 '{}', uri: {}",
-					authentication.getName(), requestURI);
+			LOG.debug("将身份验证设置为安全的上下文 '{}', uri: {}", authorDto.getAuthor().getUsername(), requestURI);
 		} else {
 			LOG.debug("没有找到有效的JWT令牌, uri: {}", requestURI);
 			throw new ApiException(400,"无权限!");

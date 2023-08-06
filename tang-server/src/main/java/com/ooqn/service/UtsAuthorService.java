@@ -13,7 +13,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.ooqn.entity.dto.UtsRoleDto;
 import com.ooqn.entity.model.UtsAuthor;
 import com.ooqn.entity.model.UtsAuthorRole;
 import com.ooqn.entity.model.UtsRole;
@@ -109,7 +108,7 @@ public class UtsAuthorService {
 		}
 	}
 
-	public Date nowTime(String username, List<UtsRoleDto> roleList) {
+	public Date nowTime(String username, List<UtsRole> roleList) {
 		Set<Date> dateSet = new TreeSet<>();
 		Date usernameTime = getUsernameTime(username);
 		if (usernameTime != null) {
@@ -129,10 +128,10 @@ public class UtsAuthorService {
 		return date;
 	}
 
-	private Set<Date> getRoleNameTime(List<UtsRoleDto> roleList) {
+	private Set<Date> getRoleNameTime(List<UtsRole> roleList) {
 		Set<Date> dateSet = new TreeSet<>();
-		for (UtsRoleDto role : roleList) {
-			List<UtsRole> roles = roleService.selectByName(role.getRole().getRoleValue());
+		for (UtsRole role : roleList) {
+			List<UtsRole> roles = roleService.selectByName(role.getRoleValue());
 			for (UtsRole r : roles) {
 				Date refreshTime = r.getRefreshTime();
 				if (!ObjectUtil.isEmpty(refreshTime)) {

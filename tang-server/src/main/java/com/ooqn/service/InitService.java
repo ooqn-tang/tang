@@ -42,7 +42,7 @@ public class InitService {
                 return;
             }
             
-            entityManager.createNativeQuery("INSERT INTO UTS_AUTHOR (AUTHOR_ID,MAIL,NICKNAME,PASSWORD,REFRESH_TIME,SIGNATURE,UPDATE_TIME,USERNAME) VALUES ('1','admin@admin.com','admin','$2a$10$0oTP5waZjfrG.I/ouqDPc.CcPGZmw2ZNxJeWCxK7ILVFIr2DLO9lG','2023-04-09 22:09:38.427','admin','2023-04-09 22:09:38.427','admin')").executeUpdate();
+            entityManager.createNativeQuery("INSERT INTO UTS_AUTHOR (AUTHOR_ID,MAIL,NICKNAME,PASSWORD,REFRESH_TIME,SIGNATURE,UPDATE_TIME,USERNAME) VALUES ('1','admin@admin.com','admin','$2a$10$oudWqrtYf8t/abWwDxg7HucYMx3.FC7/9EWQW835PMTZJ/zbTHtBO','2023-04-09 22:09:38.427','admin','2023-04-09 22:09:38.427','admin')").executeUpdate();
             entityManager.createNativeQuery("INSERT INTO UTS_AUTHOR_ROLE (AUTHOR_ROLE_ID,AUTHOR_ID,CREATE_TIME,ROLE_ID) VALUES ('1','1','2023-04-09 22:09:38.453','1')").executeUpdate();
             entityManager.createNativeQuery("INSERT INTO UTS_RESOURCE (RESOURCE_ID,CREATE_TIME,NAME,\"PATH\",STATE,\"TYPE\") VALUES ('1','2023-04-09 22:56:42.19','ALL','/**',9,'GET')").executeUpdate();
             entityManager.createNativeQuery("INSERT INTO UTS_RESOURCE (RESOURCE_ID,CREATE_TIME,NAME,\"PATH\",STATE,\"TYPE\") VALUES ('2','2023-04-09 22:56:42.19','ALL','/**',9,'POST')").executeUpdate();       

@@ -1,13 +1,14 @@
 package com.ooqn.core;
 
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.ooqn.core.api.ResponseCode;
 import com.ooqn.core.exception.ApiException;
 import com.ooqn.entity.dto.UtsAuthorDto;
 import com.ooqn.entity.model.UtsAuthor;
+
+import jakarta.servlet.http.HttpServletRequest;
 
 public class BaseController {
 
@@ -20,17 +21,13 @@ public class BaseController {
 	}
 
 	public UtsAuthor author() {
-		final Authentication authentication =
-				SecurityContextHolder.getContext().getAuthentication();
-		if (authentication.getPrincipal() instanceof UserDetails) {
-			return ((UtsAuthorDto) authentication.getPrincipal()).getAuthor();
+		ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes)RequestContextHolder.getRequestAttributes();
+		if(servletRequestAttributes != null){
+			HttpServletRequest request = servletRequestAttributes.getRequest();
+			UtsAuthorDto authorDto = (UtsAuthorDto)request.getAttribute("author");
+			return authorDto.getAuthor();
 		}
-		throw new ApiException(ResponseCode.UNAUTHORIZED);
+    	throw new ApiException(ResponseCode.UNAUTHORIZED);
 	}
 
-	public boolean isLogin() {
-		final Authentication authentication =
-				SecurityContextHolder.getContext().getAuthentication();
-		return authentication.getPrincipal() instanceof UserDetails;
-	}
 }

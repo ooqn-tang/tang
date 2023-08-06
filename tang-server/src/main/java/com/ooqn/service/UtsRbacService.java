@@ -1,16 +1,16 @@
 package com.ooqn.service;
 
-import com.ooqn.entity.model.UtsResource;
-
-import java.util.Collection;
 import java.util.List;
 
-import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;
 import org.springframework.util.AntPathMatcher;
+
+import com.ooqn.entity.dto.UtsAuthorDto;
+import com.ooqn.entity.model.UtsResource;
+import com.ooqn.entity.model.UtsRole;
+
+import jakarta.servlet.http.HttpServletRequest;
 
 @Service
 public class UtsRbacService {
@@ -20,11 +20,10 @@ public class UtsRbacService {
 	@Autowired
 	private UtsResourceService resourceService;
 
-	public boolean hasPermission(HttpServletRequest request, Authentication authentication) {
-		Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
-		for (GrantedAuthority authority : authorities) {
-			String role = authority.getAuthority();
-			List<UtsResource> resourceList = resourceService.loadResourceUrlByRoleValue(role);
+	public boolean hasPermission(HttpServletRequest request, UtsAuthorDto authorDto) {
+		List<UtsRole> roleList = authorDto.getRoleList();
+		for (UtsRole role : roleList) {
+			List<UtsResource> resourceList = resourceService.loadResourceUrlByRoleValue(role.getRoleValue());
 			for (UtsResource resource : resourceList) {
 				String method = request.getMethod();
 				if (antPathMatcher.match(resource.getPath(), request.getRequestURI()) && method.equals(resource.getType())) {
