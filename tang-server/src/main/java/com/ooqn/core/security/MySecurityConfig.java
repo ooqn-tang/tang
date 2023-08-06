@@ -117,21 +117,13 @@ public class MySecurityConfig {
 
     @Bean
     CorsFilter corsFilter() {
-        // 创建CorsConfiguration实例
         CorsConfiguration config = new CorsConfiguration();
-        // 允许所有域名进行跨域调用
         config.addAllowedOriginPattern("*");
-        // 允许跨越发送cookie
         config.setAllowCredentials(true);
-        // 放行全部原始头信息
         config.addAllowedHeader("*");
-        // 允许所有请求方法跨域调用
         config.addAllowedMethod("*");
-        // 创建UrlBasedCorsConfigurationSource实例
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        // 将config中的配置属性添加到source中
         source.registerCorsConfiguration("/**", config);
-        // 返回CorsFilter实例
         return new CorsFilter(source);
     }
 }
