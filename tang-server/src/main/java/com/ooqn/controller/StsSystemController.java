@@ -15,11 +15,11 @@ import com.ooqn.service.UtsAuthorService;
 
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.IdUtil;
-import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
 @RequestMapping("api/system")
-@Schema(name = "系统")
+@Tag(name = "系统")
 public class StsSystemController {
 
     @Autowired

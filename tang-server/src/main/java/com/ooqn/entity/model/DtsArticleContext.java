@@ -2,8 +2,6 @@ package com.ooqn.entity.model;
 
 import java.util.Date;
 
-import org.hibernate.annotations.DynamicUpdate;
-
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;

@@ -3,15 +3,6 @@ package com.ooqn.core.security;
 import java.io.IOException;
 import java.util.Date;
 
-import com.ooqn.entity.dto.UtsAuthorDto;
-import com.ooqn.entity.propertie.TangProperties;
-import jakarta.servlet.FilterChain;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.ServletRequest;
-import jakarta.servlet.ServletResponse;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,11 +10,19 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.util.StringUtils;
-import org.springframework.web.filter.GenericFilterBean;
+import org.springframework.web.filter.OncePerRequestFilter;
 
+import com.ooqn.core.exception.ApiException;
+import com.ooqn.entity.dto.UtsAuthorDto;
+import com.ooqn.entity.propertie.TangProperties;
 import com.ooqn.service.UtsAuthorService;
 
-public class JwtFilter extends GenericFilterBean {
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
+public class JwtFilter extends OncePerRequestFilter  {
 
 	private static final Logger LOG = LoggerFactory.getLogger(JwtFilter.class);
 
@@ -38,20 +37,33 @@ public class JwtFilter extends GenericFilterBean {
 
 	private final AntPathMatcher antPathMatcher = new AntPathMatcher();
 
+
+	private String resolveToken(HttpServletRequest request) {
+		String bearerToken = request.getHeader(tangProperties.getTokenKey());
+		if (StringUtils.hasText(bearerToken)) {
+			return bearerToken;
+		}
+		return null;
+	}
+
 	@Override
-	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+			throws ServletException, IOException {
 		HttpServletRequest httpServletRequest = (HttpServletRequest) request;
 		HttpServletResponse httpServletResponse = (HttpServletResponse) response;
-		
-		if(httpServletRequest.getMethod().equals("OPTIONS")){
-			chain.doFilter(request, response);
+
+		if(shouldIgnoreRequest(request)){
+			filterChain.doFilter(request, response);
 			return;
 		}
-		
+
 		String jwt = resolveToken(httpServletRequest);
 		String requestURI = httpServletRequest.getRequestURI();
-
-
+		
+		if(httpServletRequest.getMethod().equals("OPTIONS")){
+			filterChain.doFilter(request, response);
+			return;
+		}
 
 		if (StringUtils.hasText(jwt) && jwtProvider.validateToken(jwt) && !antPathMatcher.match("/api/refresh", requestURI)) {
 			Authentication authentication = jwtProvider.getAuthentication(jwt);
@@ -68,16 +80,20 @@ public class JwtFilter extends GenericFilterBean {
 					authentication.getName(), requestURI);
 		} else {
 			LOG.debug("没有找到有效的JWT令牌, uri: {}", requestURI);
+			throw new ApiException(400,"无权限!");
 		}
 
-		chain.doFilter(request, response);
+		filterChain.doFilter(request, response);
+		throw new UnsupportedOperationException("Unimplemented method 'doFilterInternal'");
 	}
 
-	private String resolveToken(HttpServletRequest request) {
-		String bearerToken = request.getHeader(tangProperties.getTokenKey());
-		if (StringUtils.hasText(bearerToken)) {
-			return bearerToken;
+	private boolean shouldIgnoreRequest(HttpServletRequest request) {
+		String[] split = tangProperties.getOpenUrl().split(",");
+		for (String string : split) {
+			if (antPathMatcher.match(string, request.getRequestURI())) {
+				return true;
+			}
 		}
-		return null;
-	}
+        return false;
+    }
 }

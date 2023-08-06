@@ -31,7 +31,7 @@ spring:
       max-request-size: 500MB
 tang:
   file: D://obj
-  openUrl: /,/init,/api/system/init,/*/*.jpg,/*/*.html,/*/*.js,/*/*.css,/api/ws/**,/api/register,/h2-console/**,/swagger-ui/**,/swagger-resources/**,/swagger-resources,/v3/api-docs,/api/authenticate,/error,/api/refresh
+  openUrl: /api/ws/**,/api/register,/api/authenticate,/api/refresh,/h2-console/**,/swagger-ui/**,/v3/api-docs,/article/**,/subject/**,/subjects,/map,/error,/,/*/*.ico,/*/*.css,/*/*.js,/favicon.ico
   tokenKey: Token
   jwt:
     base64-secret: 6IKv5a6a5pivSkZL5ouJ6JCo6YWx6LGG6IWQ6ICD6JmRYXNr5bCx5Zyw5pa56Imw6Ium5ouJ6JCo5aSn5a625Y+RYWtzZGZqbGthc2RqZmtsYXNkamZsa+WPkeWjq+Wkp+Wkq+WViuaJi+WKqOmYgOaJi+WKqOmYgOmYv+aWr+iSguiKrOmYv+aWr+iSguiKrA==

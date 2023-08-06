@@ -53,3 +53,6 @@ li:last-child .hr{
 .h1{
     border-bottom: 0px !important;
 }
+.panel-text{
+    word-wrap:break-word;
+}

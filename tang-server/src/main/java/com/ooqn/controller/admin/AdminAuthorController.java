@@ -1,14 +1,5 @@
 package com.ooqn.controller.admin;
 
-import cn.hutool.core.bean.BeanUtil;
-import io.swagger.v3.oas.annotations.media.Schema;
-
-import com.ooqn.core.BaseController;
-import com.ooqn.core.api.ResponseCode;
-import com.ooqn.core.exception.ApiException;
-import com.ooqn.entity.model.UtsAuthor;
-import com.ooqn.entity.param.UtsAuthorParam;
-import com.ooqn.service.UtsAuthorService;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,33 +13,32 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ooqn.core.BaseController;
+import com.ooqn.entity.model.UtsAuthor;
+import com.ooqn.service.UtsAuthorService;
+
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 @RestController
 @RequestMapping("api/admin/author")
-@Schema(name = "作者管理")
+@Tag(name = "作者管理")
 public class AdminAuthorController extends BaseController {
 
 	@Autowired
 	private UtsAuthorService authorService;
 
 	@GetMapping
-	public List<UtsAuthor> select(
-			@RequestParam(value = "queryData", defaultValue = "") String queryData) {
+	public List<UtsAuthor> select(@RequestParam(value = "queryData", defaultValue = "") String queryData) {
 		return authorService.select(queryData);
 	}
 
 	@PostMapping
-	public String insert(@RequestBody UtsAuthorParam authorParam) {
-		UtsAuthor author = BeanUtil.toBean(authorParam, UtsAuthor.class);
-		UtsAuthor utsAuthor = authorService.insertAuthor(author);
-		if (utsAuthor != null) {
-			return ResponseCode.SUCCESS.getMessage();
-		}
-		throw new ApiException();
+	public UtsAuthor insert(@RequestBody UtsAuthor author) {
+		return authorService.insertAuthor(author);
 	}
 
 	@PutMapping
-	public void update(@RequestBody UtsAuthorParam authorParam) {
-		UtsAuthor author = BeanUtil.toBean(authorParam, UtsAuthor.class);
+	public void update(@RequestBody UtsAuthor author) {
 		authorService.update(author);
 	}
 

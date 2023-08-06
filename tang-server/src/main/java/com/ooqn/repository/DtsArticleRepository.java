@@ -37,8 +37,10 @@ public interface DtsArticleRepository extends CrudRepository<DtsArticle, String>
     Page<DtsArticle> findArticleListByCategoryId(String categoryId, Pageable pageable);
 
     @Query("""
-    From DtsArticle da where
-    da.articleId in (select dsr.dataId from DtsSubjectRelevance dsr where dsr.dataId = ?1)
+    select da from DtsArticle da where
+    da.articleId in (select dsr.dataId from DtsSubjectRelevance dsr where dsr.subjectId in (
+        select ds.subjectId from DtsSubjectRelevance ds where ds.dataId = ?1
+    ))
     """)
     List<DtsArticle> findSubjectArticleListByArticleId(String articleId);
 

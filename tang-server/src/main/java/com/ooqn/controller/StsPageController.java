@@ -1,7 +1,5 @@
 package com.ooqn.controller;
 
-import jakarta.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -14,23 +12,26 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.alibaba.fastjson.JSONObject;
-
 import com.ooqn.entity.dto.DtsArticleDto;
-
 import com.ooqn.entity.dto.DtsSubjectArticleDto;
 import com.ooqn.entity.dto.DtsSubjectDto;
 import com.ooqn.service.DtsArticleSubjectService;
+import com.ooqn.service.DtsSubjectService;
 import com.ooqn.service.StsNoticeService;
 
-import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
 @RequestMapping
-@Schema(name = "页面")
+@Tag(name = "页面")
 public class StsPageController {
 
 	@Autowired
 	private DtsArticleSubjectService articleSubjectService;
+
+	@Autowired
+	private DtsSubjectService subjectService;
 
 	@Autowired
 	private StsNoticeService noticeService;
@@ -50,7 +51,7 @@ public class StsPageController {
 	public String toArticle(@PathVariable("id") String id, Model model) {
 		DtsArticleDto articleDto = articleSubjectService.selectArticleById(id);
 		model.addAttribute("article", articleDto);
-		String subjectId = articleSubjectService.findSubjectIdByArticleId(id);
+		String subjectId = subjectService.findSubjectIdByArticleId(id);
 
 		if (subjectId != null) {
 			DtsSubjectArticleDto selectSubjectArticleListById =
@@ -72,8 +73,7 @@ public class StsPageController {
 
 	@GetMapping("subject/{id}")
 	public String subject(@PathVariable("id") String id, Model model) {
-		DtsSubjectArticleDto dtsArticleSubjectDto =
-				articleSubjectService.findSubjectArticleListBySubjectId(id);
+		DtsSubjectArticleDto dtsArticleSubjectDto = articleSubjectService.findSubjectArticleListBySubjectId(id);
 		model.addAttribute("subject", dtsArticleSubjectDto);
 		return "subject";
 	}
@@ -82,14 +82,9 @@ public class StsPageController {
 	public String subjects(@RequestParam(value = "page", defaultValue = "0") Integer page,
 			Model model) {
 		Pageable pageable = PageRequest.of(page, 50);
-		Page<DtsSubjectDto> dtsArticleSubjectDtoPageInfo =
-				articleSubjectService.selectSubjectList(pageable);
+		Page<DtsSubjectDto> dtsArticleSubjectDtoPageInfo = subjectService.selectList(pageable);
 		model.addAttribute("subjects", dtsArticleSubjectDtoPageInfo);
 		return "subjects";
 	}
 
-	@GetMapping("init")
-	public String init(){
-		return "init";
-	}
 }

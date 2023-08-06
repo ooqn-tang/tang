@@ -2,12 +2,14 @@ package com.ooqn.service;
 
 import java.util.List;
 
-import com.ooqn.entity.model.StsNotice;
-import com.ooqn.entity.param.StsNoticeParam;
-import com.ooqn.repository.StsNoticeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ooqn.entity.model.StsNotice;
+import com.ooqn.entity.model.UtsAuthor;
+import com.ooqn.repository.StsNoticeRepository;
+
+import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.IdUtil;
 
 /**
@@ -26,11 +28,13 @@ public class StsNoticeService {
 		return noticeRepository.findAllByOrderByOrderNum();
 	}
 
-	public StsNotice insertNotice(StsNotice notice) {
+	public StsNotice insertNotice(StsNotice notice, UtsAuthor author) {
 		String id = IdUtil.objectId();
+		Integer orderNum = noticeRepository.findNoticeMaxOrder().orElse(0);
 		notice.setNoticeId(id);
-		Integer integer = noticeRepository.findNoticeMaxOrder();
-		notice.setOrderNum(integer + 1);
+		notice.setCreateTime(DateUtil.date());
+		notice.setAuthorId(author.getAuthorId());
+		notice.setOrderNum(orderNum + 1);
 		return noticeRepository.save(notice);
 	}
 
@@ -42,12 +46,9 @@ public class StsNoticeService {
 		return noticeRepository.save(notice);
 	}
 
-	public void updateNoticeOrder(StsNoticeParam[] noticeList) {
+	public void updateNoticeOrder(StsNotice[] noticeList) {
 		for (int i = 0; i < noticeList.length; i++) {
-			StsNoticeParam stsNoticeParam = noticeList[i];
-			String id = stsNoticeParam.getNoticeId();
-			StsNotice notice = new StsNotice();
-			notice.setNoticeId(id);
+			StsNotice notice = noticeList[i];
 			notice.setOrderNum(i);
 			noticeRepository.save(notice);
 		}

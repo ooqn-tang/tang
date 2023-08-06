@@ -12,24 +12,24 @@
   <el-table :data="articleList" style="width: 100%" >
     <el-table-column label="标题" show-overflow-tooltip>
       <template #default="scope">
-        {{ scope.row.title }}
+        {{ scope.row.article.title }}
       </template>
     </el-table-column>
     <el-table-column label="时间">
       <template #default="scope">
-        {{ scope.row.createDate }}
+        {{ scope.row.article.createTime }}
       </template>
     </el-table-column>
     <el-table-column label="作者">
       <template #default="scope">
-        {{ scope.row.nickname }}
+        {{ scope.row.author.nickname }}
       </template>
     </el-table-column>
     <el-table-column align="right">
       <template #header>操作</template>
       <template #default="scope">
         <el-button size="small" type="danger">查看</el-button>
-        <el-popconfirm confirm-button-text="确认" cancel-button-text="取消" :icon="InfoFilled" icon-color="red" @confirm="deleteNotice(scope.$index, scope.row)" title="是否确认删除?">
+        <el-popconfirm confirm-button-text="确认" cancel-button-text="取消" :icon="InfoFilled" icon-color="red" @confirm="deleteArticle(scope.$index, scope.row)" title="是否确认删除?">
           <template #reference>
             <el-button size="small" type="danger">删除</el-button>
           </template>
@@ -50,20 +50,16 @@ let router = useRouter();
 let route = useRoute();
 let store = useStore();
 
-let routeName = route.name;
 let articleList = ref([]);
-let editIndex = ref(-1);
-let orderButton = ref(true);
 let form = ref({
   state: "1"
 });
 
-let deleteNotice = (index, row) => {
-  alert(row.articleId)
+let deleteArticle = (index, row) => {
   request({
-    url: `/api/admin/article/${row.articleId}`,
+    url: `/api/admin/article/${row.article.articleId}`,
     method: "DELETE",
-  }).then((response) => {
+  }).then((res) => {
     articleList.value.splice(index, 1)
     ElMessage({ type: 'success', message: '删除成功' })
   });

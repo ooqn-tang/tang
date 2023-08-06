@@ -17,4 +17,7 @@ public interface UtsResourceRepository extends JpaRepository<UtsResource, String
 
     List<UtsResource> findByNameLikeAndPathLikeOrderByPath(String string, String string2);
 
+    @Query("From UtsResource where resourceId in (select resourceId from UtsResourceRole where roleId = ?1)")
+    List<UtsResource> findByRoleId(String roleId);
+
 }

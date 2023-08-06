@@ -8,7 +8,7 @@
           style="padding-bottom: 5px"
         >
           <template #prepend>
-            <el-button>新增角色</el-button>
+            <el-button >新增角色</el-button>
           </template>
           <template #append>
             <el-button>搜索</el-button>
@@ -48,15 +48,15 @@
       <div style="margin: 10px">
         <el-input placeholder="" style="padding-bottom: 5px" disabled>
           <template #prepend>
-            <el-button @click="saveResourceRole">保存角色</el-button>
+            <el-button @click="saveResourceRoleList">保存角色</el-button>
           </template>
           <template #append>搜索</template>
         </el-input>
         <el-table
+         @filter-change="filterTable"
           v-loading="loading"
           :data="resourceList"
           ref="multipleTable"
-          @selection-change="checkResource"
           border
           max-height="800"
           style="width: 100%">
@@ -80,26 +80,37 @@ let router = useRouter();
 let route = useRoute();
 let store = useStore();
 
+let multipleTable = ref()
+
 let loading = ref(false);
-let routeName = ref(route.name);
-let formInline = reactive({ user: "" });
 let roleList = ref([]);
 let resourceList = ref(null);
-let resourceIdList = ref(null);
 let selectRoleId = ref("");
-let resourceForm = ref([]);
 let editIndex = ref(-1);
 
-let checkResource = (selection, row) => {
-  resourceForm.value = selection;
-};
 
-let saveResourceRole = () => {
+
+
+function filterTable(item){
+  console.log(item)
+}
+
+function saveResourceRoleList(){
+  let selectResource = []
+  // 向selectResource追加数组
+  selectResource.push(...multipleTable.value.getSelectionRows())
+
+  multipleTable.value.data.forEach((item) => {
+    if (item._checked) {
+      console.log(item);
+      selectResource.push(item)
+    }
+  });
   request({
     url: `/api/admin/role/resource/${selectRoleId.value}`,
     method: "POST",
-    data: resourceForm.value,
-  }).then((response) => {
+    data: selectResource,
+  }).then((res) => {
     alert("添加成功");
   });
 };
@@ -114,21 +125,27 @@ let selectRole = () => {
   request({
     url: `/api/admin/role`,
     method: "GET",
-  }).then((response) => {
+  }).then((res) => {
     loading.value = false;
     roleList.value = response.data;
   });
 };
 
 let selectResource = (row) => {
+  multipleTable.value.clearSelection();
   loading.value = true;
   request({
     url: `/api/admin/role/resource/${row.roleId}`,
     method: "GET",
-  }).then((response) => {
+  }).then((res) => {
     loading.value = false;
-    resourceList.value = response.data;
-    resourceIdList.value = response.data.map((item) => item.resourceId);
+    response.data.forEach((item) => {
+      resourceList.value.forEach((res) => {
+        if (item.resourceId == res.resourceId) {
+          multipleTable.value.toggleRowSelection(res);
+        }
+      });
+    });
   });
 };
 
@@ -136,23 +153,25 @@ let deleteResource = (resourceId) => {
   request({
     url: `/api/admin/role/resource/${resourceId}`,
     method: "DELETE",
-  }).then((response) => {
+  }).then((res) => {
     alert("删除成功");
   });
 };
 
+function loadAllResource() {
+  request({
+    url: `/api/admin/resource`,
+    method: "GET",
+  }).then((res) => {
+    resourceList.value = response.data;
+  });
+}
+
 
 onMounted(() => {
   selectRole();
+  loadAllResource();
 });
 
-
-watch(resourceIdList, () => {
-  for (let index in resourceList.value) {
-    if (resourceIdList.value.indexOf(resourceList.value[index].resourceId) > -1) {
-      $refs.multipleTable.toggleRowSelection(resourceList.value[index]);
-    }
-  }
-});
 
 </script>

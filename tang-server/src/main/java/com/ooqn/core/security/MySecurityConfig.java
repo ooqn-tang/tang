@@ -43,40 +43,47 @@ public class MySecurityConfig {
     private UtsResourceService utsResourceService;
 
     @Bean
-    WebSecurityCustomizer webSecurityCustomizer() {
-        String[] split = tangProperties.getOpenUrl().split(",");
-        return web -> web
-                .ignoring()
-                .requestMatchers(HttpMethod.OPTIONS, "/**")
-                .requestMatchers(split);
-    }
-
-    @Bean
     SecurityFilterChain httpSecurity(HttpSecurity http) throws Exception {
-        http.addFilterBefore(jwtFilter(), UsernamePasswordAuthenticationFilter.class)
-                .exceptionHandling(handling -> handling
-                        .authenticationEntryPoint(MyAuthenticationEntryPoint())
-                        .accessDeniedHandler(MyAccessDeniedHandler()))
-                .sessionManagement(management -> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authorizeHttpRequests()
+
+        String[] split = tangProperties.getOpenUrl().split(",");
+        // 增加JwtFilter拦截器
+        http.addFilterBefore(jwtFilter(), UsernamePasswordAuthenticationFilter.class);
+
+        // 异常处理器
+        http.exceptionHandling(headers -> {
+            headers.authenticationEntryPoint(MyAuthenticationEntryPoint()).accessDeniedHandler(MyAccessDeniedHandler());
+        });
+
+        // session管理
+        http.sessionManagement(management -> {
+            management.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        });
+
+        // 授权配置
+        http.authorizeHttpRequests()
+                .requestMatchers(split).permitAll()
+                .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 .anyRequest().access((authenticationSupplier, requestAuthorizationContext) -> {
                     Collection<? extends GrantedAuthority> authorities = authenticationSupplier.get().getAuthorities();
                     HttpServletRequest request = requestAuthorizationContext.getRequest();
-                    boolean isGranted = true;
+                    boolean isGranted = false;
                     for (GrantedAuthority authority : authorities) {
                         String role = authority.getAuthority();
                         List<UtsResource> resourceList = utsResourceService.loadResourceUrlByRoleValue(role);
                         for (UtsResource resource : resourceList) {
                             String method = request.getMethod();
                             if (antPathMatcher.match(resource.getPath(), request.getRequestURI()) && method.equals(resource.getType())) {
+                                return new AuthorizationDecision(true);
                             }
                         }
                     }
                     return new AuthorizationDecision(isGranted);
                 });
 
+        // 关闭跨站请求防护及不使用session
         http.cors(AbstractHttpConfigurer::disable).csrf(AbstractHttpConfigurer::disable);
-        
+
+        // 关闭iframe跨域限制
         http.headers(headers -> headers.frameOptions().sameOrigin().httpStrictTransportSecurity().disable());
 
         return http.build();

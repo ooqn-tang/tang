@@ -14,7 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.ooqn.entity.StateNum;
 import com.ooqn.entity.dto.DtsArticleDto;
 import com.ooqn.entity.dto.DtsSubjectArticleDto;
-import com.ooqn.entity.dto.DtsSubjectDto;
 import com.ooqn.entity.model.DtsArticle;
 import com.ooqn.entity.model.DtsArticleContext;
 import com.ooqn.entity.model.DtsSubject;
@@ -70,83 +69,12 @@ public class DtsArticleSubjectService {
 		return articleSubjectDto;
 	}
 
-	/**
-	 * 查询专辑链表
-	 */
+	
 
-	public Page<DtsSubjectDto> selectSubjectList(Pageable pageable) {
-		Page<DtsSubject> subjectPage = subjectRepository.findSubjectList(pageable);
-		Page<DtsSubjectDto> subjectList = subjectPage.map(subject -> {
-			String authorId = subject.getAuthorId();
-			UtsAuthor author = authorRepository.findUsernameNicknameByAuthorId(authorId).orElseThrow();
-			DtsSubjectDto subjectDto = new DtsSubjectDto();
-			subjectDto.setSubject(subject);
-			subjectDto.setAuthor(author);
-			return subjectDto;
-		});
-		return subjectList;
-	}
 
-	/**
-	 * 通过作者名称查询专辑列表
-	 */
-	public List<DtsSubject> selectSubjectListByUsername(String username) {
-		return subjectRepository.findByAuthorName(username);
-	}
 
-	/**
-	 * 添加专辑
-	 */
-	public DtsSubject insertSubject(DtsSubject subject) {
-		DateTime date = DateUtil.date();
-		subject.setSubjectId(IdUtil.objectId());
-		subject.setCreateTime(date);
-		subject.setUpdateDate(date);
-		return subjectRepository.save(subject);
-	}
 
-	/**
-	 * 更新专辑
-	 */
-	public DtsSubject updateSubject(DtsSubject subject) {
-		DtsSubject articleSubject = subjectRepository.findById(subject.getSubjectId()).orElseThrow();
-		articleSubject.setUpdateDate(DateUtil.date());
-		articleSubject.setSubjectName(subject.getSubjectName());
-		articleSubject.setSynopsis(subject.getSynopsis());
-		return subjectRepository.save(articleSubject);
-	}
-
-	/**
-	 * 通过专辑名称搜索专辑
-	 */
-	public Page<DtsSubjectDto> findSubjectListBySubjectName(String name, Pageable pageable) {
-		Page<DtsSubject> subjectList = subjectRepository.findBySubjectName(name, pageable);
-		Page<DtsSubjectDto> subjectDtoList = subjectList.map(subject -> {
-			DtsSubjectDto subjectDto = new DtsSubjectDto();
-			subjectDto.setSubject(subject);
-			subjectDto.setAuthor(authorRepository.findUsernameNicknameByAuthorId(subject.getAuthorId()).orElseThrow());
-			return subjectDto;
-		});
-		return subjectDtoList;
-	}
-
-	/**
-	 * 通过专辑id查询专辑 
-	 * @param articleId 文章id
-	 * @return	SubjectId
-	 */
-	public String findSubjectIdByArticleId(String articleId) {
-		return subjectRepository.findSubjectIdByDataId(articleId);
-	}
-
-	/**
-	 * 通过专辑id查询专辑
-	 * @param subjectId	专辑id
-	 * @return	DtsSubject
-	 */
-	public DtsSubject subjectById(String subjectId) {
-		return subjectRepository.findById(subjectId).orElseThrow();
-	}
+	
 
 	/**
 	 * 通过文章id查询专辑
@@ -157,10 +85,6 @@ public class DtsArticleSubjectService {
 		return articleRepository.findSubjectArticleListByArticleId(articleId);
 	}
 
-	@Transactional
-	public void deleteBySubjectIdAndAuthorId(String subjectId, String authorId) {
-		subjectRepository.deleteBySubjectIdAndAuthorId(subjectId, authorId);
-	}
 
 	/**
 	 * 通过文章id查询专辑

@@ -25,23 +25,27 @@ import com.ooqn.entity.model.DtsArticle;
 import com.ooqn.entity.model.DtsSubject;
 import com.ooqn.entity.param.DtsSubjectParam;
 import com.ooqn.service.DtsArticleSubjectService;
+import com.ooqn.service.DtsSubjectService;
 
 import cn.hutool.core.bean.BeanUtil;
-import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
 @RequestMapping("api/subject")
 @Validated
-@Schema(name = "专题")
+@Tag(name = "专题")
 public class DtsSubjectController extends BaseController {
 
 	@Autowired
 	private DtsArticleSubjectService articleSubjectService;
 
+	@Autowired
+	private DtsSubjectService subjectService;
+
 	@GetMapping("username/{username}")
 	public List<DtsSubject> selectSubjectArticleListByUsername(
 			@PathVariable(value = "username") String username) {
-		return articleSubjectService.selectSubjectListByUsername(username);
+		return subjectService.selectListByUsername(username);
 	}
 
 	@GetMapping("id/{subjectId}")
@@ -51,20 +55,20 @@ public class DtsSubjectController extends BaseController {
 
 	@DeleteMapping("{subjectId}")
 	public void deleteSubjectById(@PathVariable(value = "subjectId") String subjectId) {
-		articleSubjectService.deleteBySubjectIdAndAuthorId(subjectId, authorId());
+		subjectService.deleteBySubjectIdAndAuthorId(subjectId, authorId());
 	}
 
 	@GetMapping("list")
 	public Page<DtsSubjectDto> selectSubject(
 			@RequestParam(value = "page", defaultValue = "0") Integer page) {
 		Pageable pageable = PageRequest.of(page, 20);
-		return articleSubjectService.selectSubjectList(pageable);
+		return subjectService.selectList(pageable);
 	}
 
 	@GetMapping("search")
 	public Page<DtsSubjectDto> selectSubjectByName(@RequestParam(value = "subjectName", defaultValue = "") String name) {
 		Pageable pageable = PageRequest.of(1, 15);
-		return articleSubjectService.findSubjectListBySubjectName(name, pageable);
+		return subjectService.findListBySubjectName(name, pageable);
 	}
 
 	@PostMapping
@@ -72,13 +76,13 @@ public class DtsSubjectController extends BaseController {
 		DtsSubject subjectDto = BeanUtil.toBean(subjectParam, DtsSubject.class);
 		String authorId = authorId();
 		subjectDto.setAuthorId(authorId);
-		return articleSubjectService.insertSubject(subjectDto);
+		return subjectService.insert(subjectDto);
 	}
 
 	@PutMapping
 	public String updateSubject(@RequestBody DtsSubjectParam subjectParam) {
 		DtsSubject subject = BeanUtil.toBean(subjectParam, DtsSubject.class);
-		subject = articleSubjectService.updateSubject(subject);
+		subject = subjectService.update(subject);
 		if (subject != null) {
 			return "处理成功";
 		}

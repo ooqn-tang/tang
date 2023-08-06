@@ -1,13 +1,5 @@
 package com.ooqn.controller.admin;
 
-import cn.hutool.core.bean.BeanUtil;
-import cn.hutool.core.date.DateUtil;
-import io.swagger.v3.oas.annotations.media.Schema;
-
-import com.ooqn.core.BaseController;
-import com.ooqn.entity.model.StsNotice;
-import com.ooqn.entity.param.StsNoticeParam;
-import com.ooqn.service.StsNoticeService;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,29 +12,32 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ooqn.core.BaseController;
+import com.ooqn.entity.model.StsNotice;
+import com.ooqn.service.StsNoticeService;
+
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 @RestController
 @RequestMapping("api/admin/notice")
-@Schema(name = "公告管理")
+@Tag(name = "公告管理")
 public class AdminNoticeController extends BaseController {
 
 	@Autowired
 	private StsNoticeService noticeService;
 
 	@PostMapping
-	public StsNotice insert(@RequestBody StsNoticeParam noticeParam) {
-		StsNotice notice = BeanUtil.toBean(noticeParam, StsNotice.class);
-		notice.setCreateTime(DateUtil.date());
-		return noticeService.insertNotice(notice);
+	public StsNotice insert(@RequestBody StsNotice notice) {
+		return noticeService.insertNotice(notice,author());
 	}
 
 	@PutMapping
-	public StsNotice update(@RequestBody StsNoticeParam noticeParam) {
-		StsNotice notice = BeanUtil.toBean(noticeParam, StsNotice.class);
+	public StsNotice update(@RequestBody StsNotice notice) {
 		return noticeService.updateNotice(notice);
 	}
 
 	@PutMapping("order")
-	public void updateOrder(@RequestBody StsNoticeParam[] noticeList) {
+	public void updateOrder(@RequestBody StsNotice[] noticeList) {
 		noticeService.updateNoticeOrder(noticeList);
 	}
 

@@ -2,6 +2,9 @@ package com.ooqn.repository;
 
 
 import com.ooqn.entity.model.UtsResourceRole;
+
+import jakarta.transaction.Transactional;
+
 import org.springframework.data.repository.CrudRepository;
 
 /**
@@ -12,5 +15,6 @@ public interface UtsResourceRoleRepository extends CrudRepository<UtsResourceRol
     /**
      * 删除当前角色所有资源
      */
+    @Transactional
     void deleteByRoleId(String roleId);
 }

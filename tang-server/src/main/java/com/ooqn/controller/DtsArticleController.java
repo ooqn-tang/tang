@@ -29,11 +29,11 @@ import com.ooqn.util.CommonUtil;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.StrUtil;
-import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
 @RequestMapping("api/article")
-@Schema(name = "文章管理")
+@Tag(name = "文章管理")
 public class DtsArticleController extends BaseController {
 
 	@Autowired

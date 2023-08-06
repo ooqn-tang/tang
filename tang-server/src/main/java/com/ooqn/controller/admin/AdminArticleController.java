@@ -15,11 +15,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ooqn.entity.dto.DtsArticleDto;
 import com.ooqn.service.DtsArticleSubjectService;
 
-import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
 @RequestMapping("api/admin/article")
-@Schema(name = "文章管理")
+@Tag(name = "文章管理", description = "asdfasdfasdfasdf")
 public class AdminArticleController {
 
     @Autowired
@@ -30,13 +30,12 @@ public class AdminArticleController {
             @RequestParam(value = "state", defaultValue = "1") Integer state,
             @RequestParam(value = "page", defaultValue = "0") Integer page) {
         Pageable pageable = PageRequest.of(page, 10);
-        return articleSubjectService.findArticleList(state,pageable);
-       
+        return articleSubjectService.findArticleList(state, pageable);
+
     }
 
     @DeleteMapping("{articleId}")
-    public void delete(
-            @PathVariable("articleId")String articleId) {
+    public void delete(@PathVariable("articleId") String articleId) {
         articleSubjectService.deleteArticleByArticleId(articleId);
     }
 
