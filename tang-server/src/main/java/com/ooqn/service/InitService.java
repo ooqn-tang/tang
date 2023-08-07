@@ -49,9 +49,9 @@ public class InitService {
             entityManager.createNativeQuery("INSERT INTO UTS_RESOURCE (RESOURCE_ID,CREATE_TIME,NAME,\"PATH\",STATE,\"TYPE\") VALUES ('3','2023-04-09 22:56:42.19','ALL','/**',9,'PUT')").executeUpdate();       
             entityManager.createNativeQuery("INSERT INTO UTS_RESOURCE (RESOURCE_ID,CREATE_TIME,NAME,\"PATH\",STATE,\"TYPE\") VALUES ('4','2023-04-09 22:56:42.19','ALL','/**',9,'DELETE')").executeUpdate();
             entityManager.createNativeQuery("INSERT INTO UTS_RESOURCE_ROLE (RESOURCE_ROLE_ID,CREATE_TIME,RESOURCE_ID,ROLE_ID) VALUES ('1','2023-04-09 23:01:27.39','1','1')").executeUpdate();
-            entityManager.createNativeQuery("INSERT INTO UTS_RESOURCE_ROLE (RESOURCE_ROLE_ID,CREATE_TIME,RESOURCE_ID,ROLE_ID) VALUES ('1','2023-04-09 23:01:27.39','2','1')").executeUpdate();
-            entityManager.createNativeQuery("INSERT INTO UTS_RESOURCE_ROLE (RESOURCE_ROLE_ID,CREATE_TIME,RESOURCE_ID,ROLE_ID) VALUES ('1','2023-04-09 23:01:27.39','3','1')").executeUpdate();
-            entityManager.createNativeQuery("INSERT INTO UTS_RESOURCE_ROLE (RESOURCE_ROLE_ID,CREATE_TIME,RESOURCE_ID,ROLE_ID) VALUES ('1','2023-04-09 23:01:27.39','4','1')").executeUpdate();
+            entityManager.createNativeQuery("INSERT INTO UTS_RESOURCE_ROLE (RESOURCE_ROLE_ID,CREATE_TIME,RESOURCE_ID,ROLE_ID) VALUES ('2','2023-04-09 23:01:27.39','2','1')").executeUpdate();
+            entityManager.createNativeQuery("INSERT INTO UTS_RESOURCE_ROLE (RESOURCE_ROLE_ID,CREATE_TIME,RESOURCE_ID,ROLE_ID) VALUES ('3','2023-04-09 23:01:27.39','3','1')").executeUpdate();
+            entityManager.createNativeQuery("INSERT INTO UTS_RESOURCE_ROLE (RESOURCE_ROLE_ID,CREATE_TIME,RESOURCE_ID,ROLE_ID) VALUES ('4','2023-04-09 23:01:27.39','4','1')").executeUpdate();
             entityManager.createNativeQuery("INSERT INTO UTS_ROLE (ROLE_ID,CREATE_TIME,REFRESH_TIME,ROLE_NAME,ROLE_VALUE,UPDATE_TIME) VALUES ('1','2023-04-09 23:53:13.756','2023-04-09 22:53:01.997','超级管理员','ROLE_ADMIN','2023-04-09 22:53:28.379')").executeUpdate();
             
             Map<RequestMappingInfo, HandlerMethod> methodMap = requestMappingHandlerMapping.getHandlerMethods();
