@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ooqn.core.BaseController;
 import com.ooqn.core.NotRole;
 import com.ooqn.core.exception.ApiException;
-import com.ooqn.entity.dto.DtsSubjectArticleDto;
 import com.ooqn.entity.dto.DtsSubjectDto;
 import com.ooqn.entity.model.DtsArticle;
 import com.ooqn.entity.model.DtsSubject;
@@ -52,7 +51,7 @@ public class DtsSubjectController extends BaseController {
 
 	@NotRole
 	@GetMapping("id/{subjectId}")
-	public DtsSubjectArticleDto selectSubjectArticleById(@PathVariable(value = "subjectId") String subjectId) {
+	public DtsSubjectDto selectSubjectArticleById(@PathVariable(value = "subjectId") String subjectId) {
 		return articleSubjectService.findSubjectArticleListBySubjectId(subjectId);
 	}
 

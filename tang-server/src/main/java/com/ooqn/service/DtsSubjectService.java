@@ -35,8 +35,7 @@ public class DtsSubjectService {
 		Page<DtsSubjectDto> subjectList = subjectPage.map(subject -> {
 			String authorId = subject.getAuthorId();
 			UtsAuthor author = authorRepository.findUsernameNicknameByAuthorId(authorId).orElseThrow();
-			DtsSubjectDto subjectDto = new DtsSubjectDto();
-			subjectDto.setSubject(subject);
+			DtsSubjectDto subjectDto = new DtsSubjectDto(subject);
 			subjectDto.setAuthor(author);
 			return subjectDto;
 		});
@@ -79,8 +78,7 @@ public class DtsSubjectService {
 	public Page<DtsSubjectDto> findListBySubjectName(String name, Pageable pageable) {
 		Page<DtsSubject> subjectList = subjectRepository.findBySubjectName(name, pageable);
 		Page<DtsSubjectDto> subjectDtoList = subjectList.map(subject -> {
-			DtsSubjectDto subjectDto = new DtsSubjectDto();
-			subjectDto.setSubject(subject);
+			DtsSubjectDto subjectDto = new DtsSubjectDto(subject);
 			subjectDto.setAuthor(authorRepository.findUsernameNicknameByAuthorId(subject.getAuthorId()).orElseThrow());
 			return subjectDto;
 		});

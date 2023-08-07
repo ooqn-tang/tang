@@ -25,7 +25,6 @@ import com.ooqn.entity.dto.DtsArticleDto;
 import com.ooqn.entity.model.DtsArticle;
 import com.ooqn.entity.param.DtsArticleParam;
 import com.ooqn.service.DtsArticleSubjectService;
-import com.ooqn.util.CommonUtil;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.date.DateUtil;
@@ -94,13 +93,12 @@ public class DtsArticleController extends BaseController {
 		String authorId = articleSubjectService.authorId(articleId);
 		String text = articleParam.getText();
 		String markdown = articleParam.getMarkdown();
-		String synopsis = CommonUtil.delHTMLTag(text);
+		
 		if (StrUtil.equals(authorId, authorId())) {
 			article.setAuthorId(authorId);
 			article.setState(StateNum.normal);
 			article.setUpdateTime(DateUtil.date());
-			article.setSynopsis(StrUtil.sub(synopsis, 0, 150));
-			articleSubjectService.updateArticle(article, articleParam.getSubjectId(), text, markdown);
+			articleSubjectService.updateArticle(articleId, articleParam.getSubjectId(), text, markdown);
 		}
 	}
 

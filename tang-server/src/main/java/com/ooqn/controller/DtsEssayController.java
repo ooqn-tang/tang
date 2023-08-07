@@ -40,10 +40,9 @@ public class DtsEssayController extends BaseController {
 		essay.setType("essay");
 		DtsEssay dtsEssay = essayService.insert(essay);
 		if (dtsEssay != null) {
-			DtsEssayDto dtsEssayDto = BeanUtil.toBean(essay, DtsEssayDto.class);
+			DtsEssayDto dtsEssayDto = new DtsEssayDto(dtsEssay);
 			UtsAuthor author = author();
 			dtsEssayDto.setAuthor(author);
-			dtsEssayDto.setEssay(dtsEssay);
 			return dtsEssayDto;
 		}
 		throw new ApiException("添加失败");

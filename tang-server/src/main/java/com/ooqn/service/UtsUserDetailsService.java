@@ -34,11 +34,10 @@ public class UtsUserDetailsService {
 		}
 
 		if (author != null) {
-			UtsAuthorDto authorDto = new UtsAuthorDto();
-			authorDto.setAuthor(author);
+			UtsAuthorDto authorDto = new UtsAuthorDto(author);
 			List<UtsRole> roles = roleService.roleList(author.getAuthorId());
 			authorDto.setRoleList(roles);
-			return BeanUtil.toBean(authorDto, UtsAuthorDto.class);
+			return authorDto;
 		}
 
 		throw new ApiException("输入的用户名或密码不正确");

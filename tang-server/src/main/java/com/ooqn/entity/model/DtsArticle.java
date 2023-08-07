@@ -10,7 +10,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import jakarta.persistence.Lob;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -48,12 +47,10 @@ public class DtsArticle {
 	@Schema(description = "概要")
 	private String synopsis;
 
-	@Lob
 	@Schema(description = "正文")
-	private String text;
+	private String textContextId;
 
-	@Lob
 	@Schema(description = "markdown")
-	private String markdown;
+	private String markdownContextId;
 
 }

@@ -1,5 +1,7 @@
 package com.ooqn.entity.dto;
 
+import org.springframework.beans.BeanUtils;
+
 import com.ooqn.entity.model.DtsArticle;
 import com.ooqn.entity.model.DtsCategory;
 import com.ooqn.entity.model.DtsSubject;
@@ -15,19 +17,11 @@ import lombok.Setter;
 @Getter
 @Setter
 @Schema(description = "通用返回对象")
-public class DtsArticleDto {
-
-	@Schema(description = "浏览器访问量")
-	private Integer pageViewCount;
-
-	@Schema(description="点赞量")
-	private Integer likeCount;
-
-	@Schema(description="收藏量")
-	private Integer collectCount;
-
-	@Schema(description ="文章")
-	private DtsArticle article;
+public class DtsArticleDto extends DtsArticle {
+	
+	public DtsArticleDto(DtsArticle article) {
+		BeanUtils.copyProperties(article, this);
+	}
 
 	@Schema(description="作者")
 	private UtsAuthor author;
@@ -37,5 +31,11 @@ public class DtsArticleDto {
 
 	@Schema(description = "分类")
 	private DtsCategory category;
+
+	@Schema(description = "正文")
+	private String text;
+
+	@Schema(description = "markdown")
+	private String markdown;
 	
 }

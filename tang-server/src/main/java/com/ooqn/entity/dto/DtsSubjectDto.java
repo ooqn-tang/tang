@@ -1,5 +1,8 @@
 package com.ooqn.entity.dto;
 
+import org.springframework.beans.BeanUtils;
+
+import com.alibaba.fastjson.JSONArray;
 import com.ooqn.entity.model.DtsSubject;
 import com.ooqn.entity.model.UtsAuthor;
 
@@ -8,9 +11,14 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class DtsSubjectDto {
+public class DtsSubjectDto extends DtsSubject {
 
-    private DtsSubject subject;
+	public DtsSubjectDto(DtsSubject subject){
+		BeanUtils.copyProperties(subject, this);
+	}
 
     private UtsAuthor author;
+
+	private JSONArray dataArray;
+	
 }

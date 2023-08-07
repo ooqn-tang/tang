@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ooqn.core.BaseController;
-import com.ooqn.core.NotRole;
 import com.ooqn.entity.model.DtsCollect;
 import com.ooqn.entity.param.DtsCollectParam;
 import com.ooqn.service.DtsCollectService;
@@ -27,7 +26,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
 @RequestMapping("api/collect")
-@Tag(name = "收藏管理")
+@Tag(name = "收藏")
 public class DtsCollectController extends BaseController {
 
 	@Autowired

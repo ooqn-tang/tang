@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.alibaba.fastjson.JSONObject;
 import com.ooqn.core.NotRole;
 import com.ooqn.entity.dto.DtsArticleDto;
-import com.ooqn.entity.dto.DtsSubjectArticleDto;
 import com.ooqn.entity.dto.DtsSubjectDto;
 import com.ooqn.service.DtsArticleSubjectService;
 import com.ooqn.service.DtsSubjectService;
@@ -56,7 +55,7 @@ public class StsPageController {
 		model.addAttribute("article", articleDto);
 		String subjectId = subjectService.findSubjectIdByArticleId(id); 
 		if (subjectId != null) {
-			DtsSubjectArticleDto selectSubjectArticleListById = articleSubjectService.findSubjectArticleListBySubjectId(subjectId);
+			DtsSubjectDto selectSubjectArticleListById = articleSubjectService.findSubjectArticleListBySubjectId(subjectId);
 			model.addAttribute("subject", selectSubjectArticleListById);
 		}
 
@@ -76,7 +75,7 @@ public class StsPageController {
 	@NotRole
 	@GetMapping("subject/{id}")
 	public String subject(@PathVariable("id") String id, Model model) {
-		DtsSubjectArticleDto dtsArticleSubjectDto = articleSubjectService.findSubjectArticleListBySubjectId(id);
+		DtsSubjectDto dtsArticleSubjectDto = articleSubjectService.findSubjectArticleListBySubjectId(id);
 		model.addAttribute("subject", dtsArticleSubjectDto);
 		return "subject";
 	}

@@ -17,7 +17,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
 @RequestMapping("api/category")
-@Tag(name = "分类管理")
+@Tag(name = "分类")
 public class DtsCategoryController extends BaseController {
 
     @Autowired

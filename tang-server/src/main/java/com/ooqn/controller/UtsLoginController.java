@@ -59,7 +59,7 @@ public class UtsLoginController extends BaseController {
             throw new ApiException("用户不存在");
         }
 
-        if (!BCrypt.checkpw(password, authorDto.getAuthor().getPassword())) {
+        if (!BCrypt.checkpw(password, authorDto.getPassword())) {
             throw new ApiException("密码错误");
         }
         return jwtProvider.createToken(authorDto, true);
@@ -72,7 +72,7 @@ public class UtsLoginController extends BaseController {
         String jwt = jsonObject.getString("jwt");
         if (jwtProvider.validateToken(jwt)) {
             UtsAuthorDto authorDto = jwtProvider.getAuthentication(jwt);
-            UtsAuthorDto author = utsUserDetailsService.loadUserByUsername(authorDto.getAuthor().getUsername());
+            UtsAuthorDto author = utsUserDetailsService.loadUserByUsername(authorDto.getUsername());
             return jwtProvider.createToken(author, true);
         }
         throw new ApiException("无效token");

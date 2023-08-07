@@ -63,15 +63,15 @@ public class JwtFilter extends OncePerRequestFilter  {
 
 		if (StringUtils.hasText(jwt) && jwtProvider.validateToken(jwt) && !antPathMatcher.match("/api/refresh", requestURI)) {
 			UtsAuthorDto authorDto = jwtProvider.getAuthentication(jwt);
-			Date date = authorService.nowTime(authorDto.getAuthor().getUsername(), authorDto.getRoleList());
-			if (date != null && date.getTime() != authorDto.getRefreshTime()) {
+			Date date = authorService.nowTime(authorDto.getUsername(), authorDto.getRoleList());
+			if (date != null && date.getTime() != authorDto.getRefreshTime().getTime()) {
 				httpServletResponse.setStatus(666);
 				httpServletResponse.getWriter().print("JWT权限刷新了");
 				return;
 			} else {
 				request.setAttribute("author", authorDto);
 			}
-			LOG.debug("将身份验证设置为安全的上下文 '{}', uri: {}", authorDto.getAuthor().getUsername(), requestURI);
+			LOG.debug("将身份验证设置为安全的上下文 '{}', uri: {}", authorDto.getUsername(), requestURI);
 		} else {
 			LOG.debug("没有找到有效的JWT令牌, uri: {}", requestURI);
 			throw new ApiException(400,"无权限:"+requestURI);

@@ -3,14 +3,17 @@ package com.ooqn.core.security;
 import java.security.Key;
 import java.util.Date;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.alibaba.fastjson.JSON;
 import com.ooqn.entity.dto.UtsAuthorDto;
 import com.ooqn.entity.propertie.TangProperties;
 
 import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.json.JSONObject;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
@@ -56,7 +59,7 @@ public class JwtProvider implements InitializingBean {
 			validity = new Date(now + tangProperties.getJwt().getTokenValidityInSeconds());
 		}
 
-		return Jwts.builder().setSubject(authorDto.getAuthor().getUsername())
+		return Jwts.builder().setSubject(authorDto.getUsername())
 				.claim(tangProperties.getAuthorKey(), authorDto)
 				.signWith(key, SignatureAlgorithm.HS512).setExpiration(validity).compact();
 	}
@@ -68,7 +71,13 @@ public class JwtProvider implements InitializingBean {
 	 */
 	public UtsAuthorDto getAuthentication(String token) {
 		Claims claims = Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token).getBody();
-		return BeanUtil.toBean(claims.get(tangProperties.getAuthorKey()), UtsAuthorDto.class);
+		UtsAuthorDto authorDto = new UtsAuthorDto();
+		Object object = claims.get(tangProperties.getAuthorKey(), UtsAuthorDto.class);
+
+
+		
+		BeanUtils.copyProperties(object, authorDto);
+		return authorDto;
 	}
 
 	/**

@@ -2,24 +2,24 @@ package com.ooqn.entity.dto;
 
 import java.util.List;
 
+import org.springframework.beans.BeanUtils;
+
 import com.ooqn.entity.model.UtsAuthor;
 import com.ooqn.entity.model.UtsRole;
 
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-@EqualsAndHashCode
-public class UtsAuthorDto {
+public class UtsAuthorDto extends UtsAuthor {
 
-	private UtsAuthor author;
-
-	private List<UtsRole> roleList;
-
-	public long getRefreshTime() {
-		return author.getRefreshTime().getTime();
+	public UtsAuthorDto() {
 	}
+
+	public UtsAuthorDto(UtsAuthor author) {
+		BeanUtils.copyProperties(author, this);
+	}
+	private List<UtsRole> roleList;
 
 }
