@@ -2,7 +2,6 @@ package com.ooqn.socket;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
 import org.springframework.stereotype.Component;
 
@@ -20,8 +19,6 @@ import jakarta.websocket.server.ServerEndpoint;
 @ServerEndpoint(value = "/api/ws/{jwt}")
 @Component
 public class ApplicationWebSocket {
-
-	private static final Map<String, Set<Session>> memberSocketList = new HashMap<>();
 
 	Map<String, UtsAuthorDto> sessionMap = new HashMap<>();
 
@@ -45,4 +42,5 @@ public class ApplicationWebSocket {
 	@OnError
 	public void onError(Session session, Throwable error) {
 	}
+
 }

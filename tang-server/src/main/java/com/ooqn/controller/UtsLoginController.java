@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSONObject;
 import com.ooqn.core.BaseController;
+import com.ooqn.core.NotRole;
 import com.ooqn.core.exception.ApiException;
 import com.ooqn.core.security.JwtProvider;
 import com.ooqn.entity.dto.UtsAuthorDto;
@@ -46,6 +47,7 @@ public class UtsLoginController extends BaseController {
     @Autowired
     private UtsUserDetailsService utsUserDetailsService;
 
+    @NotRole
     @PostMapping("/authenticate")
     public String authorize(@RequestBody UtsLoginParam loginParam) {
 
@@ -64,18 +66,19 @@ public class UtsLoginController extends BaseController {
         
     }
 
+    @NotRole
     @PostMapping("/refresh")
     public String refresh(@RequestBody JSONObject jsonObject) {
-        // String jwt = jsonObject.getString("jwt");
-        // if (StringUtils.hasText(jwt) && jwtProvider.validateToken(jwt)) {
-        //     UtsAuthorDto authorDto = jwtProvider.getAuthentication(jwt);
-        //     UtsAuthorDto oldAuthorDto = (UtsAuthorDto) authorDto.getPrincipal();
-        //             .loadUserByUsername(oldAuthorDto.getUsername());
-        //     return jwtProvider.createToken(authorDto, true);
-        // }
+        String jwt = jsonObject.getString("jwt");
+        if (jwtProvider.validateToken(jwt)) {
+            UtsAuthorDto authorDto = jwtProvider.getAuthentication(jwt);
+            UtsAuthorDto author = utsUserDetailsService.loadUserByUsername(authorDto.getAuthor().getUsername());
+            return jwtProvider.createToken(author, true);
+        }
         throw new ApiException("无效token");
     }
 
+    @NotRole
     @PostMapping("register")
     public String register(@RequestBody UtsRegisterParam param) {
         String mail = param.getMail();
@@ -100,6 +103,7 @@ public class UtsLoginController extends BaseController {
         }
     }
 
+    @NotRole
     @PostMapping("password")
     public String updatePassword(@RequestBody UtsRePasswordParam param) {
         String mail = param.getMail();
@@ -123,7 +127,4 @@ public class UtsLoginController extends BaseController {
         throw new ApiException();
     }
 
-    public static void main(String[] args) {
-        System.out.println(BCrypt.hashpw("123456789"));
-    }
 }

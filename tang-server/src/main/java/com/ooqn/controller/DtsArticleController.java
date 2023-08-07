@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ooqn.core.BaseController;
+import com.ooqn.core.NotRole;
 import com.ooqn.core.exception.ApiException;
 import com.ooqn.entity.StateNum;
 import com.ooqn.entity.dto.DtsArticleDto;
@@ -33,12 +34,13 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
 @RequestMapping("api/article")
-@Tag(name = "文章管理")
+@Tag(name = "文章")
 public class DtsArticleController extends BaseController {
 
 	@Autowired
 	private DtsArticleSubjectService articleSubjectService;
 
+	@NotRole
 	@GetMapping("list")
 	public Page<DtsArticleDto> selectArticleList(
 			@RequestParam(value = "page", defaultValue = "0") Integer page,
@@ -54,6 +56,7 @@ public class DtsArticleController extends BaseController {
 		return articleSubjectService.selectGzArticleList(pageable, authorId());
 	}
 
+	@NotRole
 	@GetMapping("list/{username}")
 	public Page<DtsArticleDto> selectArticleListByUsername(
 			@RequestParam(value = "page", defaultValue = "1") Integer page,
@@ -62,6 +65,7 @@ public class DtsArticleController extends BaseController {
 		return articleSubjectService.selectArticleByAuthorName(username, pageable);
 	}
 
+	@NotRole
 	@GetMapping("recommend")
 	public List<DtsArticle> selectArticleListRecommend() {
 		return articleSubjectService.selectArticleListRandom();
@@ -100,11 +104,13 @@ public class DtsArticleController extends BaseController {
 		}
 	}
 
+	@NotRole
 	@GetMapping("load/{articleId}")
 	public DtsArticleDto load(@PathVariable(name = "articleId") String articleId) {
 		return articleSubjectService.selectArticleById(articleId);
 	}
 
+	@NotRole
 	@GetMapping("load/{articleId}/all")
 	public DtsArticleDto loadAll(@PathVariable(name = "articleId") String articleId) {
 		DtsArticleDto articleDto = articleSubjectService.selectArticleAllById(articleId);
@@ -114,6 +120,7 @@ public class DtsArticleController extends BaseController {
 		return articleDto;
 	}
 
+	@NotRole
 	@GetMapping("so")
 	public Page<?> search(
 			@RequestParam(value = "page", defaultValue = "0") Integer page,

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ooqn.core.BaseController;
+import com.ooqn.core.NotRole;
 import com.ooqn.entity.model.DtsCategory;
 import com.ooqn.service.DtsCategoryService;
 
@@ -22,11 +23,13 @@ public class DtsCategoryController extends BaseController {
     @Autowired
     private DtsCategoryService categoryService;
 
+    @NotRole
     @GetMapping("list")
     public List<DtsCategory> selectCategoryList(@RequestParam String type) {
         return categoryService.selectCategoryList(type);
     }
 
+    @NotRole
     @GetMapping("all")
     public List<DtsCategory> selectCategoryAllList(@RequestParam String type) {
         return categoryService.selectCategoryAllList(type);

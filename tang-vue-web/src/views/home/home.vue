@@ -79,8 +79,21 @@ const router = useRouter()
 const route = useRoute()
 
 let title = ref("菜单")
-let isAdmin = computed(() => store.state.roles.indexOf("ROLE_ADMIN") > -1)
-let isLogin = computed(() => store.state.username != null && store.state.username != '' && store.state.username != undefined)
+let isAdmin = computed(() => {
+  let admin = false
+  if(store.state.author.roleList != null){
+    store.state.author.roleList.forEach(role => {
+      if(role.roleValue == "ROLE_ADMIN"){
+        admin = true;
+      }
+    });
+  }
+  return admin
+})
+
+let isLogin = computed(() => {
+  return store.state.username != null && store.state.username != '' && store.state.username != undefined
+})
 
 onActivated(() => {
   if(route.name == 'article'){

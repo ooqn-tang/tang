@@ -1,5 +1,9 @@
 package com.ooqn.core;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.cors.CorsConfiguration;
@@ -8,9 +12,13 @@ import org.springframework.web.filter.CorsFilter;
 
 @Configuration
 public class TangConfig {
+
+    // 不需要取消控制的接口，url,method
+    public static List<Map<String,String>> notRoleList = new ArrayList<>();
     
-     @Bean
+    @Bean
     public CorsFilter corsFilter() {
+        
         // 1.创建 CORS 配置对象
         CorsConfiguration config = new CorsConfiguration();
         // 支持域

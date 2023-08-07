@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ooqn.core.BaseController;
+import com.ooqn.core.NotRole;
 import com.ooqn.core.exception.ApiException;
 import com.ooqn.entity.model.UtsAuthor;
 import com.ooqn.entity.param.UtsAuthorParam;
@@ -31,6 +32,7 @@ public class UtsAuthorController extends BaseController {
 	@Autowired
 	private UtsAuthorService authorService;
 
+	@NotRole
 	@GetMapping("selectAuthor")
 	public Page<UtsAuthor> select(@RequestParam(value = "page", defaultValue = "0") Integer page) {
 		Pageable pageable = PageRequest.of(page, 100);
@@ -49,12 +51,13 @@ public class UtsAuthorController extends BaseController {
 		throw new ApiException();
 	}
 
-	
+	@NotRole
 	@GetMapping("{username}")
 	public UtsAuthor authorByUsername(@PathVariable(value = "username") String username) {
 		return authorService.selectAuthorByName(username);
 	}
 
+	@NotRole
 	@GetMapping("list")
 	public Page<UtsAuthor> authorList(
 			@RequestParam(value = "page", defaultValue = "1") Integer page) {

@@ -36,14 +36,11 @@
 import { ref, onMounted } from 'vue'
 import { useStore } from 'vuex'
 import { useRoute, useRouter } from "vue-router"
-import { createStore } from 'vuex'
 
 import jwt_decode from "jwt-decode"
 import request from 'utils/request'
 
 let loginData = ref({rememberMe:true})
-let store = useStore()
-let route = useRoute()
 let router = useRouter()
 
 function login() {
@@ -53,10 +50,11 @@ function login() {
     data: loginData.value
   }).then((response) => {
     if (response.status === 200) {
-      let authorData = jwt_decode(response.data)
+      debugger
+      let author = jwt_decode(response.data);
       localStorage.setItem("jwt", response.data)
-      localStorage.setItem("authorData", JSON.stringify(authorData))
-      router.push({ path: "/author/" + authorData.sub })
+      localStorage.setItem("author", JSON.stringify(author))
+      router.push({ path: "/author/" + author.sub })
     }
   }).catch(e => {
     alert(e.data)

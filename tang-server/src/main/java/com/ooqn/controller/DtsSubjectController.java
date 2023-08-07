@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ooqn.core.BaseController;
+import com.ooqn.core.NotRole;
 import com.ooqn.core.exception.ApiException;
 import com.ooqn.entity.dto.DtsSubjectArticleDto;
 import com.ooqn.entity.dto.DtsSubjectDto;
@@ -42,12 +43,14 @@ public class DtsSubjectController extends BaseController {
 	@Autowired
 	private DtsSubjectService subjectService;
 
+	@NotRole
 	@GetMapping("username/{username}")
 	public List<DtsSubject> selectSubjectArticleListByUsername(
 			@PathVariable(value = "username") String username) {
 		return subjectService.selectListByUsername(username);
 	}
 
+	@NotRole
 	@GetMapping("id/{subjectId}")
 	public DtsSubjectArticleDto selectSubjectArticleById(@PathVariable(value = "subjectId") String subjectId) {
 		return articleSubjectService.findSubjectArticleListBySubjectId(subjectId);
@@ -58,6 +61,7 @@ public class DtsSubjectController extends BaseController {
 		subjectService.deleteBySubjectIdAndAuthorId(subjectId, authorId());
 	}
 
+	@NotRole
 	@GetMapping("list")
 	public Page<DtsSubjectDto> selectSubject(
 			@RequestParam(value = "page", defaultValue = "0") Integer page) {
@@ -65,6 +69,7 @@ public class DtsSubjectController extends BaseController {
 		return subjectService.selectList(pageable);
 	}
 
+	@NotRole
 	@GetMapping("search")
 	public Page<DtsSubjectDto> selectSubjectByName(@RequestParam(value = "subjectName", defaultValue = "") String name) {
 		Pageable pageable = PageRequest.of(1, 15);
@@ -96,6 +101,7 @@ public class DtsSubjectController extends BaseController {
 		articleSubjectService.saveSubjectId(articleId, subjectId);
 	}
 
+	@NotRole
 	@GetMapping("article/{articleId}")
 	public List<DtsArticle> findSubjectListByArticleId(
 			@PathVariable("articleId") String articleId) {

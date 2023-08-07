@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ooqn.core.NotRole;
 import com.ooqn.entity.model.UtsAuthor;
 import com.ooqn.service.StsCodeService;
 import com.ooqn.service.UtsAuthorService;
@@ -28,8 +29,7 @@ public class StsSystemController {
     @Autowired
     private UtsAuthorService authorService;
 
-    
-    // init 提交保存 ，form表单提交，参数为json格式
+    @NotRole
     @PostMapping("/init")
     public void init(@RequestParam Map<String, String> params) {
         

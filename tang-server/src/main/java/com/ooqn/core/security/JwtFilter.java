@@ -2,14 +2,17 @@ package com.ooqn.core.security;
 
 import java.io.IOException;
 import java.util.Date;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import com.ooqn.core.TangConfig;
 import com.ooqn.core.exception.ApiException;
 import com.ooqn.entity.dto.UtsAuthorDto;
 import com.ooqn.entity.propertie.TangProperties;
@@ -20,6 +23,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+@Component
 public class JwtFilter extends OncePerRequestFilter  {
 
 	private static final Logger LOG = LoggerFactory.getLogger(JwtFilter.class);
@@ -45,8 +49,7 @@ public class JwtFilter extends OncePerRequestFilter  {
 	}
 
 	@Override
-	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
-			throws ServletException, IOException {
+	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)throws ServletException, IOException {
 		HttpServletRequest httpServletRequest = (HttpServletRequest) request;
 		HttpServletResponse httpServletResponse = (HttpServletResponse) response;
 
@@ -57,11 +60,6 @@ public class JwtFilter extends OncePerRequestFilter  {
 
 		String jwt = resolveToken(httpServletRequest);
 		String requestURI = httpServletRequest.getRequestURI();
-		
-		if(httpServletRequest.getMethod().equals("OPTIONS")){
-			filterChain.doFilter(request, response);
-			return;
-		}
 
 		if (StringUtils.hasText(jwt) && jwtProvider.validateToken(jwt) && !antPathMatcher.match("/api/refresh", requestURI)) {
 			UtsAuthorDto authorDto = jwtProvider.getAuthentication(jwt);
@@ -76,17 +74,33 @@ public class JwtFilter extends OncePerRequestFilter  {
 			LOG.debug("将身份验证设置为安全的上下文 '{}', uri: {}", authorDto.getAuthor().getUsername(), requestURI);
 		} else {
 			LOG.debug("没有找到有效的JWT令牌, uri: {}", requestURI);
-			throw new ApiException(400,"无权限!");
+			throw new ApiException(400,"无权限:"+requestURI);
 		}
 
 		filterChain.doFilter(request, response);
-		throw new UnsupportedOperationException("Unimplemented method 'doFilterInternal'");
 	}
 
+	
 	private boolean shouldIgnoreRequest(HttpServletRequest request) {
+		String requestURI = request.getRequestURI();
+		String method = request.getMethod().toLowerCase();
+
+		if(method.equals("options")){
+			return true;
+		}
+		
 		String[] split = tangProperties.getOpenUrl().split(",");
 		for (String string : split) {
 			if (antPathMatcher.match(string, request.getRequestURI())) {
+				return true;
+			}
+		}
+
+		for(Map<String,String> map : TangConfig.notRoleList){
+			String pathVal = map.get("path");
+			String methodVal = map.get("method").toLowerCase();
+			System.out.println(pathVal+" "+methodVal);
+			if (antPathMatcher.match(pathVal, requestURI) && methodVal.equals(method)) {
 				return true;
 			}
 		}

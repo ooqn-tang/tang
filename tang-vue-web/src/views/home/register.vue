@@ -75,7 +75,7 @@ function register(){
 
 onMounted(() => {
   localStorage.removeItem("jwt")
-  localStorage.removeItem("authorData")
+  localStorage.removeItem("author")
 })
 
 </script>
