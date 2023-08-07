@@ -86,7 +86,7 @@ let insertNotice = () => {
     url: `/api/admin/notice`,
     method: "POST",
     data:form.value,
-  }).then((response) => {
+  }).then((res) => {
     ElMessage({type: 'success', message: '保存成功'})
     insertDialogVisible.value = false
     loadRecommend()
@@ -98,7 +98,7 @@ let deleteNotice = (index,row) => {
   request({
     url: `/api/admin/notice/${row.noticeId}`,
     method: "DELETE",
-  }).then((response) => {
+  }).then((res) => {
     noticeList.value.splice(index, 1)
     ElMessage({type: 'success', message: '删除成功'})
   });
@@ -110,7 +110,7 @@ let updateOrder = () => {
     url: `/api/admin/notice/order`,
     method: "PUT",
     data:noticeList.value,
-  }).then((response) => {
+  }).then((res) => {
     orderButton.value = true
     ElMessage({type: 'success', message: '保存成功'})
   });
@@ -141,7 +141,7 @@ let saveNotice = (index,row) => {
     url: `/api/admin/notice`,
     method: "PUT",
     data:row,
-  }).then((response) => {
+  }).then((res) => {
     ElMessage({type: 'success', message: '保存成功'})
     editIndex.value = -1
   });
@@ -151,8 +151,8 @@ let loadRecommend = () => {
   request({
     url: `/api/admin/notice`,
     method: "GET",
-  }).then((response) => {
-    noticeList.value = response.data
+  }).then((res) => {
+    noticeList.value = res.data
   });
 }
 

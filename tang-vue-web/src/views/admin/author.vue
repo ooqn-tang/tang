@@ -77,8 +77,8 @@ const saveAuthorRole = () => {
     url: `api/admin/role/author/${selectAuthorId.value}`,
     method: "POST",
     data:roleForm.value
-  }).then((response) => {
-    roleIdList.value = response.data;
+  }).then((res) => {
+    roleIdList.value = res.data;
     ElMessage({
       type: 'success',
       message: '删除成功',
@@ -95,13 +95,13 @@ const selectRole = (row) => {
   request({
     url: `api/admin/role`,
     method: "GET",
-  }).then((response) => {
-    roleList.value = response.data;
+  }).then((res) => {
+    roleList.value = res.data;
     request({
       url: `api/admin/role/author/${row.authorId}`,
       method: "GET",
-    }).then((response) => {
-      roleIdList.value = response.data;
+    }).then((res) => {
+      roleIdList.value = res.data;
     });
   });
 };
@@ -113,8 +113,8 @@ const selectAuthor = () => {
     params: {
       queryData: queryData.value,
     },
-  }).then((response) => {
-    authorList.value = response.data;
+  }).then((res) => {
+    authorList.value = res.data;
   });
 };
 
@@ -122,7 +122,7 @@ const deleteAuthor = (authorId) => {
   request({
     url: `/api/admin/author/${authorId}`,
     method: "DELETE",
-  }).then((response) => {
+  }).then((res) => {
     selectAuthor();
     ElMessage({
       type: 'success',
@@ -139,7 +139,7 @@ const handleDelete = (index, row) => {
   request({
     url: `/api/admin/author/${row.authorId}`,
     method: "DELETE",
-  }).then((response) => {
+  }).then((res) => {
     selectAuthor();
     ElMessage({
       type: 'success',
@@ -158,7 +158,7 @@ const handleSave = () => {
     url: `/api/admin/author`,
     method: "POST",
     data: form.value,
-  }).then((response) => {
+  }).then((res) => {
     selectAuthor();
     dialogVisible.value = false;
     ElMessage({
@@ -173,7 +173,7 @@ const handleUpdate = () => {
     url: `/api/admin/author`,
     method: "PUT",
     data: form.value,
-  }).then((response) => {
+  }).then((res) => {
     selectAuthor();
     dialogVisible.value = false;
     ElMessage({

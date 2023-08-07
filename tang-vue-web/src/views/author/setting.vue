@@ -55,8 +55,8 @@ function loadAuthor(){
   request({
     url: `/api/author/${username}`,
     method: "get",
-  }).then((response) => {
-    author.value = response.data;
+  }).then((res) => {
+    author.value = res.data;
   });
 };
 
@@ -65,7 +65,7 @@ function save(){
     url: `/api/author`,
     method: "put",
     data: author.value
-  }).then((response) => {
+  }).then((res) => {
     alert("保存成功")
   });
 };

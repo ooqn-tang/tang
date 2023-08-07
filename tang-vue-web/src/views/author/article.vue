@@ -48,9 +48,9 @@ function loadArticleByUsername(pageSize){
     url: `/api/article/list/${route.params.username}`,
     method: "get",
     params: { page: pageSize },
-  }).then((response) => {
-    page.value = response.data;
-    articleList.value = articleList.value.concat(response.data.content);
+  }).then((res) => {
+    page.value = res.data;
+    articleList.value = articleList.value.concat(res.data.content);
   });
 };
 
@@ -58,8 +58,8 @@ function loadSubjectList(){
   request({
     url: `/api/subject/username/${route.params.username}`,
     method: "GET",
-  }).then((response) => {
-    subjectList.value = response.data;
+  }).then((res) => {
+    subjectList.value = res.data;
   });
 };
 
@@ -67,8 +67,8 @@ function deleteArticle(articleId, index){
   request({
     url: `/api/article/${articleId}`,
     method: "DELETE",
-  }).then((response) => {
-    if (response.status == 200) {
+  }).then((res) => {
+    if (res.status == 200) {
       articleList.value.splice(index, 1);
     }
   });

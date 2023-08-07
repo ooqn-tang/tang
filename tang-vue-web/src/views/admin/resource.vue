@@ -89,7 +89,7 @@ let refresh = () => {
   request({
     url: `/api/admin/resource/refresh`,
     method: "GET",
-  }).then((response) => {
+  }).then((res) => {
     loadResourceList()
   });
 }
@@ -109,8 +109,8 @@ let loadResourceList = () => {
     params: {
       query: queryData.value
     }
-  }).then((response) => {
-    resourceList.value = response.data;
+  }).then((res) => {
+    resourceList.value = res.data;
   });
 }
 
@@ -119,7 +119,7 @@ let updateResource = () => {
     url: `/api/admin/resource`,
     method: "PUT",
     data: formData.value,
-  }).then((response) => {
+  }).then((res) => {
     ElMessage.success("保存成功");
     dialogVisible.value = false
     loadResourceList()
@@ -131,7 +131,7 @@ let insertResource = () => {
     url: `/api/admin/resource`,
     method: "POST",
     data: formData.value,
-  }).then((response) => {
+  }).then((res) => {
     ElMessage.success("保存成功");
     dialogVisible.value = false
     loadResourceList()
@@ -148,7 +148,7 @@ let deleteResource = (id) => {
       request({
         url: `/api/admin/resource/${id}`,
         method: "DELETE",
-      }).then((response) => {
+      }).then((res) => {
         ElMessage.success("删除成功");
         loadResourceList()
       });

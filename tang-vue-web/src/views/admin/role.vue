@@ -127,7 +127,7 @@ let selectRole = () => {
     method: "GET",
   }).then((res) => {
     loading.value = false;
-    roleList.value = response.data;
+    roleList.value = res.data;
   });
 };
 
@@ -139,7 +139,7 @@ let selectResource = (row) => {
     method: "GET",
   }).then((res) => {
     loading.value = false;
-    response.data.forEach((item) => {
+    res.data.forEach((item) => {
       resourceList.value.forEach((res) => {
         if (item.resourceId == res.resourceId) {
           multipleTable.value.toggleRowSelection(res);
@@ -163,7 +163,7 @@ function loadAllResource() {
     url: `/api/admin/resource`,
     method: "GET",
   }).then((res) => {
-    resourceList.value = response.data;
+    resourceList.value = res.data;
   });
 }
 

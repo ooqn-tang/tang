@@ -51,8 +51,8 @@ function selectSubjectList() {
   request({
     url: `/api/subject/list`,
     method: 'GET'
-  }).then((response) => {
-    subjectList.value = response.data.content
+  }).then((res) => {
+    subjectList.value = res.data.content
   })
 }
 </script>

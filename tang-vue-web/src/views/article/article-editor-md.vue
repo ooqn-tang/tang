@@ -91,14 +91,14 @@ function loadArticleAllInfo(articleId){
   request({
     url: `/api/article/load/${articleId}/all`,
     method: "GET",
-  }).then((response) => {
-    articleForm.value.articleId = response.data.article.articleId;
-    articleForm.value.title = response.data.article.title;
-    articleForm.value.synopsis = response.data.article.synopsis;
-    articleForm.value.text = response.data.article.text;
-    articleForm.value.markdown = response.data.article.markdown;
-    articleForm.value.categoryId = response.data.article.categoryId;
-    articleForm.value.subjectId = response.data.subject == null ? "" : response.data.subject.subjectId;
+  }).then((res) => {
+    articleForm.value.articleId = res.data.article.articleId;
+    articleForm.value.title = res.data.article.title;
+    articleForm.value.synopsis = res.data.article.synopsis;
+    articleForm.value.text = res.data.article.text;
+    articleForm.value.markdown = res.data.article.markdown;
+    articleForm.value.categoryId = res.data.article.categoryId;
+    articleForm.value.subjectId = res.data.subject == null ? "" : res.data.subject.subjectId;
   });
 }
 function saveArticle(){
@@ -111,7 +111,7 @@ function saveArticle(){
     url: `/api/article`,
     method: "PUT",
     data: articleForm.value,
-  }).then((response) => {
+  }).then((res) => {
     window.location.href = `/article/${articleForm.value.articleId}`;
   });
 }
@@ -120,8 +120,8 @@ function loadSubject(){
   request({
     url: `/api/subject/username/${store.state.username}`,
     method: "GET",
-  }).then((response) => {
-    subjectList = response.data;
+  }).then((res) => {
+    subjectList = res.data;
   });
 }
 
@@ -132,8 +132,8 @@ function loadCategoryList(){
       type: 1,
     },
     method: "GET",
-  }).then((response) => {
-    categoryList.value = response.data;
+  }).then((res) => {
+    categoryList.value = res.data;
   });
 }
 

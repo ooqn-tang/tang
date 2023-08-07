@@ -31,8 +31,8 @@ function findFansList(){
   request({
     url: `/api/fans/list`,
     method: 'get'
-  }).then((response) => {
-    fansList.value = response.data.content
+  }).then((res) => {
+    fansList.value = res.data.content
   })
 }
 
@@ -40,8 +40,8 @@ function deleteFansMethod(username, index){
   request({
     url: `/api/fans/${username}`,
     method: 'DELETE'
-  }).then((response) => {
-    if (response.data > 0) {
+  }).then((res) => {
+    if (res.data > 0) {
       fansList.value.splice(index, 1)
     }
   })

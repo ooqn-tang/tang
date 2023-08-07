@@ -47,9 +47,9 @@ function loadEssay(){
 		url: `/api/essay`,
 		method: "get",
 		params: { page: page.value.number }
-	}).then((response) => {
-		page.value = response.data;
-		essayList.value = essayList.value.concat(response.data.content);
+	}).then((res) => {
+		page.value = res.data;
+		essayList.value = essayList.value.concat(res.data.content);
 	});
 };
 
@@ -58,9 +58,9 @@ function insertEssay(){
 		url: `/api/essay`,
 		method: "post",
 		data: form
-	}).then((response) => {
+	}).then((res) => {
 		form = {};
-		essayList.value.unshift(response.data);
+		essayList.value.unshift(res.data);
 	});
 };	
 

@@ -48,11 +48,11 @@ function login() {
     url: `/api/authenticate`,
     method: 'post',
     data: loginData.value
-  }).then((response) => {
-    if (response.status === 200) {
+  }).then((res) => {
+    if (res.status === 200) {
       debugger
-      let author = jwt_decode(response.data);
-      localStorage.setItem("jwt", response.data)
+      let author = jwt_decode(res.data);
+      localStorage.setItem("jwt", res.data)
       localStorage.setItem("author", JSON.stringify(author))
       router.push({ path: "/author/" + author.sub })
     }

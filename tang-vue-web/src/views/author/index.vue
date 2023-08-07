@@ -82,14 +82,14 @@ function fansClick(username){
     request({
       url: `/api/fans/${username}`,
       method: 'POST'
-    }).then((response) => {
+    }).then((register) => {
       fans.value = 1
     })
   }else{
     request({
       url: `/api/fans/${username}`,
       method: 'DELETE'
-    }).then((response) => {
+    }).then((res) => {
       fans.value = 2
     })
   }
@@ -104,8 +104,8 @@ function isFans(){
   request({
     url: `/api/fans/username/${thisUsername}`,
     method: 'get'
-  }).then((response) => {
-    if(response.data > 0){
+  }).then((res) => {
+    if(res.data > 0){
       fans.value = 1
     }else{
       fans.value = 2
@@ -117,9 +117,9 @@ function getAuthor(){
   request({
     url: `/api/author/${thisUsername}`,
     method: 'get'
-  }).then((response) => {
-    if(response.status == 200){
-      author.value = response.data
+  }).then((res) => {
+    if(res.status == 200){
+      author.value = res.data
     }
   })
 }

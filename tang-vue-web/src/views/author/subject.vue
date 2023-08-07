@@ -74,8 +74,8 @@ function selectSubjectListByUsername(username){
   request({
     url: `/api/subject/username/${username}`,
     method: 'GET',
-  }).then((response) => {
-    subjectList.value = response.data
+  }).then((res) => {
+    subjectList.value = res.data
   })
 }
 
@@ -85,8 +85,8 @@ function save(){
       url: `/api/subject`,
       method: 'POST',
       data: dataFrom.value
-    }).then((response) => {
-      subjectList.value.unshift(response.data)
+    }).then((res) => {
+      subjectList.value.unshift(res.data)
       close.value.click()
     })
   } else {
@@ -94,8 +94,8 @@ function save(){
       url: `/api/subject`,
       method: 'PUT',
       data: dataFrom.value
-    }).then((response) => {
-      alert(JSON.stringify(response.data))
+    }).then((res) => {
+      alert(JSON.stringify(res.data))
     })
   }
 
@@ -113,7 +113,7 @@ function deleteClick(subjectId, index){
     request({
       url: `/api/subject/${subjectId}`,
       method: 'DELETE'
-    }).then((response) => {
+    }).then((res) => {
       subjectList.value.splice(index, 1);
     })
   }

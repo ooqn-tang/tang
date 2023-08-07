@@ -66,8 +66,8 @@ function register(){
     url: `/api/register`,
     method: 'post',
     data: loginData.value
-  }).then((response) => {
-    alert(response.data)
+  }).then((res) => {
+    alert(res.data)
   }).catch((error) => {
     alert(error.data)
   })

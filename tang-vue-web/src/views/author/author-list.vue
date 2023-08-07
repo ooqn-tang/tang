@@ -38,8 +38,8 @@ function selectAuthor(){
   request({
     url: `/api/author/selectAuthor`,
     method: 'GET'
-  }).then((response) => {
-    authorList.value = response.data.content
+  }).then((res) => {
+    authorList.value = res.data.content
   })
 }
 

@@ -69,8 +69,8 @@ let loadArticle = () => {
   request({
     url: `/api/admin/article`,
     method: "GET",
-  }).then((response) => {
-    articleList.value = response.data.content
+  }).then((res) => {
+    articleList.value = res.data.content
   });
 }
 

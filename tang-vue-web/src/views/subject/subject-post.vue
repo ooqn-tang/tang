@@ -64,8 +64,8 @@ function loadSubjectById(){
   request({
     url: `/api/subject/id/${route.params.subject_id}`,
     method: 'GET',
-  }).then((response) => {
-    subjectData.value = response.data
+  }).then((res) => {
+    subjectData.value = res.data
   })
 }
 

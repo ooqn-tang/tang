@@ -32,9 +32,9 @@ function collectList(pageNum){
     url: `/api/collect/list`,
     method: 'GET',
     params:{page: page.value.number}
-  }).then((response) => {
-    page.value = response.data
-    collects.value = collects.value.concat(response.data.content)
+  }).then((res) => {
+    page.value = res.data
+    collects.value = collects.value.concat(res.data.content)
   })
 }
 

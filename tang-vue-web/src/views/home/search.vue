@@ -58,9 +58,9 @@ function so(){
     url: `/api/article/so`,
     method: "GET",
     params: form.value,
-  }).then((response) => {
-    page.value = response.data
-    dataList.value = dataList.value.concat(response.data.content)
+  }).then((res) => {
+    page.value = res.data
+    dataList.value = dataList.value.concat(res.data.content)
     isLoding.value = false;
   });
 };

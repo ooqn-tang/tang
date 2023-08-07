@@ -98,14 +98,14 @@ function fansClick(username) {
     request({
       url: `/api/fans/${username}`,
       method: "POST",
-    }).then((response) => {
+    }).then((res) => {
       fans.value = 1;
     });
   } else {
     request({
       url: `/api/fans/${username}`,
       method: "DELETE",
-    }).then((response) => {
+    }).then((res) => {
       fans.value = 2;
     });
   }
@@ -114,8 +114,8 @@ function isFans() {
   request({
     url: `/api/fans/username/${article.value.author.username}`,
     method: "get",
-  }).then((response) => {
-    if (response.data == 1) {
+  }).then((res) => {
+    if (res.data == 1) {
       fans.value = 1;
     } else {
       fans.value = 2;
@@ -127,7 +127,7 @@ function collectClick() {
     request({
       url: `/api/collect/${articleId}`,
       method: "DELETE",
-    }).then((response) => {
+    }).then((res) => {
       collect = 0;
     });
   } else {
@@ -140,7 +140,7 @@ function collectClick() {
         title: article.title,
         synopsis: article.synopsis
       }
-    }).then((response) => {
+    }).then((res) => {
       collect = 1;
     });
   }
@@ -149,16 +149,16 @@ function isLike() {
   request({
     url: `/api/collect/${articleId}`,
     method: "GET",
-  }).then((response) => {
-    collect = response.data;
+  }).then((res) => {
+    collect = res.data;
   });
 }
 function loadArticleInfo() {
   request({
     url: `/api/article/load/${articleId}`,
     method: "GET",
-  }).then((response) => {
-    article.value = response.data
+  }).then((res) => {
+    article.value = res.data
     isThisUser.value = store.state.username == article.value.author.username
     isFans();
   });
@@ -167,16 +167,16 @@ function selectSubjectArticleList() {
   request({
     url: `/api/subject/article/${articleId}`,
     method: "GET",
-  }).then((response) => {
-    articleList = response.data;
+  }).then((res) => {
+    articleList = res.data;
   });
 }
 function loadRecommend() {
   request({
     url: `/api/article/recommend`,
     method: "GET",
-  }).then((response) => {
-    recommendList.value = response.data;
+  }).then((res) => {
+    recommendList.value = res.data;
   });
 }
 function load() {

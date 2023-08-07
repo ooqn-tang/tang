@@ -111,8 +111,8 @@ function createArticle(){
   request({
     url: `/api/article`,
     method: 'POST'
-  }).then((response) => {
-    let routeData = router.resolve({name:"article-editor-md",params:{id:response.data}});
+  }).then((res) => {
+    let routeData = router.resolve({name:"article-editor-md",params:{id:res.data}});
     window.open(routeData.href, '_blank');
   })
 }

@@ -53,8 +53,8 @@ function selectTag(type){
     url: `/api/message`,
     method: "GET",
     params: { type: type },
-  }).then((response) => {
-    dynamicList.value = response.data;
+  }).then((res) => {
+    dynamicList.value = res.data;
   });
 };
 
@@ -62,8 +62,8 @@ function authorListArticleCount(){
   request({
     url: `/api/author/authorListArticleCount`,
     method: "GET",
-  }).then((response) => {
-    authorList.value = response.data.list;
+  }).then((res) => {
+    authorList.value = res.data.list;
   });
 };
 
@@ -71,8 +71,8 @@ function loadDynamic(){
   request({
     url: `/api/message`,
     method: "GET",
-  }).then((response) => {
-    dynamicList.value = response.data;
+  }).then((res) => {
+    dynamicList.value = res.data;
   });
 };
 

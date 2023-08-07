@@ -86,9 +86,9 @@ function loadCategoryList(){
     url: '/api/category/list',
     method: 'get',
     params: { type: "1" }
-  }).then((response) => {
-    if (response.data.length > 0) {
-      categoryList.value = response.data
+  }).then((res) => {
+    if (res.data.length > 0) {
+      categoryList.value = res.data
     }
   })
 }
@@ -99,10 +99,10 @@ function loadArticle(item){
     url: url,
     method: 'get',
     params: { page: page.value.number, categoryId: item.categoryId }
-  }).then((response) => {
+  }).then((res) => {
     isLoding.value = false
-    page.value = response.data
-    articleList.value = articleList.value.concat(response.data.content)
+    page.value = res.data
+    articleList.value = articleList.value.concat(res.data.content)
   })
 }
 
