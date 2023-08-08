@@ -70,7 +70,8 @@ public class DtsSubjectController extends BaseController {
 
 	@NotRole
 	@GetMapping("search")
-	public Page<DtsSubjectDto> selectSubjectByName(@RequestParam(value = "subjectName", defaultValue = "") String name) {
+	public Page<DtsSubjectDto> selectSubjectByName(
+			@RequestParam(value = "subjectName", defaultValue = "") String name) {
 		Pageable pageable = PageRequest.of(1, 15);
 		return subjectService.findListBySubjectName(name, pageable);
 	}
@@ -102,8 +103,7 @@ public class DtsSubjectController extends BaseController {
 
 	@NotRole
 	@GetMapping("article/{articleId}")
-	public List<DtsArticle> findSubjectListByArticleId(
-			@PathVariable("articleId") String articleId) {
+	public List<DtsArticle> findSubjectListByArticleId(@PathVariable("articleId") String articleId) {
 		return articleSubjectService.findSubjectArticleTitleListByArticleId(articleId);
 	}
 }

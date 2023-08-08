@@ -92,12 +92,12 @@ function loadArticleAllInfo(articleId){
     url: `/api/article/load/${articleId}/all`,
     method: "GET",
   }).then((res) => {
-    articleForm.value.articleId = res.data.article.articleId;
-    articleForm.value.title = res.data.article.title;
-    articleForm.value.synopsis = res.data.article.synopsis;
-    articleForm.value.text = res.data.article.text;
-    articleForm.value.markdown = res.data.article.markdown;
-    articleForm.value.categoryId = res.data.article.categoryId;
+    articleForm.value.articleId = articleId;
+    articleForm.value.title = res.data.title;
+    articleForm.value.synopsis = res.data.synopsis;
+    articleForm.value.text = res.data.text;
+    articleForm.value.markdown = res.data.markdown;
+    articleForm.value.categoryId = res.data.categoryId;
     articleForm.value.subjectId = res.data.subject == null ? "" : res.data.subject.subjectId;
   });
 }

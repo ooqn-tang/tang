@@ -3,7 +3,8 @@
     <div class="col-md-3 col-lg-3 d-md-inline d-none">
       <div class="list-group mb-2" v-if="articleList.length > 0">
         <a class="list-group-item active">专题</a>
-          <a v-for="(item, index) in articleList" class="list-group-item" :class="item.articleId == article.articleId ? 'active2' : ''" :key="index"
+        <a v-for="(item, index) in articleList" class="list-group-item"
+          :class="item.articleId == article.articleId ? 'active2' : ''" :key="index"
           :href="'/article/' + item.articleId">{{ item.title }}</a>
       </div>
       <div class="list-group mb-2">
@@ -22,7 +23,7 @@
                   {{ article.author.nickname }}
                 </strong>
                 .
-                <span style="color: rgb(180, 180, 180)">{{ article.article.createTime }}</span>
+                <span style="color: rgb(180, 180, 180)">{{ article.createTime }}</span>
                 <button v-if="fans == 2" class="btn btn-outline-warning float-end t-b-m-1"
                   @click="fansClick(article.author.username)">
                   订阅
@@ -33,9 +34,9 @@
                 </button>
               </div>
               <h3>
-                <strong>{{ article.article.title }}</strong>
+                <strong>{{ article.title }}</strong>
               </h3>
-              <div class="markdown-body" v-html="article.article.text"></div>
+              <div class="markdown-body" v-html="article.text"></div>
             </div>
             <div class="card-body" v-if="loading">{{ dataText }}</div>
           </div>
@@ -54,11 +55,15 @@
   <nav class="navbar fixed-bottom navbar-light bg-light" style="border-top: 1px solid rgb(206, 206, 206)">
     <div class="container-fluid">
       <div class="col-md-12 col-lg-12">
-        <a :class="collect == 1 ? 'btn-outline-danger' : 'btn-outline-primary'" class="btn btn-sm mini-but" style="margin-left: 0px" @click="collectClick">收藏</a>
+        <a :class="collect == 1 ? 'btn-outline-danger' : 'btn-outline-primary'" class="btn btn-sm mini-but"
+          style="margin-left: 0px" @click="collectClick">收藏</a>
         <a class="btn btn-outline-primary btn-sm mini-but" disabled>举报</a>
-        <a class="btn btn-outline-primary btn-sm mini-but" :href="'https://blog.ooqn.com/article/' + articleId" target="_blank">阅读模式</a>
-        <router-link class="btn btn-outline-primary btn-sm mini-but" v-if="isThisUser" target="_blank" :to="{ name: 'article-editor-md', params: { id: articleId } }">修改</router-link>
-        <a class="btn btn-outline-primary btn-sm mini-but" onclick="document.body.scrollTop = document.documentElement.scrollTop = 0">⬆TOP</a>
+        <a class="btn btn-outline-primary btn-sm mini-but" :href="'https://blog.ooqn.com/article/' + articleId"
+          target="_blank">阅读模式</a>
+        <router-link class="btn btn-outline-primary btn-sm mini-but" v-if="isThisUser" target="_blank"
+          :to="{ name: 'article-editor-md', params: { id: articleId } }">修改</router-link>
+        <a class="btn btn-outline-primary btn-sm mini-but"
+          onclick="document.body.scrollTop = document.documentElement.scrollTop = 0">⬆TOP</a>
       </div>
     </div>
   </nav>

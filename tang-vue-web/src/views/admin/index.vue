@@ -89,7 +89,6 @@ body{
 }
 .el-menu .is-active {
     font-size: 15px;
-    background: rgb(238, 238, 238);
 }
 .el-menu-vertical-demo:not(.el-menu--collapse) {
   width: 200px;

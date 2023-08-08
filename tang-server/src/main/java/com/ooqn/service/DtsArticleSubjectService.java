@@ -154,13 +154,14 @@ public class DtsArticleSubjectService {
 		return articleRepository.save(article);
 	}
 
-	public DtsArticle updateArticle(String articleId, String subjectId, String text, String markdown) {
+	public DtsArticle updateArticle(String articleId, String subjectId, String title, String text, String markdown) {
 
 		String synopsis = StrUtil.sub(CommonUtil.delHTMLTag(text), 0, 150);
 		String textContextId = saveContext(articleId, text);
 		String markdownContextId = saveContext(articleId, markdown);
 
 		DtsArticle article = articleRepository.findById(articleId).orElseThrow();
+		article.setTitle(title);
 		article.setUpdateTime(DateUtil.date());
 		article.setTextContextId(textContextId);
 		article.setMarkdownContextId(markdownContextId);
@@ -168,7 +169,7 @@ public class DtsArticleSubjectService {
 
 		articleRepository.save(article);
 
-		if (subjectId != null) {
+		if (StrUtil.isNotBlank(subjectId)) {
 			Integer orderNum = subjectRelevanceRepository.findMaxOrderNumBySubjectId(subjectId);
 			if (orderNum == null) {
 				orderNum = 0;
@@ -208,11 +209,11 @@ public class DtsArticleSubjectService {
 	public DtsArticleDto selectArticleById(String articleId) {
 		DtsArticle article = articleRepository.findById(articleId).orElseThrow();
 		UtsAuthor author = authorRepository.findUsernameNicknameByAuthorId(article.getAuthorId()).orElseThrow();
-		DtsSubject subject = subjectRepository.findByDataId(articleId).get();
-
+		
 		DtsArticleDto articleDto = new DtsArticleDto(article);
 		articleDto.setAuthor(author);
-		articleDto.setSubject(subject);
+		subjectRepository.findByDataId(articleId).ifPresent(articleDto::setSubject);
+		contextRepository.findById(article.getTextContextId()).ifPresent(context -> articleDto.setText(context.getText()));
 		return articleDto;
 	}
 
@@ -220,10 +221,16 @@ public class DtsArticleSubjectService {
 		DtsArticle article = articleRepository.findById(articleId).orElseThrow();
 		UtsAuthor author = authorRepository.findUsernameNicknameByAuthorId(article.getAuthorId()).orElseThrow();
 		DtsSubject subject = subjectRepository.findByDataId(articleId).orElse(null);
+		String textContextId = article.getTextContextId();
+		String markdownContextId = article.getMarkdownContextId();
 
 		DtsArticleDto articleDto = new DtsArticleDto(article);
 		articleDto.setAuthor(author);
 		articleDto.setSubject(subject);
+		if(textContextId != null && markdownContextId != null){
+			contextRepository.findById(textContextId).ifPresent(context -> articleDto.setText(context.getText()));
+			contextRepository.findById(markdownContextId).ifPresent(context -> articleDto.setMarkdown(context.getText()));
+		}
 		return articleDto;
 	}
 

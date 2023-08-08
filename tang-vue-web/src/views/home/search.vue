@@ -10,10 +10,10 @@
         <li class="list-group-item" v-for="(item, index) in dataList" :key="index">
           <p class="article-title">
             <strong>
-              <a href="#" @click="openArticle(item.article.articleId)">{{ item.article.title }}</a>
+              <a href="#" @click="openArticle(item.articleId)">{{ item.title }}</a>
             </strong>
           </p>
-          <span>{{ item.article.synopsis }}</span>
+          <span>{{ item.synopsis }}</span>
         </li>
         <li class="list-group-item">
           <a @click="next()" v-if="!isLoding">获取</a><a v-if="isLoding">加载中...</a>

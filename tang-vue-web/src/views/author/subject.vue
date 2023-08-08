@@ -96,6 +96,7 @@ function save(){
       data: dataFrom.value
     }).then((res) => {
       alert(JSON.stringify(res.data))
+      close.value.click()
     })
   }
 

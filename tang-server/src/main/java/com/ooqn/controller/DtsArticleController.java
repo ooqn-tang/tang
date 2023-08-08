@@ -92,13 +92,15 @@ public class DtsArticleController extends BaseController {
 		String articleId = article.getArticleId();
 		String authorId = articleSubjectService.authorId(articleId);
 		String text = articleParam.getText();
+		String title = articleParam.getTitle();
 		String markdown = articleParam.getMarkdown();
-		
+		String subjectId = articleParam.getSubjectId();
+
 		if (StrUtil.equals(authorId, authorId())) {
 			article.setAuthorId(authorId);
 			article.setState(StateNum.normal);
 			article.setUpdateTime(DateUtil.date());
-			articleSubjectService.updateArticle(articleId, articleParam.getSubjectId(), text, markdown);
+			articleSubjectService.updateArticle(articleId, subjectId, title, text, markdown);
 		}
 	}
 
@@ -111,11 +113,7 @@ public class DtsArticleController extends BaseController {
 	@NotRole
 	@GetMapping("load/{articleId}/all")
 	public DtsArticleDto loadAll(@PathVariable(name = "articleId") String articleId) {
-		DtsArticleDto articleDto = articleSubjectService.selectArticleAllById(articleId);
-		if (articleDto == null) {
-			throw new ApiException();
-		}
-		return articleDto;
+		return articleSubjectService.selectArticleAllById(articleId);
 	}
 
 	@NotRole

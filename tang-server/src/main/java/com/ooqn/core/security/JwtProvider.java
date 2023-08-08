@@ -2,6 +2,7 @@ package com.ooqn.core.security;
 
 import java.security.Key;
 import java.util.Date;
+import java.util.LinkedHashMap;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.InitializingBean;
@@ -71,13 +72,8 @@ public class JwtProvider implements InitializingBean {
 	 */
 	public UtsAuthorDto getAuthentication(String token) {
 		Claims claims = Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token).getBody();
-		UtsAuthorDto authorDto = new UtsAuthorDto();
-		Object object = claims.get(tangProperties.getAuthorKey(), UtsAuthorDto.class);
-
-
-		
-		BeanUtils.copyProperties(object, authorDto);
-		return authorDto;
+		Object object = claims.get(tangProperties.getAuthorKey());
+		return JSON.toJavaObject(JSON.parseObject(JSON.toJSONString(object)), UtsAuthorDto.class);
 	}
 
 	/**

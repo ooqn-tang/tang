@@ -18,8 +18,8 @@
                 <div class="panel-body">
                     <ul class="blog-list">
                         <li th:each="item : ${articlePage.content}">
-                            <a th:href="'/article/' + ${item.article.articleId}" th:text="${item.article.title}"></a>
-                            <span th:text="${#dates.format(item.article.createTime, 'yyyy-MM-dd')}" class="blog-time"></span>
+                            <a th:href="'/article/' + ${item.articleId}" th:text="${item.title}"></a>
+                            <span th:text="${#dates.format(item.createTime, 'yyyy-MM-dd')}" class="blog-time"></span>
                             <hr class="hr"/>
                         </li>
                     </ul>

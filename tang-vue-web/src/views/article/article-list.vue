@@ -16,14 +16,14 @@
         <div class="card-body article-list p-0">
           <ul class="list-group ">
             <li class="list-group-item " v-for="(item, index) in articleList" :key="index">
-              <router-link :to="{ name: 'article_post', params: { id: item.article.articleId } }" class="article-title">
+              <router-link :to="{ name: 'article_post', params: { id: item.articleId } }" class="article-title">
                 <strong>
-                  <p v-text="item.article.title"></p>
+                  <p v-text="item.title"></p>
                 </strong>
               </router-link>
-              <div class="article-synopsis" style="color: #5f5a5a;">{{ item.article.synopsis }}</div>
+              <div class="article-synopsis" style="color: #5f5a5a;">{{ item.synopsis }}</div>
               <div>
-                <span class="date-color" style="font-size: 16px;">{{ item.article.createTime }} </span>
+                <span class="date-color" style="font-size: 16px;">{{ item.createTime }} </span>
                 <span class="date-color" style="font-size: 16px;" v-if="item.category != null"> . {{ item.category.name }}
                 </span>
 

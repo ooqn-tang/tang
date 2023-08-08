@@ -3,7 +3,6 @@ package com.ooqn.entity.model;
 import java.util.Date;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.annotation.Generated;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import lombok.Data;
@@ -14,7 +13,6 @@ import lombok.Data;
 public class DtsContext {
 
     @Id
-    @Generated("uuid")
     private String id;
 
     @Schema(description = "所属内容ID")
