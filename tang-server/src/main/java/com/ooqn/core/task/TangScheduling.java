@@ -16,7 +16,7 @@ import org.springframework.web.context.WebApplicationContext;
  */
 @Component
 @EnableScheduling
-public class MyScheduling {
+public class TangScheduling {
 
 	@Autowired
 	private StsNoticeService stsNoticeService;
@@ -24,7 +24,7 @@ public class MyScheduling {
 	@Autowired
 	private WebApplicationContext webApplicationContext;
 
-	public MyScheduling() {}
+	public TangScheduling() {}
 
 	/**
 	 * 定时更新广告 10分钟更新一次
