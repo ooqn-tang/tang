@@ -16,7 +16,6 @@ import cn.hutool.core.util.IdUtil;
 @Service
 public class DtsEssayService {
 
-	
 	@Autowired
 	private DtsEssayRepository essayRepository;
 

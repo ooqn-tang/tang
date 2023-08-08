@@ -161,6 +161,7 @@ public class DtsArticleSubjectService {
 		String markdownContextId = saveContext(articleId, markdown);
 
 		DtsArticle article = articleRepository.findById(articleId).orElseThrow();
+		article.setState(StateNum.normal);
 		article.setTitle(title);
 		article.setUpdateTime(DateUtil.date());
 		article.setTextContextId(textContextId);

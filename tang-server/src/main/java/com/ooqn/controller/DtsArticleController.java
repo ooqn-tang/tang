@@ -19,14 +19,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ooqn.core.BaseController;
 import com.ooqn.core.security.NotRole;
-import com.ooqn.entity.StateNum;
 import com.ooqn.entity.dto.DtsArticleDto;
 import com.ooqn.entity.model.DtsArticle;
 import com.ooqn.entity.param.DtsArticleParam;
 import com.ooqn.service.DtsArticleSubjectService;
 
-import cn.hutool.core.bean.BeanUtil;
-import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.StrUtil;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
@@ -87,17 +84,13 @@ public class DtsArticleController extends BaseController {
 
 	@PutMapping
 	public void update(@RequestBody DtsArticleParam articleParam) {
-		DtsArticle article = BeanUtil.toBean(articleParam, DtsArticle.class);
-		String articleId = article.getArticleId();
-		String authorId = articleSubjectService.authorId(articleId);
+		String articleId = articleParam.getArticleId();
 		String text = articleParam.getText();
 		String title = articleParam.getTitle();
 		String markdown = articleParam.getMarkdown();
 		String subjectId = articleParam.getSubjectId();
+		String authorId = articleSubjectService.authorId(articleId);
 		if (StrUtil.equals(authorId, authorId())) {
-			article.setAuthorId(authorId);
-			article.setState(StateNum.normal);
-			article.setUpdateTime(DateUtil.date());
 			articleSubjectService.updateArticle(articleId, subjectId, title, text, markdown);
 		}
 	}

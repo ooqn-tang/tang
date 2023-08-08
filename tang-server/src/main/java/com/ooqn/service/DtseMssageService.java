@@ -22,7 +22,7 @@ public class DtseMssageService {
 	public List<DtsMessageDto> authorMessageList(String authorId) {
 		List<DtsMessage> messageList = messageRepository.findMessageByAuthorId(authorId);
 		return messageList.stream().map(message -> {
-			return  new DtsMessageDto(message);
+			return new DtsMessageDto(message);
 		}).collect(Collectors.toList());
 	}
 }

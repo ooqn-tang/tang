@@ -35,7 +35,7 @@ public class DtsCollectController extends BaseController {
 	@GetMapping("{dataId}")
 	public Long collect(@PathVariable("dataId") String dataId) {
 		String authorId = authorId();
-		return collectService.select(authorId, dataId);
+		return collectService.select(dataId, authorId);
 	}
 
 	@GetMapping("list")
@@ -48,18 +48,13 @@ public class DtsCollectController extends BaseController {
 	@PostMapping
 	public DtsCollect insert(@RequestBody DtsCollectParam collectParam) {
 		DtsCollect collect = BeanUtil.toBean(collectParam, DtsCollect.class);
-		DateTime date = DateUtil.date();
 		String authorId = authorId();
-
-		collect.setCollectId(IdUtil.objectId());
-		collect.setAuthorId(authorId);
-		collect.setCreateTime(date);
-		return collectService.insert(collect);
+		return collectService.insert(collect, authorId);
 	}
 
 	@DeleteMapping("{dataId}")
 	public void delete(@PathVariable("dataId") String dataId) {
 		String authorId = authorId();
-		collectService.unCollect(authorId, dataId);
+		collectService.unCollect(dataId, authorId);
 	}
 }
