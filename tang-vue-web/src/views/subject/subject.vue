@@ -7,12 +7,12 @@
           <div class="card move-b-lr-0">
             <div class="card-body" style="">
               <p class="card-text text-truncate">
-                <router-link :to="{name:'subject_post',params:{subject_id:item.subject.subjectId}}">
-                  <strong>{{item.subject.subjectName}}</strong>
+                <router-link :to="{name:'subject_post',params:{subject_id:item.subjectId}}">
+                  <strong>{{item.subjectName}}</strong>
                 </router-link>
               </p>
               <p class="card-text text-truncate">作者：{{item.author.nickname}}</p>
-              <p class="card-text text-truncate">专辑描述：{{item.subject.synopsis}}</p>
+              <p class="card-text text-truncate">专辑描述：{{item.synopsis}}</p>
             </div>
           </div>
         </div>

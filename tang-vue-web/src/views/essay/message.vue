@@ -11,9 +11,9 @@
 			<li class="list-group-item" v-for="(item, index) in essayList" :key="index">
 				<p>
 					<router-link :to="{name:'author_article',params:{username : item.author.username}}">{{item.author.nickname}}</router-link>
-					<span class="float-end">{{item.essay.createTime}}</span>
+					<span class="float-end">{{item.createTime}}</span>
 				</p>
-				{{item.essay.text}}
+				{{item.text}}
 			</li>
 			<li class="list-group-item">
 				<a @click="next()">获取</a>
