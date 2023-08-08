@@ -19,9 +19,6 @@ import com.ooqn.entity.param.DtsCollectParam;
 import com.ooqn.service.DtsCollectService;
 
 import cn.hutool.core.bean.BeanUtil;
-import cn.hutool.core.date.DateTime;
-import cn.hutool.core.date.DateUtil;
-import cn.hutool.core.util.IdUtil;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
