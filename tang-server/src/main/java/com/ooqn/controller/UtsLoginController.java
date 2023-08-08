@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSONObject;
 import com.ooqn.core.BaseController;
-import com.ooqn.core.NotRole;
 import com.ooqn.core.exception.ApiException;
 import com.ooqn.core.security.JwtProvider;
+import com.ooqn.core.security.NotRole;
 import com.ooqn.entity.dto.UtsAuthorDto;
 import com.ooqn.entity.model.UtsAuthor;
 import com.ooqn.entity.param.UtsLoginParam;
@@ -55,15 +55,15 @@ public class UtsLoginController extends BaseController {
         String password = loginParam.getPassword();
 
         UtsAuthorDto authorDto = utsUserDetailsService.loadUserByUsername(username);
-        if(authorDto == null) {
-            throw new ApiException("用户不存在");
+        if (authorDto == null) {
+            throw new ApiException("用户不存在！");
         }
 
         if (!BCrypt.checkpw(password, authorDto.getPassword())) {
-            throw new ApiException("密码错误");
+            throw new ApiException("密码错误！");
         }
         return jwtProvider.createToken(authorDto, true);
-        
+
     }
 
     @NotRole
@@ -75,7 +75,7 @@ public class UtsLoginController extends BaseController {
             UtsAuthorDto author = utsUserDetailsService.loadUserByUsername(authorDto.getUsername());
             return jwtProvider.createToken(author, true);
         }
-        throw new ApiException("无效token");
+        throw new ApiException("无效token！");
     }
 
     @NotRole
@@ -85,7 +85,7 @@ public class UtsLoginController extends BaseController {
         if (Validator.isEmail(mail)) {
             Boolean isTrue = authorService.selectMailIsTrue(mail);
             if (isTrue) {
-                throw new ApiException("邮箱以存在");
+                throw new ApiException("邮箱以存在！");
             }
             UtsAuthor author = BeanUtil.toBean(param, UtsAuthor.class);
             String password = param.getPassword();
@@ -95,11 +95,11 @@ public class UtsLoginController extends BaseController {
             author.setUpdateTime(DateUtil.date());
             UtsAuthor utsAuthor = authorService.insertAuthor(author);
             if (utsAuthor != null) {
-                return "注册成功";
+                return "注册成功！";
             }
-            throw new ApiException();
+            throw new ApiException("注册失败！");
         } else {
-            throw new ApiException("请输入邮箱号");
+            throw new ApiException("请输入邮箱号！");
         }
     }
 
@@ -109,11 +109,11 @@ public class UtsLoginController extends BaseController {
         String mail = param.getMail();
         Boolean isTrue = authorService.selectMailIsTrue(mail);
         if (!isTrue) {
-            throw new ApiException("邮箱不存在");
+            throw new ApiException("邮箱不存在！");
         }
         String code = fifoCache.get(mail);
         if (code == null) {
-            throw new ApiException("没有发送邮箱号");
+            throw new ApiException("没有发送邮箱号！");
         }
         if (StrUtil.equals(code, param.getCode())) {
             String password = param.getPassword();
@@ -121,7 +121,7 @@ public class UtsLoginController extends BaseController {
             author.setPassword(BCrypt.hashpw(password));
             UtsAuthor update = authorService.update(author);
             if (update != null) {
-                return "修改成功";
+                return "修改成功！";
             }
         }
         throw new ApiException();

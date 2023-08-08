@@ -2,9 +2,7 @@ package com.ooqn.core.security;
 
 import java.security.Key;
 import java.util.Date;
-import java.util.LinkedHashMap;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -13,8 +11,6 @@ import com.alibaba.fastjson.JSON;
 import com.ooqn.entity.dto.UtsAuthorDto;
 import com.ooqn.entity.propertie.TangProperties;
 
-import cn.hutool.core.bean.BeanUtil;
-import cn.hutool.json.JSONObject;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
@@ -44,14 +40,14 @@ public class JwtProvider implements InitializingBean {
 	}
 
 	/**
-	 * 创建JWT。描述JWT。使用HS256加密算法。加密前传入用户名、令牌、过期时 {tangProperties.getJwt().getTokenValidityInSecondsForRememberMe()} 
+	 * 创建JWT。描述JWT。使用HS256加密算法。加密前传入用户名、令牌、过期时
+	 * {tangProperties.getJwt().getTokenValidityInSecondsForRememberMe()}
+	 * 
 	 * @param details
 	 * @param rememberMe
 	 * @return
 	 */
 	public String createToken(UtsAuthorDto authorDto, boolean rememberMe) {
-
-
 		long now = (new Date()).getTime();
 		Date validity;
 		if (rememberMe) {
@@ -59,7 +55,6 @@ public class JwtProvider implements InitializingBean {
 		} else {
 			validity = new Date(now + tangProperties.getJwt().getTokenValidityInSeconds());
 		}
-
 		return Jwts.builder().setSubject(authorDto.getUsername())
 				.claim(tangProperties.getAuthorKey(), authorDto)
 				.signWith(key, SignatureAlgorithm.HS512).setExpiration(validity).compact();
@@ -67,6 +62,7 @@ public class JwtProvider implements InitializingBean {
 
 	/**
 	 * 通过Token获取用户信息。
+	 * 
 	 * @param token
 	 * @return 用户上下文 Authentication
 	 */
@@ -78,6 +74,7 @@ public class JwtProvider implements InitializingBean {
 
 	/**
 	 * 严重JWT
+	 * 
 	 * @param authToken
 	 * @return
 	 */

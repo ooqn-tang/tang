@@ -20,6 +20,7 @@ public class UtsAuthorDto extends UtsAuthor {
 	public UtsAuthorDto(UtsAuthor author) {
 		BeanUtils.copyProperties(author, this);
 	}
+	
 	private List<UtsRole> roleList;
 
 }

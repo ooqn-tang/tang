@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ooqn.core.BaseController;
-import com.ooqn.core.api.ResponseCode;
+import com.ooqn.core.ResponseCode;
 import com.ooqn.core.exception.ApiException;
 import com.ooqn.entity.model.UtsAuthor;
 import com.ooqn.entity.model.UtsFans;

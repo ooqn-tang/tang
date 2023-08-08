@@ -1,4 +1,4 @@
-package com.ooqn.core;
+package com.ooqn.core.security;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

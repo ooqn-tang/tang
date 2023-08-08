@@ -3,7 +3,6 @@ package com.ooqn.core;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import com.ooqn.core.api.ResponseCode;
 import com.ooqn.core.exception.ApiException;
 import com.ooqn.entity.dto.UtsAuthorDto;
 

@@ -10,7 +10,6 @@ import com.ooqn.entity.dto.UtsAuthorDto;
 import com.ooqn.entity.model.UtsAuthor;
 import com.ooqn.entity.model.UtsRole;
 
-import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.lang.Validator;
 
 /**
@@ -26,7 +25,9 @@ public class UtsUserDetailsService {
 	private UtsRoleService roleService;
 
 	public UtsAuthorDto loadUserByUsername(String username)  {
+		
 		UtsAuthor author;
+
 		if (Validator.isEmail(username)) {
 			author = authorService.selectAuthorByMail(username);
 		} else {

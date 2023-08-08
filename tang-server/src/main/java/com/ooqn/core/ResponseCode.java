@@ -1,4 +1,4 @@
-package com.ooqn.core.api;
+package com.ooqn.core;
 
 /**
  * 枚举了一些常用API操作码 Created by macro on 2019/4/19.

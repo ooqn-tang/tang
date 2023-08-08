@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ooqn.core.BaseController;
-import com.ooqn.core.NotRole;
+import com.ooqn.core.security.NotRole;
 import com.ooqn.entity.model.DtsCategory;
 import com.ooqn.service.DtsCategoryService;
 

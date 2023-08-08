@@ -14,11 +14,11 @@ import org.springframework.web.filter.CorsFilter;
 public class TangConfig {
 
     // 不需要取消控制的接口，url,method
-    public static List<Map<String,String>> notRoleList = new ArrayList<>();
-    
+    public static List<Map<String, String>> notRoleList = new ArrayList<>();
+
     @Bean
     public CorsFilter corsFilter() {
-        
+
         // 1.创建 CORS 配置对象
         CorsConfiguration config = new CorsConfiguration();
         // 支持域

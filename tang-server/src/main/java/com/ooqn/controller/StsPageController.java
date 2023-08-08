@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.alibaba.fastjson.JSONObject;
-import com.ooqn.core.NotRole;
+import com.ooqn.core.security.NotRole;
 import com.ooqn.entity.dto.DtsArticleDto;
 import com.ooqn.entity.dto.DtsSubjectDto;
 import com.ooqn.service.DtsArticleSubjectService;

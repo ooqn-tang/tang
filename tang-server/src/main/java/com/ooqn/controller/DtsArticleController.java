@@ -18,8 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ooqn.core.BaseController;
-import com.ooqn.core.NotRole;
-import com.ooqn.core.exception.ApiException;
+import com.ooqn.core.security.NotRole;
 import com.ooqn.entity.StateNum;
 import com.ooqn.entity.dto.DtsArticleDto;
 import com.ooqn.entity.model.DtsArticle;
@@ -70,13 +69,6 @@ public class DtsArticleController extends BaseController {
 		return articleSubjectService.selectArticleListRandom();
 	}
 
-	@PostMapping
-	public String create() {
-		String authorId = authorId();
-		DtsArticle article = articleSubjectService.insertArticle(authorId);
-		return article.getArticleId();
-	}
-
 	@DeleteMapping("{articleId}")
 	public ResponseEntity<String> delete(@PathVariable("articleId") String articleId) {
 		String authorId = articleSubjectService.authorId(articleId);
@@ -84,6 +76,13 @@ public class DtsArticleController extends BaseController {
 			articleSubjectService.deleteByArticleIdAndAuthorId(articleId, authorId());
 		}
 		return ResponseEntity.ok("处理成功");
+	}
+
+	@PostMapping
+	public String create() {
+		String authorId = authorId();
+		DtsArticle article = articleSubjectService.insertArticle(authorId);
+		return article.getArticleId();
 	}
 
 	@PutMapping
@@ -95,7 +94,6 @@ public class DtsArticleController extends BaseController {
 		String title = articleParam.getTitle();
 		String markdown = articleParam.getMarkdown();
 		String subjectId = articleParam.getSubjectId();
-
 		if (StrUtil.equals(authorId, authorId())) {
 			article.setAuthorId(authorId);
 			article.setState(StateNum.normal);

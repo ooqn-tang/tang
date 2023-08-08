@@ -1,7 +1,8 @@
 package com.ooqn.core.exception;
 
-import com.ooqn.core.api.ResponseCode;
 import org.springframework.http.HttpStatus;
+
+import com.ooqn.core.ResponseCode;
 
 /**
  * 自定义API异常

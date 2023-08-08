@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ooqn.core.BaseController;
-import com.ooqn.core.NotRole;
 import com.ooqn.core.exception.ApiException;
+import com.ooqn.core.security.NotRole;
 import com.ooqn.entity.model.UtsAuthor;
 import com.ooqn.entity.param.UtsAuthorParam;
 import com.ooqn.service.UtsAuthorService;
@@ -46,7 +46,7 @@ public class UtsAuthorController extends BaseController {
 		author.setAuthorId(authorId);
 		UtsAuthor update = authorService.update(author);
 		if (update != null) {
-			return "更新成功";
+			return "更新成功！";
 		}
 		throw new ApiException();
 	}
