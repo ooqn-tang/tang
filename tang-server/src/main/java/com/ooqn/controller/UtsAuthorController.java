@@ -14,13 +14,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ooqn.core.BaseController;
-import com.ooqn.core.exception.ApiException;
 import com.ooqn.core.security.NotRole;
 import com.ooqn.entity.model.UtsAuthor;
 import com.ooqn.entity.param.UtsAuthorParam;
 import com.ooqn.service.UtsAuthorService;
 
-import cn.hutool.core.bean.BeanUtil;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
