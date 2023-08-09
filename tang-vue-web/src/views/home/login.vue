@@ -34,8 +34,7 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
-import { useStore } from 'vuex'
-import { useRoute, useRouter } from "vue-router"
+import { useRouter } from "vue-router"
 
 import jwt_decode from "jwt-decode"
 import request from 'utils/request'

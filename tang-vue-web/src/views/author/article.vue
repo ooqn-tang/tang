@@ -13,7 +13,7 @@
         <button class="btn btn-outline-danger float-end blog-btn" v-if="isThisUser" @click="deleteArticle(item.articleId, index)">
           删除
         </button>
-        <router-link class="btn btn-outline-warning float-end blog-btn" v-if="isThisUser" target="_blank" :to="{ name: 'article-editor-md', params: { id: item.articleId } }">
+        <router-link class="btn btn-outline-danger float-end blog-btn" v-if="isThisUser" target="_blank" :to="{ name: 'article-editor-md', params: { id: item.articleId } }">
           修改
         </router-link>
       </div>

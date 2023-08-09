@@ -1,9 +1,9 @@
 <template>
   <div class="admin-nav">
-    <span @click="isCollapse = !isCollapse">
+    <span>
       <el-button type="primary" round>内容管理系统</el-button>
-      <el-button type="primary" round v-if="isCollapse">展开</el-button>
-      <el-button type="primary" round v-if="!isCollapse">收起</el-button>
+      <el-button type="primary" round v-if="isCollapse" @click="isCollapse = !isCollapse">展开</el-button>
+      <el-button type="primary" round v-if="!isCollapse" @click="isCollapse = !isCollapse">收起</el-button>
     </span>
     <span class="float-end">
       <el-button type="primary" round>{{$store.state.author.nickname}}</el-button>
@@ -11,31 +11,16 @@
     </span>
   </div>
 <div class="admin-main">
-  <el-menu :default-active="routeName" class="el-menu-vertical-demo" :collapse="isCollapse" @open="handleOpen" @close="handleClose">
-    <el-menu-item index="admin_article" @click="$router.push({name:'admin_article'})">
-      <el-icon><document /></el-icon>
-      <template #title>文章</template>
-    </el-menu-item>
-    <el-menu-item index="admin_recommend" @click="$router.push({name:'admin_recommend'})">
-      <el-icon><document /></el-icon>
-      <template #title>推荐</template>
-    </el-menu-item>
-    <el-menu-item index="admin_author"  @click="$router.push({name:'admin_author'})">
-      <el-icon><document /></el-icon>
-      <template #title>用户</template>
-    </el-menu-item>
-     <el-menu-item index="admin_role" @click="$router.push({name:'admin_role'})">
-      <el-icon><document /></el-icon>
-      <template #title>角色</template>
-    </el-menu-item>
-    <el-menu-item index="admin_resource" @click="$router.push({name:'admin_resource'})">
-      <el-icon><document /></el-icon>
-      <template #title>资源</template>
-    </el-menu-item>
-    <el-menu-item index="6" @click="$router.push({path:'/'})">
-      <el-icon><setting /></el-icon>
-      <template #title>门户</template>
-    </el-menu-item>
+  <el-menu default-active="0" class="el-menu-vertical-demo" :collapse="isCollapse">
+    <div>
+      <template v-for="(item, index) in mList" >
+        <el-menu-item :index="index+'-'" @click="openMenu(item)">
+          <el-icon><document /></el-icon>
+          <template #title>{{ item.mate.name }}</template>
+        </el-menu-item>
+      </template>
+    </div>
+    
 </el-menu>
 <div class="admin-body">
   <router-view/>
@@ -46,19 +31,17 @@
 </template>
 
 <script setup>
-import request from "utils/request";
-import { useRouter, useRoute } from "vue-router";
+import { useRoute,useRouter } from "vue-router";
 import { useStore } from "vuex";
 import { onMounted,ref,watch } from "vue";
-import { ElButton } from "element-plus";
+import { ElButton, radioGroupEmits } from "element-plus";
 
-let router = useRouter();
 let route = useRoute();
+let router = useRouter();
 let store = useStore();
 
-let routeName = ref("admin_article");
-let activeIndex = ref("admin_article");
 let isCollapse = ref(false);
+let mList = ref([])
 
 
 let logout = () => {
@@ -69,13 +52,17 @@ let logout = () => {
 };
 
 onMounted(() => {
-  
+  let adminRouterList = router.getRoutes().filter((item)=>{if(item.name == 'admin'){return item}})
+  mList.value = adminRouterList[0].children;
 });
 
 watch(route, (to, from) => {
-  routeName.value = to.name;
-  activeIndex.value = to.name;
+
 });
+
+let openMenu = (item) => {
+  router.push({name:item.name})
+}
 
 </script>
 
@@ -103,4 +90,13 @@ body{
 .admin-body{
   padding:10px;width:100%;float:right;overflow-y: scroll;height: 100%;
 }
+
+  /*隐藏文字*/
+  .el-menu--collapse  .el-submenu__title span{
+    display: none;
+  }
+  /*隐藏 > */
+  .el-menu--collapse  .el-submenu__title .el-submenu__icon-arrow{
+    display: none;
+  }
 </style>

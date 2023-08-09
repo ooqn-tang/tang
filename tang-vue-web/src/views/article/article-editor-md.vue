@@ -54,10 +54,9 @@ import "highlight.js/styles/github.css";
 import { marked } from "marked";
 import request from "utils/request";
 import { onMounted, ref, watch } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
+import { useRoute } from 'vue-router';
 import { useStore } from 'vuex';
 
-const router = useRouter();
 const route = useRoute();
 const store = useStore();
 

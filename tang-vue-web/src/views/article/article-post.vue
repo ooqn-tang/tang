@@ -73,16 +73,14 @@
 import "highlight.js/styles/github.css";
 import request from "utils/request";
 import { onMounted, ref } from 'vue';
-import { useRoute, useRouter } from "vue-router";
+import { useRoute } from "vue-router";
 import { useStore } from 'vuex';
 
-const router = useRouter()
 const route = useRoute()
 const store = useStore()
 
 let fans = ref(1);
 let articleId = ref(route.query.value);
-let loginUsername = ref("");
 
 let loading = ref(false);
 let recommendList = ref([]);
@@ -91,7 +89,6 @@ let article = ref({
   author: {}
 });
 let isThisUser = ref(false)
-let subject = ref([]);
 let articleList = ref([]);
 let collect = ref(0);
 let dataText = ref('加载中...')

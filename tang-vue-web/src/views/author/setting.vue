@@ -35,11 +35,8 @@
 import request from "utils/request";
 import { removeToken } from "utils/token";
 import { onMounted, ref } from "vue";
-import { useRoute, useRouter } from "vue-router";
 import { useStore } from "vuex";
 
-let router = useRouter();
-let route = useRoute();
 let store = useStore();
 
 let author = ref({

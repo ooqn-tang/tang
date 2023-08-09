@@ -13,7 +13,9 @@
               <a href="#" @click="openArticle(item.articleId)">{{ item.title }}</a>
             </strong>
           </p>
-          <span>{{ item.synopsis }}</span>
+          <p style="width: 100%;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
+            {{ item.synopsis }}
+          </p>
         </li>
         <li class="list-group-item">
           <a @click="next()" v-if="!isLoding">获取</a><a v-if="isLoding">加载中...</a>
@@ -35,21 +37,14 @@
 import request from "utils/request";
 
 import { onMounted, ref } from "vue";
-import { useRouter, useRoute } from "vue-router";
-import { useStore } from "vuex";
+import { useRouter } from "vue-router";
 
-const route = useRoute();
 const router = useRouter();
-const store = useStore();
 
 let dataList = ref([]);
 let isLoding = ref(true);
-let page = ref({
-  number: 0
-})
-let form = ref({
-  wb: ""
-})
+let page = ref({number: 0})
+let form = ref({wb: ""})
 
 function so(){
   isLoding.value = true;

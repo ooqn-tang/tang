@@ -67,7 +67,10 @@ public class UtsAuthorService {
 		return authorRepository.save(author);
 	}
 
-	public UtsAuthor update(UtsAuthor author) {
+	public UtsAuthor update(String authorId, String nickname, String signature) {
+		UtsAuthor author = authorRepository.findById(authorId).orElseThrow();
+		author.setNickname(nickname);
+		author.setSignature(signature);
 		return authorRepository.save(author);
 	}
 

@@ -108,23 +108,52 @@ const routes = [
             {
                 path:"article",
                 name:"admin_article",
-                component: () => import('views/admin/article.vue')
+                component: () => import('views/admin/article.vue'),
+                mate:{
+                    isM:true,
+                    name:'文章管理'
+                }
             },{
                 path:"recommend",
                 name:"admin_recommend",
-                component: () => import('views/admin/recommend.vue')
+                component: () => import('views/admin/recommend.vue'),
+                mate:{
+                    isM:true,
+                    name:'推荐管理'
+                }
             },{
                 path:"author",
                 name:"admin_author",
-                component: () => import('views/admin/author.vue')
+                component: () => import('views/admin/author.vue'),
+                mate:{
+                    isM:true,
+                    name:'用户管理'
+                }
             },{
                 path:"role",
                 name:"admin_role",
-                component: () => import('views/admin/role.vue')
+                component: () => import('views/admin/role.vue'),
+                mate:{
+                    isM:true,
+                    name:'角色管理'
+                }
             },{
                 path:"resource",
                 name:"admin_resource",
-                component: () => import('views/admin/resource.vue')
+                component: () => import('views/admin/resource.vue'),
+                mate:{
+                    isM:true,
+                    name:'资源管理'
+                }
+            },{
+                path:"resource",
+                name:"admin_resource",
+                mate:{
+                    isM:true,
+                    name:'资源管理',
+                    isLink:true,
+                    openUrl:"http://baidu.com"
+                }
             }
         ]
     },

@@ -55,11 +55,7 @@
 <script setup>
 import request from 'utils/request';
 import { onMounted, ref } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
 
-let route = useRoute();
-let router = useRouter();
-let fastTag = ref(null);
 let selectCategoryId = ref(0);
 let page = ref({ number: 0 });
 let articleList = ref([]);

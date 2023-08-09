@@ -40,15 +40,11 @@ public class UtsAuthorController extends BaseController {
 	}
 
 	@PutMapping
-	public String update(@RequestBody UtsAuthorParam authorParam) {
-		UtsAuthor author = BeanUtil.toBean(authorParam, UtsAuthor.class);
+	public UtsAuthor update(@RequestBody UtsAuthorParam authorParam) {
 		String authorId = authorId();
-		author.setAuthorId(authorId);
-		UtsAuthor update = authorService.update(author);
-		if (update != null) {
-			return "更新成功！";
-		}
-		throw new ApiException();
+		String nickname = authorParam.getNickname();
+		String signature = authorParam.getSignature();
+		return authorService.update(authorId, nickname, signature);
 	}
 
 	@NotRole

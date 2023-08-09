@@ -5,6 +5,7 @@ import java.util.Date;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.Lob;
 import lombok.Data;
 
 @Entity
@@ -19,6 +20,7 @@ public class DtsContext {
     private String dataId;
 
     @Schema(description = "正文")
+    @Lob
     private String text;
 
     @Schema(description = "创建时间")

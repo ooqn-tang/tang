@@ -73,12 +73,6 @@
 import { ElMessage, ElMessageBox } from "element-plus";
 import request from "utils/request";
 import { onMounted, ref } from "vue";
-import { useRoute, useRouter } from "vue-router";
-import { useStore } from "vuex";
-
-let router = useRouter();
-let store = useStore();
-let route = useRoute();
 
 let dialogVisible = ref(false)
 let resourceList = ref([])

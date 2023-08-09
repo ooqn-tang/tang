@@ -18,21 +18,13 @@
 			<li class="list-group-item">
 				<a @click="next()">获取</a>
 			</li>
-			
 		</ul>
-
 	</div>
 </template>
   
 <script setup>
 import request from "utils/request";
 import { onMounted,ref } from "vue";
-import { useRouter, useRoute } from "vue-router";
-import { useStore } from "vuex";
-
-let router = useRouter();
-let route = useRoute();
-let store = useStore();
 
 let page = ref({
 	number: 0

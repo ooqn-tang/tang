@@ -32,7 +32,6 @@
         <el-popconfirm
               confirm-button-text="确认"
               cancel-button-text="取消"
-              :icon="InfoFilled"
               icon-color="red"
               @confirm="deleteNotice(scope.$index, scope.row)"
               title="是否确认删除?"

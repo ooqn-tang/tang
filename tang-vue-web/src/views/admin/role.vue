@@ -72,13 +72,7 @@
 
 <script setup>
 import request from "utils/request";
-import { onMounted, reactive, ref, watch } from "vue";
-import { useRoute, useRouter } from "vue-router";
-import { useStore } from "vuex";
-
-let router = useRouter();
-let route = useRoute();
-let store = useStore();
+import { onMounted, ref } from "vue";
 
 let multipleTable = ref()
 

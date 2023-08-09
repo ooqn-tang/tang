@@ -42,13 +42,6 @@
 import request from 'utils/request';
 import { onMounted,ref } from "vue";
 
-import { useRoute, useRouter } from "vue-router";
-import { useStore } from "vuex";
-
-let router = useRouter();
-let store = useStore();
-let route = useRoute();
-
 let loginData = ref({
   username: "",
   password: "",
@@ -79,7 +72,6 @@ onMounted(() => {
 })
 
 </script>
-
 <style scoped>
 .body{
   background-image: url('https://img-s-msn-com.akamaized.net/tenant/amp/entityid/AAOElaZ.img') !important;

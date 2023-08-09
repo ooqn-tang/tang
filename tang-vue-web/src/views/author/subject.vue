@@ -48,18 +48,16 @@
 
 <script setup>
 import { onMounted, ref } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
+import { useRoute } from 'vue-router'
 import { useStore } from 'vuex'
 
 import request from 'utils/request'
 
 let store = useStore()
-let router = useRouter()
 let route = useRoute()
 
 let close = ref(null)
 let isThisUser = ref(false)
-let thisItem = ref({});
 let subjectList = ref([])
 let dataFrom = ref({
   subjectId: "",

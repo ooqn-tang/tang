@@ -5,6 +5,7 @@
         <strong v-text="item.nickname"></strong>
       </router-link>
       <span class="float-end" @click="deleteFansMethod(item.username, index)">取消关注</span>
+      <div class="article-synopsis">{{ item.signature }}</div>
     </li>
     <li class="list-group-item" @click="loadArticle()">
       获取
@@ -15,16 +16,7 @@
 <script setup>
 import request from 'utils/request'
 import { onMounted, ref } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
-import { useStore } from 'vuex'
 
-let router = useRouter()
-let route = useRoute()
-let store = useStore()
-
-let page = ref({
-  number: 0
-})
 let fansList = ref([])
 
 function findFansList(){

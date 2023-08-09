@@ -35,37 +35,9 @@
 <script setup>
 import request from "utils/request";
 import { onMounted, ref } from "vue";
-import { useRouter, useRoute } from "vue-router";
-import { useStore } from "vuex";
 
-const route = useRoute();
-const router = useRouter();
-const store = useStore();
+let dynamicList = ref([{}]);
 
-let authorList = ref([]);
-let select = ref("");
-let vList = ref([{}, {}, {}, {}, {}]);
-let dynamicList = ref([]);
-
-function selectTag(type){
-  select.value = type;
-  request({
-    url: `/api/message`,
-    method: "GET",
-    params: { type: type },
-  }).then((res) => {
-    dynamicList.value = res.data;
-  });
-};
-
-function authorListArticleCount(){
-  request({
-    url: `/api/author/authorListArticleCount`,
-    method: "GET",
-  }).then((res) => {
-    authorList.value = res.data.list;
-  });
-};
 
 function loadDynamic(){
   request({

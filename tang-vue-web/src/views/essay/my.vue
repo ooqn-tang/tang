@@ -5,8 +5,6 @@
 </template>
   
 <script setup>
-import request from "utils/request";
-let essayList = [];
 </script>
   
 <style scoped>

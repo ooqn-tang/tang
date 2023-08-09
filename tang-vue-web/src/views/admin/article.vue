@@ -29,7 +29,7 @@
       <template #header>操作</template>
       <template #default="scope">
         <el-button size="small" type="danger">查看</el-button>
-        <el-popconfirm confirm-button-text="确认" cancel-button-text="取消" :icon="InfoFilled" icon-color="red" @confirm="deleteArticle(scope.$index, scope.row)" title="是否确认删除?">
+        <el-popconfirm confirm-button-text="确认" cancel-button-text="取消" icon-color="red" @confirm="deleteArticle(scope.$index, scope.row)" title="是否确认删除?">
           <template #reference>
             <el-button size="small" type="danger">删除</el-button>
           </template>

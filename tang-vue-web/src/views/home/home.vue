@@ -69,7 +69,7 @@
 </template>
 
 <script setup>
-import { ref, reactive, computed, watch, onMounted, onUnmounted,onActivated } from 'vue'
+import { ref, computed, onActivated } from 'vue'
 import request from 'utils/request'
 import { useStore } from 'vuex'
 import { useRouter,useRoute } from 'vue-router'
