@@ -37,11 +37,6 @@ public class AdminAuthorController extends BaseController {
 		return authorService.insertAuthor(author);
 	}
 
-	@PutMapping
-	public void update(@RequestBody UtsAuthor author) {
-		authorService.update(author);
-	}
-
 	@DeleteMapping("{authorId}")
 	public void delete(@PathVariable("authorId") String authorId) {
 		authorService.delete(authorId);

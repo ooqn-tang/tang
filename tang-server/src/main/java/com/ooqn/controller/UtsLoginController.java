@@ -117,9 +117,7 @@ public class UtsLoginController extends BaseController {
         }
         if (StrUtil.equals(code, param.getCode())) {
             String password = param.getPassword();
-            UtsAuthor author = BeanUtil.toBean(param, UtsAuthor.class);
-            author.setPassword(BCrypt.hashpw(password));
-            UtsAuthor update = authorService.update(author);
+            UtsAuthor update = authorService.updatePassword(authorId(), BCrypt.hashpw(password));
             if (update != null) {
                 return "修改成功！";
             }

@@ -155,4 +155,10 @@ public class UtsAuthorService {
 			}
 		}
 	}
+
+	public UtsAuthor updatePassword(String authorId, String hashpw) {
+		UtsAuthor author = authorRepository.findById(authorId).orElseThrow();
+		author.setPassword(hashpw);
+		return authorRepository.save(author);
+	}
 }
