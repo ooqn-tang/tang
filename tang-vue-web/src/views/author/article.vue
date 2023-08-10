@@ -7,7 +7,7 @@
         </strong>
       </router-link>
       <div class="article-synopsis">{{ item.synopsis }}</div>
-      <span class="tag">{{ item.createTime }}</span>&nbsp;&nbsp;<span class="tag" v-if="item.subject != null">{{ item.subject.subjectName }}</span>
+      <span class="tag">{{ item.createTime }}</span>&nbsp;&nbsp;<span class="tag" v-if="item.subject != null">{{ item.subjectName }}</span>
       <span v-if="item.category != null" class="tag">{{ item.category.name }}</span>
       <div class="btn-group float-end">
         <button class="btn btn-outline-danger float-end blog-btn" v-if="isThisUser" @click="deleteArticle(item.articleId, index)">

@@ -3,6 +3,7 @@ package com.ooqn.entity.model;
 import java.util.Date;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -23,6 +24,7 @@ public class UtsResource {
 	private String resourceId;
 
 	@Schema(description = "资源路径")
+	@Column(unique=true)
 	private String path;
 
 	@Schema(description = "资源名称")

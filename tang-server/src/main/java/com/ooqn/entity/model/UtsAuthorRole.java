@@ -7,11 +7,14 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 import lombok.Data;
 
 @Entity
 @Data
 @Schema(description = "作者角色")
+@Table(uniqueConstraints = {@UniqueConstraint(columnNames={"authorId","roleId"})})
 public class UtsAuthorRole {
 
 	@Id

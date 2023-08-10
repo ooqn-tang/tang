@@ -35,6 +35,7 @@ import { useRoute,useRouter } from "vue-router";
 import { useStore } from "vuex";
 import { onMounted,ref,watch } from "vue";
 import { ElButton, radioGroupEmits } from "element-plus";
+import "element-plus/dist/index.css"
 
 let route = useRoute();
 let router = useRouter();

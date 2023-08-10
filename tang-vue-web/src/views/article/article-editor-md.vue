@@ -50,9 +50,8 @@
 </template>
 <script setup>
 import hljs from "highlight.js";
-import "highlight.js/styles/github.css";
-import { marked } from "marked";
 import request from "utils/request";
+import { marked } from "marked";
 import { onMounted, ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
 import { useStore } from 'vuex';

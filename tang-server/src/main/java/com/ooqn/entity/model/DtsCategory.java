@@ -5,6 +5,7 @@ import java.util.Date;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import lombok.Data;
@@ -22,6 +23,7 @@ public class DtsCategory {
 	private String type;
 
 	@Schema(description = "分类名称")
+	@Column(unique=true)
 	private String name;
 
 	@Schema(description = "创建作者ID")

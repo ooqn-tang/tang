@@ -4,7 +4,7 @@ import store from './store'
 import App from './App.vue'
 import './index.scss'
 import './permission.js'
-import "element-plus/dist/index.css"
+import "highlight.js/styles/github.css";
 import info from './components/info.vue'
 import notice from './components/notice.vue'
 import ElementPlus from 'element-plus'
