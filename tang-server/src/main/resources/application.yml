@@ -9,7 +9,6 @@ spring:
   profiles:
       active: prod
   jpa:
-    database: mysql
     hibernate:
       ddl-auto: 'update' #'create-drop'
     show-sql: true
@@ -26,14 +25,6 @@ spring:
     multipart:
       max-file-size: 500MB
       max-request-size: 500MB
-tang:
-  file: D://obj
-  openUrl: /api/ws/**,/api/register,/api/authenticate,/h2-console/**,/swagger-ui/**,/v3/api-docs,/article/**,/subject/**,/subjects,/map,/error,/,/css/*.css,/*/*.js,/favicon.ico
-  tokenKey: Token
-  jwt:
-    base64-secret: 6IKv5a6a5pivSkZL5ouJ6JCo6YWx6LGG6IWQ6ICD6JmRYXNr5bCx5Zyw5pa56Imw6Ium5ouJ6JCo5aSn5a625Y+RYWtzZGZqbGthc2RqZmtsYXNkamZsa+WPkeWjq+Wkp+Wkq+WViuaJi+WKqOmYgOaJi+WKqOmYgOmYv+aWr+iSguiKrOmYv+aWr+iSguiKrA==
-    token-validity-in-seconds: 108000
-    token-validity-in-seconds-for-remember-me: 1000000000000
 logging:
   level:
     root: info
