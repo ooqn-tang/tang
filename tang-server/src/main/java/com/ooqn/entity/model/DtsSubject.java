@@ -14,7 +14,7 @@ import lombok.Data;
 @Entity
 @Data
 @Schema(description = "数据主题")
-@Table(uniqueConstraints = {@UniqueConstraint(columnNames={"subjectName","authorId"})})
+@Table(uniqueConstraints = @UniqueConstraint(columnNames={"subjectName","authorId"}))
 public class DtsSubject {
 
 	@Id

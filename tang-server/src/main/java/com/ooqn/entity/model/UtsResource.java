@@ -3,7 +3,6 @@ package com.ooqn.entity.model;
 import java.util.Date;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -17,14 +16,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Schema(description = "资源")
-@Table(uniqueConstraints = { @UniqueConstraint(columnNames = { "path", "type" }) })
+@Table(uniqueConstraints = @UniqueConstraint(columnNames={"path","type"}))
 public class UtsResource {
 
 	@Id
 	private String resourceId;
 
 	@Schema(description = "资源路径")
-	@Column(unique=true)
 	private String path;
 
 	@Schema(description = "资源名称")
@@ -33,10 +31,8 @@ public class UtsResource {
 	@Schema(description = "资源类型")
 	private String type;
 
+	/** 1:正常 4:删除 */
 	@Schema(description = "资源状态")
-	/**
-	 * 1:正常 4:删除
-	 */
 	private Integer state;
 	
 	@Schema(description = "创建时间")

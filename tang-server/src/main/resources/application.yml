@@ -7,12 +7,12 @@ server:
     key-store-type: JKS
 spring:
   datasource:
-    driver-class-name: org.h2.Driver
-    url: jdbc:h2:~/tang
-    username: as
-    password: as
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://rm-8vb3092d0x45qbvmjxo.mysql.zhangbei.rds.aliyuncs.com:5680/tang-mysql8?serverTimezone=Asia/Shanghai&zeroDateTimeBehavior=convertToNull&autoReconnect=true&useSSL=false&failOverReadOnly=false&allowPublicKeyRetrieval=true
+    username: tang
+    password: Mima778899!!
   jpa:
-    database: h2
+    database: mysql
     hibernate:
       ddl-auto: 'update' #'create-drop'
     show-sql: true
