@@ -30,10 +30,10 @@ public interface DtsArticleRepository extends CrudRepository<DtsArticle, String>
     """)
     List<DtsArticle> findSubjectById(String subjectId);
 
-    @Query("select da from DtsArticle da")
+    @Query("select da from DtsArticle da order by da.createTime desc")
     Page<DtsArticle> findArticleList(Pageable pageable);
 
-    @Query("select da from DtsArticle da where da.categoryId = ?1")
+    @Query("select da from DtsArticle da where da.categoryId = ?1 order by da.createTime desc")
     Page<DtsArticle> findArticleListByCategoryId(String categoryId, Pageable pageable);
 
     @Query("""
@@ -53,15 +53,6 @@ public interface DtsArticleRepository extends CrudRepository<DtsArticle, String>
     order by da.createTime desc
     """)
     Page<DtsArticle> findFansArticleList(String authorId, Pageable pageable);
-
-    // @Query("""
-    // select da From DtsArticle da where
-    // da.articleId in (
-    //     select dsr.dataId from DtsSubjectRelevance dsr
-    //     where dsr.subjectId = (select ds.subjectId from DtsSubjectRelevance ds where ds.dataId = ?1)
-    // )
-    // """)
-    // List<DtsArticle> findSubjectArticleTitleListByArticleId(String articleId);
 
     @Query("select da From DtsArticle da where da.state = ?1")
     Page<DtsArticle> findArticleListState(Integer state, Pageable page);

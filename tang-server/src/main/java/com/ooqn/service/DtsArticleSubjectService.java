@@ -154,7 +154,7 @@ public class DtsArticleSubjectService {
 		return articleRepository.save(article);
 	}
 
-	public DtsArticle updateArticle(String articleId, String subjectId, String title, String text, String markdown) {
+	public DtsArticle updateArticle(String articleId, String subjectId,String categoryId, String title, String text, String markdown) {
 
 		String synopsis = StrUtil.sub(CommonUtil.delHTMLTag(text), 0, 150);
 		String textContextId = saveContext(articleId, text);
@@ -166,6 +166,7 @@ public class DtsArticleSubjectService {
 		article.setUpdateTime(DateUtil.date());
 		article.setTextContextId(textContextId);
 		article.setMarkdownContextId(markdownContextId);
+		article.setCategoryId(categoryId);
 		article.setSynopsis(synopsis);
 
 		articleRepository.save(article);

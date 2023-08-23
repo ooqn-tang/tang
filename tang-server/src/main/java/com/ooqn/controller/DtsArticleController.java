@@ -89,9 +89,10 @@ public class DtsArticleController extends BaseController {
 		String title = articleParam.getTitle();
 		String markdown = articleParam.getMarkdown();
 		String subjectId = articleParam.getSubjectId();
+		String categoryId = articleParam.getCategoryId();
 		String authorId = articleSubjectService.authorId(articleId);
 		if (StrUtil.equals(authorId, authorId())) {
-			articleSubjectService.updateArticle(articleId, subjectId, title, text, markdown);
+			articleSubjectService.updateArticle(articleId, subjectId,categoryId, title, text, markdown);
 		}
 	}
 

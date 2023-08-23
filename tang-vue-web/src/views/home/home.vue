@@ -48,11 +48,11 @@
             <li class="nav-item" v-if="!isLogin">
               <router-link class="nav-link active" to="/login">登录</router-link>
             </li>
-            <li class="nav-item pc" v-if="isLogin">
+            <li class="nav-item" v-if="isLogin">
               <router-link class="nav-link active" to="/message">消息</router-link>
             </li>
             
-            <li class="nav-item pc" v-if="isLogin">
+            <li class="nav-item" v-if="isLogin">
               <a class="nav-link active" @click="createArticle()">投稿</a>
             </li>
             <li class="nav-item" v-if="isLogin">

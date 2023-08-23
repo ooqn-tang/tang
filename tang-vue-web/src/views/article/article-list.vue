@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-md-9 mb-2 move-p-lr-0">
       <div class="card mb-2 move-b-lr-0">
-        <div class="card-body p-0" style="overflow-x: scroll;">
+        <div class="card-body p-0" style="overflow-x: auto;">
           <nav class="nav" style="width:580px">
             <a class="nav-link" :class="selectCategoryId == '0' ? 'nav-link-active' : ''"
               @click="selectCategoryClick({ categoryId: 0 })">全部</a>
