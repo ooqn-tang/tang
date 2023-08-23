@@ -2,8 +2,6 @@ package com.ooqn.entity.model;
 
 import java.util.Date;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -25,10 +23,6 @@ public class DtsCategory {
 	@Schema(description = "分类名称")
 	@Column(unique=true)
 	private String name;
-
-	@Schema(description = "创建作者ID")
-	@JsonIgnore
-	private String authorId;
 
 	@Schema(description = "创建时间")
 	private Date createTime;

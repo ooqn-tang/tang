@@ -99,7 +99,6 @@ public class JwtFilter extends OncePerRequestFilter  {
 		for(Map<String,String> map : TangConfig.notRoleList){
 			String pathVal = map.get("path");
 			String methodVal = map.get("method").toLowerCase();
-			System.out.println(pathVal+" "+methodVal);
 			if (antPathMatcher.match(pathVal, requestURI) && methodVal.equals(method)) {
 				return true;
 			}
