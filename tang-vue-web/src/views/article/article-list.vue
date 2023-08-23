@@ -2,8 +2,8 @@
   <div class="row">
     <div class="col-md-9 mb-2 move-p-lr-0">
       <div class="card mb-2 move-b-lr-0">
-        <div class="card-body p-0">
-          <nav class="nav">
+        <div class="card-body p-0" style="overflow-x: scroll;">
+          <nav class="nav" style="width:580px">
             <a class="nav-link" :class="selectCategoryId == '0' ? 'nav-link-active' : ''"
               @click="selectCategoryClick({ categoryId: 0 })">全部</a>
             <a v-for="(item, index) in categoryList" :key="index"
