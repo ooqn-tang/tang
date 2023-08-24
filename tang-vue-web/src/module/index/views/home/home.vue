@@ -25,7 +25,7 @@
             <router-link class="nav-link active" to="/search">🔍搜索</router-link>
           </li>
           <li class="nav-item" v-if="isAdmin">
-            <a class="nav-link active" href="/admin">🧙‍♂️管理</a>
+            <a class="nav-link active" href="/admin.html">🧙‍♂️管理</a>
           </li>
         </ul>
         <ul class="navbar-nav me-auto mb-lg-0 yd">

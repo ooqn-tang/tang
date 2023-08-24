@@ -29,5 +29,13 @@ export default defineConfig({
   },
   plugins:[
     vue()
-  ]
+  ],
+  build: {
+    rollupOptions: {
+      input: {
+        index: '/index.html',
+        admin: '/admin.html'
+      }
+    }
+  }
 })
