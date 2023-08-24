@@ -1,4 +1,4 @@
-package com.ooqn.core;
+package com.ooqn.core.control;
 
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;

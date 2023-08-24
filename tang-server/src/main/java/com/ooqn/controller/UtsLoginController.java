@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSONObject;
-import com.ooqn.core.BaseController;
+import com.ooqn.core.control.BaseController;
 import com.ooqn.core.exception.ApiException;
 import com.ooqn.core.security.JwtProvider;
 import com.ooqn.core.security.NotRole;

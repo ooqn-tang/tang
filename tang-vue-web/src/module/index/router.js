@@ -1,4 +1,6 @@
 import { createRouter, createWebHistory, createWebHashHistory } from "vue-router";
+import store from 'src/store'
+
 
 const routes = [
     {
@@ -100,64 +102,6 @@ const routes = [
         ]
     },
     {
-        path: '/admin',
-        name: 'admin',
-        component: () => import('views/admin/index.vue'),
-        redirect:"/admin/article",
-        children:[
-            {
-                path:"article",
-                name:"admin_article",
-                component: () => import('views/admin/article.vue'),
-                mate:{
-                    isM:true,
-                    name:'文章管理'
-                }
-            },{
-                path:"recommend",
-                name:"admin_recommend",
-                component: () => import('views/admin/recommend.vue'),
-                mate:{
-                    isM:true,
-                    name:'推荐管理'
-                }
-            },{
-                path:"author",
-                name:"admin_author",
-                component: () => import('views/admin/author.vue'),
-                mate:{
-                    isM:true,
-                    name:'用户管理'
-                }
-            },{
-                path:"role",
-                name:"admin_role",
-                component: () => import('views/admin/role.vue'),
-                mate:{
-                    isM:true,
-                    name:'角色管理'
-                }
-            },{
-                path:"resource",
-                name:"admin_resource",
-                component: () => import('views/admin/resource.vue'),
-                mate:{
-                    isM:true,
-                    name:'资源管理'
-                }
-            },{
-                path:"resource",
-                name:"admin_resource",
-                mate:{
-                    isM:true,
-                    name:'资源管理',
-                    isLink:true,
-                    openUrl:"http://baidu.com"
-                }
-            }
-        ]
-    },
-    {
         path: '/chat',
         name: 'chat',
         component: () => import('views/chat/index.vue'),
@@ -195,6 +139,7 @@ const routes = [
         hidden: true
     }
 ]
+
 /*
 createWebHistory   History 模式
 createWebHashHistory    hash 模式
@@ -203,5 +148,33 @@ const router = createRouter({
     history: createWebHistory(),
     routes
 });
+
+
+// 路由守卫
+router.beforeEach((to, from, next) => {
+    try{
+        // 获取本地存储中的author
+        let author = JSON.parse(localStorage.getItem("author"))
+        if (author != null) {
+            store.state.username = author.sub
+            store.state.author = author.author
+        } else {
+            store.state.username = ""
+            store.state.author = {}
+        }
+    }catch(e){
+        store.state.username = ""
+        store.state.author = {}
+        localStorage.removeItem("jwt")
+        localStorage.removeItem("author")
+    }
+    // 跳转到下一个路由
+    next()
+});
+// 路由守卫后
+router.afterEach((to, from, next) => {
+    // 打印路由跳转后
+    console.log('路由跳转后')
+})
 
 export default router

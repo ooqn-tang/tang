@@ -17,8 +17,10 @@ import cn.hutool.core.util.IdUtil;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
+import lombok.extern.java.Log;
 
 @Service
+@Log
 public class InitService {
 
     @PersistenceContext
@@ -72,14 +74,14 @@ public class InitService {
                             resource.setResourceId(IdUtil.objectId());
                             resource.setCreateTime(DateUtil.date());
                             resourceService.insert(resource);
-                        } catch (Exception e) {}
+                        } catch (Exception e) {
+                            log.info(e.getMessage());
+                        }
                     }
                 }
             }
-        
-        
         } catch (IllegalStateException e) {
-            System.out.println(e.getMessage()+"*****************************");
+            log.info(e.getMessage());
         }
     }
 }

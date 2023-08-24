@@ -1,4 +1,4 @@
-package com.ooqn.core;
+package com.ooqn.core.config;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -99,11 +99,9 @@ public class DtsArticleSubjectService {
 			String authorId = article.getAuthorId();
 			String articleCategoryId = article.getCategoryId();
 			DtsArticleDto articleDto = new DtsArticleDto(article);
-
 			if (articleCategoryId != null) {
 				categoryRepository.findById(articleCategoryId).ifPresent(articleDto::setCategory);
 			}
-
 			authorRepository.findById(authorId).ifPresent(articleDto::setAuthor);
 			return articleDto;
 		});

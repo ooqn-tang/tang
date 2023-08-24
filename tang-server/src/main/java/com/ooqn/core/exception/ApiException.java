@@ -2,7 +2,7 @@ package com.ooqn.core.exception;
 
 import org.springframework.http.HttpStatus;
 
-import com.ooqn.core.ResponseCode;
+import com.ooqn.core.control.ResponseCode;
 
 /**
  * 自定义API异常

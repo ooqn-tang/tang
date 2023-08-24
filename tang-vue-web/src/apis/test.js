@@ -1,4 +1,4 @@
-import request from '../utils/request'
+import request from 'utils/request'
 
 // 导出一个刷新函数
 export function refresh(data) {

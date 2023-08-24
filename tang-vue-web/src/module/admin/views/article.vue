@@ -12,12 +12,12 @@
   <el-table :data="articleList" style="width: 100%" >
     <el-table-column label="标题" show-overflow-tooltip>
       <template #default="scope">
-        {{ scope.row.article.title }}
+        {{ scope.row.title }}
       </template>
     </el-table-column>
     <el-table-column label="时间">
       <template #default="scope">
-        {{ scope.row.article.createTime }}
+        {{ scope.row.createTime }}
       </template>
     </el-table-column>
     <el-table-column label="作者">

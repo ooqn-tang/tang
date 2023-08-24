@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ooqn.core.BaseController;
+import com.ooqn.core.control.BaseController;
 import com.ooqn.entity.model.DtsLike;
 import com.ooqn.service.DtsLikeService;
 

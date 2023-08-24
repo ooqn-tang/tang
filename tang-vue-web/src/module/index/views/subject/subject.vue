@@ -35,6 +35,9 @@ import { ref, onMounted } from 'vue'
 import { useStore } from 'vuex'
 import { useRouter,useRoute } from 'vue-router'
 
+import notice from 'components/notice.vue';
+import info from 'components/info.vue';
+
 import request from 'utils/request'
 
 const store = useStore()

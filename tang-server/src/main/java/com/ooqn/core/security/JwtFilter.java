@@ -12,7 +12,7 @@ import org.springframework.util.AntPathMatcher;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.ooqn.core.TangConfig;
+import com.ooqn.core.config.TangConfig;
 import com.ooqn.core.exception.ApiException;
 import com.ooqn.entity.dto.UtsAuthorDto;
 import com.ooqn.entity.propertie.TangProperties;
@@ -98,9 +98,17 @@ public class JwtFilter extends OncePerRequestFilter  {
 
 		for(Map<String,String> map : TangConfig.notRoleList){
 			String pathVal = map.get("path");
-			String methodVal = map.get("method").toLowerCase();
-			if (antPathMatcher.match(pathVal, requestURI) && methodVal.equals(method)) {
-				return true;
+			String methodVal = map.get("method");
+
+			if(methodVal != null){
+				methodVal = methodVal.toLowerCase();
+				if (antPathMatcher.match(pathVal, requestURI) && method.equals(methodVal)) {
+					return true;
+				}
+			}else{
+				if (antPathMatcher.match(pathVal, requestURI)) {
+					return true;
+				}
 			}
 		}
         return false;

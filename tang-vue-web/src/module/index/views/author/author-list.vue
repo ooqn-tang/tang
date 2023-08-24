@@ -32,6 +32,9 @@ import { onMounted, ref } from "vue";
 
 import request from 'utils/request';
 
+import notice from 'components/notice.vue';
+import info from 'components/info.vue';
+
 let authorList = ref([])
 
 function selectAuthor(){

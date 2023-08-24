@@ -25,6 +25,9 @@
 </template>
 
 <script setup>
+import notice from 'components/notice.vue';
+import info from 'components/info.vue';
+
 </script>
 
 <style scoped>

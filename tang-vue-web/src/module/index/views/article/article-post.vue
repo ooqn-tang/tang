@@ -76,6 +76,9 @@ import { onMounted, ref } from 'vue';
 import { useRoute } from "vue-router";
 import { useStore } from 'vuex';
 
+import notice from 'components/notice.vue';
+import info from 'components/info.vue';
+
 const route = useRoute()
 const store = useStore()
 

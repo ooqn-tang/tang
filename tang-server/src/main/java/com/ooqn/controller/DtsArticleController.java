@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ooqn.core.BaseController;
+import com.ooqn.core.control.BaseController;
 import com.ooqn.core.security.NotRole;
 import com.ooqn.entity.dto.DtsArticleDto;
 import com.ooqn.entity.model.DtsArticle;

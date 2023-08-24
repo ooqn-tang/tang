@@ -26,8 +26,6 @@
                 <span class="date-color" style="font-size: 16px;">{{ item.createTime }} </span>
                 <span class="date-color" style="font-size: 16px;" v-if="item.category != null"> . {{ item.category.name }}
                 </span>
-
-
                 <span v-for="(item, index) in item.tagList" :key="index"> . <span
                     style="font-size: 16px;color: #dc3545;">{{ item.tagName }}</span></span>
                 <router-link :to="{ name: 'author_article', params: { username: item.author.username } }"
@@ -55,6 +53,8 @@
 <script setup>
 import request from 'utils/request';
 import { onMounted, ref } from 'vue';
+import notice from 'components/notice.vue';
+import info from 'components/info.vue';
 
 let selectCategoryId = ref(0);
 let page = ref({ number: 0 });

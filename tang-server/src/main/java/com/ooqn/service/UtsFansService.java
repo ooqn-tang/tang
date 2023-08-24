@@ -5,7 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.ooqn.core.ResponseCode;
+import com.ooqn.core.control.ResponseCode;
 import com.ooqn.core.exception.ApiException;
 import com.ooqn.entity.model.UtsAuthor;
 import com.ooqn.entity.model.UtsFans;

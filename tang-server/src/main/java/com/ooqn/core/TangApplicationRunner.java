@@ -11,6 +11,7 @@ import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
+import com.ooqn.core.config.TangConfig;
 import com.ooqn.core.security.NotRole;
 import com.ooqn.service.InitService;
 
@@ -31,11 +32,7 @@ public class TangApplicationRunner implements CommandLineRunner {
         new Thread() {
             public void run() {
                 System.out.println("初始化数据--------------------------------");
-                try {
-                    initService.init();
-                } catch (IllegalStateException e) {
-                    System.out.println(e.getMessage() + "*****************************");
-                }
+                initService.init();
                 System.out.println("初始化数据--------------------------------");
             }
         }.start();
@@ -50,9 +47,17 @@ public class TangApplicationRunner implements CommandLineRunner {
                         Map<String, String> map = new HashMap<>();
                         map.put("method", method.name());
                         map.put("path", path);
+                        System.out.println(map);
                         TangConfig.notRoleList.add(map);
                     }
                 }
+
+                if(info.getMethodsCondition().getMethods().size() == 0){
+                    System.out.println("sdfasdf");
+                    Map<String, String> map = new HashMap<>();
+                    map.put("path", path);
+                    TangConfig.notRoleList.add(map);
+                } 
             }
         }
     }
