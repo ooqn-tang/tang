@@ -17,6 +17,7 @@ import request from "utils/request";
 import { onMounted, ref, h } from "vue";
 import { NDataTable, NButton, NForm, NFormItem, NInput } from "naive-ui"
 
+
 let articleList = ref([]);
 
 let deleteArticle = (index, row) => {

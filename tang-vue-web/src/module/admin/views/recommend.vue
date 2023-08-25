@@ -27,7 +27,6 @@
 </template>
 
 <script setup>
-import { ElMessage } from "element-plus";
 import request from "utils/request";
 import { onMounted, ref, h } from "vue";
 import { NButton, NSpace, NDataTable, NModal, NCard, NForm, NFormItem, NInput } from "naive-ui";
@@ -39,8 +38,6 @@ let orderButton = ref(true)
 let recommendForm = ref({
 
 })
-
-
 
 let insertNotice = () => {
   request({

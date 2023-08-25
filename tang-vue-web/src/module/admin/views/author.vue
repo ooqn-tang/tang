@@ -1,4 +1,16 @@
 <template>
+  <NSpace>
+    <NButton type="primary" @click="handleCreate">添加</NButton>
+    <NButton type="primary" @click="handleUpdate">保存</NButton>
+    <NButton type="primary" @click="handleQuery">查询</NButton>
+  </NSpace>
+
+
+
+
+
+
+
   <el-row>
     <el-col :span="16">
       <div style="margin:10px;">
@@ -51,6 +63,7 @@
 import request from "utils/request";
 import { ElMessage } from "element-plus";
 import { onMounted,ref } from "vue";
+import { NButton, NSpace, NDataTable, NModal, NCard, NForm, NFormItem, NInput } from "naive-ui";
 
 const dialogVisible = ref(false);
 const form = ref({});

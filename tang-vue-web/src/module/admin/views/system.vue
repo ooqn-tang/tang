@@ -1,16 +1,12 @@
 <template>
-  <el-tabs v-model="activeName" class="demo-tabs" @tab-click="handleClick">
-    <el-tab-pane label="类目管理" name="first">参数配置</el-tab-pane>
-    <el-tab-pane label="Config" name="second">Config</el-tab-pane>
-    <el-tab-pane label="Role" name="third">Role</el-tab-pane>
-    <el-tab-pane label="Task" name="fourth">Task</el-tab-pane>
-  </el-tabs>
+  system
 </template>
 
 <script setup>
 import { ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { useStore } from "vuex";
+import { NButton, NSpace, NDataTable, NModal, NCard, NForm, NFormItem, NInput } from "naive-ui";
 
 let router = useRouter();
 let route = useRoute();
