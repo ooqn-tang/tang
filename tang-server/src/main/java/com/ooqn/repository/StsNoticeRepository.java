@@ -16,7 +16,7 @@ public interface StsNoticeRepository extends CrudRepository<StsNotice, String> {
     //随机查询10条数据
     List<StsNotice> findTop10ByOrderByOrderNum();
 
-    @Query("select max(n.orderNum) from StsNotice n")
+    @Query("select max(n.orderNum) From StsNotice n")
     Optional<Integer> findNoticeMaxOrder();
 
 

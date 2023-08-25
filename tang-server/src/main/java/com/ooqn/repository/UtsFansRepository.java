@@ -19,7 +19,7 @@ public interface UtsFansRepository extends CrudRepository<UtsFans, String> {
 
     Long countByAuthorIdAndBeAuthorId(String authorId, String beAuthorId);
 
-    @Query("select ua From UtsAuthor ua where ua.authorId in (select uf.beAuthorId from UtsFans uf where uf.authorId = ?1) order by ua.createTime desc")
+    @Query("From UtsAuthor ua where ua.authorId in (select uf.beAuthorId from UtsFans uf where uf.authorId = ?1) order by ua.createTime desc")
     Page<UtsAuthor> findFansList(String authorId, Pageable pageable);
 
 }
