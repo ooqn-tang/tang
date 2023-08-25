@@ -1,4 +1,4 @@
-package com.ooqn.util;
+package com.ooqn.tool;
 
 import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
