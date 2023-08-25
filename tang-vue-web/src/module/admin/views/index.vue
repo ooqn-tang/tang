@@ -6,7 +6,7 @@
     </div>
   </div>
   <n-layout has-sider style="height: calc(100% - 54px)">
-    <n-layout-sider bordered collapse-mode="width" :collapsed-width="50" :width="200" :collapsed="isCollapse" show-trigger @collapse="isCollapse = true" @expand="isCollapse = false">
+    <n-layout-sider bordered collapse-mode="width" :collapsed-width="50" :width="180" :collapsed="isCollapse" show-trigger @collapse="isCollapse = true" @expand="isCollapse = false">
       <n-menu @update:value="onChange" :collapsed="isCollapse" :collapsed-width="50" :collapsed-icon-size="22" :options="menuOptions" :render-label="renderMenuLabel" :render-icon="renderMenuIcon" :expand-icon="expandIcon" />
     </n-layout-sider>
     <n-layout style="padding:5px">
@@ -103,9 +103,14 @@ let expandIcon = () => {
 
 </script>
 
+
 <style scoped>
 .float-end {
   float: right;
+}
+
+.n-menu-item-content{
+  padding-left: 10px !important;
 }
 
 body {
@@ -153,4 +158,10 @@ body {
 .el-menu--collapse .el-submenu__title .el-submenu__icon-arrow {
   display: none;
 }
+</style>
+
+<style>
+  .n-menu-item-content{
+    padding-left: 15px !important;
+  }
 </style>

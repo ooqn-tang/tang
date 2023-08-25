@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.alibaba.fastjson.JSONObject;
 import com.ooqn.core.security.NotRole;
 import com.ooqn.entity.dto.DtsArticleDto;
 import com.ooqn.entity.dto.DtsSubjectDto;
@@ -44,7 +43,6 @@ public class StsPageController {
 		Page<DtsArticleDto> dtsArticleDtoPageInfo = articleSubjectService.selectArticleListSmall(pageable);
 		model.addAttribute("articlePage", dtsArticleDtoPageInfo);
 		model.addAttribute("notice", noticeService.selectAllNotice());
-		System.out.println(JSONObject.toJSONString(dtsArticleDtoPageInfo));
 		return "articles";
 	}
 

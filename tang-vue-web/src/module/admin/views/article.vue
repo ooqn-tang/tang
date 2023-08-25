@@ -1,59 +1,23 @@
 <template>
-  <el-form :model="form" label-width="50px">
-    <el-form-item label="状态">
-      <el-select v-model="form.state" placeholder="please select your zone">
-        <el-option label="草稿" value="1" />
-        <el-option label="未通过" value="2" />
-        <el-option label="已通过" value="3" />
-        <el-option label="已删除" value="4" />
-      </el-select>
-    </el-form-item>
-  </el-form>
-  <el-table :data="articleList" style="width: 100%" >
-    <el-table-column label="标题" show-overflow-tooltip>
-      <template #default="scope">
-        {{ scope.row.title }}
-      </template>
-    </el-table-column>
-    <el-table-column label="时间">
-      <template #default="scope">
-        {{ scope.row.createTime }}
-      </template>
-    </el-table-column>
-    <el-table-column label="作者">
-      <template #default="scope">
-        {{ scope.row.author.nickname }}
-      </template>
-    </el-table-column>
-    <el-table-column align="right">
-      <template #header>操作</template>
-      <template #default="scope">
-        <el-button size="small" type="danger">查看</el-button>
-        <el-popconfirm confirm-button-text="确认" cancel-button-text="取消" icon-color="red" @confirm="deleteArticle(scope.$index, scope.row)" title="是否确认删除?">
-          <template #reference>
-            <el-button size="small" type="danger">删除</el-button>
-          </template>
-        </el-popconfirm>
-      </template>
-    </el-table-column>
-  </el-table>
+  <n-form ref="formRef" inline :label-width="80" :model="formValue" :rules="rules" :size="size">
+    <n-form-item label="电话号码" path="phone">
+      <n-input v-model:value="formValue.phone" placeholder="电话号码" />
+    </n-form-item>
+    <n-form-item>
+      <n-button attr-type="button" @click="handleValidateClick">
+        验证
+      </n-button>
+    </n-form-item>
+  </n-form>
+  <n-data-table :columns="columns" :data="articleList" :pagination="pagination" :bordered="false" />
 </template>
   
 <script setup>
-import { ElMessage } from "element-plus";
 import request from "utils/request";
-import { onMounted,ref } from "vue";
-import { useRouter, useRoute } from "vue-router";
-import { useStore } from "vuex";
-
-let router = useRouter();
-let route = useRoute();
-let store = useStore();
+import { onMounted, ref, h } from "vue";
+import { NDataTable, NButton, NForm, NFormItem, NInput } from "naive-ui"
 
 let articleList = ref([]);
-let form = ref({
-  state: "1"
-});
 
 let deleteArticle = (index, row) => {
   request({
@@ -76,6 +40,53 @@ let loadArticle = () => {
 
 onMounted(() => {
   loadArticle()
+})
+
+let columns = [{
+  title: "标题",
+  key: "title",
+  width: "400"
+},
+{
+  title: "时间",
+  key: "createTime",
+  width: "200"
+},
+{
+  title: "作者",
+  key: "author.nickname"
+},
+{
+  title: '操作',
+  key: 'actions',
+  render(row) {
+    return h(
+      NButton, {
+      size: 'small',
+      onClick: () => sendMail(row)
+    }, {
+      default: () => '查看'
+    }
+    )
+  }
+}]
+
+let formRef = ref(null)
+
+let formValue = ref({
+  phone: ""
+})
+
+let handleValidateClick = () => {
+  formRef.value.validate();
+}
+
+let rules = ref({
+  phone: {
+    required: true,
+    message: "请输入姓名",
+    trigger: "blur"
+  }
 })
 
 </script>

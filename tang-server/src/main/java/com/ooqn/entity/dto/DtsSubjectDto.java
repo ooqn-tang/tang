@@ -1,8 +1,9 @@
 package com.ooqn.entity.dto;
 
+import java.util.List;
+
 import org.springframework.beans.BeanUtils;
 
-import com.alibaba.fastjson.JSONArray;
 import com.ooqn.entity.model.DtsSubject;
 import com.ooqn.entity.model.UtsAuthor;
 
@@ -19,6 +20,6 @@ public class DtsSubjectDto extends DtsSubject {
 
     private UtsAuthor author;
 
-	private JSONArray dataArray;
+	private List<?> dataArray;
 	
 }

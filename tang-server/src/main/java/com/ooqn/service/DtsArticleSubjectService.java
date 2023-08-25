@@ -12,7 +12,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.alibaba.fastjson.JSONArray;
 import com.ooqn.entity.StateNum;
 import com.ooqn.entity.dto.DtsArticleDto;
 import com.ooqn.entity.dto.DtsSubjectDto;
@@ -66,7 +65,7 @@ public class DtsArticleSubjectService {
 		DtsSubject subject = subjectRepository.findById(subjectId).orElseThrow();
 		UtsAuthor author = authorRepository.findUsernameNicknameByAuthorId(subject.getAuthorId()).orElseThrow();
 		DtsSubjectDto articleSubjectDto = new DtsSubjectDto(subject);
-		articleSubjectDto.setDataArray(JSONArray.parseArray(JSONArray.toJSONString(articleList)));
+		articleSubjectDto.setDataArray(articleList);
 		articleSubjectDto.setAuthor(author);
 		return articleSubjectDto;
 	}

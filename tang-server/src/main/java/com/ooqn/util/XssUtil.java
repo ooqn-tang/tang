@@ -1,6 +1,5 @@
 package com.ooqn.util;
 
-import com.alibaba.fastjson.JSONObject;
 import org.jsoup.Jsoup;
 import org.jsoup.safety.Safelist;
 
@@ -18,8 +17,6 @@ public class XssUtil {
 	}
 
 	public static void main(String[] args) {
-		String html = "{'asdf':'<p style=\"\">aaaaaaaaaaaaaaa</p>'}"; // 接收到的html代码
-		JSONObject parseObject = JSONObject.parseObject(html);
-		System.out.println(parseObject);
+		
 	}
 }

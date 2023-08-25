@@ -1,11 +1,12 @@
 package com.ooqn.socket;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Component;
 
-import com.alibaba.fastjson.JSONArray;
 import com.ooqn.entity.dto.UtsAuthorDto;
 
 import jakarta.websocket.OnClose;
@@ -22,7 +23,7 @@ public class ApplicationWebSocket {
 
 	Map<String, UtsAuthorDto> sessionMap = new HashMap<>();
 
-	public static JSONArray messageList = new JSONArray();
+	public static List<?> messageList = new ArrayList<>();
 
 	@OnOpen
 	public void onOpen(Session session, @PathParam("jwt") String jwt) {

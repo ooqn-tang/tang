@@ -48,15 +48,9 @@
 </template>
 
 <script setup>
-import { ElMessage } from "element-plus";
 import request from "utils/request";
+import { ElMessage } from "element-plus";
 import { onMounted,ref } from "vue";
-import { useRouter, useRoute } from "vue-router";
-import { useStore } from "vuex";
-
-let store = useStore();
-let router = useRouter();
-let route = useRoute();
 
 const dialogVisible = ref(false);
 const form = ref({});

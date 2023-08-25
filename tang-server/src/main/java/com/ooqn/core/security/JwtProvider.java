@@ -7,7 +7,7 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.alibaba.fastjson.JSON;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ooqn.entity.dto.UtsAuthorDto;
 import com.ooqn.entity.propertie.TangProperties;
 
@@ -69,7 +69,8 @@ public class JwtProvider implements InitializingBean {
 	public UtsAuthorDto getAuthentication(String token) {
 		Claims claims = Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token).getBody();
 		Object object = claims.get(tangProperties.getAuthorKey());
-		return JSON.toJavaObject(JSON.parseObject(JSON.toJSONString(object)), UtsAuthorDto.class);
+		ObjectMapper mapper = new ObjectMapper();
+		return mapper.convertValue(object, UtsAuthorDto.class);
 	}
 
 	/**

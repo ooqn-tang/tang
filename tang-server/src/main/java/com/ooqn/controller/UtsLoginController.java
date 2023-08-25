@@ -1,12 +1,13 @@
 package com.ooqn.controller;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.alibaba.fastjson.JSONObject;
 import com.ooqn.core.control.BaseController;
 import com.ooqn.core.exception.ApiException;
 import com.ooqn.core.security.JwtProvider;
@@ -68,8 +69,8 @@ public class UtsLoginController extends BaseController {
 
     @NotRole
     @PostMapping("/refresh")
-    public String refresh(@RequestBody JSONObject jsonObject) {
-        String jwt = jsonObject.getString("jwt");
+    public String refresh(@RequestBody Map<String,String> params) {
+        String jwt = params.get("jwt");
         if (jwtProvider.validateToken(jwt)) {
             UtsAuthorDto authorDto = jwtProvider.getAuthentication(jwt);
             UtsAuthorDto author = utsUserDetailsService.loadUserByUsername(authorDto.getUsername());
