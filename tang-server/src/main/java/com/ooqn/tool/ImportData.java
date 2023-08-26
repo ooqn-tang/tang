@@ -12,9 +12,12 @@ import cn.hutool.db.Db;
 import cn.hutool.db.Entity;
 
 public class ImportData {
-    static Remark remark = new Remark();
+
+    public static Remark remark;
 
     public static void main(String[] args) throws SQLException {
+
+        remark = new Remark();
 
         long pageCount = getPageCount();
         for (int i = 0; i < pageCount; i++) {
@@ -41,7 +44,7 @@ public class ImportData {
             String textId = insertContext(articleId, text);
             String markdownId = insertContext(articleId, remark.convert(text));
 
-            try{
+            try {
                 Entity e = new Entity("dts_article");
                 e.set("article_id", articleId);
                 e.set("author_id", authorId);
@@ -53,7 +56,7 @@ public class ImportData {
                 e.set("state", "1");
                 e.set("synopsis", synopsis);
                 Db.use("tang-mysql8").insert(e);
-            }catch(SQLIntegrityConstraintViolationException ex){
+            } catch (SQLIntegrityConstraintViolationException ex) {
                 System.out.println("唯一");
             }
         }
@@ -64,7 +67,7 @@ public class ImportData {
         Entity textEntity = new Entity("dts_context");
         textEntity.set("id", textId);
         textEntity.set("data_id", dataId);
-        textEntity.set("text",context);
+        textEntity.set("text", context);
         textEntity.set("create_time", new Date());
         textEntity.set("update_time", new Date());
         Db.use("tang-mysql8").insert(textEntity);

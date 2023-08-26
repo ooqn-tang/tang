@@ -19,7 +19,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
 @RequestMapping("api/admin/article")
-@Tag(name = "文章管理", description = "asdfasdfasdfasdf")
+@Tag(name = "文章管理")
 public class AdminArticleController {
 
     @Autowired

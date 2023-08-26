@@ -53,7 +53,6 @@ public class TangApplicationRunner implements CommandLineRunner {
                 }
 
                 if(info.getMethodsCondition().getMethods().size() == 0){
-                    System.out.println("sdfasdf");
                     Map<String, String> map = new HashMap<>();
                     map.put("path", path);
                     TangConfig.notRoleList.add(map);
