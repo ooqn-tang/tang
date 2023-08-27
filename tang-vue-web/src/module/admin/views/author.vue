@@ -1,74 +1,49 @@
 <template>
-  <NSpace>
-    <NButton type="primary" @click="handleCreate">添加</NButton>
-    <NButton type="primary" @click="handleUpdate">保存</NButton>
-    <NButton type="primary" @click="handleQuery">查询</NButton>
-  </NSpace>
-
-
-
-
-
-
-
-  <el-row>
-    <el-col :span="16">
-      <div style="margin:10px;">
-        <el-input
-          v-model="queryData"
-          placeholder="用户名/昵称/邮箱/IP"
-          class="input-with-select"
-          style="padding-bottom: 5px;"
-        >
-          <template #append>
-            <el-button @click="selectAuthor()">搜索</el-button>
-          </template>
-        </el-input>
-        <el-table 
-        :data="authorList" 
-        highlight-current-row 
-        @row-click="rowAuthorClick"
-        max-height="800"
-        border 
-        style="width: 100%;">
-          <el-table-column prop="username" label="用户名" width="150" />
-          <el-table-column prop="nickname" label="昵称" width="150" />
-          <el-table-column prop="mail" label="邮箱" />
-          <el-table-column prop="address" label="操作"  width="135">
-            <template #default="scope">
-              <el-button size="small" @click="handleEdit(scope.$index, scope.row), (dialogVisible = true)" >编辑</el-button>
-              <el-button size="small" type="danger" @click="deleteAuthor(scope.row.authorId)">删除</el-button>
-            </template>
-          </el-table-column>
-        </el-table>
-      </div>
-    </el-col>
-    <el-col :span="8">
-      <div style="margin:10px;">
-        <el-input v-model="input2" placeholder="" disabled  style="padding-bottom: 5px;">
-            <template #prepend>
-              <el-button @click="saveAuthorRole">保存权限</el-button>
-            </template>
-            <template #append>搜索</template>
-          </el-input>
-        <el-table :data="roleList" ref="multipleTable" @selection-change="checkRole" max-height="800" border style="width: 100%;">
-          <el-table-column type="selection" width="40" />
-          <el-table-column prop="roleName" label="名称" />
-        </el-table></div
-    ></el-col>
-  </el-row>
+  <n-space vertical>
+    <n-space>
+      <NButton type="primary" @click="handleCreate">添加</NButton>
+      <NButton type="primary" @click="handleUpdate">保存</NButton>
+      <NButton type="primary" @click="handleQuery">查询</NButton>
+    </n-space>
+    <n-data-table :columns="columns" :data="authorList" :pagination="pagination" :bordered="true"/>
+  </n-space>
 </template>
 
 <script setup>
 import request from "utils/request";
-import { ElMessage } from "element-plus";
-import { onMounted,ref } from "vue";
-import { NButton, NSpace, NDataTable, NModal, NCard, NForm, NFormItem, NInput } from "naive-ui";
+import { onMounted,ref,h } from "vue";
+import { NButton, NSpace, NDataTable, NModal, NCard, NForm, NFormItem, NInput,NRow,NCol } from "naive-ui";
 
 const dialogVisible = ref(false);
 const form = ref({});
-const input2 = ref("");
 const authorList = ref([]);
+const columns = [{
+  title: "用户名",
+  key: "username"
+},
+{
+  title: "昵称",
+  key: "nickname"
+},
+{
+  title: "邮箱",
+  key: "mail"
+},
+{
+  title: '操作',
+  key: 'actions',
+  width: "250",
+  render(row) {
+    return h(
+      NButton, {
+      size: 'small',
+      onClick: () => sendMail(row)
+    }, {
+      default: () => '查看'
+    }
+    )
+  }
+}]
 const roleIdList = ref([]);
 const roleList = ref([]);
 const queryData = ref("");
@@ -86,10 +61,7 @@ const saveAuthorRole = () => {
     data:roleForm.value
   }).then((res) => {
     roleIdList.value = res.data;
-    ElMessage({
-      type: 'success',
-      message: '删除成功',
-    })
+    // ElMessage({ type: 'success', message: '删除成功', })
   });
 };
 
@@ -131,10 +103,7 @@ const deleteAuthor = (authorId) => {
     method: "DELETE",
   }).then((res) => {
     selectAuthor();
-    ElMessage({
-      type: 'success',
-      message: '删除成功',
-    })
+    // ElMessage({      type: 'success',      message: '删除成功',    })
   });
 };
 
@@ -148,10 +117,7 @@ const handleDelete = (index, row) => {
     method: "DELETE",
   }).then((res) => {
     selectAuthor();
-    ElMessage({
-      type: 'success',
-      message: '删除成功',
-    })
+    // ElMessage({      type: 'success',      message: '删除成功',    })
   });
 };
 
@@ -168,10 +134,7 @@ const handleSave = () => {
   }).then((res) => {
     selectAuthor();
     dialogVisible.value = false;
-    ElMessage({
-      type: 'success',
-      message: '保存成功',
-    })
+    // ElMessage({      type: 'success',      message: '保存成功',    })
   });
 };
 
@@ -183,10 +146,7 @@ const handleUpdate = () => {
   }).then((res) => {
     selectAuthor();
     dialogVisible.value = false;
-    ElMessage({
-      type: 'success',
-      message: '保存成功',
-    })
+    // ElMessage({      type: 'success',      message: '保存成功',    })
   });
 };
 

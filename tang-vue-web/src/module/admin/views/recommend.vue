@@ -45,7 +45,7 @@ let insertNotice = () => {
     method: "POST",
     data: recommendForm.value,
   }).then((res) => {
-    ElMessage({ type: 'success', message: '保存成功' })
+    // ElMessage({ type: 'success', message: '保存成功' })
     insertDialogVisible.value = false
     loadRecommend()
     recommendForm.value = {}
@@ -58,7 +58,7 @@ let deleteNotice = (index, row) => {
     method: "DELETE",
   }).then((res) => {
     noticeList.value.splice(index, 1)
-    ElMessage({ type: 'success', message: '删除成功' })
+    // ElMessage({ type: 'success', message: '删除成功' })
   });
 }
 
@@ -70,7 +70,7 @@ let updateOrder = () => {
     data: noticeList.value,
   }).then((res) => {
     orderButton.value = true
-    ElMessage({ type: 'success', message: '保存成功' })
+    // ElMessage({ type: 'success', message: '保存成功' })
   });
 }
 
@@ -100,7 +100,7 @@ let saveNotice = (index, row) => {
     method: "PUT",
     data: row,
   }).then((res) => {
-    ElMessage({ type: 'success', message: '保存成功' })
+    // ElMessage({ type: 'success', message: '保存成功' })
     editIndex.value = -1
   });
 }

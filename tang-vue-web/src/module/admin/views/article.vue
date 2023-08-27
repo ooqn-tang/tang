@@ -1,21 +1,23 @@
 <template>
-  <n-form ref="formRef" inline :label-width="80" :model="formValue" :rules="rules" :size="size">
-    <n-form-item label="电话号码" path="phone">
-      <n-input v-model:value="formValue.phone" placeholder="电话号码" />
-    </n-form-item>
-    <n-form-item>
-      <n-button attr-type="button" @click="handleValidateClick">
-        验证
-      </n-button>
-    </n-form-item>
-  </n-form>
-  <n-data-table :columns="columns" :data="articleList" :pagination="pagination" :bordered="false" />
+  <n-space vertical>
+    <n-form ref="formRef" inline :label-width="80" :model="formValue" :rules="rules" :size="size">
+      <n-form-item label="电话号码" path="phone">
+        <n-input v-model:value="formValue.phone" placeholder="电话号码" />
+      </n-form-item>
+      <n-form-item>
+        <n-button attr-type="button" @click="handleValidateClick">
+          验证
+        </n-button>
+      </n-form-item>
+    </n-form>
+  </n-space>
+  <n-data-table :columns="columns" :data="articleList" :pagination="pagination" :bordered="true" />
 </template>
   
 <script setup>
 import request from "utils/request";
 import { onMounted, ref, h } from "vue";
-import { NDataTable, NButton, NForm, NFormItem, NInput } from "naive-ui"
+import { NDataTable, NButton, NForm, NFormItem, NInput,NSpace } from "naive-ui"
 
 
 let articleList = ref([]);
@@ -26,7 +28,7 @@ let deleteArticle = (index, row) => {
     method: "DELETE",
   }).then((res) => {
     articleList.value.splice(index, 1)
-    ElMessage({ type: 'success', message: '删除成功' })
+    // ElMessage({ type: 'success', message: '删除成功' })
   });
 }
 
@@ -45,13 +47,11 @@ onMounted(() => {
 
 let columns = [{
   title: "标题",
-  key: "title",
-  width: "400"
+  key: "title"
 },
 {
   title: "时间",
-  key: "createTime",
-  width: "200"
+  key: "createTime"
 },
 {
   title: "作者",
@@ -60,6 +60,7 @@ let columns = [{
 {
   title: '操作',
   key: 'actions',
+  width: "250",
   render(row) {
     return h(
       NButton, {
