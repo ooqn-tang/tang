@@ -2,16 +2,17 @@ package com.ooqn.core.security;
 
 import java.io.IOException;
 import java.util.Date;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Component;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import com.ooqn.core.config.TangConfig;
 import com.ooqn.core.exception.ApiException;
 import com.ooqn.entity.dto.UtsAuthorDto;
 import com.ooqn.entity.propertie.TangProperties;
@@ -22,6 +23,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+@Component
 public class JwtFilter extends OncePerRequestFilter  {
 
 	private static final Logger LOG = LoggerFactory.getLogger(JwtFilter.class);
@@ -47,8 +49,7 @@ public class JwtFilter extends OncePerRequestFilter  {
 	}
 
 	@Override
-	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
-			throws ServletException, IOException {
+	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)throws ServletException, IOException {
 		HttpServletRequest httpServletRequest = (HttpServletRequest) request;
 		HttpServletResponse httpServletResponse = (HttpServletResponse) response;
 
@@ -59,39 +60,55 @@ public class JwtFilter extends OncePerRequestFilter  {
 
 		String jwt = resolveToken(httpServletRequest);
 		String requestURI = httpServletRequest.getRequestURI();
-		
-		if(httpServletRequest.getMethod().equals("OPTIONS")){
-			filterChain.doFilter(request, response);
-			return;
-		}
 
 		if (StringUtils.hasText(jwt) && jwtProvider.validateToken(jwt) && !antPathMatcher.match("/api/refresh", requestURI)) {
-			Authentication authentication = jwtProvider.getAuthentication(jwt);
-			UtsAuthorDto authorDto = (UtsAuthorDto) authentication.getPrincipal();
+			UtsAuthorDto authorDto = jwtProvider.getAuthentication(jwt);
 			Date date = authorService.nowTime(authorDto.getUsername(), authorDto.getRoleList());
-			if (date != null && date.getTime() != authorDto.getRefreshTime()) {
+			if (date != null && date.getTime() != authorDto.getRefreshTime().getTime()) {
 				httpServletResponse.setStatus(666);
 				httpServletResponse.getWriter().print("JWT权限刷新了");
 				return;
 			} else {
-				SecurityContextHolder.getContext().setAuthentication(authentication);
+				request.setAttribute("author", authorDto);
 			}
-			LOG.debug("将身份验证设置为安全的上下文 '{}', uri: {}",
-					authentication.getName(), requestURI);
+			LOG.debug("将身份验证设置为安全的上下文 '{}', uri: {}", authorDto.getUsername(), requestURI);
 		} else {
 			LOG.debug("没有找到有效的JWT令牌, uri: {}", requestURI);
-			throw new ApiException(400,"无权限!");
+			throw new ApiException(400,"无权限:"+requestURI);
 		}
 
 		filterChain.doFilter(request, response);
-		throw new UnsupportedOperationException("Unimplemented method 'doFilterInternal'");
 	}
 
+	
 	private boolean shouldIgnoreRequest(HttpServletRequest request) {
+		String requestURI = request.getRequestURI();
+		String method = request.getMethod().toLowerCase();
+
+		if(method.equals("options")){
+			return true;
+		}
+		
 		String[] split = tangProperties.getOpenUrl().split(",");
 		for (String string : split) {
 			if (antPathMatcher.match(string, request.getRequestURI())) {
 				return true;
+			}
+		}
+
+		for(Map<String,String> map : TangConfig.notRoleList){
+			String pathVal = map.get("path");
+			String methodVal = map.get("method");
+
+			if(methodVal != null){
+				methodVal = methodVal.toLowerCase();
+				if (antPathMatcher.match(pathVal, requestURI) && method.equals(methodVal)) {
+					return true;
+				}
+			}else{
+				if (antPathMatcher.match(pathVal, requestURI)) {
+					return true;
+				}
 			}
 		}
         return false;

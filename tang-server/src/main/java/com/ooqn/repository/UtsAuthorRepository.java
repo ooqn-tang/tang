@@ -13,7 +13,7 @@ import com.ooqn.entity.model.UtsAuthor;
 
 public interface UtsAuthorRepository extends CrudRepository<UtsAuthor, String> {
 
-    @Query("select new UtsAuthor(ua.username,ua.nickname) from UtsAuthor ua where ua.authorId = ?1")
+    @Query("select new UtsAuthor(ua.username,ua.nickname) From UtsAuthor ua where ua.authorId = ?1")
     Optional<UtsAuthor> findUsernameNicknameByAuthorId(String authorId);
 
     UtsAuthor findByUsername(String username);
@@ -25,7 +25,7 @@ public interface UtsAuthorRepository extends CrudRepository<UtsAuthor, String> {
 
     int countByUsername(String username);
 
-    @Query("select ua from UtsAuthor ua where ua.nickname like %?1% or ua.username like %?1% or ua.nickname like %?1%")
+    @Query("From UtsAuthor ua where ua.nickname like %?1% or ua.username like %?1% or ua.nickname like %?1%")
     List<UtsAuthor> findByMailLikeOrUsernameLikeOrNicknameLike(String queryData);
 
     long countByNickname(String nickname);

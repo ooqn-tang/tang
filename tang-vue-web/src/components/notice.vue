@@ -70,8 +70,8 @@ let loadNotice = () => {
   request({
     url: `/api/notice/list`,
     method: 'GET'
-  }).then((response) => {
-      advList.value = response.data
+  }).then((res) => {
+      advList.value = res.data
   })
 }
 

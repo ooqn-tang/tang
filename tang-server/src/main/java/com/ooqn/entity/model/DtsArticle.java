@@ -47,7 +47,10 @@ public class DtsArticle {
 	@Schema(description = "概要")
 	private String synopsis;
 
-	@Schema(description = "内容ID")
-	private String articleContextId;
+	@Schema(description = "正文")
+	private String textContextId;
+
+	@Schema(description = "markdown")
+	private String markdownContextId;
 
 }

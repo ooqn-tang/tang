@@ -13,20 +13,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ooqn.core.BaseController;
+import com.ooqn.core.control.BaseController;
 import com.ooqn.entity.model.DtsCollect;
 import com.ooqn.entity.param.DtsCollectParam;
 import com.ooqn.service.DtsCollectService;
 
 import cn.hutool.core.bean.BeanUtil;
-import cn.hutool.core.date.DateTime;
-import cn.hutool.core.date.DateUtil;
-import cn.hutool.core.util.IdUtil;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
 @RequestMapping("api/collect")
-@Tag(name = "收藏管理")
+@Tag(name = "收藏")
 public class DtsCollectController extends BaseController {
 
 	@Autowired
@@ -35,7 +32,7 @@ public class DtsCollectController extends BaseController {
 	@GetMapping("{dataId}")
 	public Long collect(@PathVariable("dataId") String dataId) {
 		String authorId = authorId();
-		return collectService.select(authorId, dataId);
+		return collectService.select(dataId, authorId);
 	}
 
 	@GetMapping("list")
@@ -48,18 +45,13 @@ public class DtsCollectController extends BaseController {
 	@PostMapping
 	public DtsCollect insert(@RequestBody DtsCollectParam collectParam) {
 		DtsCollect collect = BeanUtil.toBean(collectParam, DtsCollect.class);
-		DateTime date = DateUtil.date();
 		String authorId = authorId();
-
-		collect.setCollectId(IdUtil.objectId());
-		collect.setAuthorId(authorId);
-		collect.setCreateTime(date);
-		return collectService.insert(collect);
+		return collectService.insert(collect, authorId);
 	}
 
 	@DeleteMapping("{dataId}")
 	public void delete(@PathVariable("dataId") String dataId) {
 		String authorId = authorId();
-		collectService.unCollect(authorId, dataId);
+		collectService.unCollect(dataId, authorId);
 	}
 }

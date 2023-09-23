@@ -5,6 +5,7 @@ import java.util.Date;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import lombok.Getter;
@@ -39,9 +40,11 @@ public class UtsAuthor {
 	private String authorId;
 
 	@Schema(description = "用户名")
+	@Column(unique=true)
 	private String username;
 
 	@Schema(description = "昵称")
+	@Column(unique=true)
 	private String nickname;
 
 	@Schema(description = "密码")
@@ -49,6 +52,7 @@ public class UtsAuthor {
 	private String password;
 
 	@Schema(description = "邮箱")
+	@Column(unique=true)
 	private String mail;
 
 	@Schema(description = "签名")

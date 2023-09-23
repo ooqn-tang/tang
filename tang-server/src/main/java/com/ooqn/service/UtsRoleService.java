@@ -2,12 +2,10 @@ package com.ooqn.service;
 
 import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ooqn.entity.dto.UtsRoleDto;
 import com.ooqn.entity.model.UtsResource;
 import com.ooqn.entity.model.UtsResourceRole;
 import com.ooqn.entity.model.UtsRole;
@@ -25,13 +23,8 @@ public class UtsRoleService {
 	@Autowired
 	private UtsResourceRoleRepository resourceRoleRepository;
 
-	public List<UtsRoleDto> roleList(String authorId) {
-		List<UtsRole> roleList = roleRepository.findRoleListByAuthorId(authorId);
-		return roleList.stream().map(role -> {
-			UtsRoleDto roleDto = new UtsRoleDto();
-			roleDto.setRole(role);
-			return roleDto;
-		}).collect(Collectors.toList());
+	public List<UtsRole> roleList(String authorId) {
+		return roleRepository.findRoleListByAuthorId(authorId);
 	}
 
 	public UtsRole selectById(String roleId) {

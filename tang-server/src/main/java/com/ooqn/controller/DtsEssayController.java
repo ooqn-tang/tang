@@ -13,8 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ooqn.core.BaseController;
+import com.ooqn.core.control.BaseController;
 import com.ooqn.core.exception.ApiException;
+import com.ooqn.core.security.NotRole;
 import com.ooqn.entity.dto.DtsEssayDto;
 import com.ooqn.entity.model.DtsEssay;
 import com.ooqn.entity.model.UtsAuthor;
@@ -39,15 +40,15 @@ public class DtsEssayController extends BaseController {
 		essay.setType("essay");
 		DtsEssay dtsEssay = essayService.insert(essay);
 		if (dtsEssay != null) {
-			DtsEssayDto dtsEssayDto = BeanUtil.toBean(essay, DtsEssayDto.class);
+			DtsEssayDto dtsEssayDto = new DtsEssayDto(dtsEssay);
 			UtsAuthor author = author();
 			dtsEssayDto.setAuthor(author);
-			dtsEssayDto.setEssay(dtsEssay);
 			return dtsEssayDto;
 		}
 		throw new ApiException("添加失败");
 	}
 
+	@NotRole
 	@GetMapping
 	public Page<DtsEssayDto> select(@RequestParam(defaultValue = "0") Integer page) {
 		Pageable pageable = PageRequest.of(page, 10);

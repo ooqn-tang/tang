@@ -1,22 +1,17 @@
 package com.ooqn.controller;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.alibaba.fastjson.JSONObject;
-import com.ooqn.core.BaseController;
+import com.ooqn.core.control.BaseController;
 import com.ooqn.core.exception.ApiException;
 import com.ooqn.core.security.JwtProvider;
+import com.ooqn.core.security.NotRole;
 import com.ooqn.entity.dto.UtsAuthorDto;
 import com.ooqn.entity.model.UtsAuthor;
 import com.ooqn.entity.param.UtsLoginParam;
@@ -31,6 +26,7 @@ import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.lang.Validator;
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.crypto.digest.BCrypt;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 /**
@@ -52,78 +48,82 @@ public class UtsLoginController extends BaseController {
     @Autowired
     private UtsUserDetailsService utsUserDetailsService;
 
-    @Autowired
-    private AuthenticationManagerBuilder authenticationManagerBuilder;
-
+    @NotRole
     @PostMapping("/authenticate")
     public String authorize(@RequestBody UtsLoginParam loginParam) {
-        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(loginParam.getUsername(), loginParam.getPassword());
-        Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        boolean rememberMe = loginParam.getRememberMe() != null && loginParam.getRememberMe();
-        if (authentication.getPrincipal() instanceof UserDetails) {
-            return jwtProvider.createToken(authentication.getPrincipal(), rememberMe);
+
+        String username = loginParam.getUsername();
+        String password = loginParam.getPassword();
+
+        UtsAuthorDto authorDto = utsUserDetailsService.loadUserByUsername(username);
+        if (authorDto == null) {
+            throw new ApiException("用户不存在！");
         }
-        throw new ApiException();
+
+        if (!BCrypt.checkpw(password, authorDto.getPassword())) {
+            throw new ApiException("密码错误！");
+        }
+        return jwtProvider.createToken(authorDto, true);
+
     }
 
+    @NotRole
     @PostMapping("/refresh")
-    public String refresh(@RequestBody JSONObject jsonObject) {
-        String jwt = jsonObject.getString("jwt");
-        if (StringUtils.hasText(jwt) && jwtProvider.validateToken(jwt)) {
-            Authentication authentication = jwtProvider.getAuthentication(jwt);
-            UtsAuthorDto oldAuthorDto = (UtsAuthorDto) authentication.getPrincipal();
-            UtsAuthorDto authorDto = (UtsAuthorDto) utsUserDetailsService
-                    .loadUserByUsername(oldAuthorDto.getUsername());
-            return jwtProvider.createToken(authorDto, true);
+    public String refresh(@RequestBody Map<String,String> params) {
+        String jwt = params.get("jwt");
+        if (jwtProvider.validateToken(jwt)) {
+            UtsAuthorDto authorDto = jwtProvider.getAuthentication(jwt);
+            UtsAuthorDto author = utsUserDetailsService.loadUserByUsername(authorDto.getUsername());
+            return jwtProvider.createToken(author, true);
         }
-        throw new ApiException("无效token");
+        throw new ApiException("无效token！");
     }
 
+    @NotRole
     @PostMapping("register")
     public String register(@RequestBody UtsRegisterParam param) {
         String mail = param.getMail();
         if (Validator.isEmail(mail)) {
             Boolean isTrue = authorService.selectMailIsTrue(mail);
             if (isTrue) {
-                throw new ApiException("邮箱以存在");
+                throw new ApiException("邮箱以存在！");
             }
             UtsAuthor author = BeanUtil.toBean(param, UtsAuthor.class);
             String password = param.getPassword();
-            author.setPassword(new BCryptPasswordEncoder().encode(password));
+            author.setPassword(BCrypt.hashpw(password));
             author.setMail(mail);
             author.setRefreshTime(DateUtil.date());
             author.setUpdateTime(DateUtil.date());
             UtsAuthor utsAuthor = authorService.insertAuthor(author);
             if (utsAuthor != null) {
-                return "注册成功";
+                return "注册成功！";
             }
-            throw new ApiException();
+            throw new ApiException("注册失败！");
         } else {
-            throw new ApiException("请输入邮箱号");
+            throw new ApiException("请输入邮箱号！");
         }
     }
 
+    @NotRole
     @PostMapping("password")
     public String updatePassword(@RequestBody UtsRePasswordParam param) {
         String mail = param.getMail();
         Boolean isTrue = authorService.selectMailIsTrue(mail);
         if (!isTrue) {
-            throw new ApiException("邮箱不存在");
+            throw new ApiException("邮箱不存在！");
         }
         String code = fifoCache.get(mail);
         if (code == null) {
-            throw new ApiException("没有发送邮箱号");
+            throw new ApiException("没有发送邮箱号！");
         }
         if (StrUtil.equals(code, param.getCode())) {
             String password = param.getPassword();
-            UtsAuthor author = BeanUtil.toBean(param, UtsAuthor.class);
-            author.setPassword(new BCryptPasswordEncoder().encode(password));
-            UtsAuthor update = authorService.update(author);
+            UtsAuthor update = authorService.updatePassword(authorId(), BCrypt.hashpw(password));
             if (update != null) {
-                return "修改成功";
+                return "修改成功！";
             }
         }
         throw new ApiException();
     }
+
 }

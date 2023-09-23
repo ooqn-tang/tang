@@ -13,7 +13,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.ooqn.entity.dto.UtsRoleDto;
 import com.ooqn.entity.model.UtsAuthor;
 import com.ooqn.entity.model.UtsAuthorRole;
 import com.ooqn.entity.model.UtsRole;
@@ -68,7 +67,10 @@ public class UtsAuthorService {
 		return authorRepository.save(author);
 	}
 
-	public UtsAuthor update(UtsAuthor author) {
+	public UtsAuthor update(String authorId, String nickname, String signature) {
+		UtsAuthor author = authorRepository.findById(authorId).orElseThrow();
+		author.setNickname(nickname);
+		author.setSignature(signature);
 		return authorRepository.save(author);
 	}
 
@@ -109,7 +111,7 @@ public class UtsAuthorService {
 		}
 	}
 
-	public Date nowTime(String username, List<UtsRoleDto> roleList) {
+	public Date nowTime(String username, List<UtsRole> roleList) {
 		Set<Date> dateSet = new TreeSet<>();
 		Date usernameTime = getUsernameTime(username);
 		if (usernameTime != null) {
@@ -129,10 +131,10 @@ public class UtsAuthorService {
 		return date;
 	}
 
-	private Set<Date> getRoleNameTime(List<UtsRoleDto> roleList) {
+	private Set<Date> getRoleNameTime(List<UtsRole> roleList) {
 		Set<Date> dateSet = new TreeSet<>();
-		for (UtsRoleDto role : roleList) {
-			List<UtsRole> roles = roleService.selectByName(role.getRole().getRoleValue());
+		for (UtsRole role : roleList) {
+			List<UtsRole> roles = roleService.selectByName(role.getRoleValue());
 			for (UtsRole r : roles) {
 				Date refreshTime = r.getRefreshTime();
 				if (!ObjectUtil.isEmpty(refreshTime)) {
@@ -152,5 +154,11 @@ public class UtsAuthorService {
 				return name;
 			}
 		}
+	}
+
+	public UtsAuthor updatePassword(String authorId, String hashpw) {
+		UtsAuthor author = authorRepository.findById(authorId).orElseThrow();
+		author.setPassword(hashpw);
+		return authorRepository.save(author);
 	}
 }

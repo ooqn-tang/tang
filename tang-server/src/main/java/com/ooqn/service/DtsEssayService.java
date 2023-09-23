@@ -16,7 +16,6 @@ import cn.hutool.core.util.IdUtil;
 @Service
 public class DtsEssayService {
 
-	
 	@Autowired
 	private DtsEssayRepository essayRepository;
 
@@ -35,8 +34,7 @@ public class DtsEssayService {
 
 	public Page<DtsEssayDto> findAllInfo(Pageable pageable) {
 		 return essayRepository.findAll(pageable).map(essay -> {
-			DtsEssayDto essayDto = new DtsEssayDto();
-			essayDto.setEssay(essay);
+			DtsEssayDto essayDto = new DtsEssayDto(essay);
 			essayDto.setAuthor(authorRepository.findUsernameNicknameByAuthorId(essay.getAuthorId()).orElseThrow());
 			return essayDto;
 		 });

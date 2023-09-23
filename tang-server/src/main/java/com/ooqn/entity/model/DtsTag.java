@@ -1,6 +1,7 @@
 package com.ooqn.entity.model;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import lombok.Getter;
@@ -16,6 +17,7 @@ public class DtsTag {
     private String id;
 
     @Schema(description = "标签名")
+    @Column(unique=true)
     private String name;
 
     @Schema(description = "分类ID")

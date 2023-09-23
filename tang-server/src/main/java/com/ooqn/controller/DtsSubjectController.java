@@ -17,9 +17,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ooqn.core.BaseController;
+import com.ooqn.core.control.BaseController;
 import com.ooqn.core.exception.ApiException;
-import com.ooqn.entity.dto.DtsSubjectArticleDto;
+import com.ooqn.core.security.NotRole;
 import com.ooqn.entity.dto.DtsSubjectDto;
 import com.ooqn.entity.model.DtsArticle;
 import com.ooqn.entity.model.DtsSubject;
@@ -42,14 +42,16 @@ public class DtsSubjectController extends BaseController {
 	@Autowired
 	private DtsSubjectService subjectService;
 
+	@NotRole
 	@GetMapping("username/{username}")
 	public List<DtsSubject> selectSubjectArticleListByUsername(
 			@PathVariable(value = "username") String username) {
 		return subjectService.selectListByUsername(username);
 	}
 
+	@NotRole
 	@GetMapping("id/{subjectId}")
-	public DtsSubjectArticleDto selectSubjectArticleById(@PathVariable(value = "subjectId") String subjectId) {
+	public DtsSubjectDto selectSubjectArticleById(@PathVariable(value = "subjectId") String subjectId) {
 		return articleSubjectService.findSubjectArticleListBySubjectId(subjectId);
 	}
 
@@ -58,6 +60,7 @@ public class DtsSubjectController extends BaseController {
 		subjectService.deleteBySubjectIdAndAuthorId(subjectId, authorId());
 	}
 
+	@NotRole
 	@GetMapping("list")
 	public Page<DtsSubjectDto> selectSubject(
 			@RequestParam(value = "page", defaultValue = "0") Integer page) {
@@ -65,8 +68,10 @@ public class DtsSubjectController extends BaseController {
 		return subjectService.selectList(pageable);
 	}
 
+	@NotRole
 	@GetMapping("search")
-	public Page<DtsSubjectDto> selectSubjectByName(@RequestParam(value = "subjectName", defaultValue = "") String name) {
+	public Page<DtsSubjectDto> selectSubjectByName(
+			@RequestParam(value = "subjectName", defaultValue = "") String name) {
 		Pageable pageable = PageRequest.of(1, 15);
 		return subjectService.findListBySubjectName(name, pageable);
 	}
@@ -96,9 +101,9 @@ public class DtsSubjectController extends BaseController {
 		articleSubjectService.saveSubjectId(articleId, subjectId);
 	}
 
+	@NotRole
 	@GetMapping("article/{articleId}")
-	public List<DtsArticle> findSubjectListByArticleId(
-			@PathVariable("articleId") String articleId) {
+	public List<DtsArticle> findSubjectListByArticleId(@PathVariable("articleId") String articleId) {
 		return articleSubjectService.findSubjectArticleTitleListByArticleId(articleId);
 	}
 }

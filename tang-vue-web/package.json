@@ -4,18 +4,20 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "serve": "vite preview"
+    "serve": "vite preview",
+    "postbuild":"node scripts/afterBuild.js"
   },
   "dependencies": {
-    "@element-plus/icons-vue": "^2.1.0",
+    "@vicons/ionicons5": "^0.12.0",
     "axios": "^1.3.6",
-    "element-plus": "^2.3.3",
+    "codemirror-editor-vue3": "^2.3.0",
     "highlight": "^0.2.4",
     "highlight.js": "^11.7.0",
     "jwt-decode": "^3.1.2",
     "marked": "^4.3.0",
     "path": "^0.12.7",
     "sass": "^1.62.0",
+    "v-contextmenu": "^3.0.0",
     "vue": "^3.2.47",
     "vue-router": "^4.1.6",
     "vuex": "^4.1.0"
@@ -23,7 +25,9 @@
   "devDependencies": {
     "@types/marked": "^4.0.8",
     "@vitejs/plugin-vue": "^4.1.0",
+    "naive-ui": "^2.34.4",
     "unplugin-vue-components": "^0.24.1",
+    "vfonts": "^0.0.3",
     "vite": "^4.3.1"
   }
 }

@@ -1,5 +1,9 @@
 package com.ooqn.entity.dto;
 
+import java.util.List;
+
+import org.springframework.beans.BeanUtils;
+
 import com.ooqn.entity.model.DtsSubject;
 import com.ooqn.entity.model.UtsAuthor;
 
@@ -8,9 +12,14 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class DtsSubjectDto {
+public class DtsSubjectDto extends DtsSubject {
 
-    private DtsSubject subject;
+	public DtsSubjectDto(DtsSubject subject){
+		BeanUtils.copyProperties(subject, this);
+	}
 
     private UtsAuthor author;
+
+	private List<?> dataArray;
+	
 }

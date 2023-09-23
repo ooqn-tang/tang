@@ -11,8 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ooqn.core.BaseController;
-import com.ooqn.core.api.ResponseCode;
+import com.ooqn.core.control.BaseController;
 import com.ooqn.core.exception.ApiException;
 import com.ooqn.entity.model.UtsAuthor;
 import com.ooqn.entity.model.UtsFans;
@@ -55,26 +54,12 @@ public class UtsFansController extends BaseController {
 	@PostMapping("{fansName}")
 	public UtsFans insert(@PathVariable("fansName") String fansName) {
 		String authorId = authorId();
-
-		UtsAuthor utsAuthor = authorService.selectAuthorByName(fansName);
-		if (utsAuthor == null) {
-			throw new ApiException(ResponseCode.VALIDATE_FAILED);
-		}
-
-		UtsFans fans = new UtsFans();
-		fans.setAuthorId(authorId);
-		fans.setBeAuthorId(utsAuthor.getAuthorId());
-		return fansService.insertFans(fans);
+		return fansService.insertFans(fansName, authorId);
 	}
 
 	@DeleteMapping("{fansName}")
 	public Integer delete(@PathVariable("fansName") String fansName) {
 		String authorId = authorId();
-
-		int count = fansService.deleteFans(fansName, authorId);
-		if (count > 0) {
-			return count;
-		}
-		throw new ApiException();
+		return fansService.deleteFans(fansName, authorId);
 	}
 }

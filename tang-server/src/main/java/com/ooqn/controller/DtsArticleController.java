@@ -17,28 +17,25 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ooqn.core.BaseController;
-import com.ooqn.core.exception.ApiException;
-import com.ooqn.entity.StateNum;
+import com.ooqn.core.control.BaseController;
+import com.ooqn.core.security.NotRole;
 import com.ooqn.entity.dto.DtsArticleDto;
 import com.ooqn.entity.model.DtsArticle;
 import com.ooqn.entity.param.DtsArticleParam;
 import com.ooqn.service.DtsArticleSubjectService;
-import com.ooqn.util.CommonUtil;
 
-import cn.hutool.core.bean.BeanUtil;
-import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.StrUtil;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
 @RequestMapping("api/article")
-@Tag(name = "文章管理")
+@Tag(name = "文章")
 public class DtsArticleController extends BaseController {
 
 	@Autowired
 	private DtsArticleSubjectService articleSubjectService;
 
+	@NotRole
 	@GetMapping("list")
 	public Page<DtsArticleDto> selectArticleList(
 			@RequestParam(value = "page", defaultValue = "0") Integer page,
@@ -54,6 +51,7 @@ public class DtsArticleController extends BaseController {
 		return articleSubjectService.selectGzArticleList(pageable, authorId());
 	}
 
+	@NotRole
 	@GetMapping("list/{username}")
 	public Page<DtsArticleDto> selectArticleListByUsername(
 			@RequestParam(value = "page", defaultValue = "1") Integer page,
@@ -62,16 +60,10 @@ public class DtsArticleController extends BaseController {
 		return articleSubjectService.selectArticleByAuthorName(username, pageable);
 	}
 
+	@NotRole
 	@GetMapping("recommend")
 	public List<DtsArticle> selectArticleListRecommend() {
 		return articleSubjectService.selectArticleListRandom();
-	}
-
-	@PostMapping
-	public String create() {
-		String authorId = authorId();
-		DtsArticle article = articleSubjectService.insertArticle(authorId);
-		return article.getArticleId();
 	}
 
 	@DeleteMapping("{articleId}")
@@ -83,37 +75,40 @@ public class DtsArticleController extends BaseController {
 		return ResponseEntity.ok("处理成功");
 	}
 
+	@PostMapping
+	public String create() {
+		String authorId = authorId();
+		DtsArticle article = articleSubjectService.insertArticle(authorId);
+		return article.getArticleId();
+	}
+
 	@PutMapping
 	public void update(@RequestBody DtsArticleParam articleParam) {
-		DtsArticle article = BeanUtil.toBean(articleParam, DtsArticle.class);
-		String articleId = article.getArticleId();
-		String authorId = articleSubjectService.authorId(articleId);
+		String articleId = articleParam.getArticleId();
 		String text = articleParam.getText();
+		String title = articleParam.getTitle();
 		String markdown = articleParam.getMarkdown();
-		String synopsis = CommonUtil.delHTMLTag(text);
+		String subjectId = articleParam.getSubjectId();
+		String categoryId = articleParam.getCategoryId();
+		String authorId = articleSubjectService.authorId(articleId);
 		if (StrUtil.equals(authorId, authorId())) {
-			article.setAuthorId(authorId);
-			article.setState(StateNum.normal);
-			article.setUpdateTime(DateUtil.date());
-			article.setSynopsis(StrUtil.sub(synopsis, 0, 150));
-			articleSubjectService.updateArticle(article, articleParam.getSubjectId(), text, markdown);
+			articleSubjectService.updateArticle(articleId, subjectId,categoryId, title, text, markdown);
 		}
 	}
 
+	@NotRole
 	@GetMapping("load/{articleId}")
 	public DtsArticleDto load(@PathVariable(name = "articleId") String articleId) {
 		return articleSubjectService.selectArticleById(articleId);
 	}
 
+	@NotRole
 	@GetMapping("load/{articleId}/all")
 	public DtsArticleDto loadAll(@PathVariable(name = "articleId") String articleId) {
-		DtsArticleDto articleDto = articleSubjectService.selectArticleAllById(articleId);
-		if (articleDto == null) {
-			throw new ApiException();
-		}
-		return articleDto;
+		return articleSubjectService.selectArticleAllById(articleId);
 	}
 
+	@NotRole
 	@GetMapping("so")
 	public Page<?> search(
 			@RequestParam(value = "page", defaultValue = "0") Integer page,

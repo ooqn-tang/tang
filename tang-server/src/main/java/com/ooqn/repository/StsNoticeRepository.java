@@ -16,10 +16,7 @@ public interface StsNoticeRepository extends CrudRepository<StsNotice, String> {
     //随机查询10条数据
     List<StsNotice> findTop10ByOrderByOrderNum();
 
-    //删除两个时间间的数据
-    void deleteByCreateTimeBetween(String startTime, String endTime);
-
-    @Query("select max(n.orderNum) from StsNotice n")
+    @Query("select max(n.orderNum) From StsNotice n")
     Optional<Integer> findNoticeMaxOrder();
 
 

@@ -21,7 +21,6 @@ public interface DtsSubjectRelevanceRepository extends CrudRepository<DtsSubject
 
     void deleteByDataId(String articleId);
 
-    // 获取这个专辑的最新的OrderNum + 1
     @Query("select max(dsr.orderNum) + 1 from DtsSubjectRelevance dsr where dsr.subjectId = ?1")
     Integer findMaxOrderNumBySubjectId(String subjectId);
 

@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ooqn.core.BaseController;
-import com.ooqn.core.api.ResponseCode;
+import com.ooqn.core.control.BaseController;
+import com.ooqn.core.control.ResponseCode;
 import com.ooqn.entity.model.UtsResource;
 import com.ooqn.entity.model.UtsRole;
 import com.ooqn.service.UtsAuthorService;

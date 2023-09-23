@@ -11,9 +11,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.alibaba.fastjson.JSONObject;
+import com.ooqn.core.security.NotRole;
 import com.ooqn.entity.dto.DtsArticleDto;
-import com.ooqn.entity.dto.DtsSubjectArticleDto;
 import com.ooqn.entity.dto.DtsSubjectDto;
 import com.ooqn.service.DtsArticleSubjectService;
 import com.ooqn.service.DtsSubjectService;
@@ -36,6 +35,7 @@ public class StsPageController {
 	@Autowired
 	private StsNoticeService noticeService;
 
+	@NotRole
 	@GetMapping
 	public String toIndex(@RequestParam(value = "page", defaultValue = "0") Integer page,
 			Model model, HttpServletRequest request) {
@@ -43,19 +43,17 @@ public class StsPageController {
 		Page<DtsArticleDto> dtsArticleDtoPageInfo = articleSubjectService.selectArticleListSmall(pageable);
 		model.addAttribute("articlePage", dtsArticleDtoPageInfo);
 		model.addAttribute("notice", noticeService.selectAllNotice());
-		System.out.println(JSONObject.toJSONString(dtsArticleDtoPageInfo));
 		return "articles";
 	}
 
+	@NotRole
 	@GetMapping("article/{id}")
 	public String toArticle(@PathVariable("id") String id, Model model) {
 		DtsArticleDto articleDto = articleSubjectService.selectArticleById(id);
 		model.addAttribute("article", articleDto);
-		String subjectId = subjectService.findSubjectIdByArticleId(id);
-
+		String subjectId = subjectService.findSubjectIdByArticleId(id); 
 		if (subjectId != null) {
-			DtsSubjectArticleDto selectSubjectArticleListById =
-					articleSubjectService.findSubjectArticleListBySubjectId(subjectId);
+			DtsSubjectDto selectSubjectArticleListById = articleSubjectService.findSubjectArticleListBySubjectId(subjectId);
 			model.addAttribute("subject", selectSubjectArticleListById);
 		}
 
@@ -63,6 +61,7 @@ public class StsPageController {
 		return "article";
 	}
 
+	@NotRole
 	@GetMapping("map")
 	public String map(@RequestParam(value = "page", defaultValue = "0") Integer page, Model model) {
 		Pageable pageable = PageRequest.of(page, 15);
@@ -71,13 +70,15 @@ public class StsPageController {
 		return "map";
 	}
 
+	@NotRole
 	@GetMapping("subject/{id}")
 	public String subject(@PathVariable("id") String id, Model model) {
-		DtsSubjectArticleDto dtsArticleSubjectDto = articleSubjectService.findSubjectArticleListBySubjectId(id);
+		DtsSubjectDto dtsArticleSubjectDto = articleSubjectService.findSubjectArticleListBySubjectId(id);
 		model.addAttribute("subject", dtsArticleSubjectDto);
 		return "subject";
 	}
 
+	@NotRole
 	@GetMapping("subjects")
 	public String subjects(@RequestParam(value = "page", defaultValue = "0") Integer page,
 			Model model) {

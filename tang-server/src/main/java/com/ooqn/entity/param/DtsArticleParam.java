@@ -17,10 +17,6 @@ public class DtsArticleParam {
 	private String title;
 
 	@NotBlank
-	@Length(min = 1, max = 200, message = "长度在1 ~ 200之间")
-	private String synopsis;
-
-	@NotBlank
 	private String text;
 
 	private String categoryId;
@@ -29,8 +25,6 @@ public class DtsArticleParam {
 	private String markdown;
 
 	private String subjectId;
-
-	private String classId;
 
 	private List<String> tagIdList;
 }

@@ -5,6 +5,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.ooqn.core.control.ResponseCode;
+import com.ooqn.core.exception.ApiException;
 import com.ooqn.entity.model.UtsAuthor;
 import com.ooqn.entity.model.UtsFans;
 import com.ooqn.repository.UtsFansRepository;
@@ -28,9 +30,18 @@ public class UtsFansService {
 		return fansRepository.findFansList(authorId, pageable);
 	}
 
-	public UtsFans insertFans(UtsFans fans) {
-		fans.setCreateTime(DateTime.now());
+	public UtsFans insertFans(String fansName, String authorId) {
+		UtsAuthor author = authorService.selectAuthorByName(fansName);
+		if (author == null) {
+			throw new ApiException(ResponseCode.VALIDATE_FAILED);
+		}
+
+		UtsFans fans = new UtsFans();
 		fans.setFansId(IdUtil.objectId());
+		fans.setAuthorId(authorId);
+		fans.setBeAuthorId(author.getAuthorId());
+		fans.setCreateTime(DateTime.now());
+		
 		return fansRepository.save(fans);
 	}
 

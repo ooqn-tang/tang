@@ -62,7 +62,7 @@ service.interceptors.response.use(
                 }).catch(err => {
                     //跳到登录页
                     localStorage.removeItem("jwt")
-                    localStorage.removeItem("authorData")
+                    localStorage.removeItem("author")
                     this.$store.state.username = ""
                     window.location.href = "/"
                     return Promise.reject(err)

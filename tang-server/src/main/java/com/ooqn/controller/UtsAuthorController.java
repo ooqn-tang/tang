@@ -13,13 +13,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ooqn.core.BaseController;
-import com.ooqn.core.exception.ApiException;
+import com.ooqn.core.control.BaseController;
+import com.ooqn.core.security.NotRole;
 import com.ooqn.entity.model.UtsAuthor;
 import com.ooqn.entity.param.UtsAuthorParam;
 import com.ooqn.service.UtsAuthorService;
 
-import cn.hutool.core.bean.BeanUtil;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
@@ -31,6 +30,7 @@ public class UtsAuthorController extends BaseController {
 	@Autowired
 	private UtsAuthorService authorService;
 
+	@NotRole
 	@GetMapping("selectAuthor")
 	public Page<UtsAuthor> select(@RequestParam(value = "page", defaultValue = "0") Integer page) {
 		Pageable pageable = PageRequest.of(page, 100);
@@ -38,23 +38,20 @@ public class UtsAuthorController extends BaseController {
 	}
 
 	@PutMapping
-	public String update(@RequestBody UtsAuthorParam authorParam) {
-		UtsAuthor author = BeanUtil.toBean(authorParam, UtsAuthor.class);
+	public UtsAuthor update(@RequestBody UtsAuthorParam authorParam) {
 		String authorId = authorId();
-		author.setAuthorId(authorId);
-		UtsAuthor update = authorService.update(author);
-		if (update != null) {
-			return "更新成功";
-		}
-		throw new ApiException();
+		String nickname = authorParam.getNickname();
+		String signature = authorParam.getSignature();
+		return authorService.update(authorId, nickname, signature);
 	}
 
-	
+	@NotRole
 	@GetMapping("{username}")
 	public UtsAuthor authorByUsername(@PathVariable(value = "username") String username) {
 		return authorService.selectAuthorByName(username);
 	}
 
+	@NotRole
 	@GetMapping("list")
 	public Page<UtsAuthor> authorList(
 			@RequestParam(value = "page", defaultValue = "1") Integer page) {

@@ -5,6 +5,7 @@ import java.util.Date;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import lombok.Data;
@@ -18,9 +19,11 @@ public class UtsRole {
 	private String roleId;
 
 	@Schema(description = "角色名称")
+	@Column(unique=true)
 	private String roleName;
 
 	@Schema(description = "角色值")
+	@Column(unique=true)
 	private String roleValue;
 
 	@Schema(description = "创建人ID")
