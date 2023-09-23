@@ -118,7 +118,7 @@ function createArticle(){
     a.setAttribute("target", "_blank");      
     a.setAttribute("id", "article-editor");       
     // 防止反复添加      
-    if(!document.getElementById(id)) {                               
+    if(!document.getElementById("article-editor")) {                               
         document.body.appendChild(a);      
     }      
     a.click();   
