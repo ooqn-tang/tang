@@ -53,7 +53,7 @@
             </li>
             
             <li class="nav-item" v-if="isLogin">
-              <a class="nav-link active" @click="createArticle()">投稿</a>
+              <span class="nav-link active" @click="createArticle()">投稿</span>
             </li>
             <li class="nav-item" v-if="isLogin">
               <a class="nav-link active" :href="'/author/' + $store.state.username">我的</a>
@@ -113,7 +113,15 @@ function createArticle(){
     method: 'POST'
   }).then((res) => {
     let routeData = router.resolve({name:"article-editor-md",params:{id:res.data}});
-    window.open(routeData.href, '_blank');
+    let a = document.createElement("a");           
+    a.setAttribute("href", routeData.href);      
+    a.setAttribute("target", "_blank");      
+    a.setAttribute("id", id);       
+    // 防止反复添加      
+    if(!document.getElementById(id)) {                               
+        document.body.appendChild(a);      
+    }      
+    a.click();   
   })
 }
 
