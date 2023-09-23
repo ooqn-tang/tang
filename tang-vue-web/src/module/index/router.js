@@ -119,7 +119,7 @@ const routes = [
         ]
     },
     {
-        path: '/article-editor-md/:id',
+        path: '/article-editor-md',
         name: 'article-editor-md',
         component: () => import('views/article/article-editor-md.vue')
     },

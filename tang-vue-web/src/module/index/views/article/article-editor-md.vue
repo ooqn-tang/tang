@@ -53,10 +53,11 @@ import hljs from "highlight.js";
 import request from "utils/request";
 import { marked } from "marked";
 import { onMounted, ref, watch } from 'vue';
-import { useRoute } from 'vue-router';
+import { useRoute,useRouter } from 'vue-router';
 import { useStore } from 'vuex';
 
 const route = useRoute();
+const router = useRouter()
 const store = useStore();
 
 marked.setOptions({
@@ -72,7 +73,7 @@ marked.setOptions({
   smartypants: false,
 });
 
-let articleId = ref(route.params.id);
+let articleId = ref(route.query.article);
 let subjectList = ref([]);
 let articleForm = ref({});
 let externalForm = ref(null);
@@ -80,9 +81,25 @@ let systemForm = ref(null);
 let categoryList = ref([]);
 
 onMounted(() => {
-  loadSubject();
-  loadCategoryList();
-  loadArticleAllInfo(articleId.value);
+  if(!articleId.value){
+    request({
+      url: `/api/article`,
+      method: 'POST'
+    }).then((res) => {
+      window.history.pushState({}, 0,  window.location.origin + '/article-editor-md?article=' + res.data);
+      articleId.value = res.data
+      loadSubject();
+      loadCategoryList();
+      loadArticleAllInfo(articleId.value);
+    })
+  }else{
+    loadSubject();
+    loadCategoryList();
+    loadArticleAllInfo(articleId.value);
+  }
+    
+  
+  
 });
 
 function loadArticleAllInfo(articleId){

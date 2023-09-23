@@ -53,7 +53,7 @@
             </li>
             
             <li class="nav-item" v-if="isLogin">
-              <span class="nav-link active" @click="createArticle()">投稿</span>
+              <a class="nav-link active" href="/article-editor-md">投稿</a>
             </li>
             <li class="nav-item" v-if="isLogin">
               <a class="nav-link active" :href="'/author/' + $store.state.username">我的</a>
@@ -107,23 +107,6 @@ onActivated(() => {
   }
 })
 
-function createArticle(){
-  request({
-    url: `/api/article`,
-    method: 'POST'
-  }).then((res) => {
-    let routeData = router.resolve({name:"article-editor-md",params:{id:res.data}});
-    let a = document.createElement("a");           
-    a.setAttribute("href", routeData.href);      
-    a.setAttribute("target", "_blank");      
-    a.setAttribute("id", "article-editor");       
-    // 防止反复添加      
-    if(!document.getElementById("article-editor")) {                               
-        document.body.appendChild(a);      
-    }      
-    a.click();   
-  })
-}
 
 </script>
 

@@ -61,7 +61,7 @@
         <a class="btn btn-outline-primary btn-sm mini-but" :href="'https://blog.ooqn.com/article/' + articleId"
           target="_blank">阅读模式</a>
         <router-link class="btn btn-outline-primary btn-sm mini-but" v-if="isThisUser" target="_blank"
-          :to="{ name: 'article-editor-md', params: { id: articleId } }">修改</router-link>
+          :to="{ name: 'article-editor-md', query: { article: articleId } }">修改</router-link>
         <a class="btn btn-outline-primary btn-sm mini-but"
           onclick="document.body.scrollTop = document.documentElement.scrollTop = 0">⬆TOP</a>
       </div>
