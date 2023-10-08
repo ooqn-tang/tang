@@ -1,30 +1,3 @@
-server:
-  port: 8888
-  ssl:
-    key-store: ttcxy.cn.jks
-    enabled: false
-    key-store-password: EL5RIudx
-    key-store-type: JKS
 spring:
   profiles:
       active: prod
-  jpa:
-    hibernate:
-      ddl-auto: 'update' #'create-drop'
-    show-sql: true
-  main:
-    allow-circular-references: true
-  jackson:
-    default-property-inclusion: non-null
-    date-format: yyyy.MM.dd
-    time-zone: GMT+8
-    locale: zh_CN
-  mvc:
-    throwExceptionIfNoHandlerFound: true
-  servlet:
-    multipart:
-      max-file-size: 500MB
-      max-request-size: 500MB
-logging:
-  level:
-    root: info
