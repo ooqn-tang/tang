@@ -1,0 +1,1 @@
+import{_ as e,e as c,f as n}from"./index.5db2cb1e.js";const o={};function r(t,s){return c(),n("div",null," \u554A\u624B\u52D5\u95A5\u624B\u52D5\u95A5 ")}const a=e(o,[["render",r]]);export{a as default};

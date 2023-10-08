@@ -1,0 +1,1 @@
+import{_ as e,e as _,f as t}from"./index.5db2cb1e.js";const s={class:"card-body article-list p-0"},a={setup(c){return(o,r)=>(_(),t("div",s," my "))}},p=e(a,[["__scopeId","data-v-5a553ab8"]]);export{p as default};
