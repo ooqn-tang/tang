@@ -10,7 +10,6 @@ import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
-import com.ooqn.entity.model.UtsAuthor;
 import com.ooqn.entity.model.UtsResource;
 
 import cn.hutool.core.date.DateUtil;

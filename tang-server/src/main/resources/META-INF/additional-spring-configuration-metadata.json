@@ -1,0 +1,32 @@
+{"properties": [
+  {
+    "name": "tang.file",
+    "type": "java.lang.String",
+    "description": "A description for 'tang.file'"
+  },
+  {
+    "name": "tang.openUrl",
+    "type": "java.lang.String",
+    "description": "A description for 'tang.openUrl'"
+  },
+  {
+    "name": "tang.tokenKey",
+    "type": "java.lang.String",
+    "description": "A description for 'tang.tokenKey'"
+  },
+  {
+    "name": "tang.jwt.base64-secret",
+    "type": "java.lang.String",
+    "description": "A description for 'tang.jwt.base64-secret'"
+  },
+  {
+    "name": "tang.jwt.token-validity-in-seconds",
+    "type": "java.lang.String",
+    "description": "A description for 'tang.jwt.token-validity-in-seconds'"
+  },
+  {
+    "name": "tang.jwt.token-validity-in-seconds-for-remember-me",
+    "type": "java.lang.String",
+    "description": "A description for 'tang.jwt.token-validity-in-seconds-for-remember-me'"
+  }
+]}
