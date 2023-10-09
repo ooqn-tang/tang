@@ -39,7 +39,7 @@ public class InitService {
     @Transactional
     public void init() {
         try {
-            Object singleResult = entityManager.createNativeQuery("select count(1) from uts_author", UtsAuthor.class).getSingleResult();
+            Object singleResult = entityManager.createNativeQuery("select count(1) from uts_author").getSingleResult();
             if (singleResult != null && Integer.parseInt(singleResult.toString()) > 0) {
                 return;
             }
