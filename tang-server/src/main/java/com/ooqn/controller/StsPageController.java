@@ -19,7 +19,6 @@ import com.ooqn.service.DtsSubjectService;
 import com.ooqn.service.StsNoticeService;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
 @RequestMapping
@@ -37,11 +36,10 @@ public class StsPageController {
 
 	@NotRole
 	@GetMapping
-	public String toIndex(@RequestParam(value = "page", defaultValue = "0") Integer page,
-			Model model, HttpServletRequest request) {
+	public String toIndex(@RequestParam(value = "page", defaultValue = "0") Integer page, Model model) {
 		Pageable pageable = PageRequest.of(page, 50);
-		Page<DtsArticleDto> dtsArticleDtoPageInfo = articleSubjectService.selectArticleListSmall(pageable);
-		model.addAttribute("articlePage", dtsArticleDtoPageInfo);
+		Page<DtsArticleDto> articlePage = articleSubjectService.selectArticleListSmall(pageable);
+		model.addAttribute("articlePage", articlePage);
 		model.addAttribute("notice", noticeService.selectAllNotice());
 		return "articles";
 	}
@@ -51,10 +49,10 @@ public class StsPageController {
 	public String toArticle(@PathVariable("id") String id, Model model) {
 		DtsArticleDto articleDto = articleSubjectService.selectArticleById(id);
 		model.addAttribute("article", articleDto);
-		String subjectId = subjectService.findSubjectIdByArticleId(id); 
+		String subjectId = subjectService.findSubjectIdByArticleId(id);
 		if (subjectId != null) {
-			DtsSubjectDto selectSubjectArticleListById = articleSubjectService.findSubjectArticleListBySubjectId(subjectId);
-			model.addAttribute("subject", selectSubjectArticleListById);
+			DtsSubjectDto subject = articleSubjectService.findSubjectArticleListBySubjectId(subjectId);
+			model.addAttribute("subject", subject);
 		}
 
 		model.addAttribute("notice", noticeService.selectAllNotice());
@@ -65,26 +63,25 @@ public class StsPageController {
 	@GetMapping("map")
 	public String map(@RequestParam(value = "page", defaultValue = "0") Integer page, Model model) {
 		Pageable pageable = PageRequest.of(page, 15);
-		Page<DtsArticleDto> dtsArticleDtoPage = articleSubjectService.selectArticleList("0",pageable);
-		model.addAttribute("articlePage", dtsArticleDtoPage);
+		Page<DtsArticleDto> articlePage = articleSubjectService.selectArticleList("0", pageable);
+		model.addAttribute("articlePage", articlePage);
 		return "map";
 	}
 
 	@NotRole
 	@GetMapping("subject/{id}")
 	public String subject(@PathVariable("id") String id, Model model) {
-		DtsSubjectDto dtsArticleSubjectDto = articleSubjectService.findSubjectArticleListBySubjectId(id);
-		model.addAttribute("subject", dtsArticleSubjectDto);
+		DtsSubjectDto subject = articleSubjectService.findSubjectArticleListBySubjectId(id);
+		model.addAttribute("subject", subject);
 		return "subject";
 	}
 
 	@NotRole
 	@GetMapping("subjects")
-	public String subjects(@RequestParam(value = "page", defaultValue = "0") Integer page,
-			Model model) {
+	public String subjects(@RequestParam(value = "page", defaultValue = "0") Integer page, Model model) {
 		Pageable pageable = PageRequest.of(page, 50);
-		Page<DtsSubjectDto> dtsArticleSubjectDtoPageInfo = subjectService.selectList(pageable);
-		model.addAttribute("subjects", dtsArticleSubjectDtoPageInfo);
+		Page<DtsSubjectDto> subjects = subjectService.selectList(pageable);
+		model.addAttribute("subjects", subjects);
 		return "subjects";
 	}
 

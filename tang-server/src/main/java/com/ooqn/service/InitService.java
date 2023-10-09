@@ -1,5 +1,6 @@
 package com.ooqn.service;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,8 @@ import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
+import com.ooqn.core.config.TangConfig;
+import com.ooqn.entity.model.StsCode;
 import com.ooqn.entity.model.UtsResource;
 
 import cn.hutool.core.date.DateUtil;
@@ -34,6 +37,9 @@ public class InitService {
 
     @Autowired
     private UtsResourceService resourceService;
+
+    @Autowired
+    private StsCodeService codeService;
 
     @Transactional
     public void init() {
@@ -80,6 +86,13 @@ public class InitService {
             }
         } catch (IllegalStateException e) {
             log.info(e.getMessage());
+        }
+    }
+
+    public void loadSysCode(){
+        List<StsCode> loadSysCode = codeService.loadSysCode();
+        for (StsCode code : loadSysCode) {
+            TangConfig.sysCode.put(code.getCodeName(), code.getCodeValue());
         }
     }
 }

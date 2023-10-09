@@ -1,6 +1,7 @@
 package com.ooqn.core.config;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -15,6 +16,8 @@ public class TangConfig {
 
     // 不需要取消控制的接口，url,method
     public static List<Map<String, String>> notRoleList = new ArrayList<>();
+
+    public static Map<String,String> sysCode = new HashMap<String,String>();
 
     @Bean
     public CorsFilter corsFilter() {

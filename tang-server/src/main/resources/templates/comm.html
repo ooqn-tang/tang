@@ -1,10 +1,3 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
 <!--导航-->
 <div th:fragment="nav">
     <nav class="navbar navbar-default navbar-static-top" role="navigation">
@@ -28,6 +21,7 @@
         </div>
     </nav>
 </div>
+
 <!--网站消息-->
 <div th:fragment="website">
     <div class="list-group">
@@ -40,6 +34,7 @@
         </a>
     </div>
 </div>
+
 <!--内容推荐-->
 <div th:fragment="recommend">
     <div class="list-group">
@@ -48,6 +43,7 @@
     </div>
 </div>
 
+<!-- 统计部分 -->
 <script th:fragment="script">
     var _hmt = _hmt || [];
     (function() {
@@ -60,5 +56,3 @@
         location.href = "/article/" + document.getElementById("ml").value
     }
 </script>
-</body>
-</html>

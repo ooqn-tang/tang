@@ -29,6 +29,7 @@ public class TangApplicationRunner implements CommandLineRunner {
     @Override
     @Transactional
     public void run(String... args) throws Exception {
+        initService.loadSysCode();
         new Thread() {
             public void run() {
                 System.out.println("初始化数据--------------------------------");
@@ -36,7 +37,6 @@ public class TangApplicationRunner implements CommandLineRunner {
                 System.out.println("初始化数据--------------------------------");
             }
         }.start();
-       
         Map<RequestMappingInfo, HandlerMethod> methodMap = requestMappingHandlerMapping.getHandlerMethods();
         for (RequestMappingInfo info : methodMap.keySet()){
             for (String patternValues : info.getPatternValues()) {
