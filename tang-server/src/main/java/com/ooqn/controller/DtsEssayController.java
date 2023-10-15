@@ -37,7 +37,6 @@ public class DtsEssayController extends BaseController {
 	public DtsEssayDto insert(@RequestBody DtsEssayParam essayParam) {
 		DtsEssay essay = BeanUtil.toBean(essayParam, DtsEssay.class);
 		essay.setAuthorId(authorId());
-		essay.setType("essay");
 		DtsEssay dtsEssay = essayService.insert(essay);
 		if (dtsEssay != null) {
 			DtsEssayDto dtsEssayDto = new DtsEssayDto(dtsEssay);
