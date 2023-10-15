@@ -32,6 +32,8 @@ public class DtsPageView {
 
     private Date createTime;
 
+    private Date updateTime;
+
     private String title;
 
     private String createAuthor;

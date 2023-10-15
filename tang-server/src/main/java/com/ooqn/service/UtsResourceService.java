@@ -26,6 +26,10 @@ public class UtsResourceService {
 		return resourceRepository.findByNameLikeAndPathLikeOrderByPath("%" + queryData + "%", "%" + queryData + "%");
 	}
 
+	public UtsResource select(String path, String type){
+		return resourceRepository.findByPathAndType(path, type);
+	}
+
 	public UtsResource insert(UtsResource resource) {
 		UtsResource res = resourceRepository.findByPathAndType(resource.getPath(), resource.getType());
 		if(res == null) {

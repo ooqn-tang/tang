@@ -28,9 +28,11 @@ public class DtsSubject {
 	@Schema(description = "排序")
 	private Integer orderNum;
 
+	@Schema(description = "创建时间")
 	private Date createTime;
 
-	private Date updateDate;
+	@Schema(description = "更新时间")
+	private Date updateTime;
 
 	private String synopsis;
 }

@@ -39,7 +39,7 @@ public class TangApplication {
 
 	/**
 	 * 配置https
-	 * @ConditionalOnProperty注解的作用是当配置文件中tang-https=true时，才会执行下面的方法
+	 * @ConditionalOnProperty 注解的作用是当配置文件中tang-https=true时，才会执行下面的方法
 	 */
     @Bean
     @ConditionalOnProperty(value = "server.ssl.enabled", havingValue = "true")
