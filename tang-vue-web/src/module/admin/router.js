@@ -1,5 +1,4 @@
-import { createRouter, createWebHistory, createWebHashHistory } from "vue-router";
-import store from 'src/store'
+import { createRouter, createWebHashHistory } from "vue-router";
 
 const routes = [
     {

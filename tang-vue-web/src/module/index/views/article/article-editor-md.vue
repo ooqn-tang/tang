@@ -7,7 +7,7 @@
     </div>
     <div class="body">
       <textarea ref="systemForm" @scroll="sysHandleScroll()" id="text" v-model="articleForm.markdown"
-        placeholder="可以输入Markdown文本为内容添加样式"></textarea>
+        placeholder="可以输入Markdown文本为内容添加样式."></textarea>
       <div ref="externalForm" @scroll="exterHandleScroll()" id="content" v-html="articleForm.text" class="markdown-body">
       </div>
     </div>
@@ -57,7 +57,7 @@ import { useRoute,useRouter } from 'vue-router';
 import { useStore } from 'vuex';
 
 const route = useRoute();
-const router = useRouter()
+const router = useRouter();
 const store = useStore();
 
 marked.setOptions({
