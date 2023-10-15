@@ -1,9 +1,12 @@
 package com.ooqn.entity.dto;
 
+import java.util.List;
+
 import org.springframework.beans.BeanUtils;
 
 import com.ooqn.entity.model.DtsEssay;
 import com.ooqn.entity.model.UtsAuthor;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,5 +19,7 @@ public class DtsEssayDto extends DtsEssay {
 	}
 
 	private UtsAuthor author;
+
+	private List<DtsEssayDto> essayList;
 	
 }

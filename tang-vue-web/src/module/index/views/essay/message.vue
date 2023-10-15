@@ -1,25 +1,26 @@
 <template>
-	<div class="card-body article-list p-0">
-		<ul class="list-group">
-			<li class="list-group-item">
-				<div class="input-group">
-					<input v-model="form.text" type="text" class="form-control" placeholder="Recipient's username"
-						aria-label="Recipient's username" aria-describedby="button-addon2">
-					<button class="btn btn-outline-secondary" type="button" id="button-addon2" @click="insertEssay">发送</button>
+	<div class="row">
+		<div class="col-md-4 mb-2">
+			<div class="card move-b-lr-0">
+				<div class="card-body"  style="height: 6.5em; ">
+					<div class="input-group"  style="height: 100%;">
+						<textarea v-model="form.text" class="form-control" id="exampleFormControlTextarea1" style="height: 100%;"></textarea>
+						<button class="btn btn-outline-secondary" type="button" id="button-addon2" @click="insertEssay">发送</button>
+					</div>
+					
 				</div>
-			</li>
-			<li class="list-group-item" v-for="(item, index) in essayList" :key="index">
-				<p>
-					<router-link :to="{name:'author_article',params:{username : item.author.username}}">{{item.author.nickname}}</router-link>
-					<span class="float-end">{{item.createTime}}</span>
-				</p>
-				{{item.text}}
-			</li>
-			<li class="list-group-item">
-				<a @click="next()">获取</a>
-			</li>
-		</ul>
+			</div>
+		</div>
+		<div class="col-md-4 mb-2" v-for="(item, index) in essayList" :key="index">
+			<div class="card move-b-lr-0">
+				<div class="card-body" style="height: 6.5em; ">
+					<p>{{ item.author.nickname }} <span class="float-end">评:1</span></p>
+					<div style="width: 300px; display:-webkit-box; overflow: hidden;  text-overflow: ellipsis; -webkit-box-orient:vertical; -webkit-line-clamp:2;">{{ item.text }}</div>
+				</div>
+			</div>
+		</div>
 	</div>
+	
 </template>
   
 <script setup>

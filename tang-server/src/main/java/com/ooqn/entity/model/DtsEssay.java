@@ -17,6 +17,9 @@ public class DtsEssay {
 	@Id
 	private String essayId;
 
+	@Schema(description = "上级")
+	private String parentId;
+
 	@Schema(description = "作者id")
 	@JsonIgnore
 	private String authorId;
@@ -24,13 +27,7 @@ public class DtsEssay {
 	@Schema(description = "文本")
 	private String text;
 
-	@Schema(description = "url")
-	private String url;
-
 	@Schema(description = "创建时间")
 	private Date createTime;
-
-	@Schema(description = "类型")
-	private String type;
 	
 }

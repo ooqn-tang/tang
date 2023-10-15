@@ -1,6 +1,6 @@
 <template>
   <div class="row">
-    <div class="col-md-9 mb-2 move-p-lr-0">
+    <div class="col-md-12 mb-2 move-p-lr-0">
       <div class="card mb-2 move-b-lr-0">
         <div class="card-body p-0">
           <nav class="nav">
@@ -9,17 +9,7 @@
           </nav>
         </div>
       </div>
-      <div class="card move-b-lr-0">
-        <router-view />
-      </div>
-    </div>
-    <div class="col-md-3 mb-2 move-p-lr-0">
-      <div class="list-group mb-2 move-b-lr-0">
-        <notice></notice>
-      </div>
-      <div class="card mb-2 move-b-lr-0">
-        <info></info>
-      </div>
+      <router-view />
     </div>
   </div>
 </template>

@@ -57,7 +57,7 @@ public class DtsSubjectService {
 		DateTime date = DateUtil.date();
 		subject.setSubjectId(IdUtil.objectId());
 		subject.setCreateTime(date);
-		subject.setUpdateDate(date);
+		subject.setUpdateTime(date);
 		return subjectRepository.save(subject);
 	}
 
@@ -66,7 +66,7 @@ public class DtsSubjectService {
 	 */
 	public DtsSubject update(DtsSubject subject) {
 		DtsSubject articleSubject = subjectRepository.findById(subject.getSubjectId()).orElseThrow();
-		articleSubject.setUpdateDate(DateUtil.date());
+		articleSubject.setCreateTime(DateUtil.date());
 		articleSubject.setSubjectName(subject.getSubjectName());
 		articleSubject.setSynopsis(subject.getSynopsis());
 		return subjectRepository.save(articleSubject);

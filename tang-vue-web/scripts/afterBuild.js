@@ -1,6 +1,6 @@
 
 /**
- * 用于将 dist/index.html 复制为 dist/404.html ,y用于 github pages 404 页面 也进入
+ * 用于将 dist/index.html 复制为 dist/404.html ,用于 github pages 404 页面 也进入
  */
 const fs = require('fs');
 const path = require('path');
