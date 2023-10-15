@@ -5,7 +5,7 @@ on:
   # Runs on pushes targeting the default branch
   push:
     paths:
-      - 'path/to/your/directory/*' # 指定要监视的目录或文件
+      - 'tang-vue-web/dist/*' # 指定要监视的目录或文件
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
