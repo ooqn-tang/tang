@@ -15,8 +15,8 @@
     </div>
     <div class="col-md-9 col-lg-9 pb-5">
       <div class="row">
-        <div class="col-lg-8 move-p-lr-0">
-          <div class="card mb-2 article-body move-b-lr-0">
+        <div class="col-lg-8">
+          <div class="card mb-2 article-body ">
             <div class="card-body" v-if="!loading">
               <div>
                 <strong>
@@ -41,13 +41,9 @@
             <div class="card-body" v-if="loading">{{ dataText }}</div>
           </div>
         </div>
-        <div class="col-lg-4 move-p-lr-0">
-          <div class="list-group mb-2 move-b-lr-0">
-            <notice></notice>
-          </div>
-          <div class="card move-b-lr-0">
-            <info></info>
-          </div>
+        <div class="col-md-4 mb-2">
+          <notice></notice>
+          <info></info>
         </div>
       </div>
     </div>

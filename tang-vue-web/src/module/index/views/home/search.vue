@@ -1,12 +1,11 @@
 <template>
   <div class="row">
-    <div class="col-lg-8 move-p-lr-0">
-      <div class="input-group mb-2 move-search">
-        <input type="text" class="form-control search-input" v-model="form.wb" placeholder="请输入" aria-label="请输入"
-          aria-describedby="button-addon2" />
+    <div class="col-lg-8">
+      <div class="input-group mb-2">
+        <input type="text" class="form-control search-input" v-model="form.wb" placeholder="请输入" aria-label="请输入" aria-describedby="button-addon2" />
         <button class="btn btn-outline-secondary" type="button" @click="dataList = [] , so()">搜索</button>
       </div>
-      <ul class="list-group mb-2 move-b-lr-0">
+      <ul class="list-group mb-2 ">
         <li class="list-group-item" v-for="(item, index) in dataList" :key="index">
           <p class="article-title">
             <strong>
@@ -22,13 +21,9 @@
         </li>
       </ul>
     </div>
-    <div class="col-lg-4 move-p-lr-0">
-      <div class="list-group mb-2 move-b-lr-0">
-        <notice></notice>
-      </div>
-      <div class="card mb-2 move-b-lr-0">
-        <info></info>
-      </div>
+    <div class="col-lg-4">
+      <notice></notice>
+      <info></info>
     </div>
   </div>
 </template>

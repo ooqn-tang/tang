@@ -1,7 +1,7 @@
 <template>
   <div class="row">
-    <div class="col-md-9 mb-2 move-p-lr-0">
-      <div class="card mb-2 move-b-lr-0">
+    <div class="col-md-9 mb-2">
+      <div class="card mb-2">
         <div class="card-body p-0">
           <nav class="nav">
             <a class="nav-link" :class="selectCategoryId == '0' ? 'nav-link-active' : ''"
@@ -12,7 +12,7 @@
           </nav>
         </div>
       </div>
-      <div class="card move-b-lr-0">
+      <div class="card">
         <div class="card-body article-list p-0">
           <ul class="list-group ">
             <li class="list-group-item " v-for="(item, index) in articleList" :key="index">
@@ -39,13 +39,9 @@
         </div>
       </div>
     </div>
-    <div class="col-md-3 mb-2 move-p-lr-0">
-      <div class="list-group mb-2  move-b-lr-0">
-        <notice></notice>
-      </div>
-      <div class="card mb-2  move-b-lr-0">
-        <info></info>
-      </div>
+    <div class="col-md-3 mb-2">
+      <notice></notice>
+      <info></info>
     </div>
   </div>
 </template>

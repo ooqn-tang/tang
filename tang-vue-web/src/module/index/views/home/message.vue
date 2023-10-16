@@ -1,8 +1,8 @@
 <template>
   <div class="row">
-    <div class="col-md-9 mb-2 move-p-lr-0">
-      <div class="card move-b-lr-0">
-        <div class="card-body" style="padding: 0">
+    <div class="col-md-9 mb-2">
+      <div class="card ">
+        <div class="card-body">
           <ul class="list-group article-list">
             <li
               class="list-group-item"
@@ -21,13 +21,9 @@
         </div>
       </div>
     </div>
-    <div class="col-md-3 mb-2 move-p-lr-0">
-      <div class="list-group mb-2 move-b-lr-0">
-        <notice></notice>
-      </div>
-      <div class="card mb-2 move-b-lr-0">
-        <info></info>
-      </div>
+    <div class="col-md-3 mb-2">
+      <notice></notice>
+      <info></info>
     </div>
   </div>
 </template>

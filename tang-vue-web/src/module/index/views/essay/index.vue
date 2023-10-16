@@ -1,7 +1,7 @@
 <template>
   <div class="row">
-    <div class="col-md-12 mb-2 move-p-lr-0">
-      <div class="card mb-2 move-b-lr-0">
+    <div class="col-md-12 mb-2">
+      <div class="card mb-2 ">
         <div class="card-body p-0">
           <nav class="nav">
             <router-link class="nav-link" :to="{name:'essay_message'}">最新</router-link>

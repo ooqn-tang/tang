@@ -1,17 +1,17 @@
 <template>
 	<div class="row">
 		<div class="col-md-4 mb-2">
-			<div class="card move-b-lr-0">
+			<div class="card ">
 				<div class="card-body"  style="height: 6.5em;">
 					<div class="input-group"  style="height: 100%;">
-						<textarea v-model="form.text" class="form-control" id="exampleFormControlTextarea1" style="height: 100%;"></textarea>
+						<textarea v-model="form.text" class="form-control" id="textarea" style="height: 100%;"></textarea>
 						<button class="btn btn-outline-secondary" type="button" id="button-addon2" @click="insertEssay">发送</button>
 					</div>
 				</div>
 			</div>
 		</div>
 		<div class="col-md-4 mb-2" v-for="(item, index) in essayList" :key="index">
-			<div class="card move-b-lr-0">
+			<div class="card ">
 				<div class="card-body" style="height: 6.5em; ">
 					<p>{{ item.author.nickname }} <span class="float-end">评:99+</span></p>
 					<div style="width: 300px; display:-webkit-box; overflow: hidden;  text-overflow: ellipsis; -webkit-box-orient:vertical; -webkit-line-clamp:2;">{{ item.text }}</div>
@@ -87,5 +87,11 @@ strong p,
 /* 第二个list-group-item开始背景色交替 */
 .list-group-item:nth-child(2n+1) {
 	background-color: #f8f9fa;
+}
+
+#textarea{
+
+	resize: none;
+
 }
 </style>

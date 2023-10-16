@@ -1,7 +1,7 @@
 <template>
 <div class="row clearfix">
-    <div class="col-md-9  move-p-lr-0">
-      <div class="card mb-2  move-b-lr-0">
+    <div class="col-md-9 ">
+      <div class="card mb-2  ">
         <div class="card-body">
           <h4>{{subjectData.subjectName}}</h4>
           <span>{{subjectData.synopsis}}</span>
@@ -12,8 +12,8 @@
           </div>
         </div>
       </div>
-      <ul class="list-group  mb-2 move-b-lr-0">
-        <li class="list-group-item move-b-lr-0" v-for="(item,index) in subjectData.articleList" :key="index">
+      <ul class="list-group  mb-2 ">
+        <li class="list-group-item " v-for="(item,index) in subjectData.articleList" :key="index">
           <router-link :to="{name: 'article_post', params: {id: item.articleId}}" class="article-title">
             <strong><p v-text="item.title"></p></strong>
           </router-link>
@@ -24,11 +24,11 @@
         </li>
       </ul>
     </div>
-    <div class="col-md-3  mb-2  move-p-lr-0">
-      <div class="list-group mb-2  move-b-lr-0">
+    <div class="col-md-3  mb-2 ">
+      <div class="list-group mb-2  ">
         <notice></notice>
       </div>
-      <div class="card mb-2  move-b-lr-0">
+      <div class="card mb-2  ">
         <info></info>
       </div>
     </div>

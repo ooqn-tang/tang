@@ -1,7 +1,7 @@
 <template>
   <div class="row clearfix">
-    <div class="col-md-4 col-md-push-8 move-p-lr-0">
-      <div class="card mb-2 move-b-lr-0">
+    <div class="col-md-4 col-md-push-8">
+      <div class="card mb-2 ">
         <div class="card-body ">
           <strong>{{author.nickname}}&nbsp;</strong>
           <button v-if="fans == 2" class="btn btn-outline-warning float-end" style="padding: 0px 5px 0px 3px;font-size: 13px;" @click="fansClick(author.username)">订阅</button>
@@ -10,13 +10,14 @@
           <div>简介：{{author.signature}}</div>
         </div>
       </div>
-      <div class="list-group mb-2 d-md-inline d-none">
+      <div class="d-md-inline  d-none">
         <notice></notice>
+        <info></info>
       </div>
       
     </div>
-    <div class="col-md-8 col-md-pull-4 mb-2 move-p-lr-0">
-      <div class="card move-b-lr-0">
+    <div class="col-md-8 col-md-pull-4 mb-2">
+      <div class="card ">
         <div class="card-header" v-if="thisUsername == loginUsername">
           <ul class="nav justify-content-center">
             <li class="nav-item">
@@ -59,6 +60,9 @@ import request from 'utils/request'
 import { useRouter,useRoute } from 'vue-router'
 import { useStore } from 'vuex'
 import { onMounted,ref,watch } from 'vue'
+
+import notice from 'components/notice.vue';
+import info from 'components/info.vue';
 
 let router = useRouter()
 let route = useRoute()
