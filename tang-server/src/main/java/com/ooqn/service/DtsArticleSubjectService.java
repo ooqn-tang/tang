@@ -226,8 +226,10 @@ public class DtsArticleSubjectService {
 		DtsArticleDto articleDto = new DtsArticleDto(article);
 		articleDto.setAuthor(author);
 		articleDto.setSubject(subject);
-		if(textContextId != null && markdownContextId != null){
+		if(textContextId != null){
 			contextRepository.findById(textContextId).ifPresent(context -> articleDto.setText(context.getText()));
+		}
+		if(markdownContextId != null){
 			contextRepository.findById(markdownContextId).ifPresent(context -> articleDto.setMarkdown(context.getText()));
 		}
 		return articleDto;

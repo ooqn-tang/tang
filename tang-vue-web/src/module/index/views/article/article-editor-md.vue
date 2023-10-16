@@ -1,5 +1,5 @@
 <template>
-  <div style="height:100%">
+  <div style="height:100%;border-left: 1px solid black;border-right:1px solid black;border-bottom: 1px solid black;">
     <div class="head">
       <input type="text" id="title" v-model="articleForm.title" placeholder="标题" />
       <input type="button" id="save" value="发布" class="btn btn-primary" data-bs-toggle="modal"

@@ -1,7 +1,10 @@
 server:
   port: 8888
   ssl:
+    key-store: ttcxy.cn.jks
     enabled: false
+    key-store-password: EL5RIudx
+    key-store-type: JKS
 
 # spring ===========================================================
 spring:

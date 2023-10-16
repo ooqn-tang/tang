@@ -60,7 +60,7 @@ public class StsInitService {
             }
         } catch (Exception e) {
             // 处理异常
-            log.info(e.getMessage());
+            e.printStackTrace();
         }
     }
 
@@ -115,7 +115,7 @@ public class StsInitService {
             jdbcTemplate.execute(sql);
         } catch (Exception e) {
             // 处理异常
-            log.info(e.getMessage());
+            e.printStackTrace();
         }
     }
 }
