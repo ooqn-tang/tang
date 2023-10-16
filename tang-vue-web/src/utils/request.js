@@ -1,5 +1,5 @@
 import axios from 'axios'
-import {refresh} from 'apis/test'
+import {refresh} from 'apis/utils'
 import {setToken} from 'utils/token'
 
 axios.defaults.withCredentials = true;
