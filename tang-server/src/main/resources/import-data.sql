@@ -8,4 +8,4 @@ insert into uts_resource_role (resource_role_id,create_time,resource_id,role_id)
 insert into uts_resource_role (resource_role_id,create_time,resource_id,role_id) values ('2',now(),'2','1');
 insert into uts_resource_role (resource_role_id,create_time,resource_id,role_id) values ('3',now(),'3','1');
 insert into uts_resource_role (resource_role_id,create_time,resource_id,role_id) values ('4',now(),'4','1');
-insert into uts_role (role_id,role_name,role_value,create_time,refresh_time,update_time) values ('1','admin','role_admin',now(),now(),now());
+insert into uts_role (role_id,role_name,role_value,create_time,refresh_time,update_time) values ('1','admin','ROLE_ADMIN',now(),now(),now());
