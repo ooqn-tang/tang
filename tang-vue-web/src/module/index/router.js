@@ -96,7 +96,7 @@ const routes = [
             },
             {
                 path: '/search',
-                name: 'search_index',
+                name: 'search',
                 component: () => import('views/home/search.vue')
             }
         ]

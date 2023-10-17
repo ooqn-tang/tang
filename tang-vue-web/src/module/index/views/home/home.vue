@@ -9,34 +9,23 @@
 
       <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
         <ul class="navbar-nav me-auto mb-lg-0 pc">
-          <li class="nav-item">
-            <router-link class="nav-link active" to="/article">📰文章</router-link>
-          </li>
-          <li class="nav-item">
-            <router-link class="nav-link active" to="/essay">📝随笔</router-link>
-          </li>
-          <li class="nav-item">
-            <router-link class="nav-link active" to="/author">👨‍🎓作者</router-link>
-          </li>
-          <li class="nav-item">
-            <router-link class="nav-link active" to="/subject">📒专题</router-link>
-          </li>
-          <li class="nav-item" >
-            <router-link class="nav-link active" to="/search">🔍搜索</router-link>
-          </li>
-          <li class="nav-item" v-if="isAdmin">
-            <router-link class="nav-link active" to="/admin.html">🧙‍♂️管理</router-link>
-          </li>
+          <li class="nav-item"><router-link class="nav-link active" to="/article">📰文章</router-link></li>
+          <li class="nav-item"><router-link class="nav-link active" to="/essay">📝随笔</router-link></li>
+          <li class="nav-item"><router-link class="nav-link active" to="/author">👨‍🎓作者</router-link></li>
+          <li class="nav-item"><router-link class="nav-link active" to="/subject">📒专题</router-link></li>
+          <li class="nav-item"><router-link class="nav-link active" to="/search">🔍搜索</router-link></li>
+          <li class="nav-item" v-if="isAdmin"><a class="nav-link active" href="/admin.html">🧙‍♂️管理</a></li>
         </ul>
         <ul class="navbar-nav me-auto mb-lg-0 yd">
           <li class="nav-item dropdown float-start">
-            <a class="nav-link active dropdown-toggle" href="#" data-bs-toggle="dropdown">{{title}}</a>
+            <a class="nav-link active dropdown-toggle" href="#" data-bs-toggle="dropdown">菜单</a>
             <ul class="dropdown-menu">
               <li><router-link class="dropdown-item" to="/article">📰文章</router-link></li>
               <li><router-link class="dropdown-item" to="/essay">📝随笔</router-link></li>
               <li><router-link class="dropdown-item" to="/author">👨‍🎓作者</router-link></li>
               <li><router-link class="dropdown-item" to="/subject">📒专题</router-link></li>
-              <li><router-link class="dropdown-item" to="/dynamic" v-if="isLogin">📒动态</router-link></li>
+              <li><router-link class="dropdown-item" to="/search">🔍搜索</router-link></li>
+              <li v-if="isAdmin"><a class="dropdown-item" href="/admin.html">🧙‍♂️管理</a></li>
             </ul>
           </li>
           <li class="nav-item float-start">
@@ -68,44 +57,26 @@
 </template>
 
 <script setup>
-import { ref, computed, onActivated } from 'vue'
-import request from 'utils/request'
-import { useStore } from 'vuex'
-import { useRouter,useRoute } from 'vue-router'
+import { computed } from 'vue'
+import { useStore } from 'vuex';
 
-const store = useStore()
-const router = useRouter()
-const route = useRoute()
+const store = useStore();
 
-let title = ref("菜单")
 let isAdmin = computed(() => {
-  let admin = false
+  let admin = false;
   if(store.state.author.roleList != null){
     store.state.author.roleList.forEach(role => {
-      if(role.roleValue == "ROLE_ADMIN"){
+      if(role.roleValue == "ROLE_ADMIN" || role.roleValue == "role_admin"){
         admin = true;
       }
     });
   }
-  return admin
+  return admin;
 })
 
 let isLogin = computed(() => {
-  return store.state.username != null && store.state.username != '' && store.state.username != undefined
+  return store.state.username != null && store.state.username != '' && store.state.username != undefined;
 })
-
-onActivated(() => {
-  if(route.name == 'article'){
-    title.value = '文章'
-  }else if(route.name == 'subject_index'){
-    title.value = '专辑'
-  }else if(route.name == 'author_list'){
-    title.value = '作者'
-  }else{
-    title.value = '菜单'
-  }
-})
-
 
 </script>
 
