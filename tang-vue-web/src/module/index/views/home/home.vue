@@ -10,7 +10,7 @@
       <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
         <ul class="navbar-nav me-auto mb-lg-0 pc">
           <li class="nav-item">
-            <a class="nav-link active" href="/article">📰文章</a>
+            <router-link class="nav-link active" to="/article">📰文章</router-link>
           </li>
           <li class="nav-item">
             <router-link class="nav-link active" to="/essay">📝随笔</router-link>
@@ -25,18 +25,18 @@
             <router-link class="nav-link active" to="/search">🔍搜索</router-link>
           </li>
           <li class="nav-item" v-if="isAdmin">
-            <a class="nav-link active" href="/admin.html">🧙‍♂️管理</a>
+            <router-link class="nav-link active" to="/admin.html">🧙‍♂️管理</router-link>
           </li>
         </ul>
         <ul class="navbar-nav me-auto mb-lg-0 yd">
           <li class="nav-item dropdown float-start">
             <a class="nav-link active dropdown-toggle" href="#" data-bs-toggle="dropdown">{{title}}</a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="/article">📰文章</a></li>
-              <li><a class="dropdown-item" href="/essay">📝随笔</a></li>
-              <li><a class="dropdown-item" href="/author">👨‍🎓作者</a></li>
-              <li><a class="dropdown-item" href="/subject">📒专题</a></li>
-              <li><a class="dropdown-item" href="/dynamic" v-if="isLogin">📒动态</a></li>
+              <li><router-link class="dropdown-item" to="/article">📰文章</router-link></li>
+              <li><router-link class="dropdown-item" to="/essay">📝随笔</router-link></li>
+              <li><router-link class="dropdown-item" to="/author">👨‍🎓作者</router-link></li>
+              <li><router-link class="dropdown-item" to="/subject">📒专题</router-link></li>
+              <li><router-link class="dropdown-item" to="/dynamic" v-if="isLogin">📒动态</router-link></li>
             </ul>
           </li>
           <li class="nav-item float-start">
@@ -51,12 +51,11 @@
             <li class="nav-item" v-if="isLogin">
               <router-link class="nav-link active" to="/message">消息</router-link>
             </li>
-            
             <li class="nav-item" v-if="isLogin">
-              <a class="nav-link active" href="/article-editor-md">投稿</a>
+              <router-link class="nav-link active" href="/article-editor-md">投稿</router-link>
             </li>
             <li class="nav-item" v-if="isLogin">
-              <a class="nav-link active" :href="'/author/' + $store.state.username">我的</a>
+              <router-link class="nav-link active" :to="'/author/' + $store.state.username">我的</router-link>
             </li>
           </ul>
         </form>
