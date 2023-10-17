@@ -1,0 +1,1 @@
+import{C as o,D as e,v as t,o as d,L as _,r as a}from"./github-6eaaf46c.js";const i={id:"body"},n=e("div",{id:"message"},[e("div",{id:"message-head"},[e("div",{class:"message-nc"},"聊天")]),e("div",{id:"message-body"})],-1),r={id:"r-body-body"},u={__name:"index",setup(c){return _(),(v,m)=>{const s=a("router-view");return d(),o("div",i,[n,e("div",r,[t(s)])])}}};export{u as default};

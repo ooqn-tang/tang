@@ -3,21 +3,7 @@
     <div class="col-md-9 mb-2">
       <div class="card ">
         <div class="card-body">
-          <ul class="list-group article-list">
-            <li
-              class="list-group-item"
-              v-for="(item, index) in dynamicList"
-              :key="index"
-            >
-              <div class="row">
-                <div class="col">
-                  <a target="_blank" :href="item.url">{{ item.nickname }}{{item.title}}</a><span class="float-end">{{item.createDate}}</span>
-                  <br/>
-                  {{item.text}}
-                </div>
-              </div>
-            </li>
-          </ul>
+          
         </div>
       </div>
     </div>
@@ -38,7 +24,7 @@ import info from 'components/info.vue';
 let dynamicList = ref([{}]);
 
 
-function loadDynamic(){
+function loadDynamic() {
   request({
     url: `/api/message`,
     method: "GET",

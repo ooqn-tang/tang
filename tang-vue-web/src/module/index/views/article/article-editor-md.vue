@@ -97,9 +97,6 @@ onMounted(() => {
     loadCategoryList();
     loadArticleAllInfo(articleId.value);
   }
-    
-  
-  
 });
 
 function loadArticleAllInfo(articleId){
@@ -116,6 +113,7 @@ function loadArticleAllInfo(articleId){
     articleForm.value.subjectId = res.data.subject == null ? "" : res.data.subject.subjectId;
   });
 }
+
 function saveArticle(){
   if (articleForm.value.title == undefined || articleForm.value.title == "") {
     alert("请输入标题！")

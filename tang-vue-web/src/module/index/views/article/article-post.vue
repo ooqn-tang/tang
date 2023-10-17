@@ -71,7 +71,6 @@ import request from "utils/request";
 import { onMounted, ref } from 'vue';
 import { useRoute } from "vue-router";
 import { useStore } from 'vuex';
-
 import notice from 'components/notice.vue';
 import info from 'components/info.vue';
 
@@ -92,8 +91,6 @@ let articleList = ref([]);
 let collect = ref(0);
 let dataText = ref('加载中...')
 
-
-
 function fansClick(username) {
   if (fans.value == 2) {
     request({
@@ -111,6 +108,7 @@ function fansClick(username) {
     });
   }
 }
+
 function isFans() {
   request({
     url: `/api/fans/username/${article.value.author.username}`,
@@ -123,6 +121,7 @@ function isFans() {
     }
   });
 }
+
 function collectClick() {
   if (collect == 1) {
     request({
@@ -146,6 +145,7 @@ function collectClick() {
     });
   }
 }
+
 function isLike() {
   request({
     url: `/api/collect/${articleId}`,
@@ -154,6 +154,7 @@ function isLike() {
     collect = res.data;
   });
 }
+
 function loadArticleInfo() {
   request({
     url: `/api/article/load/${articleId}`,
@@ -164,6 +165,7 @@ function loadArticleInfo() {
     isFans();
   });
 }
+
 function selectSubjectArticleList() {
   request({
     url: `/api/subject/article/${articleId}`,
@@ -172,6 +174,7 @@ function selectSubjectArticleList() {
     articleList = res.data;
   });
 }
+
 function loadRecommend() {
   request({
     url: `/api/article/recommend`,
@@ -180,6 +183,7 @@ function loadRecommend() {
     recommendList.value = res.data;
   });
 }
+
 function load() {
   articleId = route.params.id;
   if (store.state.username != "") {

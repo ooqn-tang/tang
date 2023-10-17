@@ -58,8 +58,6 @@ let articleList = ref([]);
 let isLoding = ref(true);
 let categoryList = ref([]);
 
-
-// 生命周期钩子
 onMounted(() => {
   loadArticle({ categoryId: 0 });
   loadCategoryList();
@@ -71,7 +69,6 @@ function selectCategoryClick(item){
   articleList.value = [];
   loadArticle(item);
 }
-
 
 function loadCategoryList(){
   request({
