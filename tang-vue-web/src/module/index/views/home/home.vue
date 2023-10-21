@@ -41,7 +41,7 @@
               <router-link class="nav-link active" to="/message">消息</router-link>
             </li>
             <li class="nav-item" v-if="isLogin">
-              <router-link class="nav-link active" to="/article-editor-md">投稿</router-link>
+              <a class="nav-link active" href="/article-editor-md" target="_blank">投稿</a>
             </li>
             <li class="nav-item" v-if="isLogin">
               <router-link class="nav-link active" :to="'/author/' + $store.state.username">我的</router-link>
