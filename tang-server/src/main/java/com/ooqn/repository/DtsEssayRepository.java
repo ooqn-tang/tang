@@ -11,4 +11,6 @@ public interface DtsEssayRepository extends CrudRepository<DtsEssay, String> {
 
     Page<DtsEssay> findAll(Pageable pageable);
 
+    Page<DtsEssay> findAllByOrderByCreateTimeDesc(Pageable pageable);
+
 }

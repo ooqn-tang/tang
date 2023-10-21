@@ -1,1 +1,0 @@
-import{b as e,B as _,o as c}from"./github-2cfdd9fa.js";const t={},s={class:"card-body article-list p-0"};function o(a,n){return c(),_("div",s," my ")}const d=e(t,[["render",o],["__scopeId","data-v-e5f96065"]]);export{d as default};

@@ -31,19 +31,7 @@ const routes = [
             {
                 path: 'essay',
                 name: 'essay_index',
-                component: () => import('views/essay/index.vue'),
-                children:[
-                    {
-                        path: '',
-                        name: 'essay_message',
-                        component: () => import('views/essay/message.vue')
-                    },
-                    {
-                        path: 'my',
-                        name: 'essay_my',
-                        component: () => import('views/essay/my.vue')
-                    }
-                ]
+                component: () => import('views/essay/index.vue')
             },
             {
                 path: '/author/:username',
