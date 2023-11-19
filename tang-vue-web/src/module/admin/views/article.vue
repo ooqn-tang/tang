@@ -15,7 +15,7 @@
 </template>
   
 <script setup>
-import request from "utils/request";
+import request from "@utils/request";
 import { onMounted, ref, h } from "vue";
 import { NDataTable, NButton, NForm, NFormItem, NInput,NSpace } from "naive-ui"
 
@@ -28,7 +28,6 @@ let deleteArticle = (index, row) => {
     method: "DELETE",
   }).then((res) => {
     articleList.value.splice(index, 1)
-    // ElMessage({ type: 'success', message: '删除成功' })
   });
 }
 

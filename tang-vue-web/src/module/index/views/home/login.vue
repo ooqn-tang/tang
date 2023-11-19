@@ -37,7 +37,7 @@ import { ref, onMounted } from 'vue'
 import { useRouter } from "vue-router"
 
 import jwt_decode from "jwt-decode"
-import request from 'utils/request'
+import request from '@utils/request'
 
 let loginData = ref({rememberMe:true})
 let router = useRouter()

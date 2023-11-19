@@ -1,11 +1,11 @@
 import { createApp } from 'vue'
 import router from './router'
-import store from 'src/store'
+import store from '@src/store'
 import App from 'src/App.vue'
-import 'src/index.scss'
+import '@src/index.scss'
 import "highlight.js/styles/github.css";
-import info from 'components/info.vue'
-import notice from 'components/notice.vue'
+import info from '@components/info.vue'
+import notice from '@components/notice.vue'
 import { NIcon  } from "naive-ui";
 
 import contextmenu from "v-contextmenu";

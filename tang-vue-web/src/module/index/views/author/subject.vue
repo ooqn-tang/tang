@@ -51,7 +51,7 @@ import { onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import { useStore } from 'vuex'
 
-import request from 'utils/request'
+import request from '@utils/request'
 
 let store = useStore()
 let route = useRoute()

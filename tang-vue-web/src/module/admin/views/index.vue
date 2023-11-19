@@ -1,35 +1,53 @@
 <template>
-  <div class="admin-nav">
-    <div>
-      <n-button type="info" round @click="isCollapse = !isCollapse">内容管理系统</n-button>
-      <n-button round @click="logout" type="info" style="float:right">退出</n-button>
-    </div>
-  </div>
-  <n-layout has-sider style="height: calc(100% - 54px)">
-    <n-layout-sider bordered collapse-mode="width" :collapsed-width="50" :width="180" :collapsed="isCollapse" show-trigger @collapse="isCollapse = true" @expand="isCollapse = false">
-      <n-menu @update:value="onChange" :collapsed="isCollapse" :collapsed-width="50" :collapsed-icon-size="22" :options="menuOptions" :render-label="renderMenuLabel" :render-icon="renderMenuIcon" :expand-icon="expandIcon" />
-    </n-layout-sider>
-    <n-layout style="padding:5px">
-      <router-view/>
+  <n-config-provider :theme-overrides="themeOverrides" style="height: 100%;position: relative">
+    <n-layout position="absolute">
+      <n-layout-header class="admin-nav" style="height: 50px; padding: 15px" bordered>
+        <n-grid x-gap="12" :cols="3">
+          <n-grid-item :span="2">
+            <n-button text @click="isCollapse = !isCollapse" color="#ffffff">
+              内容管理系统
+            </n-button>
+            <n-button text @click="isCollapse = !isCollapse" color="#ffffff" style="margin-left: 15px;">
+              {{ isCollapse ? '展开' : '关闭' }}
+            </n-button>
+          </n-grid-item>
+          <n-grid-item style="text-align: right;">
+            <n-button text @click="logout" color="#ffffff">退出</n-button>
+          </n-grid-item>
+        </n-grid>
+      </n-layout-header>
+      <n-layout has-sider position="absolute" style="top: 50px;">
+        <n-layout-sider bordered collapse-mode="width" :collapsed-width="54" :width="180" :collapsed="isCollapse"
+          show-trigger @collapse="isCollapse = true" @expand="isCollapse = false">
+          <n-menu @update:value="onChange" :collapsed="isCollapse" :collapsed-width="50" :collapsed-icon-size="22"
+            :options="menuOptions" :render-label="renderMenuLabel" :render-icon="renderMenuIcon"
+            :expand-icon="expandIcon" />
+        </n-layout-sider>
+        <n-layout content-style="padding: 10px;">
+          <router-view />
+        </n-layout>
+      </n-layout>
     </n-layout>
-  </n-layout>
+  </n-config-provider>
 </template>
 
 <script setup>
 import { useRoute, useRouter } from "vue-router";
 import { useStore } from "vuex";
-import { h,onMounted, ref, watch } from "vue";
-import { NButton, NLayout, NLayoutSider, NMenu,NIcon  } from "naive-ui";
+import { h, onMounted, ref } from "vue";
+import { NConfigProvider, NButton, NLayout, NLayoutHeader, NLayoutSider, NMenu, NIcon, NGrid, NGridItem, NSpace } from "naive-ui";
 import { BookmarkOutline, CaretDownOutline } from "@vicons/ionicons5";
 
 
-let route = useRoute();
+alert(getRoles())
+
 let router = useRouter();
 let store = useStore();
 
 let isCollapse = ref(false);
 let mList = ref([])
 
+const menuOptions = ref([])
 let onChange = (value) => {
   router.push({ name: value });
 };
@@ -41,43 +59,12 @@ let logout = () => {
   window.location.href = "/";
 };
 
-onMounted(() => {
-  let adminRouterList = router.getRoutes().filter((item) => { if (item.name == 'admin') { return item } })
-
-  mList.value = adminRouterList[0].children;
-
-  for(let item of mList.value){
-    if(item.mate.isM){
-      menuOptions.value.push({
-        label: item.mate.name,
-        key: item.mate.key,
-        name: item.name
-      })
-    }
+const themeOverrides = {
+  common: {
+    primaryColor: "#3a94f1"
   }
-  
-});
-
-watch(route, (to, from) => {
-
-});
-
-let openMenu = (item) => {
-  router.push({ name: item.name })
 }
 
-const menuOptions = ref([
-  // {
-  //   label: "且听风吟",
-  //   key: "hear-the-wind-sing",
-  //   href: "https://baike.baidu.com/item/%E4%B8%94%E5%90%AC%E9%A3%8E%E5%90%9F/3199"
-  // },
-  // {
-  //   label: "寻羊冒险记",
-  //   key: "a-wild-sheep-chase",
-  //   disabled: true
-  // }
-]);
 
 
 let renderMenuLabel = (option) => {
@@ -90,7 +77,7 @@ let renderMenuLabel = (option) => {
   }
   return option.label;
 }
- let renderMenuIcon = (option) => {
+let renderMenuIcon = (option) => {
   if (option.key === "sheep-man")
     return true;
   if (option.key === "food")
@@ -101,15 +88,34 @@ let expandIcon = () => {
   return h(NIcon, null, { default: () => h(CaretDownOutline) });
 }
 
+
+onMounted(() => {
+  let adminRouterList = router.getRoutes().filter((item) => { if (item.name == 'admin') { return item } })
+  mList.value = adminRouterList[0].children;
+  for (let item of mList.value) {
+    if (item.mate.isM) {
+      menuOptions.value.push({
+        label: item.mate.name,
+        key: item.mate.key,
+        name: item.name
+      })
+    }
+  }
+});
 </script>
 
 
 <style scoped>
+.active-but {
+  border-bottom: 1px solid white;
+  padding-bottom: 3px;
+}
+
 .float-end {
   float: right;
 }
 
-.n-menu-item-content{
+.n-menu-item-content {
   padding-left: 10px !important;
 }
 
@@ -117,28 +123,15 @@ body {
   overflow-y: hidden !important;
 }
 
-.el-menu-item {
-  font-size: 15px;
-}
-
-.el-menu .is-active {
-  font-size: 15px;
-}
-
-.el-menu-vertical-demo:not(.el-menu--collapse) {
-  width: 200px;
-  min-height: 400px;
-}
-
 .admin-nav {
-  background-color: #3a94f1;
   padding: 10px 20px;
   color: white;
+  border-bottom: 1px solid #496fb0;
+  background-color: #3a94f1;
 }
 
 .admin-main {
   display: flex;
-  height: calc(100% - 52px);
 }
 
 .admin-body {
@@ -148,20 +141,14 @@ body {
   overflow-y: auto;
   height: 100%;
 }
-
-/*隐藏文字*/
-.el-menu--collapse .el-submenu__title span {
-  display: none;
-}
-
-/*隐藏 > */
-.el-menu--collapse .el-submenu__title .el-submenu__icon-arrow {
-  display: none;
-}
 </style>
 
 <style>
-  .n-menu-item-content{
-    padding-left: 15px !important;
-  }
+.n-menu-item-content {
+  padding-left: 15px !important;
+}
+
+.n-menu-item-content__icon {
+  font-size: 22px !important;
+}
 </style>

@@ -26,7 +26,7 @@
 </template>
 
 <script setup>
-import request from "utils/request";
+import request from "@utils/request";
 
 import { onMounted, ref } from "vue";
 import { useRoute } from "vue-router";

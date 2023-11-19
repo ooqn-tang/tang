@@ -1,8 +1,8 @@
 import { createApp } from 'vue'
 import router from './router.js'
 import App from './App.vue'
-import store from 'src/store'
-import 'src/index.scss'
+import store from '@src/store'
+import '@src/index.scss'
 import "highlight.js/styles/github.css";
 
 

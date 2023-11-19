@@ -10,9 +10,9 @@
 </template>
 
 <script setup>
-import request from "utils/request";
+import request from "@utils/request";
 import { onMounted,ref,h } from "vue";
-import { NButton, NSpace, NDataTable, NModal, NCard, NForm, NFormItem, NInput,NRow,NCol } from "naive-ui";
+import { NButton, NSpace, NDataTable } from "naive-ui";
 
 const dialogVisible = ref(false);
 const form = ref({});
@@ -61,13 +61,7 @@ const saveAuthorRole = () => {
     data:roleForm.value
   }).then((res) => {
     roleIdList.value = res.data;
-    // ElMessage({ type: 'success', message: '删除成功', })
   });
-};
-
-const rowAuthorClick = (row, column, event) => {
-  selectAuthorId.value = row.authorId
-  selectRole(row);
 };
 
 const selectRole = (row) => {

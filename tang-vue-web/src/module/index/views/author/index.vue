@@ -56,13 +56,13 @@
 </template>
 
 <script setup>
-import request from 'utils/request'
+import request from '@utils/request'
 import { useRouter,useRoute } from 'vue-router'
 import { useStore } from 'vuex'
 import { onMounted,ref,watch } from 'vue'
 
-import notice from 'components/notice.vue';
-import info from 'components/info.vue';
+import notice from '@components/notice.vue';
+import info from '@components/info.vue';
 
 let router = useRouter()
 let route = useRoute()

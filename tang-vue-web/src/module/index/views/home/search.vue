@@ -29,10 +29,10 @@
 </template>
 
 <script setup>
-import request from "utils/request";
+import request from "@utils/request";
 
-import notice from 'components/notice.vue';
-import info from 'components/info.vue';
+import notice from '@components/notice.vue';
+import info from '@components/info.vue';
 
 import { onMounted, ref } from "vue";
 import { useRouter } from "vue-router";

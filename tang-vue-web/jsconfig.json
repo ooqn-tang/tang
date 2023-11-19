@@ -1,5 +1,12 @@
 {
     "compilerOptions":{
-        "jsx":"preserve"
+        "jsx":"preserve",
+        "baseUrl": "./",
+        "paths":{
+            "@apis/*":["src/apis/*"],
+            "@utils/*":["src/utils/*"],
+            "@components/*":["src/components/*"],
+            "@module/*":["src/module/*"]
+        }
     }
 }

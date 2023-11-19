@@ -47,10 +47,10 @@
 </template>
 
 <script setup>
-import request from 'utils/request';
+import request from '@utils/request';
 import { onMounted, ref } from 'vue';
-import notice from 'components/notice.vue';
-import info from 'components/info.vue';
+import notice from '@components/notice.vue';
+import info from '@components/info.vue';
 
 let selectCategoryId = ref(0);
 let page = ref({ number: 0 });

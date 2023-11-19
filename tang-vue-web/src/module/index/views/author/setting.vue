@@ -32,7 +32,7 @@
 </template>
 
 <script setup>
-import request from "utils/request";
+import request from "@utils/request";
 import { removeToken } from "utils/token";
 import { onMounted, ref } from "vue";
 import { useStore } from "vuex";

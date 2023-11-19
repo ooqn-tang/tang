@@ -10,7 +10,7 @@
 </template>
 
 <script setup>
-import request from "utils/request";
+import request from "@utils/request";
 import { onMounted, ref } from "vue";
 import { NButton, NSpace, NDataTable, NModal, NCard, NForm, NFormItem, NInput } from "naive-ui";
 

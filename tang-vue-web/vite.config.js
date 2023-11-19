@@ -17,14 +17,14 @@ export default defineConfig({
       title: 'Admin App'
     }
   },
-  resolve:{
+resolve:{
     alias: {
-      "src": path.resolve('src'),
-      "utils": path.resolve('src/utils'),
-      "views": path.resolve('src/module/index/views'),
-      "admin/views": path.resolve('src/module/admin/views'),
-      "apis": path.resolve('src/apis'),
-      "components": path.resolve('src/components'),
+      "@src": path.resolve('src'),
+      "@utils": path.resolve('src/utils'),
+      "@views": path.resolve('src/module/index/views'),
+      "@admin/views": path.resolve('src/module/admin/views'),
+      "@apis": path.resolve('src/apis'),
+      "@components": path.resolve('src/components'),
     },
   },
   plugins:[
@@ -41,5 +41,5 @@ export default defineConfig({
   // 配置 端口
   ,server:{
     port:8000
-  }
+    }
 })

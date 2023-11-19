@@ -24,6 +24,9 @@ public class DtsEssay {
 	@JsonIgnore
 	private String authorId;
 
+	@Schema(description = "标签")
+	private String tagName;
+
 	@Schema(description = "文本")
 	private String text;
 

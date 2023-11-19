@@ -1,8 +1,8 @@
 <template>
   <div class="row">
-    <div class="col-md-6 mb-2">
+        <div class="col-md-6 mb-2">
       <div class="mb-2">
-        <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Type to search...">
+        <input class="form-control" list="datalistOptions" id="exampleDataList" v-model="tag" placeholder="输入标签">
         <datalist id="datalistOptions">
           <option value="San Francisco" />
           <option value="New York" />
@@ -13,9 +13,9 @@
       </div>
       <div class="mb-2">
         <div class="card ">
-          <div class="card-body" style="height: 6.5em;">
-            <div class="input-group" style="height: 100%;">
-              <textarea v-model="form.text" class="form-control" id="textarea" style="height: 100%;"></textarea>
+          <div class="card-body">
+            <div class="input-group">
+              <textarea v-model="form.text" class="form-control" rows="3"  placeholder="输入的内容不包含标签的内容会在最后追加标签中的内容。" id="textarea"></textarea>
               <button class="btn btn-outline-secondary" type="button" id="button-addon2" @click="insertEssay">发送</button>
             </div>
           </div>
@@ -27,30 +27,20 @@
             <p>{{ item.author.nickname }} <span class="float-end">{{ item.createTime }}</span></p>
             <div>{{ item.text }}</div>
             <div class="row">
-              <div class="col-md-3">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-left-dots" viewBox="0 0 16 16">
-                  <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
-                  <path d="M5 6a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
+              <div class="col-4">
+                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-chat-dots tag" viewBox="0 0 16 16">
+                  <path d="M5 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+                  <path d="m2.165 15.803.02-.004c1.83-.363 2.948-.842 3.468-1.105A9.06 9.06 0 0 0 8 15c4.418 0 8-3.134 8-7s-3.582-7-8-7-8 3.134-8 7c0 1.76.743 3.37 1.97 4.6a10.437 10.437 0 0 1-.524 2.318l-.003.011a10.722 10.722 0 0 1-.244.637c-.079.186.074.394.273.362a21.673 21.673 0 0 0 .693-.125zm.8-3.108a1 1 0 0 0-.287-.801C1.618 10.83 1 9.468 1 8c0-3.192 3.004-6 7-6s7 2.808 7 6c0 3.193-3.004 6-7 6a8.06 8.06 0 0 1-2.088-.272 1 1 0 0 0-.711.074c-.387.196-1.24.57-2.634.893a10.97 10.97 0 0 0 .398-2z"/>
                 </svg>
               </div>
-              <div class="col-md-3">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cursor" viewBox="0 0 16 16">
+              <div class="col-4" style="text-align: center;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-balloon-heart tag" viewBox="0 0 16 16">
+                  <path fill-rule="evenodd" d="m8 2.42-.717-.737c-1.13-1.161-3.243-.777-4.01.72-.35.685-.451 1.707.236 3.062C4.16 6.753 5.52 8.32 8 10.042c2.479-1.723 3.839-3.29 4.491-4.577.687-1.355.587-2.377.236-3.061-.767-1.498-2.88-1.882-4.01-.721L8 2.42Zm-.49 8.5c-10.78-7.44-3-13.155.359-10.063.045.041.089.084.132.129.043-.045.087-.088.132-.129 3.36-3.092 11.137 2.624.357 10.063l.235.468a.25.25 0 1 1-.448.224l-.008-.017c.008.11.02.202.037.29.054.27.161.488.419 1.003.288.578.235 1.15.076 1.629-.157.469-.422.867-.588 1.115l-.004.007a.25.25 0 1 1-.416-.278c.168-.252.4-.6.533-1.003.133-.396.163-.824-.049-1.246l-.013-.028c-.24-.48-.38-.758-.448-1.102a3.177 3.177 0 0 1-.052-.45l-.04.08a.25.25 0 1 1-.447-.224l.235-.468ZM6.013 2.06c-.649-.18-1.483.083-1.85.798-.131.258-.245.689-.08 1.335.063.244.414.198.487-.043.21-.697.627-1.447 1.359-1.692.217-.073.304-.337.084-.398Z"/>
+                </svg>
+              </div>
+              <div class="col-4" style="text-align: right;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-cursor tag" viewBox="0 0 16 16">
                   <path d="M14.082 2.182a.5.5 0 0 1 .103.557L8.528 15.467a.5.5 0 0 1-.917-.007L5.57 10.694.803 8.652a.5.5 0 0 1-.006-.916l12.728-5.657a.5.5 0 0 1 .556.103zM2.25 8.184l3.897 1.67a.5.5 0 0 1 .262.263l1.67 3.897L12.743 3.52 2.25 8.184z"/>
-                </svg>
-              </div>
-              <div class="col-md-3">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
-                  <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
-                </svg>
-              </div>
-              <div class="col-md-2">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
-                  <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
-                </svg>
-              </div>
-              <div class="col-md-1" style="text-align: right;">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
-                  <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
                 </svg>
               </div>
             </div>
@@ -58,46 +48,11 @@
         </div>
       </div>
     </div>
+    
     <div class="col-md-3 mb-2">
       <ul class="list-group">
-        <li class="list-group-item active">相关</li>
-        <li class="list-group-item">A second item</li>
-        <li class="list-group-item">A third item</li>
-        <li class="list-group-item">A fourth item</li>
-        <li class="list-group-item">And a fifth one</li>
-        <li class="list-group-item">An item</li>
-        <li class="list-group-item">A second item</li>
-        <li class="list-group-item">A third item</li>
-        <li class="list-group-item">A fourth item</li>
-        <li class="list-group-item">And a fifth one</li>
-        <li class="list-group-item">An item</li>
-        <li class="list-group-item">A second item</li>
-        <li class="list-group-item">A third item</li>
-        <li class="list-group-item">A fourth item</li>
-        <li class="list-group-item">And a fifth one</li>
-        <li class="list-group-item">An item</li>
-        <li class="list-group-item">A second item</li>
-      </ul>
-    </div>
-    <div class="col-md-3 mb-2">
-      <ul class="list-group">
-        <li class="list-group-item active">推荐</li>
-        <li class="list-group-item">A second item</li>
-        <li class="list-group-item">A third item</li>
-        <li class="list-group-item">A fourth item</li>
-        <li class="list-group-item">And a fifth one</li>
-        <li class="list-group-item">An item</li>
-        <li class="list-group-item">A second item</li>
-        <li class="list-group-item">A third item</li>
-        <li class="list-group-item">A fourth item</li>
-        <li class="list-group-item">And a fifth one</li>
-        <li class="list-group-item">An item</li>
-        <li class="list-group-item">A second item</li>
-        <li class="list-group-item">A third item</li>
-        <li class="list-group-item">A fourth item</li>
-        <li class="list-group-item">And a fifth one</li>
-        <li class="list-group-item">An item</li>
-        <li class="list-group-item">A second item</li>
+        <li class="list-group-item active">推荐标签</li>
+        <li class="list-group-item" v-for="(item,index) in tagList" @click="selectTag(item)">{{ item.text }}</li>
       </ul>
     </div>
   </div>
@@ -105,45 +60,66 @@
 
 <script setup>
 
-import request from "utils/request";
+import request from "@utils/request";
 import { onMounted, ref } from "vue";
 
 let page = ref({
   number: 0
 });
 let essayList = ref([]);
-let form = {
+let form = ref({
   text: ""
-};
+});
+
+form.value.text = 'aaaaaaaaaaaa'
+
+let tagList = ref([
+  {text:'Test1'},
+  {text:'Test2'},
+  {text:'Java'},
+  {text:'C#'},
+  {text:'Python'}
+])
+
+let tag = ref()
 
 function loadEssay() {
   request({
     url: `/api/essay`,
     method: "get",
-    params: { page: page.value.number }
+    params: { page: page.number }
   }).then((res) => {
-    page.value = res.data;
-    essayList.value = essayList.value.concat(res.data.content);
+    page = res.data;
+    for (const obj of res.data.content) {
+      essayList.value.push(obj)
+    }
   });
 };
 
 function insertEssay() {
+  if(form.value.text.indexOf(tag.value)){
+    form.value.text += (" . " + tag.value)
+  }
   request({
     url: `/api/essay`,
     method: "post",
-    data: form
+    data: form.value
   }).then((res) => {
-    form = {};
+    form.value = {};
     essayList.value.unshift(res.data);
   });
 };
 
 function next() {
-  if (!page.last) {
+  if (!page.value.last) {
     page.value.number += 1;
     loadEssay();
   }
 };
+
+function selectTag(item){
+  tag.value = item.text
+}
 
 onMounted(() => {
   loadEssay();
@@ -187,4 +163,9 @@ strong p,
   resize: none;
 
 }
+
+.tag:hover{
+ color: cadetblue;
+}
+
 </style>

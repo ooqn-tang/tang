@@ -50,7 +50,7 @@
 </template>
 <script setup>
 import hljs from "highlight.js";
-import request from "utils/request";
+import request from "@utils/request";
 import { marked } from "marked";
 import { onMounted, ref, watch } from 'vue';
 import { useRoute,useRouter } from 'vue-router';
