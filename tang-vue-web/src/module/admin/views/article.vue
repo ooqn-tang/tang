@@ -16,7 +16,7 @@
   
 <script setup>
 import { onMounted, ref, h } from "vue";
-import { NDataTable, NButton, NForm, NFormItem, NInput, NSpace } from "naive-ui"
+import { NDataTable, NButton, NForm, NFormItem, NInput, NSpace, NButtonGroup } from "naive-ui"
 import { deleteArticleApi, loadArticleApi } from "@apis/article"
 
 let articleList = ref([]);
@@ -28,22 +28,6 @@ let rules = ref({
     message: "请输入姓名",
     trigger: "blur"
   }
-})
-
-let deleteArticle = (row) => {
-  deleteArticleApi(row.articleId).then((res) => {
-    
-  });
-}
-
-let loadArticle = () => {
-  loadArticleApi().then((res) => {
-    articleList.value = res.data.content
-  });
-}
-
-onMounted(() => {
-  loadArticle()
 })
 
 let columns = [{
@@ -62,21 +46,31 @@ let columns = [{
   title: '操作',
   key: 'actions',
   width: "250",
-  render(row) {
+  render(row, index) {
     return [
       h(NButton, { size: 'small', onClick: () => sendMail(row) }, { default: () => '查看' }),
-      h(NButton, { size: 'small', onClick: () => deleteArticle(row) }, { default: () => '删除' })
+      h(NButton, { size: 'small', onClick: () => deleteArticle(index, row) }, { default: () => '删除' })
     ]
   }
 }]
 
+let deleteArticle = (index, row) => {
+  deleteArticleApi(row.articleId).then((res) => {
+    articleList.value.splice(index, 1)
+  });
+}
 
+let loadArticle = () => {
+  loadArticleApi().then((res) => {
+    articleList.value = res.data.content
+  });
+}
 
+onMounted(() => {
+  loadArticle()
+})
 
 let handleValidateClick = () => {
   formRef.value.validate();
 }
-
-
-
 </script>

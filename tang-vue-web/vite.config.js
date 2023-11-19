@@ -8,26 +8,26 @@ export default defineConfig({
       entry: '/src/module/index/index.js',
       template: 'index.html',
       filename: 'index.html',
-      title: 'Main App'
+      title: 'ooqn.com'
     },
     admin: {
       entry: '/src/module/admin/index.js',
       template: 'admin.html',
       filename: 'admin.html',
-      title: 'Admin App'
+      title: 'admin.ooqn.com'
     }
   },
-resolve:{
+  resolve: {
     alias: {
       "@src": path.resolve('src'),
       "@utils": path.resolve('src/utils'),
-      "@gateway/views": path.resolve('src/module/gateway/views'),
       "@admin/views": path.resolve('src/module/admin/views'),
+      "@gateway/views": path.resolve('src/module/gateway/views'),
       "@apis": path.resolve('src/apis'),
       "@components": path.resolve('src/components'),
     },
   },
-  plugins:[
+  plugins: [
     vue()
   ],
   build: {
@@ -39,7 +39,7 @@ resolve:{
     }
   }
   // 配置 端口
-  ,server:{
-    port:8000
-    }
+  , server: {
+    port: 8000
+  }
 })

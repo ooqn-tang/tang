@@ -1,7 +1,7 @@
 import request from "@utils/request";
 
 export function getRoles() {
-    request({
+    return request({
         url: `/api/admin/role`,
         method: "GET"
     });
