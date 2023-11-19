@@ -19,23 +19,6 @@ public class UtsAuthor {
 
 	public UtsAuthor(){}
 
-	public UtsAuthor(String username,String nickname){
-		this.username = username;
-		this.nickname = nickname;
-	}
-
-	public UtsAuthor(String authorId, String username, String nickname, String password, String mail, String signature, Date createTime, Date updateTime, Date refreshTime) {
-		this.authorId = authorId;
-		this.username = username;
-		this.nickname = nickname;
-		this.password = password;
-		this.mail = mail;
-		this.signature = signature;
-		this.createTime = createTime;
-		this.updateTime = updateTime;
-		this.refreshTime = refreshTime;
-	}
-
 	@Id
 	private String authorId;
 
