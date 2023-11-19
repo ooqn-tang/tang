@@ -21,7 +21,7 @@ resolve:{
     alias: {
       "@src": path.resolve('src'),
       "@utils": path.resolve('src/utils'),
-      "@views": path.resolve('src/module/index/views'),
+      "@gateway/views": path.resolve('src/module/gateway/views'),
       "@admin/views": path.resolve('src/module/admin/views'),
       "@apis": path.resolve('src/apis'),
       "@components": path.resolve('src/components'),

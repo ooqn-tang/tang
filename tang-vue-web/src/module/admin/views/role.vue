@@ -13,6 +13,7 @@
 import request from "@utils/request";
 import { onMounted, ref } from "vue";
 import { NButton, NSpace, NDataTable, NModal, NCard, NForm, NFormItem, NInput } from "naive-ui";
+import { getRoles } from "@apis/role";
 
 let multipleTable = ref()
 
@@ -62,10 +63,7 @@ let rowRoleClick = (row) => {
 
 let selectRole = () => {
   loading.value = true;
-  request({
-    url: `/api/admin/role`,
-    method: "GET",
-  }).then((res) => {
+  getRoles().then((res) => {
     loading.value = false;
     roleList.value = res.data;
   });

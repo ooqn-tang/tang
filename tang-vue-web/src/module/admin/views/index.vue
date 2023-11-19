@@ -39,8 +39,6 @@ import { NConfigProvider, NButton, NLayout, NLayoutHeader, NLayoutSider, NMenu, 
 import { BookmarkOutline, CaretDownOutline } from "@vicons/ionicons5";
 
 
-alert(getRoles())
-
 let router = useRouter();
 let store = useStore();
 

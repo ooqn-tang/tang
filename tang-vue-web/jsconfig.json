@@ -6,7 +6,9 @@
             "@apis/*":["src/apis/*"],
             "@utils/*":["src/utils/*"],
             "@components/*":["src/components/*"],
-            "@module/*":["src/module/*"]
+            "@module/*":["src/module/*"],
+            "@admin/views/*":["src/module/admin/views"],
+            "@gateway/views/*":["src/module/gateway/views"],
         }
     }
 }
