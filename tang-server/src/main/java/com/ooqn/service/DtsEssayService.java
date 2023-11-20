@@ -35,7 +35,7 @@ public class DtsEssayService {
 	public Page<DtsEssayDto> findAllInfo(Pageable pageable) {
 		 return essayRepository.findAllByOrderByCreateTimeDesc(pageable).map(essay -> {
 			DtsEssayDto essayDto = new DtsEssayDto(essay);
-			essayDto.setAuthor(authorRepository.findUsernameNicknameByAuthorId(essay.getAuthorId()).orElseThrow());
+			essayDto.setAuthor(authorRepository.findUsernameNicknameByAuthorId(essay.getAuthorId()).orElse(null));
 			return essayDto;
 		 });
 	}

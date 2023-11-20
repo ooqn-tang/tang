@@ -40,10 +40,9 @@ import { useStore } from "vuex";
 let store = useStore();
 
 let author = ref({
-  username: "",
-  nickname: "",
-  mail: "",
-  headUrl:'https://avatars.githubusercontent.com/u/15867678?v=4'
+  username: "************",
+  nickname: "********",
+  mail: "****************"
 });
 
 let username = store.state.username;

@@ -2,7 +2,7 @@
   <div class="row">
         <div class="col-md-6 mb-2">
       <div class="mb-2">
-        <input class="form-control" list="datalistOptions" id="exampleDataList" v-model="tag" placeholder="输入标签">
+        <input class="form-control" list="datalistOptions" id="exampleDataList" v-model="form.tagName" placeholder="输入标签">
         <datalist id="datalistOptions">
           <option value="San Francisco" />
           <option value="New York" />
@@ -25,7 +25,7 @@
         <div class="card ">
           <div class="card-body">
             <p>{{ item.author.nickname }} <span class="float-end">{{ item.createTime }}</span></p>
-            <div>{{ item.text }}</div>
+            <div>{{ item.text }}  <span class="badge text-bg-primary">#{{ item.tagName }}</span></div>
             <div class="row">
               <div class="col-4">
                 <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-chat-dots tag" viewBox="0 0 16 16">
@@ -55,6 +55,12 @@
         <li class="list-group-item" v-for="(item,index) in tagList" @click="selectTag(item)">{{ item.text }}</li>
       </ul>
     </div>
+    <div class="col-md-3 mb-2">
+      <ul class="list-group">
+        <li class="list-group-item active">最近使用</li>
+        <li class="list-group-item" v-for="(item,index) in tagList" @click="selectTag(item)">{{ item.text }}</li>
+      </ul>
+    </div>
   </div>
 </template>
 
@@ -68,7 +74,8 @@ let page = ref({
 });
 let essayList = ref([]);
 let form = ref({
-  text: ""
+  text: "",
+  tagName:""
 });
 
 form.value.text = 'aaaaaaaaaaaa'
@@ -80,8 +87,6 @@ let tagList = ref([
   {text:'C#'},
   {text:'Python'}
 ])
-
-let tag = ref()
 
 function loadEssay() {
   request({
@@ -97,9 +102,6 @@ function loadEssay() {
 };
 
 function insertEssay() {
-  if(form.value.text.indexOf(tag.value)){
-    form.value.text += (" . " + tag.value)
-  }
   request({
     url: `/api/essay`,
     method: "post",
@@ -118,7 +120,7 @@ function next() {
 };
 
 function selectTag(item){
-  tag.value = item.text
+  form.value.tagName = item.text
 }
 
 onMounted(() => {

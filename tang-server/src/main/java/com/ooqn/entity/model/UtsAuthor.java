@@ -19,6 +19,12 @@ public class UtsAuthor {
 
 	public UtsAuthor(){}
 
+	
+	public UtsAuthor(String username, String nickname) {
+		this.username = username;
+		this.nickname = nickname;
+	}
+
 	@Id
 	private String authorId;
 

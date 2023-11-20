@@ -33,7 +33,7 @@
           </li>
         </ul>
         <form class="d-flex d-md-inline">
-          <ul class="navbar-nav me-auto">
+          <ul class="navbar-nav me-auto" id="nav-right">
             <li class="nav-item" v-if="!isLogin">
               <router-link class="nav-link active" to="/login">登录</router-link>
             </li>
@@ -44,7 +44,7 @@
               <a class="nav-link active" href="/article-editor-md" target="_blank">投稿</a>
             </li>
             <li class="nav-item" v-if="isLogin">
-              <router-link class="nav-link active" :to="'/author/' + $store.state.username">我的</router-link>
+              <router-link class="nav-link active right-left-padding-0" :to="'/author/' + $store.state.username">我的</router-link>
             </li>
           </ul>
         </form>
@@ -92,6 +92,10 @@ p{
 }
 body{
   overflow-y: scroll !important;
+}
+
+.right-left-padding-0{
+  padding-right: 0px !important;
 }
 
 </style>

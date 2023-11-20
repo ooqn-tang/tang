@@ -13,7 +13,7 @@ import com.ooqn.entity.model.UtsAuthor;
 
 public interface UtsAuthorRepository extends CrudRepository<UtsAuthor, String> {
 
-    @Query("select new UtsAuthor(ua.username,ua.nickname) From UtsAuthor ua where ua.authorId = ?1")
+    @Query("From UtsAuthor ua where ua.authorId = ?1")
     Optional<UtsAuthor> findUsernameNicknameByAuthorId(String authorId);
 
     UtsAuthor findByUsername(String username);
