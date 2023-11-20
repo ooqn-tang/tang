@@ -2,30 +2,20 @@
   <nav class="navbar navbar-expand navbar navbar-expand-lg navbar-light bg-light t-b-b-1 mb-2" id="top">
     <div class="container-fluid">
       <a class="navbar-brand pc" href="/" style='margin-right: 0px;'>ooqn.com</a>
-      <a class="navbar-brand yd" href="/" style='margin-right: 0px;'>🙃</a>
+      <a class="navbar-brand yd" href="/" style='margin-right: 0px;'>OOQN</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
 
       <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
         <ul class="navbar-nav me-auto mb-lg-0 pc">
-          <li class="nav-item"><router-link class="nav-link active" to="/article">📰文章</router-link></li>
-          <li class="nav-item"><router-link class="nav-link active" to="/essay">📝随笔</router-link></li>
-          <li class="nav-item"><router-link class="nav-link active" to="/author">👨‍🎓作者</router-link></li>
-          <li class="nav-item"><router-link class="nav-link active" to="/subject">📒专题</router-link></li>
-          <li class="nav-item"><router-link class="nav-link active" to="/search">🔍搜索</router-link></li>
-          <li class="nav-item" v-if="isAdmin"><a class="nav-link active" href="/admin.html">🧙‍♂️管理</a></li>
+          <li class="nav-item" v-for="(item,index) in linkItemList" v-show="item.admin ? isAdmin : true" ><a  class="nav-link active"  :href="item.to">{{ item.name }}</a></li>
         </ul>
         <ul class="navbar-nav me-auto mb-lg-0 yd">
           <li class="nav-item dropdown float-start">
             <a class="nav-link active dropdown-toggle" href="#" data-bs-toggle="dropdown">菜单</a>
             <ul class="dropdown-menu">
-              <li><router-link class="dropdown-item" to="/article">📰文章</router-link></li>
-              <li><router-link class="dropdown-item" to="/essay">📝随笔</router-link></li>
-              <li><router-link class="dropdown-item" to="/author">👨‍🎓作者</router-link></li>
-              <li><router-link class="dropdown-item" to="/subject">📒专题</router-link></li>
-              <li><router-link class="dropdown-item" to="/search">🔍搜索</router-link></li>
-              <li v-if="isAdmin"><a class="dropdown-item" href="/admin.html">🧙‍♂️管理</a></li>
+              <li v-for="(item,index) in linkItemList" v-show="item.admin ? isAdmin : true" ><a class="dropdown-item" :href="item.to">{{ item.name }}</a></li>
             </ul>
           </li>
           <li class="nav-item float-start">
@@ -61,6 +51,23 @@ import { computed } from 'vue'
 import { useStore } from 'vuex';
 
 const store = useStore();
+/**
+ * <li><router-link class="dropdown-item" to="/article">📰文章</router-link></li>
+              <li><router-link class="dropdown-item" to="/essay">📝随笔</router-link></li>
+              <li><router-link class="dropdown-item" to="/author">👨‍🎓作者</router-link></li>
+              <li><router-link class="dropdown-item" to="/subject">📒专题</router-link></li>
+              <li><router-link class="dropdown-item" to="/search">🔍搜索</router-link></li>
+              <li v-if="isAdmin"><a class="dropdown-item" href="/admin.html">🧙‍♂️管理</a></li>
+ */
+
+let linkItemList = [
+  {name:"📰文章",to:"/article",admin:false},
+  {name:"📝随笔",to:"/essay",admin:false},
+  {name:"👨‍🎓作者",to:"/author",admin:false},
+  {name:"📒专题",to:"/subject",admin:false},
+  {name:"🔍搜索",to:"/search",admin:false},
+  {name:"🧙‍♂️管理",to:"/admin.html",admin:true}
+]
 
 let isAdmin = computed(() => {
   let admin = false;

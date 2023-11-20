@@ -78,7 +78,7 @@ let form = ref({
   tagName:""
 });
 
-form.value.text = 'aaaaaaaaaaaa'
+form.value.text = ''
 
 let tagList = ref([
   {text:'Test1'},
