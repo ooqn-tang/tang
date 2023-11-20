@@ -3,9 +3,8 @@
     <div class="col-md-4 col-md-push-8">
       <div class="card mb-2 ">
         <div class="card-body ">
-          <strong>{{author.nickname}}&nbsp;</strong>
-          <button v-if="fans == 2" class="btn btn-outline-warning float-end" style="padding: 0px 5px 0px 3px;font-size: 13px;" @click="fansClick(author.username)">订阅</button>
-          <button v-if="fans == 1" class="btn btn-outline-warning float-end" style="padding: 0px 5px 0px 3px;font-size: 13px;" @click="fansClick(author.username)">取消订阅</button>
+          <strong>{{author.nickname}}</strong>
+          <button class="btn btn-outline-warning float-end fans-but" @click="fansClick(author.username)" v-text="fans == 2 ? '订阅':'取消订阅'"></button>
           <hr />
           <div>简介：{{author.signature}}</div>
         </div>
@@ -128,7 +127,6 @@ function getAuthor(){
   })
 }
 
-
 onMounted(() => {
   thisUsername = router.currentRoute.value.params.username
   getAuthor()
@@ -144,5 +142,10 @@ body{
 .nav-link{
   padding-left: 6px;
   padding-right: 6px;
+}
+
+.fans-but{
+  padding: 0px 5px 0px 3px;
+  font-size: 13px;
 }
 </style>

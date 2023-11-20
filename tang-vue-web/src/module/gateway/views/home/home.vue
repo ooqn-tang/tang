@@ -51,14 +51,6 @@ import { computed } from 'vue'
 import { useStore } from 'vuex';
 
 const store = useStore();
-/**
- * <li><router-link class="dropdown-item" to="/article">📰文章</router-link></li>
-              <li><router-link class="dropdown-item" to="/essay">📝随笔</router-link></li>
-              <li><router-link class="dropdown-item" to="/author">👨‍🎓作者</router-link></li>
-              <li><router-link class="dropdown-item" to="/subject">📒专题</router-link></li>
-              <li><router-link class="dropdown-item" to="/search">🔍搜索</router-link></li>
-              <li v-if="isAdmin"><a class="dropdown-item" href="/admin.html">🧙‍♂️管理</a></li>
- */
 
 let linkItemList = [
   {name:"📰文章",to:"/article",admin:false},

@@ -2,8 +2,8 @@
   <div class="row">
     <div class="col-lg-8">
       <div class="input-group mb-2">
-        <input type="text" class="form-control search-input" v-model="form.wb" placeholder="请输入" aria-label="请输入" aria-describedby="button-addon2" />
-        <button class="btn btn-outline-secondary" type="button" @click="dataList = [] , so()">搜索</button>
+        <input type="text" class="form-control search-input" v-model="form.wb" placeholder="请输入" aria-label="请输入" />
+        <button class="btn btn-outline-secondary" type="button" @click="so()">搜索</button>
       </div>
       <ul class="list-group mb-2 ">
         <li class="list-group-item" v-for="(item, index) in dataList" :key="index">
@@ -12,7 +12,7 @@
               <a href="#" @click="openArticle(item.articleId)">{{ item.title }}</a>
             </strong>
           </p>
-          <p style="width: 100%;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
+          <p class="search-synopsis">
             {{ item.synopsis }}
           </p>
         </li>
@@ -41,12 +41,13 @@ const router = useRouter();
 
 let dataList = ref([]);
 let isLoding = ref(true);
-let page = ref({number: 0})
-let form = ref({wb: ""})
+let page = ref({ number: 0 })
+let form = ref({ wb: "" })
 
-function so(){
+function so() {
+  dataList.value = [];
   isLoding.value = true;
-  form.value.page = page.value.number
+  form.value.page = page.value.number;
   request({
     url: `/api/article/so`,
     method: "GET",
@@ -58,14 +59,14 @@ function so(){
   });
 };
 
-function next(){
-  if(!page.value.last){
+function next() {
+  if (!page.value.last) {
     page.value.number += 1
     so();
   }
 }
 
-function openArticle(dataId){
+function openArticle(dataId) {
   router.push({
     name: "article",
     params: {
@@ -79,3 +80,12 @@ onMounted(() => {
 });
 
 </script>
+
+<style scoped>
+.search-synopsis {
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+</style>

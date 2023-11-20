@@ -5,7 +5,7 @@
         <div class="col-xl-3 col-lg-4 col-md-4 col-12 mb-2" v-for="(item, index) in subjectList"
           :key="index">
           <div class="card ">
-            <div class="card-body" style="">
+            <div class="card-body">
               <p class="card-text text-truncate">
                 <router-link :to="{name:'subject_post',params:{subject_id:item.subjectId}}">
                   <strong>{{item.subjectName}}</strong>

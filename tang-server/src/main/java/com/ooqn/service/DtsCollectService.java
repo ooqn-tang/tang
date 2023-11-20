@@ -18,8 +18,8 @@ public class DtsCollectService {
 	@Autowired
 	private DtsCollectRepository collectRepository;
 
-	public long select(String dataId, String authorId) {
-		return collectRepository.countByDataIdAndAuthorId(dataId, authorId);
+	public long select(String url, String authorId) {
+		return collectRepository.countByUrlAndAuthorId(url, authorId);
 	}
 
 	public Page<DtsCollect> selectCollect(String authorId, Pageable pageable) {
@@ -33,7 +33,7 @@ public class DtsCollectService {
 		return collectRepository.save(collect);
 	}
 
-	public void unCollect(String authorId, String dataId) {
-		//collectRepository.deleteByDataIdAndAuthorId(dataId, authorId);
+	public void unCollect(String url,String authorId) {
+		collectRepository.deleteByUrlAndAuthorId(url, authorId);
 	}
 }

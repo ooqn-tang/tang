@@ -23,7 +23,7 @@
                   {{ article.author.nickname }}
                 </strong>
                 .
-                <span style="color: rgb(180, 180, 180)">{{ article.createTime }}</span>
+                <span class="time-font">{{ article.createTime }}</span>
                 <button v-if="fans == 2" class="btn btn-outline-warning float-end t-b-m-1"
                   @click="fansClick(article.author.username)">
                   订阅
@@ -48,13 +48,13 @@
       </div>
     </div>
   </div>
-  <nav class="navbar fixed-bottom navbar-light bg-light" style="border-top: 1px solid rgb(206, 206, 206)">
+  <nav class="navbar fixed-bottom navbar-light bg-light foot-navbar">
     <div class="container-fluid">
       <div class="col-md-12 col-lg-12">
-        <a :class="collect == 1 ? 'btn-outline-danger' : 'btn-outline-primary'" class="btn btn-sm mini-but"
-          style="margin-left: 0px" @click="collectClick">收藏</a>
+        <a :class="collect == 1 ? 'btn-outline-danger' : 'btn-outline-primary'" class="btn btn-sm mini-but m-l-0"
+          @click="collectClick">收藏</a>
         <a class="btn btn-outline-primary btn-sm mini-but" disabled>举报</a>
-        <a class="btn btn-outline-primary btn-sm mini-but" :href="'https://blog.ooqn.com/article/' + articleId"
+        <a class="btn btn-outline-primary btn-sm mini-but" :href="'https://api.ooqn.com/article/' + articleId"
           target="_blank">阅读模式</a>
         <router-link class="btn btn-outline-primary btn-sm mini-but" v-if="isThisUser" target="_blank"
           :to="{ name: 'article-editor-md', query: { article: articleId } }">修改</router-link>
@@ -73,6 +73,7 @@ import { useRoute } from "vue-router";
 import { useStore } from 'vuex';
 import notice from '@components/notice.vue';
 import info from '@components/info.vue';
+import { insertCollectApi,deleteCollectApi,isCollectApi } from "@apis/collect";
 
 const route = useRoute()
 const store = useStore()
@@ -123,35 +124,25 @@ function isFans() {
 }
 
 function collectClick() {
-  if (collect == 1) {
-    request({
-      url: `/api/collect/${articleId}`,
-      method: "DELETE",
-    }).then((res) => {
-      collect = 0;
+  if (collect.value >= 1) {
+    deleteCollectApi({ url: window.location.href }).then((res) => {
+      collect.value = 0;
     });
   } else {
-    request({
-      url: `/api/collect`,
-      method: "POST",
-      data: {
-        dataId: articleId,
-        url: window.location.href,
-        title: article.title,
-        synopsis: article.synopsis
-      }
+    insertCollectApi({
+      dataId: articleId,
+      url: window.location.href,
+      title: article.value.title,
+      synopsis: article.value.synopsis
     }).then((res) => {
-      collect = 1;
+      collect.value = 1;
     });
   }
 }
 
-function isLike() {
-  request({
-    url: `/api/collect/${articleId}`,
-    method: "GET",
-  }).then((res) => {
-    collect = res.data;
+function isCollect() {
+  isCollectApi({ url: window.location.href }).then((res) => {
+    collect.value = res.data;
   });
 }
 
@@ -187,7 +178,7 @@ function loadRecommend() {
 function load() {
   articleId = route.params.id;
   if (store.state.username != "") {
-    isLike();
+    isCollect();
   }
   selectSubjectArticleList();
   loadArticleInfo();
@@ -205,4 +196,17 @@ onMounted(() => {
 <style scoped>
 .classColor {
   color: #ff5c5c;
-}</style>
+}
+
+.m-l-0 {
+  margin-left: 0px;
+}
+
+.foot-navbar {
+  border-top: 1px solid rgb(206, 206, 206);
+}
+
+.time-font {
+  color: rgb(180, 180, 180);
+}
+</style>

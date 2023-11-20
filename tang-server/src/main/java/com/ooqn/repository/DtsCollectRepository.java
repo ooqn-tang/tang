@@ -12,8 +12,10 @@ import jakarta.transaction.Transactional;
 @Transactional
 public interface DtsCollectRepository extends CrudRepository<DtsCollect, String> {
 
-    long countByDataIdAndAuthorId(String dataId, String authorId);
+    long countByUrlAndAuthorId(String url, String authorId);
 
     Page<DtsCollect> findByAuthorId(String authorId, Pageable pageable);
+
+    void deleteByUrlAndAuthorId(String url, String authorId);
 
 }

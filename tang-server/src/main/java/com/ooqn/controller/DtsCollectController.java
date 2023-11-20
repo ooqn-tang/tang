@@ -29,10 +29,10 @@ public class DtsCollectController extends BaseController {
 	@Autowired
 	private DtsCollectService collectService;
 
-	@GetMapping("{dataId}")
-	public Long collect(@PathVariable("dataId") String dataId) {
+	@GetMapping
+	public Long collect(@RequestParam("url") String url) {
 		String authorId = authorId();
-		return collectService.select(dataId, authorId);
+		return collectService.select(url, authorId);
 	}
 
 	@GetMapping("list")
@@ -49,9 +49,9 @@ public class DtsCollectController extends BaseController {
 		return collectService.insert(collect, authorId);
 	}
 
-	@DeleteMapping("{dataId}")
-	public void delete(@PathVariable("dataId") String dataId) {
+	@DeleteMapping
+	public void unCollect(@RequestParam("url") String url) {
 		String authorId = authorId();
-		collectService.unCollect(dataId, authorId);
+		collectService.unCollect(url, authorId);
 	}
 }

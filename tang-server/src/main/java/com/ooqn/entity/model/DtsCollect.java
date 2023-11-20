@@ -21,11 +21,8 @@ public class DtsCollect {
 	@JsonIgnore
 	private String authorId;
 
-	@Schema(description = "数据ID")
-	private String dataId;
-
-	@Schema(description = "数据类型")
-	private String dataType;
+	@Schema(description = "标题")
+	private String title;
 
 	@Schema(description = "摘要")
 	private String synopsis;
