@@ -3,9 +3,10 @@
     <div class="col-md-3 col-lg-3 d-md-inline d-none">
       <div class="list-group mb-2" v-if="articleList.length > 0">
         <a class="list-group-item active">专题</a>
-        <a v-for="(item, index) in articleList" class="list-group-item"
-          :class="item.articleId == article.articleId ? 'active2' : ''" :key="index"
-          :href="'/article/' + item.articleId">{{ item.title }}</a>
+        <a v-for="(item, index) in articleList" class="list-group-item" :class="item.articleId == article.articleId ? 'active2' : ''" :key="index"
+          :href="'/article/' + item.articleId">
+          <span>{{ item.title }}</span>
+        </a>
       </div>
       <div class="list-group mb-2">
         <a class="list-group-item active">推荐<span class="float-end">🎇</span></a>

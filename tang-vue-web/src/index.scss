@@ -126,7 +126,12 @@ nav .dropdown-menu {
 }
 
 .list-group .active2 {
-    background-color: #f3f3f3;
+    background-color: #e9f0f2;
+}
+
+.list-group .active2 span{
+    border-left: 2px solid #0d6efd;
+    padding-left: 2px;
 }
 
 .mr-10 {
