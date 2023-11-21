@@ -13,28 +13,28 @@
         </ul>
         <ul class="navbar-nav me-auto mb-lg-0 yd">
           <li class="nav-item dropdown float-start">
-            <a class="nav-link active dropdown-toggle" href="#" data-bs-toggle="dropdown">菜单</a>
+            <a class="nav-link active dropdown-toggle" href="#" data-bs-toggle="dropdown">🧮菜单</a>
             <ul class="dropdown-menu">
               <li v-for="(item,index) in linkItemList" v-show="item.admin ? isAdmin : true" ><a class="dropdown-item" :href="item.to">{{ item.name }}</a></li>
             </ul>
           </li>
           <li class="nav-item float-start">
-            <router-link class="nav-link active" to="/search">🔍搜索</router-link>
+            <router-link class="nav-link active right-padding-0" to="/search">🔍搜索</router-link>
           </li>
         </ul>
         <form class="d-flex d-md-inline">
           <ul class="navbar-nav me-auto" id="nav-right">
             <li class="nav-item" v-if="!isLogin">
-              <router-link class="nav-link active" to="/login">登录</router-link>
+              <router-link class="nav-link active left-padding-0" to="/login">登录</router-link>
             </li>
             <li class="nav-item" v-if="isLogin">
-              <router-link class="nav-link active" to="/message">消息</router-link>
+              <router-link class="nav-link active left-padding-0" to="/message">消息</router-link>
             </li>
             <li class="nav-item" v-if="isLogin">
               <a class="nav-link active" href="/article-editor-md" target="_blank">投稿</a>
             </li>
             <li class="nav-item" v-if="isLogin">
-              <router-link class="nav-link active right-left-padding-0" :to="'/author/' + $store.state.username">我的</router-link>
+              <router-link class="nav-link active right-padding-0" :to="'/author/' + $store.state.username">我的</router-link>
             </li>
           </ul>
         </form>
@@ -93,8 +93,12 @@ body{
   overflow-y: scroll !important;
 }
 
-.right-left-padding-0{
+.right-padding-0{
   padding-right: 0px !important;
+}
+
+.left-padding-0{
+  padding-left: 0px !important;
 }
 
 </style>
