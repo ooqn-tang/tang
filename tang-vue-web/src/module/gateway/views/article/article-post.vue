@@ -5,7 +5,7 @@
         <a class="list-group-item active">专题</a>
         <a v-for="(item, index) in articleList" class="list-group-item" :class="item.articleId == article.articleId ? 'active2' : ''" :key="index"
           :href="'/article/' + item.articleId">
-          <span>{{ item.title }}</span>
+          <div>{{ item.title }}</div>
         </a>
       </div>
       <div class="list-group mb-2">
