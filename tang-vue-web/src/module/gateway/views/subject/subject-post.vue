@@ -13,7 +13,7 @@
         </div>
       </div>
       <ul class="list-group mb-2">
-        <li class="list-group-item " v-for="(item, index) in subjectData.articleList" :key="index">
+        <li class="list-group-item " v-for="(item, index) in subjectData.dataArray" :key="index">
           <router-link :to="{ name: 'article_post', params: { id: item.articleId } }" class="article-title">
             <strong>
               <p v-text="item.title"></p>
@@ -57,7 +57,7 @@ let subjectData = ref({
     username: "∷∷∷∷∷∷∷∷∷",
     nickname: "∷∷∷∷∷∷∷∷∷",
   },
-  articleList: []
+  dataArray: []
 })
 
 function loadSubjectById() {
