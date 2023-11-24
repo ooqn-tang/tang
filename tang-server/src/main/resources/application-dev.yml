@@ -1,7 +1,7 @@
 server:
   port: 8888
   ssl:
-    key-store: ttcxy.cn.jks
+    key-store: www.ooqn.com.jks
     enabled: false
     key-store-password: EL5RIudx
     key-store-type: JKS
@@ -31,9 +31,9 @@ spring:
     multipart:
       max-file-size: 500MB
       max-request-size: 500MB
+
 # Tang ===========================================================
 tang:
-  file: D://obj
   openUrl: /101990585.json,/api/ws/**,/api/register,/api/authenticate,/api/refresh,/h2-console,/h2-console/*,/h2-console/**,/swagger-ui/**,/v3/api-docs,/article/**,/subject/**,/subjects,/map,/error,/,/*/*.ico,/*/*.css,/*/*.js,/favicon.ico
   tokenKey: Token
   jwt:

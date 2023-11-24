@@ -13,8 +13,8 @@
 <nav th:replace="comm::nav"></nav>
 <div class="container-fluid">
     <div class="row clearfix">
-        <div class="col-md-8 column move-p-lr-0">
-            <div class="panel panel-default move-b-lr-0">
+        <div class="col-md-8 column">
+            <div class="panel panel-default">
                 <div class="panel-body">
                     <a th:href="'/subject/' + ${subject.subject.subjectId}" th:text="${subject.subject.subjectName}" class="fw"></a>
                     <span th:text="${#dates.format(subject.subject.createTime, 'yyyy-MM-dd')}" class="blog-time"></span>
@@ -23,7 +23,7 @@
                     <div th:text="${subject.subject.synopsis}"></div>
                 </div>
             </div>
-            <div class="panel panel-default move-b-lr-0">
+            <div class="panel panel-default">
                 <div class="panel-body">
                     <ul class="blog-list">
                         <li th:each="item : ${subject.articleList}" class="panel-text">
@@ -35,7 +35,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-4 column move-p-lr-0">
+        <div class="col-md-4 column">
             <nav th:replace="comm::recommend"></nav>
             <nav th:replace="comm::website"></nav>
         </div>

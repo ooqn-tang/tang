@@ -63,7 +63,7 @@ let linkItemList = [
 
 let isAdmin = computed(() => {
   let admin = false;
-  if(store.state.author.roleList != null){
+  if(store.state.author != null && store.state.author.roleList != null){
     store.state.author.roleList.forEach(role => {
       if(role.roleValue == "ROLE_ADMIN" || role.roleValue == "role_admin"){
         admin = true;
