@@ -7,7 +7,9 @@ import org.springframework.stereotype.Service;
 
 import com.ooqn.core.exception.ApiException;
 import com.ooqn.entity.dto.UtsAuthorDto;
+import com.ooqn.entity.dto.UtsAuthorRoleDto;
 import com.ooqn.entity.model.UtsAuthor;
+import com.ooqn.entity.model.UtsAuthorRole;
 import com.ooqn.entity.model.UtsRole;
 
 import cn.hutool.core.lang.Validator;
@@ -24,7 +26,7 @@ public class UtsUserDetailsService {
 	@Autowired
 	private UtsRoleService roleService;
 
-	public UtsAuthorDto loadUserByUsername(String username)  {
+	public UtsAuthor loadUserByUsername(String username)  {
 		
 		UtsAuthor author;
 
@@ -35,13 +37,14 @@ public class UtsUserDetailsService {
 		}
 
 		if (author != null) {
-			UtsAuthorDto authorDto = new UtsAuthorDto(author);
-			List<UtsRole> roles = roleService.roleList(author.getAuthorId());
-			authorDto.setRoleList(roles);
-			return authorDto;
+			return author;
 		}
 
 		throw new ApiException("输入的用户名或密码不正确");
+	}
+
+	public List<UtsRole> loadRoles(String username){
+		return roleService.roles(username);
 	}
 
 }

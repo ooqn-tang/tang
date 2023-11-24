@@ -54,11 +54,11 @@ import request from "@utils/request";
 import { marked } from "marked";
 import { onMounted, ref, watch } from 'vue';
 import { useRoute,useRouter } from 'vue-router';
-import { useStore } from 'vuex';
+import { useAuthorStore } from "@utils/user";
 
 const route = useRoute();
 const router = useRouter();
-const store = useStore();
+const useAuthorStore = useAuthorStore();
 
 marked.setOptions({
   renderer: new marked.Renderer(),
@@ -131,7 +131,7 @@ function saveArticle(){
 
 function loadSubject(){
   request({
-    url: `/api/subject/username/${store.state.username}`,
+    url: `/api/subject/username/${useAuthorStore.username}`,
     method: "GET",
   }).then((res) => {
     subjectList = res.data;

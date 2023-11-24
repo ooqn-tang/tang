@@ -49,11 +49,11 @@
 <script setup>
 import { onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
-import { useStore } from 'vuex'
+import { useAuthorStore } from '@utils/user'
 
 import request from '@utils/request'
 
-let store = useStore()
+let authorStore = useAuthorStore()
 let route = useRoute()
 
 let close = ref(null)
@@ -120,7 +120,7 @@ function deleteClick(subjectId, index){
 
 onMounted(() => {
   selectSubjectListByUsername(thisUsername)
-  isThisUser.value = thisUsername == store.state.username
+  isThisUser.value = thisUsername == authorStore.username
 })
 
 </script>

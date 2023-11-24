@@ -1,8 +1,10 @@
 package com.ooqn.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,8 +14,8 @@ import com.ooqn.core.control.BaseController;
 import com.ooqn.core.exception.ApiException;
 import com.ooqn.core.security.JwtProvider;
 import com.ooqn.core.security.NotRole;
-import com.ooqn.entity.dto.UtsAuthorDto;
 import com.ooqn.entity.model.UtsAuthor;
+import com.ooqn.entity.model.UtsRole;
 import com.ooqn.entity.param.UtsLoginParam;
 import com.ooqn.entity.param.UtsRePasswordParam;
 import com.ooqn.entity.param.UtsRegisterParam;
@@ -55,25 +57,36 @@ public class UtsLoginController extends BaseController {
         String username = loginParam.getUsername();
         String password = loginParam.getPassword();
 
-        UtsAuthorDto authorDto = utsUserDetailsService.loadUserByUsername(username);
-        if (authorDto == null) {
+        UtsAuthor author = utsUserDetailsService.loadUserByUsername(username);
+        if (author == null) {
             throw new ApiException("用户不存在！");
         }
 
-        if (!BCrypt.checkpw(password, authorDto.getPassword())) {
+        if (!BCrypt.checkpw(password, author.getPassword())) {
             throw new ApiException("密码错误！");
         }
-        return jwtProvider.createToken(authorDto, true);
+        return jwtProvider.createToken(author, true);
 
     }
+
+    @GetMapping("/roles")
+    public List<UtsRole> loadRoles() {
+        return utsUserDetailsService.loadRoles(authorName());
+    }
+
+    @GetMapping("/author")
+    public UtsAuthor loadAuthor() {
+        return author();
+    }
+
 
     @NotRole
     @PostMapping("/refresh")
     public String refresh(@RequestBody Map<String,String> params) {
         String jwt = params.get("jwt");
         if (jwtProvider.validateToken(jwt)) {
-            UtsAuthorDto authorDto = jwtProvider.getAuthentication(jwt);
-            UtsAuthorDto author = utsUserDetailsService.loadUserByUsername(authorDto.getUsername());
+            String username = jwtProvider.getAuthentication(jwt);
+            UtsAuthor author = utsUserDetailsService.loadUserByUsername(username);
             return jwtProvider.createToken(author, true);
         }
         throw new ApiException("无效token！");

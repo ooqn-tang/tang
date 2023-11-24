@@ -23,8 +23,8 @@ public class UtsRoleService {
 	@Autowired
 	private UtsResourceRoleRepository resourceRoleRepository;
 
-	public List<UtsRole> roleList(String authorId) {
-		return roleRepository.findRoleListByAuthorId(authorId);
+	public List<UtsRole> roles(String username) {
+		return roleRepository.findRolesByUsername(username);
 	}
 
 	public UtsRole selectById(String roleId) {
@@ -62,7 +62,7 @@ public class UtsRoleService {
 	}
 
 	public List<String> selectRoleIdList(String authorId) {
-		return roleRepository.findRoleIdList(authorId);
+		return roleRepository.findRoleIds(authorId);
 	}
 
 	public List<UtsRole> selectByName(String roleName) {

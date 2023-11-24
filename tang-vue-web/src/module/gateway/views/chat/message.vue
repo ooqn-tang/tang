@@ -23,7 +23,7 @@ function send(){
     text: text,
     type: "message"
   }
-  $store.state.ws.send(JSON.stringify(message));
+  $store.ws.send(JSON.stringify(message));
 }
 </script>
   

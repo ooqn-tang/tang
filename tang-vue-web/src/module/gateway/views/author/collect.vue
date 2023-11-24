@@ -24,13 +24,13 @@
 <script setup>
 import { onMounted,ref } from 'vue';
 import { useRoute } from "vue-router";
-import { useStore } from "vuex";
+import { useAuthorStore } from "@utils/user";
 import { collectListApi,deleteCollectApi } from "@apis/collect"
 
-let store = useStore();
+let authorStore = useAuthorStore();
 let route = useRoute();
 
-let isThisUser = route.params.username == store.state.username;
+let isThisUser = route.params.username == authorStore.username;
 
 let page = ref({
   number: 0

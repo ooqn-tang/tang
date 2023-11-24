@@ -35,9 +35,9 @@
 import request from "@utils/request";
 import { removeToken } from "@utils/token";
 import { onMounted, ref } from "vue";
-import { useStore } from "vuex";
+import { useAuthorStore } from "@utils/user";
 
-let store = useStore();
+let authorStore = useAuthorStore();
 
 let author = ref({
   username: "************",
@@ -45,7 +45,7 @@ let author = ref({
   mail: "****************"
 });
 
-let username = store.state.username;
+let username = authorStore.username;
 
 function loadAuthor(){
   request({
@@ -67,7 +67,7 @@ function save(){
 };
 
 function logout(){
-  removeToken(store)
+  authorStore.logout();
   window.location.href='/'
 }
 

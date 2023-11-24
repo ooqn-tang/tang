@@ -1,4 +1,4 @@
-package com.ooqn.entity.propertie;
+package com.ooqn.core.propertie;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;

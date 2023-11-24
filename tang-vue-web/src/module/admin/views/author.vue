@@ -44,40 +44,8 @@ const columns = [{
     )
   }
 }]
-const roleIdList = ref([]);
-const roleList = ref([]);
+
 const queryData = ref("");
-const selectAuthorId = ref("");
-const roleForm = ref([]);
-
-const checkRole = (selection, row) => {
-  roleForm.value = selection;
-};
-
-const saveAuthorRole = () => {
-  request({
-    url: `api/admin/role/author/${selectAuthorId.value}`,
-    method: "POST",
-    data:roleForm.value
-  }).then((res) => {
-    roleIdList.value = res.data;
-  });
-};
-
-const selectRole = (row) => {
-  request({
-    url: `api/admin/role`,
-    method: "GET",
-  }).then((res) => {
-    roleList.value = res.data;
-    request({
-      url: `api/admin/role/author/${row.authorId}`,
-      method: "GET",
-    }).then((res) => {
-      roleIdList.value = res.data;
-    });
-  });
-};
 
 const selectAuthor = () => {
   request({
@@ -91,45 +59,9 @@ const selectAuthor = () => {
   });
 };
 
-const deleteAuthor = (authorId) => {
-  request({
-    url: `/api/admin/author/${authorId}`,
-    method: "DELETE",
-  }).then((res) => {
-    selectAuthor();
-    // ElMessage({      type: 'success',      message: '删除成功',    })
-  });
-};
-
-const handleEdit = (index, row) => {
-  form.value = row;
-};
-
-const handleDelete = (index, row) => {
-  request({
-    url: `/api/admin/author/${row.authorId}`,
-    method: "DELETE",
-  }).then((res) => {
-    selectAuthor();
-    // ElMessage({      type: 'success',      message: '删除成功',    })
-  });
-};
-
 const handleCreate = () => {
   form.value = {};
   dialogVisible.value = true;
-};
-
-const handleSave = () => {
-  request({
-    url: `/api/admin/author`,
-    method: "POST",
-    data: form.value,
-  }).then((res) => {
-    selectAuthor();
-    dialogVisible.value = false;
-    // ElMessage({      type: 'success',      message: '保存成功',    })
-  });
 };
 
 const handleUpdate = () => {
@@ -140,7 +72,6 @@ const handleUpdate = () => {
   }).then((res) => {
     selectAuthor();
     dialogVisible.value = false;
-    // ElMessage({      type: 'success',      message: '保存成功',    })
   });
 };
 

@@ -74,7 +74,7 @@ public class StsInitService {
                         Map<String, String> map = new HashMap<>();
                         map.put("method", method.name());
                         map.put("path", path);
-                        TangConfig.notRoleList.add(map);
+                        TangConfig.notRoles.add(map);
                     } else {
                         insertResource(path, method.name());
                     }
@@ -83,7 +83,7 @@ public class StsInitService {
                 if (info.getMethodsCondition().getMethods().size() == 0) {
                     Map<String, String> map = new HashMap<>();
                     map.put("path", path);
-                    TangConfig.notRoleList.add(map);
+                    TangConfig.notRoles.add(map);
                 }
             }
         }

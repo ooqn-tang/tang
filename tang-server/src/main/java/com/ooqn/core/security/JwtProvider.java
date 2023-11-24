@@ -8,8 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ooqn.core.propertie.TangProperties;
 import com.ooqn.entity.dto.UtsAuthorDto;
-import com.ooqn.entity.propertie.TangProperties;
+import com.ooqn.entity.dto.UtsAuthorRoleDto;
+import com.ooqn.entity.model.UtsAuthor;
+import com.ooqn.entity.model.UtsRole;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -47,7 +50,7 @@ public class JwtProvider implements InitializingBean {
 	 * @param rememberMe
 	 * @return
 	 */
-	public String createToken(UtsAuthorDto authorDto, boolean rememberMe) {
+	public String createToken(UtsAuthor author, boolean rememberMe) {
 		long now = (new Date()).getTime();
 		Date validity;
 		if (rememberMe) {
@@ -55,8 +58,7 @@ public class JwtProvider implements InitializingBean {
 		} else {
 			validity = new Date(now + tangProperties.getJwt().getTokenValidityInSeconds());
 		}
-		return Jwts.builder().setSubject(authorDto.getUsername())
-				.claim(tangProperties.getAuthorKey(), authorDto)
+		return Jwts.builder().setSubject(author.getUsername())
 				.signWith(key, SignatureAlgorithm.HS512).setExpiration(validity).compact();
 	}
 
@@ -66,11 +68,8 @@ public class JwtProvider implements InitializingBean {
 	 * @param token
 	 * @return 用户上下文 Authentication
 	 */
-	public UtsAuthorDto getAuthentication(String token) {
-		Claims claims = Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token).getBody();
-		Object object = claims.get(tangProperties.getAuthorKey());
-		ObjectMapper mapper = new ObjectMapper();
-		return mapper.convertValue(object, UtsAuthorDto.class);
+	public String getAuthentication(String token) {
+		return Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token).getBody().getSubject();
 	}
 
 	/**

@@ -111,13 +111,13 @@ public class UtsAuthorService {
 		}
 	}
 
-	public Date nowTime(String username, List<UtsRole> roleList) {
+	public Date nowTime(String username, List<UtsRole> roles) {
 		Set<Date> dateSet = new TreeSet<>();
 		Date usernameTime = getUsernameTime(username);
 		if (usernameTime != null) {
 			dateSet.add(usernameTime);
 		}
-		dateSet.addAll(getRoleNameTime(roleList));
+		dateSet.addAll(getRoleNameTime(roles));
 		return dateSet.stream().reduce((first, second) -> second).orElse(new Date());
 	}
 

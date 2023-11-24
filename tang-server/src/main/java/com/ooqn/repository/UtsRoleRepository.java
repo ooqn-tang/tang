@@ -13,9 +13,12 @@ public interface UtsRoleRepository extends CrudRepository<UtsRole, String> {
     List<UtsRole> findByRoleName(String roleName);
 
     @Query("From UtsRole where roleId in (select roleId from UtsAuthorRole where authorId = ?1)")
-    List<UtsRole> findRoleListByAuthorId(String authorId);
+    List<UtsRole> findRolesByAuthorId(String authorId);
+
+    @Query("From UtsRole where roleId in (select roleId from UtsAuthorRole where authorId = (select authorId from UtsAuthor where username = ?1))")
+    List<UtsRole> findRolesByUsername(String username);
 
     @Query("select roleId From UtsAuthorRole where authorId = ?1")
-    List<String> findRoleIdList(String authorId);
+    List<String> findRoleIds(String authorId);
 
 }

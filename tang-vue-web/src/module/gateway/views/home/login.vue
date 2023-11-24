@@ -1,6 +1,6 @@
 <template>
   <div class="modal" style="display: inline;">
-    <div id="loginModal" class="modal-dialog" >
+    <div id="loginModal" class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
           <h4 class="modal-title text-center">登录</h4>
@@ -9,11 +9,13 @@
           {{ loginData.value }}
           <label>邮箱/用户名：</label>
           <div class="form-group">
-            <input type="text" v-model="loginData.username" placeholder="邮箱/用户名" autocomplete="off" class="form-control" />
+            <input type="text" v-model="loginData.username" placeholder="邮箱/用户名" autocomplete="off"
+              class="form-control" />
           </div>
           <label>密码：</label>
           <div class="form-group">
-            <input type="password" v-model="loginData.password" placeholder="密码" autocomplete="off" class="form-control" />
+            <input type="password" v-model="loginData.password" placeholder="密码" autocomplete="off"
+              class="form-control" />
           </div>
         </div>
         <div class="modal-footer">
@@ -33,44 +35,29 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref } from 'vue'
 import { useRouter } from "vue-router"
 
-import jwt_decode from "jwt-decode"
-import request from '@utils/request'
+import { authenticateApi, rolesApi, authorApi } from '@apis/login'
 
-let loginData = ref({rememberMe:true})
+let loginData = ref({ rememberMe: true })
 let router = useRouter()
 
-function login() {
-  request({
-    url: `/api/authenticate`,
-    method: 'post',
-    data: loginData.value
-  }).then((res) => {
-    if (res.status === 200) {
-      debugger
-      let author = jwt_decode(res.data);
-      localStorage.setItem("jwt", res.data)
-      localStorage.setItem("author", JSON.stringify(author))
-      router.push({ path: "/author/" + author.sub })
-    }
-  }).catch(e => {
-    alert(e.data)
-  });
+async function login() {
+  let loginRes = await authenticateApi(loginData.value);
+  if (loginRes.status === 200) {
+    localStorage.setItem("jwt", loginRes.data)
+    let authorRes = await authorApi();
+    let rolesRes = await rolesApi();
+    localStorage.setItem("author", JSON.stringify(authorRes.data))
+    localStorage.setItem("roles", JSON.stringify(rolesRes.data))
+    router.push({ path: "/author/" + authorRes.data.username })
+  }
 }
-
-onMounted(() => {
- 
-})
-
 </script>
 
 <style scoped>
-.body{
+.body {
   background-image: url('https://img-s-msn-com.akamaized.net/tenant/amp/entityid/AAOElaZ.img') !important;
-}
-.W100{
-  width: 100% !important;
 }
 </style>

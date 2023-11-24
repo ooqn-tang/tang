@@ -4,7 +4,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.ooqn.core.exception.ApiException;
-import com.ooqn.entity.dto.UtsAuthorDto;
+import com.ooqn.entity.model.UtsAuthor;
 
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -18,12 +18,12 @@ public class BaseController {
 		return author().getUsername();
 	}
 
-	public UtsAuthorDto author() {
+	public UtsAuthor author() {
 		ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes)RequestContextHolder.getRequestAttributes();
 		if(servletRequestAttributes != null){
 			HttpServletRequest request = servletRequestAttributes.getRequest();
-			UtsAuthorDto authorDto = (UtsAuthorDto)request.getAttribute("author");
-			return authorDto;
+			UtsAuthor author = (UtsAuthor)request.getAttribute("author");
+			return author;
 		}
     	throw new ApiException(ResponseCode.UNAUTHORIZED);
 	}

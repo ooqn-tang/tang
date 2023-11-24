@@ -1,4 +1,4 @@
-package com.ooqn.entity.propertie;
+package com.ooqn.core.propertie;
 
 import lombok.Getter;
 import lombok.Setter;

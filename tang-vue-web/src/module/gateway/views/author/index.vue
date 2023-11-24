@@ -57,7 +57,7 @@
 <script setup>
 import request from '@utils/request'
 import { useRouter,useRoute } from 'vue-router'
-import { useStore } from 'vuex'
+import { useAuthorStore } from '@utils/user'
 import { onMounted,ref,watch } from 'vue'
 
 import notice from '@components/notice.vue';
@@ -65,7 +65,7 @@ import info from '@components/info.vue';
 
 let router = useRouter()
 let route = useRoute()
-let store = useStore()
+let authorStore = useAuthorStore()
 
 let routeName = ref(route.name)
 let author = ref({
@@ -74,7 +74,7 @@ let author = ref({
 })
 
 let thisUsername = ref("")
-let loginUsername = store.state.username
+let loginUsername = authorStore.username
 let from = ref({
   page:1
 })

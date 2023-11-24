@@ -33,14 +33,14 @@
 
 <script setup>
 import { useRoute, useRouter } from "vue-router";
-import { useStore } from "vuex";
+import { useAuthorStore } from "@utils/user";
 import { h, onMounted, ref } from "vue";
 import { NConfigProvider, NButton, NLayout, NLayoutHeader, NLayoutSider, NMenu, NIcon, NGrid, NGridItem, NSpace } from "naive-ui";
 import { BookmarkOutline, CaretDownOutline } from "@vicons/ionicons5";
 
 
 let router = useRouter();
-let store = useStore();
+let authorStore = useAuthorStore();
 
 let isCollapse = ref(false);
 let mList = ref([])
@@ -53,7 +53,7 @@ let onChange = (value) => {
 let logout = () => {
   localStorage.removeItem("jwt");
   localStorage.removeItem("author");
-  store.state.username = "";
+  authorStore.username = "";
   window.location.href = "/";
 };
 
@@ -62,8 +62,6 @@ const themeOverrides = {
     primaryColor: "#3a94f1"
   }
 }
-
-
 
 let renderMenuLabel = (option) => {
   if ("href" in option) {
@@ -86,7 +84,6 @@ let expandIcon = () => {
   return h(NIcon, null, { default: () => h(CaretDownOutline) });
 }
 
-
 onMounted(() => {
   let adminRouterList = router.getRoutes().filter((item) => { if (item.name == 'admin') { return item } })
   mList.value = adminRouterList[0].children;
@@ -101,7 +98,6 @@ onMounted(() => {
   }
 });
 </script>
-
 
 <style scoped>
 .active-but {

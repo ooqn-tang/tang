@@ -15,17 +15,17 @@
 </template>
 
 <script setup>
-import { useStore } from "vuex";
+import { useAuthorStore } from "@utils/user";
 
-let store = useStore();
+let authorStore = useAuthorStore();
 
 function initWebSocket(){
   try{
-    store.state.ws = new WebSocket(import.meta.env.VITE_BASE_API_WS + "api/ws/" + localStorage.getItem("jwt"));
-    store.state.ws.onmessage = websocketonmessage;
-    store.state.ws.onopen = websocketonopen;
-    store.state.ws.onerror = websocketonerror;
-    store.state.ws.onclose = websocketclose;
+    authorStore.ws = new WebSocket(import.meta.env.VITE_BASE_API_WS + "api/ws/" + localStorage.getItem("jwt"));
+    authorStore.ws.onmessage = websocketonmessage;
+    authorStore.ws.onopen = websocketonopen;
+    authorStore.ws.onerror = websocketonerror;
+    authorStore.ws.onclose = websocketclose;
   }catch(e){
     console.log(e)
   }

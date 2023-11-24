@@ -1,6 +1,4 @@
-import { createRouter, createWebHistory, createWebHashHistory } from "vue-router";
-
-const routes = [
+const routeData = [
     {
         path: '/',
         name: 'home',
@@ -33,9 +31,9 @@ const routes = [
             },
             {
                 path: '/author/:username',
-                name:'author_index',
+                name: 'author_index',
                 component: () => import('@gateway/views/author/index.vue'),
-                children:[
+                children: [
                     {
                         path: '',
                         name: 'author_article',
@@ -91,15 +89,15 @@ const routes = [
         path: '/chat',
         name: 'chat',
         component: () => import('@gateway/views/chat/index.vue'),
-        children:[
+        children: [
             {
-                path:"",
-                name:"chat_no",
+                path: "",
+                name: "chat_no",
                 component: () => import('@gateway/views/chat/no.vue')
             },
             {
-                path:"message/:id",
-                name:"chat_message",
+                path: "message/:id",
+                name: "chat_message",
                 component: () => import('@gateway/views/chat/message.vue')
             }
         ]
@@ -126,13 +124,4 @@ const routes = [
     }
 ]
 
-/*
-createWebHistory   History 模式
-createWebHashHistory    hash 模式
-*/
-const router = createRouter({
-    history: createWebHistory(),
-    routes
-});
-
-export default router
+export default routeData;

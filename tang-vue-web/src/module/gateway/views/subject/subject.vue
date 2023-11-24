@@ -32,7 +32,7 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
-import { useStore } from 'vuex'
+import { useAuthorStore } from '@utils/user'
 import { useRouter,useRoute } from 'vue-router'
 
 import notice from '@components/notice.vue';
@@ -40,11 +40,11 @@ import info from '@components/info.vue';
 
 import request from '@utils/request'
 
-const store = useStore()
+const authorStore = useAuthorStore()
 const router = useRouter()
 
 let subjectList = ref([])
-let username = store.getters.username
+let username = authorStore.username
 
 onMounted(() => {
   selectSubjectList()

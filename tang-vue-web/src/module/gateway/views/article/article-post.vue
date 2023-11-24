@@ -71,13 +71,13 @@ import "highlight.js/styles/github.css";
 import request from "@utils/request";
 import { onMounted, ref } from 'vue';
 import { useRoute } from "vue-router";
-import { useStore } from 'vuex';
+import { useAuthorStore } from "@utils/user";
 import notice from '@components/notice.vue';
 import info from '@components/info.vue';
 import { insertCollectApi,deleteCollectApi,isCollectApi } from "@apis/collect";
 
 const route = useRoute()
-const store = useStore()
+const store = useAuthorStore()
 
 let fans = ref(1);
 let articleId = ref(route.query.value);
@@ -153,7 +153,7 @@ function loadArticleInfo() {
     method: "GET",
   }).then((res) => {
     article.value = res.data
-    isThisUser.value = store.state.username == article.value.author.username
+    isThisUser.value = store.username == article.value.author.username
     isFans();
   });
 }
@@ -178,7 +178,7 @@ function loadRecommend() {
 
 function load() {
   articleId = route.params.id;
-  if (store.state.username != "") {
+  if (store.username != "") {
     isCollect();
   }
   selectSubjectArticleList();

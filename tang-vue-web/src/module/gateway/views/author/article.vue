@@ -30,12 +30,12 @@ import request from "@utils/request";
 
 import { onMounted, ref } from "vue";
 import { useRoute } from "vue-router";
-import { useStore } from "vuex";
+import { useAuthorStore } from "@utils/user";
 
-let store = useStore();
+let authorStore = useAuthorStore();
 let route = useRoute();
 
-let isThisUser = route.params.username == store.state.username;
+let isThisUser = route.params.username == authorStore.username;
 let articleList = ref([]);
 let page = ref({ number: 0, });
 let subjectList = ref([]);

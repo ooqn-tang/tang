@@ -17,9 +17,7 @@ const service = axios.create({
 //请求前拦截
 service.interceptors.request.use(
     config => {
-        if('/api/authenticate' == config.url){
-            return config;
-        }
+        debugger
         config.headers.Token = localStorage.getItem("jwt")
         return config;
     },
@@ -63,7 +61,6 @@ service.interceptors.response.use(
                     //跳到登录页
                     localStorage.removeItem("jwt")
                     localStorage.removeItem("author")
-                    this.$store.state.username = ""
                     window.location.href = "/"
                     return Promise.reject(err)
                 }).finally(() => {

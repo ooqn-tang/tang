@@ -2,6 +2,7 @@ package com.ooqn.core.security;
 
 import java.io.IOException;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -14,9 +15,12 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.ooqn.core.config.TangConfig;
 import com.ooqn.core.exception.ApiException;
+import com.ooqn.core.propertie.TangProperties;
 import com.ooqn.entity.dto.UtsAuthorDto;
-import com.ooqn.entity.propertie.TangProperties;
+import com.ooqn.entity.model.UtsAuthor;
+import com.ooqn.entity.model.UtsRole;
 import com.ooqn.service.UtsAuthorService;
+import com.ooqn.service.UtsUserDetailsService;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -32,7 +36,7 @@ public class JwtFilter extends OncePerRequestFilter  {
 	private JwtProvider jwtProvider;
 
 	@Autowired
-	private UtsAuthorService authorService;
+	private UtsUserDetailsService userDetailsService;
 
 	@Autowired
 	private TangProperties tangProperties;
@@ -62,16 +66,13 @@ public class JwtFilter extends OncePerRequestFilter  {
 		String requestURI = httpServletRequest.getRequestURI();
 
 		if (StringUtils.hasText(jwt) && jwtProvider.validateToken(jwt) && !antPathMatcher.match("/api/refresh", requestURI)) {
-			UtsAuthorDto authorDto = jwtProvider.getAuthentication(jwt);
-			Date date = authorService.nowTime(authorDto.getUsername(), authorDto.getRoleList());
-			if (date != null && date.getTime() != authorDto.getRefreshTime().getTime()) {
-				httpServletResponse.setStatus(666);
-				httpServletResponse.getWriter().print("JWT权限刷新了");
-				return;
-			} else {
-				request.setAttribute("author", authorDto);
-			}
-			LOG.debug("将身份验证设置为安全的上下文 '{}', uri: {}", authorDto.getUsername(), requestURI);
+			String username = jwtProvider.getAuthentication(jwt);
+			UtsAuthor author = userDetailsService.loadUserByUsername(username);
+			List<UtsRole> roles = userDetailsService.loadRoles(username);
+			request.setAttribute("author", author);
+			request.setAttribute("roles", roles);
+			
+			LOG.debug("将身份验证设置为安全的上下文 '{}', uri: {}", author.getUsername(), requestURI);
 		} else {
 			LOG.debug("没有找到有效的JWT令牌, uri: {}", requestURI);
 			throw new ApiException(400,"无权限:"+requestURI);
@@ -96,7 +97,7 @@ public class JwtFilter extends OncePerRequestFilter  {
 			}
 		}
 
-		for(Map<String,String> map : TangConfig.notRoleList){
+		for(Map<String,String> map : TangConfig.notRoles){
 			String pathVal = map.get("path");
 			String methodVal = map.get("method");
 

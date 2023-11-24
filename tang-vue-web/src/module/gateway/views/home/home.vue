@@ -9,13 +9,13 @@
 
       <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
         <ul class="navbar-nav me-auto mb-lg-0 pc">
-          <li class="nav-item" v-for="(item,index) in linkItemList" v-show="item.admin ? isAdmin : true" ><a  class="nav-link active"  :href="item.to">{{ item.name }}</a></li>
+          <li class="nav-item" v-for="(item,index) in linkItemList" v-show="store.isAdmin" ><a  class="nav-link active"  :href="item.to">{{ item.name }}</a></li>
         </ul>
         <ul class="navbar-nav me-auto mb-lg-0 yd">
           <li class="nav-item dropdown float-start">
             <a class="nav-link active dropdown-toggle" href="#" data-bs-toggle="dropdown">🧮菜单</a>
             <ul class="dropdown-menu">
-              <li v-for="(item,index) in linkItemList" v-show="item.admin ? isAdmin : true" ><a class="dropdown-item" :href="item.to">{{ item.name }}</a></li>
+              <li v-for="(item,index) in linkItemList" v-show="store.isAdmin" ><a class="dropdown-item" :href="item.to">{{ item.name }}</a></li>
             </ul>
           </li>
           <li class="nav-item float-start">
@@ -34,7 +34,7 @@
               <a class="nav-link active" href="/article-editor-md" target="_blank">投稿</a>
             </li>
             <li class="nav-item" v-if="isLogin">
-              <router-link class="nav-link active right-padding-0" :to="'/author/' + $store.state.username">我的</router-link>
+              <router-link class="nav-link active right-padding-0" :to="'/author/' + store.username">我的</router-link>
             </li>
           </ul>
         </form>
@@ -48,9 +48,9 @@
 
 <script setup>
 import { computed } from 'vue'
-import { useStore } from 'vuex';
+import { useAuthorStore } from '@utils/user';
 
-const store = useStore();
+const store = useAuthorStore();
 
 let linkItemList = [
   {name:"📰文章",to:"/article",admin:false},
@@ -61,20 +61,8 @@ let linkItemList = [
   {name:"🧙‍♂️管理",to:"/admin.html",admin:true}
 ]
 
-let isAdmin = computed(() => {
-  let admin = false;
-  if(store.state.author != null && store.state.author.roleList != null){
-    store.state.author.roleList.forEach(role => {
-      if(role.roleValue == "ROLE_ADMIN" || role.roleValue == "role_admin"){
-        admin = true;
-      }
-    });
-  }
-  return admin;
-})
-
 let isLogin = computed(() => {
-  return store.state.username != null && store.state.username != '' && store.state.username != undefined;
+  return store.username != null && store.username != '' && store.username != undefined;
 })
 
 </script>
