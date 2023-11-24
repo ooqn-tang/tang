@@ -6,10 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ooqn.core.exception.ApiException;
-import com.ooqn.entity.dto.UtsAuthorDto;
-import com.ooqn.entity.dto.UtsAuthorRoleDto;
 import com.ooqn.entity.model.UtsAuthor;
-import com.ooqn.entity.model.UtsAuthorRole;
 import com.ooqn.entity.model.UtsRole;
 
 import cn.hutool.core.lang.Validator;
@@ -27,9 +24,7 @@ public class UtsUserDetailsService {
 	private UtsRoleService roleService;
 
 	public UtsAuthor loadUserByUsername(String username)  {
-		
 		UtsAuthor author;
-
 		if (Validator.isEmail(username)) {
 			author = authorService.selectAuthorByMail(username);
 		} else {

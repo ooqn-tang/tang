@@ -1,7 +1,12 @@
 <template>
-  <div style="height: calc(100%);">
-    <Codemirror border :options="cmOptions"></Codemirror>
-  </div>
+  <n-tabs type="line" animated>
+    <n-tab-pane name="code-list" tab="列表">
+      Wonderwall
+    </n-tab-pane>
+    <n-tab-pane name="edit" tab="编辑">
+      <Codemirror border :options="cmOptions"></Codemirror>
+    </n-tab-pane>
+  </n-tabs>
 </template>
   
 <script setup>
@@ -16,18 +21,21 @@ import "codemirror/addon/display/placeholder.js";
 import "codemirror/theme/dracula.css";
 import "v-contextmenu/dist/themes/default.css";
 
+import { NConfigProvider, NButton, NLayout, NLayoutHeader, NLayoutSider, NMenu, NIcon, NGrid, NGridItem, NSpace, NGi, NLayoutContent,NTabs,NTabPane } from "naive-ui";
+
 let router = useRouter();
 let route = useRoute();
 let authorStore = useAuthorStore();
 
 let cmOptions = ref({
-    mode: "text/javascript", // Language mode
-    theme: "dracula", // Theme
+  mode: "text/javascript", // Language mode
+  theme: "dracula", // Theme
 })
 
 </script>
+
 <style>
-  .codemirror-container {
-    display: block !important;
-   }
+.codemirror-container {
+  display: block !important;
+}
 </style>

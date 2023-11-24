@@ -1,7 +1,6 @@
 package com.ooqn.core.security;
 
 import java.io.IOException;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -16,10 +15,8 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import com.ooqn.core.config.TangConfig;
 import com.ooqn.core.exception.ApiException;
 import com.ooqn.core.propertie.TangProperties;
-import com.ooqn.entity.dto.UtsAuthorDto;
 import com.ooqn.entity.model.UtsAuthor;
 import com.ooqn.entity.model.UtsRole;
-import com.ooqn.service.UtsAuthorService;
 import com.ooqn.service.UtsUserDetailsService;
 
 import jakarta.servlet.FilterChain;
@@ -44,10 +41,10 @@ public class JwtFilter extends OncePerRequestFilter  {
 	private final AntPathMatcher antPathMatcher = new AntPathMatcher();
 
 
-	private String resolveToken(HttpServletRequest request) {
-		String bearerToken = request.getHeader(tangProperties.getTokenKey());
-		if (StringUtils.hasText(bearerToken)) {
-			return bearerToken;
+	private String resolveJwt(HttpServletRequest request) {
+		String bearerJwt = request.getHeader(tangProperties.getTokenKey());
+		if (StringUtils.hasText(bearerJwt)) {
+			return bearerJwt;
 		}
 		return null;
 	}
@@ -55,17 +52,17 @@ public class JwtFilter extends OncePerRequestFilter  {
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)throws ServletException, IOException {
 		HttpServletRequest httpServletRequest = (HttpServletRequest) request;
-		HttpServletResponse httpServletResponse = (HttpServletResponse) response;
 
+		// 不需要用户的资源
 		if(shouldIgnoreRequest(request)){
 			filterChain.doFilter(request, response);
 			return;
 		}
 
-		String jwt = resolveToken(httpServletRequest);
+		String jwt = resolveJwt(httpServletRequest);
 		String requestURI = httpServletRequest.getRequestURI();
 
-		if (StringUtils.hasText(jwt) && jwtProvider.validateToken(jwt) && !antPathMatcher.match("/api/refresh", requestURI)) {
+		if (jwtProvider.validateJwt(jwt)) {
 			String username = jwtProvider.getAuthentication(jwt);
 			UtsAuthor author = userDetailsService.loadUserByUsername(username);
 			List<UtsRole> roles = userDetailsService.loadRoles(username);

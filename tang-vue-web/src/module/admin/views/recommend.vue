@@ -12,8 +12,11 @@
         <n-button type="tertiary" @click="insertDialogVisible = false">关闭</n-button>
       </template>
       <n-form ref="recommendFormRef" :model="recommendForm" :rules="recommendFormRules">
-        <n-form-item path="age" label="年龄">
-          <n-input v-model:value="recommendForm.age" @keydown.enter.prevent />
+        <n-form-item path="title" label="标题">
+          <n-input v-model:value="recommendForm.title" @keydown.enter.prevent />
+        </n-form-item>
+        <n-form-item path="url" label="路径">
+          <n-input v-model:value="recommendForm.url" @keydown.enter.prevent />
         </n-form-item>
       </n-form>
       <template #footer>

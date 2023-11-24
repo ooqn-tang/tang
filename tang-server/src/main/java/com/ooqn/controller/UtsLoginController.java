@@ -65,7 +65,7 @@ public class UtsLoginController extends BaseController {
         if (!BCrypt.checkpw(password, author.getPassword())) {
             throw new ApiException("密码错误！");
         }
-        return jwtProvider.createToken(author, true);
+        return jwtProvider.createJwt(author, true);
 
     }
 
@@ -84,10 +84,10 @@ public class UtsLoginController extends BaseController {
     @PostMapping("/refresh")
     public String refresh(@RequestBody Map<String,String> params) {
         String jwt = params.get("jwt");
-        if (jwtProvider.validateToken(jwt)) {
+        if (jwtProvider.validateJwt(jwt)) {
             String username = jwtProvider.getAuthentication(jwt);
             UtsAuthor author = utsUserDetailsService.loadUserByUsername(username);
-            return jwtProvider.createToken(author, true);
+            return jwtProvider.createJwt(author, true);
         }
         throw new ApiException("无效token！");
     }

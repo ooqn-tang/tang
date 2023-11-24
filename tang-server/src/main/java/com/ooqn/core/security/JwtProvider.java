@@ -7,14 +7,9 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ooqn.core.propertie.TangProperties;
-import com.ooqn.entity.dto.UtsAuthorDto;
-import com.ooqn.entity.dto.UtsAuthorRoleDto;
 import com.ooqn.entity.model.UtsAuthor;
-import com.ooqn.entity.model.UtsRole;
 
-import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.MalformedJwtException;
@@ -50,7 +45,7 @@ public class JwtProvider implements InitializingBean {
 	 * @param rememberMe
 	 * @return
 	 */
-	public String createToken(UtsAuthor author, boolean rememberMe) {
+	public String createJwt(UtsAuthor author, boolean rememberMe) {
 		long now = (new Date()).getTime();
 		Date validity;
 		if (rememberMe) {
@@ -59,37 +54,46 @@ public class JwtProvider implements InitializingBean {
 			validity = new Date(now + tangProperties.getJwt().getTokenValidityInSeconds());
 		}
 		return Jwts.builder().setSubject(author.getUsername())
-				.signWith(key, SignatureAlgorithm.HS512).setExpiration(validity).compact();
+				.signWith(key, SignatureAlgorithm.HS512)
+				.setExpiration(validity)
+				.compact();
 	}
 
 	/**
 	 * 通过Token获取用户信息。
 	 * 
-	 * @param token
+	 * @param jwt
 	 * @return 用户上下文 Authentication
 	 */
-	public String getAuthentication(String token) {
-		return Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token).getBody().getSubject();
+	public String getAuthentication(String jwt) {
+		return Jwts.parserBuilder()
+				.setSigningKey(key)
+				.build()
+				.parseClaimsJws(jwt)
+				.getBody()
+				.getSubject();
 	}
 
 	/**
 	 * 严重JWT
 	 * 
-	 * @param authToken
+	 * @param jwt
 	 * @return
 	 */
-	public boolean validateToken(String authToken) {
+	public boolean validateJwt(String jwt) {
 		try {
-			Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(authToken);
+			Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(jwt);
 			return true;
 		} catch (io.jsonwebtoken.security.SecurityException | MalformedJwtException e) {
-			log.info("无效的JWT签名.");
+			log.info("无效的JWT签名：" + e.getMessage());
 		} catch (ExpiredJwtException e) {
-			log.info("无效的JWT签名.");
+			log.info("无效的JWT签名：" + e.getMessage());
 		} catch (UnsupportedJwtException e) {
-			log.info("不支持的JWT令牌.");
+			log.info("不支持的JWT令牌：" + e.getMessage());
 		} catch (IllegalArgumentException e) {
-			log.info("处理程序的JWT令牌压缩无效.");
+			log.info("处理程序的JWT令牌压缩无效：" + e.getMessage());
+		} catch (RuntimeException e) {
+			log.info("其他异常：" + e.getMessage());
 		}
 		return false;
 	}
