@@ -15,7 +15,7 @@
 </template>
 
 <script setup>
-import { useAuthorStore } from "@utils/user";
+import { useAuthorStore } from "@common/user";
 
 let authorStore = useAuthorStore();
 

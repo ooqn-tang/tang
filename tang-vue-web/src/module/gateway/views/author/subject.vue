@@ -49,9 +49,9 @@
 <script setup>
 import { onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
-import { useAuthorStore } from '@utils/user'
+import { useAuthorStore } from '@common/user'
 
-import request from '@utils/request'
+import request from '@common/request'
 
 let authorStore = useAuthorStore()
 let route = useRoute()

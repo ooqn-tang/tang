@@ -6,7 +6,7 @@ import { createPinia } from 'pinia'
 import '@src/index.scss'
 import "highlight.js/styles/github.css";
 
-import router from '@utils/router'
+import router from '@common/router'
 
 
 const app = createApp(App)

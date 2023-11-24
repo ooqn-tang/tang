@@ -33,7 +33,7 @@
 
 <script setup>
 import { useRoute, useRouter } from "vue-router";
-import { useAuthorStore } from "@utils/user";
+import { useAuthorStore } from "@common/user";
 import { h, onMounted, ref } from "vue";
 import { NConfigProvider, NButton, NLayout, NLayoutHeader, NLayoutSider, NMenu, NIcon, NGrid, NGridItem, NSpace } from "naive-ui";
 import { BookmarkOutline, CaretDownOutline } from "@vicons/ionicons5";

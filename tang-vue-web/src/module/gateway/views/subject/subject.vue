@@ -32,13 +32,13 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
-import { useAuthorStore } from '@utils/user'
+import { useAuthorStore } from '@common/user'
 import { useRouter,useRoute } from 'vue-router'
 
 import notice from '@components/notice.vue';
 import info from '@components/info.vue';
 
-import request from '@utils/request'
+import request from '@common/request'
 
 const authorStore = useAuthorStore()
 const router = useRouter()

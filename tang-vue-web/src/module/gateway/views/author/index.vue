@@ -55,9 +55,9 @@
 </template>
 
 <script setup>
-import request from '@utils/request'
+import request from '@common/request'
 import { useRouter,useRoute } from 'vue-router'
-import { useAuthorStore } from '@utils/user'
+import { useAuthorStore } from '@common/user'
 import { onMounted,ref,watch } from 'vue'
 
 import notice from '@components/notice.vue';

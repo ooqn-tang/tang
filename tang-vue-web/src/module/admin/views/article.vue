@@ -11,7 +11,7 @@
       </n-form-item>
     </n-form>
   </n-space>
-  <n-data-table :columns="columns" :data="articleList" :pagination="pagination" :bordered="true" />
+  <n-data-table :columns="columns" :data="articleList" :bordered="true" />
 </template>
   
 <script setup>
@@ -48,8 +48,10 @@ let columns = [{
   width: "250",
   render(row, index) {
     return [
-      h(NButton, { size: 'small', onClick: () => sendMail(row) }, { default: () => '查看' }),
-      h(NButton, { size: 'small', onClick: () => deleteArticle(index, row) }, { default: () => '删除' })
+      h(NSpace, [
+        h(NButton, { size: 'small', onClick: () => sendMail(row) }, { default: () => '查看' }),
+        h(NButton, { size: 'small', onClick: () => deleteArticle(index, row) }, { default: () => '删除' })
+      ])
     ]
   }
 }]

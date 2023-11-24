@@ -7,7 +7,7 @@
 <script setup>
 import { ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
-import { useAuthorStore } from "@utils/user";
+import { useAuthorStore } from "@common/user";
 import Codemirror from 'codemirror-editor-vue3';
 
 import "codemirror/addon/display/placeholder.js";

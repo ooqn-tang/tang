@@ -47,7 +47,7 @@
 </template>
 
 <script setup>
-import request from '@utils/request';
+import request from '@common/request';
 import { onMounted, ref } from 'vue';
 import notice from '@components/notice.vue';
 import info from '@components/info.vue';

@@ -14,7 +14,7 @@
 </template>
 
 <script setup>
-import request from '@utils/request'
+import request from '@common/request'
 import { onMounted, ref } from 'vue'
 
 let fansList = ref([])

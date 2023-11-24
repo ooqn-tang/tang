@@ -24,7 +24,7 @@
 <script setup>
 import { onMounted,ref } from 'vue';
 import { useRoute } from "vue-router";
-import { useAuthorStore } from "@utils/user";
+import { useAuthorStore } from "@common/user";
 import { collectListApi,deleteCollectApi } from "@apis/collect"
 
 let authorStore = useAuthorStore();

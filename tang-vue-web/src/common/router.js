@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory, createWebHashHistory } from "vue-router";
 
-import { useAuthorStore } from '@utils/user'
+import { useAuthorStore } from '@common/user'
 
 export default function router(routes, hash) {
     /*

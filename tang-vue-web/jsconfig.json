@@ -4,7 +4,7 @@
         "baseUrl": "./",
         "paths":{
             "@apis/*":["src/apis/*"],
-            "@utils/*":["src/utils/*"],
+            "@common/*":["src/common/*"],
             "@components/*":["src/components/*"],
             "@module/*":["src/module/*"],
             "@admin/views/*":["src/module/admin/views"],

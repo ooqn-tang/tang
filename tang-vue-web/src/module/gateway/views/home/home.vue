@@ -48,7 +48,7 @@
 
 <script setup>
 import { computed } from 'vue'
-import { useAuthorStore } from '@utils/user';
+import { useAuthorStore } from '@common/user';
 
 const store = useAuthorStore();
 

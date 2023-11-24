@@ -27,9 +27,10 @@
 </template>
 
 <script setup>
-import request from "@utils/request";
+import request from "@common/request";
 import { onMounted, ref, h } from "vue";
 import { NButton, NSpace, NDataTable, NModal, NCard, NForm, NFormItem, NInput } from "naive-ui";
+import { insertNoticeApi, deleteNoticeApi, updateOrderApi } from "@apis/notice"
 
 let insertDialogVisible = ref(false)
 let noticeList = ref([])
@@ -40,12 +41,7 @@ let recommendForm = ref({
 })
 
 let insertNotice = () => {
-  request({
-    url: `/api/admin/notice`,
-    method: "POST",
-    data: recommendForm.value,
-  }).then((res) => {
-    // ElMessage({ type: 'success', message: '保存成功' })
+  insertNoticeApi(recommendForm.value).then((res) => {
     insertDialogVisible.value = false
     loadRecommend()
     recommendForm.value = {}
@@ -53,24 +49,14 @@ let insertNotice = () => {
 }
 
 let deleteNotice = (index, row) => {
-  request({
-    url: `/api/admin/notice/${row.noticeId}`,
-    method: "DELETE",
-  }).then((res) => {
+  deleteNoticeApi(row.noticeId).then((res) => {
     noticeList.value.splice(index, 1)
-    // ElMessage({ type: 'success', message: '删除成功' })
   });
 }
 
 let updateOrder = () => {
-  console.log(noticeList.value)
-  request({
-    url: `/api/admin/notice/order`,
-    method: "PUT",
-    data: noticeList.value,
-  }).then((res) => {
+  updateOrderApi(noticeList.value).then((res) => {
     orderButton.value = true
-    // ElMessage({ type: 'success', message: '保存成功' })
   });
 }
 
@@ -92,17 +78,6 @@ let moveDown = (index, row) => {
   noticeList.value[index + 1] = noticeList.value[index]
   noticeList.value[index] = temp
   orderButton.value = false
-}
-
-let saveNotice = (index, row) => {
-  request({
-    url: `/api/admin/notice`,
-    method: "PUT",
-    data: row,
-  }).then((res) => {
-    // ElMessage({ type: 'success', message: '保存成功' })
-    editIndex.value = -1
-  });
 }
 
 let loadRecommend = () => {

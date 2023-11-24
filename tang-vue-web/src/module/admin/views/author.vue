@@ -5,12 +5,12 @@
       <NButton type="primary" @click="handleUpdate">保存</NButton>
       <NButton type="primary" @click="handleQuery">查询</NButton>
     </n-space>
-    <n-data-table :columns="columns" :data="authorList" :pagination="pagination" :bordered="true"/>
+    <n-data-table :columns="columns" :data="authorList" :bordered="true"/>
   </n-space>
 </template>
 
 <script setup>
-import request from "@utils/request";
+import request from "@common/request";
 import { onMounted,ref,h } from "vue";
 import { NButton, NSpace, NDataTable } from "naive-ui";
 

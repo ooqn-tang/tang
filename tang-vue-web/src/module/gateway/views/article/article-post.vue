@@ -68,10 +68,10 @@
 
 <script setup>
 import "highlight.js/styles/github.css";
-import request from "@utils/request";
+import request from "@common/request";
 import { onMounted, ref } from 'vue';
 import { useRoute } from "vue-router";
-import { useAuthorStore } from "@utils/user";
+import { useAuthorStore } from "@common/user";
 import notice from '@components/notice.vue';
 import info from '@components/info.vue';
 import { insertCollectApi,deleteCollectApi,isCollectApi } from "@apis/collect";

@@ -11,7 +11,7 @@ import contextmenu from "v-contextmenu";
 import "v-contextmenu/dist/themes/default.css";
 import { createPinia } from 'pinia'
 
-import router from '@utils/router'
+import router from '@common/router'
 
 const app = createApp(App)
 

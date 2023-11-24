@@ -5,12 +5,12 @@
       <NButton type="primary" @click="dialogVisible = true">添加资源</NButton>
       <NButton type="primary" @click="refresh">刷新请求状态</NButton>
     </n-space>
-    <n-data-table :columns="columns" :data="resourceList" :pagination="pagination" :bordered="true" />
+    <n-data-table :columns="columns" :data="resourceList" :bordered="true" />
   </n-space>
 </template>
 
 <script setup>
-import request from "@utils/request";
+import request from "@common/request";
 import { onMounted, ref } from "vue";
 import { NButton, NSpace, NDataTable, NModal, NCard, NForm, NFormItem, NInput } from "naive-ui";
 

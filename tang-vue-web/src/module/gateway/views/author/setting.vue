@@ -32,10 +32,10 @@
 </template>
 
 <script setup>
-import request from "@utils/request";
-import { removeToken } from "@utils/token";
+import request from "@common/request";
+import { removeToken } from "@common/token";
 import { onMounted, ref } from "vue";
-import { useAuthorStore } from "@utils/user";
+import { useAuthorStore } from "@common/user";
 
 let authorStore = useAuthorStore();
 

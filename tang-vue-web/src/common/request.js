@@ -1,6 +1,6 @@
 import axios from 'axios'
 import {refresh} from '@apis/utils'
-import {setToken} from '@utils/token'
+import {setToken} from '@common/token'
 
 axios.defaults.withCredentials = true;
 
@@ -17,7 +17,6 @@ const service = axios.create({
 //请求前拦截
 service.interceptors.request.use(
     config => {
-        debugger
         config.headers.Token = localStorage.getItem("jwt")
         return config;
     },
