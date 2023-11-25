@@ -61,8 +61,8 @@ public class UtsRoleService {
 		}
 	}
 
-	public List<String> selectRoleIdList(String authorId) {
-		return roleRepository.findRoleIds(authorId);
+	public List<UtsRole> selectRolesByAuthorId(String authorId) {
+		return roleRepository.findRolesByAuthorId(authorId);
 	}
 
 	public List<UtsRole> selectByName(String roleName) {

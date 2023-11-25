@@ -20,11 +20,13 @@ export default defineConfig({
   resolve: {
     alias: {
       "@src": path.resolve('src'),
-      "@common": path.resolve('src/common'),
-      "@admin/views": path.resolve('src/module/admin/views'),
-      "@gateway/views": path.resolve('src/module/gateway/views'),
       "@apis": path.resolve('src/apis'),
+      "@common": path.resolve('src/common'),
       "@components": path.resolve('src/components'),
+      "@admin/views": path.resolve('src/module/admin/views'),
+      "@admin/apis": path.resolve('src/module/admin/apis'),
+      "@gateway/views": path.resolve('src/module/gateway/views'),
+      "@gateway/apis": path.resolve('src/module/gateway/apis'),
     },
   },
   plugins: [

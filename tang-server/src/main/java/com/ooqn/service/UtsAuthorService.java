@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -12,6 +13,8 @@ import org.springframework.dao.DuplicateKeyException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.ooqn.entity.model.UtsAuthor;
 import com.ooqn.entity.model.UtsAuthorRole;
@@ -23,13 +26,11 @@ import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.RandomUtil;
-import jakarta.transaction.Transactional;
 
 /**
  * 创作者服务
  */
 @Service
-@Transactional
 public class UtsAuthorService {
 
 	@Autowired
@@ -99,15 +100,11 @@ public class UtsAuthorService {
 		authorRepository.save(author);
 	}
 
-	public void insertAuthorRole(String authorId, List<UtsRole> roles) {
+	public void updateAuthorRole(String authorId, List<String> roleIds) {
 		authorRoleRepository.deleteByAuthorId(authorId);
-		for (UtsRole role : roles) {
-			UtsAuthorRole authorRole = new UtsAuthorRole();
-			authorRole.setAuthorRoleId(IdUtil.objectId());
-			authorRole.setRoleId(role.getRoleId());
-			authorRole.setCreateTime(new Date());
-			authorRole.setAuthorId(authorId);
-			authorRoleRepository.save(authorRole);
+		for (String roleId : roleIds) {
+			UtsAuthorRole utsAuthorRole = new UtsAuthorRole(IdUtil.objectId(), authorId, roleId, new Date(), new Date());
+			authorRoleRepository.save(utsAuthorRole);
 		}
 	}
 

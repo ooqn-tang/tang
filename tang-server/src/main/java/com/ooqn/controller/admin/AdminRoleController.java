@@ -73,13 +73,13 @@ public class AdminRoleController extends BaseController {
 	}
 
 	@GetMapping("author/{authorId}")
-	public List<String> selectAuthorIdList(@PathVariable("authorId") String authorId) {
-		return roleService.selectRoleIdList(authorId);
+	public List<UtsRole> selectRoleListByAuthorId(@PathVariable("authorId") String authorId) {
+		return roleService.selectRolesByAuthorId(authorId);
 	}
 
-	@PostMapping("author/{authorId}")
-	public String insertRoleOnAuthor(@PathVariable("authorId") String authorId, @RequestBody List<UtsRole> roles) {
-		authorService.insertAuthorRole(authorId, roles);
+	@PutMapping("author/{authorId}")
+	public String updateAuthorRole(@PathVariable("authorId") String authorId, @RequestBody List<String> roleIds) {
+		authorService.updateAuthorRole(authorId, roleIds);
 		return ResponseCode.SUCCESS.getMessage();
 	}
 }

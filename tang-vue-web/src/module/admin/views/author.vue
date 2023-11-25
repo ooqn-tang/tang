@@ -1,86 +1,124 @@
 <template>
   <n-space vertical>
     <n-space>
-      <NButton type="primary" @click="handleCreate">添加</NButton>
-      <NButton type="primary" @click="handleUpdate">保存</NButton>
-      <NButton type="primary" @click="handleQuery">查询</NButton>
+      <NButton type="primary" @click="loadAuthor">查询</NButton>
     </n-space>
-    <n-data-table :columns="columns" :data="authorList" :bordered="true"/>
+    <n-data-table :columns="authorColumns" :data="authorList" :bordered="true" />
   </n-space>
+
+  <n-drawer v-model:show="roleEditDrawer" :width="600">
+    <n-drawer-content>
+      <template #header>
+        角色管理
+      </template>
+      <n-data-table :columns="roleColumns" :data="roles" :row-key="roleRowKey" :default-checked-row-keys="defaultSelectRoles"
+        @update:checked-row-keys="roleCheck" />
+      <template #footer>
+        <n-space>
+          <n-button @click="updateAuthorRole()">保存</n-button>
+          <n-button @click="roleEditDrawer = false">取消</n-button>
+        </n-space>
+      </template>
+    </n-drawer-content>
+  </n-drawer>
 </template>
 
 <script setup>
 import request from "@common/request";
-import { onMounted,ref,h } from "vue";
-import { NButton, NSpace, NDataTable } from "naive-ui";
+import { onMounted, ref, h } from "vue";
+import { NButton, NSpace, NDataTable, NDrawer, NDrawerContent } from "naive-ui";
+import { loadRolesApi,updateAuthorRoleApi } from "@admin/apis/role"
+import { updateAuthorApi, loadRoleByAuthorIdApi, loadAuthorApi } from "@admin/apis/author"
 
-const dialogVisible = ref(false);
-const form = ref({});
+const roleEditDrawer = ref(false);
 const authorList = ref([]);
-const columns = [{
-  title: "用户名",
-  key: "username"
-},
-{
-  title: "昵称",
-  key: "nickname"
-},
-{
-  title: "邮箱",
-  key: "mail"
-},
-{
-  title: '操作',
-  key: 'actions',
-  width: "250",
-  render(row) {
-    return h(
-      NButton, {
-      size: 'small',
-      onClick: () => sendMail(row)
-    }, {
-      default: () => '查看'
+const roles = ref([])
+const selectRoleIds = ref([])
+const defaultSelectRoles = ref([])
+const queryParams = ref({});
+const selectAuthorRow = ref({})
+
+const authorColumns = [
+  {
+    title: "用户名", key: "username"
+  },
+  {
+    title: "昵称", key: "nickname"
+  },
+  {
+    title: "邮箱", key: "mail"
+  },
+  {
+    title: '操作', key: 'actions', width: "250",
+    render(row) {
+      return h(NSpace, [
+        h(
+          NButton, {
+          size: 'small',
+          onClick: async () => {
+            defaultSelectRoles.value = []
+            loadRoleByAuthorIdApi(row.authorId).then((res) => {
+              for (let r of res.data) {
+                defaultSelectRoles.value.push(r.roleId)
+              }
+            })
+            selectAuthorRow.value = row
+            roleEditDrawer.value = true;
+          }
+        }, {
+          default: () => '角色'
+        }
+        ), h(
+          NButton, {
+          size: 'small',
+          onClick: () => sendMail(row)
+        }, {
+          default: () => '编辑'
+        }
+        )
+      ])
     }
-    )
+  }]
+
+const roleColumns = [
+  {
+    type: "selection"
+  },
+  {
+    title: "名称", key: "roleName"
+  },
+  {
+    title: "值", key: "roleValue"
   }
-}]
+]
 
-const queryData = ref("");
+const roleRowKey = (row) => {
+  return row.roleId
+}
 
-const selectAuthor = () => {
-  request({
-    url: `/api/admin/author`,
-    method: "GET",
-    params: {
-      queryData: queryData.value,
-    },
-  }).then((res) => {
+const loadAuthor = () => {
+  loadAuthorApi(queryParams.value).then((res) => {
     authorList.value = res.data;
   });
 };
 
-const handleCreate = () => {
-  form.value = {};
-  dialogVisible.value = true;
-};
-
-const handleUpdate = () => {
-  request({
-    url: `/api/admin/author`,
-    method: "PUT",
-    data: form.value,
-  }).then((res) => {
-    selectAuthor();
-    dialogVisible.value = false;
+const loadRoles = () => {
+  loadRolesApi().then((res) => {
+    roles.value = res.data;
   });
-};
+}
 
-const handleQuery = () => {
-  selectAuthor();
-};
+const roleCheck = (rowKeys) => {
+  selectRoleIds.value = rowKeys;
+}
 
-onMounted(() => {
-  selectAuthor();
+const updateAuthorRole = () => {  
+  updateAuthorRoleApi(selectAuthorRow.value.authorId, selectRoleIds.value)
+}
+
+onMounted(async () => {
+  loadAuthor();
+  loadRoles();
 });
 
 </script>

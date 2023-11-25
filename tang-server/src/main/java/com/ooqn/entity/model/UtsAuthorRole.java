@@ -17,6 +17,17 @@ import lombok.Data;
 @Table(uniqueConstraints = {@UniqueConstraint(columnNames={"authorId","roleId"})})
 public class UtsAuthorRole {
 
+	public UtsAuthorRole() {
+	}
+
+	public UtsAuthorRole(String authorRoleId, String authorId, String roleId, Date createTime, Date updateTime) {
+		this.authorRoleId = authorRoleId;
+		this.authorId = authorId;
+		this.roleId = roleId;
+		this.createTime = createTime;
+		this.updateTime = updateTime;
+	}
+
 	@Id
 	private String authorRoleId;
 
@@ -32,4 +43,5 @@ public class UtsAuthorRole {
 
 	@Schema(description = "更新时间")
 	private Date updateTime;
+	
 }
