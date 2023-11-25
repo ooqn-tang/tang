@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ooqn.core.control.BaseController;
 import com.ooqn.core.exception.ApiException;
-import com.ooqn.core.security.NotRole;
+import com.ooqn.core.security.NotLogin;
 import com.ooqn.entity.dto.DtsSubjectDto;
 import com.ooqn.entity.model.DtsArticle;
 import com.ooqn.entity.model.DtsSubject;
@@ -42,14 +42,14 @@ public class DtsSubjectController extends BaseController {
 	@Autowired
 	private DtsSubjectService subjectService;
 
-	@NotRole
+	@NotLogin
 	@GetMapping("username/{username}")
 	public List<DtsSubject> selectSubjectArticleListByUsername(
 			@PathVariable(value = "username") String username) {
 		return subjectService.selectListByUsername(username);
 	}
 
-	@NotRole
+	@NotLogin
 	@GetMapping("id/{subjectId}")
 	public DtsSubjectDto selectSubjectArticleById(@PathVariable(value = "subjectId") String subjectId) {
 		return articleSubjectService.findSubjectArticleListBySubjectId(subjectId);
@@ -60,7 +60,7 @@ public class DtsSubjectController extends BaseController {
 		subjectService.deleteBySubjectIdAndAuthorId(subjectId, authorId());
 	}
 
-	@NotRole
+	@NotLogin
 	@GetMapping("list")
 	public Page<DtsSubjectDto> selectSubject(
 			@RequestParam(value = "page", defaultValue = "0") Integer page) {
@@ -68,7 +68,7 @@ public class DtsSubjectController extends BaseController {
 		return subjectService.selectList(pageable);
 	}
 
-	@NotRole
+	@NotLogin
 	@GetMapping("search")
 	public Page<DtsSubjectDto> selectSubjectByName(
 			@RequestParam(value = "subjectName", defaultValue = "") String name) {
@@ -101,7 +101,7 @@ public class DtsSubjectController extends BaseController {
 		articleSubjectService.saveSubjectId(articleId, subjectId);
 	}
 
-	@NotRole
+	@NotLogin
 	@GetMapping("article/{articleId}")
 	public List<DtsArticle> findSubjectListByArticleId(@PathVariable("articleId") String articleId) {
 		return articleSubjectService.findSubjectArticleTitleListByArticleId(articleId);

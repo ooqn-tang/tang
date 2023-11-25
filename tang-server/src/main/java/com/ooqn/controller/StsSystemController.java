@@ -7,10 +7,11 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ooqn.core.security.NotRole;
+import com.ooqn.core.security.NotLogin;
 import com.ooqn.service.StsTemplateService;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -25,15 +26,15 @@ public class StsSystemController {
     @Autowired
     private StsTemplateService templateService;
 
-    @NotRole
+    @NotLogin
     @PostMapping("api/system/init")
     public void init(@RequestParam Map<String, String> params) {
         
     }
 
     // 所有页面
-    @NotRole
-    @RequestMapping("/api/open/**")
+    @NotLogin
+    @RequestMapping(value = "api/open/**")
     public void allPage(HttpServletRequest request, HttpServletResponse response) throws IOException{
         
         String url = request.getRequestURI();

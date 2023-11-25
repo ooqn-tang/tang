@@ -3,14 +3,14 @@ package com.ooqn.service;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.ooqn.core.exception.ApiException;
 import com.ooqn.entity.model.UtsResource;
 import com.ooqn.repository.UtsResourceRepository;
 
 import cn.hutool.core.util.IdUtil;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 @Service
 public class UtsResourceService {
@@ -18,10 +18,7 @@ public class UtsResourceService {
 	@Autowired
 	private UtsResourceRepository resourceRepository;
 
-	public List<UtsResource> loadResourceUrlByRoleValue(String roleValue) {
-		return resourceRepository.loadResourceUrlByRoleValue(roleValue);
-	}
-
+	
 	public List<UtsResource> select(String queryData) {
 		return resourceRepository.findByNameLikeAndPathLikeOrderByPath("%" + queryData + "%", "%" + queryData + "%");
 	}
@@ -56,7 +53,6 @@ public class UtsResourceService {
 	public List<UtsResource> selectByRoleId(String roleId) {
 		return resourceRepository.findByRoleId(roleId);
 	}
-
 	
 	public void urls() {
 		

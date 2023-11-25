@@ -51,7 +51,7 @@ const routeData = [
                 component: () => import('@admin/views/template.vue'),
                 mate: {
                     isM: true,
-                    name: '模板管理'
+                    name: '在线代码'
                 }
             }
         ]

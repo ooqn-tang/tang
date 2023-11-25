@@ -14,7 +14,7 @@ import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
 import com.ooqn.core.config.TangConfig;
-import com.ooqn.core.security.NotRole;
+import com.ooqn.core.security.NotLogin;
 import com.ooqn.entity.model.UtsResource;
 
 import cn.hutool.core.date.DateUtil;
@@ -32,28 +32,37 @@ public class StsInitService {
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
-
-    @Autowired
-    private UtsResourceService resourceService;
-
+    
     @Autowired
     private RequestMappingHandlerMapping requestMappingHandlerMapping;
 
     @Transactional
     public void init() {
-        initAdminAuthor();
         initResource();
+        initData();
     }
 
     /**
-     * 初始化管理员
+     * 数据初始化
      */
-    private void initAdminAuthor() {
+    private void initData() {
         try {
             Object singleResult = entityManager.createNativeQuery("select count(1) from uts_author").getSingleResult();
             if (singleResult != null && Integer.parseInt(singleResult.toString()) == 0) {
                 executeSqlFile("import-data.sql");
             }
+        } catch (Exception e) {
+            // 处理异常
+            e.printStackTrace();
+        }
+    }
+
+    private void executeSqlFile(String filename) {
+        try {
+            Resource resource = new ClassPathResource(filename);
+            byte[] bytes = IoUtil.readBytes(resource.getInputStream());
+            String sql = new String(bytes);
+            jdbcTemplate.execute(sql);
         } catch (Exception e) {
             // 处理异常
             e.printStackTrace();
@@ -70,13 +79,11 @@ public class StsInitService {
                 String path = patternValues.replaceAll("\\{[^}]*\\}", "*");
                 for (RequestMethod method : info.getMethodsCondition().getMethods()) {
                     HandlerMethod handlerMethod = methodMap.get(info);
-                    if (handlerMethod.getMethod().isAnnotationPresent(NotRole.class)) {
+                    if (handlerMethod.getMethod().isAnnotationPresent(NotLogin.class)) {
                         Map<String, String> map = new HashMap<>();
                         map.put("method", method.name());
                         map.put("path", path);
                         TangConfig.notRoles.add(map);
-                    } else {
-                        insertResource(path, method.name());
                     }
                 }
 
@@ -86,32 +93,6 @@ public class StsInitService {
                     TangConfig.notRoles.add(map);
                 }
             }
-        }
-    }
-
-    private void insertResource(String path, String type) {
-        UtsResource resource = resourceService.select(path, type);
-        if (resource == null) {
-            resource = new UtsResource();
-            resource.setName(path);
-            resource.setPath(path);
-            resource.setType(type);
-            resource.setState(1);
-            resource.setResourceId(IdUtil.objectId());
-            resource.setCreateTime(DateUtil.date());
-            resourceService.insert(resource);
-        }
-    }
-
-    private void executeSqlFile(String filename) {
-        try {
-            Resource resource = new ClassPathResource(filename);
-            byte[] bytes = IoUtil.readBytes(resource.getInputStream());
-            String sql = new String(bytes);
-            jdbcTemplate.execute(sql);
-        } catch (Exception e) {
-            // 处理异常
-            e.printStackTrace();
         }
     }
 }

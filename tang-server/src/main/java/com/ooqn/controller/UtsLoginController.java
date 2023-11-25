@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ooqn.core.control.BaseController;
 import com.ooqn.core.exception.ApiException;
 import com.ooqn.core.security.JwtProvider;
-import com.ooqn.core.security.NotRole;
+import com.ooqn.core.security.NotLogin;
 import com.ooqn.entity.model.UtsAuthor;
 import com.ooqn.entity.model.UtsRole;
 import com.ooqn.entity.param.UtsLoginParam;
@@ -50,7 +50,7 @@ public class UtsLoginController extends BaseController {
     @Autowired
     private UtsUserDetailsService utsUserDetailsService;
 
-    @NotRole
+    @NotLogin
     @PostMapping("/authenticate")
     public String authorize(@RequestBody UtsLoginParam loginParam) {
 
@@ -69,18 +69,9 @@ public class UtsLoginController extends BaseController {
 
     }
 
-    @GetMapping("/roles")
-    public List<UtsRole> loadRoles() {
-        return utsUserDetailsService.loadRoles(authorName());
-    }
-
-    @GetMapping("/author")
-    public UtsAuthor loadAuthor() {
-        return author();
-    }
 
 
-    @NotRole
+    @NotLogin
     @PostMapping("/refresh")
     public String refresh(@RequestBody Map<String,String> params) {
         String jwt = params.get("jwt");
@@ -92,7 +83,7 @@ public class UtsLoginController extends BaseController {
         throw new ApiException("无效token！");
     }
 
-    @NotRole
+    @NotLogin
     @PostMapping("register")
     public String register(@RequestBody UtsRegisterParam param) {
         String mail = param.getMail();
@@ -117,7 +108,7 @@ public class UtsLoginController extends BaseController {
         }
     }
 
-    @NotRole
+    @NotLogin
     @PostMapping("password")
     public String updatePassword(@RequestBody UtsRePasswordParam param) {
         String mail = param.getMail();

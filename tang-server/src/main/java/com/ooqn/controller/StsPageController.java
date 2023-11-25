@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.ooqn.core.security.NotRole;
+import com.ooqn.core.security.NotLogin;
 import com.ooqn.entity.dto.DtsArticleDto;
 import com.ooqn.entity.dto.DtsSubjectDto;
 import com.ooqn.service.DtsArticleSubjectService;
@@ -35,7 +35,7 @@ public class StsPageController {
 	@Autowired
 	private StsNoticeService noticeService;
 
-	@NotRole
+	@NotLogin
 	@GetMapping
 	public String toIndex(@RequestParam(value = "page", defaultValue = "0") Integer page,
 			Model model, HttpServletRequest request) {
@@ -46,7 +46,7 @@ public class StsPageController {
 		return "articles";
 	}
 
-	@NotRole
+	@NotLogin
 	@GetMapping("article/{id}")
 	public String toArticle(@PathVariable("id") String id, Model model) {
 		DtsArticleDto articleDto = articleSubjectService.selectArticleById(id);
@@ -61,7 +61,7 @@ public class StsPageController {
 		return "article";
 	}
 
-	@NotRole
+	@NotLogin
 	@GetMapping("map")
 	public String map(@RequestParam(value = "page", defaultValue = "0") Integer page, Model model) {
 		Pageable pageable = PageRequest.of(page, 15);
@@ -70,7 +70,7 @@ public class StsPageController {
 		return "map";
 	}
 
-	@NotRole
+	@NotLogin
 	@GetMapping("subject/{id}")
 	public String subject(@PathVariable("id") String id, Model model) {
 		DtsSubjectDto dtsArticleSubjectDto = articleSubjectService.findSubjectArticleListBySubjectId(id);
@@ -78,7 +78,7 @@ public class StsPageController {
 		return "subject";
 	}
 
-	@NotRole
+	@NotLogin
 	@GetMapping("subjects")
 	public String subjects(@RequestParam(value = "page", defaultValue = "0") Integer page,
 			Model model) {

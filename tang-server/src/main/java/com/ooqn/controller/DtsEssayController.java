@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ooqn.core.control.BaseController;
 import com.ooqn.core.exception.ApiException;
-import com.ooqn.core.security.NotRole;
+import com.ooqn.core.security.NotLogin;
 import com.ooqn.entity.dto.DtsEssayDto;
 import com.ooqn.entity.model.DtsEssay;
 import com.ooqn.entity.model.UtsAuthor;
@@ -47,7 +47,7 @@ public class DtsEssayController extends BaseController {
 		throw new ApiException("添加失败");
 	}
 
-	@NotRole
+	@NotLogin
 	@GetMapping
 	public Page<DtsEssayDto> select(@RequestParam(defaultValue = "0") Integer page) {
 		Pageable pageable = PageRequest.of(page, 10);

@@ -10,14 +10,14 @@ export async function authenticateApi(data) {
 
 export function rolesApi() {
     return request({
-        url: `/api/roles`,
+        url: `/api/author/roles`,
         method: 'get'
     })
 }
 
 export function authorApi() {
     return request({
-        url: `/api/author`,
+        url: `/api/author/info`,
         method: 'get'
     })
 }

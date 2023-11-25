@@ -16,7 +16,9 @@ import com.ooqn.core.config.TangConfig;
 import com.ooqn.core.exception.ApiException;
 import com.ooqn.core.propertie.TangProperties;
 import com.ooqn.entity.model.UtsAuthor;
+import com.ooqn.entity.model.UtsResource;
 import com.ooqn.entity.model.UtsRole;
+import com.ooqn.service.UtsResourceService;
 import com.ooqn.service.UtsUserDetailsService;
 
 import jakarta.servlet.FilterChain;
@@ -36,6 +38,8 @@ public class JwtFilter extends OncePerRequestFilter  {
 	private UtsUserDetailsService userDetailsService;
 
 	@Autowired
+	private UtsResourceService resourceService;
+	@Autowired
 	private TangProperties tangProperties;
 
 	private final AntPathMatcher antPathMatcher = new AntPathMatcher();
@@ -53,8 +57,8 @@ public class JwtFilter extends OncePerRequestFilter  {
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)throws ServletException, IOException {
 		HttpServletRequest httpServletRequest = (HttpServletRequest) request;
 
-		// 不需要用户的资源
-		if(shouldIgnoreRequest(request)){
+		// 不需要认证的资源
+		if(notLoginRequest(request)){
 			filterChain.doFilter(request, response);
 			return;
 		}
@@ -68,18 +72,37 @@ public class JwtFilter extends OncePerRequestFilter  {
 			List<UtsRole> roles = userDetailsService.loadRoles(username);
 			request.setAttribute("author", author);
 			request.setAttribute("roles", roles);
+
+			if (notRoleRequest(request)) {
+				filterChain.doFilter(request, response);
+				return;
+			}
+
+			for (UtsRole role : roles) {
+				String roleId = role.getRoleId();
+				List<UtsResource> resources = resourceService.selectByRoleId(roleId);
+				
+				// 角色是否有权限
+				for(UtsResource resource : resources){
+					String path = resource.getPath();
+					if(antPathMatcher.match(path, requestURI)){
+						filterChain.doFilter(request, response);
+						return;
+					}
+				}
+			}
+
 			
 			LOG.debug("将身份验证设置为安全的上下文 '{}', uri: {}", author.getUsername(), requestURI);
 		} else {
 			LOG.debug("没有找到有效的JWT令牌, uri: {}", requestURI);
-			throw new ApiException(400,"无权限:"+requestURI);
+			throw new ApiException(400,"JWT无效。");
 		}
-
-		filterChain.doFilter(request, response);
+		throw new ApiException(400,"没有权限");
 	}
 
 	
-	private boolean shouldIgnoreRequest(HttpServletRequest request) {
+	private boolean notLoginRequest(HttpServletRequest request) {
 		String requestURI = request.getRequestURI();
 		String method = request.getMethod().toLowerCase();
 
@@ -89,10 +112,17 @@ public class JwtFilter extends OncePerRequestFilter  {
 		
 		String[] split = tangProperties.getOpenUrl().split(",");
 		for (String string : split) {
-			if (antPathMatcher.match(string, request.getRequestURI())) {
+			if (antPathMatcher.match(string, requestURI)) {
 				return true;
 			}
 		}
+
+        return false;
+    }
+
+	private boolean notRoleRequest(HttpServletRequest request){
+		String requestURI = request.getRequestURI();
+		String method = request.getMethod().toLowerCase();
 
 		for(Map<String,String> map : TangConfig.notRoles){
 			String pathVal = map.get("path");
@@ -109,6 +139,6 @@ public class JwtFilter extends OncePerRequestFilter  {
 				}
 			}
 		}
-        return false;
-    }
+		return false;
+	}
 }

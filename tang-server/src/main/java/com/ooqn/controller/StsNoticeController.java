@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ooqn.core.control.BaseController;
-import com.ooqn.core.security.NotRole;
+import com.ooqn.core.security.NotLogin;
 import com.ooqn.entity.model.StsNotice;
 import com.ooqn.service.StsNoticeService;
 
@@ -22,7 +22,7 @@ public class StsNoticeController extends BaseController {
 	@Autowired
 	private StsNoticeService noticeService;
 
-	@NotRole
+	@NotLogin
 	@GetMapping("list")
 	public List<StsNotice> select() {
 		return noticeService.selectAllNotice();

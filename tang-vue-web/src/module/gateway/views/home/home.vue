@@ -9,13 +9,13 @@
 
       <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
         <ul class="navbar-nav me-auto mb-lg-0 pc">
-          <li class="nav-item" v-for="(item,index) in linkItemList" v-show="store.isAdmin" ><a  class="nav-link active"  :href="item.to">{{ item.name }}</a></li>
+          <li class="nav-item" v-for="(item,index) in linkItemList" v-show="item.admin?store.isAdmin:true" ><a  class="nav-link active"  :href="item.to">{{ item.name }}</a></li>
         </ul>
         <ul class="navbar-nav me-auto mb-lg-0 yd">
           <li class="nav-item dropdown float-start">
             <a class="nav-link active dropdown-toggle" href="#" data-bs-toggle="dropdown">🧮菜单</a>
             <ul class="dropdown-menu">
-              <li v-for="(item,index) in linkItemList" v-show="store.isAdmin" ><a class="dropdown-item" :href="item.to">{{ item.name }}</a></li>
+              <li v-for="(item,index) in linkItemList" v-show="item.admin?store.isAdmin:true" ><a class="dropdown-item" :href="item.to">{{ item.name }}</a></li>
             </ul>
           </li>
           <li class="nav-item float-start">

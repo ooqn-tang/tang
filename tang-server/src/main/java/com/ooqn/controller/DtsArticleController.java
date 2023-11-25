@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ooqn.core.control.BaseController;
-import com.ooqn.core.security.NotRole;
+import com.ooqn.core.security.NotLogin;
 import com.ooqn.entity.dto.DtsArticleDto;
 import com.ooqn.entity.model.DtsArticle;
 import com.ooqn.entity.param.DtsArticleParam;
@@ -35,7 +35,7 @@ public class DtsArticleController extends BaseController {
 	@Autowired
 	private DtsArticleSubjectService articleSubjectService;
 
-	@NotRole
+	@NotLogin
 	@GetMapping("list")
 	public Page<DtsArticleDto> selectArticleList(
 			@RequestParam(value = "page", defaultValue = "0") Integer page,
@@ -51,7 +51,7 @@ public class DtsArticleController extends BaseController {
 		return articleSubjectService.selectGzArticleList(pageable, authorId());
 	}
 
-	@NotRole
+	@NotLogin
 	@GetMapping("list/{username}")
 	public Page<DtsArticleDto> selectArticleListByUsername(
 			@RequestParam(value = "page", defaultValue = "1") Integer page,
@@ -60,7 +60,7 @@ public class DtsArticleController extends BaseController {
 		return articleSubjectService.selectArticleByAuthorName(username, pageable);
 	}
 
-	@NotRole
+	@NotLogin
 	@GetMapping("recommend")
 	public List<DtsArticle> selectArticleListRecommend() {
 		return articleSubjectService.selectArticleListRandom();
@@ -96,19 +96,19 @@ public class DtsArticleController extends BaseController {
 		}
 	}
 
-	@NotRole
+	@NotLogin
 	@GetMapping("load/{articleId}")
 	public DtsArticleDto load(@PathVariable(name = "articleId") String articleId) {
 		return articleSubjectService.selectArticleById(articleId);
 	}
 
-	@NotRole
+	@NotLogin
 	@GetMapping("load/{articleId}/all")
 	public DtsArticleDto loadAll(@PathVariable(name = "articleId") String articleId) {
 		return articleSubjectService.selectArticleAllById(articleId);
 	}
 
-	@NotRole
+	@NotLogin
 	@GetMapping("so")
 	public Page<?> search(
 			@RequestParam(value = "page", defaultValue = "0") Integer page,

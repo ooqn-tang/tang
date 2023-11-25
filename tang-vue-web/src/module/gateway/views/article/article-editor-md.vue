@@ -58,7 +58,7 @@ import { useAuthorStore } from "@common/user";
 
 const route = useRoute();
 const router = useRouter();
-const useAuthorStore = useAuthorStore();
+const authorStore = useAuthorStore();
 
 marked.setOptions({
   renderer: new marked.Renderer(),
@@ -131,7 +131,7 @@ function saveArticle(){
 
 function loadSubject(){
   request({
-    url: `/api/subject/username/${useAuthorStore.username}`,
+    url: `/api/subject/username/${authorStore.username}`,
     method: "GET",
   }).then((res) => {
     subjectList = res.data;

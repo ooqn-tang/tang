@@ -1,5 +1,7 @@
 package com.ooqn.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -14,10 +16,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ooqn.core.control.BaseController;
-import com.ooqn.core.security.NotRole;
+import com.ooqn.core.security.NotLogin;
 import com.ooqn.entity.model.UtsAuthor;
+import com.ooqn.entity.model.UtsRole;
 import com.ooqn.entity.param.UtsAuthorParam;
 import com.ooqn.service.UtsAuthorService;
+import com.ooqn.service.UtsUserDetailsService;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 
@@ -30,7 +34,10 @@ public class UtsAuthorController extends BaseController {
 	@Autowired
 	private UtsAuthorService authorService;
 
-	@NotRole
+    @Autowired
+    private UtsUserDetailsService utsUserDetailsService;
+
+	@NotLogin
 	@GetMapping("selectAuthor")
 	public Page<UtsAuthor> select(@RequestParam(value = "page", defaultValue = "0") Integer page) {
 		Pageable pageable = PageRequest.of(page, 100);
@@ -45,17 +52,29 @@ public class UtsAuthorController extends BaseController {
 		return authorService.update(authorId, nickname, signature);
 	}
 
-	@NotRole
+	@NotLogin
 	@GetMapping("{username}")
 	public UtsAuthor authorByUsername(@PathVariable(value = "username") String username) {
 		return authorService.selectAuthorByName(username);
 	}
 
-	@NotRole
+	@NotLogin
 	@GetMapping("list")
 	public Page<UtsAuthor> authorList(
 			@RequestParam(value = "page", defaultValue = "1") Integer page) {
 		Pageable pageable = PageRequest.of(page, 10);
 		return authorService.selectAuthor(pageable);
 	}
+
+	@GetMapping("roles")
+	public List<UtsRole> authorRoles(
+			@RequestParam(value = "page", defaultValue = "1") Integer page) {
+		return utsUserDetailsService.loadRoles(authorName());
+
+	}
+
+    @GetMapping("/info")
+    public UtsAuthor loadAuthor() {
+        return author();
+    }
 }
