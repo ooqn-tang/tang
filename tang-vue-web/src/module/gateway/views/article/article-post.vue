@@ -74,7 +74,7 @@ import { useRoute } from "vue-router";
 import { useAuthorStore } from "@common/user";
 import notice from '@components/notice.vue';
 import info from '@components/info.vue';
-import { insertCollectApi,deleteCollectApi,isCollectApi } from "@apis/collect";
+import { insertCollectApi,deleteCollectApi,isCollectApi } from "@gateway/apis/collect";
 
 const route = useRoute()
 const store = useAuthorStore()

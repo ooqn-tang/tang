@@ -20,7 +20,6 @@ export default defineConfig({
   resolve: {
     alias: {
       "@src": path.resolve('src'),
-      "@apis": path.resolve('src/apis'),
       "@common": path.resolve('src/common'),
       "@components": path.resolve('src/components'),
       "@admin/views": path.resolve('src/module/admin/views'),

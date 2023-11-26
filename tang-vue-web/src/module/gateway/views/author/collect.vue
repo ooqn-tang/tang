@@ -25,7 +25,7 @@
 import { onMounted,ref } from 'vue';
 import { useRoute } from "vue-router";
 import { useAuthorStore } from "@common/user";
-import { collectListApi,deleteCollectApi } from "@apis/collect"
+import { collectListApi,deleteCollectApi } from "@gateway/apis/collect"
 
 let authorStore = useAuthorStore();
 let route = useRoute();

@@ -3,9 +3,6 @@
         "jsx": "preserve",
         "baseUrl": "./",
         "paths": {
-            "@apis/*": [
-                "src/apis/*"
-            ],
             "@common/*": [
                 "src/common/*"
             ],

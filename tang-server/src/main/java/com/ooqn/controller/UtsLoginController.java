@@ -1,10 +1,8 @@
 package com.ooqn.controller;
 
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,7 +13,6 @@ import com.ooqn.core.exception.ApiException;
 import com.ooqn.core.security.JwtProvider;
 import com.ooqn.core.security.NotLogin;
 import com.ooqn.entity.model.UtsAuthor;
-import com.ooqn.entity.model.UtsRole;
 import com.ooqn.entity.param.UtsLoginParam;
 import com.ooqn.entity.param.UtsRePasswordParam;
 import com.ooqn.entity.param.UtsRegisterParam;

@@ -33,7 +33,7 @@
 import request from "@common/request";
 import { onMounted, ref, h } from "vue";
 import { NButton, NSpace, NDataTable, NModal, NCard, NForm, NFormItem, NInput } from "naive-ui";
-import { insertNoticeApi, deleteNoticeApi, updateOrderApi } from "@apis/notice"
+import { insertNoticeApi, deleteNoticeApi, updateOrderApi } from "@admin/apis/notice"
 
 let insertDialogVisible = ref(false)
 let noticeList = ref([])

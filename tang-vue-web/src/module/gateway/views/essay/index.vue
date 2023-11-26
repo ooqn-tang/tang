@@ -75,7 +75,7 @@
 <script setup>
 
 import { onMounted, ref } from "vue";
-import { insertEssayApi, loadEssayApi } from "@apis/essay"
+import { insertEssayApi, loadEssayApi } from "@gateway/apis/essay"
 
 let page = ref({
   number: 0

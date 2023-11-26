@@ -17,7 +17,7 @@
 <script setup>
 import { onMounted, ref, h } from "vue";
 import { NDataTable, NButton, NForm, NFormItem, NInput, NSpace, NButtonGroup } from "naive-ui"
-import { deleteArticleApi, loadArticleApi } from "@apis/article"
+import { deleteArticleApi, loadArticleApi } from "@admin/apis/article"
 
 let articleList = ref([]);
 let formRef = ref({})

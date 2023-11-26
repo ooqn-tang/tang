@@ -38,7 +38,7 @@
 import { ref } from 'vue'
 import { useRouter } from "vue-router"
 
-import { authenticateApi, rolesApi, authorApi } from '@apis/login'
+import { authenticateApi, rolesApi, authorApi } from '@gateway/apis/login'
 
 let loginData = ref({ rememberMe: true })
 let router = useRouter()
