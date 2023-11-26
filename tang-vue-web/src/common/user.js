@@ -15,11 +15,13 @@ export const useAuthorStore = defineStore('author', {
             this.username = author.username;
         },
         setRoles(roles){
-            for(let item of roles){
-                if(item.roleValue == 'ROLE_ADMIN'){
-                    this.isAdmin = true
+            if(roles != null){
+                for(let item of roles){
+                    if(item.roleValue == 'ROLE_ADMIN'){
+                        this.isAdmin = true
+                    }
+                    this.roles.push(item.roleValue)
                 }
-                this.roles.push(item.roleValue)
             }
         },
         logout(){

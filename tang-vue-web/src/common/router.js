@@ -25,9 +25,11 @@ export default function router(routes, hash) {
         let authorStore = useAuthorStore()
         let author = localStorage.getItem("author")
         let roles = localStorage.getItem("roles")
-        if(author != null){
-            authorStore.setAuthor(JSON.parse(author))
-            authorStore.setRoles(JSON.parse(roles))
+        if(author == null || roles == null){
+            if(author != null){
+                authorStore.setAuthor(JSON.parse(author))
+                authorStore.setRoles(JSON.parse(roles))
+            }
         }
         // 跳转到下一个路由
         next()
