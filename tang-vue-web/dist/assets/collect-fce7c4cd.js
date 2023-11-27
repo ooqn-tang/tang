@@ -1,0 +1,1 @@
+import{s as e}from"./request-90d4e0a2.js";function r(t){return e({url:"/api/collect/list",method:"GET",params:t})}function c(t){return e({url:"/api/collect",method:"POST",data:t})}function i(t){return e({url:"/api/collect",method:"DELETE",params:t})}function o(t){return e({url:"/api/collect",method:"GET",params:t})}export{o as a,r as c,i as d,c as i};

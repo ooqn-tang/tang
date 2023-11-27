@@ -1,0 +1,1 @@
+import{s as o}from"./request-90d4e0a2.js";function t(){return o({url:"/api/admin/role",method:"GET"})}function i(r,a){return o({url:`/api/admin/role/author/${r}`,method:"PUT",data:a})}export{t as l,i as u};
