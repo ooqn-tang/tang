@@ -2,14 +2,14 @@ package com.ooqn.core.exception;
 
 import java.util.Set;
 
+import org.apache.coyote.BadRequestException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -20,7 +20,7 @@ import jakarta.validation.ConstraintViolationException;
 /**
  * 全局异常处理
  */
-@ControllerAdvice
+@RestControllerAdvice
 public class GlobalExceptionHandler {
 
 	private final Logger logger = LoggerFactory.getLogger(getClass());
@@ -28,7 +28,6 @@ public class GlobalExceptionHandler {
 	/**
 	 * ApiException 参数校验统一异常处理
 	 */
-	@ResponseBody
 	@ExceptionHandler(ApiException.class)
 	public ResponseEntity<String> errorHandler(ApiException ex,
 			HttpServletResponse httpServletResponse) {
@@ -37,9 +36,19 @@ public class GlobalExceptionHandler {
 	}
 
 	/**
+	 * ApiException 参数校验统一异常处理
+	 */
+	@ExceptionHandler(JwtException.class)
+	public ResponseEntity<String> errorHandler(JwtException ex,
+			HttpServletResponse httpServletResponse) {
+		logger.error(ex.getMessage(), ex);
+		return ResponseEntity.status(ex.getStatus()).body(ex.getMessage());
+	}
+
+
+	/**
 	 * ConstraintViolationException 参数校验统一异常处理
 	 */
-	@ResponseBody
 	@ExceptionHandler(ConstraintViolationException.class)
 	public ResponseEntity<String> errorHandler(ConstraintViolationException ex,
 			HttpServletResponse httpServletResponse) {
@@ -50,7 +59,6 @@ public class GlobalExceptionHandler {
 	/**
 	 * MethodArgumentNotValidException 参数校验统一异常处理
 	 */
-	@ResponseBody
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public ResponseEntity<String> errorHandler(MethodArgumentNotValidException ex,
 			HttpServletResponse httpServletResponse) {
@@ -61,7 +69,6 @@ public class GlobalExceptionHandler {
 	/**
 	 * Exception 参数校验统一异常处理
 	 */
-	@ResponseBody
 	@ExceptionHandler(Exception.class)
 	public ResponseEntity<String> errorHandler(Exception ex,
 			HttpServletResponse httpServletResponse) {
@@ -72,9 +79,17 @@ public class GlobalExceptionHandler {
 	/**
 	 * Exception 参数校验统一异常处理
 	 */
-	@ResponseBody
 	@ExceptionHandler(ServletException.class)
 	public ResponseEntity<?> errorHandler(ServletException ex,
+			HttpServletResponse httpServletResponse, HttpServletRequest httpServletRequest) {
+		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ex.getMessage());
+	}
+
+		/**
+	 * Exception 参数校验统一异常处理
+	 */
+	@ExceptionHandler(BadRequestException.class)
+	public ResponseEntity<?> errorHandler(BadRequestException ex,
 			HttpServletResponse httpServletResponse, HttpServletRequest httpServletRequest) {
 		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ex.getMessage());
 	}

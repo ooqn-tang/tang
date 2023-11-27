@@ -49,7 +49,7 @@ let username = authorStore.username;
 
 function loadAuthor(){
   request({
-    url: `/api/author/${username}`,
+    url: `/api/author/username/${username}`,
     method: "get",
   }).then((res) => {
     author.value = res.data;

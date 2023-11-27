@@ -118,7 +118,7 @@ function isFans(){
 
 function getAuthor(){
   request({
-    url: `/api/author/${thisUsername}`,
+    url: `/api/author/username/${thisUsername}`,
     method: 'get'
   }).then((res) => {
     if(res.status == 200){

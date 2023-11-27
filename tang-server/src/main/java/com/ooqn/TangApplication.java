@@ -14,7 +14,6 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.boot.web.servlet.server.ServletWebServerFactory;
-import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.web.socket.server.standard.ServerEndpointExporter;
@@ -22,7 +21,6 @@ import org.springframework.web.socket.server.standard.ServerEndpointExporter;
 @EnableJpaRepositories
 @SpringBootApplication
 @ServletComponentScan
-@EnableCaching
 public class TangApplication {
 
 

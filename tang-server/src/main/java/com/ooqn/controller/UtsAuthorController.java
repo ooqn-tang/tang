@@ -37,6 +37,11 @@ public class UtsAuthorController extends BaseController {
     @Autowired
     private UtsUserDetailsService utsUserDetailsService;
 
+	@GetMapping
+    public UtsAuthor loadAuthor() {
+        return author();
+    }
+
 	@NotLogin
 	@GetMapping("selectAuthor")
 	public Page<UtsAuthor> select(@RequestParam(value = "page", defaultValue = "0") Integer page) {
@@ -53,7 +58,7 @@ public class UtsAuthorController extends BaseController {
 	}
 
 	@NotLogin
-	@GetMapping("{username}")
+	@GetMapping("username/{username}")
 	public UtsAuthor authorByUsername(@PathVariable(value = "username") String username) {
 		return authorService.selectAuthorByName(username);
 	}
@@ -66,15 +71,10 @@ public class UtsAuthorController extends BaseController {
 		return authorService.selectAuthor(pageable);
 	}
 
-	@GetMapping("roles")
+	@GetMapping("role/list")
 	public List<UtsRole> authorRoles(
 			@RequestParam(value = "page", defaultValue = "1") Integer page) {
 		return utsUserDetailsService.loadRoles(authorName());
 
 	}
-
-    @GetMapping("/info")
-    public UtsAuthor loadAuthor() {
-        return author();
-    }
 }

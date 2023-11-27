@@ -11,9 +11,10 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
+import org.springframework.web.servlet.HandlerExceptionResolver;
 
 import com.ooqn.core.config.TangConfig;
-import com.ooqn.core.exception.ApiException;
+import com.ooqn.core.exception.JwtException;
 import com.ooqn.core.propertie.TangProperties;
 import com.ooqn.entity.model.UtsAuthor;
 import com.ooqn.entity.model.UtsResource;
@@ -27,7 +28,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 @Component
-public class JwtFilter extends OncePerRequestFilter  {
+public class JwtFilter extends OncePerRequestFilter {
 
 	private static final Logger LOG = LoggerFactory.getLogger(JwtFilter.class);
 
@@ -42,8 +43,10 @@ public class JwtFilter extends OncePerRequestFilter  {
 	@Autowired
 	private TangProperties tangProperties;
 
-	private final AntPathMatcher antPathMatcher = new AntPathMatcher();
+	@Autowired
+	private HandlerExceptionResolver handlerExceptionResolver;
 
+	private final AntPathMatcher antPathMatcher = new AntPathMatcher();
 
 	private String resolveJwt(HttpServletRequest request) {
 		String bearerJwt = request.getHeader(tangProperties.getTokenKey());
@@ -54,11 +57,12 @@ public class JwtFilter extends OncePerRequestFilter  {
 	}
 
 	@Override
-	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)throws ServletException, IOException {
+	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+			throws ServletException, IOException {
 		HttpServletRequest httpServletRequest = (HttpServletRequest) request;
 
 		// 不需要认证的资源
-		if(notLoginRequest(request)){
+		if (notLoginRequest(request)) {
 			filterChain.doFilter(request, response);
 			return;
 		}
@@ -73,43 +77,36 @@ public class JwtFilter extends OncePerRequestFilter  {
 			request.setAttribute("author", author);
 			request.setAttribute("roles", roles);
 
-			if (notRoleRequest(request)) {
-				filterChain.doFilter(request, response);
-				return;
-			}
-
 			for (UtsRole role : roles) {
 				String roleId = role.getRoleId();
 				List<UtsResource> resources = resourceService.selectByRoleId(roleId);
-				
+
 				// 角色是否有权限
-				for(UtsResource resource : resources){
+				for (UtsResource resource : resources) {
 					String path = resource.getPath();
-					if(antPathMatcher.match(path, requestURI)){
+					if (antPathMatcher.match(path, requestURI)) {
 						filterChain.doFilter(request, response);
 						return;
 					}
 				}
 			}
 
-			
 			LOG.debug("将身份验证设置为安全的上下文 '{}', uri: {}", author.getUsername(), requestURI);
+			handlerExceptionResolver.resolveException(httpServletRequest, response, null, new JwtException(400,"没有权限。"));
 		} else {
 			LOG.debug("没有找到有效的JWT令牌, uri: {}", requestURI);
-			throw new ApiException(400,"JWT无效。");
+			handlerExceptionResolver.resolveException(httpServletRequest, response, null, new JwtException(400,"JWT无效。"));
 		}
-		throw new ApiException(400,"没有权限");
 	}
 
-	
 	private boolean notLoginRequest(HttpServletRequest request) {
 		String requestURI = request.getRequestURI();
 		String method = request.getMethod().toLowerCase();
 
-		if(method.equals("options")){
+		if (method.equals("options")) {
 			return true;
 		}
-		
+
 		String[] split = tangProperties.getOpenUrl().split(",");
 		for (String string : split) {
 			if (antPathMatcher.match(string, requestURI)) {
@@ -117,28 +114,23 @@ public class JwtFilter extends OncePerRequestFilter  {
 			}
 		}
 
-        return false;
-    }
-
-	private boolean notRoleRequest(HttpServletRequest request){
-		String requestURI = request.getRequestURI();
-		String method = request.getMethod().toLowerCase();
-
-		for(Map<String,String> map : TangConfig.notRoles){
+		for (Map<String, String> map : TangConfig.notRoles) {
 			String pathVal = map.get("path");
 			String methodVal = map.get("method");
 
-			if(methodVal != null){
+			if (methodVal != null) {
 				methodVal = methodVal.toLowerCase();
 				if (antPathMatcher.match(pathVal, requestURI) && method.equals(methodVal)) {
 					return true;
 				}
-			}else{
+			} else {
 				if (antPathMatcher.match(pathVal, requestURI)) {
 					return true;
 				}
 			}
+
 		}
 		return false;
 	}
+	
 }
