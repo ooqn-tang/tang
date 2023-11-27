@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-cn" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <title th:text="${subject.subject.subjectName + ' - ooqn.com'}"></title>
+    <title th:text="${subject.subjectName + ' - ooqn.com'}"></title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
@@ -16,17 +16,17 @@
         <div class="col-md-8 column">
             <div class="panel panel-default">
                 <div class="panel-body">
-                    <a th:href="'/subject/' + ${subject.subject.subjectId}" th:text="${subject.subject.subjectName}" class="fw"></a>
-                    <span th:text="${#dates.format(subject.subject.createTime, 'yyyy-MM-dd')}" class="blog-time"></span>
+                    <a th:href="'/subject/' + ${subject.subjectId}" th:text="${subject.subjectName}" class="fw"></a>
+                    <span th:text="${#dates.format(subject.createTime, 'yyyy-MM-dd')}" class="blog-time"></span>
                     <br>
                     <p th:text="${subject.author.nickname}" class="blog-time" style="float: left;"></p>
-                    <div th:text="${subject.subject.synopsis}"></div>
+                    <div th:text="${subject.synopsis}"></div>
                 </div>
             </div>
             <div class="panel panel-default">
                 <div class="panel-body">
                     <ul class="blog-list">
-                        <li th:each="item : ${subject.articleList}" class="panel-text">
+                        <li th:each="item : ${subject.dataArray}" class="panel-text">
                             <a th:href="'/article/' + ${item.articleId}" th:text="${item.title}" class="fw"></a>
                             <p th:text="${item.synopsis}"></p>
                             <hr style="border:2px double #e8e8e8"/>
