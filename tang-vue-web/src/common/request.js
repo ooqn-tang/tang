@@ -30,9 +30,8 @@ service.interceptors.response.use(
     response => {
         return response;
     },
-    error => {
+    async error => {
         if(error.response == null){
-            debugger
             return Promise.reject(error);
         }
         if (error.response.status === 401) {
@@ -55,20 +54,23 @@ service.interceptors.response.use(
             if (!isRefreshing){
                 isRefreshing = true
                 //调用刷新token的接口
-                return refresh({'jwt':localStorage.getItem("jwt")}).then(data => {
-                    setToken(data)
-                    error.response.headers.Token = data
-                    requests.forEach((cb) => cb(data))
-                    return service(error.response.config)
-                }).catch(err => {
-                    //跳到登录页
-                    localStorage.removeItem("jwt")
-                    localStorage.removeItem("author")
-                    window.location.href = "/"
-                    return Promise.reject(err)
-                }).finally(() => {
-                    isRefreshing = false
-                })
+                try {
+                    try {
+                        const data_1 = await refresh({ 'jwt': localStorage.getItem("jwt") });
+                        setToken(data_1);
+                        error.response.headers.Token = data_1;
+                        requests.forEach((cb) => cb(data_1));
+                        return await service(error.response.config);
+                    } catch (err) {
+                        //跳到登录页
+                        localStorage.removeItem("jwt");
+                        localStorage.removeItem("author");
+                        window.location.href = "/";
+                        return await Promise.reject(err);
+                    }
+                } finally {
+                    isRefreshing = false;
+                }
             } else {
                 // 返回未执行 resolve 的 Promise
                 return new Promise(resolve => {
