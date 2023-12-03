@@ -109,6 +109,14 @@ nav .dropdown-menu {
         padding: 12px;
     }
 
+    .column{
+        padding: 0;
+    }
+    .card,.list-group{
+        border-left: 0;
+        border-right: 0;
+        border-radius: 0;
+    }
 }
 
 .nav-link {
