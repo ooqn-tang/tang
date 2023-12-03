@@ -7,7 +7,7 @@
 	<nav th:replace="comm::nav"></nav>
 	<div class="container-fluid">
 		<div class="row">
-			<div class="col-md-9 mb-10">
+			<div class="col-md-9 mb-10 column">
 				<ul class="list-group">
 					<li class="list-group-item" th:each="item : ${articlePage.content}">
 						<a th:href="'/article/' + ${item.articleId}" th:text="${item.title}" class="article-title">
@@ -26,7 +26,7 @@
 					</li>
 				</ul>
 			</div>
-			<div class="col-md-3 mb-10">
+			<div class="col-md-3 column">
 				<nav th:replace="comm::recommend"></nav>
 				<nav th:replace="comm::website"></nav>
 			</div>
