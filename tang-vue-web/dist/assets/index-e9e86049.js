@@ -1,1 +1,0 @@
-import{u as o,t,x as d,y as _,z as e,l as a}from"./router-2d2d1606.js";const i={id:"body"},n=e("div",{id:"message"},[e("div",{id:"message-head"},[e("div",{class:"message-nc"},"聊天")]),e("div",{id:"message-body"})],-1),r={id:"r-body-body"},l={__name:"index",setup(c){return o(),(m,u)=>{const s=t("router-view");return d(),_("div",i,[n,e("div",r,[a(s)])])}}};export{l as default};

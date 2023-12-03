@@ -14,7 +14,7 @@
           :href="'/article/' + item.articleId">{{ item.title }}</a>
       </div>
     </div>
-    <div class="col-md-9 col-lg-9 pb-5 small-col">
+    <div class="col-md-9 col-lg-9 pb-5">
       <div class="row">
         <div class="col-lg-8 small-col">
           <div class="card mb-2 article-body ">

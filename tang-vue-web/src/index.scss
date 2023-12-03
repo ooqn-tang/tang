@@ -79,10 +79,6 @@ nav .dropdown-menu {
     border-top: 0;
 }
 
-.yd {
-    display: none;
-}
-
 .mini-but {
     padding: 0px 5px 0px 3px;
     margin-left: 5px
@@ -95,18 +91,6 @@ nav .dropdown-menu {
 @media (max-width: 768px) {
     .pc {
         display: none;
-    }
-
-    .yd {
-        display: inline;
-    }
-
-    .list-group-item {
-        padding: 12px;
-    }
-
-    .card-body {
-        padding: 12px;
     }
 
     .small-col{
