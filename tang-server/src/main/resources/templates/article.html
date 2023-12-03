@@ -27,7 +27,7 @@
 			</div>
 		</div>
 	</div>
-	<div style="position: fixed;bottom: 0px;border-top: 1px solid rgb(173, 173, 173);" th:if="${subject != null}">
+	<div style="position: fixed;bottom: 0px;border-top: 1px solid rgb(173, 173, 173);padding: 10px;background: white;width: 100%;" th:if="${subject != null}">
 		<select onchange="change()" id="ml" style="width: 100%;">
 			<option th:each="item : ${subject.dataArray}" th:selected="${item.articleId eq article.articleId}"
 				th:value="${item.articleId}" th:text="${item.title}"></option>
