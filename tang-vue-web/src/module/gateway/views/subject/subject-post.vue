@@ -1,6 +1,6 @@
 <template>
   <div class="row clearfix">
-    <div class="col-md-9">
+    <div class="col-md-9 small-col">
       <div class="card mb-2">
         <div class="card-body">
           <h4>{{ subjectData.subjectName }}</h4>
@@ -26,7 +26,7 @@
         </li>
       </ul>
     </div>
-    <div class="col-md-3 mb-2">
+    <div class="col-md-3 mb-2 small-col">
       <div class="list-group mb-2">
         <notice></notice>
       </div>

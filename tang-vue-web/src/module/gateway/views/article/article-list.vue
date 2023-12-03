@@ -1,6 +1,6 @@
 <template>
   <div class="row">
-    <div class="col-md-9 mb-2">
+    <div class="col-md-9 mb-2 small-col">
       <div class="card mb-2">
         <div class="card-body p-0">
           <nav class="nav">
@@ -39,7 +39,7 @@
         </div>
       </div>
     </div>
-    <div class="col-md-3 mb-2">
+    <div class="col-md-3 mb-2 small-col">
       <notice></notice>
       <info></info>
     </div>

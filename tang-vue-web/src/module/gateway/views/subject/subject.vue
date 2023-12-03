@@ -1,6 +1,6 @@
 <template>
   <div class="row clearfix">
-    <div class="col-md-9 ">
+    <div class="col-md-9  small-col">
       <div class="row">
         <div class="col-xl-3 col-lg-4 col-md-4 col-12 mb-2" v-for="(item, index) in subjectList"
           :key="index">
@@ -18,7 +18,7 @@
         </div>
       </div>
     </div>
-    <div class="col-md-3  mb-2 ">
+    <div class="col-md-3  mb-2  small-col">
       <div class="list-group mb-2  ">
         <notice></notice>
       </div>

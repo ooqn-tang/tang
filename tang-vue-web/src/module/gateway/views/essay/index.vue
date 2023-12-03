@@ -1,6 +1,6 @@
 <template>
   <div class="row">
-    <div class="col-md-6 mb-2">
+    <div class="col-md-6 mb-2 small-col">
       <div class="mb-2">
         <input class="form-control" list="datalistOptions" id="exampleDataList" v-model="form.tagName" placeholder="输入标签">
         <datalist id="datalistOptions">
@@ -57,13 +57,13 @@
       </div>
     </div>
 
-    <div class="col-md-3 mb-2">
+    <div class="col-md-3 mb-2 small-col">
       <ul class="list-group">
         <li class="list-group-item active">推荐标签</li>
         <li class="list-group-item" v-for="(item, index) in tagList" @click="selectTag(item)">{{ item.text }}</li>
       </ul>
     </div>
-    <div class="col-md-3 mb-2">
+    <div class="col-md-3 mb-2 small-col">
       <ul class="list-group">
         <li class="list-group-item active">最近使用</li>
         <li class="list-group-item" v-for="(item, index) in tagList" @click="selectTag(item)">{{ item.text }}</li>

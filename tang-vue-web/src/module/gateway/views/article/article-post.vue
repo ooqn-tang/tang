@@ -1,6 +1,6 @@
 <template>
   <div class="row">
-    <div class="col-md-3 col-lg-3 d-md-inline d-none">
+    <div class="col-md-3 col-lg-3 d-md-inline d-none small-col">
       <div class="list-group mb-2" v-if="articleList.length > 0">
         <a class="list-group-item active">专题</a>
         <a v-for="(item, index) in articleList" class="list-group-item" :class="item.articleId == article.articleId ? 'active2' : ''" :key="index"
@@ -14,9 +14,9 @@
           :href="'/article/' + item.articleId">{{ item.title }}</a>
       </div>
     </div>
-    <div class="col-md-9 col-lg-9 pb-5">
+    <div class="col-md-9 col-lg-9 pb-5 small-col">
       <div class="row">
-        <div class="col-lg-8">
+        <div class="col-lg-8 small-col">
           <div class="card mb-2 article-body ">
             <div class="card-body" v-if="!loading">
               <div>
@@ -42,7 +42,7 @@
             <div class="card-body" v-if="loading">{{ dataText }}</div>
           </div>
         </div>
-        <div class="col-md-4 mb-2">
+        <div class="col-md-4 mb-2 small-col">
           <notice></notice>
           <info></info>
         </div>
@@ -51,7 +51,7 @@
   </div>
   <nav class="navbar fixed-bottom navbar-light bg-light foot-navbar">
     <div class="container-fluid">
-      <div class="col-md-12 col-lg-12">
+      <div class="col-md-12 col-lg-12 small-col">
         <a :class="collect == 1 ? 'btn-outline-danger' : 'btn-outline-primary'" class="btn btn-sm mini-but m-l-0"
           @click="collectClick">收藏</a>
         <a class="btn btn-outline-primary btn-sm mini-but" disabled>举报</a>

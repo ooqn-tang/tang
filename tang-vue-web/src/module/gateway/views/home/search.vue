@@ -1,6 +1,6 @@
 <template>
   <div class="row">
-    <div class="col-lg-8">
+    <div class="col-lg-8 small-col">
       <div class="input-group mb-2">
         <input type="text" class="form-control search-input" v-model="form.wb" placeholder="请输入" aria-label="请输入" />
         <button class="btn btn-outline-secondary" type="button" @click="so()">搜索</button>
@@ -21,7 +21,7 @@
         </li>
       </ul>
     </div>
-    <div class="col-lg-4">
+    <div class="col-lg-4 small-col">
       <notice></notice>
       <info></info>
     </div>

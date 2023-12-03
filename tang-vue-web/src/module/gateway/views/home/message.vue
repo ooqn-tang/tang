@@ -1,13 +1,13 @@
 <template>
   <div class="row">
-    <div class="col-md-9 mb-2">
+    <div class="col-md-9 mb-2 small-col">
       <div class="card ">
         <div class="card-body">
           
         </div>
       </div>
     </div>
-    <div class="col-md-3 mb-2">
+    <div class="col-md-3 mb-2 small-col">
       <notice></notice>
       <info></info>
     </div>

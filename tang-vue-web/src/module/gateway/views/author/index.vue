@@ -1,6 +1,6 @@
 <template>
   <div class="row clearfix">
-    <div class="col-md-4 col-md-push-8">
+    <div class="col-md-4 col-md-push-8 small-col">
       <div class="card mb-2 ">
         <div class="card-body ">
           <strong>{{author.nickname}}</strong>
@@ -15,7 +15,7 @@
       </div>
       
     </div>
-    <div class="col-md-8 col-md-pull-4 mb-2">
+    <div class="col-md-8 col-md-pull-4 mb-2 small-col">
       <div class="card ">
         <div class="card-header" v-if="thisUsername == loginUsername">
           <ul class="nav justify-content-center">
