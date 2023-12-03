@@ -1,25 +1,15 @@
 <!DOCTYPE html>
 <html lang="zh-cn" xmlns:th="http://www.w3.org/1999/xhtml">
 
-<head>
-	<meta charset="utf-8">
-	<title th:text="${article.title + ' - ooqn.com'}"></title>
-	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-	<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
-	<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
-	<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	<link href="https://cdn.bootcss.com/github-markdown-css/4.0.0/github-markdown.min.css" rel="stylesheet" type="text/css">
-	<link href="/css/style.css" rel="stylesheet" type="text/css">
-	<link href="/css/github.css" rel="stylesheet" type="text/css">
-	<meta name="description" th:content="${article.synopsis}">
-</head>
+<head th:replace="comm::head(${article.title},${article.synopsis})"></head>
+
 <body>
 	<nav th:replace="comm::nav"></nav>
-	<div class="container-fluid" th:classappend="${subject == null} ? '' : 'mb-50'">
+	<div class="container-fluid">
 		<div class="row clearfix">
 			<div class="col-md-8 column">
-				<div class="panel panel-default">
-					<div class="panel-body">
+				<div class="card mb-2 article-body ">
+					<div class="card-body">
 						<h1 th:text="${article.title}" id="blog-title"></h1>
 						<hr>
 						<div class="markdown-body" th:utext="${article.text}"></div>
@@ -29,7 +19,8 @@
 			<div class="col-md-4 column">
 				<div class="list-group" th:if="${subject != null}">
 					<a href="#" class="list-group-item active">文章专辑</a>
-					<a class="list-group-item" th:each="item : ${subject.dataArray}" th:href="'/article/' + ${item.articleId}" th:text="${item.title}"></a>
+					<a class="list-group-item" th:each="item : ${subject.dataArray}"
+						th:href="'/article/' + ${item.articleId}" th:text="${item.title}"></a>
 				</div>
 				<nav th:replace="comm::recommend"></nav>
 				<nav th:replace="comm::website"></nav>

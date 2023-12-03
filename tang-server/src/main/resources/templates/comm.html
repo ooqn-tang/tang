@@ -1,64 +1,78 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<!--导航-->
-<div th:fragment="nav">
-    <nav class="navbar navbar-default navbar-static-top" role="navigation">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                <span class="sr-only">ooqn.com</span><span class="icon-bar"></span><span
-                    class="icon-bar"></span><span class="icon-bar"></span></button>
-            <a class="navbar-brand" href="/">ooqn.com</a>
-        </div>
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav">
-                <li>
-                    <a href="/subjects">专辑</a>
-                </li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li>
-                    <a href="https://www.ooqn.com">国际版</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
-</div>
-<!--网站消息-->
-<div th:fragment="website">
-    <div class="list-group">
-        <a href="#" class="list-group-item active">网站信息</a>
-        <a class="list-group-item">
-            友情链接
-        </a>
-        <a class="list-group-item" href="http://beian.miit.gov.cn" target="_blank">
-            湘ICP备20009234号
-        </a>
-    </div>
-</div>
-<!--内容推荐-->
-<div th:fragment="recommend">
-    <div class="list-group">
-        <a href="#" class="list-group-item active">推荐内容</a>
-        <a class="list-group-item" th:each="item : ${notice}" th:text="${item.title}" th:href="${item.url}"></a>
-    </div>
-</div>
 
-<script th:fragment="script">
+<head th:fragment="head(title,description)">
+  <title th:text="${title + ' - ooqn.com'}"></title>
+  <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.1/css/bootstrap.min.css" rel="stylesheet"
+    crossorigin="anonymous">
+  <link href="https://cdn.bootcss.com/github-markdown-css/4.0.0/github-markdown.min.css" rel="stylesheet"
+    type="text/css">
+  <link href="/css/style.css" rel="stylesheet" type="text/css">
+  <link href="/css/github.css" rel="stylesheet" type="text/css">
+  <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.1/js/bootstrap.bundle.min.js"
+    crossorigin="anonymous"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta name="description" th:content="${description}">
+</head>
+
+<body>
+  <!--导航-->
+  <div th:fragment="nav">
+    <nav class="navbar navbar-expand navbar navbar-expand-lg navbar-light bg-light t-b-b-1 mb-2" id="top">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="/">OOQN</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02"
+          aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+          <ul class="navbar-nav me-auto mb-lg-0">
+            <li class="nav-item"><a class="nav-link active" href="/subjects">🧮专辑</a></li>
+          </ul>
+          <form class="d-flex d-md-inline">
+            <ul class="navbar-nav me-auto" id="nav-right">
+              <li class="nav-item" v-if="!isLogin">
+                <a class="nav-link active left-padding-0">关于</a>
+              </li>
+            </ul>
+          </form>
+        </div>
+      </div>
+    </nav>
+  </div>
+
+  <!--网站消息-->
+  <div th:fragment="website">
+    <div class="list-group mb-10">
+      <a href="#" class="list-group-item active">网站信息</a>
+      <a class="list-group-item">
+        友情链接
+      </a>
+      <a class="list-group-item" href="http://beian.miit.gov.cn" target="_blank">
+        湘ICP备20009234号
+      </a>
+    </div>
+  </div>
+  <!--内容推荐-->
+  <div th:fragment="recommend">
+    <div class="list-group mb-10">
+      <a href="#" class="list-group-item active">推荐内容</a>
+      <a class="list-group-item" th:each="item : ${notice}" th:text="${item.title}" th:href="${item.url}"></a>
+    </div>
+  </div>
+
+  <script th:fragment="script">
     var _hmt = _hmt || [];
-    (function() {
+    (function () {
       var hm = document.createElement("script");
       hm.src = "https://hm.baidu.com/hm.js?436cae8ee544e5f3a5276916f6880379";
       var s = document.getElementsByTagName("script")[0];
       s.parentNode.insertBefore(hm, s);
     })();
-    function change(){
-        location.href = "/article/" + document.getElementById("ml").value
+    function change() {
+      location.href = "/article/" + document.getElementById("ml").value
     }
-</script>
+  </script>
 </body>
+
 </html>

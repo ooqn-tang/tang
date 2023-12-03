@@ -1,13 +1,23 @@
+body{
+    overflow-y: scroll;
+}
+
+li{
+    list-style-type:none;
+    padding: 0;
+}
+
+a{
+    text-decoration: none;
+}
+
 .pager{
     margin:0 !important;
 }
 .blog-time{
     float:right
 }
-li{
-    list-style-type:none;
-    padding: 0;
-}
+
 .blog-list{
     padding: 0;
 }
@@ -18,15 +28,14 @@ li{
 .navbar-right{
     margin-right:0px;
 }
-.mb-50{
-    margin-bottom: 50px;
+
+.mb-10{
+    margin-bottom: 10px;
 }
 .p15{
     padding:15px
 }
-body{
-    overflow-y: scroll;
-}
+
 #blog-title{
     margin-top: 0px;
 }
@@ -44,4 +53,23 @@ li:last-child .hr{
 }
 .panel-text{
     word-wrap:break-word;
+}
+
+@media (max-width: 768px) {
+    .pc {
+        display: none;
+    }
+
+    .yd {
+        display: inline;
+    }
+
+    .list-group-item {
+        padding: 12px;
+    }
+
+    .card-body {
+        padding: 12px;
+    }
+
 }
