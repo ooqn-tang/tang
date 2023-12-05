@@ -9,10 +9,14 @@ let isRefreshing = false
 //重试队列
 let requests = []
 
+
 const service = axios.create({
     baseURL: import.meta.env.VITE_BASE_API,
     timeout: 30000
 });
+
+console.log(import.meta.env.VITE_BASE_API)
+console.log(import.meta.env.VITE_BASE_API_WS)
 
 //请求前拦截
 service.interceptors.request.use(

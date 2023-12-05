@@ -19,13 +19,15 @@ import { useAuthorStore } from "@common/user";
 
 let authorStore = useAuthorStore();
 
+let ws;
+
 function initWebSocket(){
   try{
-    authorStore.ws = new WebSocket(import.meta.env.VITE_BASE_API_WS + "api/ws/" + localStorage.getItem("jwt"));
-    authorStore.ws.onmessage = websocketonmessage;
-    authorStore.ws.onopen = websocketonopen;
-    authorStore.ws.onerror = websocketonerror;
-    authorStore.ws.onclose = websocketclose;
+    ws = new WebSocket(import.meta.env.VITE_BASE_API_WS + "_monster/agreement?token=123456789");
+    ws.onmessage = websocketonmessage;
+    ws.onopen = websocketonopen;
+    ws.onerror = websocketonerror;
+    ws.onclose = websocketclose;
   }catch(e){
     console.log(e)
   }
@@ -36,7 +38,7 @@ function websocketonopen(){
 };
 
 function websocketonerror(){
-  initWebSocket();
+  
 };
 
 function websocketonmessage(e){
@@ -46,6 +48,8 @@ function websocketonmessage(e){
 function websocketclose(e){
   console.log("断开连接", e);
 };
+
+initWebSocket();
 
 </script>
 
