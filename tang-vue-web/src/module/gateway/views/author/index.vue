@@ -136,9 +136,7 @@ onMounted(() => {
 </script>
 
 <style scoped>
-body{
-    overflow-y: scroll;
-}
+
 .nav-link{
   padding-left: 6px;
   padding-right: 6px;

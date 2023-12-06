@@ -76,9 +76,6 @@ onMounted(() => {
 </script>
 
 <style scoped>
-body {
-  overflow-y: scroll;
-}
 
 .article-synopsis {
   color: #5f5a5a;

@@ -82,24 +82,13 @@ const routeData = [
                 path: '/search',
                 name: 'search',
                 component: () => import('@gateway/views/home/search.vue')
-            }
-        ]
-    },
-    {
-        path: '/chat',
-        name: 'chat',
-        component: () => import('@gateway/views/chat/index.vue'),
-        children: [
-            {
-                path: "",
-                name: "chat_no",
-                component: () => import('@gateway/views/chat/no.vue')
             },
             {
-                path: "message/:id",
-                name: "chat_message",
-                component: () => import('@gateway/views/chat/message.vue')
+                path: '/chat',
+                name: 'chat',
+                component: () => import('@gateway/views/chat/index.vue')
             }
+            
         ]
     },
     {

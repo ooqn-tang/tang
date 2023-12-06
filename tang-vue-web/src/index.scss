@@ -88,9 +88,17 @@ nav .dropdown-menu {
     text-align: left !important;
 }
 
-@media (max-width: 768px) {
+.yd{
+    display: none;
+}
+
+@media (max-width: 770px) {
     .pc {
         display: none;
+    }
+
+    .yd{
+        display: inline;
     }
 
     .small-col{
@@ -136,6 +144,10 @@ nav .dropdown-menu {
     font-size: 13px
 }
 
+.navbar{
+    margin: 0px !important;
+}
+
 .tag{
     // 超过100宽度隐藏
     display :inline-block ;
@@ -147,8 +159,23 @@ nav .dropdown-menu {
 
 .W100 {
     width: 100% !important;
-  }
+}
 
-  .H100{
+.H100{
     height: 100% !important;
-  }
+}
+
+  
+
+.flex-container {
+    display: flex;
+    flex-direction: column; /* 设置弹性容器为垂直布局 */
+    height: 100%; /* 容器的高度 */
+}
+
+
+.box-list div{
+    border-bottom: 1px solid rgb(194, 194, 194);
+    padding: 5px;
+
+}

@@ -46,7 +46,5 @@ onMounted(() => {
 </script>
 
 <style scoped>
-body {
-  overflow-y: scroll;
-}
+
 </style>

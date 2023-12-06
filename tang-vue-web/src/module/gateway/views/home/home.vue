@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar navbar-expand navbar navbar-expand-lg navbar-light bg-light t-b-b-1 mb-2" id="top">
+  <nav class="navbar navbar-expand navbar navbar-expand-lg navbar-light bg-light t-b-b-1 flex flex-column mb-2" id="top">
     <div class="container-fluid">
       <a class="navbar-brand pc" href="/" style='margin-right: 0px;'>ooqn.com</a>
       <a class="navbar-brand yd" href="/" style='margin-right: 0px;'>OOQN</a>
@@ -41,7 +41,7 @@
       </div>
     </div>
   </nav>
-  <div class="container-fluid">
+  <div class="container-fluid" style="flex-grow: 1;overflow: auto;padding-top: 10px;">
     <router-view/>
   </div>
 </template>
@@ -77,9 +77,7 @@ let isLogin = computed(() => {
 p{
   margin: 0px;
 }
-body{
-  overflow-y: scroll !important;
-}
+
 
 .right-padding-0{
   padding-right: 0px !important;
