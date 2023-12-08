@@ -14,14 +14,11 @@ import org.springframework.web.socket.WebSocketSession;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ooqn.monster.header.MessageHeader;
-import com.ooqn.monster.header.impl.JwtLoginMessageHeader;
-
-import cn.hutool.json.JSONObject;
 
 @Component
 public class MonsterWebSocketHandler implements WebSocketHandler {
 
-    ObjectMapper objectMapper = new ObjectMapper();
+    private final ObjectMapper objectMapper = new ObjectMapper();
 
     @Autowired
     private Map<String,MessageHeader> messageHeaderMap = new HashMap<String,MessageHeader>();
@@ -30,6 +27,7 @@ public class MonsterWebSocketHandler implements WebSocketHandler {
     public void handleMessage(WebSocketSession session, WebSocketMessage<?> message) throws Exception {
         String payload = message.getPayload().toString();
         RequestMessage requestMessage = objectMapper.readValue(payload, RequestMessage.class);
+        
         String code = requestMessage.getCode();
         MessageHeader messageHeader = messageHeaderMap.get(code);
         
@@ -38,7 +36,7 @@ public class MonsterWebSocketHandler implements WebSocketHandler {
             responseMessage = messageHeader.run(session, requestMessage);
         }else{
             responseMessage = requestMessage.getResponseMessage();
-            responseMessage.setBody("没有处理器");
+            responseMessage.setMessage("没有处理器");
             responseMessage.setStatus("500");
             System.out.println("没有处理器！");
         }

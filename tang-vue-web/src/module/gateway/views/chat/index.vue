@@ -134,36 +134,23 @@ import { MonsterSocket } from "@common/monster"
 
 let authorStore = useAuthorStore();
 
-function websocketonerror() { console.log("error"); };
-
-function websocketclose() { console.log("close"); };
-
 let monsterUrl = import.meta.env.VITE_BASE_API_WS + "_monster/" + authorStore.username
-var monsterSocket = new MonsterSocket(monsterUrl, websocketclose, websocketonerror);
-// monsterSocket.send({
-//     code:"9000",
-//     params: {
-//         jwt:localStorage.getItem("jwt")
-//     }
-// },function(msg){
-//     console.log(msg)
-//     alert("登录成功")
-// })
-
+var monsterSocket = new MonsterSocket(monsterUrl);
+monsterSocket.send({
+    code:9000,
+    params:{
+        jwt:localStorage.getItem("jwt")
+    }
+},(msg) => {
+    if(msg.status == 200){
+        console.log(msg.message)
+        monsterSocket.send({
+            code:1000
+        },(msg) => {
+            if(msg.status == 200){
+                console.log(msg.message);
+            }
+        })
+    }
+})
 </script>
-<style scoped>
-* {
-    -moz-user-select: none;
-    /* Firefox */
-    -webkit-user-select: none;
-    /* WebKit内核 */
-    -ms-user-select: none;
-    /* IE10及以后 */
-    -khtml-user-select: none;
-    /* 早期浏览器 */
-    -o-user-select: none;
-    /* Opera */
-    user-select: none;
-    /* CSS3属性 */
-}
-</style>

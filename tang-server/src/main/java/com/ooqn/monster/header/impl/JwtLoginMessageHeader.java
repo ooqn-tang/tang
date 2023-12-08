@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.socket.WebSocketSession;
 
-import com.ooqn.core.propertie.JwtProperties;
 import com.ooqn.core.security.JwtProvider;
 import com.ooqn.entity.model.UtsAuthor;
 import com.ooqn.monster.RequestMessage;
@@ -40,7 +39,7 @@ public class JwtLoginMessageHeader implements MessageHeader {
         attributes.put("author", authorObject);
 
         ResponseMessage responseMessage = requestMessage.getResponseMessage();
-        responseMessage.setBody("登录成功");
+        responseMessage.setMessage("登录成功");
         responseMessage.setStatus("200");
         
         return responseMessage;

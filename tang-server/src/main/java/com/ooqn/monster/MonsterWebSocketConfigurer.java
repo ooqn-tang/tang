@@ -7,7 +7,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
-import org.springframework.http.server.ServletServerHttpRequest;
 import org.springframework.web.socket.WebSocketHandler;
 import org.springframework.web.socket.config.annotation.EnableWebSocket;
 import org.springframework.web.socket.config.annotation.WebSocketConfigurer;
@@ -21,34 +20,26 @@ import io.micrometer.common.lang.Nullable;
 public class MonsterWebSocketConfigurer  implements WebSocketConfigurer {
 
     @Autowired
-    MonsterWebSocketHandler myWebSocketHandler;
+    MonsterWebSocketHandler monsterWebSocketHandler;
 
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
         registry
-        .addHandler(myWebSocketHandler, "/_monster/*")
-        .addInterceptors(myHandshakeInterceptor())
+        .addHandler(monsterWebSocketHandler, "/_monster/*")
+        .addInterceptors(monsterHandshakeInterceptor())
         .setAllowedOrigins("*");
     }
 
     @Bean
-    HandshakeInterceptor myHandshakeInterceptor(){
+    HandshakeInterceptor monsterHandshakeInterceptor(){
         return new HandshakeInterceptor() {
-            
             @Override
             public boolean beforeHandshake(ServerHttpRequest request, ServerHttpResponse response, WebSocketHandler handler, Map<String, Object> attributes) throws Exception {
-                ServletServerHttpRequest req = (ServletServerHttpRequest) request;
-                String token = req.getServletRequest().getParameter("token");
                 return true;
             }
-
             @Override
             public void afterHandshake(ServerHttpRequest request, ServerHttpResponse response, WebSocketHandler handler, @Nullable Exception arg3) {
-                
             }
-            
         };
     }
-
-    
 }

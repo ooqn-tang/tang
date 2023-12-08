@@ -1,25 +1,32 @@
 export class MonsterSocket {
 
-    constructor(wsUrl, close, error) {
-        this.messageList = {}
-        this.ws = new WebSocket(wsUrl)
-        this.ws.onmessage = function (msg) {
-            let messageBody = JSON.parse(msg);
-            messageList[messageBody.messageId]();
-        };
-        this.ws.onopen = function () {
-            console.log("onopen")
+    constructor(websocketUrl){
+        this.messageFunctionList = {}
+        this.socket = new WebSocket(websocketUrl);
+        this.messageQueue = [];
+        this.socket.onopen = (e) => {
+            console.log(e);
+            this.sendAll();
         }
-        this.ws.onclose = close;
-        this.ws.onerror = error;
+        this.socket.onmessage = (me) => {
+            let msg = JSON.parse(me.data);
+            this.messageFunctionList[msg.messageId](msg);
+        }
+        this.socket.onclose = (ce) => {}
+        this.socket.onerror = (e) => {}
     }
 
-    send(message, fun) {
-        if (this.ws.readyState != 0) {
-            message.messageId = new Date().getTime();
-            let messageJsonStr = JSON.stringify(message);
-            this.ws.send(messageJsonStr);
-            messageList[message.messageId] = fun;
+    send(obj, callback){
+        obj.messageId = Math.random();
+        this.messageFunctionList[obj.messageId] = callback;
+        this.messageQueue.push(obj);
+        this.sendAll();
+    }
+
+    sendAll(){
+        while(this.messageQueue.length > 0 && this.socket.readyState === 1){
+            let message = this.messageQueue.shift();
+            this.socket.send(JSON.stringify(message))
         }
     }
 }
