@@ -14,6 +14,7 @@ import org.springframework.web.socket.config.annotation.WebSocketConfigurer;
 import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry;
 import org.springframework.web.socket.server.HandshakeInterceptor;
 
+
 @Configuration
 @EnableWebSocket
 public class MonsterWebSocketConfigurer  implements WebSocketConfigurer {

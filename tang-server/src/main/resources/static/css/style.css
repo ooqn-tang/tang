@@ -1,3 +1,8 @@
+
+*{
+    word-break: break-all;
+}
+
 body{
     overflow-y: scroll;
 }
@@ -54,6 +59,7 @@ li:last-child .hr{
 .panel-text{
     word-wrap:break-word;
 }
+
 
 @media (max-width: 768px) {
     .pc {
