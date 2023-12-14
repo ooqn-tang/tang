@@ -136,21 +136,30 @@ let authorStore = useAuthorStore();
 
 let monsterUrl = import.meta.env.VITE_BASE_API_WS + "_monster/" + authorStore.username
 var monsterSocket = new MonsterSocket(monsterUrl);
-monsterSocket.send({
-    code:9000,
-    params:{
-        jwt:localStorage.getItem("jwt")
-    }
-},(msg) => {
-    if(msg.status == 200){
-        console.log(msg.message)
-        monsterSocket.send({
+
+function getUserInfo(){
+    monsterSocket.send({
             code:1000
         },(msg) => {
             if(msg.status == 200){
                 console.log(msg.message);
             }
         })
+}
+monsterSocket.send({
+    code:9000,
+    params:{
+        jwt:localStorage.getItem("jwt")
     }
+},(msg) => {
+    getUserInfo();
 })
 </script>
+<style>
+.bbbb{
+    flex-grow: 1;overflow-y: hidden;
+}
+body{
+    overflow-y: hidden;
+}
+</style>

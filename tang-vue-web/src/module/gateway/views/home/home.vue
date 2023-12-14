@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar navbar-expand navbar navbar-expand-lg navbar-light bg-light t-b-b-1 flex flex-column mb-2" id="top">
+  <nav class="navbar navbar-expand navbar navbar-expand-lg navbar-light bg-light t-b-b-1 flex flex-column mb-2" id="top" >
     <div class="container-fluid">
       <a class="navbar-brand pc" href="/" style='margin-right: 0px;'>ooqn.com</a>
       <a class="navbar-brand yd" href="/" style='margin-right: 0px;'>OOQN</a>
@@ -19,29 +19,29 @@
             </ul>
           </li>
           <li class="nav-item float-start">
-            <router-link class="nav-link active right-padding-0" to="/search">🔍搜索</router-link>
+            <a class="nav-link active right-padding-0" href="/search">🔍搜索</a>
           </li>
         </ul>
         <form class="d-flex d-md-inline">
           <ul class="navbar-nav me-auto" id="nav-right">
             <li class="nav-item" v-if="!isLogin">
-              <router-link class="nav-link active left-padding-0" to="/login">登录</router-link>
+              <a class="nav-link active left-padding-0" href="/login">登录</a>
             </li>
             <li class="nav-item" v-if="isLogin">
-              <router-link class="nav-link active left-padding-0" to="/message">消息</router-link>
+              <a class="nav-link active left-padding-0" href="/message">消息</a>
             </li>
             <li class="nav-item" v-if="isLogin">
               <a class="nav-link active" href="/article-editor-md" target="_blank">投稿</a>
             </li>
             <li class="nav-item" v-if="isLogin">
-              <router-link class="nav-link active right-padding-0" :to="'/author/' + store.username">我的</router-link>
+              <a class="nav-link active right-padding-0" :href="'/author/' + store.username">我的</a>
             </li>
           </ul>
         </form>
       </div>
     </div>
   </nav>
-  <div class="container-fluid" style="flex-grow: 1;overflow: auto;padding-top: 10px;">
+  <div class="container-fluid bbbb" style="padding-top: 10px;">
     <router-view/>
   </div>
 </template>

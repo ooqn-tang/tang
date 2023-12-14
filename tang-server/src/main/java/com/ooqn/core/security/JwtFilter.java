@@ -40,6 +40,7 @@ public class JwtFilter extends OncePerRequestFilter {
 
 	@Autowired
 	private UtsResourceService resourceService;
+	
 	@Autowired
 	private TangProperties tangProperties;
 

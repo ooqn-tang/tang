@@ -34,7 +34,7 @@
                   取消订阅
                 </button>
               </div>
-              <h3>
+              <h3 id="title">
                 <strong>{{ article.title }}</strong>
               </h3>
               <div class="markdown-body" v-html="article.text"></div>
