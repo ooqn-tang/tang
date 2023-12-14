@@ -20,7 +20,7 @@
 							<span class="date-color" th:text="${#dates.format(item.createTime, 'yyyy-MM-dd')}"></span>
 						</div>
 					</li>
-					<li class="list-group-item " th:each="item : ${articlePage.content}">
+					<li class="list-group-item">
 						<a th:href="'?page='+${articlePage.number - 1}">上一页</a>
 						<a th:href="'?page='+${articlePage.number + 1}" class="float-end">下一页</a>
 					</li>
