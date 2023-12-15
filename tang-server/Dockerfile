@@ -5,7 +5,7 @@ FROM eclipse-temurin:21.0.1_12-jre-ubi9-minimal
 WORKDIR /app
 
 # 将你的项目构建产物（比如JAR文件）复制到Docker镜像中
-COPY /root/.jenkins/workspace/tang/tang-server/target/tang-server-0.0.1-SNAPSHOT.jar /app
+COPY /root/.jenkins/workspace/tang-docker/tang-server/target/tang-server-0.0.1-SNAPSHOT.jar /app
 
 # 指定Docker容器启动时要运行的命令
 CMD ["java", "-jar", "tang-server-0.0.1-SNAPSHOT.jar"]
