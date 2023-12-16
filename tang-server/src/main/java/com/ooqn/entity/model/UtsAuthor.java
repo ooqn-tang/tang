@@ -26,6 +26,7 @@ public class UtsAuthor {
 	}
 
 	@Id
+    @Column(length = 32)
 	private String authorId;
 
 	@Schema(description = "用户名")

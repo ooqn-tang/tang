@@ -14,6 +14,7 @@ import lombok.Setter;
 public class DtsTag {
     
     @Id
+    @Column(length = 32)
     private String id;
 
     @Schema(description = "标签名")
@@ -21,6 +22,7 @@ public class DtsTag {
     private String name;
 
     @Schema(description = "分类ID")
+    @Column(length = 32)
     private String categoryId;
 
     @Schema(description = "创建时间")

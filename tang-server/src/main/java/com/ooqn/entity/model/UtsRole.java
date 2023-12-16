@@ -16,6 +16,7 @@ import lombok.Data;
 public class UtsRole {
 
 	@Id
+    @Column(length = 32)
 	private String roleId;
 
 	@Schema(description = "角色名称")
@@ -28,12 +29,14 @@ public class UtsRole {
 
 	@Schema(description = "创建人ID")
 	@JsonIgnore
+    @Column(length = 32)
 	private String createAuthorId;
 
 	@Schema(description = "创建时间")
 	private Date createTime;
 
 	@Schema(description = "更新人ID")
+    @Column(length = 32)
 	private String updateAuthorId;
 
 	@Schema(description = "更新时间")

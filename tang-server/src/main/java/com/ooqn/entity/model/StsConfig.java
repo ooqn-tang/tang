@@ -14,6 +14,7 @@ import lombok.Data;
 public class StsConfig {
 
 	@Id
+    @Column(length = 32)
 	private String configId;
 
 	@Schema(description = "配置名称")

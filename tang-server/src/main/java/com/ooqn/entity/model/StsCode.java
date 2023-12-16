@@ -13,6 +13,7 @@ import lombok.Data;
 public class StsCode {
 
 	@Id
+    @Column(length = 32)
 	private String codeId;
 
 	@Schema(description = "代码名称")

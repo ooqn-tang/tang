@@ -5,6 +5,7 @@ import java.util.Date;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import lombok.Data;
@@ -15,6 +16,7 @@ import lombok.Data;
 public class StsNotice {
 
 	@Id
+    @Column(length = 32)
 	private String noticeId;
 
 	@Schema(description = "公告标题")
@@ -37,6 +39,7 @@ public class StsNotice {
 
 	@Schema(description = "创建人")
 	@JsonIgnore
+    @Column(length = 32)
 	private String authorId;
 
 	@Schema(description = "创建时间")

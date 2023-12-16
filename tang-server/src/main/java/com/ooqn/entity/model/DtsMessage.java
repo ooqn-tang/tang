@@ -5,6 +5,7 @@ import java.util.Date;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import lombok.Data;
@@ -15,13 +16,16 @@ import lombok.Data;
 public class DtsMessage {
 
 	@Id
+	@Column(length = 32)
 	private String messageId;
 
 	@Schema(description = "作者ID")
 	@JsonIgnore
+	@Column(length = 32)
 	private String authorId;
 
 	@Schema(description = "接收者ID")
+	@Column(length = 32)
 	private String recipientAuthorId;
 	
 	@Schema(description = "文本")

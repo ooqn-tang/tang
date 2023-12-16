@@ -14,6 +14,7 @@ import lombok.Data;
 public class StsTemplate {
 
     @Id
+    @Column(length = 32)
     private String templateId;
 
     @Column(unique=true)
@@ -25,6 +26,7 @@ public class StsTemplate {
 
     private Date updateTime;
 
+    @Column(length = 32)
     private String contextId;
     
 }

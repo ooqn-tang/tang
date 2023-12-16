@@ -14,9 +14,11 @@ import lombok.Data;
 public class DtsContext {
 
     @Id
+    @Column(length = 32)
     private String id;
 
     @Schema(description = "所属内容ID")
+    @Column(length = 32)
     private String dataId;
 
     @Schema(description = "正文")

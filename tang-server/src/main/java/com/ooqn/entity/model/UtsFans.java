@@ -5,6 +5,7 @@ import java.util.Date;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -20,13 +21,16 @@ import lombok.Setter;
 public class UtsFans {
 
 	@Id
+    @Column(length = 32)
 	private String fansId;
 
 	@Schema(description = "被关注者ID")
+    @Column(length = 32)
 	private String beAuthorId;
 
 	@Schema(description = "关注者ID")
 	@JsonIgnore
+    @Column(length = 32)
 	private String authorId;
 
 	@Schema(description = "创建时间")

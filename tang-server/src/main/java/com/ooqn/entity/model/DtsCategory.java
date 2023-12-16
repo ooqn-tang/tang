@@ -14,6 +14,7 @@ import lombok.Data;
 public class DtsCategory {
 
 	@Id
+	@Column(length = 32)
 	private String categoryId;
 
 	// 1:文章分类 2:专题分类 3:标签分类

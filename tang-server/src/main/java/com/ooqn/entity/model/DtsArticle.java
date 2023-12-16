@@ -3,6 +3,7 @@ package com.ooqn.entity.model;
 import java.util.Date;
 
 import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.validator.constraints.Length;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -10,6 +11,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -21,17 +23,19 @@ import lombok.Setter;
 public class DtsArticle {
 
 	@Id
+	@Column(length = 32)
 	private String articleId;
 
 	@Schema(description = "标题")
 	private String title;
 
-	@Column(updatable = false)
+	@Column(updatable = false, length = 32)
 	@Schema(description = "作者ID")
 	@JsonIgnore
 	private String authorId;
 
 	@Schema(description = "分类ID")
+	@Column(length = 32)
 	private String categoryId;
 
 	@Column(updatable = false)
@@ -48,9 +52,11 @@ public class DtsArticle {
 	private String synopsis;
 
 	@Schema(description = "正文")
+	@Column(length = 32)
 	private String textContextId;
 
 	@Schema(description = "markdown")
+	@Column(length = 32)
 	private String markdownContextId;
 
 }
