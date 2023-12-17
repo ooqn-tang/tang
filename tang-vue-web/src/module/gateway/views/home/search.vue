@@ -6,7 +6,7 @@
         <button class="btn btn-outline-secondary" type="button" @click="so()">搜索</button>
       </div>
       <ul class="list-group mb-2 ">
-        <li class="list-group-item" v-for="(item, index) in dataList" :key="index">
+        <li class="list-group-item" v-for="(item, index) in dataList">
           <p class="article-title">
             <strong>
               <a href="#" @click="openArticle(item.articleId)">{{ item.title }}</a>

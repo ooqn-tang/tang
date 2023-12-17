@@ -6,7 +6,7 @@
           <nav class="nav">
             <a class="nav-link" :class="selectCategoryId == '0' ? 'nav-link-active' : ''"
               @click="selectCategoryClick({ categoryId: 0 })">全部</a>
-            <a v-for="(item, index) in categoryList" :key="index"
+            <a v-for="(item, index) in categoryList"
               :class="selectCategoryId == item.categoryId ? 'nav-link-active' : ''" class="nav-link"
               @click="selectCategoryClick(item)">{{ item.name }}</a>
           </nav>
@@ -15,7 +15,7 @@
       <div class="card">
         <div class="card-body article-list p-0">
           <ul class="list-group ">
-            <li class="list-group-item " v-for="(item, index) in articleList" :key="index">
+            <li class="list-group-item " v-for="(item, index) in articleList">
               <router-link :to="{ name: 'article_post', params: { id: item.articleId } }" class="article-title">
                 <strong>
                   <p v-text="item.title"></p>
@@ -26,7 +26,7 @@
                 <span class="date-color" style="font-size: 16px;">{{ item.createTime }} </span>
                 <span class="date-color" style="font-size: 16px;" v-if="item.category != null"> . {{ item.category.name }}
                 </span>
-                <span v-for="(item, index) in item.tagList" :key="index"> . <span
+                <span v-for="(item, index) in item.tagList"> . <span
                     style="font-size: 16px;color: #dc3545;">{{ item.tagName }}</span></span>
                 <router-link :to="{ name: 'author_article', params: { username: item.author.username } }"
                   class="float-end">{{ item.author.nickname }}</router-link>

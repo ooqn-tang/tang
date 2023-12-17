@@ -1,6 +1,6 @@
 <template>
   <ul class="list-group article-list">
-    <li class="list-group-item" v-for="(item, index) in subjectList" :key="index">
+    <li class="list-group-item" v-for="(item, index) in subjectList">
       <router-link :to="{ name: 'subject_post', params: { subject_id: item.subjectId } }">
         <strong v-text="item.subjectName"></strong>
       </router-link>

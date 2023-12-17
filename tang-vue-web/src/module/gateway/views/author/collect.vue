@@ -1,6 +1,6 @@
 <template>
   <ul class="list-group article-list">
-    <li class="list-group-item" v-for="(item,index) in collects" :key="index">
+    <li class="list-group-item" v-for="(item,index) in collects">
       <a target="_blank" :href="item.url" class="article-title">
         <strong>{{item.title}}</strong><span class="float-end">{{item.createDate}}</span>
       </a>

@@ -24,7 +24,7 @@
             <div class="mb-3">
               <select class="form-select" v-model="articleForm.subjectId">
                 <option value="">请选择专辑</option>
-                <option v-for="(item, index) in subjectList" :key="index" :value="item.subjectId">
+                <option v-for="(item, index) in subjectList" :value="item.subjectId">
                   {{ item.subjectName }}
                 </option>
               </select>
@@ -33,7 +33,7 @@
             <div class="mb-3">
               <select class="form-select" v-model="articleForm.categoryId">
                 <option value="">请选择分类</option>
-                <option v-for="(item, index) in categoryList" :key="index" :value="item.categoryId">
+                <option v-for="(item, index) in categoryList" :value="item.categoryId">
                   {{ item.name }}
                 </option>
               </select>

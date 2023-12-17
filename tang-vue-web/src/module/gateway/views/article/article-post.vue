@@ -1,24 +1,13 @@
 <template>
   <div class="row">
-    <div class="col-md-3 col-lg-3 d-md-inline d-none small-col">
-      <div class="list-group mb-2" v-if="articleList.length > 0">
-        <a class="list-group-item active">专题</a>
-        <a v-for="(item, index) in articleList" class="list-group-item" :class="item.articleId == article.articleId ? 'active2' : ''" :key="index"
-          :href="'/article/' + item.articleId">
-          <div>{{ item.title }}</div>
-        </a>
-      </div>
-      <div class="list-group mb-2">
-        <a class="list-group-item active">推荐<span class="float-end">🎇</span></a>
-        <a v-for="(item, index) in recommendList" class="list-group-item" :key="index"
-          :href="'/article/' + item.articleId">{{ item.title }}</a>
-      </div>
-    </div>
     <div class="col-md-9 col-lg-9 pb-5">
       <div class="row">
-        <div class="col-lg-8 small-col">
+        <div class="col-lg-12 small-col">
           <div class="card mb-2 article-body ">
             <div class="card-body" v-if="!loading">
+              <h3 id="title">
+                <strong>{{ article.title }}</strong>
+              </h3>
               <div>
                 <strong>
                   {{ article.author.nickname }}
@@ -33,20 +22,48 @@
                   @click="fansClick(article.author.username)">
                   取消订阅
                 </button>
+                <hr>
               </div>
-              <h3 id="title">
-                <strong>{{ article.title }}</strong>
-              </h3>
               <div class="markdown-body" v-html="article.text"></div>
             </div>
             <div class="card-body" v-if="loading">{{ dataText }}</div>
           </div>
-        </div>
-        <div class="col-md-4 mb-2 small-col">
-          <notice></notice>
-          <info></info>
+
+          <div class="card mb-2 article-body ">
+            <div class="card-body">
+              <label for="exampleFormControlTextarea1" class="form-label">评论</label>
+              <div class="mb-2">
+                <textarea class="form-control" rows="3" placeholder="输入的内容不包含标签的内容会在最后追加标签中的内容。" v-model="remark.text"></textarea>
+              </div>
+              <button class="btn btn-outline-secondary btn-sm" type="button">表情🙂</button>
+              <button class="btn btn-outline-secondary btn-sm float-end" type="button" @click="sendRemark">发送</button>
+            </div>
+          </div>
+
+          <div class="card mb-2 article-body" v-for="item in remarkList">
+            <div class="card-body">
+              <p style="color: aqua;">{{ item.author != null ?  item.author.nickname: "未知" }}</p>
+              <p>{{item.text}}</p>
+            </div>
+          </div>
         </div>
       </div>
+    </div>
+    <div class="col-md-3 col-lg-3 d-md-inline d-none small-col">
+      <div class="list-group mb-2" v-if="articleList.length > 0">
+        <a class="list-group-item active">专题</a>
+        <a v-for="(item, index) in articleList" class="list-group-item" :class="item.articleId == article.articleId ? 'active2' : ''"
+          :href="'/article/' + item.articleId">
+          <div>{{ item.title }}</div>
+        </a>
+      </div>
+      <div class="list-group mb-2">
+        <a class="list-group-item active">推荐<span class="float-end">🎇</span></a>
+        <a v-for="(item, index) in recommendList" class="list-group-item"
+          :href="'/article/' + item.articleId">{{ item.title }}</a>
+      </div>
+      <notice></notice>
+      <info></info>
     </div>
   </div>
   <nav class="navbar fixed-bottom navbar-light bg-light foot-navbar">
@@ -75,6 +92,7 @@ import { useAuthorStore } from "@common/user";
 import notice from '@components/notice.vue';
 import info from '@components/info.vue';
 import { insertCollectApi,deleteCollectApi,isCollectApi } from "@gateway/apis/collect";
+import { deleteRemarkApi, selectRemarkApi, insertRemarkApi } from "@gateway/apis/remark"
 
 const route = useRoute()
 const store = useAuthorStore()
@@ -85,13 +103,17 @@ let articleId = ref(route.query.value);
 let loading = ref(false);
 let recommendList = ref([]);
 let article = ref({
-  article: {},
   author: {}
 });
+let remarkList = ref([{remarkId:'1',text:'alksdjfkajsdf'},{remarkId:'1',text:'alksdjfkajsdf'}])
 let isThisUser = ref(false)
 let articleList = ref([]);
 let collect = ref(0);
-let dataText = ref('加载中...')
+let dataText = ref('加载中...');
+
+let remark = ref({
+
+})
 
 function fansClick(username) {
   if (fans.value == 2) {
@@ -110,6 +132,21 @@ function fansClick(username) {
     });
   }
 }
+
+function sendRemark(){
+  remark.value.dataId = articleId;
+  insertRemarkApi(remark.value).then((res) => {
+    remarkList.value.unshift(res.data);
+    remark.value.text = "";
+  });
+}
+
+function selectRemark(){
+  selectRemarkApi(articleId, 0).then((res) => {
+    remarkList.value = res.data.content;
+  })
+}
+
 
 function isFans() {
   request({
@@ -190,6 +227,7 @@ function load() {
 onMounted(() => {
   load();
   loadRecommend();
+  selectRemark();
 })
 
 </script>

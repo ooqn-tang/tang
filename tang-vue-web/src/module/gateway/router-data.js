@@ -25,11 +25,6 @@ const routeData = [
                 component: () => import('@gateway/views/home/message.vue')
             },
             {
-                path: 'essay',
-                name: 'essay_index',
-                component: () => import('@gateway/views/essay/index.vue')
-            },
-            {
                 path: '/author/:username',
                 name: 'author_index',
                 component: () => import('@gateway/views/author/index.vue'),

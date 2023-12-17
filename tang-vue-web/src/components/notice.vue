@@ -1,7 +1,7 @@
 <template>
   <div class="list-group mb-2">
     <a class="list-group-item active">推荐<span class="float-end">🎇</span></a>
-    <a class="list-group-item" v-for="(item,index) in advList" :key="index" v-bind:href="item.url">{{item.title}}</a>
+    <a class="list-group-item" v-for="(item,index) in advList" v-bind:href="item.url">{{item.title}}</a>
   </div>
 </template>
 

@@ -54,7 +54,6 @@ const store = useAuthorStore();
 
 let linkItemList = [
   {name:"📰文章",to:"/article",admin:false},
-  {name:"📝随笔",to:"/essay",admin:false},
   {name:"🗨️聊天",to:"/chat",admin:false},
   {name:"👨‍🎓作者",to:"/author",admin:false},
   {name:"📒专题",to:"/subject",admin:false},

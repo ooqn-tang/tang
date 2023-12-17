@@ -17,7 +17,7 @@
       <!--  -->
       <n-tabs style="height:calc(100% )" v-model:value="valueRef" type="card" :addable="addableRef" :closable="closable"
         tab-style="min-width: 100px;" @close="handleClose" @add="handleAdd">
-        <n-tab-pane v-for="panel in panelsRef" :key="panel" :name="panel" style="height: calc(100% - 45px) !important;">
+        <n-tab-pane v-for="panel in panelsRef" :name="panel" style="height: calc(100% - 45px) !important;">
           <Codemirror border :options="cmOptions" ></Codemirror>
         </n-tab-pane>
       </n-tabs>
