@@ -11,7 +11,7 @@ import lombok.Data;
 @Data
 @Entity
 @Schema(description = "模板")
-public class StsToolPage {
+public class StsTemplate {
 
     @Id
     @Column(length = 32)
@@ -26,7 +26,7 @@ public class StsToolPage {
 
     private Date updateTime;
 
-    @Column(length = 32)
-    private String contextId;
+    @Column(columnDefinition="longtext")
+    private String context;
     
 }

@@ -1,7 +1,6 @@
 package com.ooqn.controller;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ooqn.core.security.NotLogin;
-import com.ooqn.service.StsToolPageService;
+import com.ooqn.service.StsTemplateService;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
@@ -25,7 +24,7 @@ import jakarta.servlet.http.HttpServletResponse;
 public class StsSystemController {
 
     @Autowired
-    private StsToolPageService templateService;
+    private StsTemplateService templateService;
 
     @NotLogin
     @PostMapping("api/system/init")

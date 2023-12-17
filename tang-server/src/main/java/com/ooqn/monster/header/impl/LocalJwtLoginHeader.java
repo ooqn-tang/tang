@@ -16,7 +16,7 @@ import com.ooqn.service.UtsUserDetailsService;
 import cn.hutool.json.JSONObject;
 
 @Service("9000")
-public class JwtLoginMessageHeader implements MessageHeader {
+public class LocalJwtLoginHeader implements MessageHeader {
 
     @Autowired
     private UtsUserDetailsService userDetailsService;

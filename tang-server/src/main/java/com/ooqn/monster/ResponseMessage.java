@@ -7,9 +7,9 @@ public class ResponseMessage {
 
     private String messageId;
 
-    private String status;
+    private String status = "200";
 
-    private String message;
+    private String message = "successful";
 
     private Map<String,Object> body = new HashMap<String,Object>();
 

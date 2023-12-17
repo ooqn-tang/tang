@@ -29,4 +29,28 @@ export class MonsterSocket {
             this.socket.send(JSON.stringify(message))
         }
     }
+
+    getUserInfo(callback){
+        this.send({ code:1000 }, callback);
+    }
+
+    loginByToken(callback){
+        this.send({
+             code:9000,
+             params:{
+                jwt:localStorage.getItem("jwt")
+            } 
+        }, callback);
+    }
+
+    sendMessage(message, callback){
+        this.send({
+            code:2001,
+            params:{
+                text: message
+            } 
+        }, callback);
+    }
+
+    
 }

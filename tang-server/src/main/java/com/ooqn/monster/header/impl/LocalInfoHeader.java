@@ -10,7 +10,7 @@ import com.ooqn.monster.ResponseMessage;
 import com.ooqn.monster.header.MessageHeader;
 
 @Service("1000")
-public class InfoMessageHeader implements MessageHeader {
+public class LocalInfoHeader implements MessageHeader {
 
     @Override
     public ResponseMessage run(WebSocketSession session, RequestMessage requestMessage) {

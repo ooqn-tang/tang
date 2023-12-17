@@ -315,7 +315,6 @@ public class DtsArticleSubjectService {
 		String contextId = IdUtil.objectId();
 		context.setId(contextId);
 		context.setText(text);
-		context.setDataId(dataId);
 		context.setCreateTime(new Date());
 		context.setUpdateTime(new Date());
 		contextRepository.save(context);

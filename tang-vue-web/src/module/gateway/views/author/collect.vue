@@ -15,9 +15,6 @@
     <li class="list-group-item" >
       <a @click="next()">{{huoqu}}</a>
     </li> 
-    <li class="list-group-item" v-if="collects.length == 0">
-      没有数据
-    </li>
   </ul>
 </template>
 
@@ -41,9 +38,11 @@ let huoqu = ref('获取中...')
 let collects = ref([])
 
 function collectList(pageNum){
+  huoqu.value = '获取中...'
   collectListApi({page: page.value.number}).then((res) => {
-    page.value = res.data
-    collects.value = collects.value.concat(res.data.content)
+    page.value = res.data;
+    collects.value = collects.value.concat(res.data.content);
+    huoqu.value = '获取';
   })
 }
 

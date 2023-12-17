@@ -119,9 +119,8 @@
                     </div>
                 </div>
                 <div class="input-group input-group-sm">
-                    <input type="text" class="form-control" placeholder="Recipient's username"
-                        aria-label="Recipient's username" aria-describedby="button-addon2">
-                    <button class="btn btn-outline-secondary" type="button" id="button-addon2">搜索🔍</button>
+                    <input v-model="message" type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="button-addon2">
+                    <button class="btn btn-outline-secondary" type="button" id="button-addon2" @click="sendMessage()">发送</button>
                 </div>
             </div>
         </div>
@@ -129,31 +128,38 @@
 </template>
 
 <script setup>
+import { onMounted, ref } from "vue";
 import { useAuthorStore } from "@common/user";
 import { MonsterSocket } from "@common/monster"
+import { refresh } from "@gateway/apis/utils";
 
 let authorStore = useAuthorStore();
+
+let message = ref("");
 
 let monsterUrl = import.meta.env.VITE_BASE_API_WS + "_monster/" + authorStore.username
 var monsterSocket = new MonsterSocket(monsterUrl);
 
 function getUserInfo(){
-    monsterSocket.send({
-            code:1000
-        },(msg) => {
-            if(msg.status == 200){
-                console.log(msg.message);
-            }
-        })
+    monsterSocket.getUserInfo((msg) => {
+        if(msg.status == 200){
+            console.log(msg.message);
+        }
+    })
 }
-monsterSocket.send({
-    code:9000,
-    params:{
-        jwt:localStorage.getItem("jwt")
-    }
-},(msg) => {
+
+monsterSocket.loginByToken((msg) => {
     getUserInfo();
 })
+
+function sendMessage(){
+    monsterSocket.sendMessage(message.value, (msg) => {
+        if(msg.status == 200){
+            console.log(msg.message);
+        }
+    })
+}
+
 </script>
 <style>
 .bbbb{
