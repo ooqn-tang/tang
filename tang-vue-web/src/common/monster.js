@@ -52,5 +52,14 @@ export class MonsterSocket {
         }, callback);
     }
 
+    /**
+     * 获取好友列表
+     */
+    loadMember(callback){
+        this.send({
+            code:1003
+        }, callback);
+    }
+
     
 }

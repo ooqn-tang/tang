@@ -16,12 +16,14 @@
     "highlight.js": "^11.7.0",
     "jwt-decode": "^3.1.2",
     "marked": "^4.3.0",
+    "matrix-js-sdk": "^30.2.0",
     "path": "^0.12.7",
     "pinia": "^2.1.7",
     "sass": "^1.62.0",
     "v-contextmenu": "^3.0.0",
     "vue": "^3.2.47",
-    "vue-router": "^4.1.6"
+    "vue-router": "^4.1.6",
+    "yarn": "^1.22.21"
   },
   "devDependencies": {
     "@types/marked": "^4.0.8",
