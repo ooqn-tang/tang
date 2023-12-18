@@ -28,8 +28,7 @@
                 </span>
                 <span v-for="(item, index) in item.tagList"> . <span
                     style="font-size: 16px;color: #dc3545;">{{ item.tagName }}</span></span>
-                <router-link :to="{ name: 'author_article', params: { username: item.author.username } }"
-                  class="float-end">{{ item.author.nickname }}</router-link>
+                <router-link :to="{ name: 'author_article', params: { username: item.author.username } }"  class="float-end">{{ item.author.nickname }}</router-link>
               </div>
             </li>
             <li class="list-group-item">

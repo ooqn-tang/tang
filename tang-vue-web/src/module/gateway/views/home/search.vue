@@ -9,7 +9,7 @@
         <li class="list-group-item" v-for="(item, index) in dataList">
           <p class="article-title">
             <strong>
-              <a href="#" @click="openArticle(item.articleId)">{{ item.title }}</a>
+              <router-link :to="{ name: 'article_post', params: { id: item.articleId } }">{{ item.title }}</router-link>
             </strong>
           </p>
           <p class="search-synopsis">
