@@ -112,3 +112,14 @@ insert into uts_resource_role (resource_role_id,create_time,resource_id,role_id)
 insert into uts_resource_role (resource_role_id,create_time,resource_id,role_id) values ('42',now(),'42','2');
 insert into uts_resource_role (resource_role_id,create_time,resource_id,role_id) values ('43',now(),'43','2');
 insert into uts_resource_role (resource_role_id,create_time,resource_id,role_id) values ('44',now(),'44','2');
+
+
+insert into uts_resource (resource_id,create_time,name,path,state,type) values ('45',now(),'remark','/api/remark/**',9,'get');
+insert into uts_resource (resource_id,create_time,name,path,state,type) values ('46',now(),'remark','/api/remark/**',9,'post');
+insert into uts_resource (resource_id,create_time,name,path,state,type) values ('47',now(),'remark','/api/remark/**',9,'put');       
+insert into uts_resource (resource_id,create_time,name,path,state,type) values ('48',now(),'remark','/api/remark/**',9,'delete');
+
+insert into uts_resource_role (resource_role_id,create_time,resource_id,role_id) values ('45',now(),'45','2');
+insert into uts_resource_role (resource_role_id,create_time,resource_id,role_id) values ('46',now(),'46','2');
+insert into uts_resource_role (resource_role_id,create_time,resource_id,role_id) values ('47',now(),'47','2');
+insert into uts_resource_role (resource_role_id,create_time,resource_id,role_id) values ('48',now(),'48','2');

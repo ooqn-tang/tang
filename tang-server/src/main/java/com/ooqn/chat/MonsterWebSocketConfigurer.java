@@ -1,4 +1,4 @@
-package com.ooqn.monster;
+package com.ooqn.chat;
 
 import java.util.Map;
 

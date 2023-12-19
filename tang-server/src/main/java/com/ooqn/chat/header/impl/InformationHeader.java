@@ -1,16 +1,16 @@
-package com.ooqn.monster.header.impl;
+package com.ooqn.chat.header.impl;
 
 import java.util.Map;
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.socket.WebSocketSession;
 
-import com.ooqn.monster.RequestMessage;
-import com.ooqn.monster.ResponseMessage;
-import com.ooqn.monster.header.MessageHeader;
+import com.ooqn.chat.RequestMessage;
+import com.ooqn.chat.ResponseMessage;
+import com.ooqn.chat.header.MsgHeader;
 
-@Service("1000")
-public class LocalInfoHeader implements MessageHeader {
+@Service("Information")
+public class InformationHeader implements MsgHeader {
 
     @Override
     public ResponseMessage run(WebSocketSession session, RequestMessage requestMessage) {

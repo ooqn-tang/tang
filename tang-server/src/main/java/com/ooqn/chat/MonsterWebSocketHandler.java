@@ -1,8 +1,11 @@
-package com.ooqn.monster;
+package com.ooqn.chat;
 
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -13,7 +16,7 @@ import org.springframework.web.socket.WebSocketMessage;
 import org.springframework.web.socket.WebSocketSession;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.ooqn.monster.header.MessageHeader;
+import com.ooqn.chat.header.MsgHeader;
 
 @Component
 public class MonsterWebSocketHandler implements WebSocketHandler {
@@ -21,15 +24,16 @@ public class MonsterWebSocketHandler implements WebSocketHandler {
     private final ObjectMapper objectMapper = new ObjectMapper();
 
     @Autowired
-    private Map<String,MessageHeader> messageHeaderMap = new HashMap<String,MessageHeader>();
+    private Map<String,MsgHeader> messageHeaderMap = new HashMap<String,MsgHeader>();
 
+    
     @Override
     public void handleMessage(WebSocketSession session, WebSocketMessage<?> message) throws Exception {
         String payload = message.getPayload().toString();
         RequestMessage requestMessage = objectMapper.readValue(payload, RequestMessage.class);
         
         String code = requestMessage.getCode();
-        MessageHeader messageHeader = messageHeaderMap.get(code);
+        MsgHeader messageHeader = messageHeaderMap.get(code);
         
         ResponseMessage responseMessage = null;
         if (messageHeader != null) {
@@ -56,11 +60,16 @@ public class MonsterWebSocketHandler implements WebSocketHandler {
 
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
+        
         System.out.println("连接创建成功");
     }
 
     @Override
     public void afterConnectionClosed(WebSocketSession session, CloseStatus closeStatus) throws Exception {
-       System.out.println("连接关闭");
+        Set<Entry<String, List<WebSocketSession>>> entrySet = MsgHeader.nameMap.entrySet();
+        for (Entry<String,List<WebSocketSession>> entry : entrySet) {
+            entry.getValue().remove(session);
+        }
+        System.out.println("连接关闭");
     }
 }

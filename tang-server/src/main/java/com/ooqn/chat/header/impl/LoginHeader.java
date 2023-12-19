@@ -1,28 +1,31 @@
-package com.ooqn.monster.header.impl;
+package com.ooqn.chat.header.impl;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.socket.WebSocketSession;
 
+import com.ooqn.chat.RequestMessage;
+import com.ooqn.chat.ResponseMessage;
+import com.ooqn.chat.header.MsgHeader;
 import com.ooqn.core.security.JwtProvider;
 import com.ooqn.entity.model.UtsAuthor;
-import com.ooqn.monster.RequestMessage;
-import com.ooqn.monster.ResponseMessage;
-import com.ooqn.monster.header.MessageHeader;
 import com.ooqn.service.UtsUserDetailsService;
 
 import cn.hutool.json.JSONObject;
 
-@Service("9000")
-public class LocalJwtLoginHeader implements MessageHeader {
+@Service("Login")
+public class LoginHeader implements MsgHeader {
 
     @Autowired
     private UtsUserDetailsService userDetailsService;
 
     @Autowired
     private JwtProvider jwtProvider;
+
 
     @Override
     public ResponseMessage run(WebSocketSession session, RequestMessage requestMessage) {
@@ -41,6 +44,13 @@ public class LocalJwtLoginHeader implements MessageHeader {
         ResponseMessage responseMessage = requestMessage.getResponseMessage();
         responseMessage.setMessage("登录成功");
         responseMessage.setStatus("200");
+
+        List<WebSocketSession> list = nameMap.get(author.getUsername());
+        if (list == null) {
+            list = new ArrayList<>();
+            nameMap.put(username, list);
+        }
+        list.add(session);
         
         return responseMessage;
 

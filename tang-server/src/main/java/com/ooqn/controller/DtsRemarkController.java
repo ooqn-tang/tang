@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ooqn.core.control.BaseController;
+import com.ooqn.core.security.NotLogin;
 import com.ooqn.entity.dto.DtsRemarkDto;
 import com.ooqn.entity.model.DtsRemark;
 import com.ooqn.entity.param.DtsRemarkParam;
@@ -48,6 +49,7 @@ public class DtsRemarkController extends BaseController {
         remarkService.delete(dataId);
     }
 
+    @NotLogin
     @GetMapping("{dataId}/list")
     public Page<DtsRemarkDto> listRemark(@PathVariable("dataId") String dataId,@RequestParam("pageNum") Integer pageName){
         Pageable pageable = PageRequest.of(pageName, 15);

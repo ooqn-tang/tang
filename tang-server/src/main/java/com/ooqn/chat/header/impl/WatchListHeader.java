@@ -1,6 +1,4 @@
-package com.ooqn.monster.header.impl;
-
-import java.util.List;
+package com.ooqn.chat.header.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -9,15 +7,15 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.socket.WebSocketSession;
 
+import com.ooqn.chat.RequestMessage;
+import com.ooqn.chat.ResponseMessage;
+import com.ooqn.chat.header.MsgHeader;
 import com.ooqn.entity.model.UtsAuthor;
-import com.ooqn.monster.RequestMessage;
-import com.ooqn.monster.ResponseMessage;
-import com.ooqn.monster.header.MessageHeader;
 import com.ooqn.service.UtsAuthorService;
 
 
-@Service("1003")
-public class LoadMemberHeader implements MessageHeader{
+@Service("WatchList")
+public class WatchListHeader implements MsgHeader{
 
     @Autowired
     private UtsAuthorService authorService;
