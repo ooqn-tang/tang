@@ -3,7 +3,7 @@
     <div class="col-md-9 mb-2 small-col">
       <div class="card ">
         <div class="card-body">
-          
+
         </div>
       </div>
     </div>
@@ -40,6 +40,4 @@ onMounted(() => {
 
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

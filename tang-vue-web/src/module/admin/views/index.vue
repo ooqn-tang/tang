@@ -1,5 +1,4 @@
 <template>
-  
   <n-config-provider :theme-overrides="themeOverrides" style="height: 100%;position: relative">
     <n-message-provider>
       <n-layout position="absolute">
@@ -38,7 +37,7 @@
 import { useRoute, useRouter } from "vue-router";
 import { useAuthorStore } from "@common/user";
 import { h, onMounted, ref } from "vue";
-import { NConfigProvider, NButton, NLayout, NLayoutHeader, NLayoutSider, NMenu, NIcon, NGrid, NGridItem, NSpace,NMessageProvider } from "naive-ui";
+import { NConfigProvider, NButton, NLayout, NLayoutHeader, NLayoutSider, NMenu, NIcon, NGrid, NGridItem, NSpace, NMessageProvider } from "naive-ui";
 import { BookmarkOutline, CaretDownOutline } from "@vicons/ionicons5";
 
 
@@ -148,7 +147,8 @@ body {
 .n-menu-item-content__icon {
   font-size: 22px !important;
 }
-body{
+
+body {
   overflow-y: hidden !important;
 }
 </style>

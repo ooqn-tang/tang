@@ -4,7 +4,8 @@
       <router-link target="_blank" :to="{ name: 'author_article', params: { username: item.username } }">
         <strong v-text="item.nickname"></strong>
       </router-link>
-      <button class="btn btn-outline-danger float-end fans-but" @click="deleteFansMethod(item.username, index)">取消关注</button>
+      <button class="btn btn-outline-danger float-end fans-but"
+        @click="deleteFansMethod(item.username, index)">取消关注</button>
       <div class="article-synopsis">{{ item.signature }}</div>
     </li>
     <li class="list-group-item" @click="loadArticle()">
@@ -19,7 +20,7 @@ import { onMounted, ref } from 'vue'
 
 let fansList = ref([])
 
-function findFansList(){
+function findFansList() {
   request({
     url: `/api/fans/list`,
     method: 'get'
@@ -28,7 +29,7 @@ function findFansList(){
   })
 }
 
-function deleteFansMethod(username, index){
+function deleteFansMethod(username, index) {
   request({
     url: `/api/fans/${username}`,
     method: 'DELETE'
@@ -46,7 +47,7 @@ onMounted(() => {
 </script>
 
 <style scoped>
-.fans-but{
+.fans-but {
   padding: 0px 5px 0px 3px;
   font-size: 13px;
 }

@@ -1,21 +1,24 @@
 <template>
-  <nav class="navbar navbar-expand navbar navbar-expand-lg navbar-light bg-light t-b-b-1 flex flex-column mb-2" id="top" >
+  <nav class="navbar navbar-expand navbar navbar-expand-lg navbar-light bg-light t-b-b-1 flex flex-column mb-2" id="top">
     <div class="container-fluid">
       <a class="navbar-brand pc" href="/" style='margin-right: 0px;'>ooqn.com</a>
       <a class="navbar-brand yd" href="/" style='margin-right: 0px;'>OOQN</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02"
+        aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
 
       <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
         <ul class="navbar-nav me-auto mb-lg-0 pc">
-          <li class="nav-item" v-for="(item,index) in linkItemList" v-show="item.admin?store.isAdmin:true" ><a  class="nav-link active"  :href="item.to">{{ item.name }}</a></li>
+          <li class="nav-item" v-for="(item, index) in linkItemList" v-show="item.admin ? store.isAdmin : true"><a
+              class="nav-link active" :href="item.to">{{ item.name }}</a></li>
         </ul>
         <ul class="navbar-nav me-auto mb-lg-0 yd">
           <li class="nav-item dropdown float-start">
             <a class="nav-link active dropdown-toggle" href="#" data-bs-toggle="dropdown">🧮菜单</a>
             <ul class="dropdown-menu">
-              <li v-for="(item,index) in linkItemList" v-show="item.admin?store.isAdmin:true" ><a class="dropdown-item" :href="item.to">{{ item.name }}</a></li>
+              <li v-for="(item, index) in linkItemList" v-show="item.admin ? store.isAdmin : true"><a class="dropdown-item"
+                  :href="item.to">{{ item.name }}</a></li>
             </ul>
           </li>
           <li class="nav-item float-start">
@@ -42,7 +45,7 @@
     </div>
   </nav>
   <div class="container-fluid bbbb" style="padding-top: 10px;">
-    <router-view/>
+    <router-view />
   </div>
 </template>
 
@@ -53,12 +56,12 @@ import { useAuthorStore } from '@common/user';
 const store = useAuthorStore();
 
 let linkItemList = [
-  {name:"📰文章",to:"/article",admin:false},
-  {name:"🗨️聊天",to:"/chat",admin:false},
-  {name:"👨‍🎓作者",to:"/author",admin:false},
-  {name:"📒专题",to:"/subject",admin:false},
-  {name:"🔍搜索",to:"/search",admin:false},
-  {name:"🧙‍♂️管理",to:"/admin.html",admin:true}
+  { name: "📰文章", to: "/article", admin: false },
+  { name: "🗨️聊天", to: "/chat", admin: false },
+  { name: "👨‍🎓作者", to: "/author", admin: false },
+  { name: "📒专题", to: "/subject", admin: false },
+  { name: "🔍搜索", to: "/search", admin: false },
+  { name: "🧙‍♂️管理", to: "/admin.html", admin: true }
 ]
 
 let isLogin = computed(() => {
@@ -68,23 +71,23 @@ let isLogin = computed(() => {
 </script>
 
 <style>
-.m-r-5-px{
-  margin-right: 5px 
+.m-r-5-px {
+  margin-right: 5px
 }
-.date-color{
+
+.date-color {
   color: rgb(0, 40, 90)
 }
-p{
+
+p {
   margin: 0px;
 }
 
 
-.right-padding-0{
+.right-padding-0 {
   padding-right: 0px !important;
 }
 
-.left-padding-0{
+.left-padding-0 {
   padding-left: 0px !important;
-}
-
-</style>
+}</style>

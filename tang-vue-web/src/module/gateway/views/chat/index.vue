@@ -1,11 +1,12 @@
 <template>
     <div class="row h100">
-        <div class="col-md-4 h100 pb-2" :class="mh=='left'?'':'m-h'">
+        <div class="col-md-4 h100 pb-2" :class="mh == 'left' ? '' : 'm-h'">
             <div class="h100" style="display: flex;flex-direction: column;height: 100%;padding: 0px;">
                 <div class="input-group" style="margin-bottom: 1px;">
                     <input type="text" class="form-control" aria-label="Text input with segmented dropdown button">
                     <button type="button" class="btn btn-outline-secondary">搜索</button>
-                    <button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+                    <button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split"
+                        data-bs-toggle="dropdown" aria-expanded="false">
                         <span class="visually-hidden">Toggle Dropdown</span>
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end">
@@ -17,7 +18,8 @@
                 <div class="box"
                     style="height: 100%;flex-grow: 1;overflow-y: auto;padding: 5px;border: 1px solid #dee2e6;margin: 5px 0px 0px 0px;">
                     <div class="box-list">
-                        <div v-for="item in memeberList" @click="selectMember(item);mh = 'right'" v-show="item.username != authorStore.username">
+                        <div v-for="item in memeberList" @click="selectMember(item); mh = 'right'"
+                            v-show="item.username != authorStore.username">
                             <p>{{ item.nickname }}</p>
                             <p style="color: #bbbbbb;">{{ item.signature }}&nbsp;</p>
                         </div>
@@ -25,11 +27,11 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-8 h100 pb-2" :class="mh=='right'?'':'m-h'">
+        <div class="col-md-8 h100 pb-2" :class="mh == 'right' ? '' : 'm-h'">
             <div class="h100" style="display: flex;flex-direction: column;height: 100%;padding: 0px;">
                 <div class="card" style="border: 1px solid rgb(222, 226, 230);">
                     <div class="card-body" style="padding: 6px 10px;vertical-align:top;display: inline-block;">
-                        <span class="align-middle">{{member.nickname}}</span>
+                        <span class="align-middle">{{ member.nickname }}</span>
                         <span style="float: right;" @click="mh = 'left'">
                             ✖️
                         </span>
@@ -101,7 +103,7 @@ let authorStore = useAuthorStore();
 let mh = ref("right");
 let message = ref("");
 let messageList = ref([])
-let member =  ref({});
+let member = ref({});
 
 let monsterUrl = import.meta.env.VITE_BASE_API_WS + "_monster/" + authorStore.username;
 var monsterSocket = new MonsterSocket(monsterUrl);
@@ -122,25 +124,25 @@ monsterSocket.login((msg) => {
 
 function sendMessage() {
     let send = {
-        acceptName:member.value.username,
-        sendName:authorStore.username,
-        content:message.value,
-        createTime:new Date(),
-        updateTime:new Date()
+        acceptName: member.value.username,
+        sendName: authorStore.username,
+        content: message.value,
+        createTime: new Date(),
+        updateTime: new Date()
     }
     messageList.value.push(send);
     message.value = "";
     monsterSocket.sendMessage(message.value, member.value.username, (msg) => {
         if (msg.status == 200) {
             console.log(msg.message);
-            
+
         }
     })
 }
 
-function selectMember(item){
+function selectMember(item) {
     member.value = item;
-    monsterSocket.messageList(item.username,(msg) => {
+    monsterSocket.messageList(item.username, (msg) => {
         if (msg.status == 200) {
             messageList.value = msg.data
         }

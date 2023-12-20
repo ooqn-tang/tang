@@ -7,6 +7,6 @@ export function refresh(data) {
         url: `/api/refresh`,
         method: 'POST',
         // 发送的数据为传入的data
-        data:data
+        data: data
     })
 }   

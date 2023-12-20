@@ -11,10 +11,12 @@
       <span class="tag" v-if="item.subject != null">{{ item.subject.subjectName }}</span>
       <span class="tag" v-if="item.category != null">{{ item.category.name }}</span>
       <div class="btn-group float-end">
-        <button class="btn btn-outline-danger float-end blog-btn" v-if="isThisUser" @click="deleteArticle(item.articleId, index)">
+        <button class="btn btn-outline-danger float-end blog-btn" v-if="isThisUser"
+          @click="deleteArticle(item.articleId, index)">
           删除
         </button>
-        <router-link class="btn btn-outline-danger float-end blog-btn" v-if="isThisUser" target="_blank" :to="{ name: 'article-editor-md', query: { article: item.articleId } }">
+        <router-link class="btn btn-outline-danger float-end blog-btn" v-if="isThisUser" target="_blank"
+          :to="{ name: 'article-editor-md', query: { article: item.articleId } }">
           修改
         </router-link>
       </div>
@@ -40,7 +42,7 @@ let articleList = ref([]);
 let page = ref({ number: 0, });
 let subjectList = ref([]);
 
-function loadArticleByUsername(pageSize){
+function loadArticleByUsername(pageSize) {
   request({
     url: `/api/article/list/${route.params.username}`,
     method: "get",
@@ -51,7 +53,7 @@ function loadArticleByUsername(pageSize){
   });
 };
 
-function loadSubjectList(){
+function loadSubjectList() {
   request({
     url: `/api/subject/username/${route.params.username}`,
     method: "GET",
@@ -60,7 +62,7 @@ function loadSubjectList(){
   });
 };
 
-function deleteArticle(articleId, index){
+function deleteArticle(articleId, index) {
   request({
     url: `/api/article/${articleId}`,
     method: "DELETE",
@@ -71,7 +73,7 @@ function deleteArticle(articleId, index){
   });
 };
 
-function next(){
+function next() {
   if (page.value.number + 1 < page.value.totalPages) {
     loadArticleByUsername(page.value.number + 1);
   }
@@ -84,7 +86,6 @@ onMounted(() => {
 </script>
 
 <style scoped>
-
 .tag {
   background: #efefef;
   padding: 0px 5px;

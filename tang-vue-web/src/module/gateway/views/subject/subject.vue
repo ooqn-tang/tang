@@ -6,12 +6,12 @@
           <div class="card ">
             <div class="card-body">
               <p class="card-text text-truncate">
-                <router-link :to="{name:'subject_post',params:{subject_id:item.subjectId}}">
-                  <strong>{{item.subjectName}}</strong>
+                <router-link :to="{ name: 'subject_post', params: { subject_id: item.subjectId } }">
+                  <strong>{{ item.subjectName }}</strong>
                 </router-link>
               </p>
-              <p class="card-text text-truncate">作者：{{item.author.nickname}}</p>
-              <p class="card-text text-truncate">专辑描述：{{item.synopsis}}</p>
+              <p class="card-text text-truncate">作者：{{ item.author.nickname }}</p>
+              <p class="card-text text-truncate">专辑描述：{{ item.synopsis }}</p>
             </div>
           </div>
         </div>
@@ -26,13 +26,12 @@
       </div>
     </div>
   </div>
-
 </template>
 
 <script setup>
 import { ref, onMounted } from 'vue'
 import { useAuthorStore } from '@common/user'
-import { useRouter,useRoute } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
 
 import notice from '@components/notice.vue';
 import info from '@components/info.vue';
@@ -59,6 +58,4 @@ function selectSubjectList() {
 }
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

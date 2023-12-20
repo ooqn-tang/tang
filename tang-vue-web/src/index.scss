@@ -89,7 +89,7 @@ nav .dropdown-menu {
     text-align: left !important;
 }
 
-.yd{
+.yd {
     display: none;
 }
 
@@ -98,20 +98,23 @@ nav .dropdown-menu {
         display: none;
     }
 
-    .yd{
+    .yd {
         display: inline;
     }
 
-    .small-col{
+    .small-col {
         padding: 0;
     }
-    .card,.list-group,.list-group-item{
+
+    .card,
+    .list-group,
+    .list-group-item {
         border-left: 0;
         border-right: 0;
         border-radius: 0;
     }
-    
-    .m-h{
+
+    .m-h {
         display: none;
     }
 }
@@ -134,7 +137,7 @@ nav .dropdown-menu {
     background-color: #e9f0f2;
 }
 
-.list-group .active2 div{
+.list-group .active2 div {
     border-left: 2px solid #0d6efd;
     padding-left: 2px;
 }
@@ -148,14 +151,14 @@ nav .dropdown-menu {
     font-size: 13px
 }
 
-.navbar{
+.navbar {
     margin: 0px !important;
 }
 
-.tag{
+.tag {
     // 超过100宽度隐藏
-    display :inline-block ;
-    max-width:105px;
+    display: inline-block;
+    max-width: 105px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -165,24 +168,25 @@ nav .dropdown-menu {
     width: 100% !important;
 }
 
-.h100{
+.h100 {
     height: 100% !important;
 }
 
-.text-center{
+.text-center {
     text-align: center;
 }
 
-.p5{
+.p5 {
     padding: 5px;
 }
 
-.p2{
+.p2 {
     padding: 2px;
 }
-  
+
 .flex {
-    display: flex;;
+    display: flex;
+    ;
 }
 
 .flex-container {
@@ -201,48 +205,52 @@ nav .dropdown-menu {
     flex-direction: row;
 }
 
-.box-list div{
+.box-list div {
     border-bottom: 1px solid #dee2e6;
     padding: 5px;
 
 }
 
-.b1{
+.b1 {
     border: 1px solid black;
 }
 
-.bt1{
+.bt1 {
     border-top: 1px solid black;
 }
 
-.br1{
+.br1 {
     border-right: 1px solid black;
 }
-.bb1{
+
+.bb1 {
     border-bottom: 1px solid black;
 }
-.bl1{
+
+.bl1 {
     border-left: 1px solid black;
 }
 
-.m2{
+.m2 {
     margin: 2px;
 
 }
 
-.m5{
+.m5 {
     margin: 5px;
 
 
 }
-.flex-grow-1{
+
+.flex-grow-1 {
     flex-grow: 1;
 }
 
 
-.w200px{
+.w200px {
     width: 200px;
-} 
-.mr0{
+}
+
+.mr0 {
     margin-right: 0px;
 }

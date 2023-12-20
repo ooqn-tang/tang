@@ -3,10 +3,10 @@ import { defineStore } from 'pinia';
 export const useAuthorStore = defineStore('author', {
     state: () => {
         return {
-            username:'',
-            author:{},
-            isAdmin:false,
-            roles:[]
+            username: '',
+            author: {},
+            isAdmin: false,
+            roles: []
         }
     },
     actions: {
@@ -14,17 +14,17 @@ export const useAuthorStore = defineStore('author', {
             this.author = author;
             this.username = author.username;
         },
-        setRoles(roles){
-            if(roles != null){
-                for(let item of roles){
-                    if(item.roleValue == 'ROLE_ADMIN'){
+        setRoles(roles) {
+            if (roles != null) {
+                for (let item of roles) {
+                    if (item.roleValue == 'ROLE_ADMIN') {
                         this.isAdmin = true
                     }
                     this.roles.push(item.roleValue)
                 }
             }
         },
-        logout(){
+        logout() {
             this.username = '';
             this.author = {};
             this.isAdmin = false;

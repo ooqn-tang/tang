@@ -3,51 +3,59 @@
     <div class="col-md-4 col-md-push-8 small-col">
       <div class="card mb-2 ">
         <div class="card-body ">
-          <strong>{{author.nickname}}</strong>
-          <button class="btn btn-outline-warning float-end fans-but" @click="fansClick(author.username)" v-text="fans == 2 ? '订阅':'取消订阅'"></button>
+          <strong>{{ author.nickname }}</strong>
+          <button class="btn btn-outline-warning float-end fans-but" @click="fansClick(author.username)"
+            v-text="fans == 2 ? '订阅' : '取消订阅'"></button>
           <hr />
-          <div>简介：{{author.signature}}</div>
+          <div>简介：{{ author.signature }}</div>
         </div>
       </div>
       <div class="d-md-inline  d-none">
         <notice></notice>
         <info></info>
       </div>
-      
+
     </div>
     <div class="col-md-8 col-md-pull-4 mb-2 small-col">
       <div class="card ">
         <div class="card-header" v-if="thisUsername == loginUsername">
           <ul class="nav justify-content-center">
             <li class="nav-item">
-              <router-link class="nav-link" :class="routeName == 'author_article'?'nav-link-active':''" :to="{name:'author_article'}">文章</router-link>
+              <router-link class="nav-link" :class="routeName == 'author_article' ? 'nav-link-active' : ''"
+                :to="{ name: 'author_article' }">文章</router-link>
             </li>
             <li class="nav-item">
-              <router-link class="nav-link" :class="routeName == 'author_subject'?'nav-link-active':''" :to="{name:'author_subject'}">专栏</router-link>
+              <router-link class="nav-link" :class="routeName == 'author_subject' ? 'nav-link-active' : ''"
+                :to="{ name: 'author_subject' }">专栏</router-link>
             </li>
             <li class="nav-item" v-if="thisUsername == loginUsername">
-              <router-link class="nav-link"  :class="routeName == 'author_subscribe'?'nav-link-active':''" :to="{name:'author_subscribe'}">订阅</router-link>
+              <router-link class="nav-link" :class="routeName == 'author_subscribe' ? 'nav-link-active' : ''"
+                :to="{ name: 'author_subscribe' }">订阅</router-link>
             </li>
             <li class="nav-item" v-if="thisUsername == loginUsername">
-              <router-link class="nav-link"  :class="routeName == 'author_collect'?'nav-link-active':''" :to="{name:'author_collect'}">收藏</router-link>
+              <router-link class="nav-link" :class="routeName == 'author_collect' ? 'nav-link-active' : ''"
+                :to="{ name: 'author_collect' }">收藏</router-link>
             </li>
             <li class="nav-item" v-if="thisUsername == loginUsername">
-              <router-link class="nav-link" :class="routeName == 'author_setting'?'nav-link-active':''" :to="{name:'author_setting'}">设置</router-link>
+              <router-link class="nav-link" :class="routeName == 'author_setting' ? 'nav-link-active' : ''"
+                :to="{ name: 'author_setting' }">设置</router-link>
             </li>
           </ul>
         </div>
         <div class="card-header" v-if="thisUsername != loginUsername">
           <ul class="nav justify-content-center">
             <li class="nav-item">
-              <router-link class="nav-link" :class="routeName == 'author_article'?'nav-link-active':''" :to="{name:'author_article'}">文章</router-link>
+              <router-link class="nav-link" :class="routeName == 'author_article' ? 'nav-link-active' : ''"
+                :to="{ name: 'author_article' }">文章</router-link>
             </li>
             <li class="nav-item">
-              <router-link class="nav-link" :class="routeName == 'author_subject'?'nav-link-active':''" :to="{name:'author_subject'}">专栏</router-link>
+              <router-link class="nav-link" :class="routeName == 'author_subject' ? 'nav-link-active' : ''"
+                :to="{ name: 'author_subject' }">专栏</router-link>
             </li>
           </ul>
         </div>
         <div class="card-body p-0">
-          <router-view/>
+          <router-view />
         </div>
       </div>
     </div>
@@ -56,9 +64,9 @@
 
 <script setup>
 import request from '@common/request'
-import { useRouter,useRoute } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
 import { useAuthorStore } from '@common/user'
-import { onMounted,ref,watch } from 'vue'
+import { onMounted, ref, watch } from 'vue'
 
 import notice from '@components/notice.vue';
 import info from '@components/info.vue';
@@ -69,26 +77,26 @@ let authorStore = useAuthorStore()
 
 let routeName = ref(route.name)
 let author = ref({
-  nickname:"∷∷∷∷∷∷∷∷",
-  signature:"∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷"
+  nickname: "∷∷∷∷∷∷∷∷",
+  signature: "∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷"
 })
 
 let thisUsername = ref("")
 let loginUsername = authorStore.username
 let from = ref({
-  page:1
+  page: 1
 })
 let fans = ref(1)
 
-function fansClick(username){
-  if(fans.value == 2){
+function fansClick(username) {
+  if (fans.value == 2) {
     request({
       url: `/api/fans/${username}`,
       method: 'POST'
     }).then((register) => {
       fans.value = 1
     })
-  }else{
+  } else {
     request({
       url: `/api/fans/${username}`,
       method: 'DELETE'
@@ -103,25 +111,25 @@ watch(() => route.name, (val) => {
   routeName.value = val
 })
 
-function isFans(){
+function isFans() {
   request({
     url: `/api/fans/username/${thisUsername}`,
     method: 'get'
   }).then((res) => {
-    if(res.data > 0){
+    if (res.data > 0) {
       fans.value = 1
-    }else{
+    } else {
       fans.value = 2
     }
   })
 }
 
-function getAuthor(){
+function getAuthor() {
   request({
     url: `/api/author/username/${thisUsername}`,
     method: 'get'
   }).then((res) => {
-    if(res.status == 200){
+    if (res.status == 200) {
       author.value = res.data
     }
   })
@@ -136,14 +144,12 @@ onMounted(() => {
 </script>
 
 <style scoped>
-
-.nav-link{
+.nav-link {
   padding-left: 6px;
   padding-right: 6px;
 }
 
-.fans-but{
+.fans-but {
   padding: 0px 5px 0px 3px;
   font-size: 13px;
-}
-</style>
+}</style>

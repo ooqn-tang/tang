@@ -31,7 +31,7 @@ let columns = [{
   key: 'type'
 }]
 
-function refresh(){
+function refresh() {
   request({
     url: `/api/admin/resource/refresh`,
     method: "GET",
@@ -40,15 +40,15 @@ function refresh(){
   });
 }
 
-function handleEdit(row){
+function handleEdit(row) {
   formData.value = row
 }
 
-function handleClose(){
+function handleClose() {
   dialogVisible.value = false
 }
 
-function loadResourceList(){
+function loadResourceList() {
   request({
     url: `/api/admin/resource`,
     method: "GET",
@@ -60,7 +60,7 @@ function loadResourceList(){
   });
 }
 
-function updateResource(){
+function updateResource() {
   request({
     url: `/api/admin/resource`,
     method: "PUT",
@@ -71,7 +71,7 @@ function updateResource(){
   });
 }
 
-function insertResource(){
+function insertResource() {
   request({
     url: `/api/admin/resource`,
     method: "POST",

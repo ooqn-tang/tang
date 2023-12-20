@@ -11,7 +11,7 @@ import router from '@common/router'
 
 const app = createApp(App)
 app.use(createPinia())
-app.use(router(routerData,false))
+app.use(router(routerData, false))
 app.mount('#app')
 
 

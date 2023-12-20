@@ -1,7 +1,7 @@
 <template>
   <div class="h100 flex">
     <div class="pc b1 m5 w200px mr0">
-      <div class="p2 bb1 h40" >
+      <div class="p2 bb1 h40">
         <select class="h100 w100 text-center" v-model="articleForm.subjectId">
           <option>设置专辑</option>
           <option v-for="item in subjectList" :value="item.subjectId">
@@ -10,7 +10,7 @@
         </select>
       </div>
       <div v-for="item in subjectArticleList" class="bb1 p5">
-        {{item.title}}
+        {{ item.title }}
       </div>
       <div class="p2 bb1 h40">
         <button class="h100 w100">增加文章</button>
@@ -24,16 +24,18 @@
       </div>
       <div class="body flex">
         <div class="flex-grow-1 flex flex-column">
-          <textarea class="flex-grow-1 w100 bb1" ref="systemForm" @scroll="sysHandleScroll()" id="text" v-model="articleForm.markdown" placeholder="可以输入Markdown文本为内容添加样式."></textarea>
+          <textarea class="flex-grow-1 w100 bb1" ref="systemForm" @scroll="sysHandleScroll()" id="text"
+            v-model="articleForm.markdown" placeholder="可以输入Markdown文本为内容添加样式."></textarea>
           <div class="br1">
-            <button class="br1 p5"  data-bs-toggle="modal"  data-bs-target="#exampleModal">属性</button>
+            <button class="br1 p5" data-bs-toggle="modal" data-bs-target="#exampleModal">属性</button>
             <button class="br1 p5">预览</button>
             <button class="br1 p5">返回</button>
             <button class="br1 p5">撤回修改</button>
           </div>
 
         </div>
-        <div ref="externalForm" @scroll="exterHandleScroll()" id="content" v-html="articleForm.text" class="markdown-body"></div>
+        <div ref="externalForm" @scroll="exterHandleScroll()" id="content" v-html="articleForm.text"
+          class="markdown-body"></div>
       </div>
       <!-- Modal -->
       <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -61,7 +63,7 @@
                     {{ item.name }}
                   </option>
                 </select>
-              </div>    
+              </div>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">关闭</button>
@@ -72,14 +74,13 @@
       </div>
     </div>
   </div>
-  
 </template>
 <script setup>
 import hljs from "highlight.js";
 import request from "@common/request";
 import { marked } from "marked";
 import { onMounted, ref, watch } from 'vue';
-import { useRoute,useRouter } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import { useAuthorStore } from "@common/user";
 import { articleSubjectArticleListApi } from "@gateway/apis/subject";
 
@@ -106,28 +107,28 @@ let articleForm = ref({});
 let externalForm = ref(null);
 let systemForm = ref(null);
 let categoryList = ref([]);
-let subjectArticleList = ref([{},{},{},{},{},{},{},{}]);
+let subjectArticleList = ref([{}, {}, {}, {}, {}, {}, {}, {}]);
 
 onMounted(() => {
-  if(!articleId.value){
+  if (!articleId.value) {
     request({
       url: `/api/article`,
       method: 'POST'
     }).then((res) => {
-      window.history.pushState({}, 0,  window.location.origin + '/article-editor-md?article=' + res.data);
+      window.history.pushState({}, 0, window.location.origin + '/article-editor-md?article=' + res.data);
       articleId.value = res.data
       loadSubject();
       loadCategoryList();
       loadArticleAllInfo(articleId.value);
     })
-  }else{
+  } else {
     loadSubject();
     loadCategoryList();
     loadArticleAllInfo(articleId.value);
   }
 });
 
-function loadArticleAllInfo(articleId){
+function loadArticleAllInfo(articleId) {
   request({
     url: `/api/article/load/${articleId}/all`,
     method: "GET",
@@ -142,7 +143,7 @@ function loadArticleAllInfo(articleId){
   });
 }
 
-function saveArticle(){
+function saveArticle() {
   if (articleForm.value.title == undefined || articleForm.value.title == "") {
     alert("请输入标题！")
     return;
@@ -157,7 +158,7 @@ function saveArticle(){
   });
 }
 
-function loadSubject(){
+function loadSubject() {
   request({
     url: `/api/subject/username/${authorStore.username}`,
     method: "GET",
@@ -172,7 +173,7 @@ function selectSubjectArticleList() {
   });
 }
 
-function loadCategoryList(){
+function loadCategoryList() {
   request({
     url: `/api/category/all`,
     params: {
@@ -184,11 +185,11 @@ function loadCategoryList(){
   });
 }
 
-function sysHandleScroll(){
+function sysHandleScroll() {
   externalForm.value.scrollTop = systemForm.value.scrollTop;
 }
 
-function exterHandleScroll(){
+function exterHandleScroll() {
   systemForm.value.scrollTop = externalForm.value.scrollTop;
 }
 
@@ -272,7 +273,7 @@ img {
   }
 }
 
-.w80px{
+.w80px {
   width: 80px;
 }
 </style>

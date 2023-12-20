@@ -76,7 +76,6 @@ onMounted(() => {
 </script>
 
 <style scoped>
-
 .article-synopsis {
   color: #5f5a5a;
 }

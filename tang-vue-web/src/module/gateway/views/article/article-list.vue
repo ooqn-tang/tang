@@ -6,9 +6,8 @@
           <nav class="nav">
             <a class="nav-link" :class="selectCategoryId == '0' ? 'nav-link-active' : ''"
               @click="selectCategoryClick({ categoryId: 0 })">全部</a>
-            <a v-for="item in categoryList"
-              :class="selectCategoryId == item.categoryId ? 'nav-link-active' : ''" class="nav-link"
-              @click="selectCategoryClick(item)">{{ item.name }}</a>
+            <a v-for="item in categoryList" :class="selectCategoryId == item.categoryId ? 'nav-link-active' : ''"
+              class="nav-link" @click="selectCategoryClick(item)">{{ item.name }}</a>
           </nav>
         </div>
       </div>
@@ -26,9 +25,10 @@
                 <span class="date-color" style="font-size: 16px;">{{ item.createTime }} </span>
                 <span class="date-color" style="font-size: 16px;" v-if="item.category != null"> . {{ item.category.name }}
                 </span>
-                <span v-for="item in item.tagList"> . <span
-                    style="font-size: 16px;color: #dc3545;">{{ item.tagName }}</span></span>
-                <router-link :to="{ name: 'author_article', params: { username: item.author.username } }"  class="float-end">{{ item.author.nickname }}</router-link>
+                <span v-for="item in item.tagList"> . <span style="font-size: 16px;color: #dc3545;">{{ item.tagName
+                }}</span></span>
+                <router-link :to="{ name: 'author_article', params: { username: item.author.username } }"
+                  class="float-end">{{ item.author.nickname }}</router-link>
               </div>
             </li>
             <li class="list-group-item">
@@ -62,14 +62,14 @@ onMounted(() => {
   loadCategoryList();
 })
 
-function selectCategoryClick(item){
+function selectCategoryClick(item) {
   selectCategoryId = item.categoryId;
   page.value.number = 0;
   articleList.value = [];
   loadArticle(item);
 }
 
-function loadCategoryList(){
+function loadCategoryList() {
   request({
     url: '/api/category/list',
     method: 'get',
@@ -81,7 +81,7 @@ function loadCategoryList(){
   })
 }
 
-function loadArticle(item){
+function loadArticle(item) {
   let url = '/api/article/list'
   request({
     url: url,
@@ -94,7 +94,7 @@ function loadArticle(item){
   })
 }
 
-function next(){
+function next() {
   if (!page.last) {
     page.value.number += 1
     loadArticle({ categoryId: selectCategoryId.value })

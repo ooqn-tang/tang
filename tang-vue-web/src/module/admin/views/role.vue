@@ -5,7 +5,7 @@
       <NButton type="primary" @click="handleUpdate">保存</NButton>
       <NButton type="primary" @click="handleQuery">查询</NButton>
     </n-space>
-    <n-data-table :columns="columns" :data="roleList" :bordered="true"/>
+    <n-data-table :columns="columns" :data="roleList" :bordered="true" />
   </n-space>
 </template>
 
@@ -24,19 +24,19 @@ let selectRoleId = ref("");
 let editIndex = ref(-1);
 
 let columns = [{
-  title:"角色名",
-  key:"roleName"
-},{
-  title:"角色值",
-  key:"roleValue"
+  title: "角色名",
+  key: "roleName"
+}, {
+  title: "角色值",
+  key: "roleValue"
 }]
 
 
-function filterTable(item){
+function filterTable(item) {
   console.log(item)
 }
 
-function saveResourceRoleList(){
+function saveResourceRoleList() {
   let selectResource = []
   // 向selectResource追加数组
   selectResource.push(...multipleTable.value.getSelectionRows())

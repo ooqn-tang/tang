@@ -1,5 +1,5 @@
 export function setToken(data) {
-    localStorage.setItem("jwt",data);
+    localStorage.setItem("jwt", data);
 }
 
 export function removeToken() {

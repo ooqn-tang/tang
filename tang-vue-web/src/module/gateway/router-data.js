@@ -83,7 +83,7 @@ const routeData = [
                 name: 'chat',
                 component: () => import('@gateway/views/chat/index.vue')
             }
-            
+
         ]
     },
     {

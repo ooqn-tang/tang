@@ -33,7 +33,7 @@ import info from '@components/info.vue';
 
 let authorList = ref([])
 
-function selectAuthor(){
+function selectAuthor() {
   request({
     url: `/api/author/selectAuthor`,
     method: 'GET'
@@ -48,6 +48,4 @@ onMounted(() => {
 
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

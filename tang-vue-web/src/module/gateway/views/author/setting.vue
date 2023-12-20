@@ -9,7 +9,7 @@
     <div class="row mb-3">
       <label class="col-sm-2 col-form-label" disabled>邮箱</label>
       <div class="col-sm-10">
-        <input type="text" class="form-control" disabled v-model="author.mail"/>
+        <input type="text" class="form-control" disabled v-model="author.mail" />
       </div>
     </div>
     <div class="row mb-3">
@@ -21,7 +21,7 @@
     <div class="row mb-3">
       <label class="col-sm-2 col-form-label">签名</label>
       <div class="col-sm-10">
-        <input class="form-control" id="inputPassword3" v-model="author.signature"/>
+        <input class="form-control" id="inputPassword3" v-model="author.signature" />
       </div>
     </div>
     <div>
@@ -47,7 +47,7 @@ let author = ref({
 
 let username = authorStore.username;
 
-function loadAuthor(){
+function loadAuthor() {
   request({
     url: `/api/author/username/${username}`,
     method: "get",
@@ -56,7 +56,7 @@ function loadAuthor(){
   });
 };
 
-function save(){
+function save() {
   request({
     url: `/api/author`,
     method: "put",
@@ -66,9 +66,9 @@ function save(){
   });
 };
 
-function logout(){
+function logout() {
   authorStore.logout();
-  window.location.href='/'
+  window.location.href = '/'
 }
 
 onMounted(() => {
@@ -77,6 +77,4 @@ onMounted(() => {
 
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

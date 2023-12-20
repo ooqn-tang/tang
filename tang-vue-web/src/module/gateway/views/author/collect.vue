@@ -1,28 +1,29 @@
 <template>
   <ul class="list-group article-list">
-    <li class="list-group-item" v-for="(item,index) in collects">
+    <li class="list-group-item" v-for="(item, index) in collects">
       <a target="_blank" :href="item.url" class="article-title">
-        <strong>{{item.title}}</strong><span class="float-end">{{item.createDate}}</span>
+        <strong>{{ item.title }}</strong><span class="float-end">{{ item.createDate }}</span>
       </a>
       <div class="article-synopsis">{{ item.synopsis }}</div>
       <span class="tag">{{ item.createTime }}</span>
       <div class="btn-group float-end">
-        <button class="btn btn-outline-danger float-end blog-btn" v-if="isThisUser" @click="deleteCollect(item.url, index)">
+        <button class="btn btn-outline-danger float-end blog-btn" v-if="isThisUser"
+          @click="deleteCollect(item.url, index)">
           删除
         </button>
       </div>
-    </li>   
-    <li class="list-group-item" >
-      <a @click="next()">{{huoqu}}</a>
-    </li> 
+    </li>
+    <li class="list-group-item">
+      <a @click="next()">{{ huoqu }}</a>
+    </li>
   </ul>
 </template>
 
 <script setup>
-import { onMounted,ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import { useRoute } from "vue-router";
 import { useAuthorStore } from "@common/user";
-import { collectListApi,deleteCollectApi } from "@gateway/apis/collect"
+import { collectListApi, deleteCollectApi } from "@gateway/apis/collect"
 
 let authorStore = useAuthorStore();
 let route = useRoute();
@@ -37,22 +38,22 @@ let huoqu = ref('获取中...')
 
 let collects = ref([])
 
-function collectList(pageNum){
+function collectList(pageNum) {
   huoqu.value = '获取中...'
-  collectListApi({page: page.value.number}).then((res) => {
+  collectListApi({ page: page.value.number }).then((res) => {
     page.value = res.data;
     collects.value = collects.value.concat(res.data.content);
     huoqu.value = '获取';
   })
 }
 
-function deleteCollect(url, index){
-  deleteCollectApi({url:url}).then((res) => {
+function deleteCollect(url, index) {
+  deleteCollectApi({ url: url }).then((res) => {
     collects.value.splice(index, 1);
   })
 }
 
-function next(){
+function next() {
   if (!page.value.last) {
     page.value.number += 1
     collectList(page.value.number)
@@ -66,7 +67,6 @@ onMounted(() => {
 </script>
 
 <style scoped>
-
 .tag {
   background: #efefef;
   padding: 0px 5px;

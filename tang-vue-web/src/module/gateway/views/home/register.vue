@@ -40,7 +40,7 @@
 
 <script setup>
 import request from '@common/request';
-import { onMounted,ref } from "vue";
+import { onMounted, ref } from "vue";
 
 let loginData = ref({
   username: "",
@@ -50,7 +50,7 @@ let loginData = ref({
   'rememberMe': true
 })
 
-function register(){
+function register() {
   if (loginData.value.password !== loginData.value.password1) {
     alert("两次密码不一致")
     return
@@ -73,10 +73,11 @@ onMounted(() => {
 
 </script>
 <style scoped>
-.body{
+.body {
   background-image: url('https://img-s-msn-com.akamaized.net/tenant/amp/entityid/AAOElaZ.img') !important;
 }
-.w100{
+
+.w100 {
   width: 100% !important;
 }
 </style>

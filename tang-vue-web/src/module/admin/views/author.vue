@@ -11,8 +11,8 @@
       <template #header>
         角色管理
       </template>
-      <n-data-table :columns="roleColumns" :data="roles" :row-key="roleRowKey" :default-checked-row-keys="defaultSelectRoles"
-        @update:checked-row-keys="roleCheck" />
+      <n-data-table :columns="roleColumns" :data="roles" :row-key="roleRowKey"
+        :default-checked-row-keys="defaultSelectRoles" @update:checked-row-keys="roleCheck" />
       <template #footer>
         <n-space>
           <n-button @click="updateAuthorRole()">保存</n-button>
@@ -27,7 +27,7 @@
 import request from "@common/request";
 import { onMounted, ref, h } from "vue";
 import { NButton, NSpace, NDataTable, NDrawer, NDrawerContent } from "naive-ui";
-import { loadRolesApi,updateAuthorRoleApi } from "@admin/apis/role"
+import { loadRolesApi, updateAuthorRoleApi } from "@admin/apis/role"
 import { updateAuthorApi, loadRoleByAuthorIdApi, loadAuthorApi } from "@admin/apis/author"
 
 const roleEditDrawer = ref(false);
@@ -112,7 +112,7 @@ const roleCheck = (rowKeys) => {
   selectRoleIds.value = rowKeys;
 }
 
-const updateAuthorRole = () => {  
+const updateAuthorRole = () => {
   updateAuthorRoleApi(selectAuthorRow.value.authorId, selectRoleIds.value)
 }
 

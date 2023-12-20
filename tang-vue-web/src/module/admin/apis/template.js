@@ -11,7 +11,7 @@ export function insertTemplateApi(data) {
     return request({
         url: `/api/admin/template`,
         method: "post",
-        data:data
+        data: data
     });
 }
 
@@ -19,7 +19,7 @@ export function updateTemplateApi(data) {
     return request({
         url: `/api/admin/template`,
         method: "put",
-        data:data
+        data: data
     });
 }
 

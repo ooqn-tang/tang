@@ -1,6 +1,6 @@
 import axios from 'axios'
-import {refresh} from '@gateway/apis/utils'
-import {setToken} from '@common/token'
+import { refresh } from '@gateway/apis/utils'
+import { setToken } from '@common/token'
 
 axios.defaults.withCredentials = true;
 
@@ -35,7 +35,7 @@ service.interceptors.response.use(
         return response;
     },
     async error => {
-        if(error.response == null){
+        if (error.response == null) {
             return Promise.reject(error);
         }
         if (error.response.status === 401) {
@@ -55,7 +55,7 @@ service.interceptors.response.use(
         }
         // 重新获取新TOKEN
         if (error.response.status === 666) {
-            if (!isRefreshing){
+            if (!isRefreshing) {
                 isRefreshing = true
                 //调用刷新token的接口
                 try {
@@ -78,13 +78,13 @@ service.interceptors.response.use(
             } else {
                 // 返回未执行 resolve 的 Promise
                 return new Promise(resolve => {
-                  // 用函数形式将 resolve 存入，等待刷新后再执行
-                  requests.push(jwt => {
-                    error.response.headers.Token = jwt
-                    resolve(service(error.response.config))
-                  })
+                    // 用函数形式将 resolve 存入，等待刷新后再执行
+                    requests.push(jwt => {
+                        error.response.headers.Token = jwt
+                        resolve(service(error.response.config))
+                    })
                 })
-              }
+            }
         }
         return Promise.reject(error.response);
     }
