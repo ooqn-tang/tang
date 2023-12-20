@@ -1,6 +1,6 @@
 <template>
   <div class="h100 flex">
-    <div class="pc b1 m5 w200px mr0">
+    <div class="pc b1 m5 w100 mr0">
       <div class="p2 bb1 h40">
         <select class="h100 w100 text-center" v-model="articleForm.subjectId">
           <option>设置专辑</option>
