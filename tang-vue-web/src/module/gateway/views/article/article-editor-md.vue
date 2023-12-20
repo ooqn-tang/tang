@@ -26,7 +26,7 @@
         <div class="flex-grow-1 flex flex-column">
           <textarea class="flex-grow-1 w100 bb1" ref="systemForm" @scroll="sysHandleScroll()" id="text"
             v-model="articleForm.markdown" placeholder="可以输入Markdown文本为内容添加样式."></textarea>
-          <div class="br1">
+          <div class="br1 m-br0">
             <button class="br1 p5" data-bs-toggle="modal" data-bs-target="#exampleModal">属性</button>
             <button class="br1 p5">预览</button>
             <button class="br1 p5">返回</button>
@@ -279,9 +279,15 @@ img {
   #content {
     display: none;
   }
+
+  .m-br0{
+    margin-bottom: 0px;
+  }
 }
 
 .w80px {
   width: 80px;
 }
+
+
 </style>
