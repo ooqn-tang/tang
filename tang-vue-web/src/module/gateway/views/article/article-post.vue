@@ -52,14 +52,14 @@
     <div class="col-md-3 col-lg-3 d-md-inline d-none small-col">
       <div class="list-group mb-2" v-if="articleList.length > 0">
         <a class="list-group-item active">专题</a>
-        <a v-for="(item, index) in articleList" class="list-group-item" :class="item.articleId == article.articleId ? 'active2' : ''"
+        <a v-for="item in articleList" class="list-group-item" :class="item.articleId == article.articleId ? 'active2' : ''"
           :href="'/article/' + item.articleId">
           <div>{{ item.title }}</div>
         </a>
       </div>
       <div class="list-group mb-2">
         <a class="list-group-item active">推荐<span class="float-end">🎇</span></a>
-        <a v-for="(item, index) in recommendList" class="list-group-item"
+        <a v-for="item in recommendList" class="list-group-item"
           :href="'/article/' + item.articleId">{{ item.title }}</a>
       </div>
       <notice></notice>
@@ -72,7 +72,7 @@
         <a :class="collect == 1 ? 'btn-outline-danger' : 'btn-outline-primary'" class="btn btn-sm mini-but m-l-0"
           @click="collectClick">收藏</a>
         <a class="btn btn-outline-primary btn-sm mini-but" disabled>举报</a>
-        <a class="btn btn-outline-primary btn-sm mini-but" :href="'https://api.ooqn.com/article/' + articleId"
+        <a class="btn btn-outline-primary btn-sm mini-but" :href="'https://www.ooqn.com/article/' + articleId"
           target="_blank">阅读模式</a>
         <router-link class="btn btn-outline-primary btn-sm mini-but" v-if="isThisUser" target="_blank"
           :to="{ name: 'article-editor-md', query: { article: articleId } }">修改</router-link>
@@ -93,6 +93,7 @@ import notice from '@components/notice.vue';
 import info from '@components/info.vue';
 import { insertCollectApi,deleteCollectApi,isCollectApi } from "@gateway/apis/collect";
 import { deleteRemarkApi, selectRemarkApi, insertRemarkApi } from "@gateway/apis/remark"
+import { articleSubjectArticleListApi } from "@gateway/apis/subject"
 
 const route = useRoute()
 const store = useAuthorStore()
@@ -196,11 +197,8 @@ function loadArticleInfo() {
 }
 
 function selectSubjectArticleList() {
-  request({
-    url: `/api/subject/article/${articleId}`,
-    method: "GET",
-  }).then((res) => {
-    articleList = res.data;
+  articleSubjectArticleListApi(articleId).then((res) => {
+    articleList.value = res.data;
   });
 }
 

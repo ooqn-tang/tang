@@ -13,7 +13,7 @@
         </div>
       </div>
       <ul class="list-group mb-2">
-        <li class="list-group-item " v-for="(item, index) in subjectData.dataArray">
+        <li class="list-group-item " v-for="item in subjectData.dataArray">
           <router-link :to="{ name: 'article_post', params: { id: item.articleId } }" class="article-title">
             <strong>
               <p v-text="item.title"></p>

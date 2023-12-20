@@ -22,14 +22,14 @@
           </div>
         </div>
         <div class="modal-footer">
-          <div class="btn-group W100">
+          <div class="btn-group w100">
             <button type="button" class="btn btn-primary" @click="register()">注册</button>
 
           </div>
-          <div class="btn-group W100">
+          <div class="btn-group w100">
             <router-link to="/login" type="button" class="btn btn-outline-secondary">登录</router-link>
           </div>
-          <div class="btn-group W100">
+          <div class="btn-group w100">
             <router-link to="/" type="button" class="btn btn-outline-secondary ">返回首页</router-link>
           </div>
         </div>
@@ -76,7 +76,7 @@ onMounted(() => {
 .body{
   background-image: url('https://img-s-msn-com.akamaized.net/tenant/amp/entityid/AAOElaZ.img') !important;
 }
-.W100{
+.w100{
   width: 100% !important;
 }
 </style>

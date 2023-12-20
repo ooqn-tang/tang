@@ -6,7 +6,7 @@
         <button class="btn btn-outline-secondary" type="button" @click="so()">搜索</button>
       </div>
       <ul class="list-group mb-2 ">
-        <li class="list-group-item" v-for="(item, index) in dataList">
+        <li class="list-group-item" v-for="item in dataList">
           <p class="article-title">
             <strong>
               <router-link :to="{ name: 'article_post', params: { id: item.articleId } }">{{ item.title }}</router-link>

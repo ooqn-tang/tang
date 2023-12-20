@@ -111,6 +111,9 @@ nav .dropdown-menu {
         border-radius: 0;
     }
     
+    .m-h{
+        display: none;
+    }
 }
 
 .nav-link {
@@ -158,22 +161,45 @@ nav .dropdown-menu {
     text-overflow: ellipsis;
 }
 
-.W100 {
+.w100 {
     width: 100% !important;
 }
 
-.H100{
+.h100{
     height: 100% !important;
 }
 
+.text-center{
+    text-align: center;
+}
+
+.p5{
+    padding: 5px;
+}
+
+.p2{
+    padding: 2px;
+}
   
+.flex {
+    display: flex;;
+}
 
 .flex-container {
     display: flex;
-    flex-direction: column; /* 设置弹性容器为垂直布局 */
-    height: 100%; /* 容器的高度 */
+    flex-direction: column;
+    height: 100%;
 }
 
+.flex-column {
+    display: flex;
+    flex-direction: column;
+}
+
+.flex-row {
+    display: flex;
+    flex-direction: row;
+}
 
 .box-list div{
     border-bottom: 1px solid #dee2e6;
@@ -181,3 +207,42 @@ nav .dropdown-menu {
 
 }
 
+.b1{
+    border: 1px solid black;
+}
+
+.bt1{
+    border-top: 1px solid black;
+}
+
+.br1{
+    border-right: 1px solid black;
+}
+.bb1{
+    border-bottom: 1px solid black;
+}
+.bl1{
+    border-left: 1px solid black;
+}
+
+.m2{
+    margin: 2px;
+
+}
+
+.m5{
+    margin: 5px;
+
+
+}
+.flex-grow-1{
+    flex-grow: 1;
+}
+
+
+.w200px{
+    width: 200px;
+} 
+.mr0{
+    margin-right: 0px;
+}

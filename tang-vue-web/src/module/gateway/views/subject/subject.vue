@@ -2,7 +2,7 @@
   <div class="row clearfix">
     <div class="col-md-9  small-col">
       <div class="row">
-        <div class="col-xl-3 col-lg-4 col-md-4 col-12 mb-2" v-for="(item, index) in subjectList">
+        <div class="col-xl-3 col-lg-4 col-md-4 col-12 mb-2" v-for="item in subjectList">
           <div class="card ">
             <div class="card-body">
               <p class="card-text text-truncate">

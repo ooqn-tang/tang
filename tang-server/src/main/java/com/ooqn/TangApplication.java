@@ -37,7 +37,7 @@ public class TangApplication {
 		return new ServerEndpointExporter();
 	}
 
-	/**
+	/**z
 	 * 配置https
 	 * @ConditionalOnProperty 注解的作用是当配置文件中tang-https=true时，才会执行下面的方法
 	 */

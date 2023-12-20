@@ -1,10 +1,10 @@
 <template>
   <ul class="list-group article-list">
-    <li class="list-group-item" v-for="(item, index) in fansList">
+    <li class="list-group-item" v-for="item in fansList">
       <router-link target="_blank" :to="{ name: 'author_article', params: { username: item.username } }">
         <strong v-text="item.nickname"></strong>
       </router-link>
-      <span class="float-end" @click="deleteFansMethod(item.username, index)">取消关注</span>
+      <button class="btn btn-outline-danger float-end fans-but" @click="deleteFansMethod(item.username, index)">取消关注</button>
       <div class="article-synopsis">{{ item.signature }}</div>
     </li>
     <li class="list-group-item" @click="loadArticle()">
@@ -46,5 +46,8 @@ onMounted(() => {
 </script>
 
 <style scoped>
-
+.fans-but{
+  padding: 0px 5px 0px 3px;
+  font-size: 13px;
+}
 </style>
