@@ -281,7 +281,7 @@ img {
   }
 
   .m-br0{
-    margin-bottom: 0px;
+    border-right: 0px;
   }
 }
 
