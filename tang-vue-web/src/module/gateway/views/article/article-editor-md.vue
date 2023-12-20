@@ -213,6 +213,14 @@ img {
   max-width: 100%;
 }
 
+.w200px{
+  width: 200px;
+}
+
+.mr0{
+  margin-right: 0px;
+}
+
 .h40 {
   height: 40px;
 }
