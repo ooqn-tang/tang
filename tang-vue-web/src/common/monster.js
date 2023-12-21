@@ -57,7 +57,7 @@ export class MonsterSocket {
             code: "SendMessage",
             params: {
                 username: username,
-                text: message
+                content: message
             }
         }, callback);
     }

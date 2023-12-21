@@ -2,7 +2,6 @@ package com.ooqn.core.exception;
 
 import java.util.Set;
 
-import org.apache.coyote.BadRequestException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -85,12 +84,4 @@ public class GlobalExceptionHandler {
 		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ex.getMessage());
 	}
 
-		/**
-	 * Exception 参数校验统一异常处理
-	 */
-	@ExceptionHandler(BadRequestException.class)
-	public ResponseEntity<?> errorHandler(BadRequestException ex,
-			HttpServletResponse httpServletResponse, HttpServletRequest httpServletRequest) {
-		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ex.getMessage());
-	}
 }

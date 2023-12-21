@@ -10,34 +10,35 @@
 
       <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
         <ul class="navbar-nav me-auto mb-lg-0 pc">
-          <li class="nav-item" v-for="(item, index) in linkItemList" v-show="item.admin ? store.isAdmin : true"><a
-              class="nav-link active" :href="item.to">{{ item.name }}</a></li>
+          <li class="nav-item" v-for="(item, index) in linkItemList" v-show="item.admin ? store.isAdmin : true"><router-link
+              class="nav-link active" :to="item.to">{{ item.name }}</router-link></li>
         </ul>
         <ul class="navbar-nav me-auto mb-lg-0 yd">
           <li class="nav-item dropdown float-start">
             <a class="nav-link active dropdown-toggle" href="#" data-bs-toggle="dropdown">🧮菜单</a>
             <ul class="dropdown-menu">
-              <li v-for="(item, index) in linkItemList" v-show="item.admin ? store.isAdmin : true"><a class="dropdown-item"
-                  :href="item.to">{{ item.name }}</a></li>
+              <li v-for="(item, index) in linkItemList" v-show="item.admin ? store.isAdmin : true">
+                <router-link class="dropdown-item"
+                  :to="item.to">{{ item.name }}</router-link></li>
             </ul>
           </li>
           <li class="nav-item float-start">
-            <a class="nav-link active right-padding-0" href="/search">🔍搜索</a>
+            <router-link class="nav-link active right-padding-0" to="/search">🔍搜索</router-link>
           </li>
         </ul>
         <form class="d-flex d-md-inline">
           <ul class="navbar-nav me-auto" id="nav-right">
             <li class="nav-item" v-if="!isLogin">
-              <a class="nav-link active left-padding-0" href="/login">登录</a>
+              <router-link class="nav-link active left-padding-0" to="/login">登录</router-link>
             </li>
             <li class="nav-item" v-if="isLogin">
-              <a class="nav-link active left-padding-0" href="/message">消息</a>
+              <router-link class="nav-link active left-padding-0" to="/message">消息</router-link>
             </li>
             <li class="nav-item" v-if="isLogin">
               <a class="nav-link active" href="/article-editor-md" target="_blank">投稿</a>
             </li>
             <li class="nav-item" v-if="isLogin">
-              <a class="nav-link active right-padding-0" :href="'/author/' + store.username">我的</a>
+              <router-link class="nav-link active right-padding-0" :to="'/author/' + store.username">我的</router-link>
             </li>
           </ul>
         </form>

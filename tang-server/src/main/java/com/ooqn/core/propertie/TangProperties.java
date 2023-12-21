@@ -22,5 +22,7 @@ public class TangProperties {
 
   private String openUrl = "";
 
+  private String port = "8888";
+
   private JwtProperties jwt = new JwtProperties();
 }

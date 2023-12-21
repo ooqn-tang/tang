@@ -29,7 +29,7 @@ public class SendMessageHeader implements MsgHeader {
     @Override
     public ResponseMessage run(WebSocketSession session, RequestMessage requestMessage) {
         ResponseMessage responseMessage = requestMessage.getResponseMessage();
-        String text = requestMessage.getParam("text");
+        String content = requestMessage.getParam("content");
         String acceptName = requestMessage.getParam("username");
         JSONObject object = (JSONObject) session.getAttributes().get("author");
         String sendName = object.getStr("username");
@@ -38,7 +38,7 @@ public class SendMessageHeader implements MsgHeader {
         message.setId(IdUtil.objectId());
         message.setAcceptName(acceptName);
         message.setSendName(sendName);
-        message.setContent(text);
+        message.setContent(content);
         message.setCreateTime(DateUtil.date());
         message.setUpdateTime(DateUtil.date());
         messageRepository.save(message);
@@ -62,7 +62,7 @@ public class SendMessageHeader implements MsgHeader {
         }
         
 
-        responseMessage.setItem("text", "收到了你的消息：" + text);
+        responseMessage.setItem("text", "收到了你的消息：" + content);
         return responseMessage;
     }
     

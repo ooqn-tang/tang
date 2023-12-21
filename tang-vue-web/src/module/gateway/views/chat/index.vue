@@ -91,22 +91,21 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from "vue";
+import { onMounted, ref,inject  } from "vue";
 import { refresh } from "@gateway/apis/utils";
 
 import { useAuthorStore } from "@common/user";
-import { MonsterSocket } from "@common/monster"
 
 let authorStore = useAuthorStore();
+
 
 
 let mh = ref("right");
 let message = ref("");
 let messageList = ref([])
 let member = ref({});
+let monsterSocket = inject("$ms");
 
-let monsterUrl = import.meta.env.VITE_BASE_API_WS + "_monster/" + authorStore.username;
-var monsterSocket = new MonsterSocket(monsterUrl);
 
 monsterSocket.setHeader("Message", (msg) => {
     messageList.value.push(msg.data)
@@ -118,10 +117,6 @@ monsterSocket.setHeader("MessageList", (msg) => {
     console.log(msg.data)
 })
 
-monsterSocket.login((msg) => {
-    console.log(JSON.stringify(msg))
-})
-
 function sendMessage() {
     let send = {
         acceptName: member.value.username,
@@ -131,13 +126,14 @@ function sendMessage() {
         updateTime: new Date()
     }
     messageList.value.push(send);
-    message.value = "";
+    
     monsterSocket.sendMessage(message.value, member.value.username, (msg) => {
         if (msg.status == 200) {
             console.log(msg.message);
 
         }
-    })
+    });
+    message.value = "";
 }
 
 function selectMember(item) {

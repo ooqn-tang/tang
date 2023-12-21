@@ -25,7 +25,7 @@ public class MonsterWebSocketConfigurer  implements WebSocketConfigurer {
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
         registry
-        .addHandler(monsterWebSocketHandler, "/_monster/*")
+        .addHandler(monsterWebSocketHandler, "/_monster")
         .addInterceptors(monsterHandshakeInterceptor())
         .setAllowedOrigins("*");
     }

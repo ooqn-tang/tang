@@ -60,7 +60,6 @@ public class MonsterWebSocketHandler implements WebSocketHandler {
 
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
-        
         System.out.println("连接创建成功");
     }
 
@@ -70,6 +69,6 @@ public class MonsterWebSocketHandler implements WebSocketHandler {
         for (Entry<String,List<WebSocketSession>> entry : entrySet) {
             entry.getValue().remove(session);
         }
-        System.out.println("连接关闭");
+        System.out.println("连接关闭****************************");
     }
 }

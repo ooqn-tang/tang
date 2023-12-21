@@ -1,28 +1,29 @@
 package com.ooqn;
 
-import java.security.Principal;
 import java.sql.SQLException;
 
-import org.apache.catalina.Context;
-import org.apache.catalina.connector.Connector;
-import org.apache.catalina.realm.RealmBase;
-import org.apache.tomcat.util.descriptor.web.SecurityCollection;
-import org.apache.tomcat.util.descriptor.web.SecurityConstraint;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
+import org.springframework.boot.web.embedded.undertow.UndertowServletWebServerFactory;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.boot.web.servlet.server.ServletWebServerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.web.socket.server.standard.ServerEndpointExporter;
 
+import io.undertow.Undertow;
+import io.undertow.UndertowOptions;
+import io.undertow.servlet.api.SecurityConstraint;
+import io.undertow.servlet.api.SecurityInfo;
+import io.undertow.servlet.api.TransportGuaranteeType;
+import io.undertow.servlet.api.WebResourceCollection;
+
 @EnableJpaRepositories
 @SpringBootApplication
 @ServletComponentScan
 public class TangApplication {
-
 
 	public static void main(String[] args) throws SQLException {
 		SpringApplication springApplication = new SpringApplication(TangApplication.class);
@@ -37,54 +38,25 @@ public class TangApplication {
 		return new ServerEndpointExporter();
 	}
 
-	/**z
-	 * 配置https
-	 * @ConditionalOnProperty 注解的作用是当配置文件中tang-https=true时，才会执行下面的方法
-	 */
     @Bean
     @ConditionalOnProperty(value = "server.ssl.enabled", havingValue = "true")
-    ServletWebServerFactory servletContainer() {
-		TomcatServletWebServerFactory tomcat = new TomcatServletWebServerFactory() {
-			@Override
-			protected void postProcessContext(Context context) {
-				SecurityConstraint constraint = new SecurityConstraint();
-				constraint.setUserConstraint("CONFIDENTIAL");
-				SecurityCollection collection = new SecurityCollection();
-				collection.addPattern("/*");
-				constraint.addCollection(collection);
-				context.addConstraint(constraint);
-			}
-		};
+    ServletWebServerFactory undertowFactory() {
+        UndertowServletWebServerFactory undertowFactory = new UndertowServletWebServerFactory();
 
-		tomcat.addAdditionalTomcatConnectors(createStandardConnector());
-
-		tomcat.addContextCustomizers(context -> {
-			RealmBase realmBase = new RealmBase() {
-				@Override
-				protected String getPassword(String username) {
-					return null;
-				}
-
-				@Override
-				protected Principal getPrincipal(String username) {
-					return null;
-				}
-			};
-			realmBase.setTransportGuaranteeRedirectStatus(301);
-			context.setRealm(realmBase);
+		undertowFactory.addBuilderCustomizers((Undertow.Builder builder) -> {
+			builder.addHttpListener(80, "0.0.0.0");
+			builder.setServerOption(UndertowOptions.ENABLE_HTTP2, true);
 		});
-		return tomcat;
-	}
 
-	/**
-	 * 配置http转https
-	 */
-	private Connector createStandardConnector() {
-		Connector connector = new Connector("org.apache.coyote.http11.Http11NioProtocol");
-		connector.setScheme("http");
-		connector.setPort(80);
-		connector.setSecure(false);
-		connector.setRedirectPort(443);
-		return connector;
-	}
+        undertowFactory.addDeploymentInfoCustomizers(deploymentInfo -> {
+            // 开启HTTP自动跳转至HTTPS 
+            deploymentInfo.addSecurityConstraint(new SecurityConstraint()
+                    .addWebResourceCollection(new WebResourceCollection().addUrlPattern("/*"))
+                    .setTransportGuaranteeType(TransportGuaranteeType.CONFIDENTIAL)
+                    .setEmptyRoleSemantic(SecurityInfo.EmptyRoleSemantic.PERMIT))
+                    .setConfidentialPortManager(exchange -> 443);
+        });
+        return undertowFactory;
+    }
+
 }
