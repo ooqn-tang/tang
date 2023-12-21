@@ -22,7 +22,7 @@ public class WatchListHeader implements MsgHeader{
 
     @Override
     public ResponseMessage run(WebSocketSession session, RequestMessage requestMessage) {
-        Pageable pageable = PageRequest.of(0, 15);
+        Pageable pageable = PageRequest.of(0, 100);
         Page<UtsAuthor> selectAuthor = authorService.selectAuthor(pageable);
         ResponseMessage responseMessage = requestMessage.getResponseMessage();
         responseMessage.setItem("data", selectAuthor.getContent());
