@@ -10,16 +10,19 @@
 
       <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
         <ul class="navbar-nav me-auto mb-lg-0 pc">
-          <li class="nav-item" v-for="(item, index) in linkItemList" v-show="item.admin ? store.isAdmin : true"><router-link
-              class="nav-link active" :to="item.to">{{ item.name }}</router-link></li>
+          <li class="nav-item" v-for="(item, index) in linkItemList" v-show="item.admin ? store.isAdmin : true">
+            <router-link tag="a" :target="item._blank ? '_blank' : ''" class="nav-link active" :to="item.to">
+              {{ item.name }}
+            </router-link>
+          </li>
         </ul>
         <ul class="navbar-nav me-auto mb-lg-0 yd">
           <li class="nav-item dropdown float-start">
             <a class="nav-link active dropdown-toggle" href="#" data-bs-toggle="dropdown">🧮菜单</a>
             <ul class="dropdown-menu">
               <li v-for="(item, index) in linkItemList" v-show="item.admin ? store.isAdmin : true">
-                <router-link class="dropdown-item"
-                  :to="item.to">{{ item.name }}</router-link></li>
+                <router-link class="dropdown-item" :to="item.to">{{ item.name }}</router-link>
+              </li>
             </ul>
           </li>
           <li class="nav-item float-start">
@@ -62,7 +65,7 @@ let linkItemList = [
   { name: "👨‍🎓作者", to: "/author", admin: false },
   { name: "📒专题", to: "/subject", admin: false },
   { name: "🔍搜索", to: "/search", admin: false },
-  { name: "🧙‍♂️管理", to: "/admin.html", admin: true }
+  { name: "🧙‍♂️管理", to: "/admin.html", admin: true, _blank: true }
 ]
 
 let isLogin = computed(() => {
@@ -91,4 +94,5 @@ p {
 
 .left-padding-0 {
   padding-left: 0px !important;
-}</style>
+}
+</style>
