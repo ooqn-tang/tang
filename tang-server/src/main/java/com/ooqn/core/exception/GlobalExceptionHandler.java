@@ -35,17 +35,6 @@ public class GlobalExceptionHandler {
 	}
 
 	/**
-	 * ApiException 参数校验统一异常处理
-	 */
-	@ExceptionHandler(JwtException.class)
-	public ResponseEntity<String> errorHandler(JwtException ex,
-			HttpServletResponse httpServletResponse) {
-		logger.error(ex.getMessage(), ex);
-		return ResponseEntity.status(ex.getStatus()).body(ex.getMessage());
-	}
-
-
-	/**
 	 * ConstraintViolationException 参数校验统一异常处理
 	 */
 	@ExceptionHandler(ConstraintViolationException.class)

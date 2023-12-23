@@ -14,7 +14,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 
 import com.ooqn.core.config.TangConfig;
-import com.ooqn.core.exception.JwtException;
+import com.ooqn.core.exception.ApiException;
 import com.ooqn.core.propertie.TangProperties;
 import com.ooqn.entity.model.UtsAuthor;
 import com.ooqn.entity.model.UtsResource;
@@ -93,10 +93,10 @@ public class JwtFilter extends OncePerRequestFilter {
 			}
 
 			LOG.debug("将身份验证设置为安全的上下文 '{}', uri: {}", author.getUsername(), requestURI);
-			handlerExceptionResolver.resolveException(httpServletRequest, response, null, new JwtException(400,"没有权限。"));
+			handlerExceptionResolver.resolveException(httpServletRequest, response, null, new ApiException(400,"没有权限。"));
 		} else {
 			LOG.debug("没有找到有效的JWT令牌, uri: {}", requestURI);
-			handlerExceptionResolver.resolveException(httpServletRequest, response, null, new JwtException(400,"JWT无效。"));
+			handlerExceptionResolver.resolveException(httpServletRequest, response, null, new ApiException(400,"JWT无效。"));
 		}
 	}
 

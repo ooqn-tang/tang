@@ -160,9 +160,6 @@ monsterSocket.watchList((msg) => {
     overflow-y: hidden;
 }
 
-body {
-    overflow-y: hidden;
-}
 
 .modal-rgba {
     background: rgba(0, 0, 0, 0.075);
