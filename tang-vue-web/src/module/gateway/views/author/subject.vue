@@ -1,13 +1,14 @@
 <template>
   <ul class="list-group article-list">
-    <li class="list-group-item" v-for="item in subjectList">
+    <li class="list-group-item" v-for="(item, index) in subjectList">
       <router-link :to="{ name: 'subject_post', params: { subject_id: item.subjectId } }">
         <strong v-text="item.subjectName"></strong>
       </router-link>
       <div class="btn-group float-end">
-        <button class="btn btn-outline-danger float-end blog-btn" @click="deleteClick(item.subjectId, index)">删除</button>
-        <button class="btn btn-outline-danger float-end blog-btn" data-bs-toggle="modal" data-bs-target="#exampleModal"
-          v-if="isThisUser" @click="updateClick(item.subjectId, item.subjectName, item.synopsis)">修改</button>
+        <button class="btn btn-outline-danger float-end blog-btn" @click="deleteClick(item.subjectId, index)"
+          v-if="isThisUser">删除</button>
+        <button class="btn btn-outline-danger float-end blog-btn" @click="updateClick(item)" v-if="isThisUser" data-bs-toggle="modal"
+          data-bs-target="#exampleModal">修改</button>
       </div>
       <div>
         {{ item.synopsis }}
@@ -65,7 +66,7 @@ let dataFrom = ref({
   synopsis: ""
 })
 
-let saveType = ref("update")// insert
+let saveType = ref("update")
 let thisUsername = route.params.username
 
 function selectSubjectListByUsername(username) {
@@ -100,10 +101,10 @@ function save() {
 
 }
 
-function updateClick(subjectId, subjectName, synopsis) {
-  dataFrom.value.subjectId = subjectId;
-  dataFrom.value.subjectName = subjectName;
-  dataFrom.value.synopsis = synopsis;
+function updateClick(item) {
+  dataFrom.value.subjectId = item.subjectId;
+  dataFrom.value.subjectName = item.subjectName;
+  dataFrom.value.synopsis = item.synopsis;
   saveType.value = 'update'
 }
 

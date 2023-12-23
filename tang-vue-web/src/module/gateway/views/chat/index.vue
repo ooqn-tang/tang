@@ -100,7 +100,7 @@ let authorStore = useAuthorStore();
 
 
 
-let mh = ref("right");
+let mh = ref("left");
 let message = ref("");
 let messageList = ref([])
 let member = ref({});

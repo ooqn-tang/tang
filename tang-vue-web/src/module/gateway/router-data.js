@@ -2,11 +2,11 @@ const routeData = [
     {
         path: '/',
         name: 'home',
-        component: () => import('@gateway/views/home/home.vue'),
+        component: () => import('@gateway/views/index/index.vue'),
         children: [
             {
                 path: '/',
-                name: 'main',
+                name: 'home',
                 component: () => import('@gateway/views/article/article-list.vue')
             },
             {
@@ -22,7 +22,7 @@ const routeData = [
             {
                 path: 'message',
                 name: 'message',
-                component: () => import('@gateway/views/home/message.vue')
+                component: () => import('@gateway/views/other/message.vue')
             },
             {
                 path: '/author/:username',
@@ -76,7 +76,7 @@ const routeData = [
             {
                 path: '/search',
                 name: 'search',
-                component: () => import('@gateway/views/home/search.vue')
+                component: () => import('@gateway/views/search/index.vue')
             },
             {
                 path: '/chat',
@@ -94,16 +94,16 @@ const routeData = [
     {
         path: '/login',
         name: 'login',
-        component: () => import('@gateway/views/home/login.vue')
+        component: () => import('@gateway/views/login/login.vue')
     },
     {
         path: '/register',
         name: 'register',
-        component: () => import('@gateway/views/home/register.vue')
+        component: () => import('@gateway/views/login/register.vue')
     },
     {
         path: '/:catchAll(.*)',
-        component: () => import('@gateway/views/home/404.vue'),
+        component: () => import('@gateway/views/other/404.vue'),
         hidden: true
     }
 ]

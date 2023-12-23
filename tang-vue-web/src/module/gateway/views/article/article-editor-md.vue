@@ -1,7 +1,7 @@
 <template>
   <div class="h100 flex">
-    <div class="pc b1 m5 w200px mr0">
-      <div class="p2 bb1 h40">
+    <div class="pc b1 m5 w300px mr0">
+      <div class="p2 bb1 h40 w300px">
         <select class="h100 w100 text-center" v-model="articleForm.subjectId">
           <option>设置专辑</option>
           <option v-for="item in subjectList" :value="item.subjectId">
@@ -13,26 +13,27 @@
         {{ item.title }}
       </div>
       <div class="p2 bb1 h40">
-        <button class="h100 w100">增加文章</button>
+        <button class="h100 w100 tang-but">增加文章</button>
       </div>
 
     </div>
     <div class="flex-grow-1 b1 m5">
       <div class="h40 flex">
         <input class="flex-grow-1" type="text" id="title" v-model="articleForm.title" placeholder="标题" />
-        <button class='w80px' @click="saveArticle()">保存</button>
+        <button class='w80px tang-but' data-bs-toggle="modal" data-bs-target="#exampleModal">发布</button>
       </div>
       <div class="body flex">
         <div class="flex-grow-1 flex flex-column">
           <textarea class="flex-grow-1 w100 bb1" ref="systemForm" @scroll="sysHandleScroll()" id="text"
             v-model="articleForm.markdown" placeholder="可以输入Markdown文本为内容添加样式."></textarea>
           <div class="br1 m-br0">
-            <button class="br1 p5" data-bs-toggle="modal" data-bs-target="#exampleModal">属性</button>
-            <button class="br1 p5">预览</button>
-            <button class="br1 p5">返回</button>
-            <button class="br1 p5">撤回修改</button>
+            <button class="br1 p5 tang-but">预览</button>
+            <button class="br1 p5 tang-but">发布</button>
+            <button class="br1 p5 tang-but">草稿</button>
+            <button class="br1 p5 tang-but">历史版本</button>
+            <button class="br1 p5 tang-but">创建专辑</button>
+            <button class="br1 p5 tang-but">关闭</button>
           </div>
-
         </div>
         <div ref="externalForm" @scroll="exterHandleScroll()" id="content" v-html="articleForm.text"
           class="markdown-body"></div>
@@ -213,8 +214,8 @@ img {
   max-width: 100%;
 }
 
-.w200px{
-  width: 200px;
+.w300px{
+  width: 300px;
 }
 
 .mr0{
@@ -287,6 +288,11 @@ img {
 
 .w80px {
   width: 80px;
+}
+
+/* tang-but 点击颜色*/
+.tang-but:active {
+  background-color: #d1e6fa;
 }
 
 

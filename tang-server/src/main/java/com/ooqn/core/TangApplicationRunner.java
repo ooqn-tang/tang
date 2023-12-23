@@ -12,20 +12,20 @@ import jakarta.transaction.Transactional;
 public class TangApplicationRunner implements CommandLineRunner {
 
     @Autowired
-    StsInitService initService;
-
+    private StsInitService initService;
 
     @Override
     @Transactional
     public void run(String... args) throws Exception {
         new Thread() {
             public void run() {
-                System.out.println("初始化数据--------------------------------");
+                long timeMillis1 = System.currentTimeMillis();
+                System.out.println("初始化数据开始=================================");
                 initService.init();
-                System.out.println("初始化数据--------------------------------");
+                long timeMillis2 = System.currentTimeMillis();
+                System.out.println("初始化数据耗时：" + (timeMillis2 - timeMillis1) + "ms");
+                System.out.println("初始化数据结束=================================");
             }
         }.start();
-       
-        
     }
 }

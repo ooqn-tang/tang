@@ -43,20 +43,20 @@
 
           <div class="card mb-2 article-body" v-for="item in remarkList">
             <div class="card-body">
-              <p style="color: aqua;">{{ item.author != null ? item.author.nickname : "未知" }}</p>
+              <p style="color: rgb(0, 89, 255);">{{ item.author != null ? item.author.nickname : "未知" }}</p>
               <p>{{ item.text }}</p>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="col-md-3 col-lg-3 d-md-inline d-none small-col">
+    <div class="col-md-3 col-lg-3 d-md-inline small-col">
       <div class="list-group mb-2" v-if="articleList.length > 0">
         <a class="list-group-item active">专题</a>
-        <a v-for="item in articleList" class="list-group-item"
-          :class="item.articleId == article.articleId ? 'active2' : ''" :href="'/article/' + item.articleId">
+        <router-link v-for="item in articleList" class="list-group-item"
+          :class="item.articleId == article.articleId ? 'active2' : ''" :to="'/article/' + item.articleId">
           <div>{{ item.title }}</div>
-        </a>
+        </router-link>
       </div>
       <div class="list-group mb-2">
         <a class="list-group-item active">推荐<span class="float-end">🎇</span></a>
@@ -86,7 +86,7 @@
 <script setup>
 import "highlight.js/styles/github.css";
 import request from "@common/request";
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, watch } from 'vue';
 import { useRoute } from "vue-router";
 import { useAuthorStore } from "@common/user";
 import notice from '@components/notice.vue';
@@ -227,6 +227,17 @@ onMounted(() => {
   loadRecommend();
   selectRemark();
 })
+
+watch(() => route.params.id, () => {
+  load();
+  //loadRecommend();
+  selectRemark();
+  // 跳转到顶部
+  document.body.scrollTop = document.documentElement.scrollTop = 0
+})
+
+
+
 
 </script>
 
