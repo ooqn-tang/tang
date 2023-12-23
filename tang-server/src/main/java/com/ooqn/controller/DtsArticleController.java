@@ -122,9 +122,10 @@ public class DtsArticleController extends BaseController {
 	@NotLogin
 	@PostMapping("ai")
 	public String postMethodName(@RequestBody Map<String,String> entity) {
+		String title = entity.get("title");
 		String markdown = entity.get("markdown");
 		String html = entity.get("html");
-		DtsArticle saveArticle = articleSubjectService.saveArticle("fdf084f19c014b6691b63fc339126d56", markdown,html);
+		DtsArticle saveArticle = articleSubjectService.saveArticle("fdf084f19c014b6691b63fc339126d56", title,markdown,html);
 		return saveArticle.getArticleId();
 	}
 	
