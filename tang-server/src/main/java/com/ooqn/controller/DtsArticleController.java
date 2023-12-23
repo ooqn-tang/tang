@@ -1,6 +1,7 @@
 package com.ooqn.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -24,6 +25,7 @@ import com.ooqn.entity.model.DtsArticle;
 import com.ooqn.entity.param.DtsArticleParam;
 import com.ooqn.service.DtsArticleSubjectService;
 
+import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.StrUtil;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
@@ -116,4 +118,14 @@ public class DtsArticleController extends BaseController {
 		Pageable pageable = PageRequest.of(page, 10);
 		return articleSubjectService.search(wb, pageable);
 	}
+
+	@NotLogin
+	@PostMapping("ai")
+	public String postMethodName(@RequestBody Map<String,String> entity) {
+		String markdown = entity.get("markdown");
+		String html = entity.get("html");
+		DtsArticle saveArticle = articleSubjectService.saveArticle(markdown, html,"fdf084f19c014b6691b63fc339126d56");
+		return saveArticle.getArticleId();
+	}
+	
 }

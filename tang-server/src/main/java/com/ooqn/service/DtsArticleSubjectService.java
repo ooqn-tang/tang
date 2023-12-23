@@ -151,11 +151,28 @@ public class DtsArticleSubjectService {
 		return articleRepository.save(article);
 	}
 
+	public DtsArticle saveArticle(String authorId, String markdown, String html) {
+		String markdownId = saveContext(markdown);
+		String htmlId = saveContext(html);
+		DateTime date = DateUtil.date();
+		DtsArticle article = new DtsArticle();
+		article.setArticleId(IdUtil.objectId());
+		article.setCreateTime(date);
+		article.setUpdateTime(date);
+		article.setState(StateNum.normal);
+		article.setAuthorId(authorId);
+		article.setMarkdownContextId(markdownId);
+		article.setTextContextId(htmlId);
+
+		return articleRepository.save(article);
+	}
+
+
 	public DtsArticle updateArticle(String articleId, String subjectId,String categoryId, String title, String text, String markdown) {
 
 		String synopsis = StrUtil.sub(CommonUtil.delHTMLTag(text), 0, 150);
-		String textContextId = saveContext(articleId, text);
-		String markdownContextId = saveContext(articleId, markdown);
+		String textContextId = saveContext(text);
+		String markdownContextId = saveContext(markdown);
 
 		DtsArticle article = articleRepository.findById(articleId).orElseThrow();
 		article.setState(StateNum.normal);
@@ -310,7 +327,7 @@ public class DtsArticleSubjectService {
 		articleRepository.save(article);
 	}
 
-	public String saveContext(String dataId, String text) {
+	public String saveContext(String text) {
 		DtsContext context = new DtsContext();
 		String contextId = IdUtil.objectId();
 		context.setId(contextId);
