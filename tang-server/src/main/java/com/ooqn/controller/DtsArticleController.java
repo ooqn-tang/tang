@@ -124,7 +124,7 @@ public class DtsArticleController extends BaseController {
 	public String postMethodName(@RequestBody Map<String,String> entity) {
 		String markdown = entity.get("markdown");
 		String html = entity.get("html");
-		DtsArticle saveArticle = articleSubjectService.saveArticle(markdown, html,"fdf084f19c014b6691b63fc339126d56");
+		DtsArticle saveArticle = articleSubjectService.saveArticle("fdf084f19c014b6691b63fc339126d56", markdown,html);
 		return saveArticle.getArticleId();
 	}
 	
