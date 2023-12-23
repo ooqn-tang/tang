@@ -24,6 +24,8 @@ import com.ooqn.entity.dto.DtsArticleDto;
 import com.ooqn.entity.model.DtsArticle;
 import com.ooqn.entity.param.DtsArticleParam;
 import com.ooqn.service.DtsArticleSubjectService;
+import com.vladsch.flexmark.html.HtmlRenderer;
+import com.vladsch.flexmark.parser.Parser;
 
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.StrUtil;
@@ -33,6 +35,13 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 @RequestMapping("api/article")
 @Tag(name = "文章")
 public class DtsArticleController extends BaseController {
+
+	
+	// 创建Markdown解析器
+	private Parser parser = Parser.builder().build();
+
+	// 创建HTML渲染器
+	private HtmlRenderer renderer = HtmlRenderer.builder().build();
 
 	@Autowired
 	private DtsArticleSubjectService articleSubjectService;
@@ -119,13 +128,16 @@ public class DtsArticleController extends BaseController {
 		return articleSubjectService.search(wb, pageable);
 	}
 
+
 	@NotLogin
 	@PostMapping("ai")
 	public String postMethodName(@RequestBody Map<String,String> entity) {
 		String title = entity.get("title");
 		String markdown = entity.get("markdown");
-		String html = entity.get("html");
-		DtsArticle saveArticle = articleSubjectService.saveArticle("fdf084f19c014b6691b63fc339126d56", title,markdown,html);
+        // 将Markdown文本解析为HTML
+        String html = renderer.render(parser.parse(markdown));
+		String synopsis = entity.get("synopsis");
+		DtsArticle saveArticle = articleSubjectService.saveArticle("fdf084f19c014b6691b63fc339126d56", title,synopsis,markdown,html);
 		return saveArticle.getArticleId();
 	}
 	

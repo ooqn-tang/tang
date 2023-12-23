@@ -151,12 +151,13 @@ public class DtsArticleSubjectService {
 		return articleRepository.save(article);
 	}
 
-	public DtsArticle saveArticle(String authorId, String title,String markdown, String html) {
+	public DtsArticle saveArticle(String authorId, String title,String synopsis,String markdown, String html) {
 		String markdownId = saveContext(markdown);
 		String htmlId = saveContext(html);
 		DateTime date = DateUtil.date();
 		DtsArticle article = new DtsArticle();
 		article.setTitle(title);
+		article.setSynopsis(synopsis);
 		article.setArticleId(IdUtil.objectId());
 		article.setCreateTime(date);
 		article.setUpdateTime(date);
