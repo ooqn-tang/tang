@@ -22,10 +22,8 @@ export default defineConfig({
       "@src": path.resolve('src'),
       "@common": path.resolve('src/common'),
       "@components": path.resolve('src/components'),
-      "@admin/views": path.resolve('src/module/admin/views'),
-      "@admin/apis": path.resolve('src/module/admin/apis'),
-      "@gateway/views": path.resolve('src/module/gateway/views'),
-      "@gateway/apis": path.resolve('src/module/gateway/apis'),
+      "@admin": path.resolve('src/module/admin'),
+      "@gateway": path.resolve('src/module/gateway'),
     },
   },
   plugins: [

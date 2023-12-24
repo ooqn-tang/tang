@@ -1,26 +1,22 @@
 {
     "compilerOptions": {
-        "jsx": "preserve",
-        "baseUrl": "./",
+        "baseUrl": ".",
         "paths": {
+            "@src/*": [
+                "src/*"
+            ],
             "@common/*": [
                 "src/common/*"
             ],
             "@components/*": [
                 "src/components/*"
             ],
-            "@admin/views/*": [
-                "src/module/admin/views/*"
+            "@admin/*": [
+                "src/module/admin/*"
             ],
-            "@admin/apis/*": [
-                "src/module/admin/apis/*"
-            ],
-            "@gateway/views/*": [
-                "src/module/gateway/views/*"
-            ],
-            "@gateway/apis/*": [
-                "src/module/gateway/apis/*"
-            ],
+            "@gateway/*": [
+                "src/module/gateway/*"
+            ]
         }
     }
 }

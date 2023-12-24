@@ -77,6 +77,7 @@
   </div>
 </template>
 <script setup>
+// Your script setup code here
 import hljs from "highlight.js";
 import request from "@common/request";
 import { marked } from "marked";

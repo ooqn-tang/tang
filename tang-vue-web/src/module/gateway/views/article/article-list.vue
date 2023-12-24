@@ -1,3 +1,66 @@
+
+<script setup>
+import request from '@common/request';
+import { onMounted, ref } from 'vue';
+import notice from '@components/notice.vue';
+import info from '@components/info.vue';
+
+let selectCategoryId = ref(0);
+let page = ref({ number: 0 });
+let articleList = ref([]);
+let isLoding = ref(true);
+let categoryList = ref([]);
+
+onMounted(() => {
+  loadArticle({ categoryId: 0 });
+  loadCategoryList();
+})
+
+function selectCategoryClick(item) {
+  selectCategoryId = item.categoryId;
+  page.value.number = 0;
+  articleList.value = [];
+  loadArticle(item);
+}
+
+function loadCategoryList() {
+  request({
+    url: '/api/category/list',
+    method: 'get',
+    params: { type: "1" }
+  }).then((res) => {
+    if (res.data.length > 0) {
+      categoryList.value = res.data
+    }
+  })
+}
+
+function loadArticle(item) {
+  let url = '/api/article/list'
+  request({
+    url: url,
+    method: 'get',
+    params: { page: page.value.number, categoryId: item.categoryId }
+  }).then((res) => {
+    isLoding.value = false
+    page.value = res.data
+    // res.data.content 过滤掉用户名为空的数据
+    res.data.content = res.data.content.filter((item) => {
+      return item.author != null
+    })
+    
+    articleList.value = articleList.value.concat(res.data.content)
+  })
+}
+
+function next() {
+  if (!page.last) {
+    page.value.number += 1
+    loadArticle({ categoryId: selectCategoryId.value })
+  }
+}
+
+</script>
 <template>
   <div class="row">
     <div class="col-md-9 mb-2 small-col">
@@ -45,63 +108,6 @@
   </div>
 </template>
 
-<script setup>
-import request from '@common/request';
-import { onMounted, ref } from 'vue';
-import notice from '@components/notice.vue';
-import info from '@components/info.vue';
-
-let selectCategoryId = ref(0);
-let page = ref({ number: 0 });
-let articleList = ref([]);
-let isLoding = ref(true);
-let categoryList = ref([]);
-
-onMounted(() => {
-  loadArticle({ categoryId: 0 });
-  loadCategoryList();
-})
-
-function selectCategoryClick(item) {
-  selectCategoryId = item.categoryId;
-  page.value.number = 0;
-  articleList.value = [];
-  loadArticle(item);
-}
-
-function loadCategoryList() {
-  request({
-    url: '/api/category/list',
-    method: 'get',
-    params: { type: "1" }
-  }).then((res) => {
-    if (res.data.length > 0) {
-      categoryList.value = res.data
-    }
-  })
-}
-
-function loadArticle(item) {
-  let url = '/api/article/list'
-  request({
-    url: url,
-    method: 'get',
-    params: { page: page.value.number, categoryId: item.categoryId }
-  }).then((res) => {
-    isLoding.value = false
-    page.value = res.data
-    articleList.value = articleList.value.concat(res.data.content)
-  })
-}
-
-function next() {
-  if (!page.last) {
-    page.value.number += 1
-    loadArticle({ categoryId: selectCategoryId.value })
-  }
-}
-
-</script>
 
 <style scoped>
 strong p,
