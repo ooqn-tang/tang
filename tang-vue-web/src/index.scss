@@ -75,7 +75,7 @@ a {
 }
 
 nav .dropdown-menu {
-    margin-top: .55rem !important;
+    margin-top: .40rem !important;
     border-radius: 0 0px 5px 5px;
     border-top: 0;
 }
@@ -114,9 +114,13 @@ nav .dropdown-menu {
         padding: 0px;
     }
 
-    .container-fluid,.list-group-item,.card-body,.card-header,.nav-link{
-        padding: 8px;
-    
+    .container-fluid,.list-group-item,.card-body,.card-header,.nav-link, .item-p-link{
+        padding: 10px;
+    }
+
+    .item-p-link{
+        padding-left: 10px !important;
+        padding-right: 10px !important;
     }
 }
 

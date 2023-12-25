@@ -65,41 +65,37 @@ function next() {
   <div class="row">
     <div class="col-md-9 mb-2 small-col">
       <div class="card mb-2">
-        <div class="card-body p-0">
+        <div class="card-body p-0" style="padding: 0px !important;">
           <nav class="nav">
-            <a class="nav-link" :class="selectCategoryId == '0' ? 'nav-link-active' : ''"
+            <a class="nav-link item-p-link" :class="selectCategoryId == '0' ? 'nav-link-active' : ''"
               @click="selectCategoryClick({ categoryId: 0 })">全部</a>
             <a v-for="item in categoryList" :class="selectCategoryId == item.categoryId ? 'nav-link-active' : ''"
-              class="nav-link" @click="selectCategoryClick(item)">{{ item.name }}</a>
+              class="nav-link item-p-link" @click="selectCategoryClick(item)">{{ item.name }}</a>
           </nav>
         </div>
       </div>
-      <div class="card">
-        <div class="card-body article-list p-0">
-          <ul class="list-group ">
-            <li class="list-group-item " v-for="item in articleList">
-              <router-link :to="{ name: 'article_post', params: { id: item.articleId } }" class="article-title">
-                <strong>
-                  <p v-text="item.title"></p>
-                </strong>
-              </router-link>
-              <div class="article-synopsis" style="color: #5f5a5a;">{{ item.synopsis }}</div>
-              <div>
-                <span class="date-color" style="font-size: 16px;">{{ item.createTime }} </span>
-                <span class="date-color" style="font-size: 16px;" v-if="item.category != null"> . {{ item.category.name }}
-                </span>
-                <span v-for="item in item.tagList"> . <span style="font-size: 16px;color: #dc3545;">{{ item.tagName
-                }}</span></span>
-                <router-link :to="{ name: 'author_article', params: { username: item.author.username } }"
-                  class="float-end">{{ item.author.nickname }}</router-link>
-              </div>
-            </li>
-            <li class="list-group-item">
-              <a @click="next()" v-if="!isLoding">获取</a><a v-if="isLoding">加载中...</a>
-            </li>
-          </ul>
-        </div>
-      </div>
+      <ul class="list-group" style="    ">
+        <li class="list-group-item " v-for="item in articleList">
+          <router-link :to="{ name: 'article_post', params: { id: item.articleId } }" class="article-title">
+            <strong>
+              <p v-text="item.title"></p>
+            </strong>
+          </router-link>
+          <div class="article-synopsis" style="color: #5f5a5a;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;" >{{ item.synopsis }}</div>
+          <div>
+            <span class="date-color" style="font-size: 16px;">{{ item.createTime }} </span>
+            <span class="date-color" style="font-size: 16px;" v-if="item.category != null"> . {{ item.category.name }}
+            </span>
+            <span v-for="item in item.tagList"> . <span style="font-size: 16px;color: #dc3545;">{{ item.tagName
+            }}</span></span>
+            <router-link :to="{ name: 'author_article', params: { username: item.author.username } }"
+              class="float-end">{{ item.author.nickname }}</router-link>
+          </div>
+        </li>
+        <li class="list-group-item">
+          <a @click="next()" v-if="!isLoding">获取</a><a v-if="isLoding">加载中...</a>
+        </li>
+      </ul>
     </div>
     <div class="col-md-3 mb-2 small-col">
       <notice></notice>

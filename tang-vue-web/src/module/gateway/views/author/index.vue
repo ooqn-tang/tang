@@ -18,7 +18,7 @@
     </div>
     <div class="col-md-8 col-md-pull-4 mb-2 small-col">
       <div class="card ">
-        <div class="card-header" v-if="thisUsername == loginUsername">
+        <div class="card-header p-0">
           <ul class="nav justify-content-center">
             <li class="nav-item">
               <router-link class="nav-link" :class="routeName == 'author_article' ? 'nav-link-active' : ''"
@@ -42,19 +42,7 @@
             </li>
           </ul>
         </div>
-        <div class="card-header" v-if="thisUsername != loginUsername">
-          <ul class="nav justify-content-center">
-            <li class="nav-item">
-              <router-link class="nav-link" :class="routeName == 'author_article' ? 'nav-link-active' : ''"
-                :to="{ name: 'author_article' }">文章</router-link>
-            </li>
-            <li class="nav-item">
-              <router-link class="nav-link" :class="routeName == 'author_subject' ? 'nav-link-active' : ''"
-                :to="{ name: 'author_subject' }">专栏</router-link>
-            </li>
-          </ul>
-        </div>
-        <div class="card-body p-0">
+        <div class="card-body" style="padding: 0px;">
           <router-view />
         </div>
       </div>
