@@ -102,20 +102,14 @@ nav .dropdown-menu {
         display: inline;
     }
 
-    .small-col {
-        padding: 0;
-    }
-
-    .card,
-    .list-group,
-    .list-group-item {
-        border-left: 0;
-        border-right: 0;
-        border-radius: 0;
-    }
-
     .m-h {
         display: none;
+    }
+
+    .container-fluid{
+        padding-left: 5px !important;
+        padding-right: 5px !important;
+    
     }
 }
 

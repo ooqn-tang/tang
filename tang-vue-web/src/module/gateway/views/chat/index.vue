@@ -17,7 +17,7 @@
                 </div>
                 <div class="box"
                     style="height: 100%;flex-grow: 1;overflow-y: auto;padding: 5px;border: 1px solid #dee2e6;margin: 5px 0px 0px 0px;">
-                    <div class="box-list">
+                    <div class="box-list" style="height: 0;">
                         <div v-for="item in memeberList" @click="selectMember(item); mh = 'right'"
                             v-show="item.username != authorStore.username">
                             <p>{{ item.nickname }}</p>
@@ -39,7 +39,7 @@
                 </div>
                 <div class="box"
                     style="height: 100%;flex-grow: 1;overflow-y: auto;padding: 5px;border: 1px solid #dee2e6;margin: 5px 0px;">
-                    <div class="box-list">
+                    <div class="box-list" style="height: 0;">
                         <div v-for="item in messageList" style="border-bottom: 0;">
                             <p style="color: rgb(8, 78, 184);font-weight: bold;">{{ item.sendName }}</p>
                             <p style="border: 1px solid black;border-radius: 5px;padding: 5px;">{{ item.content }}&nbsp;</p>
@@ -155,12 +155,11 @@ monsterSocket.watchList((msg) => {
 
 </script>
 <style>
-.bbbb {
+
+.bbbb{
+
     flex-grow: 1;
-    overflow-y: hidden;
 }
-
-
 .modal-rgba {
     background: rgba(0, 0, 0, 0.075);
 }

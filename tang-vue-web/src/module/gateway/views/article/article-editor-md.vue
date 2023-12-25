@@ -23,7 +23,7 @@
         <button class='w80px tang-but' data-bs-toggle="modal" data-bs-target="#exampleModal">发布</button>
       </div>
       <div class="body flex">
-        <div class="flex-grow-1 flex flex-column">
+        <div class="flex-grow-1 flex-column">
           <textarea class="flex-grow-1 w100 bb1" ref="systemForm" @scroll="sysHandleScroll()" id="text"
             v-model="articleForm.markdown" placeholder="可以输入Markdown文本为内容添加样式."></textarea>
           <div class="br1 m-br0">
