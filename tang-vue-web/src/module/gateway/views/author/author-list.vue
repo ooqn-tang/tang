@@ -1,6 +1,6 @@
 <template>
   <div class="row">
-    <div class="col-md-9 mb-2 small-col">
+    <div class="col-md-9 small-col">
       <div class="row">
         <div class="col-xl-3 col-lg-4 col-md-4 col-12 mb-2" v-for="item in authorList">
           <div class="card ">

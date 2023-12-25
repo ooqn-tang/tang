@@ -106,9 +106,16 @@ nav .dropdown-menu {
         display: none;
     }
 
-    .container-fluid{
-        padding-left: 5px !important;
-        padding-right: 5px !important;
+    hr{
+        margin: 5px;
+    }
+
+    .navbar {
+        padding: 0px;
+    }
+
+    .container-fluid,.list-group-item,.card-body,.card-header,.nav-link{
+        padding: 8px;
     
     }
 }

@@ -55,39 +55,6 @@
             </div>
         </div>
     </div>
-
-
-    <div class="modal fade show modal-rgba modal-lg">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">聊天室</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form>
-                        <div class="mb-3">
-                            <label for="recipient-name" class="col-form-label">用户地址:</label>
-                            <input type="text" class="form-control" id="recipient-name"
-                                placeholder="账号地址 @bobcbui:ooqn.com">
-                        </div>
-                        <div class="mb-3">
-                            <label for="recipient-name" class="col-form-label">邮箱/手机号：</label>
-                            <input type="text" class="form-control" id="recipient-name">
-                        </div>
-                        <div class="mb-3">
-                            <label for="message-text" class="col-form-label">密码：</label>
-                            <input type="text" class="form-control" id="recipient-name">
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">关闭</button>
-                    <button type="button" class="btn btn-primary">登录</button>
-                </div>
-            </div>
-        </div>
-    </div>
 </template>
 
 <script setup>
