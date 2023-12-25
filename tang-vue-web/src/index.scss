@@ -110,10 +110,6 @@ nav .dropdown-menu {
         margin: 5px;
     }
 
-    .navbar {
-        padding: 0px;
-    }
-
     .container-fluid,.list-group-item,.card-body,.card-header,.nav-link, .item-p-link{
         padding: 10px;
     }
@@ -158,6 +154,7 @@ nav .dropdown-menu {
 
 .navbar {
     margin: 0px !important;
+    padding: 0px !important;
 }
 
 .tag {
