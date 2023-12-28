@@ -1,15 +1,16 @@
 package com.ooqn.core.task;
 
-import com.ooqn.entity.model.StsNotice;
-import com.ooqn.service.StsNoticeService;
 import java.util.List;
 
-import jakarta.servlet.ServletContext;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.WebApplicationContext;
+
+import com.ooqn.entity.model.StsNotice;
+import com.ooqn.service.StsNoticeService;
+
+import jakarta.servlet.ServletContext;
 
 /**
  * 定时器
@@ -18,13 +19,14 @@ import org.springframework.web.context.WebApplicationContext;
 @EnableScheduling
 public class TangScheduling {
 
-	@Autowired
 	private StsNoticeService stsNoticeService;
 
-	@Autowired
 	private WebApplicationContext webApplicationContext;
 
-	public TangScheduling() {}
+	public TangScheduling(StsNoticeService stsNoticeService, WebApplicationContext webApplicationContext) {
+		this.stsNoticeService = stsNoticeService;
+		this.webApplicationContext = webApplicationContext;
+	}
 
 	/**
 	 * 定时更新广告 10分钟更新一次
@@ -45,6 +47,6 @@ public class TangScheduling {
 	 */
 	@Scheduled(fixedDelay = 1000 * 60 * 10)
 	public void a() {
-		
+
 	}
 }

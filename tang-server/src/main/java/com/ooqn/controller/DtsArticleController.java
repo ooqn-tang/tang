@@ -27,7 +27,6 @@ import com.ooqn.service.DtsArticleSubjectService;
 import com.vladsch.flexmark.html.HtmlRenderer;
 import com.vladsch.flexmark.parser.Parser;
 
-import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.StrUtil;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
@@ -36,7 +35,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 @Tag(name = "文章")
 public class DtsArticleController extends BaseController {
 
-	
 	// 创建Markdown解析器
 	private Parser parser = Parser.builder().build();
 
@@ -87,9 +85,10 @@ public class DtsArticleController extends BaseController {
 	}
 
 	@PostMapping
-	public String create() {
+	public String create(@RequestBody DtsArticleParam articleParam) {
+		String subjectId = articleParam.getSubjectId();
 		String authorId = authorId();
-		DtsArticle article = articleSubjectService.insertArticle(authorId);
+		DtsArticle article = articleSubjectService.insertArticle(authorId,subjectId);
 		return article.getArticleId();
 	}
 

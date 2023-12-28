@@ -1,6 +1,5 @@
 package com.ooqn.core;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -11,8 +10,11 @@ import jakarta.transaction.Transactional;
 @Component
 public class TangApplicationRunner implements CommandLineRunner {
 
-    @Autowired
     private StsInitService initService;
+
+    public TangApplicationRunner(StsInitService initService) {
+        this.initService = initService;
+    }
 
     @Override
     @Transactional

@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ooqn.core.control.BaseController;
 import com.ooqn.core.exception.ApiException;
 import com.ooqn.core.security.NotLogin;
+import com.ooqn.entity.dto.DtsArticleDto;
 import com.ooqn.entity.dto.DtsSubjectDto;
 import com.ooqn.entity.model.DtsArticle;
 import com.ooqn.entity.model.DtsSubject;
@@ -103,7 +104,7 @@ public class DtsSubjectController extends BaseController {
 
 	@NotLogin
 	@GetMapping("article/{articleId}")
-	public List<DtsArticle> findSubjectListByArticleId(@PathVariable("articleId") String articleId) {
+	public DtsSubjectDto findSubjectListByArticleId(@PathVariable("articleId") String articleId) {
 		return articleSubjectService.findSubjectArticleTitleListByArticleId(articleId);
 	}
 }

@@ -76,8 +76,12 @@ public class DtsArticleSubjectService {
 	 * @param articleId 文章id
 	 * @return List<DtsArticle>
 	 */
-	public List<DtsArticle> findSubjectArticleTitleListByArticleId(String articleId) {
-		return articleRepository.findSubjectArticleListByArticleId(articleId);
+	public DtsSubjectDto findSubjectArticleTitleListByArticleId(String articleId) {
+		DtsSubject orElseThrow = subjectRepository.findByDataId(articleId).orElseThrow();
+		DtsSubjectDto subjectDto = new DtsSubjectDto(orElseThrow);
+		List<DtsArticle> articleList = articleRepository.findSubjectArticleListByArticleId(articleId);
+		subjectDto.setDataArray(articleList);
+		return subjectDto;
 	}
 
 	/**
@@ -138,15 +142,17 @@ public class DtsArticleSubjectService {
 		});
 	}
 
-	public DtsArticle insertArticle(String authorId) {
+	public DtsArticle insertArticle(String authorId, String subjectId) {
 		DateTime date = DateUtil.date();
-
+		String articleId = IdUtil.objectId();
 		DtsArticle article = new DtsArticle();
-		article.setArticleId(IdUtil.objectId());
+		article.setArticleId(articleId);
 		article.setCreateTime(date);
 		article.setUpdateTime(date);
 		article.setState(StateNum.notSubmit);
 		article.setAuthorId(authorId);
+
+		subject(subjectId, articleId);
 
 		return articleRepository.save(article);
 	}
@@ -187,19 +193,25 @@ public class DtsArticleSubjectService {
 
 		articleRepository.save(article);
 
+		subject(subjectId, articleId);
+
+		return article;
+	}
+
+	public void subject(String subjectId , String articleId){
 		if (StrUtil.isNotBlank(subjectId)) {
 			Integer orderNum = subjectRelevanceRepository.findMaxOrderNumBySubjectId(subjectId);
 			if (orderNum == null) {
 				orderNum = 0;
 			}
 
-			DtsSubjectRelevance subjectRelevance = subjectRelevanceRepository.findByDataId(article.getArticleId())
+			DtsSubjectRelevance subjectRelevance = subjectRelevanceRepository.findByDataId(articleId)
 					.orElse(null);
 
 			if (subjectRelevance == null) {
 				DtsSubjectRelevance articleSubjectRelevance = new DtsSubjectRelevance();
 				articleSubjectRelevance.setSubjectRelevanceId(IdUtil.objectId());
-				articleSubjectRelevance.setDataId(article.getArticleId());
+				articleSubjectRelevance.setDataId(articleId);
 				articleSubjectRelevance.setSubjectId(subjectId);
 				articleSubjectRelevance.setCreateTime(DateUtil.date());
 				articleSubjectRelevance.setOrderNum(orderNum);
@@ -208,15 +220,13 @@ public class DtsArticleSubjectService {
 				subjectRelevanceRepository.delete(subjectRelevance);
 				DtsSubjectRelevance articleSubjectRelevance = new DtsSubjectRelevance();
 				articleSubjectRelevance.setSubjectRelevanceId(IdUtil.objectId());
-				articleSubjectRelevance.setDataId(article.getArticleId());
+				articleSubjectRelevance.setDataId(articleId);
 				articleSubjectRelevance.setSubjectId(subjectId);
 				articleSubjectRelevance.setOrderNum(orderNum);
 				articleSubjectRelevance.setCreateTime(DateUtil.date());
 				subjectRelevanceRepository.save(articleSubjectRelevance);
 			}
 		}
-
-		return article;
 	}
 
 	@Transactional(rollbackFor = Exception.class)

@@ -1,10 +1,8 @@
 package com.ooqn.core.security;
 
-import java.security.Key;
 import java.util.Date;
 
-import org.springframework.beans.factory.InitializingBean;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import com.ooqn.core.propertie.TangProperties;
@@ -15,26 +13,20 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.UnsupportedJwtException;
-import io.jsonwebtoken.io.Decoders;
-import io.jsonwebtoken.security.Keys;
 import lombok.extern.java.Log;
 
 /**
  * JWT生成器。创建JWT,解析JWT。验证JWT。验证用户身份。
  */
 @Log
+@Order(2)
 @Component
-public class JwtProvider implements InitializingBean {
+public class JwtProvider {
 
-	@Autowired
-	private TangProperties tangProperties;
+	private final TangProperties tangProperties;
 
-	private Key key;
-
-	@Override
-	public void afterPropertiesSet() {
-		byte[] keyBytes = Decoders.BASE64.decode(tangProperties.getJwt().getBase64Secret());
-		this.key = Keys.hmacShaKeyFor(keyBytes);
+	public JwtProvider(TangProperties tangProperties) {
+		this.tangProperties = tangProperties;
 	}
 
 	/**
@@ -49,12 +41,12 @@ public class JwtProvider implements InitializingBean {
 		long now = (new Date()).getTime();
 		Date validity;
 		if (rememberMe) {
-			validity = new Date(now + tangProperties.getJwt().getTokenValidityInSecondsForRememberMe());
+			validity = new Date(now + tangProperties.getTokenValidityInSecondsForRememberMe());
 		} else {
-			validity = new Date(now + tangProperties.getJwt().getTokenValidityInSeconds());
+			validity = new Date(now + tangProperties.getTokenValidityInSeconds());
 		}
 		return Jwts.builder().setSubject(author.getUsername())
-				.signWith(key, SignatureAlgorithm.HS512)
+				.signWith(tangProperties.getKey(), SignatureAlgorithm.HS512)
 				.setExpiration(validity)
 				.compact();
 	}
@@ -67,7 +59,7 @@ public class JwtProvider implements InitializingBean {
 	 */
 	public String getAuthentication(String jwt) {
 		return Jwts.parserBuilder()
-				.setSigningKey(key)
+				.setSigningKey(tangProperties.getKey())
 				.build()
 				.parseClaimsJws(jwt)
 				.getBody()
@@ -82,7 +74,7 @@ public class JwtProvider implements InitializingBean {
 	 */
 	public boolean validateJwt(String jwt) {
 		try {
-			Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(jwt);
+			Jwts.parserBuilder().setSigningKey(tangProperties.getKey()).build().parseClaimsJws(jwt);
 			return true;
 		} catch (io.jsonwebtoken.security.SecurityException | MalformedJwtException e) {
 			log.info("无效的JWT签名：" + e.getMessage());

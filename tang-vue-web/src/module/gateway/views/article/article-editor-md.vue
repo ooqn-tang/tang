@@ -2,37 +2,32 @@
   <div class="h100 flex">
     <div class="pc b1 m5 w300px mr0">
       <div class="p2 bb1 h40 w300px">
-        <select class="h100 w100 text-center" v-model="articleForm.subjectId">
-          <option>设置专辑</option>
-          <option v-for="item in subjectList" :value="item.subjectId">
-            {{ item.subjectName }}
-          </option>
-        </select>
+        <div class="p5" style="background-color: rgb(207, 211, 214);font-weight: bold;">
+          {{ subjectData.subjectName }}
+        </div>
       </div>
-      <div v-for="item in subjectArticleList" class="bb1 p5">
+      <div v-for="item in subjectData.dataArray" @click="openArticle(item.articleId)" class="bb1 p5" :class="{ activeArticle : item.articleId == articleForm.articleId }">
         {{ item.title }}
       </div>
       <div class="p2 bb1 h40">
-        <button class="h100 w100 tang-but">增加文章</button>
+        <button class="h100 w100 tang-but" @click="addArticle()">增加文章</button>
       </div>
-
     </div>
     <div class="flex-grow-1 b1 m5">
       <div class="h40 flex">
         <input class="flex-grow-1" type="text" id="title" v-model="articleForm.title" placeholder="标题" />
-        <button class='w80px tang-but' data-bs-toggle="modal" data-bs-target="#exampleModal">发布</button>
+        <button class='w80px tang-but'  @click="saveArticle()" :class="{ cg : tag == '成功' , sb : tag == '失败'}">{{ tag }}</button>
       </div>
       <div class="body flex">
         <div class="flex-grow-1 flex-column">
           <textarea class="flex-grow-1 w100 bb1" ref="systemForm" @scroll="sysHandleScroll()" id="text"
             v-model="articleForm.markdown" placeholder="可以输入Markdown文本为内容添加样式."></textarea>
           <div class="br1 m-br0">
-            <button class="br1 p5 tang-but">预览</button>
             <button class="br1 p5 tang-but">发布</button>
-            <button class="br1 p5 tang-but">草稿</button>
-            <button class="br1 p5 tang-but">历史版本</button>
-            <button class="br1 p5 tang-but">创建专辑</button>
+            <button class="br1 p5 tang-but">存草稿</button>
+            <button class="br1 p5 tang-but" data-bs-toggle="modal" data-bs-target="#exampleModal">属性</button>
             <button class="br1 p5 tang-but">关闭</button>
+            <button class="br1 p5 tang-but">{{tag}}</button>
           </div>
         </div>
         <div ref="externalForm" @scroll="exterHandleScroll()" id="content" v-html="articleForm.text"
@@ -85,6 +80,7 @@ import { onMounted, ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useAuthorStore } from "@common/user";
 import { articleSubjectArticleListApi } from "@gateway/apis/subject";
+import { insertArticleApi } from "@gateway/apis/article";
 
 const route = useRoute();
 const router = useRouter();
@@ -109,14 +105,11 @@ let articleForm = ref({});
 let externalForm = ref(null);
 let systemForm = ref(null);
 let categoryList = ref([]);
-let subjectArticleList = ref([{}, {}, {}, {}, {}, {}, {}, {}]);
-
+let subjectData = ref({});
+let tag = ref("发布");
 onMounted(() => {
   if (!articleId.value) {
-    request({
-      url: `/api/article`,
-      method: 'POST'
-    }).then((res) => {
+    insertArticleApi().then((res) => {
       window.history.pushState({}, 0, window.location.origin + '/article-editor-md?article=' + res.data);
       articleId.value = res.data
       loadSubject();
@@ -145,6 +138,10 @@ function loadArticleAllInfo(articleId) {
   });
 }
 
+function openArticle(articleId){
+  loadArticleAllInfo(articleId);
+}
+
 function saveArticle() {
   if (articleForm.value.title == undefined || articleForm.value.title == "") {
     alert("请输入标题！")
@@ -156,7 +153,11 @@ function saveArticle() {
     method: "PUT",
     data: articleForm.value,
   }).then((res) => {
-    alert("保存成功")
+    tag.value = '成功'
+    selectSubjectArticleList();
+    setTimeout(()=>{
+      tag.value = '发布'
+    },2000)
   });
 }
 
@@ -171,8 +172,23 @@ function loadSubject() {
 
 function selectSubjectArticleList() {
   articleSubjectArticleListApi(articleId.value).then((res) => {
-    subjectArticleList.value = res.data;
+    subjectData.value = res.data;
   });
+}
+
+function addArticle(){
+  let data = {}
+  if(articleForm.value.subjectId){
+    data.subjectId = articleForm.value.subjectId;
+  }
+  insertArticleApi(data).then((res) => {
+    window.history.pushState({}, 0, window.location.origin + '/article-editor-md?article=' + res.data);
+    articleId.value = res.data
+    loadSubject();
+    loadCategoryList();
+    loadArticleAllInfo(articleId.value);
+    selectSubjectArticleList();
+  })
 }
 
 function loadCategoryList() {
@@ -196,7 +212,9 @@ function exterHandleScroll() {
 }
 
 watch(() => articleForm.value.markdown, (value) => {
-  articleForm.value.text = marked(value)
+  if(value != null){
+    articleForm.value.text = marked(value)
+  }
 })
 
 onMounted(() => {
@@ -211,6 +229,14 @@ body {
 </style>
 
 <style scoped>
+
+.cg {
+  background-color: aquamarine;
+}
+.sb{
+  background-color: #f8d7da;
+
+}
 img {
   max-width: 100%;
 }
@@ -296,5 +322,9 @@ img {
   background-color: #d1e6fa;
 }
 
+
+.activeArticle{
+  background-color: #d1e6fa;
+}
 
 </style>

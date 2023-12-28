@@ -9,9 +9,5 @@ import lombok.ToString;
 @ToString
 public class JwtProperties {
 
-  private String base64Secret;
 
-  private Long tokenValidityInSeconds;
-
-  private Long tokenValidityInSecondsForRememberMe;
 }

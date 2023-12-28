@@ -6,7 +6,6 @@ import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.util.StringUtils;
@@ -32,20 +31,24 @@ public class JwtFilter extends OncePerRequestFilter {
 
 	private static final Logger LOG = LoggerFactory.getLogger(JwtFilter.class);
 
-	@Autowired
 	private JwtProvider jwtProvider;
 
-	@Autowired
 	private UtsUserDetailsService userDetailsService;
 
-	@Autowired
 	private UtsResourceService resourceService;
-	
-	@Autowired
+
 	private TangProperties tangProperties;
 
-	@Autowired
 	private HandlerExceptionResolver handlerExceptionResolver;
+
+	public JwtFilter(JwtProvider jwtProvider, UtsUserDetailsService userDetailsService,
+			UtsResourceService resourceService, TangProperties tangProperties,
+			HandlerExceptionResolver handlerExceptionResolver) {
+		this.jwtProvider = jwtProvider;
+		this.userDetailsService = userDetailsService;
+		this.resourceService = resourceService;
+		this.tangProperties = tangProperties;
+	}
 
 	private final AntPathMatcher antPathMatcher = new AntPathMatcher();
 
@@ -93,10 +96,12 @@ public class JwtFilter extends OncePerRequestFilter {
 			}
 
 			LOG.debug("将身份验证设置为安全的上下文 '{}', uri: {}", author.getUsername(), requestURI);
-			handlerExceptionResolver.resolveException(httpServletRequest, response, null, new ApiException(400,"没有权限。"));
+			handlerExceptionResolver.resolveException(httpServletRequest, response, null,
+					new ApiException(400, "没有权限。"));
 		} else {
 			LOG.debug("没有找到有效的JWT令牌, uri: {}", requestURI);
-			handlerExceptionResolver.resolveException(httpServletRequest, response, null, new ApiException(400,"JWT无效。"));
+			handlerExceptionResolver.resolveException(httpServletRequest, response, null,
+					new ApiException(400, "JWT无效。"));
 		}
 	}
 
@@ -133,5 +138,5 @@ public class JwtFilter extends OncePerRequestFilter {
 		}
 		return false;
 	}
-	
+
 }
