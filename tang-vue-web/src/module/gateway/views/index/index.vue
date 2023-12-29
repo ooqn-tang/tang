@@ -1,6 +1,6 @@
 <template>
   <nav class="navbar navbar-expand navbar navbar-expand-lg navbar-light bg-light t-b-b-1 flex-column mb-2" id="top">
-    <div class="container-fluid" style="padding-top: 5px; padding-bottom: 5px;">
+    <div class="container-fluid" style="padding: 5px 12px;">
       <a class="navbar-brand pc" href="/" style='margin-right: 0px;'>ooqn.com</a>
       <a class="navbar-brand yd" href="/" style='margin-right: 0px;'>OOQN</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02"
@@ -48,7 +48,7 @@
       </div>
     </div>
   </nav>
-  <div class="container-fluid bbbb" style="padding-top: 10px;">
+  <div class="container-fluid bbbb" style="padding-top: 10px; ">
     <router-view />
   </div>
 </template>

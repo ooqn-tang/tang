@@ -39,6 +39,7 @@ export default defineConfig({
   }
   // 配置 端口
   , server: {
-    port: 8000
+    port: 8000,
+    host: "0.0.0.0"
   }
 })
