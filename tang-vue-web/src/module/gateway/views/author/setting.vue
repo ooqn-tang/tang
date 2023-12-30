@@ -1,5 +1,7 @@
 <template>
-  <div class="m-3">
+
+<ul class="list-group article-list">
+  <li class="list-group-item">
     <div class="row mb-3">
       <label class="col-sm-2 col-form-label">用户名</label>
       <div class="col-sm-10">
@@ -28,7 +30,9 @@
       <button class="btn btn-primary" @click="save">保存信息</button>
       <button class="btn btn-primary float-end" @click="logout">退出登录</button>
     </div>
-  </div>
+  </li>
+</ul>
+ 
 </template>
 
 <script setup>

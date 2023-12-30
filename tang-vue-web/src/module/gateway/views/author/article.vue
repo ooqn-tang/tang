@@ -7,7 +7,7 @@
         </strong>
       </router-link>
       <div class="article-synopsis">{{ item.synopsis }}</div>
-      <span class="tag">{{ item.createTime }}</span>
+      <span class="tag">{{ formatTime(item.createTime) }}</span>
       <span class="tag" v-if="item.subject != null">{{ item.subject.subjectName }}</span>
       <span class="tag" v-if="item.category != null">{{ item.category.name }}</span>
       <div class="btn-group float-end">
@@ -33,7 +33,8 @@ import request from "@common/request";
 import { onMounted, ref } from "vue";
 import { useRoute } from "vue-router";
 import { useAuthorStore } from "@common/user";
-
+import { formatTime } from "@common/common";
+ 
 let authorStore = useAuthorStore();
 let route = useRoute();
 
@@ -86,11 +87,4 @@ onMounted(() => {
 </script>
 
 <style scoped>
-.tag {
-  background: #efefef;
-  padding: 0px 5px;
-  border-radius: 10px;
-  color: #7d7d7d;
-  margin-right: 5px;
-}
 </style>

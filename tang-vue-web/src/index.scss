@@ -163,10 +163,15 @@ nav .dropdown-menu {
 .tag {
     // 超过100宽度隐藏
     display: inline-block;
-    max-width: 105px;
+    max-width: 120px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    background: #efefef;
+    padding: 0px 5px;
+    border-radius: 10px;
+    color: #7d7d7d;
+    margin-right: 5px;
 }
 
 .w100 {

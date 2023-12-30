@@ -1,9 +1,10 @@
 
 <script setup>
 import request from '@common/request';
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, computed } from 'vue';
 import notice from '@components/notice.vue';
 import info from '@components/info.vue';
+import {formatTime} from '@common/common'
 
 let selectCategoryId = ref(0);
 let page = ref({ number: 0 });
@@ -83,7 +84,7 @@ function next() {
           </router-link>
           <div class="article-synopsis" style="color: #5f5a5a;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;" >{{ item.synopsis }}</div>
           <div>
-            <span class="date-color" style="font-size: 16px;">{{ item.createTime }} </span>
+            <span class="date-color" style="font-size: 16px;">{{ formatTime(item.createTime) }} </span>
             <span class="date-color" style="font-size: 16px;" v-if="item.category != null"> . {{ item.category.name }}
             </span>
             <span v-for="item in item.tagList"> . <span style="font-size: 16px;color: #dc3545;">{{ item.tagName

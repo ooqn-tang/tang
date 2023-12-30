@@ -2,10 +2,10 @@
   <ul class="list-group article-list">
     <li class="list-group-item" v-for="(item, index) in collects">
       <a target="_blank" :href="item.url" class="article-title">
-        <strong>{{ item.title }}</strong><span class="float-end">{{ item.createDate }}</span>
+        <strong>{{ item.title }}</strong>
       </a>
       <div class="article-synopsis">{{ item.synopsis }}</div>
-      <span class="tag">{{ item.createTime }}</span>
+      <span class="tag">{{ formatTime(item.createDate) }}</span>
       <div class="btn-group float-end">
         <button class="btn btn-outline-danger float-end blog-btn" v-if="isThisUser"
           @click="deleteCollect(item.url, index)">
@@ -20,10 +20,12 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from 'vue';
+import { ref } from 'vue';
 import { useRoute } from "vue-router";
 import { useAuthorStore } from "@common/user";
-import { collectListApi, deleteCollectApi } from "@gateway/apis/collect"
+import { collectListApi, deleteCollectApi } from "@gateway/apis/collect";
+
+import { formatTime } from "@common/common";
 
 let authorStore = useAuthorStore();
 let route = useRoute();
@@ -55,23 +57,14 @@ function deleteCollect(url, index) {
 
 function next() {
   if (!page.value.last) {
-    page.value.number += 1
-    collectList(page.value.number)
+    page.value.number += 1;
+    collectList(page.value.number);
   }
 }
 
-onMounted(() => {
-  collectList(page.value.number)
-})
+collectList(page.value.number);
 
 </script>
 
 <style scoped>
-.tag {
-  background: #efefef;
-  padding: 0px 5px;
-  border-radius: 10px;
-  color: #7d7d7d;
-  margin-right: 5px;
-}
 </style>

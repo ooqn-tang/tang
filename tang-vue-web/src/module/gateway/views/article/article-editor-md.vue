@@ -107,21 +107,6 @@ let systemForm = ref(null);
 let categoryList = ref([]);
 let subjectData = ref({});
 let tag = ref("发布");
-onMounted(() => {
-  if (!articleId.value) {
-    insertArticleApi().then((res) => {
-      window.history.pushState({}, 0, window.location.origin + '/article-editor-md?article=' + res.data);
-      articleId.value = res.data
-      loadSubject();
-      loadCategoryList();
-      loadArticleAllInfo(articleId.value);
-    })
-  } else {
-    loadSubject();
-    loadCategoryList();
-    loadArticleAllInfo(articleId.value);
-  }
-});
 
 function loadArticleAllInfo(articleId) {
   request({
@@ -217,9 +202,25 @@ watch(() => articleForm.value.markdown, (value) => {
   }
 })
 
-onMounted(() => {
-  selectSubjectArticleList();
-})
+debugger
+if (!articleId.value) {
+    insertArticleApi({}).then((res) => {
+      window.history.pushState({}, 0, window.location.origin + '/article-editor-md?article=' + res.data);
+      articleId.value = res.data
+      loadSubject();
+      loadCategoryList();
+      loadArticleAllInfo(articleId.value);
+      selectSubjectArticleList();
+    })
+  } else {
+    loadSubject();
+    loadCategoryList();
+    loadArticleAllInfo(articleId.value);
+    selectSubjectArticleList();
+    
+  }
+
+
 
 </script>
 <style>
