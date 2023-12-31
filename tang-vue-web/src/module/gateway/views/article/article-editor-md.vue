@@ -1,15 +1,15 @@
 <template>
   <div class="h100 flex">
-    <div class="pc b1 m5 w300px mr0">
-      <div class="p2 bb1 h40 w300px">
-        <div class="p5" style="background-color: rgb(207, 211, 214);font-weight: bold;">
-          {{ subjectData.subjectName }}
+    <div class="pc b1 m5 w300px mr0 flex-column">
+      <div class="p2 bb1 h40">
+        <button class="h100 w100 tang-but w300px">{{ subjectData.subjectName }}</button>
+      </div>
+      <div class="flex-grow-1"  style="overflow-y: scroll;width: 298px;">
+        <div v-for="item in subjectData.dataArray" @click="openArticle(item.articleId)" class="bb1 p5 " :class="{ activeArticle : item.articleId == articleForm.articleId }">
+          {{ item.title }}
         </div>
       </div>
-      <div v-for="item in subjectData.dataArray" @click="openArticle(item.articleId)" class="bb1 p5" :class="{ activeArticle : item.articleId == articleForm.articleId }">
-        {{ item.title }}
-      </div>
-      <div class="p2 bb1 h40">
+      <div class="p2 h40">
         <button class="h100 w100 tang-but" @click="addArticle()">增加文章</button>
       </div>
     </div>
@@ -23,11 +23,9 @@
           <textarea class="flex-grow-1 w100 bb1" ref="systemForm" @scroll="sysHandleScroll()" id="text"
             v-model="articleForm.markdown" placeholder="可以输入Markdown文本为内容添加样式."></textarea>
           <div class="br1 m-br0">
-            <button class="br1 p5 tang-but">发布</button>
+            <button class="br1 p5 tang-but" data-bs-toggle="modal" data-bs-target="#exampleModal">属性设置</button>
             <button class="br1 p5 tang-but">存草稿</button>
-            <button class="br1 p5 tang-but" data-bs-toggle="modal" data-bs-target="#exampleModal">属性</button>
-            <button class="br1 p5 tang-but">关闭</button>
-            <button class="br1 p5 tang-but">{{tag}}</button>
+            <button class="br1 p5 tang-but" onclick="window.close()">关闭</button>
           </div>
         </div>
         <div ref="externalForm" @scroll="exterHandleScroll()" id="content" v-html="articleForm.text"
@@ -202,7 +200,6 @@ watch(() => articleForm.value.markdown, (value) => {
   }
 })
 
-debugger
 if (!articleId.value) {
     insertArticleApi({}).then((res) => {
       window.history.pushState({}, 0, window.location.origin + '/article-editor-md?article=' + res.data);

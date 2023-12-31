@@ -95,7 +95,7 @@ nav .dropdown-menu {
 
 @media (max-width: 770px) {
     .pc {
-        display: none;
+        display: none !important;
     }
 
     .yd {
@@ -196,7 +196,6 @@ nav .dropdown-menu {
 
 .flex {
     display: flex;
-    ;
 }
 
 .flex-container {

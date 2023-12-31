@@ -18,8 +18,7 @@ import lombok.ToString;
 @ToString
 @Configuration
 @ConfigurationProperties(prefix = "tang")
-@Order(1)
-public class TangProperties implements InitializingBean {
+public class TangProperties {
 
 	private String tokenKey = "token";
 
@@ -39,9 +38,9 @@ public class TangProperties implements InitializingBean {
 	
 	private Key key;
 
-	@Override
-	public void afterPropertiesSet() throws Exception {
+	public Key getKey() {
 		byte[] keyBytes = Decoders.BASE64.decode(base64Secret);
-		this.key = Keys.hmacShaKeyFor(keyBytes);
+		return Keys.hmacShaKeyFor(keyBytes);
 	}
+
 }
