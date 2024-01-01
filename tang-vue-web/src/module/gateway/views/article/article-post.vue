@@ -200,7 +200,7 @@ function loadArticleInfo() {
 
 function selectSubjectArticleList() {
   articleSubjectArticleListApi(articleId).then((res) => {
-    articleList.value = res.data;
+    articleList.value = res.data.dataArray;
   });
 }
 
