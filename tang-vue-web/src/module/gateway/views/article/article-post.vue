@@ -29,7 +29,7 @@
             <div class="card-body" v-if="loading">{{ dataText }}</div>
           </div>
 
-          <div class="card mb-2 article-body ">
+          <div class="card mb-2 ">
             <div class="card-body">
               <label for="exampleFormControlTextarea1" class="form-label">评论</label>
               <div class="mb-2">
@@ -41,7 +41,7 @@
             </div>
           </div>
 
-          <div class="card mb-2 article-body" v-for="item in remarkList">
+          <div class="card mb-2" v-for="item in remarkList">
             <div class="card-body">
               <p style="color: rgb(0, 89, 255);">{{ item.author != null ? item.author.nickname : "未知" }}</p>
               <p>{{ item.text }}</p>
@@ -64,6 +64,10 @@
       </div>
       <notice></notice>
       <info></info>
+      <div class="list-group mb-2" style="position: sticky;top: 10px;">
+        <a class="list-group-item active">目录<span class="float-end">🎇</span></a>
+        <a v-for="item in tagList" class="list-group-item" :id="item.id" :href="'#'+item.id">{{ item.text }}</a>
+      </div>
     </div>
   </div>
   <nav class="navbar fixed-bottom navbar-light bg-light foot-navbar">
@@ -88,7 +92,7 @@
 <script setup>
 import "highlight.js/styles/github.css";
 import request from "@common/request";
-import { onMounted, ref, watch } from 'vue';
+import { onMounted, ref, watch,nextTick  } from 'vue';
 import { useRoute } from "vue-router";
 import { useAuthorStore } from "@common/user";
 import notice from '@components/notice.vue';
@@ -113,6 +117,7 @@ let isThisUser = ref(false)
 let articleList = ref([]);
 let collect = ref(0);
 let dataText = ref('加载中...');
+let tagList = ref([])
 
 let remark = ref({
 
@@ -148,6 +153,22 @@ function selectRemark() {
   selectRemarkApi(articleId, 0).then((res) => {
     remarkList.value = res.data.content;
   })
+}
+
+function getAllHTag(){
+  // 获取所有的H标签
+  let hList = document.querySelectorAll('.markdown-body h1,.markdown-body h2,.markdown-body h3,.markdown-body h4,.markdown-body h5,.markdown-body h6');
+  // 获取ID和文本存储为一个列表
+  debugger
+  let hListId = [];
+  for (let i = 0; i < hList.length; i++) {
+    let h = hList[i];
+    hListId.push({
+      id: h.id,
+      text: h.innerText
+    })
+  }
+  return hListId;
 }
 
 
@@ -194,6 +215,7 @@ function loadArticleInfo() {
   }).then((res) => {
     article.value = res.data
     isThisUser.value = store.username == article.value.author.username
+    
     isFans();
   });
 }
@@ -238,7 +260,23 @@ watch(() => route.params.id, () => {
   document.body.scrollTop = document.documentElement.scrollTop = 0
 })
 
-
+// 监听文本变化
+watch(() => article.value.text, async () => {
+  // 获取所有的H标签
+  await nextTick()
+  let hList = document.querySelectorAll('.markdown-body h1,.markdown-body h2,.markdown-body h3,.markdown-body h4,.markdown-body h5,.markdown-body h6');
+  // 获取ID和文本存储为一个列表
+  debugger
+  let hListId = [];
+  for (let i = 0; i < hList.length; i++) {
+    let h = hList[i];
+    hListId.push({
+      id: h.id,
+      text: h.innerText
+    })
+  }
+  tagList.value = hListId;
+})
 
 
 </script>
