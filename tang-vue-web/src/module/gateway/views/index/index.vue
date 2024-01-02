@@ -10,7 +10,7 @@
 
       <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
         <ul class="navbar-nav me-auto mb-lg-0 pc">
-          <li class="nav-item" v-for="(item, index) in linkItemList" v-show="item.admin ? store.isAdmin : true">
+          <li class="nav-item" v-for="(item, index) in linkItemList" v-show="item.admin ? store.roles.includes('ROLE_ADMIN') : true">
             <router-link tag="a" :target="item._blank ? '_blank' : ''" class="nav-link active" :to="item.to">
               {{ item.name }}
             </router-link>
@@ -20,7 +20,7 @@
           <li class="nav-item dropdown float-start">
             <a class="nav-link active dropdown-toggle" href="#" data-bs-toggle="dropdown">🧮菜单</a>
             <ul class="dropdown-menu">
-              <li v-for="(item, index) in linkItemList" v-show="item.admin ? store.isAdmin : true">
+              <li v-for="(item, index) in linkItemList" v-show="item.admin ? store.roles.includes('ROLE_ADMIN') : true">
                 <router-link class="dropdown-item" :to="item.to">{{ item.name }}</router-link>
               </li>
             </ul>
@@ -41,7 +41,7 @@
               <a class="nav-link active" href="/article-editor-md" target="_blank">投稿</a>
             </li>
             <li class="nav-item" v-if="isLogin">
-              <router-link class="nav-link active right-padding-0" :to="'/author/' + store.username">我的</router-link>
+              <router-link class="nav-link active right-padding-0" :to="'/author/' + store.author.username">我的</router-link>
             </li>
           </ul>
         </form>
@@ -69,7 +69,7 @@ let linkItemList = [
 ]
 
 let isLogin = computed(() => {
-  return store.username != null && store.username != '' && store.username != undefined;
+  return store.author.username != null && store.author.username != '' && store.author.username != undefined;
 })
 
 </script>

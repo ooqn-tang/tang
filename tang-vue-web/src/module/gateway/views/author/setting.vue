@@ -37,7 +37,6 @@
 
 <script setup>
 import request from "@common/request";
-import { removeToken } from "@common/token";
 import { onMounted, ref } from "vue";
 import { useAuthorStore } from "@common/user";
 
@@ -49,7 +48,7 @@ let author = ref({
   mail: "****************"
 });
 
-let username = authorStore.username;
+let username = authorStore.author.username;
 
 function loadAuthor() {
   request({

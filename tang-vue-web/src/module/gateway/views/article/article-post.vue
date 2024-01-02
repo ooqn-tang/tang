@@ -214,7 +214,7 @@ function loadArticleInfo() {
     method: "GET",
   }).then((res) => {
     article.value = res.data
-    isThisUser.value = store.username == article.value.author.username
+    isThisUser.value = store.author.username == article.value.author.username
     
     isFans();
   });

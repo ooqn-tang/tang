@@ -146,7 +146,7 @@ function saveArticle() {
 
 function loadSubject() {
   request({
-    url: `/api/subject/username/${authorStore.username}`,
+    url: `/api/subject/username/${authorStore.author.username}`,
     method: "GET",
   }).then((res) => {
     subjectList = res.data;

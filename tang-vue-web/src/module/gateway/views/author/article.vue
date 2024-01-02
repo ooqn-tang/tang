@@ -33,12 +33,12 @@ import request from "@common/request";
 import { onMounted, ref } from "vue";
 import { useRoute } from "vue-router";
 import { useAuthorStore } from "@common/user";
-import { formatTime } from "@common/common";
+import { formatTime } from "@common/utils";
  
 let authorStore = useAuthorStore();
 let route = useRoute();
 
-let isThisUser = route.params.username == authorStore.username;
+let isThisUser = route.params.username == authorStore.author.username;
 let articleList = ref([]);
 let page = ref({ number: 0, });
 let subjectList = ref([]);
@@ -87,4 +87,4 @@ onMounted(() => {
 </script>
 
 <style scoped>
-</style>
+</style>@src/common/utils

@@ -42,7 +42,7 @@ const authorStore = useAuthorStore()
 const router = useRouter()
 
 let subjectList = ref([])
-let username = authorStore.username
+let username = authorStore.author.username
 
 onMounted(() => {
   selectSubjectList()

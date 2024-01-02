@@ -19,7 +19,7 @@
                     style="height: 100%;flex-grow: 1;overflow-y: auto;padding: 5px;border: 1px solid #dee2e6;margin: 5px 0px 0px 0px;">
                     <div class="box-list" style="height: 0;">
                         <div v-for="item in memeberList" @click="selectMember(item); mh = 'right'"
-                            v-show="item.username != authorStore.username">
+                            v-show="item.username != authorStore.author.username">
                             <p>{{ item.nickname }}</p>
                             <p style="color: #bbbbbb;">{{ item.signature }}&nbsp;</p>
                         </div>
@@ -87,7 +87,7 @@ monsterSocket.setHeader("MessageList", (msg) => {
 function sendMessage() {
     let send = {
         acceptName: member.value.username,
-        sendName: authorStore.username,
+        sendName: authorStore.author.username,
         content: message.value,
         createTime: new Date(),
         updateTime: new Date()

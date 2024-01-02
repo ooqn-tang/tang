@@ -4,7 +4,7 @@ import request from '@common/request';
 import { onMounted, ref, computed } from 'vue';
 import notice from '@components/notice.vue';
 import info from '@components/info.vue';
-import {formatTime} from '@common/common'
+import {formatTime} from '@common/utils'
 
 let selectCategoryId = ref(0);
 let page = ref({ number: 0 });
@@ -119,4 +119,4 @@ hr {
 .red {
   color: red;
 }
-</style>
+</style>@src/common/utils

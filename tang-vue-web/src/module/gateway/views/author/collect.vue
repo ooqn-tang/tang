@@ -25,12 +25,12 @@ import { useRoute } from "vue-router";
 import { useAuthorStore } from "@common/user";
 import { collectListApi, deleteCollectApi } from "@gateway/apis/collect";
 
-import { formatTime } from "@common/common";
+import { formatTime } from "@common/utils";
 
 let authorStore = useAuthorStore();
 let route = useRoute();
 
-let isThisUser = route.params.username == authorStore.username;
+let isThisUser = route.params.username == authorStore.author.username;
 
 let page = ref({
   number: 0
@@ -67,4 +67,4 @@ collectList(page.value.number);
 </script>
 
 <style scoped>
-</style>
+</style>@src/common/utils

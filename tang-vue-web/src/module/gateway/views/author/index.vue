@@ -70,7 +70,7 @@ let author = ref({
 })
 
 let thisUsername = ref("")
-let loginUsername = authorStore.username
+let loginUsername = authorStore.author.username
 let from = ref({
   page: 1
 })

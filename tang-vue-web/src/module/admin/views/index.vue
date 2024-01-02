@@ -55,7 +55,6 @@ let onChange = (value) => {
 let logout = () => {
   localStorage.removeItem("jwt");
   localStorage.removeItem("author");
-  authorStore.username = "";
   window.location.href = "/";
 };
 

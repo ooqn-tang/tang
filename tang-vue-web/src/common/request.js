@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { refresh } from '@gateway/apis/utils'
-import { setToken } from '@common/token'
+import { setToken } from '@src/common/utils'
 
 axios.defaults.withCredentials = true;
 
@@ -60,10 +60,10 @@ service.interceptors.response.use(
                 //调用刷新token的接口
                 try {
                     try {
-                        const data_1 = await refresh({ 'jwt': localStorage.getItem("jwt") });
-                        setToken(data_1);
-                        error.response.headers.Token = data_1;
-                        requests.forEach((cb) => cb(data_1));
+                        const newJwt = await refresh({ 'jwt': localStorage.getItem("jwt") });
+                        setToken(newJwt);
+                        error.response.headers.Token = newJwt;
+                        requests.forEach((cb) => cb(newJwt));
                         return await service(error.response.config);
                     } catch (err) {
                         //跳到登录页

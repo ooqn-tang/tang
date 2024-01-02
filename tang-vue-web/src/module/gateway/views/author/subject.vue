@@ -121,7 +121,7 @@ function deleteClick(subjectId, index) {
 
 onMounted(() => {
   selectSubjectListByUsername(thisUsername)
-  isThisUser.value = thisUsername == authorStore.username
+  isThisUser.value = thisUsername == authorStore.author.username
 })
 
 </script>
