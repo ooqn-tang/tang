@@ -2,10 +2,8 @@ package com.ooqn.core.propertie;
 
 import java.security.Key;
 
-import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.annotation.Order;
 
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
@@ -39,8 +37,11 @@ public class TangProperties {
 	private Key key;
 
 	public Key getKey() {
-		byte[] keyBytes = Decoders.BASE64.decode(base64Secret);
-		return Keys.hmacShaKeyFor(keyBytes);
+		if (key == null) {
+			byte[] keyBytes = Decoders.BASE64.decode(base64Secret);
+			key = Keys.hmacShaKeyFor(keyBytes);
+		}
+		return key;
 	}
 
 }
