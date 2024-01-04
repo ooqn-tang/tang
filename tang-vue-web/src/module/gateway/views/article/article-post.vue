@@ -14,11 +14,11 @@
                 </strong>
                 .
                 <span class="time-font">{{ article.createTime }}</span>
-                <button v-if="fans == 2" class="btn btn-outline-warning float-end t-b-m-1"
+                <button v-if="fans == 2" class="btn btn-outline-warning float-end mini-btn"
                   @click="fansClick(article.author.username)">
                   订阅
                 </button>
-                <button v-if="fans == 1" class="btn btn-outline-warning float-end t-b-m-1"
+                <button v-if="fans == 1" class="btn btn-outline-warning float-end mini-btn"
                   @click="fansClick(article.author.username)">
                   取消订阅
                 </button>
@@ -74,14 +74,14 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-md-12 col-lg-12 small-col" style="padding-top: 5px;padding-bottom: 5px;">
-          <a :class="collect == 1 ? 'btn-outline-danger' : 'btn-outline-primary'" class="btn btn-sm mini-but m-l-0"
+          <a :class="collect == 1 ? 'btn-outline-danger' : 'btn-outline-primary'" class="btn btn-sm mini-btn m-l-0"
             @click="collectClick">收藏</a>
-          <a class="btn btn-outline-primary btn-sm mini-but" disabled>举报</a>
-          <a class="btn btn-outline-primary btn-sm mini-but" :href="'https://www.ooqn.com/article/' + articleId"
+          <a class="btn btn-outline-primary btn-sm mini-btn" disabled>举报</a>
+          <a class="btn btn-outline-primary btn-sm mini-btn" :href="'https://www.ooqn.com/article/' + articleId"
             target="_blank">阅读模式</a>
-          <router-link class="btn btn-outline-primary btn-sm mini-but" v-if="isThisUser" target="_blank"
+          <router-link class="btn btn-outline-primary btn-sm mini-btn" v-if="isThisUser" target="_blank"
             :to="{ name: 'article-editor-md', query: { article: articleId } }">修改</router-link>
-          <a class="btn btn-outline-primary btn-sm mini-but"
+          <a class="btn btn-outline-primary btn-sm mini-btn"
             onclick="document.body.scrollTop = document.documentElement.scrollTop = 0">⬆TOP</a>
         </div>
       </div>

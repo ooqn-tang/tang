@@ -4,7 +4,7 @@
       <div class="card mb-2 ">
         <div class="card-body ">
           <strong>{{ author.nickname }}</strong>
-          <button class="btn btn-outline-warning float-end fans-but" @click="fansClick(author.username)"
+          <button class="btn btn-outline-warning float-end mini-btn" @click="fansClick(author.username)"
             v-text="fans == 2 ? '订阅' : '取消订阅'"></button>
           <hr />
           <div>简介：{{ author.signature }}</div>
@@ -137,7 +137,4 @@ onMounted(() => {
   padding-right: 6px;
 }
 
-.fans-but {
-  padding: 0px 5px 0px 3px;
-  font-size: 13px;
-}</style>
+</style>

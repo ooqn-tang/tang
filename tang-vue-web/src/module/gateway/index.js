@@ -4,6 +4,8 @@ import Engine from '@src/module/engine';
 import router from '@common/router';
 import { MonsterSocket } from "@common/monster";
 import routerData from './router-data';
+import "bootstrap/dist/css/bootstrap.min.css"
+import "bootstrap"
 
 let monsterUrl = import.meta.env.VITE_BASE_API_WS + "_monster";
 let monsterSocket = new MonsterSocket(monsterUrl);

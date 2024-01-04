@@ -15,6 +15,7 @@
                         <li><a class="dropdown-item" href="#">创建群</a></li>
                     </ul>
                 </div>
+              
                 <div class="box"
                     style="height: 100%;flex-grow: 1;overflow-y: auto;padding: 5px;border: 1px solid #dee2e6;margin: 5px 0px 0px 0px;">
                     <div class="box-list" style="height: 0;">
@@ -25,7 +26,14 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="btn-group  btn-group-sm" role="group" aria-label="Basic outlined example" style="margin: 5px 0px 0 0;">
+                    <button type="button" class="btn" :class="type == 'message' ? 'btn-primary' : 'btn-outline-primary'" @click="type = 'message'">消息</button>
+                    <button type="button" class="btn" :class="type == 'contacts' ? 'btn-primary' : 'btn-outline-primary'" @click="type = 'contacts'">通讯录</button>
+                    <button type="button" class="btn" :class="type == 'me' ? 'btn-primary' : 'btn-outline-primary'" @click="type = 'me'">我的</button>
+                </div>
             </div>
+           
         </div>
         <div class="col-md-8 h100 pb-2" :class="mh == 'right' ? '' : 'm-h'">
             <div class="h100" style="display: flex;flex-direction: column;height: 100%;padding: 0px;">
@@ -65,7 +73,11 @@ import { useAuthorStore } from "@common/user";
 
 let authorStore = useAuthorStore();
 
-
+// 获取url中的参数 type
+let type = ref(new URLSearchParams(window.location.search).get("type"))
+if(type.value == null){
+    type.value = "message"
+}
 
 let mh = ref("left");
 let message = ref("");

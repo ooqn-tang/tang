@@ -1,1 +1,0 @@
-import{G as t,s as n,t as s,F as c,x as e}from"./preload-helper-3003bc42.js";const a={},r=e("div",{style:{"text-align":"center"}},"404",-1),o=e("div",{style:{"text-align":"center"}},[e("a",{style:{"text-align":"center"},href:"/"},"首页")],-1);function _(l,i){return n(),s(c,null,[r,o],64)}const f=t(a,[["render",_]]);export{f as default};

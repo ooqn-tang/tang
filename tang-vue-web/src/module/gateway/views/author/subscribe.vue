@@ -4,7 +4,7 @@
       <router-link target="_blank" :to="{ name: 'author_article', params: { username: item.username } }">
         <strong v-text="item.nickname"></strong>
       </router-link>
-      <button class="btn btn-outline-danger float-end fans-but"
+      <button class="btn btn-outline-danger float-end mini-btn"
         @click="deleteFansMethod(item.username, index)">取消关注</button>
       <div class="article-synopsis">{{ item.signature }}</div>
     </li>
@@ -47,8 +47,5 @@ onMounted(() => {
 </script>
 
 <style scoped>
-.fans-but {
-  padding: 0px 5px 0px 3px;
-  font-size: 13px;
-}
+
 </style>

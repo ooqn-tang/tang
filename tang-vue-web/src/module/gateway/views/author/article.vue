@@ -11,11 +11,11 @@
       <span class="tag" v-if="item.subject != null">{{ item.subject.subjectName }}</span>
       <span class="tag" v-if="item.category != null">{{ item.category.name }}</span>
       <div class="btn-group float-end">
-        <button class="btn btn-outline-danger float-end blog-btn" v-if="isThisUser"
+        <button class="btn btn-outline-danger float-end mini-btn" v-if="isThisUser"
           @click="deleteArticle(item.articleId, index)">
           删除
         </button>
-        <router-link class="btn btn-outline-danger float-end blog-btn" v-if="isThisUser" target="_blank"
+        <router-link class="btn btn-outline-danger float-end mini-btn" v-if="isThisUser" target="_blank"
           :to="{ name: 'article-editor-md', query: { article: item.articleId } }">
           修改
         </router-link>

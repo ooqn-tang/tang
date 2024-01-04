@@ -5,9 +5,9 @@
         <strong v-text="item.subjectName"></strong>
       </router-link>
       <div class="btn-group float-end">
-        <button class="btn btn-outline-danger float-end blog-btn" @click="deleteClick(item.subjectId, index)"
+        <button class="btn btn-outline-danger float-end mini-btn" @click="deleteClick(item.subjectId, index)"
           v-if="isThisUser">删除</button>
-        <button class="btn btn-outline-danger float-end blog-btn" @click="updateClick(item)" v-if="isThisUser" data-bs-toggle="modal"
+        <button class="btn btn-outline-danger float-end mini-btn" @click="updateClick(item)" v-if="isThisUser" data-bs-toggle="modal"
           data-bs-target="#exampleModal">修改</button>
       </div>
       <div>
