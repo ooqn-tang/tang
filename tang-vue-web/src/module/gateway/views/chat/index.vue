@@ -1,7 +1,7 @@
 <template>
-    <div class="row h100">
-        <div class="col-md-4 h100 pb-2" :class="mh == 'left' ? '' : 'm-h'">
-            <div class="h100" style="display: flex;flex-direction: column;height: 100%;padding: 0px;">
+    <div class="row h-100">
+        <div class="col-md-4 h-100 pb-2" :class="mh == 'left' ? '' : 'm-h'">
+            <div class="h-100" style="display: flex;flex-direction: column;height: 100%;padding: 0px;">
                 <div class="input-group" style="margin-bottom: 1px;">
                     <input type="text" class="form-control" aria-label="Text input with segmented dropdown button">
                     <button type="button" class="btn btn-outline-secondary">搜索</button>
@@ -27,7 +27,7 @@
                     </div>
                 </div>
 
-                <div class="btn-group  btn-group-sm" role="group" aria-label="Basic outlined example" style="margin: 5px 0px 0 0;">
+                <div class="btn-group" role="group" aria-label="Basic outlined example" style="margin: 5px 0px 0 0;">
                     <button type="button" class="btn" :class="type == 'message' ? 'btn-primary' : 'btn-outline-primary'" @click="type = 'message'">消息</button>
                     <button type="button" class="btn" :class="type == 'contacts' ? 'btn-primary' : 'btn-outline-primary'" @click="type = 'contacts'">通讯录</button>
                     <button type="button" class="btn" :class="type == 'me' ? 'btn-primary' : 'btn-outline-primary'" @click="type = 'me'">我的</button>
@@ -35,8 +35,8 @@
             </div>
            
         </div>
-        <div class="col-md-8 h100 pb-2" :class="mh == 'right' ? '' : 'm-h'">
-            <div class="h100" style="display: flex;flex-direction: column;height: 100%;padding: 0px;">
+        <div class="col-md-8 h-100 pb-2" :class="mh == 'right' ? '' : 'm-h'">
+            <div class="h-100" style="display: flex;flex-direction: column;height: 100%;padding: 0px;">
                 <div class="card" style="border: 1px solid rgb(222, 226, 230);">
                     <div class="card-body" style="padding: 6px 10px;vertical-align:top;display: inline-block;">
                         <span class="align-middle">{{ member.nickname }}</span>
@@ -54,7 +54,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="input-group input-group-sm">
+                <div class="input-group">
                     <input v-model="message" type="text" class="form-control" placeholder="Recipient's username"
                         aria-label="Recipient's username" aria-describedby="button-addon2">
                     <button class="btn btn-outline-secondary" type="button" id="button-addon2"

@@ -7,7 +7,7 @@
       <div class="article-synopsis">{{ item.synopsis }}</div>
       <span class="tag">{{ formatTime(item.createDate) }}</span>
       <div class="btn-group float-end">
-        <button class="btn btn-outline-danger float-end mini-btn" v-if="isThisUser"
+        <button class="btn btn-outline-danger float-end btn-sm" v-if="isThisUser"
           @click="deleteCollect(item.url, index)">
           删除
         </button>

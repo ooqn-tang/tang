@@ -4,7 +4,7 @@
       <div class="card mb-2 ">
         <div class="card-body ">
           <strong>{{ author.nickname }}</strong>
-          <button class="btn btn-outline-warning float-end mini-btn" @click="fansClick(author.username)"
+          <button class="btn btn-outline-warning float-end  btn-sm" @click="fansClick(author.username)"
             v-text="fans == 2 ? '订阅' : '取消订阅'"></button>
           <hr />
           <div>简介：{{ author.signature }}</div>
@@ -17,8 +17,9 @@
 
     </div>
     <div class="col-md-8 col-md-pull-4 mb-2 small-col">
-      <div class="card ">
-        <div class="card-header p-0">
+
+      <div class="card mb-2 ">
+        <div class="card-body " style="padding: 0;">
           <ul class="nav justify-content-center">
             <li class="nav-item">
               <router-link class="nav-link" :class="routeName == 'author_article' ? 'nav-link-active' : ''"
@@ -42,10 +43,8 @@
             </li>
           </ul>
         </div>
-        <div class="card-body" style="padding: 0px;">
-          <router-view />
-        </div>
       </div>
+      <router-view />
     </div>
   </div>
 </template>
@@ -135,6 +134,10 @@ onMounted(() => {
 .nav-link {
   padding-left: 6px;
   padding-right: 6px;
+}
+
+.nav-link-active{
+  color: rgb(255, 67, 67);
 }
 
 </style>

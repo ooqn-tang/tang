@@ -19,13 +19,13 @@
           </div>
         </div>
         <div class="modal-footer">
-          <div class="btn-group w100">
+          <div class="btn-group w-100">
             <button type="button" class="btn btn-primary" @click="login()">登录</button>
           </div>
-          <div class="btn-group w100">
+          <div class="btn-group w-100">
             <router-link to="/register" type="button" class="btn btn-outline-secondary">注册</router-link>
           </div>
-          <div class="btn-group w100">
+          <div class="btn-group w-100">
             <router-link to="/" type="button" class="btn btn-outline-secondary">返回首页</router-link>
           </div>
         </div>

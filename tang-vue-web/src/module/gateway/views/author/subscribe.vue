@@ -4,7 +4,7 @@
       <router-link target="_blank" :to="{ name: 'author_article', params: { username: item.username } }">
         <strong v-text="item.nickname"></strong>
       </router-link>
-      <button class="btn btn-outline-danger float-end mini-btn"
+      <button class="btn btn-outline-danger float-end btn-sm"
         @click="deleteFansMethod(item.username, index)">取消关注</button>
       <div class="article-synopsis">{{ item.signature }}</div>
     </li>

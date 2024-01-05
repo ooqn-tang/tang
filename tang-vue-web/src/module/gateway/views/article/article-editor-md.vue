@@ -1,26 +1,28 @@
 <template>
-  <div class="h100 flex">
+  <div class="h-100 flex">
     <div class="pc b1 m5 w300px mr0 flex-column">
       <div class="p2 bb1 h40">
-        <button class="h100 w100 tang-but w300px">{{ subjectData.subjectName }}</button>
+        <button class="h-100 w-100 tang-but w300px">{{ subjectData.subjectName }}</button>
       </div>
-      <div class="flex-grow-1"  style="overflow-y: scroll;width: 298px;">
-        <div v-for="item in subjectData.dataArray" @click="openArticle(item.articleId)" class="bb1 p5 " :class="{ activeArticle : item.articleId == articleForm.articleId }">
+      <div class="flex-grow-1" style="overflow-y: scroll;width: 298px;">
+        <div v-for="item in subjectData.dataArray" @click="openArticle(item.articleId)" class="bb1 p5 "
+          :class="{ activeArticle: item.articleId == articleForm.articleId }">
           {{ item.title }}
         </div>
       </div>
       <div class="p2 h40">
-        <button class="h100 w100 tang-but" @click="addArticle()">增加文章</button>
+        <button class="h-100 w-100 tang-but" @click="addArticle()">增加文章</button>
       </div>
     </div>
     <div class="flex-grow-1 b1 m5">
       <div class="h40 flex">
         <input class="flex-grow-1" type="text" id="title" v-model="articleForm.title" placeholder="标题" />
-        <button class='w80px tang-but'  @click="saveArticle()" :class="{ cg : tag == '成功' , sb : tag == '失败'}">{{ tag }}</button>
+        <button class='w80px tang-but' @click="saveArticle()" :class="{ cg: tag == '成功', sb: tag == '失败' }">{{ tag
+        }}</button>
       </div>
       <div class="body flex">
         <div class="flex-grow-1 flex-column">
-          <textarea class="flex-grow-1 w100 bb1" ref="systemForm" @scroll="sysHandleScroll()" id="text"
+          <textarea class="flex-grow-1 w-100 bb1" ref="systemForm" @scroll="sysHandleScroll()" id="text"
             v-model="articleForm.markdown" placeholder="可以输入Markdown文本为内容添加样式."></textarea>
           <div class="br1 m-br0">
             <button class="br1 p5 tang-but" data-bs-toggle="modal" data-bs-target="#exampleModal">属性设置</button>
@@ -121,7 +123,7 @@ function loadArticleAllInfo(articleId) {
   });
 }
 
-function openArticle(articleId){
+function openArticle(articleId) {
   loadArticleAllInfo(articleId);
 }
 
@@ -138,9 +140,9 @@ function saveArticle() {
   }).then((res) => {
     tag.value = '成功'
     selectSubjectArticleList();
-    setTimeout(()=>{
+    setTimeout(() => {
       tag.value = '发布'
-    },2000)
+    }, 2000)
   });
 }
 
@@ -159,9 +161,9 @@ function selectSubjectArticleList() {
   });
 }
 
-function addArticle(){
+function addArticle() {
   let data = {}
-  if(articleForm.value.subjectId){
+  if (articleForm.value.subjectId) {
     data.subjectId = articleForm.value.subjectId;
   }
   insertArticleApi(data).then((res) => {
@@ -195,27 +197,27 @@ function exterHandleScroll() {
 }
 
 watch(() => articleForm.value.markdown, (value) => {
-  if(value != null){
+  if (value != null) {
     articleForm.value.text = marked(value)
   }
 })
 
 if (!articleId.value) {
-    insertArticleApi({}).then((res) => {
-      window.history.pushState({}, 0, window.location.origin + '/article-editor-md?article=' + res.data);
-      articleId.value = res.data
-      loadSubject();
-      loadCategoryList();
-      loadArticleAllInfo(articleId.value);
-      selectSubjectArticleList();
-    })
-  } else {
+  insertArticleApi({}).then((res) => {
+    window.history.pushState({}, 0, window.location.origin + '/article-editor-md?article=' + res.data);
+    articleId.value = res.data
     loadSubject();
     loadCategoryList();
     loadArticleAllInfo(articleId.value);
     selectSubjectArticleList();
-    
-  }
+  })
+} else {
+  loadSubject();
+  loadCategoryList();
+  loadArticleAllInfo(articleId.value);
+  selectSubjectArticleList();
+
+}
 
 
 
@@ -227,23 +229,24 @@ body {
 </style>
 
 <style scoped>
-
 .cg {
   background-color: aquamarine;
 }
-.sb{
+
+.sb {
   background-color: #f8d7da;
 
 }
+
 img {
   max-width: 100%;
 }
 
-.w300px{
+.w300px {
   width: 300px;
 }
 
-.mr0{
+.mr0 {
   margin-right: 0px;
 }
 
@@ -306,7 +309,7 @@ img {
     display: none;
   }
 
-  .m-br0{
+  .m-br0 {
     border-right: 0px;
   }
 }
@@ -321,8 +324,137 @@ img {
 }
 
 
-.activeArticle{
+.activeArticle {
   background-color: #d1e6fa;
 }
+</style>
 
+<style>
+* {
+  padding: 0;
+  margin: 0;
+  border: 0;
+  box-sizing: border-box;
+  resize: none;
+  outline: none;
+  font-family: "SF Pro SC", "SF Pro Text", "SF Pro Icons", "PingFang SC", Verdana, Arial, '微软雅黑', '宋体';
+  white-space: word-break !important;
+}
+
+body {
+  padding-right: 0px !important;
+  overflow-y: scroll;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+}
+
+p {
+  margin-bottom: 0px;
+}
+
+a {
+  text-decoration: none;
+  color: #054cb3;
+}
+
+.navbar {
+  margin: 0px !important;
+  padding: 0px !important;
+}
+
+.w100 {
+  width: 100% !important;
+}
+
+.h100 {
+  height: 100% !important;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.p5 {
+  padding: 5px;
+}
+
+.p2 {
+  padding: 2px;
+}
+
+.flex {
+  display: flex;
+  ;
+}
+
+.flex-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.box-list div {
+  border-bottom: 1px solid #dee2e6;
+  padding: 5px;
+
+}
+
+.b1 {
+  border: 1px solid black;
+}
+
+.bt1 {
+  border-top: 1px solid black;
+}
+
+.br1 {
+  border-right: 1px solid black;
+}
+
+.bb1 {
+  border-bottom: 1px solid black;
+}
+
+.bl1 {
+  border-left: 1px solid black;
+}
+
+.m2 {
+  margin: 2px;
+
+}
+
+.m5 {
+  margin: 5px;
+
+
+}
+
+.flex-grow-1 {
+  flex-grow: 1;
+}
+
+
+.w300px {
+  width: 300px;
+}
+
+.mr0 {
+  margin-right: 0px;
+}
 </style>

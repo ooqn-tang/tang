@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar navbar-expand navbar navbar-expand-lg navbar-light bg-light t-b-b-1 flex-column" id="top">
+  <nav class="navbar navbar-expand navbar navbar-expand-lg navbar-light bg-light flex-column p-0 b-b-1" id="top">
     <div class="container-fluid" style="padding: 5px 12px;">
       <a class="navbar-brand pc" href="/" style='margin-right: 0px;'>ooqn.com</a>
       <a class="navbar-brand yd" href="/" style='margin-right: 0px;'>OOQN</a>
