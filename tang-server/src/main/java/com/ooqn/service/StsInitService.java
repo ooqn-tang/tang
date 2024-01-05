@@ -35,7 +35,7 @@ public class StsInitService {
 
     @Transactional
     public void init() {
-        initResource();
+        whiteUrlLoad();
         initData();
     }
 
@@ -69,7 +69,7 @@ public class StsInitService {
     /**
      * 加载不需要进行连接的资源
      */
-    private void initResource() {
+    private void whiteUrlLoad() {
         Map<RequestMappingInfo, HandlerMethod> methodMap = requestMappingHandlerMapping.getHandlerMethods();
         for (RequestMappingInfo info : methodMap.keySet()) {
             for (String patternValues : info.getPatternValues()) {
@@ -80,14 +80,8 @@ public class StsInitService {
                         Map<String, String> map = new HashMap<>();
                         map.put("method", method.name());
                         map.put("path", path);
-                        TangConfig.notRoles.add(map);
+                        TangConfig.whiteUrl.add(map);
                     }
-                }
-
-                if (info.getMethodsCondition().getMethods().size() == 0) {
-                    Map<String, String> map = new HashMap<>();
-                    map.put("path", path);
-                    TangConfig.notRoles.add(map);
                 }
             }
         }

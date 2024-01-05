@@ -1,6 +1,6 @@
 <template>
   <nav class="navbar navbar-expand navbar navbar-expand-lg navbar-light bg-light flex-column p-0 b-b-1" id="top">
-    <div class="container-fluid" style="padding: 5px 12px;">
+    <div class="container-fluid">
       <a class="navbar-brand pc" href="/" style='margin-right: 0px;'>ooqn.com</a>
       <a class="navbar-brand yd" href="/" style='margin-right: 0px;'>OOQN</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02"
@@ -35,7 +35,7 @@
               <router-link class="nav-link active left-padding-0" to="/login">登录</router-link>
             </li>
             <li class="nav-item" v-if="isLogin">
-              <router-link class="nav-link active left-padding-0" to="/message">消息</router-link>
+              <router-link class="nav-link active left-padding-0 pc " to="/message">消息</router-link>
             </li>
             <li class="nav-item" v-if="isLogin">
               <a class="nav-link active" href="/article-editor-md" target="_blank">投稿</a>

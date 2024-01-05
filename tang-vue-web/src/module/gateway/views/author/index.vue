@@ -18,8 +18,8 @@
     </div>
     <div class="col-md-8 col-md-pull-4 mb-2 small-col">
 
-      <div class="card mb-2 ">
-        <div class="card-body " style="padding: 0;">
+      <div class="card mb-2">
+        <div class="card-body p-md-0">
           <ul class="nav justify-content-center">
             <li class="nav-item">
               <router-link class="nav-link" :class="routeName == 'author_article' ? 'nav-link-active' : ''"

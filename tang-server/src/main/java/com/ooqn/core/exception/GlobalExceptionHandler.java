@@ -1,5 +1,7 @@
 package com.ooqn.core.exception;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
 import org.slf4j.Logger;
@@ -9,6 +11,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -30,8 +35,10 @@ public class GlobalExceptionHandler {
 	@ExceptionHandler(ApiException.class)
 	public ResponseEntity<String> errorHandler(ApiException ex,
 			HttpServletResponse httpServletResponse) {
-		logger.error(ex.getMessage(), ex);
-		return ResponseEntity.status(ex.getStatus()).body(ex.getMessage());
+		logger.error(ex.getMessage());
+		Map<String,String> map = new HashMap<>();
+		map.put("message", ex.getMessage());
+		return ResponseEntity.status(ex.getStatus()).body(String.format("{\"message\":\"%s\"}", ex.getMessage()));
 	}
 
 	/**

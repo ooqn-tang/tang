@@ -12,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.ooqn.core.exception.ApiException;
 import com.ooqn.entity.StateNum;
 import com.ooqn.entity.dto.DtsArticleDto;
 import com.ooqn.entity.dto.DtsSubjectDto;
@@ -77,7 +78,7 @@ public class DtsArticleSubjectService {
 	 * @return List<DtsArticle>
 	 */
 	public DtsSubjectDto findSubjectArticleTitleListByArticleId(String articleId) {
-		DtsSubject orElseThrow = subjectRepository.findByDataId(articleId).orElseThrow();
+		DtsSubject orElseThrow = subjectRepository.findByDataId(articleId).orElseThrow(()-> new ApiException("文章不存在专辑！"));
 		DtsSubjectDto subjectDto = new DtsSubjectDto(orElseThrow);
 		List<DtsArticle> articleList = articleRepository.findSubjectArticleListByArticleId(articleId);
 		subjectDto.setDataArray(articleList);

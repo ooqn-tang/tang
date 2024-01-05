@@ -1,17 +1,21 @@
 package com.ooqn.core.security;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.util.StringUtils;
-import org.springframework.web.filter.OncePerRequestFilter;
+import org.springframework.web.filter.GenericFilterBean;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ooqn.core.config.TangConfig;
 import com.ooqn.core.exception.ApiException;
 import com.ooqn.core.propertie.TangProperties;
@@ -23,11 +27,13 @@ import com.ooqn.service.UtsUserDetailsService;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.ServletResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 @Component
-public class JwtFilter extends OncePerRequestFilter {
+public class JwtFilter extends GenericFilterBean {
 
 	private static final Logger LOG = LoggerFactory.getLogger(JwtFilter.class);
 
@@ -41,38 +47,35 @@ public class JwtFilter extends OncePerRequestFilter {
 
 	private HandlerExceptionResolver handlerExceptionResolver;
 
+	private final AntPathMatcher antPathMatcher = new AntPathMatcher();
+
 	public JwtFilter(JwtProvider jwtProvider, UtsUserDetailsService userDetailsService,
-			UtsResourceService resourceService, TangProperties tangProperties,
-			HandlerExceptionResolver handlerExceptionResolver) {
+			UtsResourceService resourceService, TangProperties tangProperties,HandlerExceptionResolver handlerExceptionResolver) {
 		this.jwtProvider = jwtProvider;
 		this.userDetailsService = userDetailsService;
 		this.resourceService = resourceService;
 		this.tangProperties = tangProperties;
+		this.handlerExceptionResolver = handlerExceptionResolver;
 	}
+	
 
-	private final AntPathMatcher antPathMatcher = new AntPathMatcher();
-
-	private String resolveJwt(HttpServletRequest request) {
-		String bearerJwt = request.getHeader(tangProperties.getTokenKey());
-		if (StringUtils.hasText(bearerJwt)) {
-			return bearerJwt;
-		}
-		return null;
-	}
-
+	
 	@Override
-	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
-			throws ServletException, IOException {
-		HttpServletRequest httpServletRequest = (HttpServletRequest) request;
-
+	public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
+			throws IOException, ServletException {
+		// 获取 URL
+		HttpServletRequest request = (HttpServletRequest) servletRequest;
+		HttpServletResponse response = (HttpServletResponse) servletResponse;
+		
 		// 不需要认证的资源
-		if (notLoginRequest(request)) {
+		if (whiteUrlHeader(request)) {
 			filterChain.doFilter(request, response);
 			return;
 		}
 
-		String jwt = resolveJwt(httpServletRequest);
-		String requestURI = httpServletRequest.getRequestURI();
+
+		String jwt = resolveJwt(request);
+		String requestURI = request.getRequestURI();
 
 		if (jwtProvider.validateJwt(jwt)) {
 			String username = jwtProvider.getAuthentication(jwt);
@@ -94,18 +97,22 @@ public class JwtFilter extends OncePerRequestFilter {
 					}
 				}
 			}
-
-			LOG.debug("将身份验证设置为安全的上下文 '{}', uri: {}", author.getUsername(), requestURI);
-			handlerExceptionResolver.resolveException(httpServletRequest, response, null,
-					new ApiException(400, "没有权限。"));
-		} else {
-			LOG.debug("没有找到有效的JWT令牌, uri: {}", requestURI);
-			handlerExceptionResolver.resolveException(httpServletRequest, response, null,
-					new ApiException(400, "JWT无效。"));
 		}
+		LOG.debug("没有找到有效的JWT令牌, uri: {}", requestURI);
+		//handlerExceptionResolver.resolveException(request, response, requestURI, new ApiException(400,"没有权限。"));
+		returnResponse(request, response, new ApiException(400,"没有权限。"));
+		//filterChain.doFilter(request, response);
 	}
 
-	private boolean notLoginRequest(HttpServletRequest request) {
+	private String resolveJwt(HttpServletRequest request) {
+		String bearerJwt = request.getHeader(tangProperties.getTokenKey());
+		if (StringUtils.hasText(bearerJwt)) {
+			return bearerJwt;
+		}
+		return null;
+	}
+
+	private boolean whiteUrlHeader(HttpServletRequest request) {
 		String requestURI = request.getRequestURI();
 		String method = request.getMethod().toLowerCase();
 
@@ -120,7 +127,7 @@ public class JwtFilter extends OncePerRequestFilter {
 			}
 		}
 
-		for (Map<String, String> map : TangConfig.notRoles) {
+		for (Map<String, String> map : TangConfig.whiteUrl) {
 			String pathVal = map.get("path");
 			String methodVal = map.get("method");
 
@@ -138,5 +145,42 @@ public class JwtFilter extends OncePerRequestFilter {
 		}
 		return false;
 	}
+
+	private static final ObjectMapper mapper = new ObjectMapper();
+
+	private void returnResponse(HttpServletRequest request, HttpServletResponse response, ApiException exception){
+		PrintWriter writer = null;
+		response.setContentType("application/json; charset=UTF-8");
+		// 设置CORS头
+		/**
+		Access-Control-Allow-Credentials: true
+		Access-Control-Allow-Origin: http://localhost:8002
+		Access-Control-Expose-Headers: *
+		Connection: keep-alive
+		Content-Type: application/json
+		Transfer-Encoding: chunked
+		Vary: Origin
+		Vary: Access-Control-Request-Method
+		Vary: Access-Control-Request-Headers
+		*/
+		response.setHeader("Access-Control-Allow-Credentials", "true");
+		response.setHeader("Access-Control-Allow-Origin", request.getHeader("Origin"));
+		response.setHeader("Access-Control-Expose-Headers", "*");
+		response.setHeader("Content-Type", "application/json");
+		
+		response.setStatus(200);
+		try {
+			writer = response.getWriter();
+			Map<String,String> map = new HashMap<>();
+			map.put("message", exception.getMessage());
+			String json = mapper.writeValueAsString(map);
+			writer.write(json);
+		} catch (IOException e) {
+			LOG.error("response error", e);
+		} finally {
+			
+		}
+	}
+
 
 }
