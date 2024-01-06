@@ -10,7 +10,7 @@
         <button class="btn btn-outline-danger float-end btn-sm ssm" @click="updateClick(item)" v-if="isThisUser" data-bs-toggle="modal"
           data-bs-target="#exampleModal">修改</button>
       </div>
-      <div>
+      <div class="synopsis">
         {{ item.synopsis }}
       </div>
     </li>

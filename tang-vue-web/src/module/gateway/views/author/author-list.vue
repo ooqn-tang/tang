@@ -10,7 +10,7 @@
                   <strong v-text="item.nickname"></strong>
                 </router-link>
               </p>
-              <p class="card-text text-truncate">简介：{{ item.signature }}</p>
+              <p class="card-text text-truncate synopsis">简介：{{ item.signature }}</p>
             </div>
           </div>
         </div>

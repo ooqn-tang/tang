@@ -48,7 +48,7 @@
       </div>
     </div>
   </nav>
-  <div class="container-fluid bbbb" style="padding-top: 10px; ">
+  <div class="container-fluid flex-grow-1 pt-2">
     <router-view />
   </div>
 </template>

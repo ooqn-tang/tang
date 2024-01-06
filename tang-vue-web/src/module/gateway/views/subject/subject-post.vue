@@ -19,7 +19,7 @@
               <p v-text="item.title"></p>
             </strong>
           </router-link>
-          <div class="article-synopsis">{{ item.synopsis }}</div>
+          <div class="synopsis">{{ item.synopsis }}</div>
           <div>
             <span class="date-color">{{ item.createDate }}</span>
           </div>
@@ -76,7 +76,5 @@ onMounted(() => {
 </script>
 
 <style scoped>
-.article-synopsis {
-  color: #5f5a5a;
-}
+
 </style>

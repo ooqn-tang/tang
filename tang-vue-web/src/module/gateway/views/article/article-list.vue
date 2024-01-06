@@ -82,7 +82,7 @@ function next() {
               <p v-text="item.title"></p>
             </strong>
           </router-link>
-          <div class="article-synopsis" style="color: #5f5a5a;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;" >{{ item.synopsis }}</div>
+          <div class="synopsis">{{ item.synopsis }}</div>
           <div>
             <span class="date-color" style="font-size: 16px;">{{ formatTime(item.createTime) }} </span>
             <span class="date-color" style="font-size: 16px;" v-if="item.category != null"> . {{ item.category.name }}

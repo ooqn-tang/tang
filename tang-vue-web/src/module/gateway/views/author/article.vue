@@ -6,7 +6,7 @@
           <p v-text="item.title"></p>
         </strong>
       </router-link>
-      <div class="article-synopsis">{{ item.synopsis }}</div>
+      <div class="synopsis">{{ item.synopsis }}</div>
       <span class="tag">{{ formatTime(item.createTime) }}</span>
       <span class="tag" v-if="item.subject != null">{{ item.subject.subjectName }}</span>
       <span class="tag" v-if="item.category != null">{{ item.category.name }}</span>

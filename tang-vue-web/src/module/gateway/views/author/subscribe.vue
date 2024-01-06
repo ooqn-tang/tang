@@ -6,7 +6,7 @@
       </router-link>
       <button class="btn btn-outline-danger float-end btn-sm ssm"
         @click="deleteFansMethod(item.username, index)">取消关注</button>
-      <div class="article-synopsis">{{ item.signature }}</div>
+      <div class="synopsis">{{ item.signature }}</div>
     </li>
     <li class="list-group-item" @click="loadArticle()">
       获取

@@ -1,5 +1,5 @@
 <template>
-  <div class="row">
+  <div class="row  mb-5">
     <div class="col-md-9 col-lg-9">
       <div class="row">
         <div class="col-lg-12 small-col">
@@ -9,7 +9,7 @@
                 <strong>{{ article.title }}</strong>
               </h3>
               <div>
-                <strong>
+                <strong class="author-name">
                   {{ article.author.nickname }}
                 </strong>
                 .
@@ -43,8 +43,8 @@
 
           <div class="card mb-2" v-for="item in remarkList">
             <div class="card-body">
-              <p style="color: rgb(0, 89, 255);">{{ item.author != null ? item.author.nickname : "未知" }}</p>
-              <p>{{ item.text }}</p>
+              <p class="author-name">{{ item.author != null ? item.author.nickname : "未知" }} <span class="float-end" v-if="item.author != null && store.author.username == item.author.username">删除</span></p>
+              <p>{{ item.text }} <span class="time-font">{{ formatTime(item.createTime) }}</span></p>
             </div>
           </div>
         </div>
@@ -96,6 +96,7 @@ import info from '@components/info.vue';
 import { insertCollectApi, deleteCollectApi, isCollectApi } from "@gateway/apis/collect";
 import { deleteRemarkApi, selectRemarkApi, insertRemarkApi } from "@gateway/apis/remark"
 import { articleSubjectArticleListApi } from "@gateway/apis/subject"
+import {formatTime} from '@common/utils'
 
 const route = useRoute()
 const store = useAuthorStore()

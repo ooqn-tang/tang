@@ -19,7 +19,7 @@
                 <div class="box"
                     style="height: 100%;flex-grow: 1;overflow-y: auto;padding: 5px;border: 1px solid #dee2e6;margin: 5px 0px 0px 0px;">
                     <div class="box-list" style="height: 0;">
-                        <div v-for="item in memeberList" @click="selectMember(item); mh = 'right'"
+                        <div v-for="item in memeberList" @click="selectMember(item); mh = 'right'" class="border-bottom"
                             v-show="item.username != authorStore.author.username">
                             <p>{{ item.nickname }}</p>
                             <p style="color: #bbbbbb;">{{ item.signature }}&nbsp;</p>
@@ -28,9 +28,9 @@
                 </div>
 
                 <div class="btn-group" role="group" aria-label="Basic outlined example" style="margin: 5px 0px 0 0;">
-                    <button type="button" class="btn" :class="type == 'message' ? 'btn-primary' : 'btn-outline-primary'" @click="type = 'message'">消息</button>
-                    <button type="button" class="btn" :class="type == 'contacts' ? 'btn-primary' : 'btn-outline-primary'" @click="type = 'contacts'">通讯录</button>
-                    <button type="button" class="btn" :class="type == 'me' ? 'btn-primary' : 'btn-outline-primary'" @click="type = 'me'">我的</button>
+                    <button type="button" class="btn" :class="type == 'message' ? 'btn-primary' : 'btn-outline-primary'" @click="changeTab('message')">消息</button>
+                    <button type="button" class="btn" :class="type == 'contacts' ? 'btn-primary' : 'btn-outline-primary'" @click="changeTab('contacts')">通讯录</button>
+                    <button type="button" class="btn" :class="type == 'me' ? 'btn-primary' : 'btn-outline-primary'" @click="changeTab('me')">我的</button>
                 </div>
             </div>
            
@@ -48,9 +48,9 @@
                 <div class="box"
                     style="height: 100%;flex-grow: 1;overflow-y: auto;padding: 5px;border: 1px solid #dee2e6;margin: 5px 0px;">
                     <div class="box-list" style="height: 0;">
-                        <div v-for="item in messageList" style="border-bottom: 0;">
+                        <div v-for="item in messageList">
                             <p style="color: rgb(8, 78, 184);font-weight: bold;">{{ item.sendName }}</p>
-                            <p style="border: 1px solid black;border-radius: 5px;padding: 5px;">{{ item.content }}&nbsp;</p>
+                            <p class="border rounded p-2">{{ item.content }}&nbsp;</p>
                         </div>
                     </div>
                 </div>
@@ -96,6 +96,14 @@ monsterSocket.setHeader("MessageList", (msg) => {
     console.log(msg.data)
 })
 
+function changeTab(tab){
+    type.value = tab
+    // 修改url中的参数 ，更改type = tab
+    let url = new URL(window.location.href)
+    url.searchParams.set("type", tab)
+    window.history.pushState({}, 0, url)
+}
+
 function sendMessage() {
     let send = {
         acceptName: member.value.username,
@@ -134,11 +142,6 @@ monsterSocket.watchList((msg) => {
 
 </script>
 <style>
-
-.bbbb{
-
-    flex-grow: 1;
-}
 .modal-rgba {
     background: rgba(0, 0, 0, 0.075);
 }

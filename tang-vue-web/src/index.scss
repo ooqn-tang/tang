@@ -92,22 +92,22 @@
         white-space: nowrap !important;
     }
 
-    
-.row>[class*="col-"] {
-    --bs-gutter-x: 0.6rem;
-    padding-right: calc(var(--bs-gutter-x) * 0.5) !important;
-    padding-left: calc(var(--bs-gutter-x) * 0.5) !important;
-}
 
-.row>[class*="col-"]:first-child {
-    --bs-gutter-x: 0.6rem !important;
-    padding-left: calc(var(--bs-gutter-x) * 0.5);
-}
+    .row>[class*="col-"] {
+        --bs-gutter-x: 0.6rem;
+        padding-right: calc(var(--bs-gutter-x) * 0.5) !important;
+        padding-left: calc(var(--bs-gutter-x) * 0.5) !important;
+    }
 
-.row>[class*="col-"]:last-child {
-    --bs-gutter-x: 0.6rem !important;
-    padding-right: calc(var(--bs-gutter-x) * 0.5) ;
-}
+    .row>[class*="col-"]:first-child {
+        --bs-gutter-x: 0.6rem !important;
+        padding-left: calc(var(--bs-gutter-x) * 0.5);
+    }
+
+    .row>[class*="col-"]:last-child {
+        --bs-gutter-x: 0.6rem !important;
+        padding-right: calc(var(--bs-gutter-x) * 0.5);
+    }
 
 }
 
@@ -154,4 +154,16 @@ a {
 
 .b-b-1 {
     border-bottom: 1px solid #eaeaea;
+}
+
+// 简介
+.synopsis {
+    color: rgb(95, 90, 90);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.author-name{
+    color: #0d6efd;
 }

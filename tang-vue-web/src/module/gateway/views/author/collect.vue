@@ -4,7 +4,7 @@
       <a target="_blank" :href="item.url" class="article-title">
         <strong>{{ item.title }}</strong>
       </a>
-      <div class="article-synopsis">{{ item.synopsis }}</div>
+      <div class="synopsis">{{ item.synopsis }}</div>
       <span class="tag">{{ formatTime(item.createDate) }}</span>
       <div class="btn-group float-end">
         <button class="btn btn-outline-danger float-end btn-sm ssm" v-if="isThisUser"
