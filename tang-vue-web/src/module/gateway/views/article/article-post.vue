@@ -182,19 +182,23 @@ function isFans() {
 }
 
 function collectClick() {
-  if (collect.value >= 1) {
-    deleteCollectApi({ url: window.location.href }).then((res) => {
-      collect.value = 0;
-    });
-  } else {
-    insertCollectApi({
-      dataId: articleId,
-      url: window.location.href,
-      title: article.value.title,
-      synopsis: article.value.synopsis
-    }).then((res) => {
-      collect.value = 1;
-    });
+  if(isThisUser.value){
+    if (collect.value >= 1) {
+      deleteCollectApi({ url: window.location.href }).then((res) => {
+        collect.value = 0;
+      });
+    } else {
+      insertCollectApi({
+        dataId: articleId,
+        url: window.location.href,
+        title: article.value.title,
+        synopsis: article.value.synopsis
+      }).then((res) => {
+        collect.value = 1;
+      });
+    }
+  }else{
+    alert("请登录！")
   }
 }
 
@@ -211,8 +215,10 @@ function loadArticleInfo() {
   }).then((res) => {
     article.value = res.data
     isThisUser.value = store.author.username == article.value.author.username
-    
-    isFans();
+    if(isThisUser.value){
+      isCollect();
+      isFans();
+    }
   });
 }
 
@@ -233,9 +239,6 @@ function loadRecommend() {
 
 function load() {
   articleId = route.params.id;
-  if (store.username != "") {
-    isCollect();
-  }
   selectSubjectArticleList();
   loadArticleInfo();
 }

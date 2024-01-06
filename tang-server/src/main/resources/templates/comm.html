@@ -60,19 +60,6 @@
       <a class="list-group-item" th:each="item : ${notice}" th:text="${item.title}" th:href="${item.url}"></a>
     </div>
   </div>
-
-  <script th:fragment="script">
-    var _hmt = _hmt || [];
-    (function () {
-      var hm = document.createElement("script");
-      hm.src = "https://hm.baidu.com/hm.js?436cae8ee544e5f3a5276916f6880379";
-      var s = document.getElementsByTagName("script")[0];
-      s.parentNode.insertBefore(hm, s);
-    })();
-    function change() {
-      location.href = "/article/" + document.getElementById("ml").value
-    }
-  </script>
 </body>
 
 </html>
