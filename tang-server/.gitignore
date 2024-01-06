@@ -3,3 +3,4 @@
 /.vscode/
 .vscode
 application-prod.yml
+upload-run-jar.bat

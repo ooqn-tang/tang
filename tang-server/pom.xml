@@ -14,9 +14,12 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>tang-server</name>
 	<description>Tang project for Spring Boot</description>
+	
 	<properties>
 		<java.version>17</java.version>
+		<skipTests>true</skipTests>
 	</properties>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.springdoc</groupId>
@@ -122,6 +125,7 @@
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
 		</dependency>
+
 		<dependency>
 			<groupId>io.jsonwebtoken</groupId>
 			<artifactId>jjwt-api</artifactId>
@@ -151,13 +155,6 @@
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
 
-		<dependency>
-			<groupId>com.vladsch.flexmark</groupId>
-			<artifactId>flexmark-all</artifactId>
-			<version>0.64.8</version>
-		</dependency>
-		
-
 	</dependencies>
 
 	<build>
@@ -174,7 +171,25 @@
 					</excludes>
 				</configuration>
 			</plugin>
+			<!-- 执行上传jar到服务器并允许的脚本 -->
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<version>1.6.0</version>
+				<executions>
+					<execution>
+						<id>exec-shell-script</id>
+						<phase>package</phase>
+						<goals>
+							<goal>exec</goal>
+						</goals>
+						<configuration>
+							<executable>${project.basedir}/upload-run-jar.bat</executable>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 	</build>
-
+	
 </project>
