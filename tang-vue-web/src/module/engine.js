@@ -2,6 +2,9 @@ import App from '@src/App.vue';
 import { createPinia } from 'pinia';
 import { createApp,reactive } from 'vue';
 
+
+
+
 export default class Engine{
 
     constructor(router){

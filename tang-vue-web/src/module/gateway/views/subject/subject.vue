@@ -18,12 +18,8 @@
       </div>
     </div>
     <div class="col-md-3  mb-2  small-col">
-      <div class="list-group mb-2  ">
-        <notice></notice>
-      </div>
-      <div class="card mb-2  ">
-        <info></info>
-      </div>
+      <notice></notice>
+      <info></info>
     </div>
   </div>
 </template>

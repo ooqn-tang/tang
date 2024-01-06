@@ -7,7 +7,7 @@
       <div class="article-synopsis">{{ item.synopsis }}</div>
       <span class="tag">{{ formatTime(item.createDate) }}</span>
       <div class="btn-group float-end">
-        <button class="btn btn-outline-danger float-end btn-sm" v-if="isThisUser"
+        <button class="btn btn-outline-danger float-end btn-sm ssm" v-if="isThisUser"
           @click="deleteCollect(item.url, index)">
           删除
         </button>
@@ -50,9 +50,12 @@ function collectList(pageNum) {
 }
 
 function deleteCollect(url, index) {
-  deleteCollectApi({ url: url }).then((res) => {
-    collects.value.splice(index, 1);
-  })
+  let l = confirm("确认删除？");
+  if(l){
+    deleteCollectApi({ url: url }).then((res) => {
+      collects.value.splice(index, 1);
+    })
+  }
 }
 
 function next() {

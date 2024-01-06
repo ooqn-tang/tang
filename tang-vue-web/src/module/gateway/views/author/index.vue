@@ -4,7 +4,7 @@
       <div class="card mb-2 ">
         <div class="card-body ">
           <strong>{{ author.nickname }}</strong>
-          <button class="btn btn-outline-warning float-end  btn-sm" @click="fansClick(author.username)"
+          <button class="btn btn-outline-warning float-end  btn-sm ssm" @click="fansClick(author.username)"
             v-text="fans == 2 ? '订阅' : '取消订阅'"></button>
           <hr />
           <div>简介：{{ author.signature }}</div>
@@ -18,27 +18,27 @@
     </div>
     <div class="col-md-8 col-md-pull-4 mb-2 small-col">
 
-      <div class="card mb-2">
-        <div class="card-body p-md-0">
+      <div class="card mb-2 ">
+        <div class="card-body p-0">
           <ul class="nav justify-content-center">
             <li class="nav-item">
-              <router-link class="nav-link" :class="routeName == 'author_article' ? 'nav-link-active' : ''"
+              <router-link class="nav-link p-2" :class="routeName == 'author_article' ? 'nav-link-active' : ''"
                 :to="{ name: 'author_article' }">文章</router-link>
             </li>
             <li class="nav-item">
-              <router-link class="nav-link" :class="routeName == 'author_subject' ? 'nav-link-active' : ''"
+              <router-link class="nav-link p-2" :class="routeName == 'author_subject' ? 'nav-link-active' : ''"
                 :to="{ name: 'author_subject' }">专栏</router-link>
             </li>
             <li class="nav-item" v-if="thisUsername == loginUsername">
-              <router-link class="nav-link" :class="routeName == 'author_subscribe' ? 'nav-link-active' : ''"
+              <router-link class="nav-link p-2" :class="routeName == 'author_subscribe' ? 'nav-link-active' : ''"
                 :to="{ name: 'author_subscribe' }">订阅</router-link>
             </li>
             <li class="nav-item" v-if="thisUsername == loginUsername">
-              <router-link class="nav-link" :class="routeName == 'author_collect' ? 'nav-link-active' : ''"
+              <router-link class="nav-link p-2" :class="routeName == 'author_collect' ? 'nav-link-active' : ''"
                 :to="{ name: 'author_collect' }">收藏</router-link>
             </li>
             <li class="nav-item" v-if="thisUsername == loginUsername">
-              <router-link class="nav-link" :class="routeName == 'author_setting' ? 'nav-link-active' : ''"
+              <router-link class="nav-link p-2" :class="routeName == 'author_setting' ? 'nav-link-active' : ''"
                 :to="{ name: 'author_setting' }">设置</router-link>
             </li>
           </ul>

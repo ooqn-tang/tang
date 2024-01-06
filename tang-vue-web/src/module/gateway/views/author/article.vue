@@ -1,6 +1,6 @@
 <template>
   <ul class="list-group article-list">
-    <li class="list-group-item" v-for="item in articleList">
+    <li class="list-group-item" v-for="(item, index) in articleList">
       <router-link :to="{ name: 'article_post', params: { id: item.articleId } }" class="article-title">
         <strong>
           <p v-text="item.title"></p>
@@ -11,11 +11,11 @@
       <span class="tag" v-if="item.subject != null">{{ item.subject.subjectName }}</span>
       <span class="tag" v-if="item.category != null">{{ item.category.name }}</span>
       <div class="btn-group float-end">
-        <button class="btn btn-outline-danger float-end btn-sm" v-if="isThisUser"
+        <button class="btn btn-outline-danger float-end btn-sm ssm" v-if="isThisUser"
           @click="deleteArticle(item.articleId, index)">
           删除
         </button>
-        <router-link class="btn btn-outline-danger float-end btn-sm" v-if="isThisUser" target="_blank"
+        <router-link class="btn btn-outline-danger float-end btn-sm ssm" v-if="isThisUser" target="_blank"
           :to="{ name: 'article-editor-md', query: { article: item.articleId } }">
           修改
         </router-link>
@@ -64,14 +64,18 @@ function loadSubjectList() {
 };
 
 function deleteArticle(articleId, index) {
-  request({
-    url: `/api/article/${articleId}`,
-    method: "DELETE",
-  }).then((res) => {
-    if (res.status == 200) {
-      articleList.value.splice(index, 1);
-    }
-  });
+  // 确认删除
+  let l = confirm("确认删除？");
+  if (l) {
+    request({
+      url: `/api/article/${articleId}`,
+      method: "DELETE",
+    }).then((res) => {
+      if (res.status == 200) {
+        articleList.value.splice(index, 1);
+      }
+    });
+  }
 };
 
 function next() {

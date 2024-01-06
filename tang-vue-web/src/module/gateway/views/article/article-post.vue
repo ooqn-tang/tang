@@ -14,11 +14,11 @@
                 </strong>
                 .
                 <span class="time-font">{{ article.createTime }}</span>
-                <button v-if="fans == 2" class="btn btn-outline-warning float-end btn-sm"
+                <button v-if="fans == 2" class="btn btn-outline-warning float-end btn-sm ssm"
                   @click="fansClick(article.author.username)">
                   订阅
                 </button>
-                <button v-if="fans == 1" class="btn btn-outline-warning float-end btn-sm"
+                <button v-if="fans == 1" class="btn btn-outline-warning float-end btn-sm ssm"
                   @click="fansClick(article.author.username)">
                   取消订阅
                 </button>
@@ -74,15 +74,11 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-md-12 col-lg-12 small-col" style="padding-top: 3px;padding-bottom: 5px;">
-          <a :class="collect == 1 ? 'btn-outline-danger' : 'btn-outline-primary'" class="btn btn-sm btn-sm m-l-0"
-            @click="collectClick">收藏</a>&nbsp;
-          <a class="btn btn-outline-primary btn-sm btn-sm" disabled>举报</a>&nbsp;
-          <a class="btn btn-outline-primary btn-sm btn-sm" :href="'https://www.ooqn.com/article/' + articleId"
-            target="_blank">阅读模式</a>&nbsp;
-          <router-link class="btn btn-outline-primary btn-sm btn-sm" v-if="isThisUser" target="_blank"
-            :to="{ name: 'article-editor-md', query: { article: articleId } }">修改</router-link>&nbsp;
-          <a class="btn btn-outline-primary btn-sm btn-sm"
-            onclick="document.body.scrollTop = document.documentElement.scrollTop = 0">⬆TOP</a>
+          <a :class="collect == 1 ? 'btn-outline-danger' : 'btn-outline-primary'" class="btn btn-sm ssm m-l-0 me-1" @click="collectClick">收藏</a>
+          <a class="btn btn-outline-primary btn-sm ssm me-1" disabled>举报</a>
+          <a class="btn btn-outline-primary btn-sm ssm me-1" :href="'https://www.ooqn.com/article/' + articleId" target="_blank">阅读模式</a>
+          <a class="btn btn-outline-primary btn-sm ssm me-1" v-if="isThisUser" target="_blank" :href="'/article-editor-md?article=' + articleId">修改</a>
+          <a class="btn btn-outline-primary btn-sm ssm me-1" onclick="document.body.scrollTop = document.documentElement.scrollTop = 0">⬆TOP</a>
         </div>
       </div>
     </div>
@@ -159,7 +155,6 @@ function getAllHTag(){
   // 获取所有的H标签
   let hList = document.querySelectorAll('.markdown-body h1,.markdown-body h2,.markdown-body h3,.markdown-body h4,.markdown-body h5,.markdown-body h6');
   // 获取ID和文本存储为一个列表
-  debugger
   let hListId = [];
   for (let i = 0; i < hList.length; i++) {
     let h = hList[i];
@@ -266,7 +261,6 @@ watch(() => article.value.text, async () => {
   await nextTick()
   let hList = document.querySelectorAll('.markdown-body h1,.markdown-body h2,.markdown-body h3,.markdown-body h4,.markdown-body h5,.markdown-body h6');
   // 获取ID和文本存储为一个列表
-  debugger
   let hListId = [];
   for (let i = 0; i < hList.length; i++) {
     let h = hList[i];
