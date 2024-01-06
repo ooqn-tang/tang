@@ -7,21 +7,18 @@
   <nav th:replace="comm::nav"></nav>
   <div class="container-fluid">
     <div class="row clearfix">
-      <div class="col-md-8 column">
-        <div class="panel panel-default">
-          <div class="panel-body">
-            <ul class="blog-list">
-              <li th:each="item : ${subjects.content}">
-                <a th:href="'/subject/' + ${item.subjectId}" th:text="${item.subjectName}"></a>
-                <span th:text="${#dates.format(item.createTime, 'yyyy-MM-dd')}" class="blog-time"></span>
-                <p th:text="${item.synopsis}"></p>
-                <hr class="hr" />
-              </li>
-            </ul>
-          </div>
-        </div>
+      <div class="col-md-9 column">
+        <ul class="list-group">
+					<li class="list-group-item" th:each="item : ${subjects.content}">
+            <a th:href="'/subject/' + ${item.subjectId}" th:text="${item.subjectName}"  class="article-title"></a>
+						<div class="article-synopsis" th:text="${item.synopsis}"></div>
+						<div>
+							<span class="date-color" th:text="${#dates.format(item.createTime, 'yyyy-MM-dd')}"></span>
+						</div>
+					</li>
+				</ul>
       </div>
-      <div class="col-md-4 column">
+      <div class="col-md-3 column">
         <nav th:replace="comm::recommend"></nav>
         <nav th:replace="comm::website"></nav>
       </div>

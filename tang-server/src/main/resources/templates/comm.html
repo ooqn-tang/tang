@@ -43,7 +43,7 @@
 
   <!--网站消息-->
   <div th:fragment="website">
-    <div class="list-group mb-10">
+    <div class="list-group mb-2">
       <a href="#" class="list-group-item active">网站信息</a>
       <a class="list-group-item">
         友情链接
@@ -55,7 +55,7 @@
   </div>
   <!--内容推荐-->
   <div th:fragment="recommend">
-    <div class="list-group mb-10">
+    <div class="list-group mb-2">
       <a href="#" class="list-group-item active">推荐内容</a>
       <a class="list-group-item" th:each="item : ${notice}" th:text="${item.title}" th:href="${item.url}"></a>
     </div>
