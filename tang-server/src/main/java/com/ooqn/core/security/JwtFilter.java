@@ -150,7 +150,9 @@ public class JwtFilter extends OncePerRequestFilter {
 		} catch (IOException e) {
 			LOG.error("response error", e);
 		} finally {
-			
+			if (writer != null) {
+				writer.close();
+			}
 		}
 	}
 
