@@ -2,9 +2,25 @@
 
 REM 设置变量
 set JAR_FILE=tang-server-0.0.1-SNAPSHOT.jar
-set REMOTE_USER=root
-set REMOTE_HOST=172.168.1.1
-set REMOTE_PASSWORD=askdfkdjfkjd
+@REM set REMOTE_USER=root
+@REM set REMOTE_HOST=192.168.1.1
+@REM set REMOTE_PASSWORD=password
+
+
+REM 判断是否有REMOTE_USER REMOTE_HOST REMOTE_PASSWORD变量，如果没有则停止.
+if "%REMOTE_USER%" == "" (
+    echo REMOTE_USER 为空无法上传打包.
+    exit /b 0
+)
+if "%REMOTE_HOST%" == "" (
+    echo REMOTE_HOST 为空无法上传打包.
+    exit /b 0
+)
+if "%REMOTE_PASSWORD%" == "" (
+    echo REMOTE_PASSWORD 为空无法上传打包.
+    exit /b 0
+)
+
 set REMOTE_PATH=/home/app/tang
 set LOCAL_PATH=target\
 
